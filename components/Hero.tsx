@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Star } from 'lucide-react';
+import { ArrowDown, Star, AlertTriangle, CalendarClock, ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
@@ -46,17 +46,23 @@ const Hero: React.FC = () => {
             Wir verstehen uns als Premium-Anbieter mit der Fokussierung auf Dienstleistung auf qualitativ höchstem Niveau. Ihr Partner für Werksniederlassungen und anspruchsvolle Privatkunden.
           </p>
           
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap gap-3 md:gap-4"
           >
-             <a href="#services" className="bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               Leistungen entdecken
+             <a href="#contact-schaden" className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-[0_0_30px_rgba(255,255,255,0.35)]">
+               <AlertTriangle size={18} />
+               Schaden melden
              </a>
-             <a href="#contact" className="bg-transparent text-white border border-white/30 backdrop-blur-sm px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-colors">
-               Termin vereinbaren
+             <a href="#contact-termin" className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/30 backdrop-blur-md px-7 py-4 rounded-full font-medium hover:bg-white/20 transition-colors">
+               <CalendarClock size={18} />
+               Termin für Aufbereitung
+             </a>
+             <a href="#services" className="inline-flex items-center gap-2 bg-transparent text-white border border-white/20 backdrop-blur-sm px-7 py-4 rounded-full font-medium hover:bg-white/10 transition-colors">
+               Leistungen ansehen
+               <ArrowRight size={16} />
              </a>
           </motion.div>
         </motion.div>

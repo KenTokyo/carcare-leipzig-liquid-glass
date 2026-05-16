@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, AlertTriangle } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Startseite', href: '#home' },
+  { label: 'Start', href: '#home' },
   { label: 'Leistungen', href: '#services' },
-  { label: 'Jobs', href: '#jobs' },
+  { label: 'Unfall & Schaden', href: '#unfall' },
+  { label: 'Geschäftskunden', href: '#geschaeft' },
+  { label: 'Wissen', href: '#wissen' },
+  { label: 'Karriere', href: '#jobs' },
   { label: 'Kontakt', href: '#contact' },
 ];
 
@@ -156,14 +159,14 @@ const Navbar: React.FC = () => {
                 {/* Center: Navigation */}
                 <div className="flex justify-center">
                    {isDesktop ? (
-                      <nav className="flex items-center gap-8 lg:gap-12">
+                      <nav className="flex items-center gap-5 xl:gap-8">
                         {navLinks.map((link) => (
                           <motion.a
                             key={link.label}
                             href={link.href}
                             onClick={(e) => handleNavClick(e, link.href)}
                             style={{ color: textColor }}
-                            className="text-[11px] font-bold uppercase tracking-[0.2em] hover:opacity-70 transition-opacity relative group whitespace-nowrap cursor-pointer"
+                            className="text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.18em] xl:tracking-[0.2em] hover:opacity-70 transition-opacity relative group whitespace-nowrap cursor-pointer"
                           >
                             {link.label}
                             <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-current transition-all group-hover:w-full"></span>
@@ -174,17 +177,25 @@ const Navbar: React.FC = () => {
                 </div>
 
                 {/* Right: Actions */}
-                <div className="flex justify-end items-center gap-4">
-                  <motion.a 
+                <div className="flex justify-end items-center gap-3">
+                  <motion.a
+                    href="#contact-schaden"
+                    onClick={(e) => handleNavClick(e, '#contact-schaden')}
+                    className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-gray-900 text-white hover:bg-black transition-colors whitespace-nowrap cursor-pointer shadow-sm"
+                  >
+                    <AlertTriangle size={14} />
+                    <span>Schaden melden</span>
+                  </motion.a>
+                  <motion.a
                     href="#contact"
                     onClick={(e) => handleNavClick(e, '#contact')}
-                    style={isDesktop ? { 
-                      backgroundColor: buttonBg, 
+                    style={isDesktop ? {
+                      backgroundColor: buttonBg,
                       color: buttonText,
                     } : {}}
                     className={`
-                       hidden md:flex
-                       items-center gap-3 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest
+                       hidden lg:flex
+                       items-center gap-3 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest
                        hover:bg-white hover:text-black transition-all duration-300 whitespace-nowrap cursor-pointer
                     `}
                   >

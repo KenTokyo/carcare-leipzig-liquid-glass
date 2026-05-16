@@ -5,10 +5,10 @@ const Footer: React.FC = () => {
   return (
     <footer id="contact" className="bg-white border-t border-gray-100 pt-20 pb-10 px-6">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8 mb-20">
           
           {/* Brand */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:col-span-2">
             <div className="flex items-center gap-2">
                <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white">
                   <span className="font-bold text-sm">C</span>
@@ -67,6 +67,30 @@ const Footer: React.FC = () => {
               <li><a href="#jobs" className="hover:text-gray-900 transition-colors">Jobangebote</a></li>
               <li><a href="#" className="hover:text-gray-900 transition-colors">Impressum</a></li>
               <li><a href="#" className="hover:text-gray-900 transition-colors">Datenschutz</a></li>
+            </ul>
+          </div>
+
+          {/* Sitemap — Leistungen & Wissen */}
+          <div className="space-y-6">
+            <h4 className="font-bold text-gray-900">Sitemap</h4>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li><a href="#leistungen" className="hover:text-gray-900 transition-colors">Leistungen</a></li>
+              <li><a href="#unfall" className="hover:text-gray-900 transition-colors">Unfall & Schaden</a></li>
+              <li><a href="#expertise" className="hover:text-gray-900 transition-colors">Autoaufbereitung</a></li>
+              <li><a href="#prozess" className="hover:text-gray-900 transition-colors">Prozess</a></li>
+              <li><a href="#faq" className="hover:text-gray-900 transition-colors">FAQ</a></li>
+            </ul>
+          </div>
+
+          {/* Sitemap — Kontakt & Geschäftskunden */}
+          <div className="space-y-6">
+            <h4 className="font-bold text-gray-900">Anfragen</h4>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li><a href="#contact-schaden" className="hover:text-gray-900 transition-colors">Schaden melden</a></li>
+              <li><a href="#contact-termin" className="hover:text-gray-900 transition-colors">Termin anfragen</a></li>
+              <li><a href="#contact-business" className="hover:text-gray-900 transition-colors">Geschäftskunden</a></li>
+              <li><a href="#business-zone" className="hover:text-gray-900 transition-colors">B2B-Bereich</a></li>
+              <li><a href="#zielgruppen" className="hover:text-gray-900 transition-colors">Zielgruppen</a></li>
             </ul>
           </div>
         </div>
