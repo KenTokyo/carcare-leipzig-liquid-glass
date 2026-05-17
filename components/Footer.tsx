@@ -1,114 +1,166 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const footerRef = useRef<HTMLElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
+  const [footerHeight, setFooterHeight] = useState<number>(720);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Footerhöhe live messen → Spacer hält genau diese Höhe als Reveal-Reserve im Scroll-Flow.
+  useEffect(() => {
+    if (!footerRef.current) return;
+    const node = footerRef.current;
+    const measure = () => {
+      const h = node.getBoundingClientRect().height;
+      if (h > 0) setFooterHeight(h);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(node);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
+
+  // Parallax-Lift: Inhalt steigt sanft hoch, sobald der Spacer in den Viewport scrollt.
+  const { scrollYProgress } = useScroll({
+    target: spacerRef,
+    offset: ['start end', 'end end'],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 1], [0.25, 0.85, 1]);
+
   return (
-    <footer id="contact" className="bg-white border-t border-gray-100 pt-20 pb-10 px-6">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8 mb-20">
-          
-          {/* Brand */}
-          <div className="space-y-6 lg:col-span-2">
-            <div className="flex items-center gap-2">
-               <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white">
-                  <span className="font-bold text-sm">C</span>
-               </div>
-               <span className="font-bold text-xl tracking-tight text-gray-900">CarCare</span>
-            </div>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              BS CarCare GmbH<br/>
-              Ihr Premium-Partner für Fahrzeugaufbereitung und -pflege in Leipzig.
-            </p>
-          </div>
+    <>
+      {/* Spacer reserviert vertikalen Scroll-Raum, damit der fixed-Footer beim Scrollen freigelegt wird */}
+      <div ref={spacerRef} aria-hidden style={{ height: footerHeight }} />
 
-          {/* Contact */}
-          <div className="space-y-6">
-            <h4 className="font-bold text-gray-900">Kontaktinformationen</h4>
-            <div className="space-y-4 text-sm text-gray-600">
-               <div className="flex items-start gap-3">
-                 <MapPin size={18} className="mt-1 shrink-0 text-gray-400" />
-                 <p>An den Tierkliniken 42<br/>04103 Leipzig</p>
-               </div>
-               <div className="flex items-center gap-3">
-                 <Phone size={18} className="text-gray-400" />
-                 <p>0341 - 261 77 90</p>
-               </div>
-               <div className="flex items-center gap-3">
-                 <Printer size={18} className="text-gray-400" />
-                 <p>0341 - 962 74 87</p>
-               </div>
-               <div className="flex items-center gap-3">
-                 <Mail size={18} className="text-gray-400" />
-                 <a href="mailto:info@carcare-center.de" className="hover:text-gray-900 underline decoration-gray-300 underline-offset-4">info@carcare-center.de</a>
-               </div>
-            </div>
-          </div>
-
-          {/* Hours */}
-          <div className="space-y-6">
-            <h4 className="font-bold text-gray-900">Öffnungszeiten</h4>
-            <div className="space-y-2 text-sm text-gray-600">
-               <div className="flex items-start gap-3">
-                 <Clock size={18} className="mt-1 shrink-0 text-gray-400" />
-                 <div>
-                    <p><span className="font-semibold text-gray-900">Mo - Fr:</span> 07.00 - 18.00 Uhr</p>
-                    <p><span className="font-semibold text-gray-900">Sa:</span> nach Vereinbarung</p>
-                 </div>
-               </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="space-y-6">
-            <h4 className="font-bold text-gray-900">Bereiche</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="#home" className="hover:text-gray-900 transition-colors">Startseite</a></li>
-              <li><a href="#services" className="hover:text-gray-900 transition-colors">CarCare-Center & Preise</a></li>
-              <li><a href="#jobs" className="hover:text-gray-900 transition-colors">Jobangebote</a></li>
-              <li><a href="#" className="hover:text-gray-900 transition-colors">Impressum</a></li>
-              <li><a href="#" className="hover:text-gray-900 transition-colors">Datenschutz</a></li>
-            </ul>
-          </div>
-
-          {/* Sitemap — Leistungen & Wissen */}
-          <div className="space-y-6">
-            <h4 className="font-bold text-gray-900">Sitemap</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="#leistungen" className="hover:text-gray-900 transition-colors">Leistungen</a></li>
-              <li><a href="#unfall" className="hover:text-gray-900 transition-colors">Unfall & Schaden</a></li>
-              <li><a href="#expertise" className="hover:text-gray-900 transition-colors">Autoaufbereitung</a></li>
-              <li><a href="#prozess" className="hover:text-gray-900 transition-colors">Prozess</a></li>
-              <li><a href="#faq" className="hover:text-gray-900 transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-
-          {/* Sitemap — Kontakt & Geschäftskunden */}
-          <div className="space-y-6">
-            <h4 className="font-bold text-gray-900">Anfragen</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="#contact-schaden" className="hover:text-gray-900 transition-colors">Schaden melden</a></li>
-              <li><a href="#contact-termin" className="hover:text-gray-900 transition-colors">Termin anfragen</a></li>
-              <li><a href="#contact-business" className="hover:text-gray-900 transition-colors">Geschäftskunden</a></li>
-              <li><a href="#business-zone" className="hover:text-gray-900 transition-colors">B2B-Bereich</a></li>
-              <li><a href="#zielgruppen" className="hover:text-gray-900 transition-colors">Zielgruppen</a></li>
-            </ul>
-          </div>
+      <motion.footer
+        ref={footerRef}
+        id="contact"
+        // fixed + z-0: liegt hinter dem Main-Content (relative z-10 bg-white). Reveal entsteht, sobald Main nach oben weggescrollt ist.
+        className="fixed bottom-0 left-0 right-0 z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
+        style={prefersReducedMotion ? undefined : undefined}
+      >
+        {/* dezente Brand-Lichter im Hintergrund */}
+        <div className="pointer-events-none absolute inset-0 opacity-60">
+          <div className="absolute -top-32 -left-20 w-[40rem] h-[40rem] rounded-full bg-blue-600/10 blur-[120px]" />
+          <div className="absolute -bottom-40 -right-20 w-[36rem] h-[36rem] rounded-full bg-white/5 blur-[120px]" />
         </div>
 
-        {/* Legal Bottom */}
-        <div className="border-t border-gray-100 pt-8">
-           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-              <p className="text-xs text-gray-400">
+        <motion.div
+          style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+          className="relative container mx-auto"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-10 lg:gap-8 mb-10 md:mb-16">
+
+            {/* Brand */}
+            <div className="col-span-2 lg:col-span-2 space-y-5">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-gray-900 ring-1 ring-white/20">
+                  <span className="font-bold text-sm">C</span>
+                </div>
+                <span className="font-bold text-xl tracking-tight text-white">CarCare</span>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+                BS CarCare GmbH<br />
+                Ihr Premium-Partner für Fahrzeugaufbereitung und -pflege in Leipzig.
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div className="space-y-4">
+              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Kontakt</h4>
+              <div className="space-y-3 text-sm text-gray-300">
+                <div className="flex items-start gap-3">
+                  <MapPin size={16} className="mt-1 shrink-0 text-gray-500" />
+                  <p className="leading-snug">An den Tierkliniken 42<br />04103 Leipzig</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={16} className="text-gray-500 shrink-0" />
+                  <a href="tel:03412617790" className="hover:text-white transition-colors">0341 - 261 77 90</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Printer size={16} className="text-gray-500 shrink-0" />
+                  <p>0341 - 962 74 87</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail size={16} className="text-gray-500 shrink-0" />
+                  <a href="mailto:info@carcare-center.de" className="hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">info@carcare-center.de</a>
+                </div>
+              </div>
+            </div>
+
+            {/* Hours */}
+            <div className="space-y-4">
+              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Öffnungszeiten</h4>
+              <div className="space-y-2 text-sm text-gray-300">
+                <div className="flex items-start gap-3">
+                  <Clock size={16} className="mt-1 shrink-0 text-gray-500" />
+                  <div className="leading-snug">
+                    <p><span className="font-semibold text-white">Mo – Fr:</span> 07:00 – 18:00</p>
+                    <p><span className="font-semibold text-white">Sa:</span> n. Vereinbarung</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="space-y-4">
+              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Bereiche</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li><a href="#home" className="hover:text-white transition-colors">Startseite</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">CarCare-Center</a></li>
+                <li><a href="#jobs" className="hover:text-white transition-colors">Jobangebote</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Impressum</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Datenschutz</a></li>
+              </ul>
+            </div>
+
+            {/* Sitemap — Leistungen */}
+            <div className="space-y-4 hidden lg:block">
+              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Sitemap</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li><a href="#leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
+                <li><a href="#unfall" className="hover:text-white transition-colors">Unfall & Schaden</a></li>
+                <li><a href="#expertise" className="hover:text-white transition-colors">Autoaufbereitung</a></li>
+                <li><a href="#prozess" className="hover:text-white transition-colors">Prozess</a></li>
+                <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
+              </ul>
+            </div>
+
+            {/* Anfragen */}
+            <div className="space-y-4 col-span-2 md:col-span-1">
+              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Anfragen</h4>
+              <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
+                <li><a href="#contact-schaden" className="hover:text-white transition-colors">Schaden melden</a></li>
+                <li><a href="#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
+                <li><a href="#contact-business" className="hover:text-white transition-colors">Geschäftskunden</a></li>
+                <li><a href="#business-zone" className="hover:text-white transition-colors">B2B-Bereich</a></li>
+                <li><a href="#zielgruppen" className="hover:text-white transition-colors">Zielgruppen</a></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Legal Bottom */}
+          <div className="border-t border-white/10 pt-6 md:pt-8">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6">
+              <p className="text-xs text-gray-500">
                 © {new Date().getFullYear()} BS CarCare GmbH.
               </p>
-              <div className="max-w-2xl text-[10px] text-gray-400 leading-relaxed space-y-2">
-                <p><span className="font-semibold">Verantwortliche Stelle:</span> BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig.</p>
-                <p><span className="font-semibold">Datenschutz:</span> Die Seite nutzt Cookies zur Nutzerfreundlichkeit. Tracking von Nutzungsdaten wird gemäß DSGVO vorerst nicht durchgeführt. Matomo wird als Webanalysedienst verwendet (anonymisierte IP-Adressen). Betroffenenrechte umfassen Widerruf, Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit. Zuständige Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden.</p>
+              <div className="max-w-2xl text-[10px] text-gray-500 leading-relaxed space-y-2">
+                <p><span className="font-semibold text-gray-300">Verantwortliche Stelle:</span> BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig.</p>
+                <p><span className="font-semibold text-gray-300">Datenschutz:</span> Anonymisierte Webanalyse via Matomo, gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden.</p>
               </div>
-           </div>
-        </div>
-      </div>
-    </footer>
+            </div>
+          </div>
+        </motion.div>
+      </motion.footer>
+    </>
   );
 };
 

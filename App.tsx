@@ -21,11 +21,11 @@ import StructuredData from './components/StructuredData';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white text-gray-900 selection:bg-gray-900 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-gray-900 text-gray-900 selection:bg-gray-900 selection:text-white overflow-x-hidden">
       <StructuredData />
       <Navbar />
 
-      <main>
+      <main className="relative z-10 bg-white">
         <section id="home">
           <Hero />
         </section>

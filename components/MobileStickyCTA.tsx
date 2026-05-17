@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, AlertTriangle, CalendarClock } from 'lucide-react';
 
 const MobileStickyCTA: React.FC = () => {
+  const [nearBottom, setNearBottom] = useState(false);
+
+  // Beim Reveal-Footer (letzte ~70% Bildschirmhöhe vor Doku-Ende) ausblenden, sonst überdeckt der CTA den Footer.
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const threshold = document.documentElement.scrollHeight - window.innerHeight * 0.7;
+      setNearBottom(scrolled >= threshold);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -14,8 +32,8 @@ const MobileStickyCTA: React.FC = () => {
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 1.2, type: 'spring', stiffness: 220, damping: 24 }}
+      animate={{ y: nearBottom ? 120 : 0, opacity: nearBottom ? 0 : 1 }}
+      transition={{ type: 'spring', stiffness: 220, damping: 24 }}
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 pointer-events-none"
     >
       <div className="pointer-events-auto bg-white/90 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] grid grid-cols-3 overflow-hidden">
