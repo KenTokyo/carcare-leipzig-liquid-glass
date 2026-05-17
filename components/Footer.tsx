@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -9,18 +9,24 @@ const Footer: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
   // Footerhöhe live messen → Spacer hält genau diese Höhe als Reveal-Reserve im Scroll-Flow.
+  // Rundung auf ganze px verhindert Sub-Pixel-Layout-Jitter.
   useEffect(() => {
     if (!footerRef.current) return;
     const node = footerRef.current;
+    let raf = 0;
     const measure = () => {
-      const h = node.getBoundingClientRect().height;
-      if (h > 0) setFooterHeight(h);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const h = Math.round(node.getBoundingClientRect().height);
+        if (h > 0) setFooterHeight((prev) => (prev === h ? prev : h));
+      });
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(node);
     window.addEventListener('resize', measure);
     return () => {
+      cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener('resize', measure);
     };
@@ -31,8 +37,20 @@ const Footer: React.FC = () => {
     target: spacerRef,
     offset: ['start end', 'end end'],
   });
-  const contentY = useTransform(scrollYProgress, [0, 1], [80, 0]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 1], [0.25, 0.85, 1]);
+
+  // Spring-Smoothing: Scroll-Progress wird durch Feder geglättet → keine 1:1-Frame-Kopplung, kein Hakeln.
+  // Hohe damping + moderate stiffness = trägheitsarm aber butterweich. mass < 1 für schnelle Reaktion.
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 28,
+    mass: 0.35,
+    restDelta: 0.0005,
+  });
+
+  const contentY = useTransform(smoothProgress, [0, 1], [90, 0]);
+  const contentOpacity = useTransform(smoothProgress, [0, 0.35, 1], [0.2, 0.85, 1]);
+  // Subtiler Scale: Footer „dockt“ minimal an, statt nur zu kleben.
+  const contentScale = useTransform(smoothProgress, [0, 1], [0.985, 1]);
 
   return (
     <>
@@ -43,8 +61,9 @@ const Footer: React.FC = () => {
         ref={footerRef}
         id="contact"
         // fixed + z-0: liegt hinter dem Main-Content (relative z-10 bg-white). Reveal entsteht, sobald Main nach oben weggescrollt ist.
+        // translateZ(0) + will-change zwingt eigene Composite-Layer → kein Repaint pro Scrollframe.
         className="fixed bottom-0 left-0 right-0 z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
-        style={prefersReducedMotion ? undefined : undefined}
+        style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
       >
         {/* dezente Brand-Lichter im Hintergrund */}
         <div className="pointer-events-none absolute inset-0 opacity-60">
@@ -53,7 +72,11 @@ const Footer: React.FC = () => {
         </div>
 
         <motion.div
-          style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+          style={
+            prefersReducedMotion
+              ? undefined
+              : { y: contentY, opacity: contentOpacity, scale: contentScale, willChange: 'transform, opacity' }
+          }
           className="relative container mx-auto"
         >
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-10 lg:gap-8 mb-10 md:mb-16">

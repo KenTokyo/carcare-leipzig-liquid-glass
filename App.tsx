@@ -25,7 +25,10 @@ const App: React.FC = () => {
       <StructuredData />
       <Navbar />
 
-      <main className="relative z-10 bg-white">
+      <main
+        className="relative z-10 bg-white"
+        style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
+      >
         <section id="home">
           <Hero />
         </section>
