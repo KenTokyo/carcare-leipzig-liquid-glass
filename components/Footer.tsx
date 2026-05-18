@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
+
+// Hilfsfunktion: erzeugt y/opacity-MotionValues für eine Spalte mit eigener Progress-Slice.
+// Muss als Hook (useTransform) auf Top-Level der Komponente aufgerufen werden, daher kein Loop — explizite Aufrufe unten.
+function useReveal(progress: MotionValue<number>, start: number, end: number, lift = 48) {
+  const y = useTransform(progress, [start, end], [lift, 0]);
+  const opacity = useTransform(progress, [start, (start + end) / 2, end], [0, 0.65, 1]);
+  return { y, opacity };
+}
 
 const Footer: React.FC = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -32,14 +40,13 @@ const Footer: React.FC = () => {
     };
   }, []);
 
-  // Parallax-Lift: Inhalt steigt sanft hoch, sobald der Spacer in den Viewport scrollt.
+  // Reveal-Progress: 0 = Main steht noch oben drauf, 1 = Main ist komplett weggescrollt.
   const { scrollYProgress } = useScroll({
     target: spacerRef,
     offset: ['start end', 'end end'],
   });
 
-  // Spring-Smoothing: Scroll-Progress wird durch Feder geglättet → keine 1:1-Frame-Kopplung, kein Hakeln.
-  // Hohe damping + moderate stiffness = trägheitsarm aber butterweich. mass < 1 für schnelle Reaktion.
+  // Spring-Smoothing: kein 1:1-Frame-Hakeln.
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 28,
@@ -47,10 +54,23 @@ const Footer: React.FC = () => {
     restDelta: 0.0005,
   });
 
+  // Globaler Hover-/Float-Lift: bleibt bestehen (User-Wunsch).
   const contentY = useTransform(smoothProgress, [0, 1], [90, 0]);
-  const contentOpacity = useTransform(smoothProgress, [0, 0.35, 1], [0.2, 0.85, 1]);
-  // Subtiler Scale: Footer „dockt“ minimal an, statt nur zu kleben.
+  const contentOpacity = useTransform(smoothProgress, [0, 0.35, 1], [0.25, 0.85, 1]);
   const contentScale = useTransform(smoothProgress, [0, 1], [0.985, 1]);
+
+  // Pro-Spalten-Reveal: jede Section hat eine eigene Scroll-Slice → Inhalt baut sich gestaffelt auf,
+  // während die Mainpage darüber weghovert.
+  const brand = useReveal(smoothProgress, 0.0, 0.32, 56);
+  const contact = useReveal(smoothProgress, 0.08, 0.4, 52);
+  const hours = useReveal(smoothProgress, 0.14, 0.46, 48);
+  const areas = useReveal(smoothProgress, 0.2, 0.52, 44);
+  const sitemap = useReveal(smoothProgress, 0.26, 0.58, 44);
+  const requests = useReveal(smoothProgress, 0.32, 0.64, 40);
+  const legal = useReveal(smoothProgress, 0.55, 0.92, 30);
+
+  const reveal = (m: { y: MotionValue<number>; opacity: MotionValue<number> }) =>
+    prefersReducedMotion ? undefined : { y: m.y, opacity: m.opacity, willChange: 'transform, opacity' as const };
 
   return (
     <>
@@ -82,7 +102,7 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-10 lg:gap-8 mb-10 md:mb-16">
 
             {/* Brand */}
-            <div className="col-span-2 lg:col-span-2 space-y-5">
+            <motion.div style={reveal(brand)} className="col-span-2 lg:col-span-2 space-y-5">
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-gray-900 ring-1 ring-white/20">
                   <span className="font-bold text-sm">C</span>
@@ -93,10 +113,10 @@ const Footer: React.FC = () => {
                 BS CarCare GmbH<br />
                 Ihr Premium-Partner für Fahrzeugaufbereitung und -pflege in Leipzig.
               </p>
-            </div>
+            </motion.div>
 
             {/* Contact */}
-            <div className="space-y-4">
+            <motion.div style={reveal(contact)} className="space-y-4">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Kontakt</h4>
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
@@ -116,10 +136,10 @@ const Footer: React.FC = () => {
                   <a href="mailto:info@carcare-center.de" className="hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">info@carcare-center.de</a>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Hours */}
-            <div className="space-y-4">
+            <motion.div style={reveal(hours)} className="space-y-4">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Öffnungszeiten</h4>
               <div className="space-y-2 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
@@ -130,10 +150,10 @@ const Footer: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Navigation */}
-            <div className="space-y-4">
+            <motion.div style={reveal(areas)} className="space-y-4">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Bereiche</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li><a href="#home" className="hover:text-white transition-colors">Startseite</a></li>
@@ -142,10 +162,10 @@ const Footer: React.FC = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Impressum</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Datenschutz</a></li>
               </ul>
-            </div>
+            </motion.div>
 
             {/* Sitemap — Leistungen */}
-            <div className="space-y-4 hidden lg:block">
+            <motion.div style={reveal(sitemap)} className="space-y-4 hidden lg:block">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Sitemap</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li><a href="#leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
@@ -154,10 +174,10 @@ const Footer: React.FC = () => {
                 <li><a href="#prozess" className="hover:text-white transition-colors">Prozess</a></li>
                 <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
               </ul>
-            </div>
+            </motion.div>
 
             {/* Anfragen */}
-            <div className="space-y-4 col-span-2 md:col-span-1">
+            <motion.div style={reveal(requests)} className="space-y-4 col-span-2 md:col-span-1">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Anfragen</h4>
               <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
                 <li><a href="#contact-schaden" className="hover:text-white transition-colors">Schaden melden</a></li>
@@ -166,11 +186,11 @@ const Footer: React.FC = () => {
                 <li><a href="#business-zone" className="hover:text-white transition-colors">B2B-Bereich</a></li>
                 <li><a href="#zielgruppen" className="hover:text-white transition-colors">Zielgruppen</a></li>
               </ul>
-            </div>
+            </motion.div>
           </div>
 
           {/* Legal Bottom */}
-          <div className="border-t border-white/10 pt-6 md:pt-8">
+          <motion.div style={reveal(legal)} className="border-t border-white/10 pt-6 md:pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6">
               <p className="text-xs text-gray-500">
                 © {new Date().getFullYear()} BS CarCare GmbH.
@@ -180,7 +200,7 @@ const Footer: React.FC = () => {
                 <p><span className="font-semibold text-gray-300">Datenschutz:</span> Anonymisierte Webanalyse via Matomo, gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden.</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </motion.footer>
     </>
