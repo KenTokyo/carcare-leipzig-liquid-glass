@@ -1,40 +1,40 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Award, MapPin, Layers } from 'lucide-react';
+import { Award, Layers, MapPin, Users } from 'lucide-react';
 
 const trustItems = [
-  { icon: <Users size={20} />, label: 'Über 50 Mitarbeiter', sub: 'an 10 Standorten' },
-  { icon: <Award size={20} />, label: 'Premiumhersteller', sub: 'Werksniederlassungen & Autohäuser' },
+  { icon: <Users size={20} />, label: 'Über 50 Mitarbeiter', sub: 'eingespielte Teams und klare Abläufe' },
+  { icon: <Award size={20} />, label: 'Premium-Erfahrung', sub: 'Autohäuser, Fuhrparks und Privatkunden' },
   { icon: <MapPin size={20} />, label: 'Standort Leipzig', sub: 'An den Tierkliniken 42' },
-  { icon: <Layers size={20} />, label: 'Aus einer Hand', sub: 'Pflege, Lack, Schaden' },
+  { icon: <Layers size={20} />, label: 'Alles aus einer Hand', sub: 'Pflege, Lack, Reparatur und Schaden' },
 ];
 
 const TrustBar: React.FC = () => {
   return (
-    <div className="relative z-20 bg-white border-b border-gray-100">
-      <div className="container mx-auto px-6 py-10 md:py-14">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+    <section id="trust" aria-label="CarCare Vertrauensmerkmale" className="bg-white px-6 py-8 md:py-10">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 gap-3 rounded-[1.5rem] border border-gray-100 bg-gray-50/70 p-3 sm:grid-cols-2 lg:grid-cols-4">
           {trustItems.map((item, idx) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="flex items-start gap-4"
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.4, delay: idx * 0.04 }}
+              className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-sm"
             >
-              <div className="w-11 h-11 shrink-0 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-900">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
                 {item.icon}
               </div>
               <div>
-                <p className="text-sm md:text-base font-bold text-gray-900 leading-tight">{item.label}</p>
-                <p className="text-[11px] md:text-xs text-gray-500 mt-1 uppercase tracking-widest">{item.sub}</p>
+                <p className="font-bold leading-tight text-gray-950">{item.label}</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.14em] text-gray-500">{item.sub}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -3,31 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CarCare Leipzig | Premium Fahrzeugaufbereitung, Unfallinstandsetzung & Lackpflege</title>
-    <meta name="description" content="CarCare Leipzig — Premium-Partner für Fahrzeugaufbereitung, Unfallinstandsetzung, Lackpflege und Schadenabwicklung. Für Privatkunden, Autohäuser, Fuhrparks und Versicherungsagenturen." />
-    <meta name="keywords" content="Fahrzeugaufbereitung Leipzig, Unfallinstandsetzung, Autoaufbereitung, Lackpflege, Schadenabwicklung, Hagelschaden, CarCare, Premiumfahrzeuge, Versicherungsagentur, Fuhrpark" />
+    <title>CarCare Center Leipzig | Unfallinstandsetzung, Autoreparatur & Fahrzeugaufbereitung</title>
+    <meta name="description" content="CarCare Center Leipzig: Unfallinstandsetzung, Unfallschaden, Autoreparatur, Fahrzeugaufbereitung, Lackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Leasingrückgabe und Fuhrparkservice." />
+    <meta name="keywords" content="Unfallinstandsetzung Leipzig, Unfallschaden Leipzig, Autoreparatur Leipzig, Fahrzeugaufbereitung Leipzig, Autoaufbereitung Leipzig, Autolackierung Leipzig, Smart Repair Leipzig, Dellenentfernung Leipzig, Hagelschadenreparatur Leipzig, Felgenreparatur Leipzig, Leasingrückgabe Leipzig, Fuhrparkservice Leipzig" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="BS CarCare GmbH" />
     <link rel="canonical" href="https://www.carcare-center.de/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
-    <meta property="og:site_name" content="CarCare Leipzig" />
-    <meta property="og:title" content="CarCare Leipzig | Premium Fahrzeugaufbereitung & Unfallinstandsetzung" />
-    <meta property="og:description" content="Premium-Partner für Fahrzeugaufbereitung, Unfallinstandsetzung und Lackpflege in Leipzig. Persönlich, verbindlich, mit über 50 Mitarbeitern." />
+    <meta property="og:site_name" content="CarCare Center Leipzig" />
+    <meta property="og:title" content="CarCare Center Leipzig | Unfall, Reparatur & Autoaufbereitung" />
+    <meta property="og:description" content="Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Leipzig." />
     <meta property="og:url" content="https://www.carcare-center.de/" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CarCare Leipzig | Premium Fahrzeugaufbereitung" />
-    <meta name="twitter:description" content="Fahrzeugaufbereitung, Unfallinstandsetzung & Lackpflege in Leipzig — für Privat- und Geschäftskunden." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop" />
+    <meta name="twitter:title" content="CarCare Center Leipzig | Unfallinstandsetzung & Fahrzeugaufbereitung" />
+    <meta name="twitter:description" content="Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? CarCare kümmert sich." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
 
-    <meta name="theme-color" content="#111827" />
+    <meta name="theme-color" content="#0B3D91" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -36,51 +36,57 @@
               sans: ['Inter', 'sans-serif'],
             },
             colors: {
+              white: 'var(--cc-white)',
+              black: 'var(--cc-carbon)',
+              gray: {
+                50: 'var(--cc-soft-ice)',
+                100: 'rgb(var(--cc-ice-blue-rgb) / 0.72)',
+                200: 'var(--cc-ice-blue)',
+                300: 'rgb(var(--cc-ice-blue-rgb) / 0.82)',
+                400: 'rgb(var(--cc-graphite-rgb) / 0.42)',
+                500: 'rgb(var(--cc-graphite-rgb) / 0.58)',
+                600: 'rgb(var(--cc-graphite-rgb) / 0.72)',
+                700: 'rgb(var(--cc-graphite-rgb) / 0.84)',
+                800: 'var(--cc-graphite)',
+                900: 'var(--cc-graphite)',
+                950: 'var(--cc-carbon)',
+              },
+              blue: {
+                50: 'rgb(var(--cc-ice-blue-rgb) / 0.58)',
+                100: 'var(--cc-ice-blue)',
+                200: 'rgb(var(--cc-ice-blue-rgb) / 0.88)',
+                300: 'var(--cc-ice-blue)',
+                400: 'var(--cc-signal-blue)',
+                500: 'var(--cc-signal-blue)',
+                600: 'var(--cc-trust-blue)',
+                700: 'var(--cc-signal-blue)',
+                800: 'var(--cc-trust-blue)',
+                900: 'var(--cc-trust-blue)',
+              },
               premium: {
-                50: '#f9fafb',
-                100: '#f3f4f6',
-                200: '#e5e7eb',
-                300: '#d1d5db',
-                800: '#1f2937',
-                900: '#111827',
-              }
-            }
+                50: 'var(--cc-soft-ice)',
+                100: 'var(--cc-ice-blue)',
+                200: 'var(--cc-signal-blue)',
+                900: 'var(--cc-carbon)',
+              },
+              tech: {
+                white: 'var(--cc-white)',
+                ice: 'var(--cc-soft-ice)',
+                carbon: 'var(--cc-carbon)',
+                graphite: 'var(--cc-graphite)',
+                trust: 'var(--cc-trust-blue)',
+                signal: 'var(--cc-signal-blue)',
+                blueice: 'var(--cc-ice-blue)',
+              },
+            },
           },
         },
-      }
+      };
     </script>
-        <script type="module">
-      // first npm i react-grab
-      // then in head:
-      if (import.meta.env.DEV) {
-        import("react-grab");
-      }
-    </script>
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        background-color: #ffffff;
-        color: #111827;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "framer-motion": "https://esm.sh/framer-motion@^12.29.2",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>

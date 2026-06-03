@@ -85,7 +85,7 @@ const TargetGroups: React.FC = () => {
                 whileHover={{ y: -4 }}
                 className={`group relative rounded-[2rem] p-7 md:p-8 border transition-all duration-500 overflow-hidden flex flex-col min-h-[280px] ${
                   isDark
-                    ? 'bg-gray-900 text-white border-gray-900 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]'
+                    ? 'bg-gray-900 text-white border-gray-900 hover:shadow-[0_30px_60px_-15px_rgb(var(--cc-carbon-rgb)/0.5)]'
                     : 'bg-gray-50/50 text-gray-900 border-gray-100 hover:border-gray-300 hover:shadow-2xl hover:shadow-gray-200/50'
                 }`}
               >

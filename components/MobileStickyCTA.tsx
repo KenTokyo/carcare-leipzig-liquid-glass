@@ -23,7 +23,11 @@ const MobileStickyCTA: React.FC = () => {
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (!el) return;
+    if (!el) {
+      window.history.pushState(null, '', `/kontakt#${id}`);
+      window.dispatchEvent(new Event('carcare:navigate'));
+      return;
+    }
     const offset = 80;
     const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top, behavior: 'smooth' });
@@ -36,7 +40,7 @@ const MobileStickyCTA: React.FC = () => {
       transition={{ type: 'spring', stiffness: 220, damping: 24 }}
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 pointer-events-none"
     >
-      <div className="pointer-events-auto bg-white/90 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] grid grid-cols-3 overflow-hidden">
+      <div className="pointer-events-auto bg-white/90 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-[0_20px_40px_-10px_rgb(var(--cc-carbon-rgb)/0.16)] grid grid-cols-3 overflow-hidden">
         <a
           href="tel:03412617790"
           className="flex flex-col items-center justify-center gap-1 py-3 active:bg-gray-100 transition-colors"

@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop" 
-            alt="Premium Car Detailing" 
+            alt="Fahrzeugpflege in einer professionellen Werkstatt" 
             className="w-full h-full object-cover object-center opacity-90"
           />
           {/* Dark Mode Overlay for contrast */}
@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
             transition={{ delay: 0.6 }}
             className="flex flex-wrap gap-3 md:gap-4"
           >
-             <a href="#contact-schaden" className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-[0_0_30px_rgba(255,255,255,0.35)]">
+             <a href="#contact-schaden" className="inline-flex items-center gap-2 bg-white text-black px-7 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-[0_0_30px_rgb(255_255_255/0.35)]">
                <AlertTriangle size={18} />
                Schaden melden
              </a>

@@ -1,0 +1,43 @@
+/* Premium Tech Blue CI tokens */
+:root {
+  --cc-white: #ffffff;
+  --cc-soft-ice: #f5f8fc;
+  --cc-carbon: #080b10;
+  --cc-graphite: #151a21;
+  --cc-trust-blue: #0b3d91;
+  --cc-signal-blue: #2f80ed;
+  --cc-ice-blue: #d8e8ff;
+  --cc-graphite-rgb: 21 26 33;
+  --cc-carbon-rgb: 8 11 16;
+  --cc-trust-blue-rgb: 11 61 145;
+  --cc-signal-blue-rgb: 47 128 237;
+  --cc-ice-blue-rgb: 216 232 255;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cc-white);
+  color: var(--cc-carbon);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: rgb(var(--cc-signal-blue-rgb) / 0.18);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cc-signal-blue);
+  outline-offset: 3px;
+}

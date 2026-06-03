@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 
+const logoSrc = '/assets/carcare-center-logo.webp';
+
 // Hilfsfunktion: erzeugt y/opacity-MotionValues für eine Spalte mit eigener Progress-Slice.
 // Muss als Hook (useTransform) auf Top-Level der Komponente aufgerufen werden, daher kein Loop — explizite Aufrufe unten.
 function useReveal(progress: MotionValue<number>, start: number, end: number, lift = 48) {
@@ -103,11 +105,14 @@ const Footer: React.FC = () => {
 
             {/* Brand */}
             <motion.div style={reveal(brand)} className="col-span-2 lg:col-span-2 space-y-5">
-              <div className="flex items-center gap-2">
-                <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-gray-900 ring-1 ring-white/20">
-                  <span className="font-bold text-sm">C</span>
-                </div>
-                <span className="font-bold text-xl tracking-tight text-white">CarCare</span>
+              <div className="inline-flex h-14 w-[220px] overflow-hidden rounded-xl bg-white ring-1 ring-white/20">
+                <img
+                  src={logoSrc}
+                  alt="CarCare Center"
+                  className="h-full w-full object-cover object-center"
+                  decoding="async"
+                  loading="lazy"
+                />
               </div>
               <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
                 BS CarCare GmbH<br />
@@ -156,9 +161,10 @@ const Footer: React.FC = () => {
             <motion.div style={reveal(areas)} className="space-y-4">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Bereiche</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#home" className="hover:text-white transition-colors">Startseite</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">CarCare-Center</a></li>
-                <li><a href="#jobs" className="hover:text-white transition-colors">Jobangebote</a></li>
+                <li><a href="/" className="hover:text-white transition-colors">Startseite</a></li>
+                <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
+                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Autoaufbereitung Wissen</a></li>
+                <li><a href="/karriere" className="hover:text-white transition-colors">Jobangebote</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Impressum</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Datenschutz</a></li>
               </ul>
@@ -168,11 +174,12 @@ const Footer: React.FC = () => {
             <motion.div style={reveal(sitemap)} className="space-y-4 hidden lg:block">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Sitemap</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
-                <li><a href="#unfall" className="hover:text-white transition-colors">Unfall & Schaden</a></li>
-                <li><a href="#expertise" className="hover:text-white transition-colors">Autoaufbereitung</a></li>
-                <li><a href="#prozess" className="hover:text-white transition-colors">Prozess</a></li>
-                <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
+                <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
+                <li><a href="/unfallinstandsetzung-leipzig" className="hover:text-white transition-colors">Unfall & Schaden</a></li>
+                <li><a href="/fahrzeugaufbereitung-leipzig" className="hover:text-white transition-colors">Autoaufbereitung</a></li>
+                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissensbereich</a></li>
+                <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">Geschäftskunden</a></li>
+                <li><a href="/kontakt" className="hover:text-white transition-colors">Kontakt</a></li>
               </ul>
             </motion.div>
 
@@ -180,11 +187,11 @@ const Footer: React.FC = () => {
             <motion.div style={reveal(requests)} className="space-y-4 col-span-2 md:col-span-1">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Anfragen</h4>
               <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
-                <li><a href="#contact-schaden" className="hover:text-white transition-colors">Schaden melden</a></li>
-                <li><a href="#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
-                <li><a href="#contact-business" className="hover:text-white transition-colors">Geschäftskunden</a></li>
-                <li><a href="#business-zone" className="hover:text-white transition-colors">B2B-Bereich</a></li>
-                <li><a href="#zielgruppen" className="hover:text-white transition-colors">Zielgruppen</a></li>
+                <li><a href="/kontakt#contact-schaden" className="hover:text-white transition-colors">Schaden melden</a></li>
+                <li><a href="/kontakt#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
+                <li><a href="/kontakt#contact-business" className="hover:text-white transition-colors">Geschäftskunden</a></li>
+                <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">B2B-Bereich</a></li>
+                <li><a href="/#zielgruppen" className="hover:text-white transition-colors">Zielgruppen</a></li>
               </ul>
             </motion.div>
           </div>

@@ -1,94 +1,87 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import Jobs from './components/Jobs';
 import Footer from './components/Footer';
+import JsonLd from './components/JsonLd';
 import MobileStickyCTA from './components/MobileStickyCTA';
-import TrustBar from './components/TrustBar';
-import TargetGroups from './components/TargetGroups';
-import ServiceGrid from './components/ServiceGrid';
-import AccidentFocus from './components/AccidentFocus';
-import DetailingExpertise from './components/DetailingExpertise';
-import ProcessTimeline from './components/ProcessTimeline';
-import BusinessSection from './components/BusinessSection';
-import References from './components/References';
-import FAQSection from './components/FAQSection';
-import ContactCTA from './components/ContactCTA';
-import ContactSection from './components/ContactSection';
 import StructuredData from './components/StructuredData';
+import HomePage from './pages/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import AccidentRepairPage from './pages/AccidentRepairPage';
+import VehicleDetailingPage from './pages/VehicleDetailingPage';
+import BusinessCustomersPage from './pages/BusinessCustomersPage';
+import CareerPage from './pages/CareerPage';
+import ContactPage from './pages/ContactPage';
+import KnowledgeArticlePage from './pages/KnowledgeArticlePage';
+import KnowledgeHubPage from './pages/KnowledgeHubPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { getKnowledgeArticleByPath } from './data/knowledgeArticles';
+import { pageSchemas } from './seo/pageSchemas';
+
+const normalizePath = (path: string) => {
+  if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
+  return path || '/';
+};
 
 const App: React.FC = () => {
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+
+  useEffect(() => {
+    const syncPath = () => setPath(normalizePath(window.location.pathname));
+    window.addEventListener('popstate', syncPath);
+    window.addEventListener('carcare:navigate', syncPath);
+    return () => {
+      window.removeEventListener('popstate', syncPath);
+      window.removeEventListener('carcare:navigate', syncPath);
+    };
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    window.setTimeout(() => {
+      if (hash) {
+        const target = document.getElementById(hash);
+        if (target) {
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }, 50);
+  }, [path]);
+
+  const page = useMemo(() => {
+    const knowledgeArticle = getKnowledgeArticleByPath(path);
+    if (knowledgeArticle) return <KnowledgeArticlePage article={knowledgeArticle} />;
+
+    switch (path) {
+      case '/':
+        return <HomePage />;
+      case '/leistungen':
+        return <ServicesPage />;
+      case '/unfallinstandsetzung-leipzig':
+        return <AccidentRepairPage />;
+      case '/fahrzeugaufbereitung-leipzig':
+        return <VehicleDetailingPage />;
+      case '/geschaeftskunden':
+        return <BusinessCustomersPage />;
+      case '/karriere':
+        return <CareerPage />;
+      case '/kontakt':
+        return <ContactPage />;
+      case '/autoaufbereitung-wissen':
+        return <KnowledgeHubPage />;
+      default:
+        return <NotFoundPage />;
+    }
+  }, [path]);
+
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-900 selection:bg-gray-900 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-gray-950 selection:bg-blue-600 selection:text-white">
       <StructuredData />
+      {pageSchemas[path] && <JsonLd data={pageSchemas[path]} />}
       <Navbar />
 
-      <main
-        className="relative z-10 bg-white"
-        style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
-      >
-        <section id="home">
-          <Hero />
-        </section>
-
-        <section id="trust" className="relative z-10">
-          <TrustBar />
-        </section>
-
-        <section id="about" className="relative z-10">
-          <About />
-        </section>
-
-        <section id="zielgruppen" className="relative z-10">
-          <TargetGroups />
-        </section>
-
-        <section id="leistungen" className="relative z-10">
-          <ServiceGrid />
-        </section>
-
-        <section id="services" className="relative z-10">
-          <Services />
-        </section>
-
-        <section id="unfall" className="relative z-10">
-          <AccidentFocus />
-        </section>
-
-        <section id="expertise" className="relative z-10">
-          <DetailingExpertise />
-        </section>
-
-        <section id="prozess" className="relative z-10">
-          <ProcessTimeline />
-        </section>
-
-        <section id="jobs" className="relative z-10">
-          <Jobs />
-        </section>
-
-        <section id="business-zone" className="relative z-10">
-          <BusinessSection />
-        </section>
-
-        <section id="referenzen" className="relative z-10">
-          <References />
-        </section>
-
-        <section id="faq" className="relative z-10">
-          <FAQSection />
-        </section>
-
-        <section id="kontakt-cta" className="relative z-10">
-          <ContactCTA />
-        </section>
-
-        <section id="kontakt" className="relative z-10">
-          <ContactSection />
-        </section>
-      </main>
+      <main className="relative z-10 overflow-x-hidden bg-white">{page}</main>
 
       <Footer />
       <MobileStickyCTA />
