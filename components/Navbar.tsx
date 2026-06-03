@@ -48,15 +48,19 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 md:px-6">
+      <header className="fixed left-0 right-0 top-0 z-50 px-2 md:px-5">
         <motion.div
           animate={{
-            boxShadow: scrolled ? '0 18px 45px -28px rgb(var(--cc-carbon-rgb) / 0.3)' : '0 0 0 rgb(var(--cc-carbon-rgb) / 0)',
+            y: scrolled ? 8 : 0,
+            boxShadow: scrolled
+              ? '0 24px 70px -34px rgb(var(--cc-carbon-rgb) / 0.42)'
+              : '0 4px 18px -14px rgb(var(--cc-carbon-rgb) / 0.22)',
           }}
-          className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between rounded-2xl border border-white/70 bg-white/90 px-4 backdrop-blur-xl md:px-6"
+          transition={{ type: 'spring', stiffness: 220, damping: 28 }}
+          className="solidroad-nav-shell mx-auto flex h-[4.85rem] max-w-7xl items-center justify-between rounded-b-[1.65rem] border-x border-b border-white/80 bg-white/[0.92] px-3 backdrop-blur-2xl md:h-[5.65rem] md:px-6"
         >
           <a href="/" onClick={(e) => handleLinkClick(e, '/')} className="flex items-center">
-            <span className="block h-12 w-[168px] overflow-hidden rounded-xl bg-white ring-1 ring-blue-100 sm:w-[196px] xl:w-[218px]">
+            <span className="block h-12 w-[152px] overflow-hidden rounded-xl bg-white ring-1 ring-blue-100/80 sm:w-[182px] xl:w-[196px]">
               <img
                 src={logoSrc}
                 alt="CarCare Center"
@@ -67,13 +71,13 @@ const Navbar: React.FC = () => {
             </span>
           </a>
 
-          <nav aria-label="Hauptnavigation" className="hidden items-center gap-5 lg:flex">
+          <nav aria-label="Hauptnavigation" className="hidden items-center gap-3 xl:flex xl:gap-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 transition-colors hover:text-blue-700"
+                className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.14em] text-gray-600 transition-colors hover:text-blue-700 xl:text-[10px] 2xl:text-[11px]"
               >
                 {link.label}
               </a>
@@ -83,7 +87,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2">
             <a
               href="tel:+493412617790"
-              className="hidden items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-gray-950 transition-colors hover:border-blue-200 hover:text-blue-700 xl:inline-flex"
+              className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-gray-200 bg-white/90 px-3 py-3 text-[10px] font-bold uppercase tracking-[0.12em] text-gray-950 shadow-sm transition-colors hover:border-blue-200 hover:text-blue-700 xl:inline-flex 2xl:px-4 2xl:text-[11px]"
             >
               <Phone size={15} />
               0341 - 261 77 90
@@ -91,7 +95,7 @@ const Navbar: React.FC = () => {
             <a
               href="/kontakt#contact-schaden"
               onClick={(e) => handleLinkClick(e, '/kontakt#contact-schaden')}
-              className="hidden items-center gap-2 rounded-full bg-blue-600 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-blue-700 md:inline-flex"
+              className="hidden items-center gap-2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-3 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_18px_34px_-22px_rgb(var(--cc-trust-blue-rgb)/0.95)] transition-colors hover:bg-blue-700 md:inline-flex 2xl:px-4 2xl:text-[11px]"
             >
               <AlertTriangle size={15} />
               Schaden melden
@@ -100,7 +104,7 @@ const Navbar: React.FC = () => {
               type="button"
               aria-label="Menü öffnen"
               onClick={() => setIsOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-950 text-white lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-950 text-white shadow-lg lg:hidden"
             >
               <Menu size={21} />
             </button>
