@@ -12,6 +12,9 @@
   --cc-trust-blue-rgb: 11 61 145;
   --cc-signal-blue-rgb: 47 128 237;
   --cc-ice-blue-rgb: 216 232 255;
+  --cc-shell-canvas: #f9f9f9;
+  --cc-shell-gap: clamp(0.5rem, 1vw, 1rem);
+  --cc-shell-radius: clamp(1.35rem, 2vw, 1.75rem);
 }
 
 html {
@@ -20,9 +23,59 @@ html {
 
 body {
   margin: 0;
-  background: var(--cc-white);
+  background: var(--cc-shell-canvas);
   color: var(--cc-carbon);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.carcare-shell-root {
+  background: var(--cc-shell-canvas);
+}
+
+.site-main-shell {
+  border-radius: var(--cc-shell-radius);
+  box-shadow:
+    0 34px 90px -70px rgb(var(--cc-carbon-rgb) / 0.48),
+    inset 0 0 0 1px rgb(255 255 255 / 0.72);
+  margin: var(--cc-shell-gap);
+  transform: translateZ(0);
+}
+
+.site-footer-shell {
+  border-radius: var(--cc-shell-radius);
+  bottom: var(--cc-shell-gap);
+  box-shadow:
+    0 36px 95px -64px rgb(var(--cc-carbon-rgb) / 0.62),
+    inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  left: var(--cc-shell-gap);
+  right: var(--cc-shell-gap);
+  transform: translateZ(0);
+}
+
+.solidroad-hud-layer {
+  height: 100svh;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.solidroad-hud-layer::before,
+.solidroad-hud-layer::after {
+  border-radius: var(--cc-shell-radius);
+  content: "";
+  inset: var(--cc-shell-gap);
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.solidroad-hud-layer::before {
+  box-shadow: 0 0 0 max(100vw, 100vh) var(--cc-shell-canvas);
+}
+
+.solidroad-hud-layer::after {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cc-trust-blue-rgb) / 0.045),
+    0 32px 90px -84px rgb(var(--cc-carbon-rgb) / 0.42);
 }
 
 .hero-card-shell {
@@ -33,14 +86,33 @@ body {
 }
 
 .solidroad-nav-shell {
-  background: rgb(255 255 255 / 0.92);
+  background: rgb(255 255 255 / 0.96);
+  border: 1px solid rgb(var(--cc-trust-blue-rgb) / 0.16);
+  border-top: 0;
   isolation: isolate;
   position: relative;
+  z-index: 1;
+}
+
+.solidroad-nav-shell::before {
+  background: var(--cc-white);
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -2;
 }
 
 .solidroad-nav-shell::after {
   border-radius: 0 0 1.65rem 1.65rem;
-  box-shadow: inset 0 -1px 0 rgb(var(--cc-carbon-rgb) / 0.07);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.88),
+    inset 1px 0 0 rgb(255 255 255 / 0.62),
+    inset -1px 0 0 rgb(255 255 255 / 0.62),
+    inset 0 -1px 0 rgb(var(--cc-carbon-rgb) / 0.05),
+    0 1px 0 rgb(255 255 255 / 0.82),
+    0 18px 46px -42px rgb(var(--cc-carbon-rgb) / 0.58);
   content: "";
   inset: 0;
   pointer-events: none;

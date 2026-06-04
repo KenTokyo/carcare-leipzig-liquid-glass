@@ -13,7 +13,7 @@ const HeroSection: React.FC = () => {
     <section
       id="home"
       aria-labelledby="home-heading"
-      className="relative overflow-hidden bg-white px-2 pb-4 pt-2 md:px-4 md:pb-6 md:pt-4"
+      className="relative overflow-hidden bg-transparent"
     >
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">
       <div className="absolute inset-0">

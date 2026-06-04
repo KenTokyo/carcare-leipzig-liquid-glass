@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
         id="contact"
         // fixed + z-0: liegt hinter dem Main-Content (relative z-10 bg-white). Reveal entsteht, sobald Main nach oben weggescrollt ist.
         // translateZ(0) + will-change zwingt eigene Composite-Layer → kein Repaint pro Scrollframe.
-        className="fixed bottom-0 left-0 right-0 z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
+        className="site-footer-shell fixed z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
         style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
       >
         {/* dezente Brand-Lichter im Hintergrund */}

@@ -76,12 +76,12 @@ const App: React.FC = () => {
   }, [path]);
 
   return (
-    <div className="min-h-screen bg-white text-gray-950 selection:bg-blue-600 selection:text-white">
+    <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
       <StructuredData />
       {pageSchemas[path] && <JsonLd data={pageSchemas[path]} />}
       <Navbar />
 
-      <main className="relative z-10 overflow-x-hidden bg-white">{page}</main>
+      <main className="site-main-shell relative z-10 overflow-x-hidden bg-white">{page}</main>
 
       <Footer />
       <MobileStickyCTA />
