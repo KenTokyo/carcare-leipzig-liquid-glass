@@ -85,6 +85,10 @@ body {
   border-radius: 0 0 var(--cc-nav-radius) var(--cc-nav-radius);
   height: 100%;
   left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--cc-nav-width);
   position: absolute;
   top: 0;
   width: 100%;
@@ -112,8 +116,9 @@ body {
   pointer-events: none;
   position: absolute;
   right: 100%;
-  top: 0;
+  top: var(--cc-shell-gap);
   width: var(--cc-nav-inner-radius);
+  display: none;
 }
 
 .solidroad-cutout-right {
@@ -124,8 +129,16 @@ body {
   pointer-events: none;
   position: absolute;
   left: 100%;
-  top: 0;
+  top: var(--cc-shell-gap);
   width: var(--cc-nav-inner-radius);
+  display: none;
+}
+
+@media (min-width: 1080px) {
+  .solidroad-cutout-left,
+  .solidroad-cutout-right {
+    display: block;
+  }
 }
 
 @media (min-width: 768px) {

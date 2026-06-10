@@ -49,6 +49,15 @@ Dieses Dokument beschreibt die Phasen zur Konsolidierung der globalen weißen Se
 
 ---
 
+### Phase 5 — Feinschliff der Solidroad-Geometrie und Cutouts für die Navbar
+**Ziel:** Die Navbar so verfeinern, dass sie auf Desktop zentriert dargestellt wird und durch konkave Cutout-Ecken nahtlos mit der oberen globalen weißen Rahmen-Rail verschmilzt (wie in Solid Road Bild 1).
+* [x] In `index.css` die Klasse `.solidroad-nav-frame` zentrieren (`max-width: var(--cc-nav-width)`, `margin-left/right: auto`, `left/right: 0`) und für Desktop anpassen.
+* [x] In `index.css` die Klassen `.solidroad-cutout-left` und `.solidroad-cutout-right` anpassen (Kante bei `top: var(--cc-shell-gap)` ausrichten) und responsiv per Media Query erst ab ausreichender Breite (z.B. >= 1080px) einblenden.
+* [x] In `components/Layout.tsx` die Cutout-Divs (`solidroad-cutout-left` und `solidroad-cutout-right`) als Kinder in `solidroad-nav-frame` einbetten.
+* [x] TypeScript und Production Build prüfen.
+
+---
+
 ## Kommentare
 ### Phase 1
 **Eingehalten**: unter 700 Zeilen ✅, Syntax repariert ✅, Compilierung erfolgreich ✅
@@ -65,3 +74,8 @@ Dieses Dokument beschreibt die Phasen zur Konsolidierung der globalen weißen Se
 ### Phase 4
 **Eingehalten**: unter 700 Zeilen ✅, Build erfolgreich ✅, TypeScript-Verifizierung erfolgreich ✅
 **Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Die App läuft stabil und das neue unified Layout bindet alle Bestandteile sauber zusammen.
+
+### Phase 5
+**Eingehalten**: unter 700 Zeilen ✅, Mobile-First beibehalten ✅, Build & TypeScript-Check erfolgreich ✅, Visuals passend zu Solid Road ✅
+**Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Die Aussparungs-Cutouts und die Zentrierung des Navbar-Hintergrunds wurden erfolgreich integriert, sodass die Navbar nun nahtlos als einteiliger Bestandteil des oberen weißen Page Frames erscheint.
+

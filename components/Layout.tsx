@@ -59,7 +59,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Integrativer Solidroad Header HUD-Layer */}
       <header className="solidroad-hud-layer fixed left-0 right-0 top-0 z-50 pointer-events-none">
         <div aria-hidden="true" className="solidroad-header-rail" />
-        <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`} />
+        <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
+          <div aria-hidden="true" className="solidroad-cutout-left" />
+          <div aria-hidden="true" className="solidroad-cutout-right" />
+        </div>
         <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
         <Navbar />
       </header>
