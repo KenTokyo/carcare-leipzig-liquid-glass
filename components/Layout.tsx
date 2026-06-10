@@ -35,8 +35,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
-      {/* Unified Solidroad Frame Border-Layer (With 3D Filter Shadow) */}
-      <div className="solidroad-shell-border-container">
+      {/* Unified Solidroad Frame & Header HUD-Layer */}
+      <div className="solidroad-shell-frame-container">
         {/* Borders */}
         <div className="solidroad-shell-border-left" />
         <div className="solidroad-shell-border-right" />
@@ -48,17 +48,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="solidroad-shell-corner-tr" />
         <div className="solidroad-shell-corner-bl" />
         <div className="solidroad-shell-corner-br" />
-      </div>
 
-      {/* Integrativer Solidroad Header HUD-Layer (Separated to fix Chrome Backdrop-Filter bug) */}
-      <header className="solidroad-hud-layer fixed left-0 right-0 top-0 z-50 pointer-events-none">
-        <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
-          <div aria-hidden="true" className="solidroad-cutout-left" />
-          <div aria-hidden="true" className="solidroad-cutout-right" />
-        </div>
-        <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
-        <Navbar />
-      </header>
+        {/* Integrativer Solidroad Header HUD-Layer */}
+        <header className="solidroad-hud-layer absolute left-0 right-0 top-0 pointer-events-none">
+          <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
+            <div aria-hidden="true" className="solidroad-cutout-left" />
+            <div aria-hidden="true" className="solidroad-cutout-right" />
+          </div>
+          <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
+          <Navbar />
+        </header>
+      </div>
 
       <main className="site-main-shell relative z-10 overflow-x-hidden bg-white">
         {children}
