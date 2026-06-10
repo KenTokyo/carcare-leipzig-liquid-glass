@@ -22,9 +22,9 @@ const HeroSection: React.FC = () => {
           alt="Helles Fahrzeug in professioneller Werkstatt"
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/[0.92] to-white/[0.34]" />
+        <div className="hero-copy-veil absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/[0.92] via-white/[0.14] to-white/5" />
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/[0.08] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.08] to-transparent" />
       </div>
 
       <div className="container relative z-10 mx-auto flex min-h-[92svh] items-center px-5 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 xl:px-10">

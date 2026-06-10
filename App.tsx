@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Layout from './components/Layout';
 import JsonLd from './components/JsonLd';
-import MobileStickyCTA from './components/MobileStickyCTA';
 import StructuredData from './components/StructuredData';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
@@ -76,16 +74,11 @@ const App: React.FC = () => {
   }, [path]);
 
   return (
-    <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
+    <Layout>
       <StructuredData />
       {pageSchemas[path] && <JsonLd data={pageSchemas[path]} />}
-      <Navbar />
-
-      <main className="site-main-shell relative z-10 overflow-x-hidden bg-white">{page}</main>
-
-      <Footer />
-      <MobileStickyCTA />
-    </div>
+      {page}
+    </Layout>
   );
 };
 

@@ -1,93 +1,110 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CarCare Center Leipzig | Unfallinstandsetzung, Autoreparatur & Fahrzeugaufbereitung</title>
-    <meta name="description" content="CarCare Center Leipzig: Unfallinstandsetzung, Unfallschaden, Autoreparatur, Fahrzeugaufbereitung, Lackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Leasingrückgabe und Fuhrparkservice." />
-    <meta name="keywords" content="Unfallinstandsetzung Leipzig, Unfallschaden Leipzig, Autoreparatur Leipzig, Fahrzeugaufbereitung Leipzig, Autoaufbereitung Leipzig, Autolackierung Leipzig, Smart Repair Leipzig, Dellenentfernung Leipzig, Hagelschadenreparatur Leipzig, Felgenreparatur Leipzig, Leasingrückgabe Leipzig, Fuhrparkservice Leipzig" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="BS CarCare GmbH" />
-    <link rel="canonical" href="https://www.carcare-center.de/" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de_DE" />
-    <meta property="og:site_name" content="CarCare Center Leipzig" />
-    <meta property="og:title" content="CarCare Center Leipzig | Unfall, Reparatur & Autoaufbereitung" />
-    <meta property="og:description" content="Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Leipzig." />
-    <meta property="og:url" content="https://www.carcare-center.de/" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CarCare Center Leipzig | Unfallinstandsetzung, Autoreparatur & Fahrzeugaufbereitung</title>
+  <meta name="description"
+    content="CarCare Center Leipzig: Unfallinstandsetzung, Unfallschaden, Autoreparatur, Fahrzeugaufbereitung, Lackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Leasingrückgabe und Fuhrparkservice." />
+  <meta name="keywords"
+    content="Unfallinstandsetzung Leipzig, Unfallschaden Leipzig, Autoreparatur Leipzig, Fahrzeugaufbereitung Leipzig, Autoaufbereitung Leipzig, Autolackierung Leipzig, Smart Repair Leipzig, Dellenentfernung Leipzig, Hagelschadenreparatur Leipzig, Felgenreparatur Leipzig, Leasingrückgabe Leipzig, Fuhrparkservice Leipzig" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="BS CarCare GmbH" />
+  <link rel="canonical" href="https://www.carcare-center.de/" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CarCare Center Leipzig | Unfallinstandsetzung & Fahrzeugaufbereitung" />
-    <meta name="twitter:description" content="Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? CarCare kümmert sich." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="CarCare Center Leipzig" />
+  <meta property="og:title" content="CarCare Center Leipzig | Unfall, Reparatur & Autoaufbereitung" />
+  <meta property="og:description"
+    content="Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Leipzig." />
+  <meta property="og:url" content="https://www.carcare-center.de/" />
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
 
-    <meta name="theme-color" content="#0B3D91" />
-    <link rel="icon" type="image/webp" href="/assets/carcare-center-logo.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CarCare Center Leipzig | Unfallinstandsetzung & Fahrzeugaufbereitung" />
+  <meta name="twitter:description"
+    content="Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? CarCare kümmert sich." />
+  <meta name="twitter:image"
+    content="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop" />
+
+  <meta name="theme-color" content="#0B3D91" />
+  <link rel="icon" type="image/webp" href="/assets/carcare-center-logo.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script type="module">
+    // first npm i react-grab
+    // then in head:
+    if (import.meta.env.DEV) {
+      import("react-grab");
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            white: 'var(--cc-white)',
+            black: 'var(--cc-carbon)',
+            gray: {
+              50: 'var(--cc-soft-ice)',
+              100: 'rgb(var(--cc-ice-blue-rgb) / 0.72)',
+              200: 'var(--cc-ice-blue)',
+              300: 'rgb(var(--cc-ice-blue-rgb) / 0.82)',
+              400: 'rgb(var(--cc-graphite-rgb) / 0.42)',
+              500: 'rgb(var(--cc-graphite-rgb) / 0.58)',
+              600: 'rgb(var(--cc-graphite-rgb) / 0.72)',
+              700: 'rgb(var(--cc-graphite-rgb) / 0.84)',
+              800: 'var(--cc-graphite)',
+              900: 'var(--cc-graphite)',
+              950: 'var(--cc-carbon)',
             },
-            colors: {
+            blue: {
+              50: 'rgb(var(--cc-ice-blue-rgb) / 0.58)',
+              100: 'var(--cc-ice-blue)',
+              200: 'rgb(var(--cc-ice-blue-rgb) / 0.88)',
+              300: 'var(--cc-ice-blue)',
+              400: 'var(--cc-signal-blue)',
+              500: 'var(--cc-signal-blue)',
+              600: 'var(--cc-trust-blue)',
+              700: 'var(--cc-signal-blue)',
+              800: 'var(--cc-trust-blue)',
+              900: 'var(--cc-trust-blue)',
+            },
+            premium: {
+              50: 'var(--cc-soft-ice)',
+              100: 'var(--cc-ice-blue)',
+              200: 'var(--cc-signal-blue)',
+              900: 'var(--cc-carbon)',
+            },
+            tech: {
               white: 'var(--cc-white)',
-              black: 'var(--cc-carbon)',
-              gray: {
-                50: 'var(--cc-soft-ice)',
-                100: 'rgb(var(--cc-ice-blue-rgb) / 0.72)',
-                200: 'var(--cc-ice-blue)',
-                300: 'rgb(var(--cc-ice-blue-rgb) / 0.82)',
-                400: 'rgb(var(--cc-graphite-rgb) / 0.42)',
-                500: 'rgb(var(--cc-graphite-rgb) / 0.58)',
-                600: 'rgb(var(--cc-graphite-rgb) / 0.72)',
-                700: 'rgb(var(--cc-graphite-rgb) / 0.84)',
-                800: 'var(--cc-graphite)',
-                900: 'var(--cc-graphite)',
-                950: 'var(--cc-carbon)',
-              },
-              blue: {
-                50: 'rgb(var(--cc-ice-blue-rgb) / 0.58)',
-                100: 'var(--cc-ice-blue)',
-                200: 'rgb(var(--cc-ice-blue-rgb) / 0.88)',
-                300: 'var(--cc-ice-blue)',
-                400: 'var(--cc-signal-blue)',
-                500: 'var(--cc-signal-blue)',
-                600: 'var(--cc-trust-blue)',
-                700: 'var(--cc-signal-blue)',
-                800: 'var(--cc-trust-blue)',
-                900: 'var(--cc-trust-blue)',
-              },
-              premium: {
-                50: 'var(--cc-soft-ice)',
-                100: 'var(--cc-ice-blue)',
-                200: 'var(--cc-signal-blue)',
-                900: 'var(--cc-carbon)',
-              },
-              tech: {
-                white: 'var(--cc-white)',
-                ice: 'var(--cc-soft-ice)',
-                carbon: 'var(--cc-carbon)',
-                graphite: 'var(--cc-graphite)',
-                trust: 'var(--cc-trust-blue)',
-                signal: 'var(--cc-signal-blue)',
-                blueice: 'var(--cc-ice-blue)',
-              },
+              ice: 'var(--cc-soft-ice)',
+              carbon: 'var(--cc-carbon)',
+              graphite: 'var(--cc-graphite)',
+              trust: 'var(--cc-trust-blue)',
+              signal: 'var(--cc-signal-blue)',
+              blueice: 'var(--cc-ice-blue)',
             },
           },
         },
-      };
-    </script>
-    <link rel="stylesheet" href="/index.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="/index.css" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>
