@@ -35,37 +35,30 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
-      {/* Global White Page Frame */}
-      <div className="fixed inset-0 z-40 pointer-events-none">
-        {/* Left border */}
-        <div className="absolute left-0 top-0 bottom-0 w-[var(--cc-shell-gap)] bg-white" />
-        {/* Right border */}
-        <div className="absolute right-0 top-0 bottom-0 w-[var(--cc-shell-gap)] bg-white" />
-        {/* Bottom border */}
-        <div className="absolute left-0 right-0 bottom-0 h-[var(--cc-shell-gap)] bg-white" />
-        {/* Top border (Rail) */}
-        <div className="absolute left-0 right-0 top-0 h-[var(--cc-shell-gap)] bg-white" />
+      {/* Unified Solidroad Frame & Header HUD-Layer */}
+      <div className="solidroad-shell-frame-container">
+        {/* Borders */}
+        <div className="solidroad-shell-border-left" />
+        <div className="solidroad-shell-border-right" />
+        <div className="solidroad-shell-border-bottom" />
+        <div className="solidroad-shell-border-top" />
 
-        {/* Top-Left Corner Mask */}
-        <div className="absolute left-[var(--cc-shell-gap)] top-[var(--cc-shell-gap)] w-[var(--cc-shell-radius)] h-[var(--cc-shell-radius)] rounded-tl-[var(--cc-shell-radius)] shadow-[-20px_-20px_0_20px_#ffffff]" />
-        {/* Top-Right Corner Mask */}
-        <div className="absolute right-[var(--cc-shell-gap)] top-[var(--cc-shell-gap)] w-[var(--cc-shell-radius)] h-[var(--cc-shell-radius)] rounded-tr-[var(--cc-shell-radius)] shadow-[20px_-20px_0_20px_#ffffff]" />
-        {/* Bottom-Left Corner Mask */}
-        <div className="absolute left-[var(--cc-shell-gap)] bottom-[var(--cc-shell-gap)] w-[var(--cc-shell-radius)] h-[var(--cc-shell-radius)] rounded-bl-[var(--cc-shell-radius)] shadow-[-20px_20px_0_20px_#ffffff]" />
-        {/* Bottom-Right Corner Mask */}
-        <div className="absolute right-[var(--cc-shell-gap)] bottom-[var(--cc-shell-gap)] w-[var(--cc-shell-radius)] h-[var(--cc-shell-radius)] rounded-br-[var(--cc-shell-radius)] shadow-[20px_20px_0_20px_#ffffff]" />
+        {/* Corner Masks */}
+        <div className="solidroad-shell-corner-tl" />
+        <div className="solidroad-shell-corner-tr" />
+        <div className="solidroad-shell-corner-bl" />
+        <div className="solidroad-shell-corner-br" />
+
+        {/* Integrativer Solidroad Header HUD-Layer */}
+        <header className="solidroad-hud-layer absolute left-0 right-0 top-0 pointer-events-none">
+          <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
+            <div aria-hidden="true" className="solidroad-cutout-left" />
+            <div aria-hidden="true" className="solidroad-cutout-right" />
+          </div>
+          <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
+          <Navbar />
+        </header>
       </div>
-
-      {/* Integrativer Solidroad Header HUD-Layer */}
-      <header className="solidroad-hud-layer fixed left-0 right-0 top-0 z-50 pointer-events-none">
-        <div aria-hidden="true" className="solidroad-header-rail" />
-        <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
-          <div aria-hidden="true" className="solidroad-cutout-left" />
-          <div aria-hidden="true" className="solidroad-cutout-right" />
-        </div>
-        <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
-        <Navbar />
-      </header>
 
       <main className="site-main-shell relative z-10 overflow-x-hidden bg-white">
         {children}

@@ -58,7 +58,31 @@ Dieses Dokument beschreibt die Phasen zur Konsolidierung der globalen weißen Se
 
 ---
 
+### Phase 6 — Farb-Harmonisierung und härterer Schlagschatten für die Navbar
+**Ziel:** Die Farben von Header-Rail, Cutouts und Navbar farblich angleichen (Eliminierung grauer Ränder/Linien) und einen härteren Schlagschatten für den schwebenden 3D-Effekt hinzufügen.
+* [x] In `index.css` die Klasse `.solidroad-header-rail` anlegen (`background: var(--cc-white)`, `height: var(--cc-shell-gap)`, `position: absolute`, `left/right/top: 0`) zur exakten farblichen Fusion.
+* [x] In `index.css` den Drop-Shadow auf `.solidroad-hud-layer` verstärken (härterer Schatten für den Floating-Effekt beim Scrollen).
+* [x] In `components/Layout.tsx` sicherstellen, dass die `.solidroad-header-rail` im Header-Layer aktiv gerendert wird.
+* [x] TypeScript-Prüfung und Production-Build durchführen.
+
+---
+
+### Phase 7 — Unified 3D Frame elevation (all four borders)
+**Ziel:** Die restlichen drei Ränder (links, rechts, unten) sowie die Eckmasken mit dem oberen Rand und der Navbar in einen gemeinsamen Layer fusionieren, um den 3D-Schwebelook für das gesamte Seiten-Gehäuse einheitlich zu machen.
+* [x] CSS-Klassen für den Rahmenbehälter (`.solidroad-shell-frame-container`) und die Ränder/Eckmasken in `index.css` definieren.
+* [x] Die `filter: drop-shadow`-Eigenschaft von `.solidroad-hud-layer` auf `.solidroad-shell-frame-container` übertragen.
+* [x] In `components/Layout.tsx` den Rahmenbehälter als Parent-Layer mit `z-50` deklarieren und alle Ränder, Eckmasken und den Header-HUD-Layer als Kinder einbetten.
+* [x] TypeScript-Prüfung (`npx tsc --noEmit`) und Production-Build (`npm run build`) erfolgreich durchführen.
+* [x] Visuelle Abnahme mittels Screenshot-Verifizierung im Browser.
+
+---
+
 ## Kommentare
+### Phase 7
+**Eingehalten**: unter 700 Zeilen ✅, Mobile-First beibehalten ✅, Build & TypeScript-Check erfolgreich ✅, 3D-Casing-Look für alle Ränder erzielt ✅
+**Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Durch die Zusammenführung aller 4 Ränder (top, left, right, bottom) sowie der 4 Eckmasken und der Navbar unter dem gemeinsamen Container `.solidroad-shell-frame-container` wirft das gesamte Gehäuse nun einen gleichmäßigen 3D-Schlagschatten nach innen auf das scrollbare Inhalts-Layout. Die Positionierung der inneren Navbar-Elemente und deren Klickbarkeit (`pointer-events-auto`) wurden beibehalten.
+
+
 ### Phase 1
 **Eingehalten**: unter 700 Zeilen ✅, Syntax repariert ✅, Compilierung erfolgreich ✅
 **Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Der fehlerhafte Merge-Konflikt (doppelter Importblock in App.tsx) wurde vollständig bereinigt.
@@ -78,4 +102,8 @@ Dieses Dokument beschreibt die Phasen zur Konsolidierung der globalen weißen Se
 ### Phase 5
 **Eingehalten**: unter 700 Zeilen ✅, Mobile-First beibehalten ✅, Build & TypeScript-Check erfolgreich ✅, Visuals passend zu Solid Road ✅
 **Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Die Aussparungs-Cutouts und die Zentrierung des Navbar-Hintergrunds wurden erfolgreich integriert, sodass die Navbar nun nahtlos als einteiliger Bestandteil des oberen weißen Page Frames erscheint.
+
+### Phase 6
+**Eingehalten**: unter 700 Zeilen ✅, Mobile-First beibehalten ✅, Build & TypeScript-Check erfolgreich ✅, harte Schlagschatten-Ästhetik umgesetzt ✅
+**Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere)**: Keine. Der graue Rand an den Übergangsstellen wurde durch die Layer-Fusion mit der Header-Rail vollständig behoben, und die Navbar hebt sich jetzt dank des härteren Schattens markant vom darunter scrollenden Inhalt ab.
 

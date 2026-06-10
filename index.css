@@ -55,11 +55,104 @@ body {
   transform: translateZ(0);
 }
 
+.solidroad-shell-frame-container {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 20px rgb(var(--cc-carbon-rgb) / 0.18)) drop-shadow(0 4px 8px rgb(var(--cc-carbon-rgb) / 0.12));
+}
+
+.solidroad-shell-border-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--cc-shell-gap);
+  background: var(--cc-white);
+}
+
+.solidroad-shell-border-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--cc-shell-gap);
+  background: var(--cc-white);
+}
+
+.solidroad-shell-border-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--cc-shell-gap);
+  background: var(--cc-white);
+}
+
+.solidroad-shell-border-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--cc-shell-gap);
+  background: var(--cc-white);
+}
+
+.solidroad-shell-corner-tl {
+  position: absolute;
+  left: var(--cc-shell-gap);
+  top: var(--cc-shell-gap);
+  width: var(--cc-shell-radius);
+  height: var(--cc-shell-radius);
+  border-top-left-radius: var(--cc-shell-radius);
+  box-shadow: -20px -20px 0 20px var(--cc-white);
+}
+
+.solidroad-shell-corner-tr {
+  position: absolute;
+  right: var(--cc-shell-gap);
+  top: var(--cc-shell-gap);
+  width: var(--cc-shell-radius);
+  height: var(--cc-shell-radius);
+  border-top-right-radius: var(--cc-shell-radius);
+  box-shadow: 20px -20px 0 20px var(--cc-white);
+}
+
+.solidroad-shell-corner-bl {
+  position: absolute;
+  left: var(--cc-shell-gap);
+  bottom: var(--cc-shell-gap);
+  width: var(--cc-shell-radius);
+  height: var(--cc-shell-radius);
+  border-bottom-left-radius: var(--cc-shell-radius);
+  box-shadow: -20px 20px 0 20px var(--cc-white);
+}
+
+.solidroad-shell-corner-br {
+  position: absolute;
+  right: var(--cc-shell-gap);
+  bottom: var(--cc-shell-gap);
+  width: var(--cc-shell-radius);
+  height: var(--cc-shell-radius);
+  border-bottom-right-radius: var(--cc-shell-radius);
+  box-shadow: 20px 20px 0 20px var(--cc-white);
+}
+
 .solidroad-hud-layer {
   height: 4.85rem;
   isolation: isolate;
   overflow: visible;
-  filter: drop-shadow(0 15px 30px rgba(var(--cc-carbon-rgb) / 0.08)) drop-shadow(0 4px 12px rgba(var(--cc-carbon-rgb) / 0.04));
+}
+
+.solidroad-header-rail {
+  background: var(--cc-white);
+  height: var(--cc-shell-gap);
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .hero-card-shell {
