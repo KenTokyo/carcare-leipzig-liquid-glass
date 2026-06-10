@@ -70,6 +70,21 @@ Dieses Dokument beschreibt das Konzept und die Schritte zur Umgestaltung des Hea
 
 ---
 
+### ✅ Phase 6 — Layout Polish: Logo Border Removal, Grid Centering & Dropdown Z-Index Fix
+**Ziel:** Logo-Rahmen entfernen, Desktop-Navbar zentrieren und Dropdown-Darstellung/z-index korrigieren durch Beseitigung des filter Stacking-Context-Bugs.
+* [x] Logo-Ring-Rand (`ring-1 ring-blue-100/80`) in `Navbar.tsx` entfernen.
+* [x] In `Navbar.tsx` das Root-Element auf Grid-Layout (`xl:grid xl:grid-cols-[1fr_auto_1fr]`) umstellen und Kinder ausrichten (`justify-self-start`, `justify-self-center`, `justify-self-end`) für präzise Zentrierung.
+* [x] In `Layout.tsx` den `<header>`-Tag aus dem `.solidroad-shell-frame-container` herauslösen und als direkten Nachkommen mit `fixed z-50` platzieren (umgeht den CSS-Filter-Bug bei `backdrop-filter`).
+* [x] In `index.css` die CSS-Klassen anpassen, so dass die Schatten (drop-shadow) getrennt aufgeteilt werden und nicht auf dem gemeinsamen HUD-Container liegen.
+* [x] TypeScript und Build verifizieren.
+
+**Referenzen:**
+`components/Navbar.tsx`
+`components/Layout.tsx`
+`index.css`
+
+---
+
 ## Kommentare
 ### Phase 1, 2, 3 & 4
 **Eingehalten:** unter 700 Zeilen pro Datei ✅, responsive Modularität ✅, Edge-Cases (Click-Outside/Esc-Taste) behandelt ✅, modernste Glassmorphismus-Ästhetik mit tiefen Shadows ✅, keine dev-server Restarts ✅
@@ -85,3 +100,11 @@ Dieses Dokument beschreibt das Konzept und die Schritte zur Umgestaltung des Hea
 ### Phase 5
 **Eingehalten:** unter 700 Zeilen pro Datei ✅, Layout-Zusammenführung abgeschlossen ✅, Build & TypeScript erfolgreich ✅
 **Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere):** Keine. Die Zusammenführung der Layout-Elemente und der Navbar in eine einzige Parent-Layout-Komponente (`Layout.tsx`) macht den Code hochgradig modular, sauber und beugt zukünftigen Inkonsistenzen vor.
+
+### Phase 6
+**Eingehalten:** unter 700 Zeilen ✅, z-index-Bug behoben ✅, exact Grid centering ✅, Logo-Border entfernt ✅, dev-server nicht gestartet ✅
+**Auffälligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere):** Keine. Durch das Trennen des Header-Containers vom CSS-Filter-Page-Border-Container konnten wir den chromium-spezifischen Filter-Backdrop-Filter Stacking Context-Bug vollständig umgehen, wodurch die Navbar-Dropdowns wieder perfekt lesbar mit echtem Hintergrund-Blur und Transparenz dargestellt werden.
+**Hauptkomponentenpfade:**
+`components/Navbar.tsx`
+`components/Layout.tsx`
+`index.css`

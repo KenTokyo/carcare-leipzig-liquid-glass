@@ -129,10 +129,10 @@ const Navbar: React.FC = () => {
         y: 0,
       }}
       transition={{ type: 'spring', stiffness: 220, damping: 28 }}
-      className="solidroad-nav-shell pointer-events-auto mx-auto flex h-[4.85rem] max-w-[1000px] items-center justify-between px-3 md:h-[6.25rem] md:px-6 relative"
+      className="solidroad-nav-shell pointer-events-auto mx-auto grid grid-cols-[auto_auto] items-center justify-between px-3 h-[4.85rem] max-w-[1000px] md:h-[6.25rem] md:px-6 xl:grid-cols-[1fr_auto_1fr] xl:justify-items-stretch relative"
     >
-          <a href="/" onClick={(e) => handleLinkClick(e, '/', true)} className="flex items-center">
-            <span className="block h-12 w-[152px] overflow-hidden rounded-xl bg-white ring-1 ring-blue-100/80 sm:w-[176px] xl:w-[184px]">
+          <a href="/" onClick={(e) => handleLinkClick(e, '/', true)} className="flex items-center justify-start xl:justify-self-start">
+            <span className="block h-12 w-[152px] overflow-hidden rounded-xl bg-white sm:w-[176px] xl:w-[184px]">
               <img
                 src={logoSrc}
                 alt="CarCare Center"
@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop navigation with inline dropdowns */}
-          <nav aria-label="Hauptnavigation" className="hidden items-center gap-5 xl:flex h-full">
+          <nav aria-label="Hauptnavigation" className="hidden items-center justify-center gap-6 xl:flex h-full justify-self-center">
             {navLinks.map((link) => {
               const hasDropdown = link.hasDropdown;
               const isOpen = activeDropdown === link.dropdownKey;
@@ -212,7 +212,7 @@ const Navbar: React.FC = () => {
             })}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-end xl:justify-self-end">
             <a
               href="tel:+493412617790"
               className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-gray-200 bg-white/90 px-3 py-3 text-[10px] font-bold uppercase tracking-[0.12em] text-gray-950 shadow-sm transition-colors hover:border-blue-200 hover:text-blue-700 xl:inline-flex"

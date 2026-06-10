@@ -55,7 +55,7 @@ body {
   transform: translateZ(0);
 }
 
-.solidroad-shell-frame-container {
+.solidroad-shell-border-container {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -186,6 +186,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 1;
+  filter: drop-shadow(0 12px 20px rgb(var(--cc-carbon-rgb) / 0.15)) drop-shadow(0 4px 8px rgb(var(--cc-carbon-rgb) / 0.08));
 }
 
 .solidroad-nav-shell {
