@@ -39,7 +39,7 @@ const BusinessCustomerSection: React.FC = () => {
             <p className="mt-6 text-base leading-relaxed text-gray-600 md:text-lg">
               CarCare unterstützt gewerbliche Partner mit professioneller Fahrzeugaufbereitung, Reparaturlösungen, Schadenabwicklung und verlässlichen Prozessen in Leipzig.
             </p>
-            <a href="/kontakt#contact-business" className="mt-7 inline-flex items-center gap-2 rounded-full bg-gray-950 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-gray-800">
+            <a href="/kontakt#contact-business" className="cc-gradient-button mt-7 inline-flex items-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               Partneranfrage stellen
               <ArrowUpRight size={16} />
             </a>

@@ -43,16 +43,16 @@ const MobileStickyCTA: React.FC = () => {
       <div className="pointer-events-auto bg-white/90 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-[0_20px_40px_-10px_rgb(var(--cc-carbon-rgb)/0.16)] grid grid-cols-3 overflow-hidden">
         <a
           href="tel:03412617790"
-          className="flex flex-col items-center justify-center gap-1 py-3 active:bg-gray-100 transition-colors"
+          className="cc-gradient-button flex flex-col items-center justify-center gap-1 border-0 py-3 text-white"
           aria-label="Anrufen"
         >
-          <Phone size={18} className="text-gray-900" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-900">Anrufen</span>
+          <Phone size={18} />
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
         </a>
         <button
           type="button"
           onClick={() => scrollTo('contact-schaden')}
-          className="flex flex-col items-center justify-center gap-1 py-3 bg-gray-900 text-white active:bg-black transition-colors"
+          className="cc-gradient-button flex flex-col items-center justify-center gap-1 border-0 py-3 text-white"
         >
           <AlertTriangle size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
@@ -60,10 +60,10 @@ const MobileStickyCTA: React.FC = () => {
         <button
           type="button"
           onClick={() => scrollTo('contact-termin')}
-          className="flex flex-col items-center justify-center gap-1 py-3 active:bg-gray-100 transition-colors"
+          className="cc-gradient-button flex flex-col items-center justify-center gap-1 border-0 py-3 text-white"
         >
-          <CalendarClock size={18} className="text-gray-900" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-900">Termin</span>
+          <CalendarClock size={18} />
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Termin</span>
         </button>
       </div>
     </motion.div>

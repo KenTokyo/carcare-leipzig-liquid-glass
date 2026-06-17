@@ -260,7 +260,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
           )}
 
           <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center">
-            <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-blue-700 sm:w-auto">
+            <button type="submit" className="cc-gradient-button inline-flex w-full items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white sm:w-auto">
               <Send size={14} />
               Anfrage absenden
             </button>

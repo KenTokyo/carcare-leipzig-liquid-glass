@@ -332,6 +332,31 @@ Startseite-Sektionen (12 Stück):
 1. Keine kritischen Findings. Wortbildmarke ist im Header und Footer eingebunden.
 2. Niedrig: Die angelieferte WebP hat viel Weissraum. Das Layout nutzt deshalb einen maskierten `object-cover`-Container. Fuer spaetere Produktion waere eine nativ zugeschnittene Logo-Datei noch sauberer.
 
+### Phase 19 -- Siteweite Gradient-Buttons
+**Ziel:** Den Verlauf der Navbar-Icon-Buttons auf alle relevanten CTA- und Button-Flaechen uebertragen, ohne Komponentenstruktur oder Funktionen umzubauen.
+* [x] Zentrale CSS-Utility fuer den CarCare-Buttonverlauf ergaenzen.
+* [x] Aktive CTA-Buttons auf Startseite, Unterseiten, Artikeln, Formularen, mobiler CTA-Leiste und mobiler Navbar harmonisieren.
+* [x] `npx tsc --noEmit`, `npm run build` und Browser-Check Desktop/Mobile durchfuehren.
+**Eingehalten:** Plan vor Code erweitert, zentrale Utility-Klasse, keine neuen Dependencies, keine Layout-Umbauten, CTA- und Button-Flaechen nutzen den vorhandenen Gradient-Asset, alle aktiven Dateien unter 700 Zeilen, `npx tsc --noEmit`, `npm run build`, Browser-Check Desktop/Mobile.
+**Browser-Check:** `/` bei Desktop und 390x844 geprueft. 19 `.cc-gradient-button`-Elemente im DOM, sichtbare Buttons verwenden `/assets/carcare-button-gradient.png`, kein horizontaler Overflow.
+**Auffaelligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere):**
+1. Keine kritischen Findings. Die Button-Stile greifen zentral und die Seite bleibt mobil ohne horizontalen Overflow.
+2. Niedrig: Der Produktions-Build meldet weiterhin die bestehende Vite-Warnung zu einem JS-Chunk knapp ueber 500 kB.
+**Referenzen:**
+`index.css`
+`components/HeroSection.tsx`
+`components/PageBlocks.tsx`
+`components/ContactCTA.tsx`
+`components/AccidentDamageSection.tsx`
+`components/BusinessCustomerSection.tsx`
+`components/ProcessTimeline.tsx`
+`components/ServiceGrid.tsx`
+`components/ContactSection.tsx`
+`components/MobileStickyCTA.tsx`
+`components/RequestForm.tsx`
+`components/ArticleLayout.tsx`
+`components/Navbar.tsx`
+
 ## Refactoring-Empfehlungen (Findings nach Schwere)
 
 ### Mittel

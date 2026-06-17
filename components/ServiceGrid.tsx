@@ -55,7 +55,7 @@ const ServiceGrid: React.FC = () => {
               Von der gründlichen Fahrzeugaufbereitung bis zur kompletten Unfallinstandsetzung: CarCare Leipzig bietet Pflege, Werterhalt, Reparatur und Schadenabwicklung aus einer Hand.
             </p>
           </div>
-          <a href="#contact-termin" className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-gray-950 shadow-sm ring-1 ring-gray-200 transition-colors hover:text-blue-700">
+          <a href="#contact-termin" className="cc-gradient-button inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white">
             Termin oder Beratung anfragen
             <ArrowUpRight size={16} />
           </a>

@@ -260,3 +260,32 @@ textarea {
   outline: 2px solid var(--cc-signal-blue);
   outline-offset: 3px;
 }
+
+.cc-gradient-button {
+  background-color: var(--cc-graphite);
+  background-image: url("/assets/carcare-button-gradient.png");
+  background-position: center;
+  background-size: cover;
+  border-color: rgb(var(--cc-ice-blue-rgb) / 0.72);
+  box-shadow: 0 18px 34px -24px rgb(var(--cc-carbon-rgb) / 0.9);
+  color: var(--cc-white);
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    filter 200ms ease,
+    transform 200ms ease,
+    width 300ms ease;
+}
+
+.cc-gradient-button:hover {
+  border-color: rgb(var(--cc-ice-blue-rgb) / 0.9);
+  box-shadow: 0 22px 42px -26px rgb(var(--cc-carbon-rgb) / 0.95);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.cc-gradient-button:active {
+  box-shadow: 0 14px 28px -24px rgb(var(--cc-carbon-rgb) / 0.84);
+  filter: brightness(0.98);
+  transform: translateY(0);
+}

@@ -61,7 +61,7 @@ const ProcessTimeline: React.FC = () => {
               type="button"
               onClick={() => setActiveId(tab.id)}
               className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] transition-colors md:px-6 ${
-                activeId === tab.id ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 hover:bg-white hover:text-gray-950'
+                activeId === tab.id ? 'cc-gradient-button border text-white shadow-sm' : 'text-gray-600 hover:bg-white hover:text-gray-950'
               }`}
             >
               {iconMap[tab.iconName]}
@@ -99,7 +99,7 @@ const ProcessTimeline: React.FC = () => {
             </div>
             <a
               href={active.id === 'unfall' ? '#contact-schaden' : '#contact-termin'}
-              className="mt-9 inline-flex items-center gap-2 rounded-full bg-gray-950 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-gray-800"
+              className="cc-gradient-button mt-9 inline-flex items-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               {active.id === 'unfall' ? 'Schaden melden' : 'Termin anfragen'}
               <ArrowRight size={16} />

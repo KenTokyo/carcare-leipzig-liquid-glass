@@ -22,15 +22,15 @@ const ContactCTA: React.FC = () => {
                 Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenkontakt starten. CarCare Leipzig meldet sich persönlich zurück.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <a href="/kontakt#contact-schaden" className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+                <a href="/kontakt#contact-schaden" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   <AlertTriangle size={17} />
                   Schaden melden
                 </a>
-                <a href="/kontakt#contact-termin" className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-950 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-gray-800">
+                <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   <CalendarClock size={17} />
                   Termin anfragen
                 </a>
-                <a href="/kontakt#contact-business" className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-4 text-sm font-bold text-gray-950 transition-colors hover:border-gray-400">
+                <a href="/kontakt#contact-business" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   <Building2 size={17} />
                   Geschäftskunden
                 </a>

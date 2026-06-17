@@ -73,7 +73,7 @@ const ContactSection: React.FC = () => {
                   }}
                   whileHover={{ y: -1 }}
                   className={`flex w-full items-center gap-4 rounded-2xl border px-5 py-5 text-left transition-all ${
-                    isActive ? 'border-blue-600 bg-blue-600 text-white shadow-xl shadow-blue-600/10' : 'border-gray-200 bg-white text-gray-950 hover:border-blue-200'
+                    isActive ? 'cc-gradient-button text-white' : 'border-gray-200 bg-white text-gray-950 hover:border-blue-200'
                   }`}
                 >
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isActive ? 'bg-white/15 text-white' : 'border border-gray-100 bg-gray-50 text-blue-700'}`}>

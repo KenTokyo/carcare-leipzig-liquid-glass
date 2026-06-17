@@ -18,8 +18,8 @@ const HeroSection: React.FC = () => {
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop"
-          alt="Helles Fahrzeug in professioneller Werkstatt"
+          src="/assets/carcare-hero-workshop.jpeg"
+          alt="Premiumfahrzeuge in der CarCare Werkstatt Leipzig"
           className="h-full w-full object-cover object-center"
         />
         <div className="hero-copy-veil absolute inset-0" />
@@ -57,21 +57,21 @@ const HeroSection: React.FC = () => {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="/kontakt#contact-schaden"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white shadow-[0_18px_45px_-22px_rgb(var(--cc-trust-blue-rgb)/0.82)] transition-colors hover:bg-blue-700"
+              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <AlertTriangle size={18} />
               Schaden melden
             </a>
             <a
               href="/kontakt#contact-termin"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-950 px-7 py-4 text-sm font-bold text-white shadow-[0_18px_40px_-24px_rgb(var(--cc-carbon-rgb)/0.74)] transition-colors hover:bg-gray-800"
+              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <CalendarClock size={18} />
               Termin für Aufbereitung anfragen
             </a>
             <a
               href="/leistungen"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/80 bg-white/85 px-7 py-4 text-sm font-bold text-gray-950 shadow-sm backdrop-blur-md transition-colors hover:border-gray-300 hover:bg-white"
+              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               Leistungen ansehen
               <ArrowRight size={16} />

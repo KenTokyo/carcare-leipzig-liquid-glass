@@ -446,3 +446,20 @@ Die Startseite soll den Solidroad-inspirierten Card-Shell-Effekt erhalten: weiss
 **Auffaelligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere):**
 1. Niedrig: `npm run build` meldet weiterhin die bestehende Vite-Warnung fuer einen Chunk knapp ueber 500 kB; kein neuer Fehler aus dieser Aenderung.
 **Playwright:** `output/playwright/phase26-hero-scroll-left-corner.png`, `output/playwright/phase26-hero-scroll.png`, `output/playwright/phase26-footer-end.png`.
+
+### Phase 27 -- Hero-Bild durch Kundenfoto ersetzen
+**Ziel:** Das aktuelle externe Hero-Bild auf der Startseite durch das angelieferte CarCare-Werkstattfoto ersetzen, ohne Hero-Layout, Text, CTAs oder Shell-Geometrie zu veraendern.
+* [x] Loesungsansaetze pruefen: externe URL direkt ersetzen, lokales Asset in `public/assets` uebernehmen oder Bild vorher neu komprimieren. Bevorzugt wird lokales Asset in `public/assets`, weil die Seite dadurch nicht mehr von der externen Hero-URL abhaengt.
+* [x] Kundenfoto als Hero-Asset in das Projekt uebernehmen.
+* [x] `HeroSection.tsx` auf das neue lokale Hero-Bild umstellen.
+* [x] TypeScript, Build und Browser-Check Desktop/Mobile durchfuehren.
+**Referenzen:**
+`components/HeroSection.tsx`
+`public/assets/carcare-hero-workshop.jpeg`
+
+### Phase 27 Kommentar
+**Eingehalten:** Hero-Layout, Texte, CTAs und Shell-Geometrie unveraendert gelassen, externes Hero-Bild durch lokales Kundenfoto ersetzt, Alt-Text aktualisiert, Datei unter 700 Zeilen, TypeScript erfolgreich, Build erfolgreich.
+**Browser-Check:** Desktop und Mobile laden `http://127.0.0.1:3007/assets/carcare-hero-workshop.jpeg`; Bild ist `complete`, Natural Size `5712x4284`, `object-fit: cover`, kein horizontaler Overflow.
+**Auffaelligkeiten/Performance-Issues/Probleme/Kritische Findings (nach Schwere):**
+1. Keine kritischen Findings. Das Hero-Bild kommt nun aus dem Projekt-Asset und nicht mehr von Unsplash.
+2. Niedrig: Der bekannte Build-Hinweis zur Chunk-Groesse bleibt unveraendert.

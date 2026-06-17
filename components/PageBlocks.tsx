@@ -39,13 +39,13 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {primaryCta && (
-                <a href={primaryCta.href} className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+                <a href={primaryCta.href} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   {primaryCta.label}
                   <ArrowRight size={16} />
                 </a>
               )}
               {secondaryCta && (
-                <a href={secondaryCta.href} className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-4 text-sm font-bold text-gray-950 transition-colors hover:border-gray-400">
+                <a href={secondaryCta.href} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   {secondaryCta.label}
                 </a>
               )}
@@ -144,11 +144,11 @@ export const PageCTA: React.FC<{ title: string; description: string; primaryLabe
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">{description}</p>
           </div>
           <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
-            <a href={primaryHref} className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+            <a href={primaryHref} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               {primaryLabel}
               <ArrowRight size={16} />
             </a>
-            <a href="tel:+493412617790" className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-4 text-sm font-bold text-gray-950 transition-colors hover:border-gray-400">
+            <a href="tel:+493412617790" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               <Phone size={16} />
               0341 - 261 77 90
             </a>

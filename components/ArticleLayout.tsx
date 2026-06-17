@@ -75,11 +75,11 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-gray-950 md:text-6xl">{article.title}</h1>
           <p className="mt-6 max-w-4xl text-lg leading-relaxed text-gray-700 md:text-xl">{article.introAnswer}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href="/kontakt#contact-termin" className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+            <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               Termin in Leipzig anfragen
               <ArrowRight size={16} />
             </a>
-            <a href="/fahrzeugaufbereitung-leipzig" className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-4 text-sm font-bold text-gray-950 transition-colors hover:border-gray-400">
+            <a href="/fahrzeugaufbereitung-leipzig" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               Fahrzeugaufbereitung Leipzig
             </a>
           </div>
@@ -105,11 +105,11 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
                 Wenn Sie eine fachliche Einschätzung für Ihr Fahrzeug wünschen, unterstützt CarCare Leipzig bei Autoaufbereitung, Lackpflege, Leasingrückgabe-Vorbereitung und Smart Repair.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <a href="/kontakt#contact-termin" className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700">
+                <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-bold text-white">
                   Anfrage senden
                   <ArrowRight size={15} />
                 </a>
-                <a href="tel:+493412617790" className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-bold text-gray-950 transition-colors hover:border-gray-400">
+                <a href="tel:+493412617790" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-bold text-white">
                   <Phone size={15} />
                   0341 - 261 77 90
                 </a>
