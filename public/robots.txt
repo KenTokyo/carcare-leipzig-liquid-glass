@@ -1,0 +1,28 @@
+# robots.txt — CarCare Center Leipzig (BS CarCare GmbH)
+# https://www.carcare-center.de
+
+# Standard: alle Crawler dürfen die gesamte Website crawlen
+User-agent: *
+Allow: /
+
+# KI-/Answer-Engine-Crawler ausdrücklich erlaubt (GEO/AEO-Sichtbarkeit erwünscht)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://www.carcare-center.de/sitemap.xml

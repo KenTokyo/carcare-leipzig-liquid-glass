@@ -1,9 +1,12 @@
-- es existieren noch keine richtigen CODING REGELN, die datei existeirt nicht
-- wichtig einfach nur, lese D:\CODING\React Projects\Kundenprojekte\carcare-leipzig-liquid-glass\phasenweise-oder-stopps-implementieren.md
-- VERFOLGE D:\CODING\React Projects\Kundenprojekte\carcare-leipzig-liquid-glass\DESIGN.md 
-Mobile-First
-- Max 700 lines/file
- Wichtige Regeln / Zusammmenfassung
-**NIEMALS automatisch `npm run dev` oder `pnpm dev` starten!**
-- Der Dev-Server läuft oft bereits im Hintergrund
-- Automatisches Starten verursacht Port-Konflikte (EADDRINUSE)
+# AGENTS.md
+
+> **Diese Datei ist nicht mehr das führende Regelwerk.**
+> Alle verbindlichen Regeln, Standards und Arbeitsanweisungen stehen zentral in **[CLAUDE.md](CLAUDE.md)**.
+>
+> Dort referenziert:
+> - `@SEO-GEO-STANDARDS.md` — SEO-/GEO-/Meta-/Content-Standards
+> - `@DESIGN.md` — Design- & Architekturprinzipien
+> - `@phasenweise-oder-stopps-implementieren.md` — Arbeitsweise/Workflow
+> - Code-Regeln (Mobile-First, max. 700 Zeilen/Datei) und Dev-Server-Regeln
+>
+> Bitte ausschließlich `CLAUDE.md` pflegen, um divergierende Regelwerke zu vermeiden.
