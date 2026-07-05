@@ -113,7 +113,17 @@ async function run() {
         );
         await autoScroll(page);
 
-        const html = await page.content();
+        let html = await page.content();
+        // Flash-Guard: leert #root synchron VOR dem Client-Mount. Sonst sehen Nutzer
+        // (JS an) kurz das prerenderte DOM, das createRoot danach komplett verwirft und
+        // neu aufbaut -> sichtbarer Doppel-Flash + erneute Einblend-Animationen.
+        // Nach dem Leeren rendert React in ein leeres #root wie bisher (blank -> render),
+        // also identisch zum aktuellen Live-Verhalten. Crawler ohne JS führen das Script
+        // NICHT aus und behalten den vollständigen Inhalt für die Indexierung.
+        html = html.replace(
+          '</body>',
+          '<script data-prerender-guard>var r=document.getElementById("root");if(r)r.replaceChildren();</script></body>'
+        );
         const outPath = outPathFor(route);
         mkdirSync(dirname(outPath), { recursive: true });
         writeFileSync(outPath, `<!DOCTYPE html>\n${html.replace(/^<!DOCTYPE html>/i, '').trimStart()}`);
