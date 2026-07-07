@@ -35,10 +35,10 @@ const HeroSection: React.FC = () => {
           className="max-w-4xl pb-16 pt-6 md:pt-0"
         >
           <div className="mb-7 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-blue-200 bg-blue-50/[0.92] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm backdrop-blur-md">
+            <span className="rounded-full border border-blue-200 bg-blue-50/[0.92] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
               CarCare Center Leipzig
             </span>
-            <span className="rounded-full border border-white/80 bg-white/[0.84] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 shadow-sm backdrop-blur-md">
+            <span className="rounded-full border border-white/80 bg-white/[0.84] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 shadow-sm">
               An den Tierkliniken 42
             </span>
           </div>
@@ -82,7 +82,7 @@ const HeroSection: React.FC = () => {
             {highlights.map((item) => (
               <div
                 key={item}
-                className="flex items-center gap-3 rounded-2xl border border-white/75 bg-white/[0.78] px-4 py-3 text-sm font-semibold text-gray-800 shadow-[0_16px_40px_-28px_rgb(var(--cc-carbon-rgb)/0.6)] backdrop-blur-xl"
+                className="flex items-center gap-3 rounded-2xl border border-white/75 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-800 shadow-[0_16px_40px_-28px_rgb(var(--cc-carbon-rgb)/0.6)]"
               >
                 <CheckCircle2 size={17} className="shrink-0 text-blue-600" />
                 <span>{item}</span>
