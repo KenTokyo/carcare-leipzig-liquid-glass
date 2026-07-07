@@ -60,7 +60,11 @@ body {
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  filter: drop-shadow(0 12px 20px rgb(var(--cc-carbon-rgb) / 0.18)) drop-shadow(0 4px 8px rgb(var(--cc-carbon-rgb) / 0.12));
+  /* Kein filter: drop-shadow() hier! filter auf position:fixed erzwingt einen
+     viewport-groSSen Filter-Puffer, der beim Scrollen neu gerastert wird und
+     graues Flackern verursacht (im Fullscreen besonders stark). Der Navbar-
+     Schatten wird stattdessen guenstig als box-shadow auf .solidroad-nav-frame
+     gesetzt. */
 }
 
 .solidroad-shell-border-left {
@@ -176,6 +180,12 @@ body {
 .solidroad-nav-frame {
   background: var(--cc-white);
   border-radius: 0 0 var(--cc-nav-radius) var(--cc-nav-radius);
+  /* Navbar-Schatten (ersetzt den frueheren filter: drop-shadow auf dem fixierten
+     Rahmen-Container). box-shadow auf diesem nicht-fixierten Element ist guenstig
+     und flackert beim Scrollen nicht. */
+  box-shadow:
+    0 12px 20px rgb(var(--cc-carbon-rgb) / 0.18),
+    0 4px 8px rgb(var(--cc-carbon-rgb) / 0.12);
   height: 100%;
   left: 0;
   right: 0;
