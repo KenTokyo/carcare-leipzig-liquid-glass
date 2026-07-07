@@ -1,12 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertTriangle,
+  Building2,
+  CalendarClock,
+  ChevronRight,
+  LayoutGrid,
+  MapPin,
   Menu,
   Phone,
+  Sparkles,
+  Wrench,
   X,
-  ChevronRight
 } from 'lucide-react';
+import NavMegaMenu, { type MegaSection } from './NavMegaMenu';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
@@ -27,52 +34,72 @@ const navActionIconClass = 'flex h-11 w-11 shrink-0 items-center justify-center'
 const navActionLabelClass =
   'max-w-0 overflow-hidden pr-0 opacity-0 transition-[max-width,opacity,padding] duration-200 group-hover:max-w-[112px] group-hover:pr-3 group-hover:opacity-100 group-focus-visible:max-w-[112px] group-focus-visible:pr-3 group-focus-visible:opacity-100';
 
-const dropdownItems: Record<string, { label: string; description: string; href: string }[]> = {
-  leistungen: [
-    {
-      label: 'Fahrzeugaufbereitung',
-      description: 'Lackschutz, Keramik & Premium-Pflege',
-      href: '/fahrzeugaufbereitung-leipzig',
-    },
-    {
-      label: 'Unfallinstandsetzung',
-      description: 'Smart Repair & Karosseriearbeiten',
-      href: '/unfallinstandsetzung-leipzig',
-    },
-    {
-      label: 'Geschäftskunden',
-      description: 'Fuhrparkservice & Autohaus-Lösungen',
-      href: '/geschaeftskunden',
-    },
-    {
-      label: 'Leistungen Übersicht',
-      description: 'Unser gesamtes Portfolio im Überblick',
-      href: '/leistungen',
-    },
-  ],
-  kontakt: [
-    {
-      label: 'Kontakt & Anfahrt',
-      description: 'Ansprechpartner & Standort Leipzig',
-      href: '/kontakt',
-    },
-    {
-      label: 'Schaden melden',
-      description: 'Online Schadenformular ausfüllen',
-      href: '/kontakt#contact-schaden',
-    },
-    {
-      label: 'Direkt anrufen',
-      description: '0341 - 261 77 90',
-      href: 'tel:+493412617790',
-    },
-  ],
+const megaSections: Record<string, MegaSection> = {
+  leistungen: {
+    label: 'Leistungen',
+    items: [
+      {
+        icon: Sparkles,
+        label: 'Fahrzeugaufbereitung',
+        description: 'Lackschutz, Keramik & Premium-Pflege',
+        href: '/fahrzeugaufbereitung-leipzig',
+      },
+      {
+        icon: Wrench,
+        label: 'Unfallinstandsetzung',
+        description: 'Smart Repair & Karosseriearbeiten',
+        href: '/unfallinstandsetzung-leipzig',
+      },
+      {
+        icon: Building2,
+        label: 'Geschäftskunden',
+        description: 'Fuhrparkservice & Autohaus-Lösungen',
+        href: '/geschaeftskunden',
+      },
+      {
+        icon: LayoutGrid,
+        label: 'Alle Leistungen',
+        description: 'Unser gesamtes Portfolio im Überblick',
+        href: '/leistungen',
+      },
+    ],
+  },
+  kontakt: {
+    label: 'Kontakt',
+    items: [
+      {
+        icon: MapPin,
+        label: 'Kontakt & Anfahrt',
+        description: 'Ansprechpartner & Standort Leipzig',
+        href: '/kontakt',
+      },
+      {
+        icon: AlertTriangle,
+        label: 'Schaden melden',
+        description: 'Online-Schadenformular ausfüllen',
+        href: '/kontakt#contact-schaden',
+      },
+      {
+        icon: CalendarClock,
+        label: 'Termin anfragen',
+        description: 'Aufbereitung & Reparatur buchen',
+        href: '/kontakt#contact-termin',
+      },
+      {
+        icon: Phone,
+        label: 'Direkt anrufen',
+        description: '0341 - 261 77 90',
+        href: 'tel:+493412617790',
+      },
+    ],
+  },
 };
 
 const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number | null>(null);
 
   // Click outside and escape key handling
   useEffect(() => {
@@ -98,11 +125,26 @@ const Navbar: React.FC = () => {
     };
   }, [activeDropdown, isMobileOpen]);
 
-  const handleDropdownToggle = (key: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setActiveDropdown(activeDropdown === key ? null : key);
+  // Hover-Steuerung des Mega-Menüs. Der Close-Delay überbrückt die Lücke zwischen
+  // Trigger und abgesetztem Panel, damit es beim Rüberfahren offen bleibt.
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
   };
+
+  const openMenu = (key: string) => {
+    cancelClose();
+    setActiveDropdown(key);
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setActiveDropdown(null), 140);
+  };
+
+  useEffect(() => cancelClose, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, closeAll = false) => {
     if (href.startsWith('tel:') || href.startsWith('mailto:')) return;
@@ -136,15 +178,23 @@ const Navbar: React.FC = () => {
     const isOpen = activeDropdown === link.dropdownKey;
 
     return (
-      <div key={link.href} className="relative flex h-full items-center py-4">
-        {hasDropdown ? (
-          <button
-            onClick={(e) => handleDropdownToggle(link.dropdownKey!, e)}
-            className={`flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.13em] transition-colors duration-200 ${
-              isOpen ? 'text-[var(--cc-carbon)]' : 'text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)]'
-            }`}
-          >
-            <span>{link.label}</span>
+      <div
+        key={link.href}
+        className="relative flex h-full items-center py-4"
+        onMouseEnter={hasDropdown ? () => openMenu(link.dropdownKey!) : undefined}
+        onMouseLeave={hasDropdown ? scheduleClose : undefined}
+        onFocus={hasDropdown ? () => openMenu(link.dropdownKey!) : undefined}
+        onBlur={hasDropdown ? scheduleClose : undefined}
+      >
+        <a
+          href={link.href}
+          onClick={(e) => handleLinkClick(e, link.href, true)}
+          aria-haspopup={hasDropdown ? 'true' : undefined}
+          aria-expanded={hasDropdown ? isOpen : undefined}
+          className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.13em] text-[var(--cc-carbon)] transition-colors hover:text-[var(--cc-carbon)]"
+        >
+          <span>{link.label}</span>
+          {hasDropdown && (
             <motion.span
               animate={{ rotate: isOpen ? 180 : 0 }}
               transition={{ duration: 0.15 }}
@@ -152,47 +202,8 @@ const Navbar: React.FC = () => {
             >
               <ChevronRight size={12} className="rotate-90 text-[rgb(var(--cc-carbon-rgb)/0.72)]" />
             </motion.span>
-          </button>
-        ) : (
-          <a
-            href={link.href}
-            onClick={(e) => handleLinkClick(e, link.href, true)}
-            className="whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.13em] text-[var(--cc-carbon)] transition-colors hover:text-[var(--cc-carbon)]"
-          >
-            {link.label}
-          </a>
-        )}
-
-        {hasDropdown && (
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                transition={{ duration: 0.15, ease: 'easeOut' }}
-                className="absolute top-[calc(100%+12px)] left-1/2 z-50 flex w-72 -translate-x-1/2 flex-col gap-0.5 rounded-[20px] border border-white/80 bg-white/90 p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] backdrop-blur-2xl pointer-events-auto"
-              >
-                <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-white/60 bg-white" />
-                {dropdownItems[link.dropdownKey!].map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => handleLinkClick(e, item.href, true)}
-                    className="group flex flex-col rounded-xl p-2.5 transition-colors hover:bg-gray-50/80"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] transition-colors group-hover:text-[var(--cc-carbon)]">
-                      {item.label}
-                    </span>
-                    <span className="mt-0.5 text-[9.5px] font-medium leading-normal text-[rgb(var(--cc-graphite-rgb)/0.72)]">
-                      {item.description}
-                    </span>
-                  </a>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
+          )}
+        </a>
       </div>
     );
   };
@@ -275,6 +286,14 @@ const Navbar: React.FC = () => {
             </a>
           </nav>
 
+          <NavMegaMenu
+            activeKey={activeDropdown}
+            sections={megaSections}
+            onNavigate={handleLinkClick}
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+          />
+
           <div className="absolute right-3 top-1/2 z-20 flex -translate-y-1/2 items-center gap-2 justify-end md:right-6">
             {/* Mobile Hamburger toggle (visible below xl breakpoint) */}
             <button
@@ -299,7 +318,7 @@ const Navbar: React.FC = () => {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-[calc(100%+12px)] right-3 left-3 w-[calc(100vw-24px)] rounded-3xl border border-white/20 bg-white/95 p-5 shadow-2xl backdrop-blur-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
+                className="absolute top-[calc(100%+12px)] right-3 left-3 w-[calc(100vw-24px)] rounded-3xl border border-black/[0.05] bg-white p-5 shadow-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
               >
                 <nav className="flex flex-col gap-4">
                   {navLinks.map((link) => (
@@ -310,7 +329,7 @@ const Navbar: React.FC = () => {
                             {link.label}
                           </span>
                           <div className="flex flex-col gap-2.5 pl-3">
-                            {dropdownItems[link.dropdownKey!].map((subItem) => (
+                            {megaSections[link.dropdownKey!].items.map((subItem) => (
                               <a
                                 key={subItem.href}
                                 href={subItem.href}
