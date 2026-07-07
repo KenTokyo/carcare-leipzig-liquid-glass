@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 
-const logoSrc = '/assets/carcare-center-logo.webp';
+const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
+const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
 
 // Hilfsfunktion: erzeugt y/opacity-MotionValues für eine Spalte mit eigener Progress-Slice.
 // Muss als Hook (useTransform) auf Top-Level der Komponente aufgerufen werden, daher kein Loop — explizite Aufrufe unten.
@@ -105,14 +106,28 @@ const Footer: React.FC = () => {
 
             {/* Brand */}
             <motion.div style={reveal(brand)} className="col-span-2 lg:col-span-2 space-y-5">
-              <div className="inline-flex h-14 w-[220px] overflow-hidden rounded-xl bg-white ring-1 ring-white/20">
-                <img
-                  src={logoSrc}
-                  alt="CarCare Center"
-                  className="h-full w-full object-cover object-center"
-                  decoding="async"
-                  loading="lazy"
-                />
+              <div className="inline-flex h-14 w-[220px] items-center justify-center gap-1.5 overflow-hidden rounded-xl bg-white px-3 ring-1 ring-white/20">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+                  <video
+                    src={logoMarkVideoSrc}
+                    className="h-full w-full object-contain object-center"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    aria-hidden="true"
+                  />
+                </span>
+                <span className="flex h-9 min-w-0 flex-1 items-center overflow-hidden">
+                  <img
+                    src={logoWordmarkSrc}
+                    alt="CarCare Center"
+                    className="h-[80%] w-full object-contain object-left"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </span>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
                 BS CarCare GmbH<br />
