@@ -5,6 +5,7 @@ import TargetGroupCards from '../components/TargetGroupCards';
 import ServiceGrid from '../components/ServiceGrid';
 import AccidentDamageSection from '../components/AccidentDamageSection';
 import AutoDetailingExpertiseSection from '../components/AutoDetailingExpertiseSection';
+import CinematicShowcase from '../components/CinematicShowcase';
 import ProcessTimeline from '../components/ProcessTimeline';
 import BusinessCustomerSection from '../components/BusinessCustomerSection';
 import CareerTeaser from '../components/CareerTeaser';
@@ -27,6 +28,7 @@ const HomePage: React.FC = () => (
     <ServiceGrid />
     <AccidentDamageSection />
     <AutoDetailingExpertiseSection />
+    <CinematicShowcase />
     <ProcessTimeline />
     <BusinessCustomerSection />
     <CareerTeaser />
