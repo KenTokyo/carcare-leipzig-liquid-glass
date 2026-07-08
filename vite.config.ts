@@ -6,7 +6,8 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       server: {
-        port: 3007,
+        // Nutzt den vom Harness zugewiesenen Port (PORT), sonst Standard 3007.
+        port: Number(process.env.PORT) || 3007,
         host: '0.0.0.0',
       },
       plugins: [react()],
