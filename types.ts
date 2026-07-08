@@ -29,6 +29,8 @@ export interface TargetGroup {
   iconName: string;
   href: string;
   accent?: 'light' | 'dark';
+  /** Hintergrundbild der Kachel (Pfad in /public/assets). Pro Kachel frei austauschbar. */
+  backgroundImage?: string;
 }
 
 export interface OverviewService {
