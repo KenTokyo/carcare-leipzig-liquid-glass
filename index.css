@@ -1,3 +1,11 @@
+@tailwind base;
+@tailwind components;
+/* @tailwind utilities steht BEWUSST am Dateiende (nicht hier): einige Custom-Regeln
+   unten haben dieselbe Spezifitaet wie Utilities (z. B. `.solidroad-nav-shell > *`
+   { position: relative }). Utilities MUESSEN danach kommen, damit z. B. `.absolute`
+   in der Navbar gewinnt (wie zuvor bei der CDN, die Utilities nach index.css einspielte).
+   NICHT nach oben verschieben -> sonst bricht die Navbar-Positionierung. */
+
 /* Premium Tech Blue CI tokens */
 :root {
   --cc-white: #ffffff;
@@ -12,6 +20,17 @@
   --cc-trust-blue-rgb: 11 61 145;
   --cc-signal-blue-rgb: 47 128 237;
   --cc-ice-blue-rgb: 216 232 255;
+  /* Kanal-Vars fuer Tailwind <alpha-value> (Opacity-Modifier wie bg-white/90). */
+  --cc-white-rgb: 255 255 255;
+  --cc-soft-ice-rgb: 245 248 252;
+  /* Geflachte Ramp-Tokens: Farbe ueber Weiss vorberechnet, damit der Solid-Look
+     identisch bleibt UND der /xx-Modifier korrekt greift (siehe tailwind.config). */
+  --cc-gray-100-rgb: 227 238 255;
+  /* ice-blue @ 0.72 */
+  --cc-blue-50-rgb: 232 242 255;
+  /* ice-blue @ 0.58 */
+  --cc-blue-200-rgb: 221 235 255;
+  /* ice-blue @ 0.88 */
   --cc-shell-canvas: #ffffff;
   --cc-shell-gap: clamp(0.5rem, 1vw, 1rem);
   --cc-shell-radius: clamp(1.35rem, 2vw, 1.75rem);
@@ -299,3 +318,7 @@ textarea {
   filter: brightness(0.98);
   transform: translateY(0);
 }
+
+/* Utilities ZULETZT (siehe Hinweis am Dateianfang) — damit Tailwind-Utilities
+   Custom-Regeln gleicher Spezifitaet ueberschreiben, exakt wie im frueheren CDN-Setup. */
+@tailwind utilities;

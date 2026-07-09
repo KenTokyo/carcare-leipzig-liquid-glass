@@ -43,63 +43,8 @@
       import("react-grab");
     }
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            white: 'var(--cc-white)',
-            black: 'var(--cc-carbon)',
-            gray: {
-              50: 'var(--cc-soft-ice)',
-              100: 'rgb(var(--cc-ice-blue-rgb) / 0.72)',
-              200: 'var(--cc-ice-blue)',
-              300: 'rgb(var(--cc-ice-blue-rgb) / 0.82)',
-              400: 'rgb(var(--cc-graphite-rgb) / 0.42)',
-              500: 'rgb(var(--cc-graphite-rgb) / 0.58)',
-              600: 'rgb(var(--cc-graphite-rgb) / 0.72)',
-              700: 'rgb(var(--cc-graphite-rgb) / 0.84)',
-              800: 'var(--cc-graphite)',
-              900: 'var(--cc-graphite)',
-              950: 'var(--cc-carbon)',
-            },
-            blue: {
-              50: 'rgb(var(--cc-ice-blue-rgb) / 0.58)',
-              100: 'var(--cc-ice-blue)',
-              200: 'rgb(var(--cc-ice-blue-rgb) / 0.88)',
-              300: 'var(--cc-ice-blue)',
-              400: 'var(--cc-signal-blue)',
-              500: 'var(--cc-signal-blue)',
-              600: 'var(--cc-trust-blue)',
-              700: 'var(--cc-signal-blue)',
-              800: 'var(--cc-trust-blue)',
-              900: 'var(--cc-trust-blue)',
-            },
-            premium: {
-              50: 'var(--cc-soft-ice)',
-              100: 'var(--cc-ice-blue)',
-              200: 'var(--cc-signal-blue)',
-              900: 'var(--cc-carbon)',
-            },
-            tech: {
-              white: 'var(--cc-white)',
-              ice: 'var(--cc-soft-ice)',
-              carbon: 'var(--cc-carbon)',
-              graphite: 'var(--cc-graphite)',
-              trust: 'var(--cc-trust-blue)',
-              signal: 'var(--cc-signal-blue)',
-              blueice: 'var(--cc-ice-blue)',
-            },
-          },
-        },
-      },
-    };
-  </script>
-  <link rel="stylesheet" href="/index.css" />
+  <!-- Tailwind + globales CSS kommen ueber den Vite-Build (import './index.css' in index.tsx). -->
+  <!-- Frueher: Play-CDN + inline tailwind.config; ersetzt am 2026-07-08 durch Build-Time-Tailwind. -->
 </head>
 
 <body>
