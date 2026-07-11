@@ -7,6 +7,7 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import { Play, ArrowUpRight } from 'lucide-react';
+import { useScrollProgress } from '../hooks/useScrollProgress';
 
 // Eigener rAF-Tween auf einem MotionValue. Bewusst NICHT Framers animate(),
 // weil dessen deklarative Animationen bei prefers-reduced-motion unterdrueckt
@@ -75,13 +76,13 @@ const RevealStage: React.FC<{ progress: MotionValue<number>; onPlay: () => void 
   // Play-Button + Intro (video-like presentation) — faden frueh aus
   const introOpacity = useTransform(progress, [0, 0.16], [1, 0]);
   const introScale = useTransform(progress, [0, 0.18], [1, 0.86]);
-  const introPointer = useTransform(progress, (v) => (v > 0.14 ? 'none' : 'auto'));
+  const introPointer = useTransform(progress, (v: number) => (v > 0.14 ? 'none' : 'auto'));
 
   // Cinematic Grade + Outro-Headline erscheinen gegen Ende
   const gradeOpacity = useTransform(progress, [0.42, 0.9], [0, 1]);
   const outroOpacity = useTransform(progress, [0.6, 0.92], [0, 1]);
   const outroY = useTransform(progress, [0.6, 0.92], [44, 0]);
-  const outroPointer = useTransform(progress, (v) => (v > 0.7 ? 'auto' : 'none'));
+  const outroPointer = useTransform(progress, (v: number) => (v > 0.7 ? 'auto' : 'none'));
 
   return (
     <>
@@ -181,33 +182,9 @@ const ScrollShowcase: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef(0);
 
-  // Scroll-Fortschritt selbst berechnen. Framer useScroll({target}) erkennt hier
-  // faelschlich <main overflow-y:auto> als Scroll-Container (scrollTop bleibt 0),
-  // daher messen wir robust per getBoundingClientRect gegen das window.
-  const progress = useMotionValue(0);
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let raf = 0;
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      const dist = el.offsetHeight - window.innerHeight;
-      const p = dist > 0 ? -rect.top / dist : 0;
-      progress.set(Math.min(Math.max(p, 0), 1));
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [progress]);
+  // Scroll-Fortschritt robust ueber den langen Pin-Track (Hoehe - Viewport) messen.
+  // Bewusst NICHT Framer useScroll({target}) — Begruendung siehe useScrollProgress.
+  const progress = useScrollProgress(trackRef, { distance: 'through' });
 
   // "Play": sanftes Auto-Scrollen durch die Enthuellung. Der Scroll-Driver oben
   // uebersetzt die Scroll-Position live in progress — die Enthuellung spielt sich

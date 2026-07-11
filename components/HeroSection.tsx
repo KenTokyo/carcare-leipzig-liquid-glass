@@ -1,6 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useTransform, useReducedMotion } from 'framer-motion';
 import { AlertTriangle, CalendarClock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useScrollProgress } from '../hooks/useScrollProgress';
 
 const highlights = [
   'Unfallinstandsetzung Leipzig',
@@ -9,19 +10,40 @@ const highlights = [
 ];
 
 const HeroSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Vertikaler Bild-Parallax (skiper29 / „Siena"): das ueberformatige Bild zieht
+  // langsamer als die Seite durch den overflow-hidden-Rahmen. Fortschritt robust
+  // ueber die eigene Sektionshoehe gemessen (siehe useScrollProgress).
+  const progress = useScrollProgress(sectionRef, { enabled: !reduceMotion });
+  const parallaxY = useTransform(progress, [0, 1], ['-10%', '10%']);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       aria-labelledby="home-heading"
       className="relative overflow-hidden bg-transparent"
     >
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">
       <div className="absolute inset-0">
-        <img
-          src="/assets/carcare-hero-workshop.jpeg"
-          alt="Premiumfahrzeuge in der CarCare Werkstatt Leipzig"
-          className="h-full w-full object-cover object-center"
-        />
+        {/* Bewegte Bild-Ebene: 130 % Hoehe, vertikal zentriert (-15 %), damit die
+            translateY-Reise (±10 %) an beiden Extremen den Rahmen voll deckt
+            (kein grauer Rand). Die Veils darunter bleiben statisch. */}
+        <motion.div
+          style={{ y: reduceMotion ? 0 : parallaxY }}
+          className="absolute inset-x-0 -top-[15%] h-[130%] will-change-transform"
+        >
+          <img
+            src="/assets/carcare-hero-workshop.jpeg"
+            alt="Premiumfahrzeuge in der CarCare Werkstatt Leipzig"
+            width={2400}
+            height={1350}
+            fetchPriority="high"
+            className="h-full w-full object-cover object-center"
+          />
+        </motion.div>
         <div className="hero-copy-veil absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/[0.92] via-white/[0.14] to-white/5" />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.08] to-transparent" />
