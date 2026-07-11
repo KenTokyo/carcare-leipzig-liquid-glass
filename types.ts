@@ -39,6 +39,10 @@ export interface OverviewService {
   description: string;
   iconName: string;
   href: string;
+  /** Kurzer CTA-Text der aufgeklappten Karte (z. B. "Zur Aufbereitung"). */
+  cta?: string;
+  /** Hintergrundbild der Karte (Pfad in /public/assets). Pro Karte austauschbar. */
+  backgroundImage?: string;
 }
 
 export interface FAQItem {
