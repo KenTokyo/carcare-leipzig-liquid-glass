@@ -51,6 +51,15 @@
 * [x] Kommentare + Findings ergänzt; Preis-Aktualität als Freigabepunkt an User gemeldet
 **Referenzen:** `pages/VehicleDetailingPage.tsx`
 
+### ✅ Phase 4 — Desinfektions-Hinweise sichtbar machen (Nachtrag) + Preis-Freigabe
+**Ziel:** Ozonbehandlung + Heißvernebelung (verwaist in `Services.tsx`) auf der Detailing-Landingpage sichtbar machen.
+* [x] Betreiber hat Paket-Preise bestätigt („preise stimmen")
+* [x] Sektion „Desinfektion & Hygiene" (2 Karten: Ozonbehandlung 45 €, Heißvernebelung/KC-Refresher 59 €) nach den Pflegepaketen eingebaut
+* [x] Faktenreiche, GEO-wertvolle Copy erhalten (Wirkweise, 30-min-Verfahren, Uni-Mannheim-Bestätigung); unbelegbaren Superlativ „zweitstärkste der Welt" → „eines der stärksten" entschärft (Standard 4.5)
+* [x] Hintergrund-Alternierung dadurch WIEDER perfekt (white/gray/…/gray-FAQ/white-CTA); FAQ→CTA-Übergang sauber
+* [x] `tsc` grün; Preview Desktop (2 Spalten) + Mobile 375px (1 Spalte, kein h-Scroll), 0 Console-Fehler, Screenshot
+**Referenzen:** `pages/VehicleDetailingPage.tsx`
+
 ---
 
 ## Kommentare
@@ -76,4 +85,26 @@ Design-konsistent (PageBlocks-Stil, Preis-Pille) ✅, keine externen Bilder (sel
 **Hauptkomponenten (max. 3):** `pages/VehicleDetailingPage.tsx` (neue Sektion), `components/Services.tsx` (Quelle/verifiziert).
 
 **Fazit:** Die faktenreichen Pflegepakete sind jetzt live auf der Detailing-Landingpage sichtbar und crawlbar —
-ein echter Sichtbarkeits-/GEO-Gewinn. Einziger offener Punkt: Preis-Aktualität durch User bestätigen.
+ein echter Sichtbarkeits-/GEO-Gewinn.
+
+### Phase 4 (Desinfektions-Hinweise + Preis-Bestätigung)
+**Eingehalten:** faktenreiche Copy erhalten (Uni-Mannheim-Validierung als Autoritätssignal) ✅, unbelegbaren
+Superlativ entschärft (Standard 4.5) ✅, Design-/BG-Konsistenz (Alternierung wieder perfekt) ✅, Mobile-First
+(1 Spalte, kein h-Scroll @375px) ✅, `tsc` grün ✅, 0 Console-Fehler ✅, Encoding sauber (Heißvernebelung,
+gleichmäßig, Zellwände, sorgfältiges Ablüften) ✅.
+
+**Verifikation:** Sektion „Desinfektion & Hygiene", 2 Karten (Ozonbehandlung 45 €, KC-Refresher 59 €),
+Uni-Mannheim-Bestätigung sichtbar; Sektion-Reihenfolge Hero→Leistungen→Expertise→Ablauf→Pakete→Desinfektion→FAQ
+mit sauberer white/gray-Alternierung.
+
+**Findings-Update (nach Schwere):**
+1. 🟢 **Erledigt:** Paket-Preise (169/199/299/ab 348 €) vom Betreiber bestätigt → Finding #1 (Phase 1–3) geschlossen.
+   Optional bleibt `Offer`-JSON-LD (jetzt unblocked, da Preise final) für Rich Results / KI-Zitierbarkeit.
+2. 🟢 **Niedrig (Hinweis):** Desinfektions-Preise (45/59 €) stammen aus derselben — nun bestätigten — Quelle;
+   bei Gelegenheit kurz gegenprüfen. Weitere `Services.tsx`-Einträge (Reparatur: Lack/Felgen/Dellen/Autoglas/Leder)
+   sind bereits über dedizierte Seiten abgedeckt → kein Handlungsbedarf.
+
+**Hauptkomponenten (max. 3):** `pages/VehicleDetailingPage.tsx` (Pakete + Desinfektion), `components/Services.tsx` (Quelle).
+
+**Gesamt-Fazit:** Zwei faktenreiche, bislang unsichtbare Inhaltsblöcke (Pflegepakete + Desinfektion) sind jetzt
+live und crawlbar auf `/fahrzeugaufbereitung-leipzig` — starker SEO/GEO-Gewinn, Preise bestätigt.

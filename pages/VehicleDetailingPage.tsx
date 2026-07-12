@@ -22,6 +22,11 @@ const carePackages = [
   { id: 'p4', title: 'Premiumpflege „exklusiv“', price: 'ab 348,00 €', description: 'Aufbereitung in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes.' },
 ];
 
+const disinfectionServices = [
+  { id: 'd1', title: 'Ozonbehandlung', price: '45,00 €', description: 'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.' },
+  { id: 'd2', title: 'Heißvernebelung (KC-Refresher)', price: '59,00 €', description: 'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.' },
+];
+
 const expertPoints = [
   { title: 'Premiumfahrzeuge', description: 'Sorgfältiger Umgang mit hochwertigen Fahrzeugen und sensiblen Oberflächen.' },
   { title: 'Autohäuser', description: 'Planbare Aufbereitung für Präsentation, Übergabe und Fahrzeugbestand.' },
@@ -106,6 +111,39 @@ const VehicleDetailingPage: React.FC = () => (
       </div>
     </section>
     <section className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Desinfektion & Hygiene"
+          title="Innenraum-Desinfektion gegen Keime, Viren und Gerüche."
+          description="Für ein hygienisch sauberes Fahrzeug: professionelle Verfahren, die Bakterien, Viren, Schimmelpilze und Gerüche auch in unzugänglichen Bereichen erreichen."
+        />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {disinfectionServices.map((svc, idx) => (
+            <motion.article
+              key={svc.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-lg font-bold leading-tight text-gray-950">{svc.title}</h3>
+                <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{svc.price}</span>
+              </div>
+              <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{svc.description}</p>
+              <a href="/kontakt#contact-termin" className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+                Termin anfragen <ArrowRight size={14} />
+              </a>
+            </motion.article>
+          ))}
+        </div>
+        <p className="mt-6 text-xs leading-relaxed text-gray-500">
+          Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf.
+        </p>
+      </div>
+    </section>
+    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Fahrzeugaufbereitung." />
         <PageFAQ faqs={faqs} />
