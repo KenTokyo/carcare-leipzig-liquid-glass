@@ -15,6 +15,9 @@ dist-ssr
 # Auto-generiert beim Build (scripts/generate-sitemap.mjs) – wird bei jedem Build neu erzeugt
 public/sitemap.xml
 
+# Claude Code temporaere Worktrees (isolierte Repo-Kopien, nie committen)
+.claude/worktrees/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
