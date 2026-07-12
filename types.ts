@@ -79,14 +79,6 @@ export interface BusinessBenefit {
   iconName: string;
 }
 
-export interface KnowledgeCard {
-  id: string;
-  title: string;
-  description: string;
-  href: string;
-  iconName: string;
-}
-
 export type RequestFormKind = 'schaden' | 'termin' | 'business';
 
 export interface RequestFormConfig {

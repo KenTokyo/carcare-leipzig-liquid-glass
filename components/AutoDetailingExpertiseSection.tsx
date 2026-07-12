@@ -1,23 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Armchair, SprayCan, Droplets, KeyRound, Package, ArrowUpRight } from 'lucide-react';
-import { KnowledgeCard } from '../types';
+import { ArrowUpRight } from 'lucide-react';
+import ExpandingCardAccordion, { ExpandingCardItem } from './ExpandingCardAccordion';
 
-const cards: KnowledgeCard[] = [
-  { id: 'innen', title: 'Innenaufbereitung', description: 'Polster, Leder, Geruchsentfernung und gepflegte Oberflächen.', iconName: 'Armchair', href: '/autoaufbereitung-wissen/innenaufbereitung' },
-  { id: 'aussen', title: 'Außenaufbereitung', description: 'Schonende Wäsche, Lackreinigung und sichtbarer Glanz.', iconName: 'SprayCan', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung' },
-  { id: 'lack', title: 'Lackaufbereitung', description: 'Politur, Versiegelung und Werterhalt für gepflegte Fahrzeuge.', iconName: 'Droplets', href: '/autoaufbereitung-wissen/lackaufbereitung' },
-  { id: 'leasing', title: 'Leasingrückgabe vorbereiten', description: 'Professionelle Begutachtung vor der Rückgabe.', iconName: 'KeyRound', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten' },
-  { id: 'pakete', title: 'Wissenshub', description: 'Grundlagen, Profi-Tipps und häufige Fehler verständlich erklärt.', iconName: 'Package', href: '/autoaufbereitung-wissen' },
+const cards: ExpandingCardItem[] = [
+  { id: 'innen', title: 'Innenaufbereitung', description: 'Polster, Leder, Geruchsentfernung und gepflegte Oberflächen.', href: '/autoaufbereitung-wissen/innenaufbereitung', cta: 'Innenraum ansehen' },
+  { id: 'aussen', title: 'Außenaufbereitung', description: 'Schonende Wäsche, Lackreinigung und sichtbarer Glanz.', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung', cta: 'Außenpflege ansehen' },
+  { id: 'lack', title: 'Lackaufbereitung', description: 'Politur, Versiegelung und Werterhalt für gepflegte Fahrzeuge.', href: '/autoaufbereitung-wissen/lackaufbereitung', cta: 'Lackpflege ansehen' },
+  { id: 'leasing', title: 'Leasingrückgabe vorbereiten', description: 'Professionelle Begutachtung vor der Rückgabe.', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten', cta: 'Leasing vorbereiten' },
+  { id: 'pakete', title: 'Wissenshub', description: 'Grundlagen, Profi-Tipps und häufige Fehler verständlich erklärt.', href: '/autoaufbereitung-wissen', cta: 'Zum Wissenshub' },
 ];
-
-const iconMap: Record<string, React.ReactNode> = {
-  Armchair: <Armchair size={22} />,
-  SprayCan: <SprayCan size={22} />,
-  Droplets: <Droplets size={22} />,
-  KeyRound: <KeyRound size={22} />,
-  Package: <Package size={22} />,
-};
 
 const AutoDetailingExpertiseSection: React.FC = () => {
   return (
@@ -43,7 +35,7 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             className="lg:col-span-5"
           >
             <p className="text-base leading-relaxed text-gray-600 md:text-lg">
-              CarCare erklärt transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Kunden bei Lack, Innenraum und Leasingrückgabe achten sollten.
+              CarCare bereitet Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks mit langjähriger Erfahrung auf und erklärt transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Kunden bei Lack, Innenraum und Leasingrückgabe achten sollten.
             </p>
             <a href="/autoaufbereitung-wissen" className="mt-6 inline-flex items-center gap-2 font-bold text-gray-950 transition-colors hover:text-blue-700">
               Autoaufbereitung Wissen ansehen
@@ -52,24 +44,9 @@ const AutoDetailingExpertiseSection: React.FC = () => {
           </motion.div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {cards.map((card, idx) => (
-            <motion.a
-              key={card.id}
-              href={card.href}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.45, delay: idx * 0.05 }}
-              className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
-            >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white">
-                {iconMap[card.iconName]}
-              </div>
-              <h3 className="text-lg font-bold leading-tight text-gray-950">{card.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">{card.description}</p>
-            </motion.a>
-          ))}
+        {/* Gleiche ExpandOnHover-Karten wie die Leistungsuebersicht (skiper52/53) */}
+        <div className="mt-12">
+          <ExpandingCardAccordion items={cards} />
         </div>
       </div>
     </section>
