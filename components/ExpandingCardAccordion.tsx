@@ -50,13 +50,45 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Mobile = vertikales Akkordeon (skiper53).
   const [active, setActive] = useState(0);
 
+  // Groesse wird von Framer getrieben (nicht per CSS-Transition): Desktop animiert
+  // `flexGrow` (Breite bei fixer Container-Hoehe), Mobile animiert `height`. Grund:
+  // die CSS-Height-Transition eines Flex-Items ist auf mobilen Browsern (v.a. iOS
+  // Safari) unzuverlaessig und snappt hart; Framer setzt den Wert per rAF direkt
+  // inline und umgeht den Flex-Quirk. Gleiche Easing/Dauer wie Desktop -> Mobile
+  // fuehlt sich identisch an.
+  //
+  // Bewusst NICHT auf prefers-reduced-motion gegated: die Animation ist ein
+  // gewuenschtes Marken-Micro-Interaction, und die uebrige Site animiert ebenfalls
+  // durchgaengig ungegated (Hero-Parallax, whileInView-Reveals) -> ein gegatetes
+  // Akkordeon (Dauer 0 unter reduced-motion) waere inkonsistent und liess die
+  // Karten auf betroffenen Systemen hart aufspringen statt smooth aufzuklappen.
+  const cardTransition = { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+
+  // Viewport-Erkennung. Lazy-Init aus matchMedia -> korrekte Kartenhoehe schon beim
+  // ersten Paint (kein Flash). Sicher, weil der Prerender #root vor dem Client-Mount
+  // leert (scripts/prerender.mjs) -> reines CSR, keine Hydration-Mismatch-Gefahr.
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true
+  );
+
   // Hover-faehig (Desktop) vs. Touch: auf Touch expandiert der erste Tap, erst der
   // zweite folgt dem Link. Hover/Focus setzen `active` nur auf Hover-Geraeten,
-  // damit der Tap-Handler nicht durch ein vorab gefeuertes Focus-Event ausgehebelt
-  // wird. Default true (SSR/Desktop-Erstrender), Hydration korrigiert auf Touch.
+  // damit der Tap-Handler nicht durch ein vorab gefeuertes Focus-Event ausgehebelt wird.
   const [hoverCapable, setHoverCapable] = useState(true);
   useEffect(() => {
-    setHoverCapable(window.matchMedia('(hover: hover)').matches);
+    const hoverMq = window.matchMedia('(hover: hover)');
+    const desktopMq = window.matchMedia('(min-width: 1024px)');
+    const sync = () => {
+      setHoverCapable(hoverMq.matches);
+      setIsDesktop(desktopMq.matches);
+    };
+    sync();
+    hoverMq.addEventListener('change', sync);
+    desktopMq.addEventListener('change', sync);
+    return () => {
+      hoverMq.removeEventListener('change', sync);
+      desktopMq.removeEventListener('change', sync);
+    };
   }, []);
 
   return (
@@ -72,7 +104,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
       {items.map((item, idx) => {
         const isActive = active === idx;
         return (
-          <a
+          <motion.a
             key={item.id}
             href={item.href}
             aria-label={`${item.title} – ${item.cta ?? 'Mehr ansehen'}`}
@@ -86,8 +118,13 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                 setActive(idx);
               }
             }}
-            style={{ flexGrow: isActive ? 6 : 1 }}
-            className={`group relative min-w-0 overflow-hidden rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] outline-none transition-[height] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 motion-reduce:transition-none lg:h-full lg:basis-0 lg:transition-[flex-grow] ${isActive ? 'h-[340px]' : 'h-[64px]'}`}
+            initial={false}
+            animate={{
+              flexGrow: isActive ? 6 : 1,
+              height: isDesktop ? '100%' : isActive ? 340 : 64,
+            }}
+            transition={cardTransition}
+            className="group relative min-w-0 overflow-hidden rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0"
           >
             {/* Layer 1 – Hintergrundbild (pro Karte austauschbar) */}
             <img
@@ -96,7 +133,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out motion-reduce:transition-none ${isActive ? 'scale-100' : 'scale-105'}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'}`}
             />
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.62)] via-[rgb(var(--cc-carbon-rgb)/0.14)] to-transparent" />
 
@@ -104,14 +141,14 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                 faded bei aktiv aus */}
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-0 flex items-center justify-center px-4 text-center text-[13px] font-bold uppercase tracking-wide text-white [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 motion-reduce:transition-none lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
+              className={`pointer-events-none absolute inset-0 flex items-center justify-center px-4 text-center text-[13px] font-bold uppercase tracking-wide text-white [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
             >
               {item.title}
             </span>
 
             {/* Aktiv: weiße Textbox im TargetGroupCards-Design */}
             <div
-              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] transition duration-300 motion-reduce:transition-none sm:w-[62%] lg:w-[300px] ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
+              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] transition duration-300 sm:w-[62%] lg:w-[300px] ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
             >
               <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
                 {item.title}
@@ -140,7 +177,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                 className="h-full w-full object-contain"
               />
             </span>
-          </a>
+          </motion.a>
         );
       })}
     </motion.div>
