@@ -230,6 +230,17 @@ body {
   z-index: 1;
 }
 
+/* Nur Mobile (< 768px): Navbar schmaler + Abstand zu den Seitenraendern, damit die
+   Leiste – wie in der Desktop-Ansicht – etwas schwebt (statt buendig an den Aussenkanten).
+   Frame (sichtbarer weisser Hintergrund) UND Shell (Inhalt: Logo/Hamburger) werden gleich
+   weit eingerueckt und bleiben so deckungsgleich. Desktop bleibt voellig unveraendert. */
+@media (max-width: 767px) {
+  .solidroad-nav-frame,
+  .solidroad-nav-shell {
+    width: calc(100% - 3.75rem); /* 30px Abstand je Seite */
+  }
+}
+
 .solidroad-cutout-left {
   background: transparent;
   border-top-right-radius: var(--cc-nav-inner-radius);

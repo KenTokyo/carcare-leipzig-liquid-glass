@@ -318,7 +318,7 @@ const Navbar: React.FC = () => {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-[calc(100%+12px)] right-3 left-3 w-[calc(100vw-24px)] rounded-3xl border border-black/[0.05] bg-white p-5 shadow-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
+                className="absolute top-[calc(100%+12px)] right-3 left-3 w-auto rounded-3xl border border-black/[0.05] bg-white p-5 shadow-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
               >
                 <nav className="flex flex-col gap-4">
                   {navLinks.map((link) => (
