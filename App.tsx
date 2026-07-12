@@ -6,6 +6,13 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import AccidentRepairPage from './pages/AccidentRepairPage';
 import VehicleDetailingPage from './pages/VehicleDetailingPage';
+import SmartRepairPage from './pages/SmartRepairPage';
+import AutolackierungPage from './pages/AutolackierungPage';
+import DellenentfernungPage from './pages/DellenentfernungPage';
+import HagelschadenreparaturPage from './pages/HagelschadenreparaturPage';
+import FelgenreparaturPage from './pages/FelgenreparaturPage';
+import FuhrparkservicePage from './pages/FuhrparkservicePage';
+import AutoglasPage from './pages/AutoglasPage';
 import BusinessCustomersPage from './pages/BusinessCustomersPage';
 import CareerPage from './pages/CareerPage';
 import ContactPage from './pages/ContactPage';
@@ -60,6 +67,20 @@ const App: React.FC = () => {
         return <AccidentRepairPage />;
       case '/fahrzeugaufbereitung-leipzig':
         return <VehicleDetailingPage />;
+      case '/smart-repair-leipzig':
+        return <SmartRepairPage />;
+      case '/autolackierung-leipzig':
+        return <AutolackierungPage />;
+      case '/dellenentfernung-leipzig':
+        return <DellenentfernungPage />;
+      case '/hagelschadenreparatur-leipzig':
+        return <HagelschadenreparaturPage />;
+      case '/felgenreparatur-leipzig':
+        return <FelgenreparaturPage />;
+      case '/fuhrparkservice-leipzig':
+        return <FuhrparkservicePage />;
+      case '/autoglas-leipzig':
+        return <AutoglasPage />;
       case '/geschaeftskunden':
         return <BusinessCustomersPage />;
       case '/karriere':

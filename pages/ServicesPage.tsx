@@ -9,18 +9,18 @@ const care = [
 
 const repair = [
   { title: 'Unfallinstandsetzung Leipzig', description: 'Schadenaufnahme, Kalkulation, Karosseriearbeiten und Reparaturbegleitung.', href: '/unfallinstandsetzung-leipzig' },
-  { title: 'Smart Repair Leipzig', description: 'Punktuelle Reparaturen bei kleineren Lack-, Kunststoff- und Gebrauchsschäden.', href: '/leistungen' },
-  { title: 'Dellenentfernung Leipzig', description: 'Lackierfreie Instandsetzung bei Dellen, Parkremplern und Hagelschäden.', href: '/leistungen' },
+  { title: 'Smart Repair Leipzig', description: 'Punktuelle Reparaturen bei kleineren Lack-, Kunststoff- und Gebrauchsschäden.', href: '/smart-repair-leipzig' },
+  { title: 'Dellenentfernung Leipzig', description: 'Lackierfreie Instandsetzung bei Dellen, Parkremplern und Hagelschäden.', href: '/dellenentfernung-leipzig' },
 ];
 
 const paint = [
-  { title: 'Autolackierung Leipzig', description: 'Neu- und Reparaturlackierung mit sauberer Farbton- und Oberflächenqualität.', href: '/leistungen' },
-  { title: 'Hagelschadenreparatur Leipzig', description: 'Strukturierte Reparatur bei Hagelereignissen inklusive Schadenbewertung.', href: '/unfallinstandsetzung-leipzig' },
-  { title: 'Felgenreparatur Leipzig', description: 'Aufbereitung und Reparatur leichter Oberflächenschäden an Felgen.', href: '/leistungen' },
+  { title: 'Autolackierung Leipzig', description: 'Neu- und Reparaturlackierung mit sauberer Farbton- und Oberflächenqualität.', href: '/autolackierung-leipzig' },
+  { title: 'Hagelschadenreparatur Leipzig', description: 'Strukturierte Reparatur bei Hagelereignissen inklusive Schadenbewertung.', href: '/hagelschadenreparatur-leipzig' },
+  { title: 'Felgenreparatur Leipzig', description: 'Aufbereitung und Reparatur leichter Oberflächenschäden an Felgen.', href: '/felgenreparatur-leipzig' },
 ];
 
 const business = [
-  { title: 'Fuhrparkservice Leipzig', description: 'Planbare Fahrzeugpflege, Reparaturprozesse und transparente Abläufe für Flotten.', href: '/geschaeftskunden' },
+  { title: 'Fuhrparkservice Leipzig', description: 'Planbare Fahrzeugpflege, Reparaturprozesse und transparente Abläufe für Flotten.', href: '/fuhrparkservice-leipzig' },
   { title: 'Geschäftskundenbetreuung', description: 'Feste Ansprechpartner für Autohäuser, Fuhrparks, Versicherungen und Agenturen.', href: '/geschaeftskunden' },
   { title: 'Werterhalt & Verkaufsaufbereitung', description: 'Professionelle Aufwertung vor Verkauf, Übergabe oder Rückgabe.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
