@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 
 const services = [
@@ -11,6 +13,13 @@ const services = [
   { title: 'Polster- und Lederpflege', description: 'Materialgerechte Pflege für Sitzflächen, Leder und textile Innenraumteile.', href: '/autoaufbereitung-wissen/innenaufbereitung' },
   { title: 'Leasingrückgabe-Vorbereitung', description: 'Prüfung und Aufbereitung vor der Fahrzeugrückgabe.', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten' },
   { title: 'Verkaufsaufbereitung', description: 'Professionelle optische Aufwertung vor Verkauf, Übergabe oder Präsentation.', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung' },
+];
+
+const carePackages = [
+  { id: 'p1', title: 'Brillant Außenpflege', price: '169,00 €', description: 'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche inkl. Abledern, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung.' },
+  { id: 'p2', title: 'Intensiv Innenreinigung', price: '199,00 €', description: 'Oberwäsche inkl. Abledern, intensive Reinigung des gesamten Innenraumes, Polstershampoonierung – alternativ Lederpflege – sowie Scheibenreinigung innen und außen.' },
+  { id: 'p3', title: 'Premiumpflege', price: '299,00 €', description: 'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.' },
+  { id: 'p4', title: 'Premiumpflege „exklusiv“', price: 'ab 348,00 €', description: 'Aufbereitung in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes.' },
 ];
 
 const expertPoints = [
@@ -64,6 +73,39 @@ const VehicleDetailingPage: React.FC = () => (
       </div>
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Pflegepakete & Preise"
+          title="Transparente Aufbereitungspakete für jedes Budget."
+          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs."
+        />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {carePackages.map((pkg, idx) => (
+            <motion.article
+              key={pkg.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-lg font-bold leading-tight text-gray-950">{pkg.title}</h3>
+                <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{pkg.price}</span>
+              </div>
+              <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{pkg.description}</p>
+              <a href="/kontakt#contact-termin" className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+                Paket anfragen <ArrowRight size={14} />
+              </a>
+            </motion.article>
+          ))}
+        </div>
+        <p className="mt-6 text-xs leading-relaxed text-gray-500">
+          Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt.
+        </p>
+      </div>
+    </section>
+    <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Fahrzeugaufbereitung." />
         <PageFAQ faqs={faqs} />
