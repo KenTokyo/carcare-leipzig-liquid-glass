@@ -223,7 +223,7 @@ const Navbar: React.FC = () => {
             aria-label="CarCare Center Startseite"
             className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
           >
-            <span className="flex h-12 w-[152px] items-center justify-center gap-1 overflow-hidden rounded-xl bg-white pl-2 pr-2.5 sm:w-[176px] sm:pl-2.5 sm:pr-3 xl:w-[184px]">
+            <span className="flex h-12 w-[132px] items-center justify-center gap-1 overflow-hidden rounded-xl bg-white pl-2 pr-2.5 sm:w-[176px] sm:pl-2.5 sm:pr-3 xl:w-[184px]">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg sm:h-11 sm:w-11">
                 <video
                   src={logoMarkVideoSrc}
@@ -303,7 +303,7 @@ const Navbar: React.FC = () => {
               className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 xl:hidden ${
                 isMobileOpen
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white/95 text-[var(--cc-carbon)] border border-gray-200 hover:border-blue-200 hover:text-[var(--cc-carbon)] shadow-sm'
+                  : 'bg-white/95 text-blue-600 shadow-sm'
               }`}
             >
               {isMobileOpen ? <X size={18} /> : <Menu size={18} />}

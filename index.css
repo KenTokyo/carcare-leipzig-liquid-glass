@@ -237,7 +237,7 @@ body {
 @media (max-width: 767px) {
   .solidroad-nav-frame,
   .solidroad-nav-shell {
-    width: calc(100% - 3.75rem); /* 30px Abstand je Seite */
+    width: calc(100% - 6.875rem); /* 55px Abstand je Seite */
   }
 }
 
@@ -268,6 +268,18 @@ body {
 }
 
 @media (min-width: 1080px) {
+  .solidroad-cutout-left,
+  .solidroad-cutout-right {
+    display: block;
+  }
+}
+
+/* Konkave Cutout-Rundung an den oberen Aussenecken auch auf Mobile (< 768px) zeigen –
+   wie auf dem Desktop. MUSS nach der Basisregel (.solidroad-cutout-* { display:none })
+   stehen, sonst ueberschreibt diese den Wert (gleiche Spezifitaet). Die Cutouts sind
+   Kinder des Frames (right/left:100%) und sitzen automatisch an den eingerueckten
+   Navbar-Kanten. Desktop (>=1080px) bleibt unveraendert. */
+@media (max-width: 767px) {
   .solidroad-cutout-left,
   .solidroad-cutout-right {
     display: block;
