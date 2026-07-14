@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useTransform, useReducedMotion } from 'framer-motion';
-import { AlertTriangle, CalendarClock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, CalendarClock, CheckCircle2 } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 
 const highlights = [
@@ -57,8 +57,8 @@ const HeroSection: React.FC = () => {
           className="max-w-4xl pb-16 pt-6 md:pt-0"
         >
           <div className="mb-7 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-blue-200 bg-blue-50/[0.92] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
-              CarCare Center Leipzig
+            <span className="rounded-full border border-blue-200 bg-blue-50/[0.92] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-blue-700 shadow-sm">
+              Meisterbetrieb · Glasurit-Lackpartner · seit 1993
             </span>
             <span className="rounded-full border border-white/80 bg-white/[0.84] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 shadow-sm">
               An den Tierkliniken 42
@@ -90,13 +90,6 @@ const HeroSection: React.FC = () => {
             >
               <CalendarClock size={18} />
               Termin für Aufbereitung anfragen
-            </a>
-            <a
-              href="/leistungen"
-              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
-            >
-              Leistungen ansehen
-              <ArrowRight size={16} />
             </a>
           </div>
 

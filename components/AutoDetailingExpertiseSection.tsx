@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import ExpandingCardAccordion, { ExpandingCardItem } from './ExpandingCardAccordion';
 
-const cards: ExpandingCardItem[] = [
-  { id: 'innen', title: 'Innenaufbereitung', description: 'Polster, Leder, Geruchsentfernung und gepflegte Oberflächen.', href: '/autoaufbereitung-wissen/innenaufbereitung', cta: 'Innenraum ansehen' },
-  { id: 'aussen', title: 'Außenaufbereitung', description: 'Schonende Wäsche, Lackreinigung und sichtbarer Glanz.', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung', cta: 'Außenpflege ansehen' },
-  { id: 'lack', title: 'Lackaufbereitung', description: 'Politur, Versiegelung und Werterhalt für gepflegte Fahrzeuge.', href: '/autoaufbereitung-wissen/lackaufbereitung', cta: 'Lackpflege ansehen' },
-  { id: 'leasing', title: 'Leasingrückgabe vorbereiten', description: 'Professionelle Begutachtung vor der Rückgabe.', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten', cta: 'Leasing vorbereiten' },
-  { id: 'pakete', title: 'Wissenshub', description: 'Grundlagen, Profi-Tipps und häufige Fehler verständlich erklärt.', href: '/autoaufbereitung-wissen', cta: 'Zum Wissenshub' },
+// Schlanker Wissens-Teaser (statt zweitem Akkordeon): verweist auf den Wissenshub.
+// Die volle Tiefe liegt auf /autoaufbereitung-wissen und den dedizierten Artikeln.
+const articles = [
+  { title: 'Innenaufbereitung', href: '/autoaufbereitung-wissen/innenaufbereitung' },
+  { title: 'Außenaufbereitung', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung' },
+  { title: 'Lackaufbereitung', href: '/autoaufbereitung-wissen/lackaufbereitung' },
+  { title: 'Leasingrückgabe vorbereiten', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten' },
 ];
 
 const AutoDetailingExpertiseSection: React.FC = () => {
@@ -44,9 +44,18 @@ const AutoDetailingExpertiseSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Gleiche ExpandOnHover-Karten wie die Leistungsuebersicht (skiper52/53) */}
-        <div className="mt-12">
-          <ExpandingCardAccordion items={cards} />
+        {/* Schlanker Teaser: Artikel-Chips statt Akkordeon – Tiefe liegt im Wissenshub */}
+        <div className="mt-10 flex flex-wrap gap-3">
+          {articles.map((a) => (
+            <a
+              key={a.href}
+              href={a.href}
+              className="group inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-950 shadow-sm transition-colors hover:border-blue-200 hover:text-blue-700"
+            >
+              {a.title}
+              <ArrowUpRight size={15} className="text-gray-400 transition-colors group-hover:text-blue-600" />
+            </a>
+          ))}
         </div>
       </div>
     </section>

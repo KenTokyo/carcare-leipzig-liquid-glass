@@ -1,19 +1,19 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection';
 import TrustBar from '../components/TrustBar';
-import TargetGroupCards from '../components/TargetGroupCards';
 import ServiceGrid from '../components/ServiceGrid';
 import AccidentDamageSection from '../components/AccidentDamageSection';
-import AutoDetailingExpertiseSection from '../components/AutoDetailingExpertiseSection';
+import TargetGroupCards from '../components/TargetGroupCards';
 import ProcessTimeline from '../components/ProcessTimeline';
-import BusinessCustomerSection from '../components/BusinessCustomerSection';
-import CareerTeaser from '../components/CareerTeaser';
-import References from '../components/References';
+import AutoDetailingExpertiseSection from '../components/AutoDetailingExpertiseSection';
 import FAQSection from '../components/FAQSection';
-import ContactCTA from '../components/ContactCTA';
 import ContactSection from '../components/ContactSection';
 import { PageMeta } from '../components/PageBlocks';
 
+// Schlanke, conversion-fokussierte Startseite (9 Sektionen statt 13).
+// Ausgelagert: Geschäftskunden -> /geschaeftskunden, Karriere -> /karriere.
+// Zusammengeführt: Kontaktabschluss (ContactCTA) in ContactSection.
+// Ersetzt (offen): generische „Vertrauen"-Sektion -> echte Google-Bewertungen (echte Daten nötig).
 const HomePage: React.FC = () => (
   <>
     <PageMeta
@@ -23,16 +23,12 @@ const HomePage: React.FC = () => (
     />
     <HeroSection />
     <TrustBar />
-    <TargetGroupCards />
     <ServiceGrid />
     <AccidentDamageSection />
-    <AutoDetailingExpertiseSection />
+    <TargetGroupCards />
     <ProcessTimeline />
-    <BusinessCustomerSection />
-    <CareerTeaser />
-    <References />
+    <AutoDetailingExpertiseSection />
     <FAQSection />
-    <ContactCTA />
     <ContactSection />
   </>
 );

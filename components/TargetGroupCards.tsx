@@ -42,15 +42,6 @@ const groups: TargetGroup[] = [
     href: '/geschaeftskunden',
     backgroundImage: DEFAULT_CARD_BG,
   },
-  {
-    id: 'bewerber',
-    title: 'Bewerber',
-    description: 'Arbeiten in einem starken Team mit Fahrzeugen, Qualität und echtem Handwerk.',
-    cta: 'Karriere entdecken',
-    iconName: 'Briefcase',
-    href: '/karriere',
-    backgroundImage: DEFAULT_CARD_BG,
-  },
 ];
 
 const TargetGroupCards: React.FC = () => {
@@ -67,7 +58,7 @@ const TargetGroupCards: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {groups.map((group, idx) => (
             <motion.a
               key={group.id}

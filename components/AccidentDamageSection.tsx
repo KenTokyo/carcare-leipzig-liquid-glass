@@ -5,23 +5,18 @@ import {
   ClipboardCheck,
   FileSearch,
   ShieldCheck,
-  Hammer,
-  PaintBucket,
   Car,
-  UserCheck,
   ArrowRight,
   Phone,
 } from 'lucide-react';
 
+// Bewusst auf 4 Kern-Schritte gestrafft (Schadenreise); Reparaturdetails stehen in der
+// Leistungsübersicht und auf /unfallinstandsetzung-leipzig.
 const points = [
   { label: 'Schadenaufnahme', icon: <FileSearch size={18} /> },
-  { label: 'Schadenskalkulation', icon: <ClipboardCheck size={18} /> },
-  { label: 'Gutachterservice', icon: <ShieldCheck size={18} /> },
+  { label: 'Gutachten & Kalkulation', icon: <ClipboardCheck size={18} /> },
   { label: 'Versicherungsabwicklung', icon: <ShieldCheck size={18} /> },
-  { label: 'Karosseriearbeiten', icon: <Hammer size={18} /> },
-  { label: 'Reparaturlackierung', icon: <PaintBucket size={18} /> },
   { label: 'Ersatzwagen nach Verfügbarkeit', icon: <Car size={18} /> },
-  { label: 'Persönliche Betreuung', icon: <UserCheck size={18} /> },
 ];
 
 const AccidentDamageSection: React.FC = () => {
@@ -83,7 +78,7 @@ const AccidentDamageSection: React.FC = () => {
                 ))}
               </div>
               <div className="mt-5 rounded-2xl border border-blue-100 bg-white/80 p-5 text-sm leading-relaxed text-gray-600">
-                Starker lokaler Fokus: Unfallinstandsetzung, Unfallschaden, Autoreparatur und Schadenabwicklung in Leipzig werden auf der Startseite bewusst prominent sichtbar.
+                Unfallinstandsetzung, Autoreparatur und Schadenabwicklung in Leipzig – von der Schadenaufnahme bis zur Übergabe des reparierten Fahrzeugs aus einer Hand.
               </div>
             </motion.div>
           </div>
