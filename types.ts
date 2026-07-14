@@ -1,14 +1,3 @@
-export interface ServiceItem {
-  id: string;
-  title: string;
-  description: string;
-  longDescription?: string;
-  category: 'Pflege' | 'Reparatur' | 'Spezial';
-  iconName: string;
-  image?: string;
-  price?: string;
-}
-
 export interface JobOffer {
   id: string;
   title: string;
@@ -63,20 +52,6 @@ export interface TimelineTab {
   iconName: string;
   intro: string;
   steps: ProcessStep[];
-}
-
-export interface ReferencePoint {
-  id: string;
-  title: string;
-  description: string;
-  iconName: string;
-}
-
-export interface BusinessBenefit {
-  id: string;
-  title: string;
-  description: string;
-  iconName: string;
 }
 
 export type RequestFormKind = 'schaden' | 'termin' | 'business';
