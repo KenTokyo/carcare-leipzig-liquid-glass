@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import { AlertTriangle, CalendarClock, CheckCircle2 } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 
@@ -11,13 +11,29 @@ const highlights = [
 
 const HeroSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
 
   // Vertikaler Bild-Parallax (skiper29 / „Siena"): das ueberformatige Bild zieht
   // langsamer als die Seite durch den overflow-hidden-Rahmen. Fortschritt robust
   // ueber die eigene Sektionshoehe gemessen (siehe useScrollProgress).
-  const progress = useScrollProgress(sectionRef, { enabled: !reduceMotion });
-  const parallaxY = useTransform(progress, [0, 1], ['-10%', '10%']);
+  //
+  // STAERKE = REFERENZ (live gemessen an skiper-ui.com/v1/preview/skiper29):
+  // Dort laeuft das Bild (800 px) im Rahmen (560 px) ueber seinen *vollen* Ueberhang
+  // von 240 px, fertig nach genau einer Rahmenhoehe Scroll → Rate 240/560 = 0.4286
+  // → das Bild zieht mit 0.571x der Scrollgeschwindigkeit.
+  // Nachgebaut: Ebene h-[147%] (Referenz-Verhaeltnis 1.4286 + 2 x 2 % Deckungspuffer),
+  // Reise ±14.6 % der Ebenenhoehe = ±21.5 % der Rahmenhoehe → Δ 0.4292 → 0.5708x.
+  // Zentriert statt `items-end` wie die Referenz: deren Bottom-Crop passt zu ihrem
+  // 70vh-Layout, unsere Veils sind auf die Bildmitte abgestimmt. Uebernommen wird die
+  // Bewegung, nicht der Ausschnitt. Aendern? Dann Reise UND -top gemeinsam anpassen,
+  // sonst grauer Rand an den Extremen (Details: docs/hero-parallax/.../Phase 6).
+  //
+  // BEWUSST NICHT auf prefers-reduced-motion gegated: Windows meldet bei
+  // deaktivierten „Animationseffekten" reduced-motion systemweit an alle Browser —
+  // ein Gate toetet die Marken-Animation daher auch bei Nutzern ohne vestibulaeren
+  // Bedarf. Die uebrige Site animiert konsistent ungegated (whileInView-Reveals,
+  // ExpandingCardAccordion). Siehe mobile-accordion-animation-tasks.md, Phase 5.
+  const progress = useScrollProgress(sectionRef);
+  const parallaxY = useTransform(progress, [0, 1], ['-14.6%', '14.6%']);
 
   return (
     <section
@@ -28,25 +44,43 @@ const HeroSection: React.FC = () => {
     >
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">
       <div className="absolute inset-0">
-        {/* Bewegte Bild-Ebene: 130 % Hoehe, vertikal zentriert (-15 %), damit die
-            translateY-Reise (±10 %) an beiden Extremen den Rahmen voll deckt
-            (kein grauer Rand). Die Veils darunter bleiben statisch. */}
+        {/* Bewegte Bild-Ebene: 147 % Hoehe, vertikal zentriert (-23.5 %), damit die
+            translateY-Reise (±14.6 % = ±21.5 % der Rahmenhoehe) an beiden Extremen
+            den Rahmen voll deckt (kein grauer Rand, ~2 % Reserve).
+            Die Veils darunter bleiben statisch. */}
         <motion.div
-          style={{ y: reduceMotion ? 0 : parallaxY }}
-          className="absolute inset-x-0 -top-[15%] h-[130%] will-change-transform"
+          style={{ y: parallaxY }}
+          className="absolute inset-x-0 -top-[23.5%] h-[147%] will-change-transform"
         >
-          <img
-            src="/assets/carcare-hero-workshop.jpeg"
-            alt="Premiumfahrzeuge in der CarCare Werkstatt Leipzig"
-            width={2400}
-            height={1350}
-            fetchPriority="high"
-            className="h-full w-full object-cover object-center"
-          />
+          {/* Art Direction statt einem Bild fuer alles: Das Desktop-Motiv ist ein 21:9-Panorama
+              (2400x1029). Der mobile Hero-Rahmen ist hochkant (~0.34) — dort wuerde `object-cover`
+              nur ~15 % der Bildbreite zeigen und sie 2,2x strecken (unscharfer Streifen).
+              Der Hochkant-Shot (1360x2048) fuellt denselben Rahmen mit ~51 % Bildbreite bei 1,1x.
+              Breakpoint 767px = Tailwinds `md`, passend zu den `md:`-Klassen der Sektion. */}
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet="/assets/hero-leipzig-carcare-mobile.webp"
+              width={1360}
+              height={2048}
+            />
+            <img
+              src="/assets/hero-leipzig-carcare.webp"
+              alt="Fahrzeuge im Showroom des CarCare Center Leipzig, An den Tierkliniken 42"
+              width={2400}
+              height={1029}
+              fetchPriority="high"
+              className="h-full w-full object-cover object-center"
+            />
+          </picture>
         </motion.div>
+        {/* Seitlicher Textteppich (dunkel, links stark -> rechts frei): laesst das
+            CarCare-Logo an der Hallenwand sichtbar. Definition in index.css. */}
         <div className="hero-copy-veil absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/[0.92] via-white/[0.14] to-white/5" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.08] to-transparent" />
+        {/* Dunkler Uebergang nach oben: oben kraeftig (setzt Navbar + Headline ab und
+            gibt Tiefe), nach unten hin frei, damit der Showroom-Boden offen bleibt.
+            `to-t` => `from` sitzt unten, `to` oben. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/20 via-gray-950/45 to-gray-950/85" />
       </div>
 
       <div className="container relative z-10 mx-auto flex min-h-[92svh] items-center px-5 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 xl:px-10">
@@ -67,12 +101,12 @@ const HeroSection: React.FC = () => {
 
           <h1
             id="home-heading"
-            className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-gray-950 drop-shadow-[0_1px_0_rgb(255_255_255/0.65)] sm:text-5xl md:text-6xl lg:text-7xl"
+            className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? CarCare kümmert sich.
           </h1>
 
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-600 md:text-xl">
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:text-xl">
             Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Privatkunden, Versicherungen, Autohäuser und Fuhrparks.
           </p>
 

@@ -39,9 +39,11 @@
   --cc-nav-inner-radius: 28px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* Kein `scroll-behavior: smooth` mehr: Die Glaettung besitzt jetzt Lenis
+   (hooks/useSmoothScroll.ts, an der App-Wurzel aktiv) — es interpoliert Wheel/Touch
+   Frame fuer Frame und uebernimmt via `anchors` auch die In-Page-Sprungmarken.
+   Die CSS-Regel wuerde native Spruenge zusaetzlich animieren und gegen Lenis arbeiten
+   (so auch die Lenis-Doku). Details: docs/hero-parallax/.../Phase 7. */
 
 body {
   margin: 0;
@@ -185,12 +187,18 @@ body {
   isolation: isolate;
 }
 
+/* Seitlicher Textteppich: setzt die Headline links ab und laesst den Showroom rechts
+   (CarCare-Logo an der Wand) frei. Bewusst DUNKEL statt weiss — im Hero-Foto stehen
+   hinter der Headline dunkle Fahrzeuge, auf denen schwarze Schrift unlesbar waere.
+   Die Hero-Typografie ist entsprechend hell (siehe HeroSection).
+   Die Maske haelt die oberen ~9.5rem frei (Navbar-Zone) — dort uebernimmt der
+   vertikale Verlauf in HeroSection. */
 .hero-copy-veil {
   background: linear-gradient(
     90deg,
-    rgb(255 255 255 / 0.96) 0%,
-    rgb(255 255 255 / 0.88) 43%,
-    rgb(255 255 255 / 0.28) 100%
+    rgb(var(--cc-carbon-rgb) / 0.72) 0%,
+    rgb(var(--cc-carbon-rgb) / 0.55) 43%,
+    rgb(var(--cc-carbon-rgb) / 0.08) 100%
   );
   mask-image: linear-gradient(to bottom, transparent 0, transparent 9.5rem, black 17rem);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 9.5rem, black 17rem);
@@ -315,7 +323,7 @@ textarea {
 
 .cc-gradient-button {
   background-color: var(--cc-graphite);
-  background-image: url("/assets/carcare-button-gradient.png");
+  background-image: url("/assets/carcare-button-gradient.webp");
   background-position: center;
   background-size: cover;
   border-color: rgb(var(--cc-ice-blue-rgb) / 0.72);

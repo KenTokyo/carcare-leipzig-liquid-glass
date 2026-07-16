@@ -9,7 +9,7 @@ import { TargetGroup } from '../types';
  * eigenes Bild) ODER pro Kachel das Feld `backgroundImage` unten setzen.
  * Neue Bilder in `public/assets/` ablegen und den Pfad hier eintragen.
  */
-const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.jpeg';
+const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.webp';
 
 /** Animierte CarCare-Marke fuer das Logo-Badge unten rechts. */
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
@@ -40,7 +40,7 @@ const groups: TargetGroup[] = [
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',
-    backgroundImage: DEFAULT_CARD_BG,
+    backgroundImage: '/assets/kacheln/fuhrparkservice-leipzig-carcare.webp',
   },
 ];
 

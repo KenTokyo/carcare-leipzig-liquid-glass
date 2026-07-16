@@ -3,17 +3,24 @@ import { ArrowUpRight } from 'lucide-react';
 import { OverviewService } from '../types';
 import ExpandingCardAccordion from './ExpandingCardAccordion';
 
+/**
+ * Eigenes Foto je Kachel: Der ExpandOnHover-Effekt (skiper52/53) lebt davon, dass sich die
+ * Karten optisch unterscheiden — mit einem gemeinsamen Default-Bild wirkt das Aufklappen flach.
+ * Dateien liegen in /public/assets/kacheln (aus PNG konvertiert via `npm run images`).
+ */
+const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
+
 const overviewServices: OverviewService[] = [
-  { id: 'aufbereitung', title: 'Fahrzeugaufbereitung', description: 'Innen, außen, Lackpflege und Pflegepakete für sichtbaren Werterhalt.', iconName: 'Sparkles', href: '/fahrzeugaufbereitung-leipzig', cta: 'Zur Aufbereitung' },
-  { id: 'unfall', title: 'Unfallinstandsetzung', description: 'Schadenaufnahme, Kalkulation und Reparatur aus einer Hand.', iconName: 'Wrench', href: '/unfallinstandsetzung-leipzig', cta: 'Unfall melden' },
-  { id: 'lackierung', title: 'Neu- und Reparaturlackierung', description: 'Saubere Lackierungen ohne sichtbare Farbtonunterschiede.', iconName: 'PaintBucket', href: '/autolackierung-leipzig', cta: 'Zur Lackierung' },
-  { id: 'smart', title: 'Smart Repair', description: 'Punktgenaue Lack- und Kunststoffreparatur für kleinere Schäden.', iconName: 'ScanLine', href: '/smart-repair-leipzig', cta: 'Smart Repair ansehen' },
-  { id: 'dellen', title: 'Dellenentfernung', description: 'Lackierfreie Instandsetzung bei Dellen und kleinen Karosserieschäden.', iconName: 'Hammer', href: '/dellenentfernung-leipzig', cta: 'Dellen entfernen' },
-  { id: 'hagel', title: 'Hagelschadenreparatur', description: 'Strukturierte Hilfe nach Hagelereignissen und Dellenfeldern.', iconName: 'CloudHail', href: '/hagelschadenreparatur-leipzig', cta: 'Hagelschaden prüfen' },
-  { id: 'felgen', title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb.', iconName: 'CircleDot', href: '/felgenreparatur-leipzig', cta: 'Felgen reparieren' },
-  { id: 'glas', title: 'Autoglas / Scheibenfolien', description: 'Steinschlagreparatur, Scheibentausch und Folien über WINTEC.', iconName: 'Glasses', href: '/autoglas-leipzig', cta: 'Zum Autoglas' },
-  { id: 'leasing', title: 'Leasingrückgabe', description: 'Begutachtung und fachgerechte Instandsetzung vor der Rückgabe.', iconName: 'KeyRound', href: '/fahrzeugaufbereitung-leipzig', cta: 'Leasing vorbereiten' },
-  { id: 'fuhrpark', title: 'Fuhrparkservice', description: 'Planbare Pflege- und Reparaturprozesse für gewerbliche Flotten.', iconName: 'TruckIcon', href: '/fuhrparkservice-leipzig', cta: 'Fuhrparkservice' },
+  { id: 'aufbereitung', title: 'Fahrzeugaufbereitung', description: 'Innen, außen, Lackpflege und Pflegepakete für sichtbaren Werterhalt.', iconName: 'Sparkles', href: '/fahrzeugaufbereitung-leipzig', cta: 'Zur Aufbereitung', backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare') },
+  { id: 'unfall', title: 'Unfallinstandsetzung', description: 'Schadenaufnahme, Kalkulation und Reparatur aus einer Hand.', iconName: 'Wrench', href: '/unfallinstandsetzung-leipzig', cta: 'Unfall melden', backgroundImage: kachel('versicherung-schadenabwicklung-leipzig-carcare') },
+  { id: 'lackierung', title: 'Neu- und Reparaturlackierung', description: 'Saubere Lackierungen ohne sichtbare Farbtonunterschiede.', iconName: 'PaintBucket', href: '/autolackierung-leipzig', cta: 'Zur Lackierung', backgroundImage: kachel('autolackierung-leipzig-carcare') },
+  { id: 'smart', title: 'Smart Repair', description: 'Punktgenaue Lack- und Kunststoffreparatur für kleinere Schäden.', iconName: 'ScanLine', href: '/smart-repair-leipzig', cta: 'Smart Repair ansehen', backgroundImage: kachel('smart-repair-leipzig-carcare') },
+  { id: 'dellen', title: 'Dellenentfernung', description: 'Lackierfreie Instandsetzung bei Dellen und kleinen Karosserieschäden.', iconName: 'Hammer', href: '/dellenentfernung-leipzig', cta: 'Dellen entfernen', backgroundImage: kachel('dellenentfernung-leipzig-carcare') },
+  { id: 'hagel', title: 'Hagelschadenreparatur', description: 'Strukturierte Hilfe nach Hagelereignissen und Dellenfeldern.', iconName: 'CloudHail', href: '/hagelschadenreparatur-leipzig', cta: 'Hagelschaden prüfen', backgroundImage: kachel('hagelschadenreparatur-leipzig') },
+  { id: 'felgen', title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb.', iconName: 'CircleDot', href: '/felgenreparatur-leipzig', cta: 'Felgen reparieren', backgroundImage: kachel('felgenreparatur-leipzig-carcare') },
+  { id: 'glas', title: 'Autoglas / Scheibenfolien', description: 'Steinschlagreparatur, Scheibentausch und Folien über WINTEC.', iconName: 'Glasses', href: '/autoglas-leipzig', cta: 'Zum Autoglas', backgroundImage: kachel('autoglas-scheibenreparatur-leipzig-carcare') },
+  { id: 'leasing', title: 'Leasingrückgabe', description: 'Begutachtung und fachgerechte Instandsetzung vor der Rückgabe.', iconName: 'KeyRound', href: '/fahrzeugaufbereitung-leipzig', cta: 'Leasing vorbereiten', backgroundImage: kachel('leasingrueckgabe-leipzig-carcare') },
+  { id: 'fuhrpark', title: 'Fuhrparkservice', description: 'Planbare Pflege- und Reparaturprozesse für gewerbliche Flotten.', iconName: 'TruckIcon', href: '/fuhrparkservice-leipzig', cta: 'Fuhrparkservice', backgroundImage: kachel('autohaus-fuhrpark-service-leipzig-carcare') },
 ];
 
 const ServiceGrid: React.FC = () => {

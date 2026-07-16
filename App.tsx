@@ -21,6 +21,7 @@ import KnowledgeHubPage from './pages/KnowledgeHubPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { getKnowledgeArticleByPath } from './data/knowledgeArticles';
 import { pageSchemas } from './seo/pageSchemas';
+import { useSmoothScroll, getLenis } from './hooks/useSmoothScroll';
 
 const normalizePath = (path: string) => {
   if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
@@ -29,6 +30,10 @@ const normalizePath = (path: string) => {
 
 const App: React.FC = () => {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+
+  // Globales Smooth-Scrolling (Lenis) — gibt der ganzen Seite und damit auch dem
+  // Hero-Parallax die Fluessigkeit der skiper29-Referenz. Siehe hooks/useSmoothScroll.ts.
+  useSmoothScroll();
 
   useEffect(() => {
     const syncPath = () => setPath(normalizePath(window.location.pathname));
@@ -43,14 +48,19 @@ const App: React.FC = () => {
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     window.setTimeout(() => {
+      // Ueber Lenis scrollen, solange es laeuft: ein nativer window.scrollTo wuerde gegen
+      // dessen Interpolation arbeiten (sichtbares Zurueckspringen). Fallback bleibt nativ.
+      const lenis = getLenis();
       if (hash) {
         const target = document.getElementById(hash);
         if (target) {
-          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+          if (lenis) lenis.scrollTo(target, { offset: -88 });
+          else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
           return;
         }
       }
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      if (lenis) lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'auto' });
     }, 50);
   }, [path]);
 

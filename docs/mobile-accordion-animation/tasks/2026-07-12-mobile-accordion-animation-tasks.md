@@ -147,6 +147,12 @@ statt geraten ✅, Konsistenz mit Site-Konvention (ungegated) hergestellt ✅, `
    respektiert. Vertretbar, weil die gesamte Site ungegated animiert (Hero-Parallax, Reveals) und der
    User die Animation explizit fordert; dokumentiert im Code. Wer strikte reduced-motion-Treue will,
    müsste das site-weit konsistent nachrüsten (eigener Task).
+   > **Nachtrag 2026-07-16:** Die hier tragende Annahme „Hero-Parallax ist ungegated" war zum
+   > Zeitpunkt dieser Phase **faktisch falsch** — `HeroSection` trug seit `bf95b56` ein eigenes
+   > `useReducedMotion`-Gate und war beim User dadurch **komplett tot** (der User meldete den
+   > fehlenden Parallax am 16.07.). Die Konsistenz-Begründung stimmt erst **seit** der Korrektur in
+   > `docs/hero-parallax/tasks/2026-07-12-hero-parallax-tasks.md`, Phase 5 (Gate dort entfernt).
+   > **Lehre:** Konsistenz-Behauptungen gegen den Code verifizieren, nicht gegen die Erinnerung.
 3. 🟢 **Niedrig (Trigger-Erkenntnis):** `mouseover`-Dispatch triggert React-`onMouseEnter` in der Preview
    zuverlässig (im Gegensatz zu `.focus()`), weil React 19 Enter/Leave aus delegiertem `mouseover`
    synthetisiert und keinen OS-Fokus braucht. Nützlich für künftige Interaktions-Verifikation.

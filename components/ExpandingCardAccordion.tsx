@@ -24,7 +24,7 @@ export interface ExpandingCardItem {
  * Der ExpandOnHover-Effekt (skiper52/53) wirkt am staerksten mit UNTERSCHIEDLICHEN
  * Bildern je Karte.
  */
-const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.jpeg';
+const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.webp';
 
 /**
  * CarCare-Logo-Badge. Bewusst das STATISCHE Logo (nicht das animierte MP4):
