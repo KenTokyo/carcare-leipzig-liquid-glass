@@ -1,89 +1,196 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import {
   AlertTriangle,
-  ClipboardCheck,
   FileSearch,
+  ClipboardCheck,
   ShieldCheck,
   Car,
   ArrowRight,
   Phone,
 } from 'lucide-react';
+import { useScrollProgress } from '../hooks/useScrollProgress';
 
-// Bewusst auf 4 Kern-Schritte gestrafft (Schadenreise); Reparaturdetails stehen in der
-// Leistungsübersicht und auf /unfallinstandsetzung-leipzig.
-const points = [
-  { label: 'Schadenaufnahme', icon: <FileSearch size={18} /> },
-  { label: 'Gutachten & Kalkulation', icon: <ClipboardCheck size={18} /> },
-  { label: 'Versicherungsabwicklung', icon: <ShieldCheck size={18} /> },
-  { label: 'Ersatzwagen nach Verfügbarkeit', icon: <Car size={18} /> },
+interface Step {
+  n: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+// 4 Schritte der Schadenreise (Titel + kurze, konkrete Erklaerung, Sie-Ansprache).
+const steps: Step[] = [
+  {
+    n: '01',
+    title: 'Schadenaufnahme',
+    description:
+      'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
+    icon: <FileSearch size={22} />,
+  },
+  {
+    n: '02',
+    title: 'Gutachten & Kalkulation',
+    description:
+      'Auf Wunsch stimmen wir uns mit einem Gutachter ab und erstellen eine nachvollziehbare Kostenkalkulation für die Reparatur.',
+    icon: <ClipboardCheck size={22} />,
+  },
+  {
+    n: '03',
+    title: 'Versicherungsabwicklung',
+    description:
+      'Wir übernehmen die Kommunikation mit Ihrer Versicherung und kümmern uns um den Schriftverkehr rund um den Schadenfall.',
+    icon: <ShieldCheck size={22} />,
+  },
+  {
+    n: '04',
+    title: 'Ersatzwagen nach Verfügbarkeit',
+    description:
+      'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen für die Dauer der Reparatur.',
+    icon: <Car size={22} />,
+  },
 ];
 
-const AccidentDamageSection: React.FC = () => {
-  return (
-    <section id="unfall-schaden" aria-labelledby="accident-heading" className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-white p-6 shadow-[0_30px_90px_-60px_rgb(var(--cc-trust-blue-rgb)/0.55)] md:p-10 lg:p-14">
-          <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-blue-200/45 blur-3xl" />
-          <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-6"
-            >
-              <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
-                <AlertTriangle size={15} />
-                Unfall & Schaden Leipzig
-              </div>
-              <h2 id="accident-heading" className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
-                Unfallschaden? Wir übernehmen Reparatur, Gutachten und Abstimmung mit der Versicherung.
-              </h2>
-              <p className="mt-6 text-base leading-relaxed text-gray-600 md:text-lg">
-                Ein Unfallschaden ist ärgerlich genug. CarCare unterstützt von der ersten Schadenaufnahme über die Kalkulation bis zur fachgerechten Reparatur. Auf Wunsch erfolgt die Abstimmung mit Gutachtern und Versicherern. Während der Reparatur kommunizieren wir Ersatzmobilität, sofern verfügbar.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <a
-                  href="/kontakt#contact-schaden"
-                  className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
-                >
-                  Schaden jetzt melden
-                  <ArrowRight size={16} />
-                </a>
-                <a
-                  href="tel:+493412617790"
-                  className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
-                >
-                  <Phone size={16} />
-                  Direkt anrufen
-                </a>
-              </div>
-            </motion.div>
+// Weiche Crossfade-Ueberlappung an den Intervallgrenzen (kein harter Cut).
+const OVERLAP = 0.06;
+const STEP = 1 / steps.length; // 0.25
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.12 }}
-              className="lg:col-span-6"
+/**
+ * Eine Prozess-Karte. Leitet aus dem (gefederten) Scroll-Progress ihr eigenes
+ * Opacity-/Y-Intervall ab. Erste Karte startet sichtbar (progress 0), letzte bleibt
+ * bis zum Ende. Dazwischen Trapez-Rampe [0,1,1,0].
+ */
+const ProcessCard: React.FC<{ step: Step; index: number; progress: MotionValue<number> }> = ({
+  step,
+  index,
+  progress,
+}) => {
+  const start = index * STEP;
+  const end = (index + 1) * STEP;
+  const isFirst = index === 0;
+  const isLast = index === steps.length - 1;
+
+  const range = isFirst
+    ? [0, end - OVERLAP, end + OVERLAP]
+    : isLast
+      ? [start - OVERLAP, start + OVERLAP, 1]
+      : [start - OVERLAP, start + OVERLAP, end - OVERLAP, end + OVERLAP];
+  const opacityOut = isFirst ? [1, 1, 0] : isLast ? [0, 1, 1] : [0, 1, 1, 0];
+  const yOut = isFirst ? [0, 0, -28] : isLast ? [28, 0, 0] : [28, 0, 0, -28];
+
+  const opacity = useTransform(progress, range, opacityOut);
+  const y = useTransform(progress, range, yOut);
+
+  return (
+    <motion.article
+      style={{ opacity, y }}
+      className="absolute inset-0 flex flex-col justify-center rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50/80 via-white to-white p-6 shadow-[0_30px_90px_-60px_rgb(var(--cc-trust-blue-rgb)/0.55)] md:p-10"
+    >
+      <div className="flex items-center justify-between">
+        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+          {step.icon}
+        </span>
+        <span className="text-5xl font-bold text-blue-100 md:text-6xl">{step.n}</span>
+      </div>
+      <h3 className="mt-6 text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-3xl">
+        {step.title}
+      </h3>
+      <p className="mt-3 text-base leading-relaxed text-gray-600 md:text-lg">{step.description}</p>
+    </motion.article>
+  );
+};
+
+const AccidentDamageSection: React.FC = () => {
+  const trackRef = useRef<HTMLElement>(null);
+
+  // Fortschritt window-basiert messen (immun gegen den overflow/transform-Shell-Bug, der
+  // position:sticky UND useScroll({target}) hier brechen laesst — empirisch belegt).
+  const progress = useScrollProgress(trackRef, { distance: 'through' });
+
+  // Pin: die h-screen-Buehne exakt scroll-synchron nach unten schieben (0 → 300vh), damit sie
+  // im Viewport „stehen" bleibt, bis der 400vh-Track durch ist. RAW progress = 1:1 zum Scroll;
+  // ein Spring hier wuerde den Pin gegen den Scroll schwimmen lassen.
+  const pinY = useTransform(progress, [0, 1], ['0vh', '300vh']);
+
+  // Karten dagegen leicht federn → smoothe, ruckelfreie Ein-/Ausblendungen.
+  const cardProgress = useSpring(progress, { stiffness: 140, damping: 30, mass: 0.4 });
+
+  // Aktiver Karten-Index nur fuer die Fortschrittsanzeige (re-rendert nur bei Wechsel, 4x).
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const unsub = progress.on('change', (v) => {
+      const i = Math.min(steps.length - 1, Math.max(0, Math.floor(v / STEP)));
+      setActive((prev) => (prev === i ? prev : i));
+    });
+    return unsub;
+  }, [progress]);
+
+  return (
+    // Track: definierte Scroll-Hoehe fuer 4 Karten. Der Pin entsteht per Transform (nicht sticky).
+    <section ref={trackRef} id="unfall-schaden" aria-labelledby="accident-heading" className="relative h-[400vh] bg-white">
+      <motion.div style={{ y: pinY }} className="h-screen px-6 will-change-transform">
+        <div className="container mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
+          {/* Links/oben: statischer Header + CTAs + Fortschritt */}
+          <div className="lg:w-[45%]">
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
+              <AlertTriangle size={15} />
+              Unfall & Schaden Leipzig
+            </div>
+            <h2
+              id="accident-heading"
+              className="text-2xl font-bold leading-tight tracking-tight text-gray-950 sm:text-3xl md:text-5xl"
             >
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {points.map((point) => (
-                  <div key={point.label} className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
-                      {point.icon}
-                    </div>
-                    <p className="text-sm font-bold leading-snug text-gray-900">{point.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-2xl border border-blue-100 bg-white/80 p-5 text-sm leading-relaxed text-gray-600">
-                Unfallinstandsetzung, Autoreparatur und Schadenabwicklung in Leipzig – von der Schadenaufnahme bis zur Übergabe des reparierten Fahrzeugs aus einer Hand.
-              </div>
-            </motion.div>
+              Unfallschaden? Wir übernehmen Reparatur, Gutachten und Abstimmung mit der Versicherung.
+            </h2>
+            {/* Intro nur ab Desktop – auf Mobile zaehlt jeder vertikale Pixel (Pin = h-screen). */}
+            <p className="mt-5 hidden max-w-xl text-base leading-relaxed text-gray-600 md:text-lg lg:block">
+              Von der ersten Schadenaufnahme bis zur Übergabe des reparierten Fahrzeugs – in vier
+              klaren Schritten, aus einer Hand.
+            </p>
+
+            {/* Fortschritts-Indikator: Dots + Zaehler, folgen dem aktiven Schritt */}
+            <div className="mt-7 flex items-center gap-2.5" aria-hidden="true">
+              {steps.map((s, i) => (
+                <span
+                  key={s.n}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === active ? 'w-9 bg-blue-600' : 'w-2.5 bg-blue-200'
+                  }`}
+                />
+              ))}
+              <span className="ml-2 text-xs font-bold tracking-wide text-gray-400">
+                {steps[active].n} / {String(steps.length).padStart(2, '0')}
+              </span>
+            </div>
+
+            {/* CTAs nur ab Desktop – auf Mobile deckt die fixierte Bottom-Nav (Anrufen/Schaden/
+                Termin) dieselben Aktionen ab; hier wuerden sie nur den Pin-Viewport sprengen. */}
+            <div className="mt-8 hidden gap-3 lg:flex lg:flex-row lg:flex-wrap">
+              <a
+                href="/kontakt#contact-schaden"
+                className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+              >
+                Schaden jetzt melden
+                <ArrowRight size={16} />
+              </a>
+              <a
+                href="tel:+493412617790"
+                className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+              >
+                <Phone size={16} />
+                Direkt anrufen
+              </a>
+            </div>
+          </div>
+
+          {/* Rechts/unten: Karten-Buehne. Karten liegen gestapelt (absolute) und blenden
+              je nach Scroll nacheinander ein/aus. Feste Hoehe = Platz fuer die absolute Ebene. */}
+          <div className="relative h-[260px] w-full sm:h-[300px] lg:h-[380px] lg:w-[55%]">
+            {steps.map((step, i) => (
+              <ProcessCard key={step.n} step={step} index={i} progress={cardProgress} />
+            ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
