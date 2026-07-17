@@ -37,6 +37,14 @@ interface ExpandingCardAccordionProps {
   items: ExpandingCardItem[];
   /** Optionales aria-Label-Suffix pro Karte (Default: item.cta bzw. "Mehr ansehen"). */
   className?: string;
+  /**
+   * Optionaler Callback: meldet das aufgeloeste Bild der aktuell **aufgeklappten** Karte
+   * (nicht nur beim Hovern, sondern solange die Karte offen ist — auf Desktop ist immer
+   * genau eine offen). Damit kann die umgebende Sektion einen Full-Bleed-Hintergrund
+   * einblenden, der bestehen bleibt (siehe ServiceGrid). Auf Mobile `null` (kein Hover-
+   * getriebener Section-Hintergrund).
+   */
+  onActiveImageChange?: (image: string | null) => void;
 }
 
 /**
@@ -45,7 +53,7 @@ interface ExpandingCardAccordionProps {
  * weiße Textbox (Titel + blauer Punkt + Beschreibung + CTA/Pfeil-Badge) + Logo-Badge ein.
  * Geteilt von Leistungsuebersicht (`ServiceGrid`) und Autoaufbereitungs-Expertise.
  */
-const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, className }) => {
+const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, className, onActiveImageChange }) => {
   // Aktiv (aufgeklappt): Desktop = horizontales Akkordeon (skiper52),
   // Mobile = vertikales Akkordeon (skiper53).
   const [active, setActive] = useState(0);
@@ -91,6 +99,14 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
     };
   }, []);
 
+  // Section-Hintergrund folgt der AKTIVEN (aufgeklappten) Karte — nicht dem Hover.
+  // Auf Desktop ist immer genau eine Karte offen, der Hintergrund bleibt also stehen,
+  // auch wenn die Maus den Strip verlaesst. Auf Mobile bewusst `null` (kein Full-Bleed-
+  // Hintergrund hinter dem vertikalen Stapel). Deckt Mount (active=0) + jeden Wechsel ab.
+  useEffect(() => {
+    onActiveImageChange?.(isDesktop ? items[active]?.backgroundImage ?? DEFAULT_CARD_BG : null);
+  }, [active, isDesktop, items, onActiveImageChange]);
+
   return (
     // Akkordeon: Mobile vertikal (Hoehe animiert, skiper53), Desktop horizontal
     // (flex-grow animiert, skiper52). Kein horizontales Scrollen.
@@ -103,6 +119,8 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
     >
       {items.map((item, idx) => {
         const isActive = active === idx;
+        // Exakt das sichtbare Kartenbild — damit der Section-Hintergrund 1:1 dem Hover entspricht.
+        const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
         return (
           <motion.a
             key={item.id}
@@ -128,7 +146,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
           >
             {/* Layer 1 – Hintergrundbild (pro Karte austauschbar) */}
             <img
-              src={item.backgroundImage ?? DEFAULT_CARD_BG}
+              src={cardImage}
               alt=""
               aria-hidden="true"
               loading="lazy"

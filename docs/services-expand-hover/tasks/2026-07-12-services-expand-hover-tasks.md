@@ -69,6 +69,45 @@ scannbar, Mobile sauber.
 * [x] `CinematicShowcase` aus `pages/HomePage.tsx` entfernt (Import + Element); Datei bleibt (nicht importiert = nicht gebundelt), Hook `useScrollProgress` weiter von HeroSection genutzt
 **Referenzen:** `components/ServiceGrid.tsx`, `pages/HomePage.tsx`
 
+### ✅ Phase 6 — Section-Hintergrund flutet beim Hovern (Full-Bleed-Crossfade)
+**Ziel (User, 2026-07-16):** Beim Hovern einer Kachel erscheint deren Bild als vollflaechiger
+Hintergrund (`object-cover`) der **gesamten** Section — hinter dem Grid, mit weichem Crossfade
+zwischen den Bildern. Ohne Hover blendet der Hintergrund wieder aus. State `hoveredImage` +
+absolut positionierte Hintergrund-Ebene (`inset-0`, negativer z-index).
+
+**Architektur-Entscheidung (mehrere Wege geprueft):**
+- **A) Hover-State per Callback hochheben (GEWAEHLT):** `ExpandingCardAccordion` ist **geteilt**
+  (`ServiceGrid` **und** `AutoDetailingExpertiseSection`). Die Hintergrund-Ebene gehoert aber auf die
+  `<section>` in `ServiceGrid`. Loesung: das Akkordeon meldet via optionalem `onHoverChange(image|null)`,
+  welche Karte gehovert wird; `ServiceGrid` haelt `hoveredImage` und rendert die Ebene. **Opt-in** —
+  ohne den Callback (AutoDetailingExpertiseSection) aendert sich nichts.
+- **B) Ebene im Akkordeon selbst:** VERWORFEN — traefe **beide** Sektionen und die `motion.div` des
+  Akkordeons spannt nicht die ganze Section (Header liegt darueber).
+- **C) Wrapper-Komponente:** VERWORFEN — Overkill fuer einen Callback + eine Ebene.
+
+**Umsetzungsdetails (belegt durchdacht):**
+* [x] `ServiceGrid`: `useState<string|null>` `hoveredImage`; Section `relative isolate` (eigener
+      Stacking-Context, noetig weil der App-Shell `main` per `transform` bereits einen aufspannt —
+      sonst rutscht `-z-10` in dessen Context; siehe [[site-shell-breaks-sticky]]).
+* [x] Hintergrund-Ebene: `absolute inset-0 -z-10 overflow-hidden pointer-events-none aria-hidden`.
+      Innerhalb `isolate` malt `-z-10` **ueber** die Section-Bg (`bg-gray-50/70`), aber **unter** den
+      Content → exakt „hinter dem Grid" (im Browser bestaetigt: `zIndex: -10`).
+* [x] Crossfade via Framer `AnimatePresence` + **keyed** `motion.div` (`key=hoveredImage`):
+      Bildwechsel = altes Layer faded raus, neues rein (echtes Crossfade, `mode=sync`).
+      `hoveredImage=null` → nichts gerendert → Section zeigt wieder ihre normale Bg (Idle **unveraendert**).
+* [x] Heller Veil-Verlauf ueber dem Bild (`from-white/85 via-white/55 to-white/[0.72]`): haelt den dunklen
+      Header (`text-gray-950/600`) lesbar; Teil des Fade-Layers, also nur bei Hover sichtbar.
+* [x] `ExpandingCardAccordion`: Prop `onHoverChange?`; `onMouseEnter/onFocus` emittieren das
+      **aufgeloeste** Kartenbild (`item.backgroundImage ?? DEFAULT_CARD_BG` = exakt das sichtbare Bild),
+      `onMouseLeave`/`onBlur` **auf dem Container** (nicht pro Karte!) → beim Wechsel zwischen Karten
+      kein Flackern zu null, nur beim Verlassen des ganzen Strips Reset.
+* [x] **Kein** reduced-motion-Gate (Projektregel [[no-reduced-motion-gates]]); Opacity-Fade ist ohnehin
+      unkritisch.
+* [x] Perf: die Bilder sind **dieselben** WebP wie die Karten-Hintergruende → Cache-Hit, **kein**
+      zusaetzlicher Download; Opacity-Fade ist GPU-guenstig.
+* [x] Mobile: kein Hover → `hoveredImage` bleibt null → Section unveraendert (kein Extra-Gate noetig).
+**Referenzen:** `components/ServiceGrid.tsx`, `components/ExpandingCardAccordion.tsx`
+
 ---
 
 ## Kommentare
@@ -136,3 +175,76 @@ Touch-Pfad end-to-end verifiziert ✅, `tsc --noEmit` grün ✅, keine neue Depe
 
 **Fazit Phase 5:** Beide Wuensche umgesetzt und verifiziert. Ein vorbestehendes 404-Link-Thema entdeckt und
 sauber als separater Task ausgelagert statt es unpassend mitzufixen.
+
+### Phase 6 (Section-Hover-Hintergrund, Full-Bleed-Crossfade)
+**Eingehalten:** Architektur bewusst gewaehlt (Hover-State per Callback hochgehoben statt Ebene in die
+**geteilte** Komponente zu legen → andere Sektion unberuehrt, opt-in) ✅, Planung vor Code ✅,
+Stacking-Context-Falle des App-Shells beruecksichtigt (`isolate`) ✅, in echtem Chrome mit **echten**
+mouseover/mouseout-Events verifiziert (App-Preview kann Hover nicht ausloesen) ✅, kein reduced-motion-Gate
+(Projektregel) ✅, **kein** zusaetzlicher Download (Kachel-WebP = Cache-Hit) ✅, a11y (Fokus-Pfad
+`onFocus`/`onBlur` mit `relatedTarget`-Check) ✅, `tsc --noEmit` gruen ✅, Mobile unveraendert (kein Hover)
+✅, Encoding sauber ✅, < 700 Zeilen ✅.
+
+**Verifikations-Messwerte (echter Chrome, 1440px):**
+- Idle: `bildAktiv = null` (Section zeigt normale Bg, unveraendert). Ebene `zIndex: -10` (hinter Grid).
+- Hover Karte 0 → `fahrzeugaufbereitung-…webp`; Hover Karte 4 → `dellenentfernung-…webp` (Crossfade belegt).
+- Kartenwechsel: bleibt gesetzt (**kein** Flackern zu null). Strip verlassen (`mouseout` → relatedTarget
+  ausserhalb): **null** (Reset). 0 Konsolenfehler.
+- Screenshots: Header ueber geflutetem Bild klar lesbar (Veil traegt), Grid sitzt sauber davor.
+
+**Auffaelligkeiten/Findings (nach Schwere):**
+1. 🟡 **Mittel (Test-Artefakt, kein Bug):** Ein nacktes `mouseleave`-Dispatch triggert React-`onMouseLeave`
+   **nicht** — React synthetisiert Enter/Leave aus `mouseover`/`mouseout` + `relatedTarget`. Erster
+   Leave-Test schlug daher scheinbar fehl; mit korrektem `mouseout`(relatedTarget ausserhalb) → Reset
+   bestaetigt. **Lehre:** Hover/Leave in Chrome immer via `mouseover`/`mouseout` mit `relatedTarget` testen.
+2. 🟢 **Niedrig (Mess-Artefakt):** Waehrend des 600ms-Crossfades sind **zwei** Bild-Layer gemountet
+   (AnimatePresence); ein Sampling < 600ms liest je nach Selektor das ausblendende Bild. Nach Ablauf
+   eindeutig. Kein Verhalten, nur Messung.
+3. 🟢 **Niedrig (Design, bewusst):** Veil-Staerke (`from-white/85 via-white/55 to-white/[0.72]`) haelt den
+   dunklen Header lesbar und laesst das Foto in den Raendern wirken. Bei Bedarf zentral justierbar.
+
+**Hauptkomponenten (max. 3):** `components/ServiceGrid.tsx` (Ebene + State), `components/ExpandingCardAccordion.tsx`
+(`onHoverChange`-Emission), `docs/services-expand-hover/…` (Planung).
+
+**Fazit Phase 6:** Umgesetzt wie gewuenscht (State `hoveredImage`, absolut positionierte -z-10-Ebene,
+Full-Bleed `object-cover`, Crossfade, Ausblenden ohne Hover) und in echtem Chrome verifiziert.
+
+**Nachtrag (User-Feinschliff): Vignette + Eckenrundung**
+* [x] **Ecken im Navbar-Radius** abgerundet: `rounded-[var(--cc-nav-radius)]` auf dem `overflow-hidden`-
+      Container → Bild **und** Overlays werden auf die runde Form geclippt. Bewusst die **Variable**
+      statt Literal (bleibt synchron, falls `--cc-nav-radius` sich aendert). Verifiziert: Ebene
+      `border-radius: 24px` == `.solidroad-nav-frame` `24px`, `overflow: hidden`.
+* [x] Vignette — 3 User-Iterationen: (1) **schwarz** (Tiefe) → (2) **weiss** (Raender laufen ins Weiss)
+      → (3) **staerker weiss** („100 % weiss an den Raendern"). Finale Formel:
+      `radial-gradient(ellipse closest-side at 50% 50%, rgb(255 255 255 / 0) 30%, rgb(255 255 255 / 1) 85%)`.
+* [x] 🔑 **`closest-side` war der Schluessel:** Mit expliziter Groesse `120% 115%` lagen die **Seiten**
+      nur bei ~42 % des Verlaufs (0.5w / 1.2w) → wurden nie ganz weiss, nur die Ecken (~57 %) etwas.
+      `closest-side` legt das 100 %-Ende an die **naechsten Kanten** → alle vier Raender liegen hinter dem
+      Weiss-Stop (85 %) und sind zu 100 % weiss. Objektiv per Pixel-Sampling belegt: 4 Ecken + Seiten =
+      `rgb(255,255,255)`; Ober-Mitte 93 % (Navbar-Zone, praktisch weiss).
+* [x] 🔑 **Kein `transparent` als Verlaufsstart** — `transparent` = Schwarz/Alpha0, interpoliert nach
+      Weiss ueber einen **grauen** Zwischenton. Stattdessen `rgb(255 255 255 / 0)` (transparentes Weiss)
+      → nur Alpha aendert sich, reiner Weiss-Feder ohne Saum.
+* [x] Veil-Mitte reduziert (`from-white/80 via-white/25 to-white/55`), damit die Bildmitte neben der
+      starken weissen Vignette sichtbar bleibt. Verifiziert (echter Chrome): Header lesbar, kein Grausaum,
+      Bild sitzt zentral und laeuft randlos ins Weiss, `tsc` gruen.
+
+**Nachtrag (User-Feinschliff 2): Persistenz + Rechts-Shift + Vignette −10 %**
+* [x] **Hintergrund bleibt an der AUFGEKLAPPTEN Karte** (nicht mehr hover-transient). Umbau von
+      Hover-Emission auf **aktiv-getrieben**: Prop `onHoverChange` → `onActiveImageChange`; das Akkordeon
+      meldet via `useEffect([active, isDesktop])` das Bild der offenen Karte (Mount `active=0` + jeder
+      Wechsel), Reset-Handler (`onMouseLeave`/`onBlur` → null) **entfernt**. Auf Desktop ist immer eine
+      Karte offen → Hintergrund **sofort da** und **bleibt**, wenn die Maus den Strip verlaesst.
+      Mobile: `null` (kein Full-Bleed hinter dem Stapel). Verifiziert: Idle (kein Hover) zeigt Karte 0;
+      Hover Karte 5 → deren Bild; Strip verlassen → **bleibt** Karte 5. Schoener Effekt: offene Karte
+      und Section-Hintergrund sind dasselbe Motiv.
+* [x] **Bild nach rechts verschoben** (Desktop): Radial-Zentrum `50% 50%` → **`58% 48%`** → klares
+      Bildfenster sitzt rechts der Mitte, die linke Haelfte (Header „Leistungsuebersicht") wird dadurch
+      weiss. Zusaetzlich leichter horizontaler Links-Weiss-Verlauf fuer das rechte H2-Ende
+      (`linear-gradient(to right, .../0.85 0%, .../0.45 28%, .../0 52%)`). Pixel-Sampling: Header-Zone
+      links `rgb(255,255,255)`; Bild sichtbar center-right.
+* [x] **Vignette ~10 % schwaecher:** klare Mitte `30 %→33 %`, deckendes Weiss `85 %→90 %`; Veil leicht
+      runter (`from-white/75 via-white/[0.18] to-white/45`). `tsc` gruen, 0 Konsolenfehler.
+* [x] 🟢 **Semantik-Klarstellung:** Der Effekt reagiert auf `active` (= aufgeklappte Karte). Da Hover auf
+      Desktop die Karte aufklappt (`setActive`), folgt der Hintergrund weiterhin dem Hover — bleibt aber
+      nun stehen, weil `active` nach dem Verlassen erhalten bleibt (statt auf null zurueckzusetzen).
