@@ -1,0 +1,122 @@
+========================================================
+CarCare Center Leipzig – Mainpage
+Überschriften aller Kartenelemente (in Seitenreihenfolge)
+========================================================
+
+Legende:
+[BG]   = Karte mit Hintergrundbild  -> hier sind generierte Bilder direkt einsetzbar
+[Icon] = Karte mit Icon (kein Foto)  -> nur relevant, falls du Icons/Illustrationen willst
+
+Aktuell teilen sich ALLE [BG]-Karten dasselbe Werkstattbild
+(/assets/carcare-hero-workshop.jpeg). Pro Karte ein eigenes Bild = größter Effekt.
+
+
+--------------------------------------------------------
+1) VERTRAUENSLEISTE / TrustBar   [Icon]   (4)
+--------------------------------------------------------
+Über 50 Mitarbeiter
+Premium-Erfahrung
+Standort Leipzig
+Alles aus einer Hand
+
+
+--------------------------------------------------------
+2) FÜR WEN WIR ARBEITEN / Zielgruppen   [BG]   (4)
+--------------------------------------------------------
+Privatkunden
+Versicherungen & Agenturen
+Autohäuser & Fuhrparks
+Bewerber
+
+
+--------------------------------------------------------
+3) LEISTUNGSÜBERSICHT / Leistungen   [BG]   (10)
+--------------------------------------------------------
+Fahrzeugaufbereitung
+Unfallinstandsetzung
+Neu- und Reparaturlackierung
+Smart Repair
+Dellenentfernung
+Hagelschadenreparatur
+Felgenreparatur
+Autoglas / Scheibenfolien
+Leasingrückgabe
+Fuhrparkservice
+
+
+--------------------------------------------------------
+4) UNFALL & SCHADEN / Leistungs-Chips   [Icon]   (8)
+--------------------------------------------------------
+Schadenaufnahme
+Schadenskalkulation
+Gutachterservice
+Versicherungsabwicklung
+Karosseriearbeiten
+Reparaturlackierung
+Ersatzwagen nach Verfügbarkeit
+Persönliche Betreuung
+
+
+--------------------------------------------------------
+5) AUTOAUFBEREITUNG ALS EXPERTISE   [BG]   (5)
+--------------------------------------------------------
+Innenaufbereitung
+Außenaufbereitung
+Lackaufbereitung
+Leasingrückgabe vorbereiten
+Wissenshub
+
+
+--------------------------------------------------------
+6) PROZESS – Unfallschaden / Schritte   [Icon]   (5)
+--------------------------------------------------------
+Schaden melden
+Schaden prüfen lassen
+Kalkulation & Abstimmung
+Reparatur & Lackierung
+Fahrzeug abholen
+
+
+--------------------------------------------------------
+7) PROZESS – Autoaufbereitung / Schritte   [Icon]   (5)
+--------------------------------------------------------
+Leistung auswählen
+Termin anfragen
+Fahrzeug abgeben
+Professionelle Aufbereitung
+Gepflegt zurückerhalten
+
+
+--------------------------------------------------------
+8) GESCHÄFTSKUNDEN / Benefits   [Icon]   (6)
+--------------------------------------------------------
+Feste Ansprechpartner
+Strukturierte Abläufe
+Erfahrung mit Premiumfahrzeugen
+Qualitätssicherung
+Flexible Zusammenarbeit
+Digitale Schadenübermittlung
+
+
+--------------------------------------------------------
+9) KARRIERE BEI CARCARE / Jobs   [Icon]   (4)
+--------------------------------------------------------
+Kfz-Aufbereiter
+Fahrzeuglackierer
+Karosserie- und Fahrzeugbaumechaniker
+Serviceberater
+
+
+--------------------------------------------------------
+10) VERTRAUEN / ERFAHRUNG / Referenzen   [Icon]   (4)
+--------------------------------------------------------
+Autohäuser & Premiumhersteller
+Große Fuhrparks
+Professionelle Standards
+Qualitätssicherung
+
+
+========================================================
+Summe: 55 Kartenüberschriften
+Davon mit Hintergrundbild [BG]: 19 (Sektionen 2, 3, 5)
+========================================================
