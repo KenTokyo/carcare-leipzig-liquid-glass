@@ -20,11 +20,13 @@ interface Options {
  * robust gemessen per window-`scroll` + `getBoundingClientRect` (rAF-gedrosselt).
  *
  * Bewusst NICHT Framers `useScroll({ target })`: Der App-Shell
- * `<main class="site-main-shell">` traegt `overflow-x:hidden`
- * (→ computed `overflow-y:auto`) + `transform:translateZ(0)`. Framer erkennt ihn
- * faelschlich als Scroll-Container, dessen `scrollTop` aber 0 bleibt (gescrollt
- * wird das window) → `scrollYProgress` friert bei 0 ein. Die manuelle Messung
- * gegen das window ist dagegen immun (auch gegen Layout-Shifts durch Lazy-Bilder).
+ * `<main class="site-main-shell">` trug urspruenglich `overflow-x:hidden`
+ * (→ computed `overflow-y:auto`) → Framer erkannte ihn faelschlich als Scroll-Container,
+ * dessen `scrollTop` aber 0 bleibt (gescrollt wird das window) → `scrollYProgress` fror bei 0 ein.
+ * Der Shell traegt inzwischen `overflow: clip` (kein Scroll-Container mehr, damit `position: sticky`
+ * greift — siehe docs/accident-scrollytelling/tasks/2026-07-19-pin-jitter-fix-tasks.md). Die manuelle
+ * window-Messung bleibt trotzdem die bewusste Wahl: sie ist unabhaengig vom Shell-/transform-Kontext
+ * und immun gegen Layout-Shifts durch Lazy-Bilder.
  */
 export const useScrollProgress = (
   ref: RefObject<HTMLElement | null>,

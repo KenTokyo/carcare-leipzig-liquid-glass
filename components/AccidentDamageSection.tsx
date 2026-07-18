@@ -102,16 +102,15 @@ const ProcessCard: React.FC<{ step: Step; index: number; progress: MotionValue<n
 const AccidentDamageSection: React.FC = () => {
   const trackRef = useRef<HTMLElement>(null);
 
-  // Fortschritt window-basiert messen (immun gegen den overflow/transform-Shell-Bug, der
-  // position:sticky UND useScroll({target}) hier brechen laesst — empirisch belegt).
+  // Fortschritt (0..1) window-basiert ueber den 400vh-Track messen — treibt AUSSCHLIESSLICH die
+  // Karten-Sequenz + Fortschritts-Dots. Der Pin selbst laeuft jetzt ueber natives `position: sticky`
+  // (siehe unten): compositor-getrieben und damit frei von JS-Frame-Lag. Fruehere Fassung pinnte per
+  // Transform (progress → translateY 0→300vh); der rAF-gedrosselte Progress hinkte dem Scroll einen
+  // Frame nach → der statische Kopf „bounc*te" beim Scrollen mit. Behoben, seit `<main>` nun
+  // `overflow: clip` statt `hidden` traegt (kein Scroll-Container mehr → Sticky haftet am Viewport).
   const progress = useScrollProgress(trackRef, { distance: 'through' });
 
-  // Pin: die h-screen-Buehne exakt scroll-synchron nach unten schieben (0 → 300vh), damit sie
-  // im Viewport „stehen" bleibt, bis der 400vh-Track durch ist. RAW progress = 1:1 zum Scroll;
-  // ein Spring hier wuerde den Pin gegen den Scroll schwimmen lassen.
-  const pinY = useTransform(progress, [0, 1], ['0vh', '300vh']);
-
-  // Karten dagegen leicht federn → smoothe, ruckelfreie Ein-/Ausblendungen.
+  // Karten leicht federn → smoothe, ruckelfreie Ein-/Ausblendungen (darf minimal nachlaufen).
   const cardProgress = useSpring(progress, { stiffness: 140, damping: 30, mass: 0.4 });
 
   // Aktiver Karten-Index nur fuer die Fortschrittsanzeige (re-rendert nur bei Wechsel, 4x).
@@ -125,9 +124,11 @@ const AccidentDamageSection: React.FC = () => {
   }, [progress]);
 
   return (
-    // Track: definierte Scroll-Hoehe fuer 4 Karten. Der Pin entsteht per Transform (nicht sticky).
+    // Track: definierte Scroll-Hoehe fuer 4 Karten (400vh). Der Pin ist natives `position: sticky`.
     <section ref={trackRef} id="unfall-schaden" aria-labelledby="accident-heading" className="relative h-[400vh] bg-white">
-      <motion.div style={{ y: pinY }} className="h-screen px-6 will-change-transform">
+      {/* Sticky-Pin: die 100vh-Buehne haftet am Viewport-Top, bis der 400vh-Track durch ist (300vh
+          Reise). Compositor-getrieben → der linke Kopf steht absolut still, kein Bounce beim Scrollen. */}
+      <div className="sticky top-0 h-screen px-6">
         <div className="container mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
           {/* Links/oben: statischer Header + CTAs + Fortschritt */}
           <div className="lg:w-[45%]">
@@ -190,7 +191,7 @@ const AccidentDamageSection: React.FC = () => {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

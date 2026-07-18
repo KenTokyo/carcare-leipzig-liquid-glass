@@ -60,7 +60,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </header>
       </div>
 
-      <main className="site-main-shell relative z-10 overflow-x-hidden bg-white">
+      {/* overflow-clip (nicht -hidden): clippt horizontalen Überhang weiterhin, erzeugt aber KEINEN
+          Scroll-Container. Das ist die Voraussetzung dafuer, dass `position: sticky` in Sektionen
+          (z. B. AccidentDamageSection-Pin) wieder am Viewport haftet statt an <main>. `overflow-x:hidden`
+          erzwang computed `overflow-y:auto` → Phantom-Scroll-Container → Sticky gebrochen (empirisch
+          belegt: docs/accident-scrollytelling/tasks/2026-07-19-pin-jitter-fix-tasks.md). */}
+      <main className="site-main-shell relative z-10 overflow-clip bg-white">
         {children}
       </main>
 

@@ -1,3 +1,14 @@
+/**
+ * ⚠️ BEWUSST GEPARKT — KEIN TOTER CODE, NICHT LÖSCHEN.
+ *
+ * Diese Jobkarten-Sektion ist aktuell absichtlich nirgends eingebunden: Sie wurde nur vorübergehend
+ * von der Startseite entfernt (zu viel Information für die Mainpage). Sie kommt zu einem späteren
+ * Zeitpunkt auf die Subseite `/karriere` (CareerPage). Ein automatischer „unused component"-Sweep
+ * würde sie fälschlich als verwaist melden — sie bleibt jedoch bewusst erhalten.
+ *
+ * Hinweis für die spätere Einbindung: Der Sticky-Infobereich (`sticky top-32`, siehe unten) funktioniert
+ * seit dem Shell-Fix `overflow: clip` in components/Layout.tsx wieder korrekt.
+ */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, User, Briefcase, Paintbrush, Cog } from 'lucide-react';

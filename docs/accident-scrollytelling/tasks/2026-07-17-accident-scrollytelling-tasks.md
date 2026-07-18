@@ -5,6 +5,15 @@
 > die Ueberschrift, rechts erscheinen nacheinander 4 Prozess-Karten (Fade + Y-Parallax), erst nach
 > Karte 4 loest der Pin und der Scroll fuehrt zur naechsten Sektion („Fuer wen wir arbeiten").
 
+> **📌 Update 2026-07-19 — Pin-Mechanik abgelöst (siehe `2026-07-19-pin-jitter-fix-tasks.md`):** Der hier
+> beschriebene **Transform-Pin** (`pinY = useTransform(progress,[0,1],['0vh','300vh'])`) hatte einen
+> rAF-bedingten Frame-Lag → der statische Kopf bounc*te beim Scrollen. Er wurde durch **natives
+> `position: sticky`** ersetzt (compositor-getrieben, Drift 0 px). Möglich wurde das, indem der App-Shell
+> `<main>` von `overflow-x: hidden` auf `overflow: clip` umgestellt wurde (kein Scroll-Container mehr →
+> Sticky greift). Die unten dokumentierte „kritische Abweichung" (Transform statt Sticky) ist damit
+> **überholt** — Sticky funktioniert jetzt. Die window-basierte `useScrollProgress`-Messung bleibt für
+> den Karten-Fortschritt in Betrieb.
+
 ## Die 4 Karten
 1. **Schadenaufnahme** — Schaden vor Ort/per Foto erfassen und dokumentieren.
 2. **Gutachten & Kalkulation** — Abstimmung mit Gutachter + nachvollziehbare Kostenkalkulation.
