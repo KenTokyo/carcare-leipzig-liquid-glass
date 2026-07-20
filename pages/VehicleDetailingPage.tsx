@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import DetailingGallery from '../components/DetailingGallery';
 
 const services = [
   { title: 'Innenaufbereitung', description: 'Sorgfältige Reinigung und Pflege von Cockpit, Oberflächen, Polstern und Innenraumdetails.', href: '/autoaufbereitung-wissen/innenaufbereitung' },
@@ -71,6 +72,7 @@ const VehicleDetailingPage: React.FC = () => (
         <FeatureGrid items={expertPoints} columns="four" />
       </div>
     </section>
+    <DetailingGallery />
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Ablauf" title="So läuft Ihre Autoaufbereitung bei CarCare." />
