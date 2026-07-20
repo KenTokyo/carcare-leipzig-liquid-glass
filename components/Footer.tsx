@@ -153,7 +153,12 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-gray-500 shrink-0" />
-                  <a href="mailto:info@carcare-center.de" className="hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">info@carcare-center.de</a>
+                  {/* `tracking-tight` haelt die Adresse in der schmalen 1/6-Footerspalte auf EINER
+                      Zeile: Space Grotesk laeuft breiter als das fruehere Inter und kippte sie ab
+                      ~1440px in einen Umbruch mitten in der Domain ("carcare-" / "center.de").
+                      Bewusst das Letterspacing statt der Schriftgroesse: haelt 14px konsistent zu
+                      Telefon/Fax daneben und faellt bei einem technischen String nicht auf. */}
+                  <a href="mailto:info@carcare-center.de" className="tracking-tight hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">info@carcare-center.de</a>
                 </div>
               </div>
             </motion.div>

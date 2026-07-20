@@ -58,7 +58,12 @@ const TargetGroupCards: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {/* Erst ab `lg` drei Spalten: Bei `md:grid-cols-3` waren die Karten nur ~221 px breit,
+            die Textbox darf davon 60 % nutzen (Bildmotiv soll rechts sichtbar bleiben) — abzueglich
+            Padding blieben ~85 px Textbreite. Folge: Beschreibung und CTA liefen aus der weissen
+            Box, Woerter wurden abgeschnitten, der Pfeil-Button rutschte aus der Kachel.
+            Zwei Spalten ab `md` geben ~350 px pro Karte. */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {groups.map((group, idx) => (
             <motion.a
               key={group.id}
@@ -87,7 +92,13 @@ const TargetGroupCards: React.FC = () => {
               />
 
               {/* Layer 2 – Textbox (90 % Weiss) + Layer 3 – Text */}
-              <div className="relative z-10 m-3 flex max-w-[68%] flex-col rounded-xl bg-[rgb(255_255_255/0.9)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] sm:max-w-[60%] md:p-7">
+              {/* `hyphens-auto` (greift ueber <html lang="de">): Die langen deutschen Komposita
+                  dieser Kacheln ("Fahrzeugdienstleistungen", "Geschaeftskundenservice") sind als
+                  EIN Wort breiter als die Textbox und liefen sonst rechts ueber die weisse Flaeche
+                  aufs Bild. Silbentrennung bricht sie korrekt statt sie ueberstehen zu lassen —
+                  bewusst NICHT `break-words`, das zerhackt mitten im Wort ("GES-CHAEFTS").
+                  Box ab `lg` etwas breiter, weil dort drei Spalten die Karten schmaler machen. */}
+              <div className="relative z-10 m-3 flex max-w-[68%] flex-col rounded-xl bg-[rgb(255_255_255/0.9)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] [hyphens:auto] sm:max-w-[60%] md:p-7 lg:max-w-[68%] xl:max-w-[60%]">
                 <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
                   {group.title}
                   <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />

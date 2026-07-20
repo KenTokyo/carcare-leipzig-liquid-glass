@@ -32,10 +32,14 @@
 
   <meta name="theme-color" content="#0B3D91" />
   <link rel="icon" type="image/webp" href="/assets/carcare-center-logo.webp" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+  <!-- Schrift wird SELBST gehostet (@font-face in index.css) - bewusst KEIN Font-CDN.
+       Grund: DSGVO (ein CDN-Abruf uebertraegt die Nutzer-IP an den Anbieter) + ein
+       Drittanbieter-Handshake weniger vor dem LCP. Preload zieht den Latin-Schnitt sofort,
+       damit der Wechsel von der Fallback-Schrift nicht sichtbar spaet passiert
+       (font-display: swap). Hinweis: hier bewusst OHNE den CDN-Hostnamen im Klartext,
+       sonst schlagen Audit-Greps nach Font-CDN-Referenzen auf diesem Kommentar an. -->
+  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2"
+    crossorigin />
   <script type="module">
     // first npm i react-grab
     // then in head:

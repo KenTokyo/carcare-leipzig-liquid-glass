@@ -6,6 +6,37 @@
    in der Navbar gewinnt (wie zuvor bei der CDN, die Utilities nach index.css einspielte).
    NICHT nach oben verschieben -> sonst bricht die Navbar-Positionierung. */
 
+/* Space Grotesk — SELBST GEHOSTET (nicht ueber fonts.googleapis.com).
+   Warum self-hosted: (1) SEO-GEO-STANDARDS §2.2 nennt self-hosted explizit,
+   (2) der CDN-Abruf uebertraegt die Nutzer-IP an Google — fuer eine deutsche
+   Firmenseite ein DSGVO-Risiko (LG Muenchen I, 20.01.2022, Az. 3 O 17493/20),
+   (3) spart DNS+TLS zu einem Drittanbieter vor dem LCP.
+
+   Variable Font: EINE Datei deckt 300-700 ab (`font-weight: 300 700`) — deshalb
+   kein Schnitt-Zoo. ⚠️ Es gibt KEIN 800: `font-extrabold` klemmt der Browser auf 700.
+   `font-display: swap` haelt den Text waehrend des Ladens sichtbar (kein FOIT).
+   Lizenz (OFL-1.1) liegt bei: public/assets/fonts/OFL.txt */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/space-grotesk-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* Premium Tech Blue CI tokens */
 :root {
   --cc-white: #ffffff;
@@ -49,7 +80,7 @@ body {
   margin: 0;
   background: var(--cc-shell-canvas);
   color: var(--cc-carbon);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .carcare-shell-root {
@@ -187,21 +218,25 @@ body {
   isolation: isolate;
 }
 
-/* Seitlicher Textteppich: setzt die Headline links ab und laesst den Showroom rechts
-   (CarCare-Logo an der Wand) frei. Bewusst DUNKEL statt weiss — im Hero-Foto stehen
-   hinter der Headline dunkle Fahrzeuge, auf denen schwarze Schrift unlesbar waere.
-   Die Hero-Typografie ist entsprechend hell (siehe HeroSection).
-   Die Maske haelt die oberen ~9.5rem frei (Navbar-Zone) — dort uebernimmt der
-   vertikale Verlauf in HeroSection. */
-.hero-copy-veil {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--cc-carbon-rgb) / 0.72) 0%,
-    rgb(var(--cc-carbon-rgb) / 0.55) 43%,
-    rgb(var(--cc-carbon-rgb) / 0.08) 100%
+/* Einzige Verdunkelungs-Ebene des Heros (User-Vorgabe 2026-07-20): radialer Schwarzverlauf,
+   Zentrum exakt in der Ecke OBEN LINKS — 94 % dort, 45 % in der Bildmitte, 0 % unten rechts.
+   Er setzt die helle Hero-Typografie links ab und laesst das Motiv nach unten rechts frei.
+
+   Warum `circle` und nicht `ellipse`: Bei Zentrum (0,0) und `farthest-corner` ist der Radius
+   r = √(W²+H²). Die Bildmitte (W/2, H/2) hat davon den Abstand 0.5·r und liegt damit
+   *immer exakt* auf dem 50 %-Stop — unabhaengig vom Seitenverhaeltnis. Die drei Wunschwerte
+   mappen so 1:1 auf 0 % / 50 % / 100 %. Eine `ellipse` (rx=√2·W, ry=√2·H) laege in der Mitte
+   dagegen bei 35.4 % des Verlaufs → dort ~59 % statt 45 %. Herleitung:
+   docs/hero-bild-verlauf/tasks/2026-07-20-hero-desktop-bild-radialverlauf-tasks.md
+
+   Schwarz = --cc-carbon-rgb (#080b10), im Projekt als Tailwind-`black` getokent. */
+.hero-radial-veil {
+  background: radial-gradient(
+    circle farthest-corner at 0% 0%,
+    rgb(var(--cc-carbon-rgb) / 0.94) 0%,
+    rgb(var(--cc-carbon-rgb) / 0.45) 50%,
+    rgb(var(--cc-carbon-rgb) / 0) 100%
   );
-  mask-image: linear-gradient(to bottom, transparent 0, transparent 9.5rem, black 17rem);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 9.5rem, black 17rem);
 }
 
 .solidroad-nav-frame {

@@ -2,6 +2,17 @@ import React, { useRef } from 'react';
 import { motion, useTransform } from 'framer-motion';
 import { AlertTriangle, CalendarClock, CheckCircle2 } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+
+/**
+ * Parallax-Reise in % der EBENENHOEHE. Herleitung (Ebene 120 %, `-top` -10 %):
+ * Die Ebene ragt oben wie unten 10 % der Rahmenhoehe ueber. Damit an beiden Extremen
+ * kein grauer Rand entsteht, muss die Reise <= 10 % der Rahmenhoehe bleiben; mit dem
+ * projektueblichen 2-%-Deckungspuffer je Seite bleiben ±8 % der Rahmenhoehe
+ * = 8/120 = ±6.67 % der Ebenenhoehe.
+ * Aendern? Ebenenhoehe, `-top` UND diesen Wert immer gemeinsam neu herleiten.
+ */
+const PARALLAX_REISE_PROZENT = 6.67;
 
 const highlights = [
   'Unfallinstandsetzung Leipzig',
@@ -16,16 +27,18 @@ const HeroSection: React.FC = () => {
   // langsamer als die Seite durch den overflow-hidden-Rahmen. Fortschritt robust
   // ueber die eigene Sektionshoehe gemessen (siehe useScrollProgress).
   //
-  // STAERKE = REFERENZ (live gemessen an skiper-ui.com/v1/preview/skiper29):
-  // Dort laeuft das Bild (800 px) im Rahmen (560 px) ueber seinen *vollen* Ueberhang
-  // von 240 px, fertig nach genau einer Rahmenhoehe Scroll → Rate 240/560 = 0.4286
-  // → das Bild zieht mit 0.571x der Scrollgeschwindigkeit.
-  // Nachgebaut: Ebene h-[147%] (Referenz-Verhaeltnis 1.4286 + 2 x 2 % Deckungspuffer),
-  // Reise ±14.6 % der Ebenenhoehe = ±21.5 % der Rahmenhoehe → Δ 0.4292 → 0.5708x.
-  // Zentriert statt `items-end` wie die Referenz: deren Bottom-Crop passt zu ihrem
-  // 70vh-Layout, unsere Veils sind auf die Bildmitte abgestimmt. Uebernommen wird die
-  // Bewegung, nicht der Ausschnitt. Aendern? Dann Reise UND -top gemeinsam anpassen,
-  // sonst grauer Rand an den Extremen (Details: docs/hero-parallax/.../Phase 6).
+  // ⚠️ STAERKE BEWUSST REDUZIERT (2026-07-20): Die Ebene war urspruenglich `h-[147%]`
+  // (Reise ±14.6 %), nachgebaut nach der skiper29-Referenz. Preis war ein brutaler
+  // Bildanschnitt, weil `object-cover` auf die hohe Ebene skaliert: Desktop nur 52 %
+  // der Bildbreite sichtbar, mobil 33 % — und mobil zusaetzlich 0.52x Pixeldichte
+  // (= sichtbar weichgezeichnet auf Retina). Jetzt `md:h-[120%]` → 64 % sichtbar.
+  // Der Referenz-Look wich damit bewusst der Bildaussage. Messwerte + verworfene
+  // Alternativen: docs/hero-bild-verlauf/tasks/2026-07-20-hero-bildausschnitt-optimierung-tasks.md
+  //
+  // MOBIL GANZ AUS: Dort ist der Rahmen extrem hochkant (AR ~0.36 gegen Bild-AR 0.75),
+  // jede Ueberhoehung der Ebene kostet ueberproportional Bildbreite UND Schaerfe. Ebene
+  // = Rahmenhoehe, Reise 0 → kein Ueberhang, kein Zuschnittverlust. Die Bewegung fehlt
+  // auf kleinen Displays kaum, der Schaerfegewinn ist dagegen deutlich (0.52x → 0.76x).
   //
   // BEWUSST NICHT auf prefers-reduced-motion gegated: Windows meldet bei
   // deaktivierten „Animationseffekten" reduced-motion systemweit an alle Browser —
@@ -33,7 +46,10 @@ const HeroSection: React.FC = () => {
   // Bedarf. Die uebrige Site animiert konsistent ungegated (whileInView-Reveals,
   // ExpandingCardAccordion). Siehe mobile-accordion-animation-tasks.md, Phase 5.
   const progress = useScrollProgress(sectionRef);
-  const parallaxY = useTransform(progress, [0, 1], ['-14.6%', '14.6%']);
+  // 768px = Tailwinds `md` — deckungsgleich mit den `md:`-Klassen der Bild-Ebene unten.
+  const istDesktop = useMediaQuery('(min-width: 768px)');
+  const reise = istDesktop ? PARALLAX_REISE_PROZENT : 0;
+  const parallaxY = useTransform(progress, [0, 1], [`${-reise}%`, `${reise}%`]);
 
   return (
     <section
@@ -44,29 +60,32 @@ const HeroSection: React.FC = () => {
     >
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">
       <div className="absolute inset-0">
-        {/* Bewegte Bild-Ebene: 147 % Hoehe, vertikal zentriert (-23.5 %), damit die
-            translateY-Reise (±14.6 % = ±21.5 % der Rahmenhoehe) an beiden Extremen
-            den Rahmen voll deckt (kein grauer Rand, ~2 % Reserve).
-            Die Veils darunter bleiben statisch. */}
+        {/* Bild-Ebene. MOBIL: exakt Rahmenhoehe (`top-0 h-full`), keine Reise → kein
+            Ueberhang, maximale Bildbreite und Schaerfe. AB `md`: 120 % Hoehe, vertikal
+            zentriert (-10 %), sodass die Reise (±6.67 % der Ebene = ±8 % der Rahmenhoehe)
+            an beiden Extremen den Rahmen voll deckt (~2 % Reserve je Seite).
+            Die Verlaufs-Ebene darunter bleibt statisch. */}
         <motion.div
           style={{ y: parallaxY }}
-          className="absolute inset-x-0 -top-[23.5%] h-[147%] will-change-transform"
+          className="absolute inset-x-0 top-0 h-full will-change-transform md:-top-[10%] md:h-[120%]"
         >
-          {/* Art Direction statt einem Bild fuer alles: Das Desktop-Motiv ist ein 21:9-Panorama
-              (2400x1029). Der mobile Hero-Rahmen ist hochkant (~0.34) — dort wuerde `object-cover`
-              nur ~15 % der Bildbreite zeigen und sie 2,2x strecken (unscharfer Streifen).
-              Der Hochkant-Shot (1360x2048) fuellt denselben Rahmen mit ~51 % Bildbreite bei 1,1x.
+          {/* Art Direction statt einem Bild fuer alles: Beide Quellen zeigen dasselbe Motiv
+              (blauer Taycan nach der Aufbereitung + roter Unfallwagen), aber in eigenem Zuschnitt —
+              Desktop als 21:9-Panorama (2400x1029), Mobile als Hochkant-Fassung (1744x2336).
+              Ohne den Hochkant-Zuschnitt wuerde `object-cover` das Panorama im hochkanten
+              Hero-Rahmen auf einen schmalen, stark gezoomten Streifen reduzieren.
+              Weil beide dasselbe Motiv zeigen, gilt der `alt` unten fuer beide Quellen.
               Breakpoint 767px = Tailwinds `md`, passend zu den `md:`-Klassen der Sektion. */}
           <picture>
             <source
               media="(max-width: 767px)"
               srcSet="/assets/hero-leipzig-carcare-mobile.webp"
-              width={1360}
-              height={2048}
+              width={1744}
+              height={2336}
             />
             <img
-              src="/assets/hero-leipzig-carcare.webp"
-              alt="Fahrzeuge im Showroom des CarCare Center Leipzig, An den Tierkliniken 42"
+              src="/assets/hero-leipzig-carcare-desktop.webp"
+              alt="Zwei Porsche Taycan in der Werkstatt des CarCare Center Leipzig: ein blauer Wagen nach der Aufbereitung, dahinter ein roter Wagen mit demontierter Front in der Unfallinstandsetzung"
               width={2400}
               height={1029}
               fetchPriority="high"
@@ -74,13 +93,11 @@ const HeroSection: React.FC = () => {
             />
           </picture>
         </motion.div>
-        {/* Seitlicher Textteppich (dunkel, links stark -> rechts frei): laesst das
-            CarCare-Logo an der Hallenwand sichtbar. Definition in index.css. */}
-        <div className="hero-copy-veil absolute inset-0" />
-        {/* Dunkler Uebergang nach oben: oben kraeftig (setzt Navbar + Headline ab und
-            gibt Tiefe), nach unten hin frei, damit der Showroom-Boden offen bleibt.
-            `to-t` => `from` sitzt unten, `to` oben. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/20 via-gray-950/45 to-gray-950/85" />
+        {/* EINZIGE Verdunkelungs-Ebene (User-Vorgabe 2026-07-20): radialer Schwarzverlauf mit
+            Zentrum in der Ecke oben links — 94 % dort, 45 % in der Bildmitte, 0 % unten rechts.
+            Ersetzt die frueheren zwei Ebenen (seitlicher `hero-copy-veil` + vertikaler
+            `bg-gradient-to-t`). Definition inkl. Herleitung `circle` vs `ellipse` in index.css. */}
+        <div className="hero-radial-veil absolute inset-0" />
       </div>
 
       <div className="container relative z-10 mx-auto flex min-h-[92svh] items-center px-5 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 xl:px-10">

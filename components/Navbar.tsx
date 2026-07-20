@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertTriangle,
@@ -29,7 +29,7 @@ const desktopLeftLinks = navLinks.slice(0, 2);
 const desktopRightLinks = navLinks.slice(2);
 
 const navActionClass =
-  'cc-gradient-button group inline-flex h-11 w-11 items-center justify-start overflow-hidden whitespace-nowrap rounded-[20px] border text-[10px] font-extrabold uppercase tracking-[0.12em] text-white transition-[width,filter,transform,box-shadow] duration-300 hover:w-[168px] focus-visible:w-[168px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
+  'cc-gradient-button group inline-flex h-11 w-11 items-center justify-start overflow-hidden whitespace-nowrap rounded-[20px] border text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-[width,filter,transform,box-shadow] duration-300 hover:w-[168px] focus-visible:w-[168px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
 const navActionIconClass = 'flex h-11 w-11 shrink-0 items-center justify-center';
 const navActionLabelClass =
   'max-w-0 overflow-hidden pr-0 opacity-0 transition-[max-width,opacity,padding] duration-200 group-hover:max-w-[112px] group-hover:pr-3 group-hover:opacity-100 group-focus-visible:max-w-[112px] group-focus-visible:pr-3 group-focus-visible:opacity-100';
@@ -325,7 +325,7 @@ const Navbar: React.FC = () => {
                     <div key={link.href} className="flex flex-col border-b border-gray-100/50 pb-3 last:border-0 last:pb-0">
                       {link.hasDropdown ? (
                         <div>
-                          <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-[var(--cc-carbon)] block mb-2 px-1">
+                          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--cc-carbon)] block mb-2 px-1">
                             {link.label}
                           </span>
                           <div className="flex flex-col gap-2.5 pl-3">
@@ -346,7 +346,7 @@ const Navbar: React.FC = () => {
                         <a
                           href={link.href}
                           onClick={(e) => handleLinkClick(e, link.href, true)}
-                          className="text-xs font-extrabold uppercase tracking-[0.12em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors px-1"
+                          className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors px-1"
                         >
                           {link.label}
                         </a>

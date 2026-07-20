@@ -15,7 +15,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        // Self-hosted Variable Font (300-700), @font-face in index.css.
+        // KEIN 800 vorhanden -> `font-extrabold` rendert als 700.
+        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
       },
       colors: {
         white: 'rgb(var(--cc-white-rgb) / <alpha-value>)',
