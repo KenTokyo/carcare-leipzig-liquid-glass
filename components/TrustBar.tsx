@@ -1,12 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, Layers, MapPin, Users } from 'lucide-react';
+import { Award, MapPin, PaintBucket, Users } from 'lucide-react';
 
+/**
+ * Vertrauensmerkmale — 2026-07-22 auf ausschliesslich HARTE Fakten umgestellt (§4.3:
+ * konkrete Fakten statt Marketing-Floskeln, §4.2 E-E-A-T).
+ *
+ * Rein: „Meisterbetrieb" und „Glasurit-Lackpartner" — die staerksten Vertrauenssignale der
+ * Seite. Sie standen zuvor als gequetschte Pille ueber der H1 im Hero, waehrend ausgerechnet
+ * der Trust-Streifen sie nicht fuehrte.
+ * Raus: „Premium-Erfahrung" (Werbeadjektiv ohne Substanz; die Zielgruppen deckt die eigene
+ * Sektion „Fuer wen wir arbeiten" ab) und „Alles aus einer Hand" (wiederholte die Hero-Subline
+ * und die Leistungsuebersicht).
+ */
 const trustItems = [
+  { icon: <Award size={20} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackierhandwerk, seit 1993' },
+  { icon: <PaintBucket size={20} />, label: 'Glasurit-Lackpartner', sub: 'farbtongenaue Reparaturlackierung' },
   { icon: <Users size={20} />, label: 'Über 50 Mitarbeiter', sub: 'eingespielte Teams und klare Abläufe' },
-  { icon: <Award size={20} />, label: 'Premium-Erfahrung', sub: 'Autohäuser, Fuhrparks und Privatkunden' },
   { icon: <MapPin size={20} />, label: 'Standort Leipzig', sub: 'An den Tierkliniken 42' },
-  { icon: <Layers size={20} />, label: 'Alles aus einer Hand', sub: 'Pflege, Lack, Reparatur und Schaden' },
 ];
 
 const TrustBar: React.FC = () => {

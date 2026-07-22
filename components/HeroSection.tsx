@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useTransform } from 'framer-motion';
-import { AlertTriangle, CalendarClock, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, CalendarClock } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
@@ -13,12 +13,6 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
  * Aendern? Ebenenhoehe, `-top` UND diesen Wert immer gemeinsam neu herleiten.
  */
 const PARALLAX_REISE_PROZENT = 6.67;
-
-const highlights = [
-  'Unfallinstandsetzung Leipzig',
-  'Fahrzeugaufbereitung',
-  'Lackierung & Smart Repair',
-];
 
 const HeroSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -107,15 +101,12 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.65, ease: 'easeOut' }}
           className="max-w-4xl pb-16 pt-6 md:pt-0"
         >
-          <div className="mb-7 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-blue-200 bg-blue-50/[0.92] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-blue-700 shadow-sm">
-              Meisterbetrieb · Glasurit-Lackpartner · seit 1993
-            </span>
-            <span className="rounded-full border border-white/80 bg-white/[0.84] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 shadow-sm">
-              An den Tierkliniken 42
-            </span>
-          </div>
-
+          {/* Bewusst OHNE Badges/Chips (2026-07-22, User-Vorgabe „komplett minimal"):
+              Der Hero traegt nur noch H1, Subline und die zwei CTAs. Die frueheren Elemente
+              waren entweder wortgleiche Dubletten (Adresse = TrustBar; die drei Leistungs-
+              Chips = Subline, und sie waren nicht einmal verlinkt) oder gehoeren als harte
+              Vertrauensfakten in die TrustBar (Meisterbetrieb, Glasurit-Lackpartner).
+              Siehe docs/hero-minimalisierung/. */}
           <h1
             id="home-heading"
             className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
@@ -142,18 +133,6 @@ const HeroSection: React.FC = () => {
               <CalendarClock size={18} />
               Termin für Aufbereitung anfragen
             </a>
-          </div>
-
-          <div className="mt-10 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
-            {highlights.map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 rounded-2xl border border-white/75 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-800 shadow-[0_16px_40px_-28px_rgb(var(--cc-carbon-rgb)/0.6)]"
-              >
-                <CheckCircle2 size={17} className="shrink-0 text-blue-600" />
-                <span>{item}</span>
-              </div>
-            ))}
           </div>
         </motion.div>
       </div>
