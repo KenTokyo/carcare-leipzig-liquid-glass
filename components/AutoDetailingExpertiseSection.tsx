@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 
 /** Kachel-Foto je Karte — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
@@ -12,8 +11,13 @@ const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
  * sind Kartenaufteilung UND Animation exakt identisch statt nur nachgebaut. Ersetzt die
  * frueheren flachen Artikel-Chips (gleiche Ziele, jetzt mit Bild + Beschreibung).
  *
+ * Karte 5 („Mehr über Aufbereitung erfahren") ersetzt seit 2026-07-22 den frueheren kleinen
+ * Textlink „Autoaufbereitung Wissen ansehen" neben dem Intro: Er fuehrt jetzt als vollwertige
+ * Karte auf den Wissenshub, statt als leicht uebersehbarer Link danebenzustehen. Der Textlink
+ * wurde entfernt — sonst stuende dasselbe Ziel zweimal in derselben Sektion.
+ *
  * ⚠️ INTERIM-FOTOS: Bis die finalen Motive vom Kunden kommen, sind vorhandene Kacheln
- * eingesetzt — bewusst VIER UNTERSCHIEDLICHE, denn der Aufklapp-Effekt lebt vom Bildwechsel.
+ * eingesetzt — bewusst FUENF UNTERSCHIEDLICHE, denn der Aufklapp-Effekt lebt vom Bildwechsel.
  * Tausch spaeter = nur der `backgroundImage`-Pfad je Karte.
  */
 const expertiseCards: ExpandingCardItem[] = [
@@ -48,6 +52,15 @@ const expertiseCards: ExpandingCardItem[] = [
     href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten',
     cta: 'Leasingrückgabe ansehen',
     backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
+  },
+  {
+    id: 'wissen',
+    title: 'Mehr über Aufbereitung erfahren',
+    description:
+      'Ratgeber rund um Innenraum, Lack, Werterhalt und Leasingrückgabe – verständlich erklärt im Wissensbereich.',
+    href: '/autoaufbereitung-wissen',
+    cta: 'Zum Wissensbereich',
+    backgroundImage: kachel('privatkunden-leipzig-carcare'),
   },
 ];
 
@@ -120,10 +133,6 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             <p className="text-base leading-relaxed text-gray-600 md:text-lg">
               CarCare bereitet Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks mit langjähriger Erfahrung auf und erklärt transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Kunden bei Lack, Innenraum und Leasingrückgabe achten sollten.
             </p>
-            <a href="/autoaufbereitung-wissen" className="mt-6 inline-flex items-center gap-2 font-bold text-gray-950 transition-colors hover:text-blue-700">
-              Autoaufbereitung Wissen ansehen
-              <ArrowUpRight size={16} />
-            </a>
           </motion.div>
         </div>
 

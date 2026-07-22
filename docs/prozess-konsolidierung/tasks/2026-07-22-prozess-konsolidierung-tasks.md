@@ -146,3 +146,26 @@ Unfall-Sektion visuell unverändert (Regressions-Check) · neue Sektion Desktop 
    aktualisieren. Gleiches gilt für die 4 Expertise-Karten aus Phase 5.
 2. 🟢 **Nebeneffekt:** Startseite hat jetzt zwei scroll-gepinnte Prozess-Sektionen (je 500vh).
    Beobachten, ob die Gesamtlänge der Startseite noch angenehm ist — ggf. später Kartenzahl prüfen.
+
+---
+
+### ✅ Phase 7 (2026-07-22) — Wissens-Link wird 5. Expertise-Karte
+
+**Auftrag:** Den kleinen Textlink „Autoaufbereitung Wissen ansehen" neben dem Intro in die Kacheln
+aufnehmen → 5 statt 4 Karten; die neue Karte soll aufklappen und auf die Wissens-Unterseite führen.
+
+* [x] 5. Karte ergänzt: **„Mehr über Aufbereitung erfahren"** → `/autoaufbereitung-wissen`,
+      CTA „Zum Wissensbereich". Verhält sich identisch zu den anderen (gleiche Komponente).
+* [x] Den **freistehenden Textlink entfernt** — sonst stünde dasselbe Ziel zweimal in derselben
+      Sektion (dieselbe Redundanz-Logik wie bei den bisherigen Aufräum-Schritten).
+* [x] Verifikation per DOM-Abfrage: **5 Karten**, letzte `href="/autoaufbereitung-wissen"`,
+      aria-label „Mehr über Aufbereitung erfahren – Zum Wissensbereich". Typecheck 0, Konsole 0.
+
+**Mitgefixt (aufgefallen beim Test):** Der blaue Akzentpunkt im Kartentitel rutschte bei
+**mehrzeiligen** Titeln allein in eine neue Zeile und wirkte wie ein Fehler. In
+`ExpandingCardAccordion` wird der Punkt jetzt zusammen mit dem letzten Wort in eine
+`whitespace-nowrap`-Klammer gesetzt. Betrifft alle Karten (auch Leistungsübersicht) — Regression
+geprüft: alle 15 Titel rendern textlich unverändert (keine doppelten/fehlenden Leerzeichen, auch
+bei einwortigen Titeln).
+
+**Offen bleibt:** jetzt **10 Kartenfotos** auf Interim-Motiven (5× Expertise, 5× Aufbereitungsablauf).

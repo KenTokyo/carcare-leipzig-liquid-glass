@@ -121,6 +121,13 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
         const isActive = active === idx;
         // Exakt das sichtbare Kartenbild — damit der Section-Hintergrund 1:1 dem Hover entspricht.
         const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
+        // Titel in „alles ausser letztem Wort" + „letztes Wort" zerlegen: Der blaue Akzentpunkt
+        // wird unten mit dem letzten Wort in eine `whitespace-nowrap`-Klammer gesetzt. Ohne das
+        // rutscht er bei mehrzeiligen Titeln allein in eine neue Zeile und wirkt wie ein Fehler
+        // (gleiche Ueberlegung wie in TargetGroupCards, dort driftete er nach rechts weg).
+        const woerter = item.title.split(' ');
+        const letztesWort = woerter.pop() ?? '';
+        const davor = woerter.join(' ');
         return (
           <motion.a
             key={item.id}
@@ -169,8 +176,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] transition duration-300 sm:w-[62%] lg:w-[300px] ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
             >
               <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
-                {item.title}
-                <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
+                {davor && `${davor} `}
+                <span className="whitespace-nowrap">
+                  {letztesWort}
+                  <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
+                </span>
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
               <div className="mt-auto flex items-center justify-between gap-3 pt-6">
