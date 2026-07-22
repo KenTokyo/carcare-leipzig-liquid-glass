@@ -40,20 +40,6 @@ export interface FAQItem {
   answer: string;
 }
 
-export interface ProcessStep {
-  step: number;
-  title: string;
-  description: string;
-}
-
-export interface TimelineTab {
-  id: string;
-  label: string;
-  iconName: string;
-  intro: string;
-  steps: ProcessStep[];
-}
-
 export type RequestFormKind = 'schaden' | 'termin' | 'business';
 
 export interface RequestFormConfig {
