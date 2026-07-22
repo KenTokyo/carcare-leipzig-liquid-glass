@@ -22,7 +22,7 @@ const groups: TargetGroup[] = [
     cta: 'Für Privatkunden',
     iconName: 'User',
     href: '/fahrzeugaufbereitung-leipzig',
-    backgroundImage: DEFAULT_CARD_BG,
+    backgroundImage: '/assets/kacheln/privatkunden-leipzig-carcare.webp',
   },
   {
     id: 'versicherungen',
@@ -31,7 +31,7 @@ const groups: TargetGroup[] = [
     cta: 'Schadenpartner kennenlernen',
     iconName: 'ShieldCheck',
     href: '/unfallinstandsetzung-leipzig',
-    backgroundImage: DEFAULT_CARD_BG,
+    backgroundImage: '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp',
   },
   {
     id: 'gewerbe',
@@ -40,7 +40,7 @@ const groups: TargetGroup[] = [
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',
-    backgroundImage: '/assets/kacheln/fuhrparkservice-leipzig-carcare.webp',
+    backgroundImage: '/assets/kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp',
   },
 ];
 
@@ -210,13 +210,16 @@ const TargetGroupCards: React.FC = () => {
                   aria-hidden="true"
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover object-left"
                 />
-                {/* Derselbe Verlauf wie in der Hero-Sektion (Ecke oben links 94 % -> Bildmitte
-                    45 % -> Ecke unten rechts 0 %), nur im CI-Blau statt Carbon. Definition in
-                    index.css. Dunkelt zugleich genau die Ecke ab, in der ab `lg` das
-                    Ueberschriften-Overlay liegt — sonst waere die weisse Schrift dort unlesbar. */}
+                {/* ZWEI blaue Verlaeufe im CI-Blau, ueberlagern sich additiv:
+                    (1) oben links — Rueckhalt fuer das weisse Ueberschriften-Overlay ab `lg`
+                        (sonst dort unlesbar, da Foto jetzt linksbuendig/hell).
+                    (2) rechts — Uebergang des linksbuendigen Fotos in die weisse Karte.
+                    Definitionen in index.css: `.cc-radial-veil-graphite` (Zentrum 0% 0%) /
+                    `.cc-radial-veil-graphite-right` (Zentrum 100% 50%). */}
                 <div aria-hidden="true" className="cc-radial-veil-graphite absolute inset-0" />
+                <div aria-hidden="true" className="cc-radial-veil-graphite-right absolute inset-0" />
 
                 {/* WEISSE KARTE — schwebt eingerueckt IM Bild, exakt nach dem Muster der
                     Leistungsuebersicht (`ExpandingCardAccordion`: `inset-y-3 left-3`,

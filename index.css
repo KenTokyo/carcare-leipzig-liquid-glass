@@ -303,8 +303,10 @@ body {
 }
 
 /* Schwarzblaue Variante desselben Verlaufs (Zielgruppen-Kartenstapel): identische
-   Geometrie und Deckkraft-Stufen wie oben (94 % Ecke oben links / 45 % Bildmitte /
-   0 % Ecke unten rechts), nur im Schwarzblau der CTA-Buttons statt Carbon.
+   Geometrie wie oben, aber BEWUSST konzentriert (User-Wunsch 2026-07-22): stark nur in der
+   Ecke oben links (Rueckhalt fuers weisse Ueberschriften-Overlay ab lg), danach schneller
+   Abfall auf 0 bei ~55 % Radius — damit das Bild ueberwiegend schleierfrei sichtbar bleibt.
+   Schwarzblau der CTA-Buttons statt Carbon.
    Verlauf der Farbwahl: erst `--cc-trust-blue` (#0b3d91) — zu gesaettigt blau; dann
    `--cc-graphite` (#151a21) — rendert bei 94 % praktisch schwarz, das Blau war weg.
    Jetzt `--cc-cta-blue` = ausgemessener Ton des Button-Verlaufsbilds (siehe :root).
@@ -313,6 +315,19 @@ body {
 .cc-radial-veil-graphite {
   background: radial-gradient(
     circle farthest-corner at 0% 0%,
+    rgb(var(--cc-cta-blue-rgb) / 0.92) 0%,
+    rgb(var(--cc-cta-blue-rgb) / 0.42) 28%,
+    rgb(var(--cc-cta-blue-rgb) / 0) 55%
+  );
+}
+
+/* EXPERIMENT 2026-07-22 (Zielgruppen-Stapel): identische Geometrie/Deckkraft wie
+   .cc-radial-veil-graphite, nur horizontal gespiegelt — Zentrum RECHTS (at 100% 50%)
+   statt oben links. So bleibt das linksbuendige Foto links klar sichtbar und der
+   Blauverlauf baut sich zur rechten (Karten-)Seite auf. */
+.cc-radial-veil-graphite-right {
+  background: radial-gradient(
+    circle farthest-corner at 100% 50%,
     rgb(var(--cc-cta-blue-rgb) / 0.94) 0%,
     rgb(var(--cc-cta-blue-rgb) / 0.45) 50%,
     rgb(var(--cc-cta-blue-rgb) / 0) 100%
