@@ -168,4 +168,35 @@ aufnehmen → 5 statt 4 Karten; die neue Karte soll aufklappen und auf die Wisse
 geprüft: alle 15 Titel rendern textlich unverändert (keine doppelten/fehlenden Leerzeichen, auch
 bei einwortigen Titeln).
 
-**Offen bleibt:** jetzt **10 Kartenfotos** auf Interim-Motiven (5× Expertise, 5× Aufbereitungsablauf).
+**Offen bleibt:** Kartenfotos (Stand nach Phase 8 siehe unten).
+
+---
+
+### ✅ Phase 8 (2026-07-22) — Echte Fotos + Umsortierung in der Expertise-Sektion
+
+**Auftrag:** Neue Kundenfotos für „Innenaufbereitung" und die Wissens-Karte einsetzen; das bisherige
+Innenaufbereitungs-Foto auf „Lackaufbereitung" verschieben, das bisherige Lackaufbereitungs-Foto auf
+„Außenaufbereitung".
+
+* [x] Zwei neue Motive konvertiert: `innenaufbereitung-leipzig-carcare.webp` (2400 px, 159 KB) und
+      `wissensdatenbank-leipzig-carcare.webp` (2400 px, 85 KB) — je −98/−99 %.
+* [x] Umsortierung wie gewünscht umgesetzt. Verifiziert per DOM-Abfrage:
+
+| Karte | Foto |
+|---|---|
+| Innenaufbereitung | `innenaufbereitung-…` (**neu**) |
+| Außenaufbereitung | `smart-repair-…` (von Lackaufbereitung übernommen) |
+| Lackaufbereitung | `fahrzeugaufbereitung-…` (von Innenaufbereitung übernommen) |
+| Leasingrückgabe vorbereiten | `leasingrueckgabe-…` (unverändert, weiterhin Interim) |
+| Mehr über Aufbereitung erfahren | `wissensdatenbank-…` (**neu**) |
+
+* [x] Verifikation: Typecheck 0 · 0 Konsolenfehler · **0 HTTP-Fehler bei Bildern** · alle fünf
+      Kartenbilder `complete=true` mit naturalWidth 1400–2400.
+      Hinweis für spätere Checks: Ein Selektor `#autoaufbereitung a[aria-expanded] img` erfasst auch
+      die **Logo-Siegel**; die melden auf zugeklappten Karten `complete=false`, weil sie dort
+      `display:none` sind — das ist KEIN Ladefehler.
+* [x] Verdrängt: `autolackierung-…` ist aus dieser Sektion raus (wird weiterhin in der
+      Leistungsübersicht genutzt, also nicht verwaist).
+
+**Offene Kartenfotos danach — 6 statt 10:**
+1× Expertise („Leasingrückgabe vorbereiten") + 5× Aufbereitungsablauf (`DetailingProcessSection`).

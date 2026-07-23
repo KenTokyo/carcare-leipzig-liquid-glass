@@ -16,9 +16,11 @@ const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
  * Karte auf den Wissenshub, statt als leicht uebersehbarer Link danebenzustehen. Der Textlink
  * wurde entfernt — sonst stuende dasselbe Ziel zweimal in derselben Sektion.
  *
- * ⚠️ INTERIM-FOTOS: Bis die finalen Motive vom Kunden kommen, sind vorhandene Kacheln
- * eingesetzt — bewusst FUENF UNTERSCHIEDLICHE, denn der Aufklapp-Effekt lebt vom Bildwechsel.
- * Tausch spaeter = nur der `backgroundImage`-Pfad je Karte.
+ * FOTO-STAND (2026-07-22): „Innenaufbereitung" und „Mehr über Aufbereitung erfahren" haben
+ * ihre FINALEN Kundenmotive. „Außenaufbereitung" und „Lackaufbereitung" tragen die vom User
+ * bewusst umsortierten Bestandsfotos, „Leasingrückgabe" laeuft noch auf einem Interim-Motiv.
+ * Alle fuenf sind unterschiedlich — der Aufklapp-Effekt lebt vom Bildwechsel.
+ * Tausch = nur der `backgroundImage`-Pfad je Karte.
  */
 const expertiseCards: ExpandingCardItem[] = [
   {
@@ -27,7 +29,7 @@ const expertiseCards: ExpandingCardItem[] = [
     description: 'Sorgfältige Reinigung und Pflege von Cockpit, Oberflächen, Polstern und Innenraumdetails.',
     href: '/autoaufbereitung-wissen/innenaufbereitung',
     cta: 'Zur Innenaufbereitung',
-    backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
+    backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
   },
   {
     id: 'aussen',
@@ -35,7 +37,7 @@ const expertiseCards: ExpandingCardItem[] = [
     description: 'Schonende Außenreinigung, Lackreinigung und ein durchgehend gepflegtes Erscheinungsbild.',
     href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung',
     cta: 'Zur Außenaufbereitung',
-    backgroundImage: kachel('autolackierung-leipzig-carcare'),
+    backgroundImage: kachel('smart-repair-leipzig-carcare'),
   },
   {
     id: 'lack',
@@ -43,7 +45,7 @@ const expertiseCards: ExpandingCardItem[] = [
     description: 'Lackreinigung, Politur und Versiegelung für mehr Glanz und langfristigen Werterhalt.',
     href: '/autoaufbereitung-wissen/lackaufbereitung',
     cta: 'Zur Lackaufbereitung',
-    backgroundImage: kachel('smart-repair-leipzig-carcare'),
+    backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
   },
   {
     id: 'leasing',
@@ -60,7 +62,7 @@ const expertiseCards: ExpandingCardItem[] = [
       'Ratgeber rund um Innenraum, Lack, Werterhalt und Leasingrückgabe – verständlich erklärt im Wissensbereich.',
     href: '/autoaufbereitung-wissen',
     cta: 'Zum Wissensbereich',
-    backgroundImage: kachel('privatkunden-leipzig-carcare'),
+    backgroundImage: kachel('wissensdatenbank-leipzig-carcare'),
   },
 ];
 
