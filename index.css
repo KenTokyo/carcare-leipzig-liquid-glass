@@ -224,23 +224,26 @@ body {
   isolation: isolate;
 }
 
-/* Einzige Verdunkelungs-Ebene des Heros (User-Vorgabe 2026-07-20): radialer Schwarzverlauf,
-   Zentrum exakt in der Ecke OBEN LINKS — 94 % dort, 45 % in der Bildmitte, 0 % unten rechts.
-   Er setzt die helle Hero-Typografie links ab und laesst das Motiv nach unten rechts frei.
+/* Verdunkelungs-Ebene des Heros. Zentrum am 2026-07-22 von der Ecke OBEN LINKS auf
+   OBEN ZENTRIERT (50% 0%) umgestellt (User-Vorgabe) — passend dazu, dass die Hero-Typografie
+   jetzt zentriert und weiter oben steht: 94 % direkt unter der Navbar, ~40 % auf Hoehe der
+   Bildmitte, 0 % am Bildrand. Das Motiv bleibt nach unten hin frei.
 
-   Warum `circle` und nicht `ellipse`: Bei Zentrum (0,0) und `farthest-corner` ist der Radius
-   r = √(W²+H²). Die Bildmitte (W/2, H/2) hat davon den Abstand 0.5·r und liegt damit
-   *immer exakt* auf dem 50 %-Stop — unabhaengig vom Seitenverhaeltnis. Die drei Wunschwerte
-   mappen so 1:1 auf 0 % / 50 % / 100 %. Eine `ellipse` (rx=√2·W, ry=√2·H) laege in der Mitte
-   dagegen bei 35.4 % des Verlaufs → dort ~59 % statt 45 %. Herleitung:
-   docs/hero-bild-verlauf/tasks/2026-07-20-hero-desktop-bild-radialverlauf-tasks.md
+   ⚠️ Wichtiger Unterschied zur frueheren Ecken-Fassung: Bei Zentrum (0,0) lag die Bildmitte
+   *immer exakt* auf dem 50-%-Stop, unabhaengig vom Seitenverhaeltnis (Radius √(W²+H²),
+   Abstand zur Mitte 0.5·r). Diese Eigenschaft entfaellt bei Zentrum (W/2, 0): dort liegt die
+   Bildmitte bei (H/2) / √((W/2)²+H²) — also ~39 % bei 1440x900, ~37 % bei 1920x1080 und ~49 %
+   auf Hochkant-Mobile. Der 0.4-Stop steht deshalb bei 40 %: so trifft die Bildmitte auf den
+   ueblichen Desktop-Formaten praktisch punktgenau die gewuenschten 40 %.
 
-   Schwarz = --cc-carbon-rgb (#080b10), im Projekt als Tailwind-`black` getokent. */
+   `circle` bleibt bewusst — eine `ellipse` wuerde die Stop-Positionen zusaetzlich vom
+   Seitenverhaeltnis abhaengig machen. Schwarz = --cc-carbon-rgb (#080b10). Herleitung der
+   Vorgaenger-Fassung: docs/hero-bild-verlauf/tasks/2026-07-20-hero-desktop-bild-radialverlauf-tasks.md */
 .hero-radial-veil {
   background: radial-gradient(
-    circle farthest-corner at 0% 0%,
+    circle farthest-corner at 50% 0%,
     rgb(var(--cc-carbon-rgb) / 0.94) 0%,
-    rgb(var(--cc-carbon-rgb) / 0.45) 50%,
+    rgb(var(--cc-carbon-rgb) / 0.4) 40%,
     rgb(var(--cc-carbon-rgb) / 0) 100%
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection';
-import TrustBar from '../components/TrustBar';
 import ServiceGrid from '../components/ServiceGrid';
 import AccidentDamageSection from '../components/AccidentDamageSection';
 import TargetGroupCards from '../components/TargetGroupCards';
@@ -15,6 +14,9 @@ import { PageMeta } from '../components/PageBlocks';
 // (hier, in AccidentDamageSection und auf /unfallinstandsetzung-leipzig). Der Aufbereitungs-
 // ablauf ist in AutoDetailingExpertiseSection gewandert, der Unfallablauf ist als 5. Karte
 // in AccidentDamageSection aufgegangen. Siehe docs/prozess-konsolidierung/.
+// 2026-07-22 (später): Sub-Hero-Sektion „TrustBar" aufgeloest — ihre vier Vertrauensfakten
+// sitzen jetzt als Leiste an der Unterkante des Heros. Nach dem Hero startet die Seite direkt
+// mit der Leistungsuebersicht. Siehe docs/hero-minimalisierung/.
 // Ausgelagert: Geschäftskunden -> /geschaeftskunden, Karriere -> /karriere.
 // Zusammengeführt: Kontaktabschluss (ContactCTA) in ContactSection.
 // Ersetzt (offen): generische „Vertrauen"-Sektion -> echte Google-Bewertungen (echte Daten nötig).
@@ -26,7 +28,6 @@ const HomePage: React.FC = () => (
       description="CarCare Center Leipzig: Unfallinstandsetzung, Autoreparatur, Fahrzeugaufbereitung, Lackierung, Smart Repair und Schadenabwicklung."
     />
     <HeroSection />
-    <TrustBar />
     <ServiceGrid />
     <AccidentDamageSection />
     <TargetGroupCards />

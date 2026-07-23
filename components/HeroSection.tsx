@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useTransform } from 'framer-motion';
-import { AlertTriangle, CalendarClock } from 'lucide-react';
+import { AlertTriangle, Award, CalendarClock, MapPin, PaintBucket, Users } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
@@ -13,6 +13,19 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
  * Aendern? Ebenenhoehe, `-top` UND diesen Wert immer gemeinsam neu herleiten.
  */
 const PARALLAX_REISE_PROZENT = 6.67;
+
+/**
+ * Vertrauensmerkmale an der Hero-Unterkante. Uebernommen aus der frueher eigenstaendigen
+ * `TrustBar`-Sektion, die dafuer am 2026-07-22 aufgeloest wurde (User-Vorgabe, Referenz-Layout:
+ * Logo-Leiste am Fuss des Heros). Ausschliesslich harte Fakten (SEO-GEO §4.3), Wortlaut aus den
+ * Projekt-USP-Bausteinen. Nach dem Hero startet die Seite direkt mit der Leistungsuebersicht.
+ */
+const trustFacts = [
+  { icon: <Award size={18} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackierhandwerk, seit 1993' },
+  { icon: <PaintBucket size={18} />, label: 'Glasurit-Lackpartner', sub: 'farbtongenaue Reparaturlackierung' },
+  { icon: <Users size={18} />, label: 'Über 50 Mitarbeiter', sub: 'eingespielte Teams, klare Abläufe' },
+  { icon: <MapPin size={18} />, label: 'Standort Leipzig', sub: 'An den Tierkliniken 42' },
+];
 
 const HeroSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -92,21 +105,33 @@ const HeroSection: React.FC = () => {
             Ersetzt die frueheren zwei Ebenen (seitlicher `hero-copy-veil` + vertikaler
             `bg-gradient-to-t`). Definition inkl. Herleitung `circle` vs `ellipse` in index.css. */}
         <div className="hero-radial-veil absolute inset-0" />
+        {/* Dezentes Scrim von unten (2026-07-22, User-Vorgabe): gibt der Vertrauensleiste am
+            Hero-Fuss Halt, ohne das Motiv insgesamt abzudunkeln. Bewusst nur das untere Drittel
+            und mit weichem Auslauf — oben greift bereits das radiale Veil. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.72)] via-[rgb(var(--cc-carbon-rgb)/0.3)] to-transparent"
+        />
       </div>
 
-      <div className="container relative z-10 mx-auto flex min-h-[92svh] items-center px-5 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 xl:px-10">
+      {/* Zwei Zonen: Kopfblock (vertikal zentriert, `flex-1`) und Vertrauensleiste an der
+          Unterkante. Ab `md` ist der Kopfblock zusaetzlich HORIZONTAL zentriert (User-Vorgabe
+          2026-07-22 nach Referenz-Layout). Auf Mobile bewusst linksbuendig: die H1 bricht dort
+          auf ~5 Zeilen um, zentriert wirkt das unruhig und kostet Lesbarkeit.
+          `min-h` statt fixer Hoehe -> die Sektion darf wachsen, wenn Inhalt + Leiste mehr
+          Platz brauchen (wichtig auf kleinen Displays). */}
+      {/* `pb-28` unterhalb `lg`: Die fixierte MobileStickyCTA (~83 px, `lg:hidden`) wuerde die
+          Vertrauensleiste sonst anschneiden — genau das passierte im ersten Entwurf. Ab `lg`
+          faellt die Leiste weg, dort reicht `pb-10`. */}
+      <div className="container relative z-10 mx-auto flex min-h-[92svh] flex-col px-5 pb-28 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 lg:pb-10 xl:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: 'easeOut' }}
-          className="max-w-4xl pb-16 pt-6 md:pt-0"
+          className="flex flex-1 flex-col justify-center py-6 md:items-center md:justify-start md:py-0 md:text-center"
         >
           {/* Bewusst OHNE Badges/Chips (2026-07-22, User-Vorgabe „komplett minimal"):
-              Der Hero traegt nur noch H1, Subline und die zwei CTAs. Die frueheren Elemente
-              waren entweder wortgleiche Dubletten (Adresse = TrustBar; die drei Leistungs-
-              Chips = Subline, und sie waren nicht einmal verlinkt) oder gehoeren als harte
-              Vertrauensfakten in die TrustBar (Meisterbetrieb, Glasurit-Lackpartner).
-              Siehe docs/hero-minimalisierung/. */}
+              Der Hero traegt nur H1, Subline, die zwei CTAs und die Vertrauensleiste unten. */}
           <h1
             id="home-heading"
             className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
@@ -118,7 +143,17 @@ const HeroSection: React.FC = () => {
             Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Privatkunden, Versicherungen, Autohäuser und Fuhrparks.
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.
+              Unterhalb 1024 px bietet die fixierte Bottom-Leiste dieselben zwei Ziele
+              (`#contact-schaden`, `#contact-termin`) PLUS „Anrufen", ist ab Sekunde null sichtbar
+              und liegt in der Daumenzone. Beides gleichzeitig hiesse: dieselbe Aktion doppelt im
+              Blickfeld (fuenf CTAs auf einem Screen) und ~176 px verschenkte Hoehe.
+              ⚠️ Die beiden Breakpoints gehoeren zusammen: Aendert sich `lg:hidden` in
+              MobileStickyCTA, muss dieses `lg:flex` mitwandern — sonst entsteht entweder erneut
+              die Dopplung oder ein Bereich ganz ohne CTA.
+              `hidden` statt Entfernen: die `<a href>` bleiben im HTML und damit crawlbar
+              (SEO-GEO §4.4 interne Verlinkung), die Sticky-Bar nutzt dagegen JS-`<button>`. */}
+          <div className="mt-9 hidden flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex lg:justify-center">
             <a
               href="/kontakt#contact-schaden"
               className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
@@ -134,6 +169,41 @@ const HeroSection: React.FC = () => {
               Termin für Aufbereitung anfragen
             </a>
           </div>
+        </motion.div>
+
+        {/* Vertrauensleiste am Hero-Fuss (ersetzt die frueher eigenstaendige TrustBar-Sektion).
+            Weisse Schrift liegt auf dem Foto -> `drop-shadow` je Zeile + duenne Trennlinie
+            als optischer Halt. Mobile 2x2, ab `md` eine zentrierte Reihe. */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
+          className="mt-8 border-t border-white/15 pt-6"
+        >
+          <p className="text-center text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">
+            Dafür steht CarCare Leipzig
+          </p>
+          {/* Zweite Trennlinie UNTER dem Label — das Label steht damit zwischen zwei Strichen
+              (User-Vorgabe 2026-07-22); der obere Strich ist das `border-t` dieses Blocks. */}
+          <div aria-hidden="true" className="mt-6 border-t border-white/15" />
+          <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-5 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-10 md:gap-y-4 lg:gap-x-14">
+            {trustFacts.map((fakt) => (
+              <li key={fakt.label} className="flex items-center gap-2.5">
+                <span className="shrink-0 text-blue-300 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">{fakt.icon}</span>
+                <span>
+                  <span className="block text-sm font-bold leading-tight text-white drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">
+                    {fakt.label}
+                  </span>
+                  {/* Unterzeile erst ab `sm`: auf 390 px brach sie in der 2-Spalten-Leiste auf
+                      drei Zeilen um und wirkte unruhig. Dort tragen die vier Kernbegriffe allein
+                      — naeher am Referenz-Stil (dort stehen unten nur Wortmarken). */}
+                  <span className="mt-0.5 hidden text-[10px] uppercase leading-tight tracking-[0.12em] text-white/65 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)] sm:block">
+                    {fakt.sub}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
       </div>
       </div>
