@@ -454,11 +454,24 @@ textarea {
   outline-offset: 3px;
 }
 
+/* CTA-Button, Standardfassung fuer HELLE Untergruende (2026-07-23).
+   Der Verlauf ist jetzt reines CSS statt des frueheren Bildes `carcare-button-gradient.webp`.
+   Warum: Das Bild lag mit `background-size: cover` an und wurde bei schmalen Buttons gestaucht —
+   ein CSS-Verlauf skaliert bei jeder Buttonbreite identisch. Aufbau nach Kundenvorlage:
+   warmes Anthrazit links, Schieferblau in der Mitte, kraeftiger Signalblau-Glow unten rechts.
+   ⚠️ Der Token `--cc-cta-blue-rgb` (62 80 100) wurde seinerzeit als Mittelwert des ALTEN
+   Verlaufsbilds ausgemessen und faerbt den Zielgruppen-Veil. Er bleibt bewusst unveraendert —
+   wer ihn nachzieht, aendert damit auch das Veil der Zielgruppen-Sektion. */
 .cc-gradient-button {
   background-color: var(--cc-graphite);
-  background-image: url("/assets/carcare-button-gradient.webp");
-  background-position: center;
-  background-size: cover;
+  background-image:
+    radial-gradient(
+      ellipse 85% 130% at 86% 116%,
+      rgb(47 128 237 / 0.95) 0%,
+      rgb(47 128 237 / 0.45) 38%,
+      rgb(47 128 237 / 0) 68%
+    ),
+    linear-gradient(100deg, #34383d 0%, #2e3b48 45%, #27333f 100%);
   border-color: rgb(var(--cc-ice-blue-rgb) / 0.72);
   box-shadow: 0 18px 34px -24px rgb(var(--cc-carbon-rgb) / 0.9);
   color: var(--cc-white);
@@ -475,6 +488,79 @@ textarea {
   box-shadow: 0 22px 42px -26px rgb(var(--cc-carbon-rgb) / 0.95);
   filter: brightness(1.08);
   transform: translateY(-1px);
+}
+
+/* Reine Verlaufs-FUELLUNG ohne Button-Verhalten (2026-07-23) — fuer die runden Pfeil-Badges
+   auf den Karten (Leistungsuebersicht, Autoaufbereitungs-Expertise, Zielgruppen). Ersetzt dort
+   das frueher schwarze `bg-gray-950`.
+   Bewusst NICHT `.cc-gradient-button` verwenden: Dessen Schlagschatten waere auf einem 32-36 px
+   Kreis zu schwer, und sein Hover-`transform: translateY(-1px)` wuerde mit der bestehenden
+   `group-hover:rotate-45`-Drehung der Badges um dieselbe Eigenschaft konkurrieren.
+   Hier zaehlt nur die Flaeche — Groesse, Radius und Drehung bleiben bei den Utilities. */
+.cc-gradient-fill {
+  background-color: var(--cc-graphite);
+  background-image:
+    radial-gradient(
+      ellipse 85% 130% at 86% 116%,
+      rgb(47 128 237 / 0.95) 0%,
+      rgb(47 128 237 / 0.45) 38%,
+      rgb(47 128 237 / 0) 68%
+    ),
+    linear-gradient(100deg, #34383d 0%, #2e3b48 45%, #27333f 100%);
+  color: var(--cc-white);
+}
+
+/* ---------------------------------------------------------------------------
+   Liquid-Glass-Fassung des CTA-Buttons (2026-07-23) — NUR fuer dunkle Untergruende.
+
+   Warum nicht ueberall: `backdrop-filter` braucht etwas zum Durchscheinen. Auf dem
+   Hero-Foto und den Prozesskarten entsteht dadurch echtes Glas; auf den hellen
+   Sektionen und in der weissen MobileStickyCTA-Leiste waere ein durchscheinender
+   Button dagegen kontrastarm und laese sich wie „deaktiviert". Dort bleibt bewusst
+   `.cc-gradient-button` mit dem soliden Verlauf.
+
+   Der Glaseindruck entsteht aus drei Schichten: leichte Weiss-Tinte + Backdrop-Blur
+   (Unschaerfe des Hintergrunds), schraeger Glanzverlauf darueber und eine helle
+   Innenkante oben (`inset`-Shadow) als Lichtkante.
+   `-webkit-backdrop-filter` ist fuer Safari weiterhin noetig.
+   --------------------------------------------------------------------------- */
+.cc-glass-button {
+  background-color: rgb(255 255 255 / 0.12);
+  background-image: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.24) 0%,
+    rgb(255 255 255 / 0.08) 45%,
+    rgb(255 255 255 / 0.02) 100%
+  );
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border-color: rgb(255 255 255 / 0.38);
+  box-shadow:
+    0 18px 34px -22px rgb(var(--cc-carbon-rgb) / 0.8),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.4);
+  color: var(--cc-white);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.cc-glass-button:hover {
+  background-color: rgb(255 255 255 / 0.18);
+  border-color: rgb(255 255 255 / 0.55);
+  box-shadow:
+    0 22px 42px -24px rgb(var(--cc-carbon-rgb) / 0.85),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.55);
+  transform: translateY(-1px);
+}
+
+.cc-glass-button:active {
+  background-color: rgb(255 255 255 / 0.14);
+  box-shadow:
+    0 14px 28px -24px rgb(var(--cc-carbon-rgb) / 0.75),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.3);
+  transform: translateY(0);
 }
 
 .cc-gradient-button:active {

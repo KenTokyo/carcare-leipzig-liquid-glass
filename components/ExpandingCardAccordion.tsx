@@ -185,7 +185,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
               <div className="mt-auto flex items-center justify-between gap-3 pt-6">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-900">{item.cta ?? 'Mehr ansehen'}</span>
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-950 text-white transition-transform duration-300 group-hover:rotate-45">
+                <span className="cc-gradient-fill flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45">
                   <ArrowUpRight size={16} />
                 </span>
               </div>

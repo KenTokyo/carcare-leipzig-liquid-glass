@@ -268,7 +268,7 @@ const TargetGroupCards: React.FC = () => {
                       className="group mt-6 inline-flex items-center justify-between gap-3 self-start rounded-full border border-gray-200 bg-white py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[0.16em] text-gray-900 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50"
                     >
                       {group.cta}
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-950 text-white transition-transform duration-300 group-hover:rotate-45">
+                      <span className="cc-gradient-fill flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45">
                         <ArrowUpRight size={15} />
                       </span>
                     </a>

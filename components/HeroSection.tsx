@@ -156,14 +156,14 @@ const HeroSection: React.FC = () => {
           <div className="mt-9 hidden flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex lg:justify-center">
             <a
               href="/kontakt#contact-schaden"
-              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+              className="cc-glass-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <AlertTriangle size={18} />
               Schaden melden
             </a>
             <a
               href="/kontakt#contact-termin"
-              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+              className="cc-glass-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <CalendarClock size={18} />
               Termin für Aufbereitung anfragen
