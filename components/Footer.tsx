@@ -3,7 +3,15 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionVal
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
-const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
+/**
+ * WEISSE Wortmarke fuer den dunklen Footer (2026-07-23). Bewusst PNG statt WebP: Die Datei hat
+ * einen Alphakanal und harte Kanten — unsere WebP-Konvertierung laeuft verlustbehaftet (q82) und
+ * wuerde dort Artefakte erzeugen. Der transparente Rand des Originals wurde weggeschnitten,
+ * dadurch identisches Seitenverhaeltnis (3.08) wie die dunkle Wortmarke -> direkter Ersatz.
+ */
+const logoWordmarkWhiteSrc = '/assets/carcare-center-wordmark-weiss.png';
+/** Hintergrundfoto des Footers (2026-07-23, Kundenmotiv). 2400x900, 36 KB. */
+const footerBgSrc = '/assets/footer-leipzig-carcare.webp';
 
 // Hilfsfunktion: erzeugt y/opacity-MotionValues für eine Spalte mit eigener Progress-Slice.
 // Muss als Hook (useTransform) auf Top-Level der Komponente aufgerufen werden, daher kein Loop — explizite Aufrufe unten.
@@ -88,6 +96,26 @@ const Footer: React.FC = () => {
         className="site-footer-shell fixed z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
         style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
       >
+        {/* Hintergrundfoto (2026-07-23). Liegt als UNTERSTE Ebene, damit die bestehenden
+            Brand-Lichter und der Content unveraendert darueber bleiben. Reines Add-on:
+            Reveal-Mechanik (Spacer, useScroll, Springs, Spalten-Reveals) bleibt unberuehrt.
+            Der dunkle Schleier haelt den Textkontrast auf dem bisherigen Niveau — ohne ihn
+            waeren die hellen Bildpartien rechts zu hell fuer die kleine graue Schrift. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <img
+            src={footerBgSrc}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
+          {/* 80 % und nicht weniger: gemessen. Bei 70 % hellte das helle Fahrzeug im rechten
+              Bildteil den Grund auf rgb(62,67,74) auf — der graue Navigationstext landete damit
+              bei Kontrast 3.93 und damit UNTER WCAG-AA (4.5). Mit 80 % liegt er wieder bei ~4.9.
+              Wer hier aufhellt, muss den Kontrast neu messen. */}
+          <div className="absolute inset-0 bg-gray-900/80" />
+        </div>
+
         {/* dezente Brand-Lichter im Hintergrund */}
         <div className="pointer-events-none absolute inset-0 opacity-60">
           <div className="absolute -top-32 -left-20 w-[40rem] h-[40rem] rounded-full bg-blue-600/10 blur-[120px]" />
@@ -106,8 +134,12 @@ const Footer: React.FC = () => {
 
             {/* Brand */}
             <motion.div style={reveal(brand)} className="col-span-2 lg:col-span-2 space-y-5">
-              <div className="inline-flex h-14 w-[220px] items-center justify-center gap-1.5 overflow-hidden rounded-xl bg-white px-3 ring-1 ring-white/20">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+              <div className="inline-flex items-center gap-3">
+                {/* Animiertes Markenzeichen behaelt bewusst sein weisses Badge: Das MP4 hat
+                    KEINEN Alphakanal (H.264 kann das nicht), sein weisser Hintergrund waere auf
+                    dem dunklen Footer sonst als Kasten sichtbar. Gleiche Loesung wie in den
+                    Karten-Sektionen (TargetGroupCards, ExpandingCardAccordion). */}
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1.5 ring-1 ring-white/20">
                   <video
                     src={logoMarkVideoSrc}
                     className="h-full w-full object-contain object-center"
@@ -119,15 +151,15 @@ const Footer: React.FC = () => {
                     aria-hidden="true"
                   />
                 </span>
-                <span className="flex h-9 min-w-0 flex-1 items-center overflow-hidden">
-                  <img
-                    src={logoWordmarkSrc}
-                    alt="CarCare Center"
-                    className="h-[80%] w-full object-contain object-left"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </span>
+                {/* Weisse Wortmarke direkt auf dem dunklen Footer — der frueher noetige weisse
+                    Kasten um die dunkle Wortmarke entfaellt dadurch. */}
+                <img
+                  src={logoWordmarkWhiteSrc}
+                  alt="CarCare Center"
+                  className="h-10 w-auto object-contain"
+                  decoding="async"
+                  loading="lazy"
+                />
               </div>
               <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
                 BS CarCare GmbH<br />
