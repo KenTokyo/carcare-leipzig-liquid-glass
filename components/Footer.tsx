@@ -161,7 +161,7 @@ const Footer: React.FC = () => {
                   loading="lazy"
                 />
               </div>
-              <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+              <p className="text-gray-300 text-sm leading-relaxed max-w-sm">
                 BS CarCare GmbH<br />
                 Ihr Premium-Partner für Fahrzeugaufbereitung und -pflege in Leipzig.
               </p>
@@ -172,19 +172,19 @@ const Footer: React.FC = () => {
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Kontakt</h4>
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
-                  <MapPin size={16} className="mt-1 shrink-0 text-gray-500" />
+                  <MapPin size={16} className="mt-1 shrink-0 text-gray-400" />
                   <p className="leading-snug">An den Tierkliniken 42<br />04103 Leipzig</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone size={16} className="text-gray-500 shrink-0" />
+                  <Phone size={16} className="text-gray-400 shrink-0" />
                   <a href="tel:03412617790" className="hover:text-white transition-colors">0341 - 261 77 90</a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Printer size={16} className="text-gray-500 shrink-0" />
+                  <Printer size={16} className="text-gray-400 shrink-0" />
                   <p>0341 - 962 74 87</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail size={16} className="text-gray-500 shrink-0" />
+                  <Mail size={16} className="text-gray-400 shrink-0" />
                   {/* `tracking-tight` haelt die Adresse in der schmalen 1/6-Footerspalte auf EINER
                       Zeile: Space Grotesk laeuft breiter als das fruehere Inter und kippte sie ab
                       ~1440px in einen Umbruch mitten in der Domain ("carcare-" / "center.de").
@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Öffnungszeiten</h4>
               <div className="space-y-2 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
-                  <Clock size={16} className="mt-1 shrink-0 text-gray-500" />
+                  <Clock size={16} className="mt-1 shrink-0 text-gray-400" />
                   <div className="leading-snug">
                     <p><span className="font-semibold text-white">Mo – Fr:</span> 07:00 – 18:00</p>
                     <p><span className="font-semibold text-white">Sa:</span> n. Vereinbarung</p>
@@ -251,10 +251,13 @@ const Footer: React.FC = () => {
           {/* Legal Bottom */}
           <motion.div style={reveal(legal)} className="border-t border-white/10 pt-6 md:pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6">
-              <p className="text-xs text-gray-500">
+              {/* 2026-07-23: von gray-500 auf gray-300 aufgehellt. Auf dem neuen Hintergrundfoto
+                  lag gray-500 bei Kontrast 2.77 und damit klar unter WCAG-AA — die Zeilen waren
+                  praktisch unlesbar. gray-300 entspricht den uebrigen Footer-Texten. */}
+              <p className="text-xs text-gray-300">
                 © {new Date().getFullYear()} BS CarCare GmbH.
               </p>
-              <div className="max-w-2xl text-[10px] text-gray-500 leading-relaxed space-y-2">
+              <div className="max-w-2xl text-[10px] text-gray-300 leading-relaxed space-y-2">
                 <p><span className="font-semibold text-gray-300">Verantwortliche Stelle:</span> BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig.</p>
                 <p><span className="font-semibold text-gray-300">Datenschutz:</span> Anonymisierte Webanalyse via Matomo, gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden.</p>
               </div>
