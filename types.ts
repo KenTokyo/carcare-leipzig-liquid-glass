@@ -10,6 +10,23 @@ export interface NavLink {
   href: string;
 }
 
+/** Ein namentlich genannter Referenzpartner auf einer Zielgruppen-Kachel. */
+export interface TargetGroupPartner {
+  /** Firmierung wie vom Partner selbst verwendet. */
+  name: string;
+  /**
+   * Monochromes Logo mit transparentem Hintergrund (SVG bevorzugt, sonst WebP/PNG),
+   * abgelegt unter `/public/assets/partner/`.
+   *
+   * OPTIONAL und aktuell bei allen Partnern LEER: Herstellerlogos sind geschuetzte
+   * Marken und duerfen nur mit schriftlicher Freigabe des jeweiligen Partners
+   * eingebunden werden (siehe Kommentar an der Partnerliste in TargetGroupCards).
+   * Ohne Datei zeigt die Kachel nur den Namen — das Raster bleibt identisch, die
+   * Logos lassen sich also spaeter ohne Layout-Aenderung nachruesten.
+   */
+  logo?: string;
+}
+
 export interface TargetGroup {
   id: string;
   title: string;
@@ -20,6 +37,27 @@ export interface TargetGroup {
   accent?: 'light' | 'dark';
   /** Hintergrundbild der Kachel (Pfad in /public/assets). Pro Kachel frei austauschbar. */
   backgroundImage?: string;
+  /** Zweiter CTA neben `cta`/`href`, im blauen CI-Verlauf gesetzt. */
+  secondaryCta?: { label: string; href: string };
+  /**
+   * Referenzpartner, die auf der Kachel namentlich genannt werden.
+   *
+   * Darstellung richtet sich nach der Anzahl (siehe TargetGroupCards):
+   * bis 8 Partner als Raster mit Logo-Slot, darueber als kompakter Fliesstext —
+   * 31 Versicherer im Raster waeren rund 350 px hoch und wuerden die Kachel sprengen.
+   */
+  partners?: TargetGroupPartner[];
+  /** Ueberschrift ueber der Partnerliste. Default: „Partnerbetriebe". */
+  partnersLabel?: string;
+  /**
+   * Viewporthoehe, unter der die Partnerliste auf Desktop weicht.
+   *
+   * Pro Kachel unterschiedlich, weil die Kachelhoehe mit dem Stapelindex abnimmt
+   * (`100svh - i x --bar`): Die Versicherungs-Kachel hat ~112 px mehr Inhalt als die
+   * Gewerbe-Kachel und vertraegt die Liste deshalb bis zu einer niedrigeren Schwelle.
+   * Nur diese beiden Werte, damit die Klassen fuer Tailwind statisch bleiben.
+   */
+  partnersHideBelow?: 760 | 860;
 }
 
 export interface OverviewService {

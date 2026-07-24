@@ -569,6 +569,34 @@ textarea {
   transform: translateY(0);
 }
 
+/* Dezente Scrollleiste im Textbereich der Zielgruppen-Kacheln (2026-07-24).
+   Gebraucht wird sie vor allem MOBIL: Dort ist die Kachel niedriger als ihr Inhalt
+   (Partneransprache + zwei CTAs + Partnerliste), und ohne Scrollmoeglichkeit wuerde
+   das `overflow-hidden` der Bildkarte den Rest einfach abschneiden.
+   Auf Desktop erscheint sie nicht, weil der Inhalt dort in die Kachel passt.
+   Bewusst schmal und in der Kartenfarbe: Sie soll den ruhigen Kartenlook nicht stoeren. */
+.cc-card-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--cc-carbon-rgb) / 0.25) transparent;
+}
+
+.cc-card-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cc-card-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cc-card-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--cc-carbon-rgb) / 0.22);
+  border-radius: 999px;
+}
+
+.cc-card-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--cc-carbon-rgb) / 0.34);
+}
+
 /* Utilities ZULETZT (siehe Hinweis am Dateianfang) — damit Tailwind-Utilities
    Custom-Regeln gleicher Spezifitaet ueberschreiben, exakt wie im frueheren CDN-Setup. */
 @tailwind utilities;
