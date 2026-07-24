@@ -250,6 +250,35 @@ const Footer: React.FC = () => {
 
           {/* Legal Bottom */}
           <motion.div style={reveal(legal)} className="border-t border-white/10 pt-6 md:pt-8">
+            {/* EU-Foerderhinweis — foerderrechtliche Pflichtangabe, keine Gestaltungsfreiheit.
+                Emblem: /assets/eu-emblem.svg, erzeugt von scripts/build-eu-emblem.mjs exakt
+                nach amtlicher Geometrie (Verhaeltnis 3:2, Sternenkreis H/3, Stern-Umkreis
+                H/18, Reflex Blue #003399 / Yellow #FFCC00). Der weisse Rand (1/25 der Hoehe)
+                ist auf diesem dunklen Footer-Foto vorgeschrieben, nicht optional.
+                Der Hinweistext steht NEBEN dem Emblem und ueberschneidet es nicht. */}
+            <div className="mb-6 flex items-center gap-4 md:mb-8">
+              <img
+                src="/assets/eu-emblem.svg"
+                alt="Flagge der Europäischen Union"
+                width={948}
+                height={648}
+                decoding="async"
+                className="h-12 w-auto shrink-0 md:h-14"
+              />
+              {/* Schriftart bewusst NICHT Space Grotesk: Die Publizitaetsvorgaben nennen als
+                  zulaessige Schriften Arial, Auto, Calibri, Garamond, Tahoma, Trebuchet und
+                  Ubuntu — Space Grotesk ist nicht darunter. Ebenfalls unzulaessig sind
+                  Kursivschrift, Unterstreichungen und Schrifteffekte, deshalb hier auch kein
+                  drop-shadow wie an anderen Stellen des Footers. `text-white` fuer maximalen
+                  Kontrast auf dem Hintergrundfoto. */}
+              <p
+                className="text-sm leading-snug text-white md:text-base"
+                style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+              >
+                Kofinanziert von der Europäischen Union.
+              </p>
+            </div>
+
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6">
               {/* 2026-07-23: von gray-500 auf gray-300 aufgehellt. Auf dem neuen Hintergrundfoto
                   lag gray-500 bei Kontrast 2.77 und damit klar unter WCAG-AA — die Zeilen waren
