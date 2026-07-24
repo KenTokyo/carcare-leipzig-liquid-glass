@@ -100,6 +100,14 @@ async function run() {
     for (const route of routes) {
       const page = await browser.newPage();
       try {
+        // Preloader im Prerender hart aus. `evaluateOnNewDocument` laeuft VOR allen
+        // Seitenskripten — also auch vor dem Inline-Script in index.html, das sonst
+        // `html.cc-preloading` setzen wuerde. Folge waere ein deckendes Overlay im
+        // Snapshot und ein `autoScroll()`, das die whileInView-Reveals hinter einer
+        // Blende auslaesst.
+        await page.evaluateOnNewDocument(() => {
+          window.__CC_NO_PRELOADER__ = true;
+        });
         await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 30000 });
         // Warten bis die App gerendert hat: #root hat Inhalt UND JSON-LD ist da.
         await page.waitForFunction(
@@ -124,6 +132,26 @@ async function run() {
           '</body>',
           '<script data-prerender-guard>var r=document.getElementById("root");if(r)r.replaceChildren();</script></body>'
         );
+        // Laufzeit-Klassen aus dem <html>-Tag des Snapshots entfernen. Das sind Zustaende
+        // aus DIESEM Headless-Lauf, die im ausgelieferten HTML nichts verloren haben:
+        //
+        // - `cc-preloading`: Guertel und Hosentraeger zum Guard oben. Landet der Name doch
+        //   je im Snapshot (geaenderte Skript-Reihenfolge, manueller Lauf), waere im
+        //   statischen HTML ein deckendes Overlay eingebacken.
+        // - `lenis`, `lenis-smooth`, `lenis-scrolling`, …: setzt Lenis beim Initialisieren.
+        //   Fachlich harmlos (die Lenis-CSS kommt erst mit dem Bundle, danach verwaltet
+        //   Lenis die Klassen selbst neu), aber `lenis-scrolling` behauptet einen
+        //   Scroll-Zustand, den es beim echten Seitenaufruf gar nicht gibt.
+        //
+        // Die Inline-Scripts bleiben unangetastet und entscheiden beim echten Aufruf normal.
+        const RUNTIME_CLASSES = /^(cc-preloading|lenis(-.*)?)$/;
+        html = html.replace(
+          /(<html\b[^>]*\sclass=")([^"]*)(")/i,
+          (_m, pre, classes, post) =>
+            pre + classes.split(/\s+/).filter((c) => c && !RUNTIME_CLASSES.test(c)).join(' ') + post
+        );
+        // Ein danach leeres class="" ganz weglassen statt als Rest stehen zu lassen.
+        html = html.replace(/(<html\b[^>]*?)\s+class=""/i, '$1');
         const outPath = outPathFor(route);
         mkdirSync(dirname(outPath), { recursive: true });
         writeFileSync(outPath, `<!DOCTYPE html>\n${html.replace(/^<!DOCTYPE html>/i, '').trimStart()}`);

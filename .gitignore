@@ -15,6 +15,12 @@ dist-ssr
 # Auto-generiert beim Build (scripts/generate-sitemap.mjs) – wird bei jedem Build neu erzeugt
 public/sitemap.xml
 
+# Preloader-Verifikation: reproduzierbare Screenshots (~13 MB pro Lauf).
+# Jederzeit neu erzeugbar mit `node scripts/verify-preloader.mjs [baseUrl]`.
+# Bewusst NICHT versioniert – anders als output/playwright/ (historisch getrackt)
+# waeren das bei jedem Lauf neue Binaerdateien in der History.
+output/preloader-verify/
+
 # Claude Code temporaere Worktrees (isolierte Repo-Kopien, nie committen)
 .claude/worktrees/
 

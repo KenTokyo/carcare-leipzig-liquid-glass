@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Layout from './components/Layout';
+import Preloader from './components/Preloader';
 import JsonLd from './components/JsonLd';
 import StructuredData from './components/StructuredData';
 import HomePage from './pages/HomePage';
@@ -22,6 +24,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { getKnowledgeArticleByPath } from './data/knowledgeArticles';
 import { pageSchemas } from './seo/pageSchemas';
 import { useSmoothScroll, getLenis } from './hooks/useSmoothScroll';
+import { usePreloader } from './hooks/usePreloader';
 
 const normalizePath = (path: string) => {
   if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
@@ -34,6 +37,10 @@ const App: React.FC = () => {
   // Globales Smooth-Scrolling (Lenis) — gibt der ganzen Seite und damit auch dem
   // Hero-Parallax die Fluessigkeit der skiper29-Referenz. Siehe hooks/useSmoothScroll.ts.
   useSmoothScroll();
+
+  // MUSS nach useSmoothScroll() stehen: Effects laufen in Deklarationsreihenfolge, und
+  // der Preloader sperrt Lenis ueber `getLenis()`. Weiter oben waere die Instanz noch null.
+  const { showPreloader, handleHoldComplete, handleExitComplete } = usePreloader();
 
   useEffect(() => {
     const syncPath = () => setPath(normalizePath(window.location.pathname));
@@ -105,11 +112,19 @@ const App: React.FC = () => {
   }, [path]);
 
   return (
-    <Layout>
-      <StructuredData />
-      {pageSchemas[path] && <JsonLd data={pageSchemas[path]} />}
-      {page}
-    </Layout>
+    <>
+      {/* Ausserhalb von <Layout>, damit das Overlay nicht in dessen Stacking-Context
+          (site-main-shell mit overflow-clip) faellt und dort beschnitten wuerde. */}
+      <AnimatePresence onExitComplete={handleExitComplete}>
+        {showPreloader && <Preloader onHoldComplete={handleHoldComplete} />}
+      </AnimatePresence>
+
+      <Layout>
+        <StructuredData />
+        {pageSchemas[path] && <JsonLd data={pageSchemas[path]} />}
+        {page}
+      </Layout>
+    </>
   );
 };
 

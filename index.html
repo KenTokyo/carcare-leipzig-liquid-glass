@@ -49,9 +49,152 @@
   </script>
   <!-- Tailwind + globales CSS kommen ueber den Vite-Build (import './index.css' in index.tsx). -->
   <!-- Frueher: Play-CDN + inline tailwind.config; ersetzt am 2026-07-08 durch Build-Time-Tailwind. -->
+
+  <!-- ===================== PRELOADER: BOOT-LAYER =====================
+       Warum das hier INLINE steht und nicht in index.css:
+       index.css kommt ueber den JS-Bundle (`import './index.css'` in index.tsx) und ist
+       damit erst nach dem React-Boot da. Der Preloader soll aber ab dem ERSTEN Frame
+       stehen — sonst sieht man genau die weisse Luecke, die er kaschieren soll
+       (der Prerender-Flash-Guard leert `#root` synchron, siehe scripts/prerender.mjs).
+
+       Die Lockup-Klassen (.cc-lockup*) werden von components/Preloader.tsx WIEDER-
+       VERWENDET. Dadurch ist die Uebergabe vom statischen Boot-Layer an die React-
+       Komponente pixelidentisch, ohne die Geometrie an zwei Stellen zu pflegen.
+
+       Bilder bewusst als CSS-`background-image` statt als <img>: Bei `display:none`
+       laedt der Browser Hintergrundbilder NICHT, <img>-Elemente dagegen schon. Sonst
+       zoege jede Seite ohne Preloader ~39 KB Blindlast. -->
+  <style>
+    #cc-boot {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== Hero-Foto mit Weiss-Auftrag =====
+       Gleiche Machart wie der Sektions-Hintergrund der Leistungsuebersicht
+       (components/ServiceGrid.tsx): das Foto wird von mehreren Weiss-Ebenen ueberlagert
+       und laeuft an den Raendern randlos ins Weiss aus.
+       Uebernommen wird auch die dortige Lehre: IMMER transparentes WEISS
+       (`rgb(255 255 255 / 0)`), niemals `transparent` — sonst entsteht ein grauer Saum.
+       Ebenen von oben nach unten:
+         1. Rand-Vignette (`closest-side`): alle vier Kanten laufen zu 100 % Weiss aus
+         2. Weiss-Insel unter dem Logo — ersetzt den horizontalen Header-Schutz der
+            Leistungsuebersicht. Dort steht die Ueberschrift links, hier steht die Marke
+            mittig, also liegt der Schutz mittig und elliptisch (Form der Lockup).
+         3. Vertikaler Grund-Veil: haelt das Foto ueberall als Hauch, nie als Motiv
+         4. Das Foto selbst
+         5. Weiss als Basis — Fallback, falls das Foto (noch) nicht geladen ist
+
+       WICHTIG: Exakt dieselbe Klasse benutzt components/Preloader.tsx fuer die Treppen-
+       Spalten. Dadurch ist die Behandlung nur EINMAL definiert und der Uebergang vom
+       Boot-Layer zur React-Fassung pixelgleich.
+
+       Art Direction wie im Hero (components/HeroSection.tsx): identische Dateien und
+       identischer Breakpoint (767px). Weil es dieselben URLs sind, ist der Download
+       nicht doppelt — der Preloader WAERMT das Hero-Bild fuer die Sektion darunter. */
+    .cc-photo-veil {
+      --cc-veil-photo: url(/assets/hero-leipzig-carcare-desktop.webp);
+      background:
+        radial-gradient(ellipse closest-side at 50% 50%, rgb(255 255 255 / 0) 32%, rgb(255 255 255 / 1) 92%),
+        radial-gradient(ellipse 48% 32% at 50% 50%, rgb(255 255 255 / 0.94) 0%, rgb(255 255 255 / 0.6) 52%, rgb(255 255 255 / 0) 100%),
+        linear-gradient(to bottom, rgb(255 255 255 / 0.72) 0%, rgb(255 255 255 / 0.42) 45%, rgb(255 255 255 / 0.62) 100%),
+        var(--cc-veil-photo) center / cover no-repeat,
+        #ffffff;
+    }
+
+    @media (max-width: 767px) {
+      /* Hochkant-Zuschnitt statt 21:9-Panorama — gleiche Begruendung wie im Hero:
+         `cover` wuerde das Panorama im hochkanten Viewport auf einen schmalen,
+         stark gezoomten Streifen reduzieren. */
+      .cc-photo-veil { --cc-veil-photo: url(/assets/hero-leipzig-carcare-mobile.webp); }
+    }
+
+    html.cc-preloading #cc-boot { display: flex; }
+    /* Scroll-Lock der ersten Millisekunden — bevor React/Lenis uebernehmen koennen. */
+    html.cc-preloading body { overflow: hidden; }
+
+    /* Groessen bewusst in clamp(): Der Lockup soll auf 1440 px rund 42 % der Breite
+       einnehmen ("gross"), auf 390 px aber noch mit Rand stehen (~66 %). */
+    .cc-lockup {
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2.8vw, 2.25rem);
+    }
+
+    /* Kein weisses Badge (anders als Navbar/Footer, die es auf dunklem Grund brauchen):
+       Der Preloader IST weiss, der eingebackene weisse Grund des Siegels geht darin auf. */
+    .cc-lockup-mark {
+      width: clamp(68px, 13.5vw, 152px);
+      aspect-ratio: 1;
+      background: url(/assets/carcare-center-mark.webp) center / contain no-repeat;
+      flex: none;
+    }
+
+    /* ratio 3.077 = exakt das Seitenverhaeltnis von carcare-center-wordmark-dark.webp
+       (840x273, echter Alphakanal) -> kein Layout-Shift, kein Verzerren.
+       Wert stammt aus der Ausgabe von scripts/build-preloader-assets.mjs. */
+    .cc-lockup-word {
+      width: clamp(172px, 35vw, 420px);
+      aspect-ratio: 3.077;
+      background: url(/assets/carcare-center-wordmark-dark.webp) center / contain no-repeat;
+      flex: none;
+    }
+  </style>
+  <script>
+    /* Entscheidet VOR dem ersten Paint, ob der Preloader ueberhaupt laeuft.
+       Das ist die EINZIGE Stelle, an der die Bedingungen stehen. hooks/usePreloader.ts
+       wertet sie nicht erneut aus, sondern liest nur, ob die Klasse gesetzt wurde.
+
+       Bedingungen:
+         - Startseite "/"                -> Unterseiten bleiben LCP-sauber
+         - kein Hash im URL              -> wer auf /#kontakt einsteigt, will den Anker,
+                                            nicht die Marke; der Scroll-to-Anchor in
+                                            App.tsx wuerde am `overflow:hidden` scheitern
+         - kein sessionStorage-Flag      -> nur 1x pro Session (NUR in Produktion, s. u.)
+         - kein Prerender                -> scripts/prerender.mjs setzt __CC_NO_PRELOADER__
+
+       Schalter:
+         ?preloader=1  erzwingt ihn (auch auf Unterseiten / erneut) — fuer Vorfuehrungen
+         ?preloader=0  schaltet ihn ab
+         __CC_DEV__    setzt der Dev-Server (Plugin in vite.config.ts): lokal laeuft der
+                       Preloader bei JEDEM Reload. Ohne das saehe man ihn beim Entwickeln
+                       genau einmal und koennte nicht daran arbeiten. Der gebaute Output
+                       enthaelt das Flag nicht, dort gilt das Session-Gate unveraendert.
+
+       Fehlschlaege (z. B. sessionStorage im Private Mode blockiert) fuehren bewusst
+       dazu, dass KEIN Preloader laeuft — im Zweifel lieber sofort Inhalt zeigen. */
+    (function () {
+      try {
+        if (window.__CC_NO_PRELOADER__) return;
+
+        var q = location.search;
+        if (/[?&]preloader=0\b/.test(q)) return;
+
+        if (!/[?&]preloader=1\b/.test(q)) {
+          if (location.hash) return;
+          var path = location.pathname.replace(/\/+$/, '') || '/';
+          if (path !== '/') return;
+          if (!window.__CC_DEV__ && sessionStorage.getItem('cc-preloader-v1')) return;
+        }
+        document.documentElement.classList.add('cc-preloading');
+      } catch (e) { /* kein Preloader */ }
+    })();
+  </script>
 </head>
 
 <body>
+  <!-- Erster Frame der Marke. components/Preloader.tsx entfernt diesen Knoten, sobald
+       das Framer-Overlay im DOM steht (useLayoutEffect -> kein sichtbarer Zwischenframe). -->
+  <div id="cc-boot" class="cc-photo-veil" aria-hidden="true">
+    <div class="cc-lockup">
+      <div class="cc-lockup-mark"></div>
+      <div class="cc-lockup-word"></div>
+    </div>
+  </div>
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
