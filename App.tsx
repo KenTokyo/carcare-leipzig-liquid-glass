@@ -16,6 +16,7 @@ import FelgenreparaturPage from './pages/FelgenreparaturPage';
 import FuhrparkservicePage from './pages/FuhrparkservicePage';
 import AutoglasPage from './pages/AutoglasPage';
 import BusinessCustomersPage from './pages/BusinessCustomersPage';
+import PrivatkundenPage from './pages/PrivatkundenPage';
 import CareerPage from './pages/CareerPage';
 import ContactPage from './pages/ContactPage';
 import KnowledgeArticlePage from './pages/KnowledgeArticlePage';
@@ -100,6 +101,8 @@ const App: React.FC = () => {
         return <AutoglasPage />;
       case '/geschaeftskunden':
         return <BusinessCustomersPage />;
+      case '/privatkunden':
+        return <PrivatkundenPage />;
       case '/karriere':
         return <CareerPage />;
       case '/kontakt':

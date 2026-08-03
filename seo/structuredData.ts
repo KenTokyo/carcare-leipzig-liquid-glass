@@ -73,6 +73,41 @@ export const serviceSchema = (name: string, description: string, path: string) =
   provider: { '@type': 'AutoRepair', name: 'CarCare Center Leipzig', url: siteUrl },
 });
 
+/**
+ * Preise maschinenlesbar auszeichnen.
+ *
+ * WARUM: Konkrete Preise sind der Teil einer Leistungsseite, den KI-Antwortsysteme am
+ * ehesten uebernehmen — sie zitieren Zahlen, keine Werbeadjektive. Die Pakete stehen
+ * sichtbar auf der Seite; Schema bildet nur ab, was dort auch steht (§5).
+ *
+ * `price` erwartet einen reinen Zahlenwert als String ("169.00"). Pakete mit „ab"-Preis
+ * werden ueber `minPrice` als `PriceSpecification` ausgezeichnet, nicht als Fixpreis —
+ * sonst behauptet das Markup einen Endpreis, den es nicht gibt.
+ */
+export const offerCatalogSchema = (
+  name: string,
+  path: string,
+  offers: Array<{ description: string; from?: boolean; name: string; price: string }>
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name,
+  url: absoluteUrl(path),
+  itemListElement: offers.map((offer, index) => ({
+    '@type': 'Offer',
+    position: index + 1,
+    name: offer.name,
+    description: offer.description,
+    priceCurrency: 'EUR',
+    ...(offer.from
+      ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: offer.price, priceCurrency: 'EUR', valueAddedTaxIncluded: true } }
+      : { price: offer.price }),
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'AutoRepair', name: 'CarCare Center Leipzig', url: siteUrl },
+    areaServed: { '@type': 'City', name: 'Leipzig' },
+  })),
+});
+
 export const faqSchema = (faqs: FAQItem[]) => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',

@@ -1,31 +1,24 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import DetailingGallery from '../components/DetailingGallery';
+import { carePackages, detailingScopes, detailingSteps, disinfectionServices } from '../data/detailing';
 
-const services = [
-  { title: 'Innenaufbereitung', description: 'Sorgfältige Reinigung und Pflege von Cockpit, Oberflächen, Polstern und Innenraumdetails.', href: '/autoaufbereitung-wissen/innenaufbereitung' },
-  { title: 'Außenaufbereitung', description: 'Schonende Außenreinigung, Lackreinigung und gepflegtes Erscheinungsbild.', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung' },
-  { title: 'Lackreinigung', description: 'Entfernung von typischen Anhaftungen und Vorbereitung für Politur oder Versiegelung.', href: '/autoaufbereitung-wissen/lackaufbereitung' },
-  { title: 'Lackpolitur', description: 'Politur für mehr Glanz, glattere Oberflächen und optische Aufwertung.', href: '/autoaufbereitung-wissen/lackaufbereitung' },
-  { title: 'Versiegelung', description: 'Schutz und Werterhalt für Lackoberflächen nach der Aufbereitung.', href: '/autoaufbereitung-wissen/lackaufbereitung' },
-  { title: 'Geruchsentfernung', description: 'Innenraumbehandlung gegen unangenehme Gerüche und belastete Luft im Fahrzeug.', href: '/autoaufbereitung-wissen/innenaufbereitung' },
-  { title: 'Polster- und Lederpflege', description: 'Materialgerechte Pflege für Sitzflächen, Leder und textile Innenraumteile.', href: '/autoaufbereitung-wissen/innenaufbereitung' },
-  { title: 'Leasingrückgabe-Vorbereitung', description: 'Prüfung und Aufbereitung vor der Fahrzeugrückgabe.', href: '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten' },
-  { title: 'Verkaufsaufbereitung', description: 'Professionelle optische Aufwertung vor Verkauf, Übergabe oder Präsentation.', href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung' },
-];
+/**
+ * Hub-Seite des Aufbereitungs-Strangs.
+ *
+ * Buendelt alles, was auf der Startseite zur Fahrzeugaufbereitung vorkommt:
+ * Aufbereitungsumfang (innen/aussen/Lack), Leasingrueckgabe, Ablauf (wortgleich zu den
+ * Prozesskarten in `components/DetailingProcessSection.tsx`), Pflegepakete mit Preisen
+ * und Desinfektion. Inhalte liegen in `data/detailing.ts`, damit diese Datei eine
+ * Komposition bleibt (700-Zeilen-Regel aus CLAUDE.md).
+ */
 
-const carePackages = [
-  { id: 'p1', title: 'Brillant Außenpflege', price: '169,00 €', description: 'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche inkl. Abledern, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung.' },
-  { id: 'p2', title: 'Intensiv Innenreinigung', price: '199,00 €', description: 'Oberwäsche inkl. Abledern, intensive Reinigung des gesamten Innenraumes, Polstershampoonierung – alternativ Lederpflege – sowie Scheibenreinigung innen und außen.' },
-  { id: 'p3', title: 'Premiumpflege', price: '299,00 €', description: 'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.' },
-  { id: 'p4', title: 'Premiumpflege „exklusiv“', price: 'ab 348,00 €', description: 'Aufbereitung in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes.' },
-];
-
-const disinfectionServices = [
-  { id: 'd1', title: 'Ozonbehandlung', price: '45,00 €', description: 'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.' },
-  { id: 'd2', title: 'Heißvernebelung (KC-Refresher)', price: '59,00 €', description: 'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.' },
+const leasingChecks = [
+  { title: 'Was der Rückgabegutachter bewertet', description: 'Lackschäden, Diverses an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe sowie der Zustand des Innenraums fließen in das Rückgabeprotokoll ein.' },
+  { title: 'Was sich vorher beheben lässt', description: 'Parkplatzdellen bei intaktem Lack lackfrei entfernen, kleinere Lackschäden per Spot-Repair, Bordsteinschäden an Felgen bis 1 mm Tiefe und Steinschläge in der Scheibe reparieren.' },
+  { title: 'Warum das vorab günstiger ist', description: 'Der Leasinggeber rechnet Schäden nach eigenen Sätzen ab. Eine vorherige Instandsetzung im Fachbetrieb reduziert vermeidbare Nachbelastungen.' },
+  { title: 'Wann Sie starten sollten', description: 'Planen Sie den Termin einige Wochen vor der Rückgabe. So bleibt Zeit für Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin eng wird.' },
 ];
 
 const expertPoints = [
@@ -35,123 +28,184 @@ const expertPoints = [
   { title: 'Hohe Qualitätsstandards', description: 'Strukturierte Arbeitsweise, saubere Übergabe und sichtbarer Anspruch an Details.' },
 ];
 
-const steps = [
-  { title: 'Anfrage stellen', description: 'Fahrzeug, gewünschte Leistung und Wunschtermin an CarCare übermitteln.' },
-  { title: 'Bedarf einschätzen', description: 'Gemeinsam wird geklärt, welche Aufbereitung sinnvoll ist.' },
-  { title: 'Fahrzeug abgeben', description: 'Übergabe vor Ort mit kurzer Abstimmung zum Zustand.' },
-  { title: 'Professionell aufbereiten', description: 'Innen, außen, Lack und Details werden passend bearbeitet.' },
-  { title: 'Gepflegt zurückerhalten', description: 'Das Fahrzeug wird sauber, hochwertig und nachvollziehbar übergeben.' },
-];
-
 const faqs = [
-  { id: 'dauer', question: 'Wie lange dauert eine Fahrzeugaufbereitung?', answer: 'Das hängt von Leistung, Zustand und Umfang ab. CarCare stimmt den Ablauf nach der Anfrage persönlich ab.' },
-  { id: 'leasing', question: 'Hilft CarCare bei der Leasingrückgabe?', answer: 'Ja. Die Aufbereitung kann helfen, den Fahrzeugzustand vor der Rückgabe professionell zu verbessern.' },
-  { id: 'business', question: 'Ist Autoaufbereitung auch für Autohäuser und Fuhrparks möglich?', answer: 'Ja. CarCare arbeitet für Privatkunden, Autohäuser, Fuhrparks und Geschäftskunden mit hohen Qualitätsstandards.' },
+  {
+    id: 'dauer',
+    question: 'Wie lange dauert eine Fahrzeugaufbereitung?',
+    answer: 'Das hängt von Leistung, Zustand und Umfang ab. Eine reine Außenpflege ist deutlich schneller erledigt als die kombinierte Premiumpflege mit Motorreinigung und Versiegelung. CarCare stimmt den Ablauf nach der Anfrage persönlich ab und nennt Ihnen dabei den Zeitrahmen für Ihr Fahrzeug.',
+  },
+  {
+    id: 'preise',
+    question: 'Was kostet eine Autoaufbereitung bei CarCare Leipzig?',
+    answer: 'Die Brillant Außenpflege kostet 169,00 €, die Intensiv Innenreinigung 199,00 € und die Premiumpflege als Kombination beider Pakete 299,00 €. Die Premiumpflege „exklusiv“ mit SWIZÖL-Wachsen beginnt bei 348,00 €. Alle Preise verstehen sich inklusive gesetzlicher Mehrwertsteuer.',
+  },
+  {
+    id: 'paketwahl',
+    question: 'Welches Pflegepaket ist das richtige für mich?',
+    answer: 'Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – etwa Polster, Leder oder Gerüche –, ist die Intensiv Innenreinigung passend. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege.',
+  },
+  {
+    id: 'unterschied',
+    question: 'Was ist der Unterschied zwischen Autowäsche und Aufbereitung?',
+    answer: 'Eine Wäsche reinigt die Oberfläche. Die Aufbereitung geht darüber hinaus: Sie entfernt Anhaftungen, die die Wäsche stehen lässt, arbeitet den Lack durch Politur auf, versiegelt ihn anschließend und behandelt den Innenraum materialgerecht bis in die Details.',
+  },
+  {
+    id: 'leasing',
+    question: 'Hilft CarCare bei der Leasingrückgabe?',
+    answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe, setzen Gebrauchsspuren wie Dellen, Lackschäden oder Felgenschäden fachgerecht instand und bereiten es auf. Das reduziert vermeidbare Nachbelastungen durch den Rückgabegutachter.',
+  },
+  {
+    id: 'tierhaare',
+    question: 'Werden auch stark verschmutzte Fahrzeuge angenommen?',
+    answer: 'Ja, allerdings mit gesonderter Absprache. Fahrzeuge mit extremen Verschmutzungen – zum Beispiel Tierhaare – bedürfen eines höheren Aufwands und werden deshalb vorab individuell besprochen.',
+  },
+  {
+    id: 'geruch',
+    question: 'Was hilft gegen hartnäckige Gerüche im Innenraum?',
+    answer: 'Für belastete Innenraumluft bieten wir zwei Verfahren an: die Ozonbehandlung für 45,00 € mit rund 30 Minuten Einwirkzeit sowie die Heißvernebelung mit dem KC-Refresher für 59,00 €, die länger anhaltend gegen Bakterien, behüllte Viren und Schimmelpilze wirkt.',
+  },
+  {
+    id: 'business',
+    question: 'Ist Autoaufbereitung auch für Autohäuser und Fuhrparks möglich?',
+    answer: 'Ja. CarCare arbeitet für Privatkunden, Autohäuser, Fuhrparks und Geschäftskunden mit hohen Qualitätsstandards. Für wiederkehrende Aufbereitung gibt es feste Ansprechpartner und planbare Abläufe.',
+  },
 ];
 
 const VehicleDetailingPage: React.FC = () => (
   <>
-    <PageMeta canonical="/fahrzeugaufbereitung-leipzig" title="Fahrzeugaufbereitung Leipzig | Professionelle Autoaufbereitung" description="Professionelle Fahrzeugaufbereitung in Leipzig: Innenaufbereitung, Außenaufbereitung, Lackreinigung, Lackpolitur, Versiegelung, Geruchsentfernung, Polster- und Lederpflege sowie Leasingrückgabe-Vorbereitung." />
+    <PageMeta
+      canonical="/fahrzeugaufbereitung-leipzig"
+      title="Fahrzeugaufbereitung Leipzig | Preise ab 169 € | CarCare"
+      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenreinigung 199 €, Premiumpflege 299 €. Innen, außen, Lack und Leasingrückgabe."
+    />
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
-      title="Professionelle Fahrzeugaufbereitung in Leipzig"
-      description="CarCare ist Experte für professionelle Autoaufbereitung: Innenraum, Außenpflege, Lackreinigung, Politur, Versiegelung, Geruchsentfernung und Vorbereitung auf Verkauf oder Leasingrückgabe."
+      title="Professionelle Fahrzeugaufbereitung in Leipzig – mit festen Paketpreisen."
+      description="Innenraum, Außenpflege, Lackreinigung, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf 3.000 qm."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
-      secondaryCta={{ label: 'Ratgeber lesen', href: '/autoaufbereitung-wissen' }}
-      keywords={['Autoaufbereitung Leipzig', 'Lackpolitur Leipzig', 'Leasingrückgabe Leipzig']}
+      secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
+      keywords={['Autoaufbereitung Leipzig', 'Lackpolitur Leipzig', 'Innenreinigung Leipzig', 'Leasingrückgabe Leipzig']}
     />
-    <section className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Aufbereitungsleistungen" title="Innen, außen, Lack und Details professionell gepflegt." />
-        <FeatureGrid items={services} columns="three" />
-      </div>
-    </section>
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Expertise" title="Für Premiumfahrzeuge, Autohäuser, Fuhrparks und hohe Qualitätsstandards." description="CarCare arbeitet neutral, professionell und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern." />
-        <FeatureGrid items={expertPoints} columns="four" />
-      </div>
-    </section>
-    <DetailingGallery />
-    <section className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Ablauf" title="So läuft Ihre Autoaufbereitung bei CarCare." />
-        <ProcessList steps={steps} />
-      </div>
-    </section>
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+
+    {/* Preise bewusst weit oben: Sie sind die haeufigste Frage und der Teil, den
+        KI-Antwortsysteme am ehesten zitieren. */}
+    <section id="preise" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Pflegepakete & Preise"
-          title="Transparente Aufbereitungspakete für jedes Budget."
-          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs."
+          title="Was kostet eine Autoaufbereitung in Leipzig?"
+          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege für 169,00 € bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs ab 348,00 €."
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {carePackages.map((pkg, idx) => (
-            <motion.article
-              key={pkg.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg font-bold leading-tight text-gray-950">{pkg.title}</h3>
-                <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{pkg.price}</span>
-              </div>
-              <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{pkg.description}</p>
-              <a href="/kontakt#contact-termin" className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
-                Paket anfragen <ArrowRight size={14} />
-              </a>
-            </motion.article>
-          ))}
-        </div>
-        <p className="mt-6 text-xs leading-relaxed text-gray-500">
-          Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt.
-        </p>
+        <PricingGrid
+          items={carePackages}
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt."
+        />
       </div>
     </section>
-    <section className="bg-white px-6 py-20 md:py-28">
+
+    <section id="umfang" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Aufbereitungsumfang"
+          title="Innen, außen und Lack – was jeweils dazugehört."
+          description="Die drei Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab."
+        />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {detailingScopes.map((scope) => (
+            <article key={scope.title} className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+              <h3 className="text-xl font-bold leading-tight text-gray-950">{scope.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">{scope.intro}</p>
+              <ul className="mt-5 flex-grow space-y-2.5">
+                {scope.items.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-gray-600">
+                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-700" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={scope.href} className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+                {scope.hrefLabel} <ArrowRight size={14} />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="leasingrueckgabe" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Leasingrückgabe"
+          title="Fahrzeug vor der Leasingrückgabe vorbereiten."
+          description="Bei der Rückgabe bewertet ein Gutachter den Fahrzeugzustand und rechnet Schäden nach den Sätzen des Leasinggebers ab. Vieles davon lässt sich vorher im Fachbetrieb günstiger beheben."
+        />
+        <FeatureGrid items={leasingChecks} columns="four" />
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            Ratgeber Leasingrückgabe <ArrowRight size={14} />
+          </a>
+          <a href="/dellenentfernung-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            Dellen lackfrei entfernen <ArrowRight size={14} />
+          </a>
+          <a href="/smart-repair-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            Smart Repair bei Lackschäden <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <DetailingGallery />
+
+    <section id="ablauf" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Ablauf"
+          title="So läuft Ihre Autoaufbereitung bei CarCare."
+          description="Von der Leistungsauswahl bis zur gepflegten Übergabe – in fünf klaren Schritten, aus einer Hand."
+        />
+        <ProcessList steps={detailingSteps} />
+      </div>
+    </section>
+
+    <section id="desinfektion" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Desinfektion & Hygiene"
           title="Innenraum-Desinfektion gegen Keime, Viren und Gerüche."
           description="Für ein hygienisch sauberes Fahrzeug: professionelle Verfahren, die Bakterien, Viren, Schimmelpilze und Gerüche auch in unzugänglichen Bereichen erreichen."
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {disinfectionServices.map((svc, idx) => (
-            <motion.article
-              key={svc.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg font-bold leading-tight text-gray-950">{svc.title}</h3>
-                <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{svc.price}</span>
-              </div>
-              <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{svc.description}</p>
-              <a href="/kontakt#contact-termin" className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
-                Termin anfragen <ArrowRight size={14} />
-              </a>
-            </motion.article>
-          ))}
-        </div>
-        <p className="mt-6 text-xs leading-relaxed text-gray-500">
-          Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf.
-        </p>
+        <PricingGrid
+          items={disinfectionServices}
+          ctaLabel="Termin anfragen"
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf."
+        />
       </div>
     </section>
+
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Expertise"
+          title="Für Premiumfahrzeuge, Autohäuser, Fuhrparks und hohe Qualitätsstandards."
+          description="CarCare arbeitet neutral, professionell und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern."
+        />
+        <FeatureGrid items={expertPoints} columns="four" />
+      </div>
+    </section>
+
+    <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Fahrzeugaufbereitung." />
         <PageFAQ faqs={faqs} />
       </div>
     </section>
-    <PageCTA title="Ihr Fahrzeug soll sichtbar gepflegter wirken?" description="Fragen Sie Ihren Aufbereitungstermin in Leipzig an. CarCare empfiehlt die passende Leistung für Zustand und Ziel." primaryLabel="Termin anfragen" primaryHref="/kontakt#contact-termin" />
+
+    <PageCTA
+      title="Ihr Fahrzeug soll sichtbar gepflegter wirken?"
+      description="Fragen Sie Ihren Aufbereitungstermin in Leipzig an. CarCare empfiehlt die passende Leistung für Zustand und Ziel."
+      primaryLabel="Termin anfragen"
+      primaryHref="/kontakt#contact-termin"
+    />
   </>
 );
 

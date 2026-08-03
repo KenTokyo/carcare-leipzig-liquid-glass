@@ -5,11 +5,11 @@ import {
   Building2,
   CalendarClock,
   ChevronRight,
-  LayoutGrid,
   MapPin,
   Menu,
   Phone,
   Sparkles,
+  User,
   Wrench,
   X,
 } from 'lucide-react';
@@ -34,6 +34,14 @@ const navActionIconClass = 'flex h-11 w-11 shrink-0 items-center justify-center'
 const navActionLabelClass =
   'max-w-0 overflow-hidden pr-0 opacity-0 transition-[max-width,opacity,padding] duration-200 group-hover:max-w-[112px] group-hover:pr-3 group-hover:opacity-100 group-focus-visible:max-w-[112px] group-focus-visible:pr-3 group-focus-visible:opacity-100';
 
+/**
+ * Mega-Menue „Leistungen": die beiden Leistungs-Hubs plus die beiden Zielgruppen.
+ *
+ * Der fruehere Eintrag „Alle Leistungen" ist entfallen — der Menuetitel „Leistungen"
+ * verlinkt selbst auf `/leistungen`, und diese Seite fuehrt seit 2026-08-03 das
+ * vollstaendige Angebot (siehe docs/leistungen-nav-restructure/tasks/). Ein zweiter
+ * Link auf dasselbe Ziel im selben Menue waere redundant.
+ */
 const megaSections: Record<string, MegaSection> = {
   leistungen: {
     label: 'Leistungen',
@@ -47,20 +55,20 @@ const megaSections: Record<string, MegaSection> = {
       {
         icon: Wrench,
         label: 'Unfallinstandsetzung',
-        description: 'Smart Repair & Karosseriearbeiten',
+        description: 'Karosserie, Lackierung & Smart Repair',
         href: '/unfallinstandsetzung-leipzig',
+      },
+      {
+        icon: User,
+        label: 'Privatkunden',
+        description: 'Pflege, Reparatur & Leasingrückgabe',
+        href: '/privatkunden',
       },
       {
         icon: Building2,
         label: 'Geschäftskunden',
         description: 'Fuhrparkservice & Autohaus-Lösungen',
         href: '/geschaeftskunden',
-      },
-      {
-        icon: LayoutGrid,
-        label: 'Alle Leistungen',
-        description: 'Unser gesamtes Portfolio im Überblick',
-        href: '/leistungen',
       },
     ],
   },

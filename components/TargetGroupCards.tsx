@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { TargetGroup } from '../types';
+import { dealerPartners, insurancePartners } from '../data/partners';
 
 /**
  * Standard-Hintergrundbild der Kacheln.
@@ -72,39 +73,7 @@ const groups: TargetGroup[] = [
      * sichtbar und der Kartentext scrollt.
      */
     partnersHideBelow: 860,
-    partners: [
-      { name: 'HUK Coburg' },
-      { name: 'HUK 24' },
-      { name: 'Gothaer Versicherung' },
-      { name: 'Debeka' },
-      { name: 'VHV Versicherung' },
-      { name: 'Dialog' },
-      { name: 'Cosmos Direkt' },
-      { name: 'vrk+' },
-      { name: 'Generali' },
-      { name: 'janitos' },
-      { name: 'Concordia Versicherung' },
-      { name: 'Alte Leipziger' },
-      { name: 'Barmenia' },
-      { name: 'Continentale' },
-      { name: 'Deutsche Post' },
-      { name: 'Ecclesia' },
-      { name: 'freeyou ag' },
-      { name: 'Friday Insurance' },
-      { name: 'GVV' },
-      { name: 'Helvetia' },
-      { name: 'Itzehoer' },
-      { name: 'Nexible' },
-      { name: 'Nürnberger' },
-      { name: 'Provinzial' },
-      { name: 'R+V' },
-      { name: 'S-direkt' },
-      { name: 'Signal Iduna' },
-      { name: 'Verti' },
-      { name: 'Volkswohl Bund' },
-      { name: 'Wefox' },
-      { name: 'Württembergische Versicherung' },
-    ],
+    partners: insurancePartners,
   },
   {
     id: 'gewerbe',
@@ -131,28 +100,7 @@ const groups: TargetGroup[] = [
     backgroundImage: '/assets/kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp',
     partnersHideBelow: 860,
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
-    /**
-     * Referenzpartner (Stand 2026-07-24, vom Betrieb benannt).
-     *
-     * ⚠️ LOGOS BEWUSST NICHT HINTERLEGT. Volkswagen, Audi und Porsche sind
-     * eingetragene Marken. Ihre Logos duerfen nicht ohne schriftliche Freigabe des
-     * jeweiligen Partners eingebunden werden — und ein Herstellerlogo auf einer
-     * freien Werkstatt kann den unzutreffenden Eindruck einer autorisierten
-     * Vertragspartnerschaft erwecken (Irrefuehrung nach UWG). Die reine NAMENS-
-     * nennung als Referenz ist davon zu unterscheiden und hier bewusst gewaehlt.
-     *
-     * Sobald Freigaben und offizielle monochrome Dateien vorliegen: Dateien unter
-     * `/public/assets/partner/` ablegen und hier das Feld `logo` setzen. Das Raster
-     * unten zeigt sie dann automatisch ueber dem Namen an — keine Layout-Aenderung
-     * noetig. Siehe docs/zielgruppen-partner/tasks/.
-     */
-    partners: [
-      { name: 'Volkswagen Automobile Leipzig' },
-      { name: 'Audi Zentrum Leipzig' },
-      { name: 'Porsche Zentrum Leipzig' },
-      { name: 'Porsche Werk Leipzig' },
-      { name: 'Autohaus Otto Grimm' },
-    ],
+    partners: dealerPartners,
   },
 ];
 

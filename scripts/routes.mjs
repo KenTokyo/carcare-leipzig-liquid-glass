@@ -21,6 +21,7 @@ const staticRoutes = [
   { path: '/felgenreparatur-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/fuhrparkservice-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/autoglas-leipzig', changefreq: 'monthly', priority: '0.9' },
+  { path: '/privatkunden', changefreq: 'monthly', priority: '0.9' },
   { path: '/geschaeftskunden', changefreq: 'monthly', priority: '0.9' },
   { path: '/kontakt', changefreq: 'yearly', priority: '0.8' },
   { path: '/karriere', changefreq: 'monthly', priority: '0.7' },

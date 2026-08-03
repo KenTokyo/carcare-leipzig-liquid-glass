@@ -118,6 +118,53 @@ export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => (
   </div>
 );
 
+export interface PriceItem {
+  id: string;
+  title: string;
+  /** Anzeigepreis inkl. Waehrung, z. B. "169,00 €" oder "ab 348,00 €". */
+  price: string;
+  description: string;
+}
+
+/**
+ * Preisraster fuer Pakete und Einzelleistungen.
+ *
+ * Ersetzt zwei markup-identische Inline-Raster, die bis 2026-08-03 in
+ * `pages/VehicleDetailingPage.tsx` nebeneinander standen (Pflegepakete + Desinfektion).
+ * `note` nimmt den Pflichthinweis zur Mehrwertsteuer auf.
+ */
+export const PricingGrid: React.FC<{
+  ctaHref?: string;
+  ctaLabel?: string;
+  items: PriceItem[];
+  note?: string;
+}> = ({ ctaHref = '/kontakt#contact-termin', ctaLabel = 'Paket anfragen', items, note }) => (
+  <>
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {items.map((item, idx) => (
+        <motion.article
+          key={item.id}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.4, delay: idx * 0.05 }}
+          className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
+            <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{item.price}</span>
+          </div>
+          <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{item.description}</p>
+          <a href={ctaHref} className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            {ctaLabel} <ArrowRight size={14} />
+          </a>
+        </motion.article>
+      ))}
+    </div>
+    {note && <p className="mt-6 text-xs leading-relaxed text-gray-500">{note}</p>}
+  </>
+);
+
 export const PageFAQ: React.FC<{ faqs: FAQItem[] }> = ({ faqs }) => (
   <div className="space-y-3">
     {faqs.map((faq) => (

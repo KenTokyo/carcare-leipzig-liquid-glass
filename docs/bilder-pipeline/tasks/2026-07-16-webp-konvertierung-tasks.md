@@ -136,14 +136,15 @@ Fuhrparks"** gesetzt. Verifiziert (echter Chrome): Kachel laedt das Foto, 0×404
 `autohaus-fuhrpark-service` → **Leistungs**-Kachel „Fuhrparkservice"; `fuhrparkservice-leipzig-carcare`
 → **Zielgruppen**-Kachel „Autohaeuser & Fuhrparks". Genau deshalb: Motive ansehen, nicht Namen raten.
 
-### ⬜ Phase 7 — Restliche Zielgruppen-Kacheln (wartet auf Motive)
-**Stand:** 1 von 3 Kacheln in „Fuer wen wir arbeiten" hat ein eigenes Foto.
-* [x] „Autohaeuser & Fuhrparks" → `kacheln/fuhrparkservice-leipzig-carcare.webp`
-* [ ] „Privatkunden" — haengt noch an `DEFAULT_CARD_BG` (Motiv fehlt)
-* [ ] „Versicherungen & Agenturen" — haengt noch an `DEFAULT_CARD_BG` (Motiv fehlt)
-> Hinweis: `DEFAULT_CARD_BG` ist `carcare-hero-workshop.webp` — das **alte** Hero-Motiv. Es lebt nur
-> noch als Platzhalter fuer diese 2 Kacheln + `AutoDetailingExpertiseSection`. Sobald alle Kacheln
-> eigene Fotos haben, kann es (419 KB) raus.
+### ✅ Phase 7 — Restliche Zielgruppen-Kacheln (erledigt, Stand 2026-08-03)
+**Stand:** 3 von 3 Kacheln in „Fuer wen wir arbeiten" haben ein eigenes Foto.
+* [x] „Autohaeuser & Fuhrparks" → `kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp`
+* [x] „Privatkunden" → `kacheln/privatkunden-leipzig-carcare.webp` *(nachtraeglich verifiziert)*
+* [x] „Versicherungen & Agenturen" → `kacheln/versicherungen-und-agenturen-leipzig-carcare.webp` *(nachtraeglich verifiziert)*
+> Hinweis (ueberholt): `DEFAULT_CARD_BG` ist `carcare-hero-workshop.webp` — das **alte** Hero-Motiv.
+> Es dient in `TargetGroupCards.tsx` nur noch als Fallback (kein Motiv haengt mehr daran); aktiv
+> genutzt wird es weiterhin von `ExpandingCardAccordion.tsx`. Ein Entfernen ist daher **nicht**
+> allein ueber die Zielgruppen-Kacheln entscheidbar — siehe offener Punkt unten.
 **Referenzen:** `components/TargetGroupCards.tsx`
 **Referenzen:** `components/ServiceGrid.tsx`, `components/ExpandingCardAccordion.tsx`
 
