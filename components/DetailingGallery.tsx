@@ -197,30 +197,43 @@ const DetailingGallery: React.FC = () => {
           description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung – die Spalten bewegen sich sanft beim Scrollen."
         />
 
-        {prefersReducedMotion ? (
-          <StaticGrid />
-        ) : (
-          <div
-            ref={bandRef}
-            className="relative flex items-start gap-3 overflow-hidden rounded-[2rem] bg-gray-950 p-3 shadow-[0_34px_90px_-62px_rgb(var(--cc-carbon-rgb)/0.58)] ring-1 ring-white/10 sm:gap-4 sm:p-4"
-            style={{ height: `${bandHpx}px` }}
-          >
-            {COLUMNS.map((col, i) => (
-              <Column
-                key={i}
-                items={buildColumn(col.count, col.offset)}
-                y={ys[i]}
-                gapPx={gapPx}
-                tileHpx={tileHpx}
-                visibility={col.visibility}
-              />
-            ))}
+        {/*
+          `bandRef` haengt am AEUSSEREN Container und damit in BEIDEN Zweigen.
+          Vorher trug ihn nur der Animations-Zweig: Bei aktiviertem
+          `prefers-reduced-motion` rendert `StaticGrid`, der Ref blieb leer und
+          `useScroll({ target: bandRef })` warf „Target ref is defined but not hydrated" —
+          ein ungefangener Fehler, der React die GESAMTE Seite abraeumen liess
+          (/fahrzeugaufbereitung-leipzig blieb komplett weiss).
 
-            {/* Weiche Kaschierung oben/unten, damit Kacheln am Bandrand einfaden */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-gray-950 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-gray-950 to-transparent" />
-          </div>
-        )}
+          Das traf real: Windows meldet reduced-motion systemweit (siehe Projektnotiz),
+          und der Prerender bemerkt es nicht, weil Headless-Chrome es nicht meldet —
+          das statische HTML war vollstaendig, erst der Client-Mount brach ab.
+        */}
+        <div ref={bandRef}>
+          {prefersReducedMotion ? (
+            <StaticGrid />
+          ) : (
+            <div
+              className="relative flex items-start gap-3 overflow-hidden rounded-[2rem] bg-gray-950 p-3 shadow-[0_34px_90px_-62px_rgb(var(--cc-carbon-rgb)/0.58)] ring-1 ring-white/10 sm:gap-4 sm:p-4"
+              style={{ height: `${bandHpx}px` }}
+            >
+              {COLUMNS.map((col, i) => (
+                <Column
+                  key={i}
+                  items={buildColumn(col.count, col.offset)}
+                  y={ys[i]}
+                  gapPx={gapPx}
+                  tileHpx={tileHpx}
+                  visibility={col.visibility}
+                />
+              ))}
+
+              {/* Weiche Kaschierung oben/unten, damit Kacheln am Bandrand einfaden */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-gray-950 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-gray-950 to-transparent" />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
