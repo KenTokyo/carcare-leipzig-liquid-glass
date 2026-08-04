@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { FAQItem } from '../types';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
+import PhotoBackdrop from './PhotoBackdrop';
 
 export interface PageHeroProps {
   eyebrow: string;
@@ -12,6 +13,36 @@ export interface PageHeroProps {
   secondaryCta?: { label: string; href: string };
   keywords?: string[];
 }
+
+/**
+ * Seitenlayout mit durchgehendem Foto-Hintergrund.
+ *
+ * Das Foto haengt per `position: sticky` oben im Viewport und bleibt stehen, waehrend
+ * der Inhalt darueber scrollt — es loest sich erst, wenn das Ende des Inhalts erreicht
+ * ist. Motiv ist bewusst dasselbe wie auf der zugehoerigen Kachel der Startseite, damit
+ * Uebersicht und Unterseite zusammengehoeren.
+ *
+ * MECHANIK: Der Sticky-Block ist eine Viewporthoehe hoch; der Inhalt wird per
+ * `-mt-[100svh]` genau um diese Hoehe wieder hochgezogen und liegt damit darueber.
+ * Ohne das Hochziehen begaenne die Seite mit einem leeren Bildschirm.
+ *
+ * WARUM STICKY UND NICHT FIXED: Der App-Shell (`main`) spannt einen eigenen Containing
+ * Block auf — `position: fixed` orientiert sich daran statt am Viewport und ist hier
+ * gebrochen. `sticky` greift dagegen nativ.
+ *
+ * `svh` statt `vh`: Auf Mobile wuerde `100vh` die ein-/ausfahrende Browserleiste
+ * mitrechnen; Sticky-Hoehe und negativer Rand liefen dann auseinander.
+ *
+ * Die Sektionen geben ihren Hintergrund ueber `.cc-backdrop-content` ab (index.css).
+ */
+export const BackdropLayout: React.FC<{ children: React.ReactNode; image: string; zoom?: number }> = ({ children, image, zoom }) => (
+  <div className="relative isolate">
+    <div className="pointer-events-none sticky top-0 -z-10 h-[100svh]">
+      <PhotoBackdrop image={image} className="rounded-none" textGuard="wide" zoom={zoom} />
+    </div>
+    <div className="cc-backdrop-content -mt-[100svh]">{children}</div>
+  </div>
+);
 
 export interface FeatureItem {
   title: string;
@@ -28,8 +59,11 @@ export const PageMeta: React.FC<{ canonical?: string; description: string; noind
 
 export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords }) => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-16 pt-32 md:pb-24 md:pt-40">
-      <div className="container mx-auto">
+    // Kein `overflow-hidden` mehr: Innerhalb von `BackdropLayout` wuerde es den Sticky-
+    // Kontext beschneiden. Der Farbverlauf bleibt fuer Seiten OHNE Foto-Hintergrund
+    // stehen; auf Seiten mit `BackdropLayout` nimmt ihn `.cc-backdrop-content` zurueck.
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-16 pt-32 md:pb-24 md:pt-40">
+      <div className="container relative mx-auto">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-4xl">
           <span className="mb-5 inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
             {eyebrow}

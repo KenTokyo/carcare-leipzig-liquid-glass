@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 
 /**
  * Hub-Seite des Reparatur-Strangs (Unfall, Karosserie, Lack, Rad und Glas).
@@ -123,7 +123,8 @@ const faqs = [
 ];
 
 const AccidentRepairPage: React.FC = () => (
-  <>
+  // Motiv der Kachel „Unfallinstandsetzung" aus der Leistungsuebersicht.
+  <BackdropLayout image="/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp">
     <PageMeta
       canonical="/unfallinstandsetzung-leipzig"
       title="Unfallinstandsetzung Leipzig | Karosserie, Lack & Smart Repair"
@@ -191,7 +192,7 @@ const AccidentRepairPage: React.FC = () => (
       primaryLabel="Schaden jetzt melden"
       primaryHref="/kontakt#contact-schaden"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default AccidentRepairPage;

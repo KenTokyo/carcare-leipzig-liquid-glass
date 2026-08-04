@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import DetailingGallery from '../components/DetailingGallery';
 import { carePackages, detailingScopes, detailingSteps, disinfectionServices } from '../data/detailing';
 
@@ -72,7 +72,12 @@ const faqs = [
 ];
 
 const VehicleDetailingPage: React.FC = () => (
-  <>
+  // Motiv der Kachel „Fahrzeugaufbereitung" aus der Leistungsuebersicht.
+  // `zoom` bewusst nur hier: Das Motiv (1400x1045) ist hochformatiger als die Backdrop-
+  // Flaeche; formatfuellend wirkte es zu nah herangeholt und zeigte nur eine glatte
+  // Karosseriefläche. `1` = der weiteste Blick, den die Flaeche ohne sichtbare Bildkante
+  // zulaesst. Die anderen drei Seiten bleiben formatfuellend, dort passt der Ausschnitt.
+  <BackdropLayout image="/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp" zoom={1}>
     <PageMeta
       canonical="/fahrzeugaufbereitung-leipzig"
       title="Fahrzeugaufbereitung Leipzig | Preise ab 169 € | CarCare"
@@ -206,7 +211,7 @@ const VehicleDetailingPage: React.FC = () => (
       primaryLabel="Termin anfragen"
       primaryHref="/kontakt#contact-termin"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default VehicleDetailingPage;

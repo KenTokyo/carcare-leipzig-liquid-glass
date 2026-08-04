@@ -90,6 +90,73 @@
 * [x] Browser: Preise, 3 Umfangblöcke, Leasing-Abschnitt, 7 Unfallkarten, 31 Versicherer,
       Startseiten-Kacheln nach dem Partner-Refactor unverändert
 
+### ✅ Phase 9 — Foto-Hintergrund im Überschriftsbereich (Nachtrag User, 2026-08-03)
+**Ziel:** In den Hero-Bereichen der vier Seiten das Foto der jeweiligen Startseiten-Kachel
+als Hintergrund zeigen — in derselben Behandlung wie die Leistungsübersicht (weiß
+auslaufend, mit Einblenden). **Keine** Karte, nur das Bild.
+* [x] `components/PhotoBackdrop.tsx` (78 Z.) angelegt: Foto + drei Weiß-Ebenen + Crossfade
+* [x] `components/ServiceGrid.tsx` nutzt die Komponente jetzt ebenfalls — 34 Zeilen
+      kopierter Gradienten entfernt, Optik per Screenshot als unverändert belegt
+* [x] `PageHero` um `backgroundImage` erweitert; `isolate` ergänzt, sonst rutscht die
+      `-z-10`-Ebene in den Stacking-Context des App-Shell-`main`
+* [x] Vier Seiten verdrahtet, jeweils mit dem Motiv ihrer Kachel:
+      Aufbereitung · Unfall (Schadenabwicklung) · Privatkunden · Autohäuser & Fuhrparks
+* [x] Neue Variante `textGuard="wide"` für die Heroes — Begründung siehe Kommentar
+* [x] Belegt per Puppeteer-Screenshots (1440×900) je Seite, plus Regressionsbild der
+      Leistungsübersicht; Build STRICT 21/21, Motiv in allen vier statischen HTMLs
+
+**Referenzen:**
+`components/PhotoBackdrop.tsx`
+`components/PageBlocks.tsx`
+`components/ServiceGrid.tsx`
+
+### ✅ Phase 10 — Foto bleibt beim Scrollen stehen (Nachtrag User, 2026-08-04)
+**Ziel:** Das Foto soll nicht nur im Überschriftsbereich sichtbar sein, sondern beim
+Scrollen an seiner Position hängen bleiben — nur Text und Inhalt scrollen darüber.
+**User-Entscheidung (per Rückfrage):** über die **ganze Seite bis zum Footer**, die
+Inhaltssektionen geben dafür ihren eigenen Hintergrund ab.
+* [x] `BackdropLayout` in `components/PageBlocks.tsx`: Sticky-Block über eine Viewporthöhe,
+      Inhalt per `-mt-[100svh]` darübergezogen
+* [x] `sticky` statt `fixed` — der App-Shell spannt einen eigenen Containing Block auf,
+      `fixed` ist dort gebrochen (siehe Projektnotiz), `sticky` greift nativ
+* [x] `100svh` statt `100vh`, sonst laufen Sticky-Höhe und negativer Rand auf Mobile
+      mit der ein-/ausfahrenden Browserleiste auseinander
+* [x] `.cc-backdrop-content > section` in `index.css`: nimmt Sektionen Hintergrundfarbe
+      **und** `background-image` (der Hero trägt einen Farbverlauf, der sonst stehen bliebe).
+      Nur direkte Sektionskinder — Karten und Bildbänder behalten ihren Hintergrund
+* [x] `backgroundImage` aus `PageHero` entfernt und `overflow-hidden` dort abgebaut
+      (hätte den Sticky-Kontext beschnitten); vier Seiten auf `BackdropLayout` umgestellt
+* [x] Textschutz nachgezogen (siehe Kommentar)
+* [x] Belegt: je Seite 4 Scrollpositionen (0/1100/2400/4200 px) per Puppeteer,
+      Build STRICT 21/21, kein Mojibake
+
+**Referenzen:**
+`components/PageBlocks.tsx`
+`components/PhotoBackdrop.tsx`
+`index.css`
+
+### ✅ Phase 11 — Zoom auf der Aufbereitungsseite herausgenommen (Nachtrag User, 2026-08-04)
+**Ziel:** Das Foto auf `/fahrzeugaufbereitung-leipzig` wirkte zu nah herangeholt; es soll
+mehr vom Motiv im Hintergrund-Übergang zu sehen sein.
+* [x] Optionale Eigenschaft `zoom` in `PhotoBackdrop` (und durchgereicht über
+      `BackdropLayout`): ohne Angabe unverändert `object-cover`, mit Angabe
+      `object-contain` plus Skalierung
+* [x] Bild dabei **rechts verankert** (`object-right` + `transform-origin: right center`)
+* [x] `/fahrzeugaufbereitung-leipzig` auf `zoom={0.74}` gesetzt; die anderen drei Seiten
+      bleiben unverändert auf `object-cover` (im Build gegengeprüft)
+* [x] Vier Stufen (1,0 / 0,82 / 0,74 / 0,68) gerendert und verglichen
+* [x] **Korrektur nach Rückmeldung des Users:** Alle Zwischenstände zeigten sichtbare
+      Bildkanten. Verfahren umgestellt — Bild wird jetzt über die **Höhe** bemessen
+      (nach unten auf `1` begrenzt), rechts verankert, linke Kante per `mask-image`
+      weich ausgeblendet. Ergebnis: oben, rechts und unten bündig, links aufgelöst
+* [x] Nachgemessen statt geschätzt: Bildkanten und H1-Überlauf auf 4 Seiten × 2 Viewports
+      (1440×900 und 390×844) — 8/8 ohne Kante, ohne Überlauf, ohne Querscroll
+* [x] Build STRICT 21/21
+
+**Referenzen:**
+`components/PhotoBackdrop.tsx`
+`pages/VehicleDetailingPage.tsx`
+
 ---
 
 ## Kommentare
@@ -133,3 +200,78 @@ Ansprache „Sie" ✅, Encoding sauber ✅, kein Dev-Server-Autostart ✅.
    Session und leert sich beim Navigieren nicht; alte HMR-Fehler aus Zwischenständen
    (Nutzung vor Import) wirken dadurch wie aktuelle. Verlässlich ist erst ein echter
    Reload — genau der hat den Bug aus Punkt 1 dann auch sichtbar gemacht.
+
+### Phase 9
+**Eingehalten:** unter 700 Zeilen ✅, geteilte Komponente statt kopierter Gradienten ✅,
+Bild rein dekorativ (`aria-hidden`, leerer `alt`, `pointer-events-none`) ✅, Motive aus dem
+Bestand ohne neue Assets ✅, visuell belegt statt behauptet ✅.
+
+**Auffälligkeiten (nach Schwere):**
+1. 🟠 **Hoch — BEHOBEN, erst im Screenshot sichtbar:** Mit den unveränderten Verläufen der
+   Leistungsübersicht lief der helle Fließtext (`gray-600`, `max-w-3xl`) in den Heroes ins
+   klare Bildfenster und wurde auf dunklen Motiven schwer lesbar — am deutlichsten auf
+   Unfall (dunkler Kofferraum), Privatkunden (dunkler Pullover) und Geschäftskunden
+   (dunkles Fahrzeug). Ursache: Die Verläufe waren auf den schmaleren Kopfbereich der
+   Leistungsübersicht abgestimmt. **Fix:** Variante `textGuard="wide"` — gleiche drei
+   Ebenen, linker Schutz reicht bis 72 % statt 52 %, radiales Bildfenster bei 68 % statt
+   58 %. Der Bildeindruck bleibt, der Text steht wieder auf Weiß. Die Leistungsübersicht
+   nutzt unverändert `default`.
+   **Merke:** Rein visuelle Änderungen sind über DOM-Abfragen nicht abnehmbar. Der
+   Strukturcheck war grün, während der Text schlecht lesbar war.
+2. 🟢 **Niedrig — Werkzeug, für künftige Screenshots festgehalten:** Drei Fallstricke beim
+   Puppeteer-Beleg gekostet, alle in `[[puppeteer-lenis-scroll-hold]]` nachgetragen:
+   `window.lenis` ist nur ein Versions-Objekt (die Instanz hält der Hook privat), ein
+   direktes `scrollTop=…` wird von Lenis in der nächsten rAF zurückgesetzt, und `clip` bei
+   `page.screenshot` ist **dokument-**, nicht viewport-relativ. Zuverlässig ist:
+   Hash-Route aufrufen (App scrollt selbst über Lenis), settlen lassen, ohne `clip`
+   aufnehmen.
+
+### Phase 10
+**Eingehalten:** unter 700 Zeilen ✅, `sticky` statt des hier gebrochenen `fixed` ✅,
+`svh` statt `vh` für Mobile ✅, Sektionsregel nur auf direkte Kinder ✅, Bild weiterhin
+rein dekorativ ✅, an vier Scrollpositionen je Seite visuell belegt ✅.
+
+**Auffälligkeiten (nach Schwere):**
+1. 🟠 **Hoch — BEHOBEN:** Mit dem seitenweit stehenden Foto reichte der Textschutz aus
+   Phase 9 nicht mehr. Grund ist eine Eigenschaft des Sticky-Hintergrunds, die vorher
+   nicht galt: Weil das Bild im Viewport stehen bleibt, trifft eine dunkle Bildstelle
+   nicht mehr eine einzelne Überschrift, sondern **jede Textzeile auf dieser Höhe über
+   die ganze Seite**. Sichtbar wurde es an der Beschreibung auf `/geschaeftskunden`, die
+   über den dunklen Anzug lief. **Fix:** `wide`-Preset verstärkt (Schutz bis 76 % statt
+   72 %, Zwischenstufen angehoben, radiales Bildfenster von 68 % auf 72 %). Foto bleibt
+   deutlich sichtbar, Text steht wieder auf Weiß.
+### Phase 11
+**Eingehalten:** Änderung strikt auf die eine Seite begrenzt ✅, Default-Verhalten der
+anderen drei unverändert und im Build gegengeprüft ✅, Entscheidung anhand gerenderter
+Stufen statt nach Gefühl ✅.
+
+**Auffälligkeiten (nach Schwere):**
+1. 🟡 **Mittel — Denkfehler beim ersten Versuch, korrigiert:** Der naheliegende Weg
+   (`object-contain`, zentriert) machte es *schlechter*: Weil das klare Bildfenster rechts
+   liegt und links der Textschutz abdeckt, wandert ein zentriertes Motiv beim Verkleinern
+   aus genau diesem Fenster heraus — sichtbar wurde weniger statt mehr, und rechts entstand
+   eine weiße Lücke. Erst die **Rechtsverankerung** dreht das um: Herauszoomen rückt
+   fortlaufend mehr Motiv ins Fenster. Bei 0,74 sind Poliermaschine, Türgriff und
+   Fensterlinie erkennbar statt nur einer glatten Karosseriefläche.
+2. 🔴 **Kritisch — vom User zurückgewiesen, behoben:** Ich hatte sichtbare Bildkanten als
+   unvermeidbare Abwägung dargestellt („weniger Zoom kostet Randabdeckung") und nur den
+   Wert so gewählt, dass die Kante *wenig* auffällt. Das war die falsche Schlussfolgerung:
+   Nicht der Zoomwert war das Problem, sondern das Verfahren. Mit `object-contain` wird
+   das Bild an **allen vier** Seiten kleiner, also entstehen zwangsläufig Kanten.
+   **Richtig ist:** über die **Höhe** bemessen und rechts verankern — dann bleiben oben,
+   rechts und unten bündig, und nur die linke Kante kann hineinragen. Die wird per
+   `mask-image` ausgeblendet. Damit ist „kein sichtbarer Rand" konstruktiv garantiert
+   statt durch einen glücklich gewählten Wert erkauft.
+   **Lehre:** Wenn eine Anforderung als Zielkonflikt erscheint, erst das Verfahren
+   hinterfragen — nicht den Kompromiss verhandeln.
+3. 🟠 **Hoch — nebenbei gefunden und behoben:** Auf 375 px lief die `h1` in `PageHero` um
+   **61 px** aus ihrem Kasten und wurde abgeschnitten („Fahrzeugaufbereitun"). Ursache:
+   `hyphens: manual`, automatische Silbentrennung griff nie — lange deutsche Komposita
+   passen dort in keine Zeile. **Fix:** `[hyphens:auto]` + `break-words` an der `h1`.
+   Betraf alle Seiten mit `PageHero`, nicht nur die Aufbereitungsseite.
+
+4. 🟢 **Niedrig — kein Fehler, aber teuer geprüft:** Im Screenshot bei 4200 px wirkte die
+   Bildergalerie zerrissen (flache Kacheln, große Lücken). Gegenprobe im echten Browser:
+   Die Galerie ist mit 1179 px Höhe korrekt aufgebaut — `aspect-[3/4]` kollabiert nur im
+   Headless-Chrome des Screenshot-Laufs. **Merke:** Auffälligkeiten aus Puppeteer-Bildern
+   gegen den echten Browser gegenprüfen, bevor man sie „repariert".

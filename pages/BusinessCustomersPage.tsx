@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import { dealerPartners, insurancePartners } from '../data/partners';
 
 /**
@@ -130,7 +130,8 @@ const PartnerNames: React.FC<{ names: string[] }> = ({ names }) => (
 );
 
 const BusinessCustomersPage: React.FC = () => (
-  <>
+  // Motiv der Kachel „Autohaeuser & Fuhrparks" aus „Fuer wen wir arbeiten" (Startseite).
+  <BackdropLayout image="/assets/kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp">
     <PageMeta
       canonical="/geschaeftskunden"
       title="Geschäftskunden Leipzig | Autohäuser, Flotten & Versicherer"
@@ -251,7 +252,7 @@ const BusinessCustomersPage: React.FC = () => (
       primaryLabel="Partneranfrage stellen"
       primaryHref="/kontakt#contact-business"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default BusinessCustomersPage;

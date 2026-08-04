@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 
 /**
  * Zielgruppenseite Privatkunden — Gegenstueck zu `BusinessCustomersPage`.
@@ -149,7 +149,8 @@ const faqs = [
 ];
 
 const PrivatkundenPage: React.FC = () => (
-  <>
+  // Motiv der Kachel „Privatkunden" aus „Fuer wen wir arbeiten" (Startseite).
+  <BackdropLayout image="/assets/kacheln/privatkunden-leipzig-carcare.webp">
     <PageMeta
       canonical="/privatkunden"
       title="Privatkunden Leipzig | Ihre Vorteile bei CarCare Center"
@@ -217,7 +218,7 @@ const PrivatkundenPage: React.FC = () => (
       primaryLabel="Anfrage starten"
       primaryHref="/kontakt#contact-termin"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default PrivatkundenPage;

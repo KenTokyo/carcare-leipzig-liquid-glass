@@ -597,6 +597,26 @@ textarea {
   background-color: rgb(var(--cc-carbon-rgb) / 0.34);
 }
 
+/* ---------------------------------------------------------------------------
+   Seiten mit durchgehendem Foto-Hintergrund (`BackdropLayout` in PageBlocks.tsx)
+   ---------------------------------------------------------------------------
+   Das Foto haengt per `position: sticky` im Viewport, der Inhalt scrollt darueber.
+   Damit es ueber die ganze Seite sichtbar bleibt, geben die Sektionen ihren eigenen
+   Hintergrund ab — sonst waere das Foto ab der ersten Inhaltssektion verdeckt.
+
+   Nur DIREKTE Sektionskinder: Karten, Formulare, Bildbaender und alles Tiefere
+   behalten ihren Hintergrund und schweben bewusst ueber dem Foto.
+
+   `background-image: none` ist noetig, weil `PageHero` einen Farbverlauf traegt
+   (`bg-gradient-to-br`) — der ist ein background-IMAGE und bliebe sonst stehen.
+
+   ACHTUNG `position: fixed` waere hier falsch: Der App-Shell bricht fixed
+   (eigener Containing Block), `sticky` greift dagegen nativ. */
+.cc-backdrop-content > section {
+  background-color: transparent;
+  background-image: none;
+}
+
 /* Utilities ZULETZT (siehe Hinweis am Dateianfang) — damit Tailwind-Utilities
    Custom-Regeln gleicher Spezifitaet ueberschreiben, exakt wie im frueheren CDN-Setup. */
 @tailwind utilities;
