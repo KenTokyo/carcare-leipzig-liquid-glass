@@ -68,7 +68,11 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
           <span className="mb-5 inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
             {eyebrow}
           </span>
-          <h1 className="text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 md:text-6xl">{title}</h1>
+          {/* `[hyphens:auto]` + `break-words`: Ohne das lief „Fahrzeugaufbereitung" auf
+              375 px um 61 px aus dem Kasten und wurde abgeschnitten — lange deutsche
+              Komposita passen dort in keine Zeile. `lang="de"` steht am <html>, die
+              Trennung folgt also deutschen Regeln. Ab `md` greift es praktisch nie. */}
+          <h1 className="text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 [hyphens:auto] break-words md:text-6xl">{title}</h1>
           <p className="mt-6 max-w-3xl text-base leading-relaxed text-gray-600 md:text-xl">{description}</p>
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
