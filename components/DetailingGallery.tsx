@@ -85,7 +85,19 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
   const Icon = ICONS[item.iconName];
   return (
     <div
-      className="group relative w-full shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-black/20 ring-1 ring-white/10"
+      /*
+       * `h-full` OHNE `heightPx` ist Pflicht, nicht Kosmetik: Im `StaticGrid`
+       * (prefers-reduced-motion) steckt die Kachel in einem `aspect-[3/4]`-Wrapper und
+       * bekommt KEINE Pixelhoehe. Ohne `h-full` blieb die Hoehe hier `auto` und richtete
+       * sich nach dem Inhalt — der innere Verlauf mit `h-full` fand dann eine
+       * auto-hohe Elternbox vor und kollabierte mit. Gemessen bei 1200 px Breite:
+       * Wrapper 291x388, Kachel 291x80. Sichtbar als flache Kacheln mit grossen Luecken.
+       *
+       * ACHTUNG bei Aenderungen: Der animierte Zweig setzt `heightPx` und liegt in einem
+       * Flex-Column-Container — dort waere `h-full` falsch und wuerde die Pixelhoehe
+       * ueberschreiben. Deshalb genau eines von beidem, nie beides.
+       */
+      className={`group relative w-full shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-black/20 ring-1 ring-white/10 ${heightPx ? '' : 'h-full'}`}
       style={heightPx ? { height: `${heightPx}px` } : undefined}
     >
       {item.src ? (
@@ -99,11 +111,20 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
         <div
           className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
         >
-          <span className="self-end rounded-full bg-white/10 px-2 py-[3px] text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70 backdrop-blur-sm">
+          {/*
+            KEIN `backdrop-blur` auf Badge und Icon-Feld (entfernt 2026-08-10). Beide
+            liegen auf einem gleichmaessigen Verlauf — ein Blur davon ist visuell kaum
+            wahrnehmbar. Kosten dagegen erheblich: Bei aktivem Parallax bewegen sich rund
+            18 Kacheln pro Frame, jede mit zwei `backdrop-filter`-Flaechen, die dabei
+            ihren Hintergrund neu abtasten muessen. Das ist im kompositierten
+            `.site-main-shell` (`transform: translateZ(0)`) eine typische Quelle fuer
+            Flimmern und Schlieren.
+          */}
+          <span className="self-end rounded-full bg-white/10 px-2 py-[3px] text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70">
             Beispiel
           </span>
           <div className="flex items-center gap-2 text-white">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10">
               <Icon size={16} />
             </span>
             <span className="text-xs font-bold leading-tight tracking-tight">{item.label}</span>

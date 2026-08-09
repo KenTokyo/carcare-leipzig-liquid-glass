@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import AccidentRepairPage from './pages/AccidentRepairPage';
 import VehicleDetailingPage from './pages/VehicleDetailingPage';
+import LeasingrueckgabePage from './pages/LeasingrueckgabePage';
 import SmartRepairPage from './pages/SmartRepairPage';
 import AutolackierungPage from './pages/AutolackierungPage';
 import DellenentfernungPage from './pages/DellenentfernungPage';
@@ -17,6 +18,7 @@ import FuhrparkservicePage from './pages/FuhrparkservicePage';
 import AutoglasPage from './pages/AutoglasPage';
 import BusinessCustomersPage from './pages/BusinessCustomersPage';
 import PrivatkundenPage from './pages/PrivatkundenPage';
+import UeberUnsPage from './pages/UeberUnsPage';
 import CareerPage from './pages/CareerPage';
 import ContactPage from './pages/ContactPage';
 import KnowledgeArticlePage from './pages/KnowledgeArticlePage';
@@ -85,6 +87,8 @@ const App: React.FC = () => {
         return <AccidentRepairPage />;
       case '/fahrzeugaufbereitung-leipzig':
         return <VehicleDetailingPage />;
+      case '/leasingrueckgabe-leipzig':
+        return <LeasingrueckgabePage />;
       case '/smart-repair-leipzig':
         return <SmartRepairPage />;
       case '/autolackierung-leipzig':
@@ -103,6 +107,8 @@ const App: React.FC = () => {
         return <BusinessCustomersPage />;
       case '/privatkunden':
         return <PrivatkundenPage />;
+      case '/ueber-uns':
+        return <UeberUnsPage />;
       case '/karriere':
         return <CareerPage />;
       case '/kontakt':

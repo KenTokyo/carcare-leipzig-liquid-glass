@@ -29,7 +29,7 @@ const audiences = [
 const highlights = [
   {
     title: 'Leasingrückgabe',
-    href: '/fahrzeugaufbereitung-leipzig#leasingrueckgabe',
+    href: '/leasingrueckgabe-leipzig',
     intro: 'Fahrzeuge vor der Rückgabe begutachten und instand setzen, bevor der Rückgabegutachter sie nach den Sätzen des Leasinggebers bewertet.',
     items: [
       'Begutachtung von Lack, Dellen, Felgen, Verglasung und Innenraum',

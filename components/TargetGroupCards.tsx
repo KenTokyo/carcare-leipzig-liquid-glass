@@ -32,7 +32,10 @@ const groups: TargetGroup[] = [
     description: 'Fahrzeugpflege, Smart Repair, Leasingrückgabe und schnelle Hilfe bei Schäden.',
     cta: 'Für Privatkunden',
     iconName: 'User',
-    href: '/fahrzeugaufbereitung-leipzig',
+    // Zeigte bis 2026-08-09 auf `/fahrzeugaufbereitung-leipzig` — ein Zeiger aus der Zeit
+    // vor `/privatkunden` (Seite kam erst mit 78c3893). Dadurch war die Privatkundenseite
+    // von der Startseite aus nur ueber das Navbar-Menue erreichbar.
+    href: '/privatkunden',
     backgroundImage: '/assets/kacheln/privatkunden-leipzig-carcare.webp',
   },
   {
@@ -52,7 +55,11 @@ const groups: TargetGroup[] = [
       'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand — instand setzen statt tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
     cta: 'Schadenpartner kennenlernen',
     iconName: 'ShieldCheck',
-    href: '/unfallinstandsetzung-leipzig',
+    // Zeigte bis 2026-08-09 auf `/unfallinstandsetzung-leipzig`. Auf Wunsch des Users
+    // fuehrt „kennenlernen" jetzt auf die Unternehmensseite: Versicherer und Steuerer
+    // wollen an dieser Stelle wissen, WER der Betrieb ist, nicht wie repariert wird.
+    // Die Leistungsseite bleibt ueber den Text der Karte und `/leistungen` erreichbar.
+    href: '/ueber-uns',
     backgroundImage: '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp',
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
     partnersLabel: 'Versicherungspartner',
@@ -232,13 +239,23 @@ const TargetGroupCards: React.FC = () => {
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600 lg:text-blue-200">
               Für wen wir arbeiten
             </span>
+            {/*
+              `text-shadow` statt `drop-shadow` (geaendert 2026-08-10) — gleicher Look,
+              anderer Preis. Dieser Block ist `lg:sticky` UND wandert waehrend des Scrollens
+              (die Stufe kommt aus `--aktiv`). `drop-shadow` ist ein `filter`: Es spannt einen
+              eigenen Stacking-Context auf und erzwingt pro Frame einen separaten Renderpass,
+              dessen Ergebnis beim Verschieben im kompositierten `.site-main-shell` neu
+              gerastert werden muss — sichtbar als Schlieren und Flimmern.
+              `text-shadow` wird direkt mit der Schrift gezeichnet, ohne Filterpass.
+              Bei reinem Text ist das Ergebnis optisch nicht zu unterscheiden.
+            */}
             <h2
               id="target-groups-heading"
-              className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl lg:text-white lg:drop-shadow-[0_2px_18px_rgb(0_0_0/0.6)]"
+              className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl lg:text-white lg:[text-shadow:0_2px_18px_rgb(0_0_0/0.6)]"
             >
               Der richtige Ansprechpartner für Ihr Fahrzeug.
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg lg:text-gray-200 lg:drop-shadow-[0_1px_10px_rgb(0_0_0/0.55)]">
+            <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg lg:text-gray-200 lg:[text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
               Ob privat, gewerblich oder nach einem Unfall: CarCare verbindet persönliche Beratung mit professionellen Werkstattprozessen.
             </p>
           </div>
@@ -298,7 +315,17 @@ const TargetGroupCards: React.FC = () => {
                     Viewporthoehe faellt die Karte deshalb auf ihre Inhaltshoehe zurueck,
                     genau wie unterhalb `lg`. Lieber eine kuerzere Karte als abgeschnittener
                     Inhalt. */}
-                <div className="absolute left-[var(--gap)] right-[var(--gap)] top-[var(--gap)] z-10 flex max-h-[calc(100%_-_2*var(--gap))] flex-col overflow-hidden rounded-2xl bg-[rgb(255_255_255/0.94)] shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] backdrop-blur-sm [hyphens:auto] [@media(min-width:1024px)_and_(min-height:740px)]:bottom-[var(--gap)] lg:left-auto lg:w-[30%]">
+                {/*
+                  KEIN `backdrop-blur` hier (entfernt 2026-08-10). Die Karte ist mit
+                  `rgb(255 255 255 / 0.94)` bereits zu 94 % deckend — ein Blur dahinter
+                  ist praktisch unsichtbar, kostet aber teuer: `backdrop-filter` auf einem
+                  `position: sticky`-Element muss seinen Hintergrund in JEDEM Frame neu
+                  abtasten, waehrend sich das Element relativ dazu verschiebt. Innerhalb
+                  des zusaetzlich per `transform: translateZ(0)` kompositierten
+                  `.site-main-shell` ist das eine bekannte Ursache fuer Flimmern und
+                  Schlieren beim Scrollen. Wer den Blur zurueckholt, holt das Risiko mit.
+                */}
+                <div className="absolute left-[var(--gap)] right-[var(--gap)] top-[var(--gap)] z-10 flex max-h-[calc(100%_-_2*var(--gap))] flex-col overflow-hidden rounded-2xl bg-[rgb(255_255_255/0.94)] shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] [hyphens:auto] [@media(min-width:1024px)_and_(min-height:740px)]:bottom-[var(--gap)] lg:left-auto lg:w-[30%]">
                   {/* Diese Zeile bildet zusammen mit dem oberen Einzug die Leiste:
                       `--bar` = `--gap` + Zeilenhoehe. Deshalb ist die Hoehe hier exakt
                       `--bar` minus `--gap` — sonst waeren Parkposition und sichtbarer

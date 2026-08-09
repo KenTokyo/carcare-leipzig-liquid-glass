@@ -93,7 +93,7 @@ const services = [
 
 const situations = [
   { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege für 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
-  { title: 'Vor der Leasingrückgabe', description: 'Der Rückgabegutachter bewertet Dellen, Lackschäden, Felgen und Innenraum nach den Sätzen des Leasinggebers. Vorher instand gesetzt, ist vieles davon günstiger.', href: '/fahrzeugaufbereitung-leipzig#leasingrueckgabe' },
+  { title: 'Vor der Leasingrückgabe', description: 'Der Rückgabegutachter bewertet Dellen, Lackschäden, Felgen und Innenraum nach den Sätzen des Leasinggebers. Vorher instand gesetzt, ist vieles davon günstiger.', href: '/leasingrueckgabe-leipzig' },
   { title: 'Nach einem Unfall', description: 'Wir nehmen den Schaden auf, kalkulieren nachvollziehbar und übernehmen auf Wunsch die komplette Abstimmung mit der Versicherung.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Nach dem Parkplatzrempler', description: 'Kleine Dellen und Kratzer müssen kein Fall für die Komplettlackierung sein — wir prüfen zuerst die lackfreie Variante und Spot-Repair.', href: '/dellenentfernung-leipzig' },
 ];

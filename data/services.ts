@@ -144,9 +144,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     description: 'Begutachtung und fachgerechte Instandsetzung vor der Rückgabe.',
     listDescription: 'Begutachtung und Instandsetzung vor der Rückgabe, um vermeidbare Nachbelastungen durch Gebrauchsspuren zu reduzieren.',
     iconName: 'KeyRound',
-    // TODO: zeigt bewusst noch auf die Aufbereitungsseite — eine eigene Leasingrückgabe-Seite
-    // ist geplant (siehe docs/leistungen-nav-restructure/tasks/).
-    href: '/fahrzeugaufbereitung-leipzig',
+    href: '/leasingrueckgabe-leipzig',
     cta: 'Leasing vorbereiten',
     backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
   },

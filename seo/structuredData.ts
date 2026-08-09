@@ -63,6 +63,46 @@ const autoRepair = {
 
 export const baseOrganizationSchemas = [organization, localBusiness, autoRepair];
 
+/**
+ * Unternehmensseite auszeichnen.
+ *
+ * Nur Angaben, die auf `/ueber-uns` auch sichtbar stehen (SEO-GEO-STANDARDS.md §5):
+ * Gruendungsjahr 1993, ueber 50 Mitarbeiter, Meisterbetrieb, Glasurit-Lackpartner.
+ * `foundingDate` und `numberOfEmployees` sind die Angaben, die KI-Antwortsysteme bei
+ * „wie gross/alt ist der Betrieb" am ehesten uebernehmen.
+ */
+export const aboutPageSchema = (path: string, description: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: absoluteUrl(path),
+  name: 'Über uns — BS CarCare GmbH',
+  description,
+  mainEntity: {
+    '@type': 'AutoRepair',
+    name: 'CarCare Center Leipzig',
+    legalName: 'BS CarCare GmbH',
+    url: siteUrl,
+    telephone: '+49 341 261 77 90',
+    email: 'info@carcare-center.de',
+    address: localBusiness.address,
+    geo: localBusiness.geo,
+    areaServed: localBusiness.areaServed,
+    foundingDate: '1993',
+    numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 50 },
+    knowsAbout: [
+      'Karosserieinstandsetzung',
+      'Fahrzeuglackierung',
+      'Smart Repair',
+      'Dellenentfernung',
+      'Hagelschadenreparatur',
+      'Felgenreparatur',
+      'Autoglas',
+      'Fahrzeugaufbereitung',
+      'Leasingrückgabe-Vorbereitung',
+    ],
+  },
+});
+
 export const serviceSchema = (name: string, description: string, path: string) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',

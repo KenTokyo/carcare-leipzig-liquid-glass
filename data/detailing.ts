@@ -72,10 +72,25 @@ export const priceOffers = [
 ];
 
 export interface DetailingScope {
+  /**
+   * Anker-Ziel auf `/fahrzeugaufbereitung-leipzig`. Die gleichnamigen Kacheln der
+   * Startseiten-Sektion „Autoaufbereitung" springen hierher, statt wie frueher in den
+   * Wissensbereich abzubiegen (Auftrag User 2026-08-09).
+   */
+  id: string;
   title: string;
   intro: string;
   /** Konkrete Arbeitsschritte — bewusst Aufzaehlung, damit KI sie passagenweise zitieren kann. */
   items: string[];
+  /**
+   * DASSELBE Motiv wie auf der zugehoerigen Startseiten-Kachel. Der Wiedererkennungswert
+   * ist der Punkt: Wer auf das Innenraum-Foto klickt, landet auf dem Innenraum-Foto.
+   */
+  image: string;
+  imageAlt: string;
+  /** Reale Dateimasse — gegen Layout-Shift (SEO-GEO-STANDARDS.md §2.2 / CLS < 0,1). */
+  imageWidth: number;
+  imageHeight: number;
   /** Weiterfuehrender Ratgeber im Wissens-Cluster. */
   href: string;
   hrefLabel: string;
@@ -87,6 +102,11 @@ export interface DetailingScope {
  */
 export const detailingScopes: DetailingScope[] = [
   {
+    id: 'innenaufbereitung',
+    image: '/assets/kacheln/innenaufbereitung-leipzig-carcare.webp',
+    imageAlt: 'Gereinigter Fahrzeuginnenraum mit Cockpit und Polstern nach der Innenaufbereitung bei CarCare Leipzig',
+    imageWidth: 2400,
+    imageHeight: 1340,
     title: 'Innenaufbereitung',
     intro:
       'Die Innenaufbereitung reinigt und pflegt den kompletten Fahrzeuginnenraum – vom Cockpit über Polster und Leder bis in die Bereiche, die bei der normalen Wäsche ausgelassen werden.',
@@ -101,6 +121,11 @@ export const detailingScopes: DetailingScope[] = [
     hrefLabel: 'Ratgeber Innenaufbereitung',
   },
   {
+    id: 'aussenaufbereitung',
+    image: '/assets/kacheln/smart-repair-leipzig-carcare.webp',
+    imageAlt: 'Fahrzeugaußenseite mit aufbereitetem Lack nach der Außenaufbereitung bei CarCare Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
     title: 'Außenaufbereitung',
     intro:
       'Die Außenaufbereitung entfernt Verschmutzungen, die eine gewöhnliche Wäsche stehen lässt, und bereitet den Lack auf Politur und Versiegelung vor.',
@@ -115,6 +140,11 @@ export const detailingScopes: DetailingScope[] = [
     hrefLabel: 'Ratgeber Autoaufbereitung',
   },
   {
+    id: 'lackaufbereitung',
+    image: '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp',
+    imageAlt: 'Polierte und versiegelte Lackoberfläche nach der Lackaufbereitung bei CarCare Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
     title: 'Lackaufbereitung',
     intro:
       'Die Lackaufbereitung arbeitet die Lackoberfläche selbst auf: Sie entfernt Anhaftungen und matte Stellen, holt Glanz zurück und schützt das Ergebnis anschließend.',

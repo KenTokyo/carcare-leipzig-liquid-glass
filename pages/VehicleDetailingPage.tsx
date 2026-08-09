@@ -108,6 +108,19 @@ const VehicleDetailingPage: React.FC = () => (
       </div>
     </section>
 
+    {/*
+      Layout bewusst UNVERAENDERT gegenueber dem Stand vor 2026-08-09: eine Sektion,
+      dreispaltiges Kartenraster, `shadow-sm`. Ein zwischenzeitlicher Umbau auf drei
+      volle Bildsektionen wurde zurueckgenommen — er verdreifachte die Malflaeche direkt
+      oberhalb der Parallax-Galerie. Weil auf dieser Seite JEDE Sektion transparent ist
+      (`.cc-backdrop-content > section`), muessen darunter das Sticky-Foto und seine drei
+      Verlaufsebenen pro Scrollframe neu gezeichnet werden; grosse `shadow-lg`-Flaechen
+      darauf kosteten sichtbar Frames, und zwar zuerst dort, wo etwas animiert.
+
+      Die beiden Anforderungen aus dem Auftrag sind hier erfuellt, ohne das Layout zu
+      aendern: jede Karte traegt eine eigene `id` als Sprungziel und das Foto der
+      zugehoerigen Startseiten-Kachel.
+    */}
     <section id="umfang" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
@@ -117,7 +130,21 @@ const VehicleDetailingPage: React.FC = () => (
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {detailingScopes.map((scope) => (
-            <article key={scope.title} className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            // `scroll-mt-28` haelt das Sprungziel unter der schwebenden Navigation frei.
+            <article
+              key={scope.title}
+              id={scope.id}
+              className="flex scroll-mt-28 flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
+            >
+              <img
+                src={scope.image}
+                alt={scope.imageAlt}
+                width={scope.imageWidth}
+                height={scope.imageHeight}
+                loading="lazy"
+                decoding="async"
+                className="mb-5 aspect-[16/10] w-full rounded-xl object-cover"
+              />
               <h3 className="text-xl font-bold leading-tight text-gray-950">{scope.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-gray-600">{scope.intro}</p>
               <ul className="mt-5 flex-grow space-y-2.5">
@@ -146,6 +173,9 @@ const VehicleDetailingPage: React.FC = () => (
         />
         <FeatureGrid items={leasingChecks} columns="four" />
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href="/leasingrueckgabe-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            Alles zur Leasingrückgabe <ArrowRight size={14} />
+          </a>
           <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
             Ratgeber Leasingrückgabe <ArrowRight size={14} />
           </a>

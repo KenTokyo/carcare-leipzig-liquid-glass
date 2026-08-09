@@ -270,8 +270,30 @@ Stufen statt nach Gefühl ✅.
    passen dort in keine Zeile. **Fix:** `[hyphens:auto]` + `break-words` an der `h1`.
    Betraf alle Seiten mit `PageHero`, nicht nur die Aufbereitungsseite.
 
-4. 🟢 **Niedrig — kein Fehler, aber teuer geprüft:** Im Screenshot bei 4200 px wirkte die
-   Bildergalerie zerrissen (flache Kacheln, große Lücken). Gegenprobe im echten Browser:
-   Die Galerie ist mit 1179 px Höhe korrekt aufgebaut — `aspect-[3/4]` kollabiert nur im
-   Headless-Chrome des Screenshot-Laufs. **Merke:** Auffälligkeiten aus Puppeteer-Bildern
-   gegen den echten Browser gegenprüfen, bevor man sie „repariert".
+4. 🔴 **DIESE EINSCHÄTZUNG WAR FALSCH — korrigiert am 2026-08-10.**
+   *Ursprünglich hier notiert:* „Im Screenshot bei 4200 px wirkte die Bildergalerie
+   zerrissen (flache Kacheln, große Lücken). Gegenprobe im echten Browser: korrekt
+   aufgebaut — `aspect-[3/4]` kollabiert nur im Headless-Chrome des Screenshot-Laufs."
+
+   **Das war ein echter Bug, kein Werkzeug-Artefakt.** Der Screenshot-Lauf hatte recht.
+   `components/DetailingGallery.tsx` hat zwei Zweige: den animierten (Kachel bekommt eine
+   Pixelhöhe) und `StaticGrid` für `prefers-reduced-motion` (Kachel steckt in einem
+   `aspect-[3/4]`-Wrapper und bekommt **keine** Höhe). Im zweiten Zweig fehlte der Kachel
+   `h-full` — ihre Höhe blieb `auto`, der innere Verlauf mit `h-full` fand eine auto-hohe
+   Elternbox vor und kollabierte mit. Nachgemessen bei 1200 px Breite: Wrapper 291×388,
+   Kachel 291×**80**.
+
+   Die damalige „Gegenprobe im echten Browser" traf den **animierten** Zweig (reduced
+   motion aus) und konnte den Fehler deshalb gar nicht sehen. Headless-Chrome meldet
+   reduced motion — der Screenshot zeigte den kaputten Zweig.
+
+   **Folgekosten:** Der Fehlschluss stand über eine Woche als „kein Fehler" im Log. Als der
+   User am 2026-08-09/10 „ab *Ergebnisse, die man sieht* visuell buggy" meldete, führte
+   genau diese Notiz die Suche zunächst in die Irre.
+
+   **Merke — die Lehre lautet anders herum als hier ursprünglich notiert:** Wenn Screenshot
+   und Live-Browser sich widersprechen, ist die Frage nicht „welches Werkzeug lügt", sondern
+   **„welchen Zweig hat welcher Lauf gerendert"**. Unterschiedliche Umgebungen melden
+   `prefers-reduced-motion` unterschiedlich und rendern damit unterschiedlichen Code.
+   Behoben in `components/DetailingGallery.tsx`, siehe
+   `docs/subpages-verlinkung/tasks/2026-08-09-subpages-verlinkung-tasks.md`.
