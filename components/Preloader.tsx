@@ -33,8 +33,27 @@ export const STAIR_COLUMNS = 6;
  * `performance.now()` liefert im Seitenkontext genau die Zeit seit Navigationsstart.
  */
 const HOLD_TARGET_MS = 700;
-/** Untergrenze, damit die Marke bei schnellem Boot nicht nur aufblitzt. */
-const HOLD_MIN_MS = 250;
+/**
+ * Untergrenze der Haltezeit.
+ *
+ * ⚠️ Diese Zahl ist NICHT der Ausnahmefall, sondern der Normalfall im Netz — anders als
+ * der Name „Untergrenze" nahelegt. Gemessen am 2026-08-10:
+ *   - Localhost: React bootet nach 33 ms  -> Haltezeit 700 - 33 = 667 ms
+ *   - Vercel:    ~860 KB kritischer Pfad (HTML + JS + CSS) muessen erst uebertragen und
+ *                ausgefuehrt werden -> `elapsed` liegt realistisch bei 600-1200 ms,
+ *                die Rechnung `700 - elapsed` wird negativ und faellt IMMER hierher.
+ * Der Start wirkte deployt deshalb gehetzt gegenueber lokal (Nutzerbefund).
+ *
+ * Von 250 auf 450 angehoben: Bei 250 ms blitzt die Marke nur auf, ehe die Treppen
+ * aufziehen. 450 ms geben ihr einen erkennbaren Moment, ohne die Gesamtwartezeit
+ * spuerbar zu strecken — der Aufschlag betraegt hoechstens 200 ms und trifft nur
+ * langsame Verbindungen.
+ *
+ * Wer hier dreht, sollte wissen: Auf schnellen Verbindungen aendert dieser Wert GAR
+ * NICHTS (dort greift `HOLD_TARGET_MS`), auf langsamen bestimmt er die gesamte
+ * sichtbare Markenzeit. Die Exit-Animation kommt mit ihren 1165 ms immer oben drauf.
+ */
+const HOLD_MIN_MS = 450;
 
 /** Marke ausblenden. */
 const LOGO_OUT_MS = 380;

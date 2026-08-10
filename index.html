@@ -181,6 +181,29 @@
           if (!window.__CC_DEV__ && sessionStorage.getItem('cc-preloader-v1')) return;
         }
         document.documentElement.classList.add('cc-preloading');
+
+        /* Markenbilder sofort anfordern — NUR in diesem Zweig, also nur wenn der
+           Preloader wirklich laeuft.
+
+           WARUM: Die beiden Bilder haengen als CSS-`background-image` an
+           `.cc-lockup-mark` / `.cc-lockup-word`. Der Browser entdeckt sie damit erst,
+           nachdem er das Stylesheet geladen UND geparst hat (65 KB). Lokal faellt das
+           nicht auf (gemessen: Bilder nach ~50 ms da), ueber das Netz erscheint die
+           Marke dadurch aber sichtbar verspaetet im schon eingeblendeten Boot-Layer —
+           genau das „Nachploppen", das den Start unruhig wirken laesst.
+
+           WARUM NICHT ALS STATISCHES <link rel="preload"> IM HEAD: Dann zoege JEDE
+           Seite die 36 KB mit, auch die ohne Preloader (Unterseiten, Zweitbesuch mit
+           gesetztem Session-Flag). Genau diese Blindlast war der Grund, die Bilder
+           ueberhaupt als CSS-Hintergruende zu fuehren — siehe Kommentar am <style>.
+           Hier drin gilt die Bedingung schon, also bleibt die Ersparnis erhalten. */
+        ['/assets/carcare-center-mark.webp', '/assets/carcare-center-wordmark-dark.webp'].forEach(function (href) {
+          var l = document.createElement('link');
+          l.rel = 'preload';
+          l.as = 'image';
+          l.href = href;
+          document.head.appendChild(l);
+        });
       } catch (e) { /* kein Preloader */ }
     })();
   </script>
