@@ -44,16 +44,19 @@ const HOLD_TARGET_MS = 700;
  *                die Rechnung `700 - elapsed` wird negativ und faellt IMMER hierher.
  * Der Start wirkte deployt deshalb gehetzt gegenueber lokal (Nutzerbefund).
  *
- * Von 250 auf 450 angehoben: Bei 250 ms blitzt die Marke nur auf, ehe die Treppen
- * aufziehen. 450 ms geben ihr einen erkennbaren Moment, ohne die Gesamtwartezeit
- * spuerbar zu strecken — der Aufschlag betraegt hoechstens 200 ms und trifft nur
- * langsame Verbindungen.
+ * Von 250 ueber 450 auf 600 angehoben (Wunsch des Users, 2026-08-10). Bei 250 ms
+ * blitzte die Marke nur auf, ehe die Treppen aufziehen. 600 ms liegen nahe an den
+ * 667 ms, die lokal anliegen — der deployte Start entspricht damit weitgehend dem,
+ * was beim Entwickeln zu sehen ist. Der Aufschlag betraegt hoechstens 350 ms und
+ * trifft nur langsame Verbindungen.
  *
  * Wer hier dreht, sollte wissen: Auf schnellen Verbindungen aendert dieser Wert GAR
  * NICHTS (dort greift `HOLD_TARGET_MS`), auf langsamen bestimmt er die gesamte
  * sichtbare Markenzeit. Die Exit-Animation kommt mit ihren 1165 ms immer oben drauf.
+ * Ab 700 waere der Wert nicht mehr nur Untergrenze, sondern wuerde `HOLD_TARGET_MS`
+ * ueberholen und auch schnelle Verbindungen ausbremsen — dann besser dort ansetzen.
  */
-const HOLD_MIN_MS = 450;
+const HOLD_MIN_MS = 600;
 
 /** Marke ausblenden. */
 const LOGO_OUT_MS = 380;
