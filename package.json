@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "sitemap": "node scripts/generate-sitemap.mjs",
+    "vercel-config": "node scripts/generate-vercel-config.mjs",
     "prerender": "node scripts/prerender.mjs",
     "images": "node scripts/convert-images.mjs",
     "preloader-assets": "node scripts/build-preloader-assets.mjs",

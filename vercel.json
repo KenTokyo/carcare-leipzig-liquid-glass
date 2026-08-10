@@ -1,0 +1,93 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/leistungen",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/unfallinstandsetzung-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fahrzeugaufbereitung-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/leasingrueckgabe-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/smart-repair-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autolackierung-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dellenentfernung-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/hagelschadenreparatur-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/felgenreparatur-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fuhrparkservice-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoglas-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/privatkunden",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/geschaeftskunden",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ueber-uns",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kontakt",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/karriere",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/was-ist-autoaufbereitung",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/innenaufbereitung",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/lackaufbereitung",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/dellen-ohne-lackieren-entfernen",
+      "destination": "/index.html"
+    }
+  ]
+}
