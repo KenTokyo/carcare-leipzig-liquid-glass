@@ -15,6 +15,11 @@ dist-ssr
 # Auto-generiert beim Build (scripts/generate-sitemap.mjs) – wird bei jedem Build neu erzeugt
 public/sitemap.xml
 
+# Chromium fuer den Prerender. Liegt seit 2026-08-10 per .puppeteerrc.cjs IM Projekt
+# statt in ~/.cache/puppeteer, damit Vercel den Ordner cachen kann (siehe dortiger
+# Kommentar). Mehrere hundert MB Binaerdateien – niemals versionieren.
+.cache/
+
 # Preloader-Verifikation: reproduzierbare Screenshots (~13 MB pro Lauf).
 # Jederzeit neu erzeugbar mit `node scripts/verify-preloader.mjs [baseUrl]`.
 # Bewusst NICHT versioniert – anders als output/playwright/ (historisch getrackt)
