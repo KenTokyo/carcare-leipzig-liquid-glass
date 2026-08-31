@@ -100,7 +100,7 @@ const groups: TargetGroup[] = [
      * keine Adjektive.
      */
     description:
-      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus — auf 3.000 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
+      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus — auf über 3.000 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',

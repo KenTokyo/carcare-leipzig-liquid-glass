@@ -16,7 +16,7 @@ import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, Proc
 const advantages = [
   {
     title: 'Ein Betrieb statt drei Werkstätten',
-    description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf 3.000 qm im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
+    description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.000 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
   },
   {
     title: 'Feste Preise bei der Aufbereitung',
@@ -44,7 +44,7 @@ const advantages = [
   },
   {
     title: 'Markenunabhängig und erfahren',
-    description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1993, über 50 Mitarbeiter, alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
+    description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998, über 50 Mitarbeiter, alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
   },
 ];
 
@@ -159,7 +159,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageHero
       eyebrow="Privatkunden"
       title="Ihr Auto in Leipzig – gepflegt, repariert und wieder wie neu."
-      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: CarCare Center Leipzig übernimmt Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1993, für alle Marken."
+      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: CarCare Center Leipzig übernimmt Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
       keywords={['Autoaufbereitung Leipzig', 'Autoreparatur Leipzig', 'Smart Repair Leipzig', 'Leasingrückgabe Leipzig']}

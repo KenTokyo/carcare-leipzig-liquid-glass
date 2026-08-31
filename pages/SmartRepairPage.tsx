@@ -16,8 +16,8 @@ const faqs = [
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackinstandsetzung mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
-  { title: 'Meisterbetrieb seit 1993', description: 'Meisterbetrieb des Kfz-Lackierhandwerks mit über 30 Jahren Erfahrung am Markt.' },
-  { title: 'Full-Service auf 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks, am Markt seit 1998.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
 ];
 
 const SmartRepairPage: React.FC = () => (
@@ -39,7 +39,7 @@ const SmartRepairPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit über 30 Jahren." />
+        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
         <FeatureGrid items={usp} />
       </div>
     </section>

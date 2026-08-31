@@ -18,11 +18,11 @@ BRANCHE:                "KFZ – Unfallinstandsetzung, Karosserie & Lack, Fahrze
 LEISTUNGEN:             ["Unfallinstandsetzung", "Autoreparatur", "Fahrzeugaufbereitung / Autoaufbereitung", "Autolackierung", "Smart Repair", "Dellenentfernung", "Hagelschadenreparatur", "Felgenreparatur", "Leasingrückgabe-Vorbereitung", "Fuhrparkservice"]
 UNTERNEHMENSNAME:       "CarCare Center Leipzig"                    # Marken-/Marketingname (Title-Marke, og:site_name); juristischer Name -> NAP_NAME
 USP:                    "Leipzigs Full-Service-Center für Lackierung, Karosserie & Fahrzeugaufbereitung – Glasurit-Lackpartner & Meisterbetrieb mit farbtongenauer, makelloser Reparatur und kompletter Versicherungsabwicklung."
-USP_ERWEITERT:          "Seit über 30 Jahren Ihr Premium-Partner in Leipzig für Fahrzeuglackierung, Karosserie-Instandsetzung und Aufbereitung. Als Glasurit-Lackpartner und Meisterbetrieb erzielen wir dank der weltweit präzisesten Farbtontechnologie makellose Reparaturen in Erstausrüster-Qualität – auf 3.000 qm, für alle Marken, inklusive kompletter Unfall- und Versicherungsabwicklung mit Ersatzfahrzeug."
+USP_ERWEITERT:          "Seit 1998 Ihr Premium-Partner in Leipzig für Fahrzeuglackierung, Karosserie-Instandsetzung und Aufbereitung. Als Glasurit-Lackpartner und Meisterbetrieb erzielen wir dank der weltweit präzisesten Farbtontechnologie makellose Reparaturen in Erstausrüster-Qualität – auf über 3.000 m², für alle Marken, inklusive kompletter Unfall- und Versicherungsabwicklung mit Ersatzfahrzeug."
 USP_BAUSTEINE:                                                     # Vertrauens-/Differenzierungssignale für E-E-A-T und GEO
   - "Glasurit-Lackpartner → farbtongenaue, makellose Reparaturen, langlebiges Premium-Finish, umweltschonende Wasserbasislacke"
-  - "Meisterbetrieb des Kfz-Lackierhandwerks, über 30 Jahre am Markt (seit 1993)"
-  - "Full-Service auf 3.000 qm: Lackierung, Karosserie, Smart/Spot Repair, Felgen, Fahrzeugaufbereitung"
+  - "Meisterbetrieb des Kfz-Lackierhandwerks, seit 1998 am Markt"
+  - "Full-Service auf über 3.000 m²: Lackierung, Karosserie, Smart/Spot Repair, Felgen, Fahrzeugaufbereitung"
   - "Komplette Unfall- & Versicherungsabwicklung inkl. Kostenvoranschlag und Werkstattersatzfahrzeug"
   - "Erfahrung mit Privat-, Geschäfts- und Flottenkunden (Autohäuser, Firmenfuhrparks)"
 

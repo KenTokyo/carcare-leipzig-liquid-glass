@@ -86,7 +86,7 @@ const VehicleDetailingPage: React.FC = () => (
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
       title="Professionelle Fahrzeugaufbereitung in Leipzig – mit festen Paketpreisen."
-      description="Innenraum, Außenpflege, Lackreinigung, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf 3.000 qm."
+      description="Innenraum, Außenpflege, Lackreinigung, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf über 3.000 m²."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Autoaufbereitung Leipzig', 'Lackpolitur Leipzig', 'Innenreinigung Leipzig', 'Leasingrückgabe Leipzig']}

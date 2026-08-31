@@ -21,7 +21,7 @@ const PARALLAX_REISE_PROZENT = 6.67;
  * Projekt-USP-Bausteinen. Nach dem Hero startet die Seite direkt mit der Leistungsuebersicht.
  */
 const trustFacts = [
-  { icon: <Award size={18} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackierhandwerk, seit 1993' },
+  { icon: <Award size={18} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackierhandwerk, seit 1998' },
   { icon: <PaintBucket size={18} />, label: 'Glasurit-Lackpartner', sub: 'farbtongenaue Reparaturlackierung' },
   { icon: <Users size={18} />, label: 'Über 50 Mitarbeiter', sub: 'eingespielte Teams, klare Abläufe' },
   { icon: <MapPin size={18} />, label: 'Standort Leipzig', sub: 'An den Tierkliniken 42' },

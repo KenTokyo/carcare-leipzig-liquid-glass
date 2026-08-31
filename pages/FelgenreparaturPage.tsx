@@ -18,8 +18,8 @@ const faqs = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1993', description: 'Über 30 Jahre Erfahrung im Kfz-Lackier- und Karosseriehandwerk.' },
-  { title: 'Full-Service auf 3.000 m²', description: 'Felgen, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Felgen, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackierung der Felgen für ein Ergebnis optisch wie neu.' },
 ];
 

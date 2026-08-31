@@ -18,7 +18,7 @@ const faqs = [
 const usp = [
   { title: 'Komplette Versicherungsabwicklung', description: 'Unfall- und Versicherungsabwicklung inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
   { title: 'Glasurit-Lackpartner', description: 'Wo lackiert werden muss, arbeiten wir als Glasurit-Lackpartner farbtongenau.' },
-  { title: 'Meisterbetrieb seit 1993', description: 'Über 30 Jahre Erfahrung mit Schäden aller Art – Karosserie und Lack aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung mit Schäden aller Art seit 1998 – Karosserie und Lack aus einer Hand.' },
 ];
 
 const HagelschadenreparaturPage: React.FC = () => (

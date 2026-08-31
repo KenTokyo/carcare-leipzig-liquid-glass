@@ -11,7 +11,7 @@ const scope = [
 const usp = [
   { title: 'WINTEC-Autoglas-Partner', description: 'Als WINTEC-Partner geben wir 30 Jahre Garantie auf die Autoglas-Reparatur und die Dichtigkeit ausgetauschter Scheiben.' },
   { title: 'ISO 9001 TÜV-zertifiziert', description: 'Unsere Arbeit ist nach ISO 9001 TÜV zertifiziert.' },
-  { title: 'Full-Service auf 3.000 m²', description: 'Autoglas, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Autoglas, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
 ];
 
 const faqs = [

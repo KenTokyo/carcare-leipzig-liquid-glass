@@ -15,7 +15,7 @@ const faqs = [
 ];
 
 const usp = [
-  { title: 'Full-Service auf 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Erfahrung mit Flottenkunden', description: 'Langjährige Erfahrung mit Autohäusern, Firmenfuhrparks und Geschäftskunden.' },
   { title: 'Komplette Versicherungsabwicklung', description: 'Im Schadensfall inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
 ];

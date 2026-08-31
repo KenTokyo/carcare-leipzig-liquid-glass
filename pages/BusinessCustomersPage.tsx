@@ -64,7 +64,7 @@ const offerings = [
 
 const collaboration = [
   { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte — Sie wissen, mit wem Sie sprechen.' },
-  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf 3.000 qm. Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
+  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.000 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
   { title: 'Instand setzen statt tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
   { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und Endabnahme gehören zum Ablauf.' },
@@ -99,7 +99,7 @@ const faqs = [
   {
     id: 'flotte',
     question: 'Können mehrere Fahrzeuge gleichzeitig bearbeitet werden?',
-    answer: 'Ja. Auf 3.000 qm mit über 50 Mitarbeitern lassen sich auch mehrere Fahrzeuge parallel bearbeiten — etwa bei Hagelereignissen oder wiederkehrender Flottenpflege. Umfang und Zeitfenster werden vorab abgestimmt.',
+    answer: 'Ja. Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich auch mehrere Fahrzeuge parallel bearbeiten — etwa bei Hagelereignissen oder wiederkehrender Flottenpflege. Umfang und Zeitfenster werden vorab abgestimmt.',
   },
   {
     id: 'einhaus',
@@ -140,7 +140,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageHero
       eyebrow="Geschäftskunden"
       title="Fahrzeugdienstleistungen für Autohäuser, Flotten und Versicherer."
-      description="CarCare Center Leipzig arbeitet für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf 3.000 qm im eigenen Haus."
+      description="CarCare Center Leipzig arbeitet für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.000 m² im eigenen Haus."
       primaryCta={{ label: 'Geschäftskundenanfrage stellen', href: '/kontakt#contact-business' }}
       secondaryCta={{ label: 'Leistungen ansehen', href: '/leistungen' }}
       keywords={['Fuhrparkservice Leipzig', 'Autohäuser Leipzig', 'Schadensteuerung Leipzig', 'Leasingrückgabe Leipzig']}

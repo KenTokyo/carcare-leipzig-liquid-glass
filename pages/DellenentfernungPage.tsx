@@ -17,8 +17,8 @@ const faqs = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1993', description: 'Über 30 Jahre Erfahrung im Kfz-Handwerk – Karosserie und Lack aus einer Hand.' },
-  { title: 'Full-Service auf 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Karosserie und Lack aus einer Hand.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Erfahrung mit Privatkunden, Autohäusern und Firmenfuhrparks.' },
 ];
 
