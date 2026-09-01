@@ -173,6 +173,15 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'bewerbung', question: 'Sucht das CarCare Center neue Mitarbeiter?', answer: 'Wir beschäftigen Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater. Offene Stellen und der Weg zur Initiativbewerbung stehen auf der Karriereseite.' },
     { id: 'partner', question: 'Kann mein Autohaus oder meine Versicherung Partner werden?', answer: 'Ja. Wir arbeiten mit Autohäusern, Fuhrparks, Versicherungen und Versicherungsagenturen zusammen. Für die Zusammenarbeit gibt es feste Ansprechpartner, strukturierte Abläufe und die komplette Schadenabwicklung inklusive Audatex-Kalkulation.' },
   ],
+
+  // Aussenaufbereitung (Backlog 1.8)
+  '/aussenaufbereitung-leipzig': [
+    { id: 'umfang', question: 'Was gehört zur Außenaufbereitung?', answer: 'Intensive Vorreinigung und Felgenreinigung, Insektenentfernung, schonende Oberwäsche inklusive Abledern, Lackreinigung und Scheibenreinigung. Als Brillant Außenpflege kostet dieser Umfang 169,00 € inklusive gesetzlicher Mehrwertsteuer.' },
+    { id: 'unterschied', question: 'Worin unterscheiden sich Außenaufbereitung und Lackaufbereitung?', answer: 'Die Außenaufbereitung reinigt das Fahrzeug und bereitet den Lack vor. Die Lackaufbereitung arbeitet die Lackoberfläche selbst auf: Sie entfernt Anhaftungen und matte Stellen durch Politur und schützt das Ergebnis mit einer Versiegelung. Beides lässt sich einzeln oder kombiniert beauftragen.' },
+    { id: 'politur', question: 'Was bringt eine Hochglanzpolitur?', answer: 'Die Politur glättet die Lackoberfläche und holt Glanz zurück, der durch Anhaftungen und matte Stellen verloren gegangen ist. Tiefe Kratzer bis ins Grundmetall lassen sich damit nicht beheben — dort ist eine Lackreparatur nötig.' },
+    { id: 'versiegelung', question: 'Wie lange hält eine Lackversiegelung?', answer: 'Das hängt von Nutzung, Pflege und Stellplatz ab. Die Versiegelung schützt den vorbereiteten Lack und erleichtert die Reinigung. Wir sagen Ihnen bei der Begutachtung, welcher Schutz für Ihr Fahrzeug sinnvoll ist.' },
+    { id: 'wachs', question: 'Was hat es mit den SWIZÖL-Wachsen auf sich?', answer: 'Auf Wunsch arbeiten wir mit Wachsen von SWIZÖL mit einem Carnaubaanteil von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad. Diese Handarbeit ist Teil der Premiumpflege „exklusiv" ab 348,00 €.' },
+  ],
 };
 
 /** Routen mit sichtbarem FAQ-Block. Basis fuer Schema-Ableitung und Build-Pruefung. */

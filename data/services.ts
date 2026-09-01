@@ -137,6 +137,21 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     backgroundImage: kachel('autoglas-scheibenreparatur-leipzig-carcare'),
   },
   {
+    id: 'aussenaufbereitung',
+    group: 'aufbereitung',
+    title: 'Außenaufbereitung',
+    localTitle: 'Außenaufbereitung Leipzig',
+    description: 'Außenreinigung, Lackreinigung, Politur und Versiegelung.',
+    listDescription: 'Vorreinigung, Felgenreinigung, schonende Oberwäsche und Lackreinigung — auf Wunsch mit Hochglanzpolitur und Lackversiegelung.',
+    iconName: 'Sparkles',
+    href: '/aussenaufbereitung-leipzig',
+    cta: 'Außenaufbereitung ansehen',
+    backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
+    // Erscheint nur auf `/leistungen`: die Startseite fuehrt die Aufbereitungsbereiche
+    // bereits ueber die Aufklapp-Kacheln in `AutoDetailingExpertiseSection`.
+    inOverviewGrid: false,
+  },
+  {
     id: 'leasing',
     group: 'aufbereitung',
     title: 'Leasingrückgabe',

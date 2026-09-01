@@ -56,6 +56,15 @@ export const pageSchemas: Record<string, unknown[]> = {
     offerCatalogSchema('Pflegepakete und Desinfektion', '/fahrzeugaufbereitung-leipzig', priceOffers),
     faqSchema(faqsByRoute['/fahrzeugaufbereitung-leipzig']),
   ],
+  '/aussenaufbereitung-leipzig': [
+    breadcrumbSchema([
+      { name: 'Startseite', path: '/' },
+      { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
+      { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
+    ]),
+    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche, Lackreinigung, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
+  ],
   '/leasingrueckgabe-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Leasingrückgabe Leipzig', path: '/leasingrueckgabe-leipzig' }]),
     serviceSchema('Leasingrückgabe-Vorbereitung Leipzig', 'Begutachtung vor der Leasingrückgabe sowie Instandsetzung von Dellen, Lackschäden, Felgen und Glas mit anschließender Fahrzeugaufbereitung — für Privatkunden und Fuhrparks in Leipzig.', '/leasingrueckgabe-leipzig'),
