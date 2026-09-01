@@ -82,8 +82,8 @@ const VehicleDetailingPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Aufbereitungsumfang"
-          title="Innen, außen und Lack – was jeweils dazugehört."
-          description="Die drei Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab."
+          title="Innen, außen und Lack – die drei Bereiche im Überblick."
+          description="Die Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab — der vollständige Leistungsumfang steht auf der jeweiligen Seite."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {detailingScopes.map((scope) => (
@@ -104,14 +104,21 @@ const VehicleDetailingPage: React.FC = () => (
               />
               <h3 className="text-xl font-bold leading-tight text-gray-950">{scope.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-gray-600">{scope.intro}</p>
-              <ul className="mt-5 flex-grow space-y-2.5">
-                {scope.items.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-gray-600">
-                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-700" aria-hidden="true" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              {/*
+                Die Detaillisten stehen seit 2026-09-02 auf den eigenen Seiten
+                (Backlog 1.8/1.9). Hier bleibt der Teaser — die Liste wird nur
+                gerendert, wenn ein Bereich noch eine fuehrt.
+              */}
+              {scope.items && (
+                <ul className="mt-5 flex-grow space-y-2.5">
+                  {scope.items.map((item) => (
+                    <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-gray-600">
+                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-700" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <a href={scope.href} className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
                 {scope.hrefLabel} <ArrowRight size={14} />
               </a>

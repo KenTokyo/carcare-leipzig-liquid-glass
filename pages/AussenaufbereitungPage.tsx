@@ -16,10 +16,10 @@ import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from 
 
 const aussenLeistungen = [
   { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung und Felgenreinigung.' },
-  { title: 'Insektenentfernung', description: 'Rückstände an Front, Spiegeln und Scheiben werden gezielt gelöst.' },
+  { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
   { title: 'Schonende Oberwäsche', description: 'Schonende Oberwäsche inklusive Abledern.' },
   { title: 'Lackreinigung', description: 'Lackreinigung als Grundlage für die weitere Bearbeitung.' },
-  { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Abschluss der Außenpflege.' },
+  { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Teil der Außenpflege.' },
 ];
 
 const lackLeistungen = [
@@ -104,6 +104,24 @@ const AussenaufbereitungPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Außen- und Lackaufbereitung." />
         <PageFAQ route="/aussenaufbereitung-leipzig" />
+      </div>
+    </section>
+
+    <section className="bg-gray-50/70 px-6 py-16 md:py-20">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Zum Weiterlesen"
+          title="Fachlich eingeordnet im Wissensbereich."
+          description="Wie Lackaufbereitung im Detail funktioniert, wo ihre Grenzen liegen und was sie kostet, erklärt der Ratgeber unabhängig von der Beauftragung."
+        />
+        <div className="mt-6 flex flex-wrap gap-4">
+          <a href="/autoaufbereitung-wissen/lackaufbereitung" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+            Ratgeber Lackaufbereitung
+          </a>
+          <a href="/innenaufbereitung-leipzig" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+            Innenaufbereitung ansehen
+          </a>
+        </div>
       </div>
     </section>
 

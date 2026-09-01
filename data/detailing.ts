@@ -79,9 +79,18 @@ export interface DetailingScope {
    */
   id: string;
   title: string;
+  /**
+   * EIGENSTAENDIG formulierter Teaser — bewusst KEIN Anriss des Detailtexts der
+   * Unterseite. Ein gekuerzter Auszug waere nur eine kleinere Dublette, keine
+   * geloeste (SEO-GEO-STANDARDS.md §4.5).
+   */
   intro: string;
-  /** Konkrete Arbeitsschritte — bewusst Aufzaehlung, damit KI sie passagenweise zitieren kann. */
-  items: string[];
+  /**
+   * Konkrete Arbeitsschritte. Seit 2026-09-02 optional: Innen-, Aussen- und
+   * Lackaufbereitung haben eigene Seiten (Backlog 1.8/1.9), die Detailliste steht
+   * dort. Hier bleibt nur der Teaser plus Link.
+   */
+  items?: string[];
   /**
    * DASSELBE Motiv wie auf der zugehoerigen Startseiten-Kachel. Der Wiedererkennungswert
    * ist der Punkt: Wer auf das Innenraum-Foto klickt, landet auf dem Innenraum-Foto.
@@ -109,16 +118,9 @@ export const detailingScopes: DetailingScope[] = [
     imageHeight: 1340,
     title: 'Innenaufbereitung',
     intro:
-      'Die Innenaufbereitung reinigt und pflegt den kompletten Fahrzeuginnenraum – vom Cockpit über Polster und Leder bis in die Bereiche, die bei der normalen Wäsche ausgelassen werden.',
-    items: [
-      'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit und Oberflächen',
-      'Polstershampoonierung – alternativ materialgerechte Lederpflege',
-      'Scheibenreinigung innen und außen',
-      'Geruchsentfernung und Behandlung belasteter Innenraumluft',
-      'Auf Wunsch Motorreinigung im Rahmen der Premiumpflege',
-    ],
-    href: '/autoaufbereitung-wissen/innenaufbereitung',
-    hrefLabel: 'Ratgeber Innenaufbereitung',
+      'Sitze, Cockpit, Oberflächen und Scheiben werden gereinigt und gepflegt, nicht nur gesaugt. Auf Wunsch kommen Geruchsentfernung und die Behandlung belasteter Innenraumluft dazu.',
+    href: '/innenaufbereitung-leipzig',
+    hrefLabel: 'Zur Innenaufbereitung',
   },
   {
     id: 'aussenaufbereitung',
@@ -128,16 +130,9 @@ export const detailingScopes: DetailingScope[] = [
     imageHeight: 1045,
     title: 'Außenaufbereitung',
     intro:
-      'Die Außenaufbereitung entfernt Verschmutzungen, die eine gewöhnliche Wäsche stehen lässt, und bereitet den Lack auf Politur und Versiegelung vor.',
-    items: [
-      'Intensive Vorreinigung und Felgenreinigung',
-      'Insektenentfernung',
-      'Schonende Oberwäsche inklusive Abledern',
-      'Lackreinigung als Grundlage für die weitere Bearbeitung',
-      'Scheibenreinigung',
-    ],
-    href: '/autoaufbereitung-wissen/was-ist-autoaufbereitung',
-    hrefLabel: 'Ratgeber Autoaufbereitung',
+      'Was die Waschanlage stehen lässt, wird hier gelöst: Rückstände an den Felgen, Insektenrückstände und Anhaftungen im Lack. Damit ist die Oberfläche für Politur und Versiegelung vorbereitet.',
+    href: '/aussenaufbereitung-leipzig',
+    hrefLabel: 'Zur Außenaufbereitung',
   },
   {
     id: 'lackaufbereitung',
@@ -147,15 +142,9 @@ export const detailingScopes: DetailingScope[] = [
     imageHeight: 1045,
     title: 'Lackaufbereitung',
     intro:
-      'Die Lackaufbereitung arbeitet die Lackoberfläche selbst auf: Sie entfernt Anhaftungen und matte Stellen, holt Glanz zurück und schützt das Ergebnis anschließend.',
-    items: [
-      'Lackreinigung und Entfernung typischer Anhaftungen',
-      'Hochglanzpolitur für glattere Oberflächen und sichtbaren Glanz',
-      'Lackversiegelung für Schutz und Werterhalt',
-      'Auf Wunsch Wachse von SWIZÖL mit 30 bis 60 % Carnaubaanteil',
-    ],
-    href: '/autoaufbereitung-wissen/lackaufbereitung',
-    hrefLabel: 'Ratgeber Lackaufbereitung',
+      'Politur und Versiegelung arbeiten den Lack selbst auf — für Glanz und einen Schutz, der die spätere Reinigung erleichtert. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',
+    href: '/aussenaufbereitung-leipzig',
+    hrefLabel: 'Zur Lackaufbereitung',
   },
 ];
 
