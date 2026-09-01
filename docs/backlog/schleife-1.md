@@ -105,3 +105,4 @@ Schleife 1 – entweder bewusst vorziehen oder ans Ende der Schleife legen.
 |---|---|---|
 | 1.5 | FAQ-Block pro Subseite bleibt (KI-SEO) – von André geprüft und freigegeben | abgenommen |
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite zusammentragen | offen (André) |
+| 1.27 | Zeitleiste auf `/ueber-uns`: Gibt es zwischen der Gründung 1998 und heute weitere Meilensteine, die dort stehen sollen? Aktuell nur zwei Stationen („1998 — Gründung", „Heute"). | offen (André) |

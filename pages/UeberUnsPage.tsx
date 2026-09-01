@@ -25,8 +25,8 @@ import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, Proc
  */
 
 const facts = [
-  { title: 'Seit 1993 am Markt', description: 'Über 30 Jahre Erfahrung im Kfz-Lackier- und Karosseriehandwerk — gewachsen mit den Fahrzeugen, Materialien und Reparaturverfahren, die heute Standard sind.' },
-  { title: '3.000 qm Betriebsfläche', description: 'Lackierung, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen unter einem Dach. Fahrzeuge werden zwischen den Arbeitsschritten nicht an Fremdbetriebe weitergereicht.' },
+  { title: 'Seit 1998 am Markt', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998 — gewachsen mit den Fahrzeugen, Materialien und Reparaturverfahren, die heute Standard sind.' },
+  { title: 'Über 3.000 m² Betriebsfläche', description: 'Lackierung, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen unter einem Dach. Fahrzeuge werden zwischen den Arbeitsschritten nicht an Fremdbetriebe weitergereicht.' },
   { title: 'Über 50 Mitarbeiter', description: 'Eingespielte Teams mit klaren Abläufen. Die Betriebsgröße erlaubt es, mehrere Fahrzeuge parallel zu bearbeiten — auch bei größeren Aufträgen aus Fuhrparks und Autohäusern.' },
   { title: 'Alle Fabrikate', description: 'Markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks — vom Kleinwagen bis zum Premiumfahrzeug, ohne Bindung an eine Vertragswerkstatt.' },
 ];
@@ -50,7 +50,7 @@ const spectrum = [
 ];
 
 const customers = [
-  { title: 'Werksniederlassungen und Autohäuser', description: 'CarCare betreut Werksniederlassungen deutscher Premiumhersteller sowie Autohäuser — mit planbaren Abläufen für Präsentation, Übergabe und Fahrzeugbestand.', href: '/geschaeftskunden' },
+  { title: 'Werksniederlassungen und Autohäuser', description: 'Wir betreuen Werksniederlassungen deutscher Premiumhersteller sowie Autohäuser — mit planbaren Abläufen für Präsentation, Übergabe und Fahrzeugbestand.', href: '/geschaeftskunden' },
   { title: 'Firmenfuhrparks', description: 'Wiederkehrende Pflege, Instandsetzung und Werterhaltung für gewerbliche Flotten, mit festem Ansprechpartner statt wechselnder Zuständigkeiten.', href: '/fuhrparkservice-leipzig' },
   { title: 'Versicherungen und Agenturen', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — instand setzen statt tauschen, wo es fachlich vertretbar ist.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Anspruchsvolle Privatkunden', description: 'Vom Parkplatzrempler bis zur Premiumpflege: ein Ansprechpartner für Pflege, Reparatur und Lackierung.', href: '/privatkunden' },
@@ -60,51 +60,51 @@ const employer = [
   { title: 'Handwerk mit sichtbarem Ergebnis', description: 'Am Ende jedes Auftrags steht ein Fahrzeug, dem man die Arbeit ansieht — oder bei einer gelungenen Lackreparatur eben gerade nicht.' },
   { title: 'Vier Berufsbilder unter einem Dach', description: 'Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater arbeiten am selben Standort zusammen.' },
   { title: 'Moderne Technik und Materialien', description: 'Arbeit mit Glasurit-Wasserbasislacken, TÜV-zertifizierten Reparaturverfahren und Audatex — Technik, die im Handwerk aktuell ist.' },
-  { title: 'Beständigkeit', description: 'Ein Betrieb, der seit 1993 besteht und über 50 Menschen beschäftigt, bietet ein anderes Maß an Planbarkeit als ein junger Kleinbetrieb.' },
+  { title: 'Beständigkeit', description: 'Wir bestehen seit 1998 und beschäftigen über 50 Menschen — das bietet ein anderes Maß an Planbarkeit als ein junger Kleinbetrieb.' },
 ];
 
 const history = [
-  { title: '1993 — Gründung', description: 'Start als Betrieb des Kfz-Lackierhandwerks in Leipzig. Der Meisterbrief ist von Anfang an die fachliche Grundlage.' },
+  { title: '1998 — Gründung', description: 'Start als Betrieb des Kfz-Lackierhandwerks in Leipzig. Der Meisterbrief ist von Anfang an die fachliche Grundlage.' },
   { title: 'Ausbau zum Full-Service-Betrieb', description: 'Karosserie, Smart Repair, Dellenentfernung, Felgen und Autoglas kommen zur Lackierung hinzu — damit ein Fahrzeug den Betrieb für keinen Arbeitsschritt verlassen muss.' },
   { title: 'Aufbereitung als eigener Bereich', description: 'Die Fahrzeugaufbereitung wächst vom Zusatz zur eigenständigen Leistung mit festen Paketen, Desinfektionsverfahren und Leasingrückgabe-Vorbereitung.' },
-  { title: 'Heute — 3.000 qm in Leipzig', description: 'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.' },
+  { title: 'Heute — über 3.000 m² in Leipzig', description: 'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.' },
 ];
 
 const faqs = [
   {
     id: 'wer',
     question: 'Wer steht hinter dem CarCare Center Leipzig?',
-    answer: 'Betreiber ist die BS CarCare GmbH mit Sitz An den Tierkliniken 42, 04103 Leipzig. Der Betrieb besteht seit 1993, ist Meisterbetrieb des Kfz-Lackierhandwerks und beschäftigt über 50 Mitarbeiter auf rund 3.000 qm Betriebsfläche.',
+    answer: 'Betreiber ist die BS CarCare GmbH mit Sitz An den Tierkliniken 42, 04103 Leipzig. Wir bestehen seit 1998, sind Meisterbetrieb des Kfz-Lackierhandwerks und beschäftigen über 50 Mitarbeiter auf über 3.000 m² Betriebsfläche.',
   },
   {
     id: 'groesse',
     question: 'Wie groß ist der Betrieb?',
-    answer: 'CarCare gehört mit rund 3.000 qm Betriebsfläche und über 50 Mitarbeitern zu den größten Karosserie- und Lackierbetrieben in Leipzig und Umgebung. Die Größe erlaubt es, mehrere Fahrzeuge parallel zu bearbeiten und Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung vollständig im eigenen Haus abzudecken.',
+    answer: 'Wir gehören mit über 3.000 m² Betriebsfläche und über 50 Mitarbeitern zu den größten Karosserie- und Lackierbetrieben in Leipzig und Umgebung. Die Größe erlaubt es uns, mehrere Fahrzeuge parallel zu bearbeiten und Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung vollständig im eigenen Haus abzudecken.',
   },
   {
     id: 'marken',
-    question: 'Ist CarCare an eine Fahrzeugmarke gebunden?',
-    answer: 'Nein. CarCare ist markenunabhängig und bearbeitet alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug. Zu den Kunden zählen unter anderem Werksniederlassungen deutscher Premiumhersteller.',
+    question: 'Ist das CarCare Center an eine Fahrzeugmarke gebunden?',
+    answer: 'Nein. Wir sind markenunabhängig und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug. Zu unseren Kunden zählen unter anderem Werksniederlassungen deutscher Premiumhersteller.',
   },
   {
     id: 'zertifikate',
-    question: 'Welche Qualifikationen und Partnerschaften hat CarCare?',
-    answer: 'CarCare ist Meisterbetrieb des Kfz-Lackierhandwerks, Glasurit-Lackpartner, WINTEC-Partner für Autoglas nach ISO 9001 mit TÜV-Zertifizierung und arbeitet mit einem TÜV-zertifizierten Felgenreparaturverfahren. Schäden werden mit dem anerkannten System Audatex kalkuliert.',
+    question: 'Welche Qualifikationen und Partnerschaften hat das CarCare Center?',
+    answer: 'Wir sind Meisterbetrieb des Kfz-Lackierhandwerks, Glasurit-Lackpartner, WINTEC-Partner für Autoglas nach ISO 9001 mit TÜV-Zertifizierung und arbeiten mit einem TÜV-zertifizierten Felgenreparaturverfahren. Schäden werden mit dem anerkannten System Audatex kalkuliert.',
   },
   {
     id: 'einzugsgebiet',
-    question: 'Welches Gebiet betreut CarCare?',
+    question: 'Welches Gebiet betreut das CarCare Center?',
     answer: 'Schwerpunkt ist Leipzig mit dem Umland bis etwa 50 km — darunter Markkleeberg, Schkeuditz, Taucha, Markranstädt, Zwenkau, Borna, Grimma, Wurzen, Delitzsch, Eilenburg und Halle (Saale). Geschäftskunden wie Autohäuser und Fuhrparks werden auch darüber hinaus betreut.',
   },
   {
     id: 'bewerbung',
-    question: 'Sucht CarCare neue Mitarbeiter?',
-    answer: 'CarCare beschäftigt Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater. Offene Stellen und der Weg zur Initiativbewerbung stehen auf der Karriereseite.',
+    question: 'Sucht das CarCare Center neue Mitarbeiter?',
+    answer: 'Wir beschäftigen Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater. Offene Stellen und der Weg zur Initiativbewerbung stehen auf der Karriereseite.',
   },
   {
     id: 'partner',
     question: 'Kann mein Autohaus oder meine Versicherung Partner werden?',
-    answer: 'Ja. CarCare arbeitet mit Autohäusern, Fuhrparks, Versicherungen und Versicherungsagenturen zusammen. Für die Zusammenarbeit gibt es feste Ansprechpartner, strukturierte Abläufe und die komplette Schadenabwicklung inklusive Audatex-Kalkulation.',
+    answer: 'Ja. Wir arbeiten mit Autohäusern, Fuhrparks, Versicherungen und Versicherungsagenturen zusammen. Für die Zusammenarbeit gibt es feste Ansprechpartner, strukturierte Abläufe und die komplette Schadenabwicklung inklusive Audatex-Kalkulation.',
   },
 ];
 
@@ -115,13 +115,13 @@ const UeberUnsPage: React.FC = () => (
   <BackdropLayout image="/assets/carcare-hero-workshop.webp">
     <PageMeta
       canonical="/ueber-uns"
-      title="Über uns | Karosserie- & Lackierbetrieb Leipzig | CarCare"
-      description="BS CarCare GmbH in Leipzig: Meisterbetrieb seit 1993, Glasurit-Lackpartner, über 50 Mitarbeiter auf 3.000 qm – Karosserie, Lack und Aufbereitung im Haus."
+      title="Über uns | Karosserie & Lack Leipzig | CarCare Center"
+      description="BS CarCare GmbH in Leipzig: Meisterbetrieb seit 1998, Glasurit-Lackpartner, über 50 Mitarbeiter auf über 3.000 m² – Karosserie, Lack und Aufbereitung im Haus."
     />
     <PageHero
       eyebrow="Über uns"
       title="Einer der größten Karosserie- und Lackierbetriebe in Leipzig."
-      description="Die BS CarCare GmbH ist seit 1993 Meisterbetrieb des Kfz-Lackierhandwerks. Auf 3.000 qm bearbeiten über 50 Mitarbeiter Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung — für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
+      description="Seit 1998 sind wir Meisterbetrieb des Kfz-Lackierhandwerks. Auf über 3.000 m² bearbeiten über 50 Mitarbeiter Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung — für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
       primaryCta={{ label: 'Kontakt aufnehmen', href: '/kontakt' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Karosseriebetrieb Leipzig', 'Lackiererei Leipzig', 'Meisterbetrieb Leipzig', 'Glasurit-Lackpartner']}
@@ -133,7 +133,7 @@ const UeberUnsPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Der Betrieb in Zahlen"
-          title="Was CarCare zu einem der größten Betriebe der Region macht."
+          title="Was uns zu einem der größten Betriebe der Region macht."
           description="Nicht die Selbstbeschreibung, sondern Fläche, Belegschaft, Betriebsdauer und Leistungstiefe. Diese vier Punkte sind der Unterschied zum spezialisierten Kleinbetrieb."
         />
         <FeatureGrid items={facts} columns="four" />
@@ -145,7 +145,7 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Leistungsspektrum"
           title="Alles im eigenen Haus – vom Kratzer bis zum Totalschaden."
-          description="Als Full-Service-Dienstleister deckt CarCare die gesamte Kette ab. Für den Kunden heißt das: ein Ansprechpartner, ein Termin, keine Übergaben zwischen Fremdbetrieben."
+          description="Als Full-Service-Dienstleister decken wir die gesamte Kette ab. Für Sie heißt das: ein Ansprechpartner, ein Termin, keine Übergaben zwischen Fremdbetrieben."
         />
         <FeatureGrid items={spectrum} columns="three" />
       </div>
@@ -167,7 +167,7 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Entwicklung"
           title="Von der Lackiererei zum Full-Service-Betrieb."
-          description="Über 30 Jahre Entwicklung — jeder Schritt kam dazu, weil Kunden ihn gebraucht haben."
+          description="Entwicklung seit 1998 — jeder Schritt kam dazu, weil Kunden ihn gebraucht haben."
         />
         <ProcessList steps={history} />
       </div>
@@ -187,7 +187,7 @@ const UeberUnsPage: React.FC = () => (
     <section id="karriere" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
-          eyebrow="Arbeiten bei CarCare"
+          eyebrow="Arbeiten im CarCare Center"
           title="Warum Handwerker hier anfangen – und bleiben."
           description="Ein Betrieb dieser Größe bietet, was der Kleinbetrieb nicht kann: Spezialisierung, moderne Technik und Kollegen, die dasselbe Handwerk beherrschen."
         />

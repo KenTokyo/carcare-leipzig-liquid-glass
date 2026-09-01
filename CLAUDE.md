@@ -49,8 +49,18 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    Ebenso: „In seinem Betrieb …" → „In unserem Betrieb …",
    „Das Unternehmen bietet …" → „Wir bieten …".
    Die Kundenansprache bleibt beim „Sie".
-   Ausnahme: Wo der Firmenname aus SEO-Gründen bewusst stehen soll
-   (Hero, strukturierte Daten), bleibt er erhalten.
+   Ausnahme 1 – Firmenname: Wo er aus SEO-Gründen bewusst stehen soll
+   (Hero, strukturierte Daten), bleibt er erhalten. Faustregel für den
+   Fließtext: **Der Name darf stehen, aber nie als Subjekt eines Verbs in
+   der dritten Person.** „Warum CarCare Center Leipzig" ist richtig,
+   „CarCare Center kümmert sich" ist falsch.
+   Ausnahme 2 – strukturierte Daten: In JSON-LD-Beschreibungen
+   (`description` in `seo/structuredData.ts` und `seo/pageSchemas.ts`, z. B.
+   `AutoRepair` und `aboutPageSchema`) bleibt auch die **dritte Person**
+   erhalten. Das sind Maschinen-Metadaten über die Entität, nicht die
+   Selbstbeschreibung im Fließtext; dort ist die dritte Person die
+   konventionelle Form. Sichtbarer Seitentext fällt nicht darunter.
+   Entschieden am 2026-09-02, nicht neu aufmachen.
 3. **Gründungsjahr:** „seit 1998". Nicht 1993, nicht 1996.
 4. **Betriebsfläche:** „über 3.000 m²" bzw. „über 3.000 Quadratmeter".
 5. **Meisterbetrieb:** Der Begriff bleibt auch im Aufbereitungsbereich erhalten

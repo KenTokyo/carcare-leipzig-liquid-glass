@@ -84,7 +84,7 @@ const privateBenefits = [
   },
   {
     title: 'Alles an einem Standort',
-    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf 3.000 qm im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
+    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.000 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
   },
   {
     title: 'Sie bleiben mobil',
@@ -95,7 +95,7 @@ const privateBenefits = [
 const businessBenefits = [
   {
     title: 'Mehrere Fahrzeuge parallel',
-    description: 'Auf 3.000 qm mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten — relevant, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
+    description: 'Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten — relevant, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
   },
   {
     title: 'Fester Ansprechpartner',
@@ -107,7 +107,7 @@ const businessBenefits = [
   },
   {
     title: 'Erfahrung mit Flotten und Autohäusern',
-    description: 'CarCare arbeitet für Autohäuser, Firmenfuhrparks und Werksniederlassungen deutscher Premiumhersteller — wiederkehrende Abläufe sind eingespielt.',
+    description: 'Wir arbeiten für Autohäuser, Firmenfuhrparks und Werksniederlassungen deutscher Premiumhersteller — wiederkehrende Abläufe sind eingespielt.',
   },
 ];
 
@@ -147,8 +147,8 @@ const faqs = [
   },
   {
     id: 'fuhrpark',
-    question: 'Bereitet CarCare auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?',
-    answer: 'Ja. Auf 3.000 qm mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.',
+    question: 'Bereitet das CarCare Center auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?',
+    answer: 'Ja. Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.',
   },
   {
     id: 'ersatz',
@@ -158,7 +158,7 @@ const faqs = [
   {
     id: 'marken',
     question: 'Gilt das für alle Fahrzeugmarken?',
-    answer: 'Ja. CarCare ist ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeitet alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
+    answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
   },
 ];
 
@@ -167,13 +167,13 @@ const LeasingrueckgabePage: React.FC = () => (
   <BackdropLayout image="/assets/kacheln/leasingrueckgabe-leipzig-carcare.webp">
     <PageMeta
       canonical="/leasingrueckgabe-leipzig"
-      title="Leasingrückgabe Leipzig | Fahrzeug vorbereiten | CarCare"
+      title="Leasingrückgabe Leipzig | vorbereiten | CarCare Center"
       description="Fahrzeug vor der Leasingrückgabe prüfen und instand setzen lassen: Dellen, Lack, Felgen, Glas und Aufbereitung in Leipzig – für Privatkunden und Fuhrparks."
     />
     <PageHero
       eyebrow="Leasingrückgabe Leipzig"
       title="Leasingrückgabe vorbereiten – bevor der Gutachter abrechnet."
-      description="Bei der Rückgabe bewertet ein Gutachter den Fahrzeugzustand und rechnet Schäden nach den Sätzen des Leasinggebers ab. Vieles davon lässt sich vorher im Fachbetrieb günstiger beheben. CarCare Leipzig begutachtet, setzt instand und bereitet auf – für Privatkunden und Fuhrparks."
+      description="Bei der Rückgabe bewertet ein Gutachter den Fahrzeugzustand und rechnet Schäden nach den Sätzen des Leasinggebers ab. Vieles davon lässt sich vorher im Fachbetrieb günstiger beheben. Wir begutachten, setzen instand und bereiten auf – für Privatkunden und Fuhrparks."
       primaryCta={{ label: 'Fahrzeug begutachten lassen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Leasingrückgabe Leipzig', 'Leasingfahrzeug aufbereiten', 'Dellen entfernen Leipzig', 'Smart Repair Leipzig']}
@@ -208,7 +208,7 @@ const LeasingrueckgabePage: React.FC = () => (
         <SectionIntro
           eyebrow="Für Geschäftskunden & Fuhrparks"
           title="Mehrere Rückläufer, ein Ansprechpartner."
-          description="Laufen im Fuhrpark mehrere Leasingverträge zum selben Zeitpunkt aus, wird die Rückgabe zum Planungsthema. CarCare bearbeitet Rückläufer gebündelt und nachvollziehbar kalkuliert."
+          description="Laufen im Fuhrpark mehrere Leasingverträge zum selben Zeitpunkt aus, wird die Rückgabe zum Planungsthema. Wir bearbeiten Rückläufer gebündelt und kalkulieren nachvollziehbar."
         />
         <FeatureGrid items={businessBenefits} columns="four" />
         <div className="mt-8">
