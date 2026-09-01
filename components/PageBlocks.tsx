@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
-import { FAQItem } from '../types';
+import { faqsByRoute } from '../data/faqs';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
 
@@ -203,9 +203,15 @@ export const PricingGrid: React.FC<{
   </>
 );
 
-export const PageFAQ: React.FC<{ faqs: FAQItem[] }> = ({ faqs }) => (
+/**
+ * Sichtbarer FAQ-Block. Nimmt bewusst die ROUTE und keine FAQ-Liste: die Inhalte
+ * kommen ausschliesslich aus `data/faqs.ts`, damit der sichtbare Text und das
+ * `FAQPage`-Markup in `seo/pageSchemas.ts` nicht auseinanderlaufen koennen.
+ * Waere hier ein `faqs`-Array uebergebbar, waere die Doppelpflege sofort zurueck.
+ */
+export const PageFAQ: React.FC<{ route: string }> = ({ route }) => (
   <div className="space-y-3">
-    {faqs.map((faq) => (
+    {(faqsByRoute[route] ?? []).map((faq) => (
       <article key={faq.id} className="rounded-2xl border border-gray-100 bg-white p-6">
         <h3 className="text-lg font-bold leading-tight text-gray-950">{faq.question}</h3>
         <p className="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">{faq.answer}</p>

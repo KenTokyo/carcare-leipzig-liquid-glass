@@ -8,11 +8,6 @@ const scope = [
   { title: 'Komplettlackierung bei Bedarf', description: 'Wo Spot-Repair nicht ausreicht, folgt die Komplettlackierung des Bauteils mit bestmöglichem Ergebnis.', href: '/autolackierung-leipzig' },
 ];
 
-const faqs = [
-  { id: 'was', question: 'Was ist Smart bzw. Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand und unsere bevorzugte Reparaturmethode bei kleineren Schäden. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet.' },
-  { id: 'unsichtbar', question: 'Sieht man die reparierte Stelle?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges – weder Farbton noch Effektunterschiede zur Originallackierung sollen für das menschliche Auge erkennbar sein.' },
-  { id: 'grenzen', question: 'Wann reicht Smart Repair nicht aus?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Bei größeren Schäden bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
-];
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackinstandsetzung mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
@@ -46,7 +41,7 @@ const SmartRepairPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zu Smart Repair." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/smart-repair-leipzig" />
       </div>
     </section>
     <PageCTA title="Kleiner Schaden am Fahrzeug? Wir prüfen Smart Repair." description="Zeigen Sie uns den Schaden oder senden Sie Fotos – wir schätzen ein, ob eine punktuelle Reparatur mit geringem Aufwand der passende Weg ist." primaryLabel="Smart Repair anfragen" primaryHref="/kontakt#contact-termin" />

@@ -28,49 +28,6 @@ const expertPoints = [
   { title: 'Hohe Qualitätsstandards', description: 'Strukturierte Arbeitsweise, saubere Übergabe und sichtbarer Anspruch an Details.' },
 ];
 
-const faqs = [
-  {
-    id: 'dauer',
-    question: 'Wie lange dauert eine Fahrzeugaufbereitung?',
-    answer: 'Das hängt von Leistung, Zustand und Umfang ab. Eine reine Außenpflege ist deutlich schneller erledigt als die kombinierte Premiumpflege mit Motorreinigung und Versiegelung. Wir stimmen den Ablauf nach der Anfrage persönlich ab und nennen Ihnen dabei den Zeitrahmen für Ihr Fahrzeug.',
-  },
-  {
-    id: 'preise',
-    question: 'Was kostet eine Autoaufbereitung beim CarCare Center Leipzig?',
-    answer: 'Die Brillant Außenpflege kostet 169,00 €, die Intensiv Innenreinigung 199,00 € und die Premiumpflege als Kombination beider Pakete 299,00 €. Die Premiumpflege „exklusiv“ mit SWIZÖL-Wachsen beginnt bei 348,00 €. Alle Preise verstehen sich inklusive gesetzlicher Mehrwertsteuer.',
-  },
-  {
-    id: 'paketwahl',
-    question: 'Welches Pflegepaket ist das richtige für mich?',
-    answer: 'Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – etwa Polster, Leder oder Gerüche –, ist die Intensiv Innenreinigung passend. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege.',
-  },
-  {
-    id: 'unterschied',
-    question: 'Was ist der Unterschied zwischen Autowäsche und Aufbereitung?',
-    answer: 'Eine Wäsche reinigt die Oberfläche. Die Aufbereitung geht darüber hinaus: Sie entfernt Anhaftungen, die die Wäsche stehen lässt, arbeitet den Lack durch Politur auf, versiegelt ihn anschließend und behandelt den Innenraum materialgerecht bis in die Details.',
-  },
-  {
-    id: 'leasing',
-    question: 'Hilft das CarCare Center bei der Leasingrückgabe?',
-    answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe, setzen Gebrauchsspuren wie Dellen, Lackschäden oder Felgenschäden fachgerecht instand und bereiten es auf. Das reduziert vermeidbare Nachbelastungen durch den Rückgabegutachter.',
-  },
-  {
-    id: 'tierhaare',
-    question: 'Werden auch stark verschmutzte Fahrzeuge angenommen?',
-    answer: 'Ja, allerdings mit gesonderter Absprache. Fahrzeuge mit extremen Verschmutzungen – zum Beispiel Tierhaare – bedürfen eines höheren Aufwands und werden deshalb vorab individuell besprochen.',
-  },
-  {
-    id: 'geruch',
-    question: 'Was hilft gegen hartnäckige Gerüche im Innenraum?',
-    answer: 'Für belastete Innenraumluft bieten wir zwei Verfahren an: die Ozonbehandlung für 45,00 € mit rund 30 Minuten Einwirkzeit sowie die Heißvernebelung mit dem KC-Refresher für 59,00 €, die länger anhaltend gegen Bakterien, behüllte Viren und Schimmelpilze wirkt.',
-  },
-  {
-    id: 'business',
-    question: 'Ist Autoaufbereitung auch für Autohäuser und Fuhrparks möglich?',
-    answer: 'Ja. Wir arbeiten für Privatkunden, Autohäuser, Fuhrparks und Geschäftskunden mit hohen Qualitätsstandards. Für wiederkehrende Aufbereitung gibt es feste Ansprechpartner und planbare Abläufe.',
-  },
-];
-
 const VehicleDetailingPage: React.FC = () => (
   // Motiv der Kachel „Fahrzeugaufbereitung" aus der Leistungsuebersicht.
   // `zoom` bewusst nur hier: Das Motiv (1400x1045) ist hochformatiger als die Backdrop-
@@ -231,7 +188,7 @@ const VehicleDetailingPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Fahrzeugaufbereitung." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/fahrzeugaufbereitung-leipzig" />
       </div>
     </section>
 

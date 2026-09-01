@@ -2,7 +2,7 @@ import React from 'react';
 import ContactCTA from '../components/ContactCTA';
 import ArticleCard from '../components/KnowledgeArticleCard';
 import KnowledgeCategoryGrid from '../components/KnowledgeCategoryGrid';
-import { PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import { PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import { knowledgeArticles, knowledgeCategories } from '../data/knowledgeArticles';
 
 const KnowledgeHubPage: React.FC = () => (
@@ -78,6 +78,19 @@ const KnowledgeHubPage: React.FC = () => (
             </a>
           </article>
         </div>
+      </div>
+    </section>
+
+    {/*
+      Bis 2026-09-01 existierten diese drei Fragen NUR als FAQPage-Markup, ohne
+      sichtbaren Block auf der Seite — ein Verstoss gegen die Google-Richtlinie
+      fuer strukturierte Daten. Sie stehen jetzt in data/faqs.ts und werden hier
+      gerendert; scripts/check-faq.mjs verhindert einen Rueckfall.
+    */}
+    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro eyebrow="FAQ" title="Häufige Fragen zum Wissensbereich." />
+        <PageFAQ route="/autoaufbereitung-wissen" />
       </div>
     </section>
 

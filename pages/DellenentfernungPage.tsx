@@ -9,12 +9,6 @@ const vorteile = [
   { title: 'Von Versicherungen anerkannt', description: 'Anerkannt von allen Versicherungen und Gutachtern.' },
 ];
 
-const faqs = [
-  { id: 'wann', question: 'Bei welchen Schäden funktioniert die lackfreie Dellenentfernung?', answer: 'Die lackierfreie Reparaturmethode gilt heute als Standard bei Parkplatzdellen oder Hagelschäden. Voraussetzung ist, dass der Lack keine Beschädigungen aufweist.' },
-  { id: 'wie', question: 'Wie funktioniert die Methode?', answer: 'Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil unter Verwendung spezieller Werkzeuge so weit bearbeitet, bis der Originalzustand wieder hergestellt ist.' },
-  { id: 'wert', question: 'Bleibt der Wert des Fahrzeugs erhalten?', answer: 'Ja. Die Methode ist schonend für den Lack und im Nachhinein nicht sicht- bzw. nachweisbar, sodass keine Wertminderung entsteht.' },
-  { id: 'versicherung', question: 'Erkennen Versicherungen die Methode an?', answer: 'Ja, die lackfreie Dellenentfernung ist von allen Versicherungen und Gutachtern anerkannt.' },
-];
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Karosserie und Lack aus einer Hand.' },
@@ -48,7 +42,7 @@ const DellenentfernungPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Dellenentfernung." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/dellenentfernung-leipzig" />
       </div>
     </section>
     <PageCTA title="Delle am Fahrzeug? Wir prüfen die lackfreie Instandsetzung." description="Zeigen Sie uns die Delle oder senden Sie Fotos – wir schätzen ein, ob der Lack intakt ist und der Originalzustand lackfrei hergestellt werden kann." primaryLabel="Dellenentfernung anfragen" primaryHref="/kontakt#contact-termin" />

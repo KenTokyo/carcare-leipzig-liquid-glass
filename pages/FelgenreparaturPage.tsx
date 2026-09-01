@@ -10,12 +10,6 @@ const scope = [
   { title: 'Werterhalt statt Neukauf', description: 'Statt der teuren Anschaffung neuer Originalfelgen bleibt der Wert des Fahrzeugs erhalten.' },
 ];
 
-const faqs = [
-  { id: 'welche', question: 'Welche Felgenschäden dürfen repariert werden?', answer: 'Behoben werden dürfen Bordstein- und Korrosionsschäden bis zu 1 mm Tiefe im Grundmetall der Felge. Eingriffe in das Materialgefüge wie Schweißarbeiten und Rückverformungen sind gesetzlich grundsätzlich abzulehnen.' },
-  { id: 'sicher', question: 'Ist die Reparatur TÜV-konform und sicher?', answer: 'Wir arbeiten mit einem TÜV-zertifizierten Alufelgenreparaturverfahren als zertifizierter Wheel-Doctor-Fachbetrieb und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien. Nicht in jedem Fall ist eine Felgenreparatur erlaubt.' },
-  { id: 'poliert', question: 'Repariert ihr auch polierte bzw. glanzgedrehte Felgen?', answer: 'Ja. Auch glanzgedrehte, im Volksmund polierte Alufelgen können wir wieder optisch wie neu erscheinen lassen.' },
-  { id: 'anteil', question: 'Wie viele Felgenschäden lassen sich beheben?', answer: 'Mit unserem Verfahren können bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben werden – statt teure neue Originalfelgen anzuschaffen.' },
-];
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998.' },
@@ -49,7 +43,7 @@ const FelgenreparaturPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Felgenreparatur." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/felgenreparatur-leipzig" />
       </div>
     </section>
     <PageCTA title="Bordsteinschaden an der Felge? Kommen Sie vorbei." description="Lassen Sie sich vor Ort beraten – wir prüfen, ob der Schaden nach den TÜV-Richtlinien reparabel ist, und beheben ihn kostengünstig." primaryLabel="Felgenreparatur anfragen" primaryHref="/kontakt#contact-termin" />

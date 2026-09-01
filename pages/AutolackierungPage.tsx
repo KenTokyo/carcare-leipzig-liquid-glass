@@ -10,11 +10,6 @@ const scope = [
   { title: 'Farbtongenaue Angleichung', description: 'Ziel ist, dass weder Farbton noch Effektunterschiede zur Originallackierung erkennbar sind.' },
 ];
 
-const faqs = [
-  { id: 'unsichtbar', question: 'Sieht man die Lackreparatur später?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Zu einer fachgerechten Lackierung gehört, dass weder Farbton noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind.' },
-  { id: 'spot', question: 'Was ist Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand. Sie ist unsere bevorzugte Reparaturmethode, weil nur der betroffene Bereich bearbeitet wird.' },
-  { id: 'komplett', question: 'Wann ist eine Komplettlackierung nötig?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Dann bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
-];
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue, makellose Reparaturen mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
@@ -48,7 +43,7 @@ const AutolackierungPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Lackierung." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/autolackierung-leipzig" />
       </div>
     </section>
     <PageCTA title="Lackschaden in Leipzig? Wir beraten Sie zur unsichtbaren Reparatur." description="Beschreiben Sie Ihr Anliegen oder senden Sie Fotos – wir prüfen, ob Spot-Repair ausreicht oder eine Komplettlackierung sinnvoll ist." primaryLabel="Lackierung anfragen" primaryHref="/kontakt#contact-termin" />

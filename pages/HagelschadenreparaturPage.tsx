@@ -8,12 +8,6 @@ const leistungen = [
   { title: 'Lackfreie Instandsetzung', description: 'Hageldellen werden bei intaktem Lack lackfrei entfernt und in den Originalzustand versetzt.', href: '/dellenentfernung-leipzig' },
 ];
 
-const faqs = [
-  { id: 'anzahlung', question: 'Muss ich eine Anzahlung leisten?', answer: 'Nein. Eine Anzahlung ist nicht nötig – wir rechnen direkt mit der Versicherung ab.' },
-  { id: 'abwicklung', question: 'Übernehmt ihr die Abstimmung mit Versicherung und Gutachter?', answer: 'Auf Wunsch sprechen wir mit Ihrem Gutachter bzw. Ihrer Versicherung und wickeln das gesamte Schadensereignis für Sie ab.' },
-  { id: 'audatex', question: 'Wie wird der Hagelschaden kalkuliert?', answer: 'Die Kalkulation erfolgt mit dem durch Versicherer und Gutachter anerkannten System Audatex.' },
-  { id: 'zustand', question: 'Wird das Fahrzeug wieder wie vorher?', answer: 'Wir helfen Ihnen dabei, dass Ihr Fahrzeug wieder in den Originalzustand versetzt wird. Bei intaktem Lack werden die Hageldellen lackfrei entfernt.' },
-];
 
 const usp = [
   { title: 'Komplette Versicherungsabwicklung', description: 'Unfall- und Versicherungsabwicklung inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
@@ -47,7 +41,7 @@ const HagelschadenreparaturPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Hagelschadenreparatur." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/hagelschadenreparatur-leipzig" />
       </div>
     </section>
     <PageCTA title="Hagelschaden in Leipzig? Wir wickeln alles für Sie ab." description="Melden Sie den Schaden mit den wichtigsten Informationen – wir kalkulieren mit Audatex und rechnen direkt mit Ihrer Versicherung ab." primaryLabel="Hagelschaden jetzt melden" primaryHref="/kontakt#contact-schaden" />

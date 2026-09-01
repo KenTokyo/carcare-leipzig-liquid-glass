@@ -22,12 +22,6 @@ const process = [
   { title: 'Start im Team', description: 'Wenn es passt, beginnt der Einstieg in einem professionellen Umfeld.' },
 ];
 
-const faqs = [
-  { id: 'initiativ', question: 'Kann ich mich initiativ bewerben?', answer: 'Ja. Initiativbewerbungen sind willkommen, besonders für Aufbereitung, Lackierung, Karosserie und Service.' },
-  { id: 'bereiche', question: 'Welche Jobbereiche gibt es?', answer: 'Wir suchen unter anderem Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater.' },
-  { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über die Kontaktseite oder telefonisch. Wir melden uns anschließend persönlich zurück.' },
-];
-
 const CareerPage: React.FC = () => (
   <>
     <PageMeta canonical="/karriere" title="Karriere beim CarCare Center Leipzig" description="Karriere beim CarCare Center Leipzig: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
@@ -60,7 +54,7 @@ const CareerPage: React.FC = () => (
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Karriere." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/karriere" />
       </div>
     </section>
     <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. Wir prüfen gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />

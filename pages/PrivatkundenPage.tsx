@@ -105,49 +105,6 @@ const steps = [
   { title: 'Reparatur & Übergabe', description: 'Wir arbeiten das Fahrzeug ab und übergeben es gereinigt zurück — mit Erklärung, was gemacht wurde.' },
 ];
 
-const faqs = [
-  {
-    id: 'vorteil',
-    question: 'Was habe ich als Privatkunde vom CarCare Center gegenüber einer Vertragswerkstatt?',
-    answer: 'Sie bekommen Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung an einem Standort statt bei mehreren Betrieben, mit einem festen Ansprechpartner. Wir sind markenunabhängig, arbeiten als Glasurit-Lackpartner farbtongenau und empfehlen grundsätzlich die kleinere Reparaturlösung, wo sie fachlich ausreicht.',
-  },
-  {
-    id: 'kosten',
-    question: 'Was kostet die Aufbereitung meines Autos?',
-    answer: 'Die Brillant Außenpflege kostet 169,00 €, die Intensiv Innenreinigung 199,00 € und die Premiumpflege als Kombination beider 299,00 €. Die Premiumpflege „exklusiv“ beginnt bei 348,00 €. Alle Preise inklusive gesetzlicher Mehrwertsteuer. Für Reparaturen erhalten Sie einen individuellen Kostenvoranschlag, weil der Aufwand vom Schadenbild abhängt.',
-  },
-  {
-    id: 'termin',
-    question: 'Brauche ich als Privatkunde einen Termin?',
-    answer: 'Für Aufbereitung und planbare Reparaturen ist ein Termin sinnvoll, damit Ihr Fahrzeug ohne Wartezeit bearbeitet wird. Bei einem frischen Unfallschaden melden Sie sich direkt telefonisch unter 0341 - 261 77 90 — wir besprechen dann das weitere Vorgehen.',
-  },
-  {
-    id: 'marken',
-    question: 'Arbeitet das CarCare Center an allen Fahrzeugmarken?',
-    answer: 'Ja. Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Marken — vom Kleinwagen bis zum Premiumfahrzeug.',
-  },
-  {
-    id: 'versicherung',
-    question: 'Muss ich den Schaden selbst mit der Versicherung klären?',
-    answer: 'Nein. Auf Wunsch übernehmen wir die komplette Abwicklung: Kostenvoranschlag, Abstimmung mit Versicherern und Gutachtern sowie die Kommunikation während der Reparatur. Bei einem Hagelschaden rechnen wir direkt mit der Versicherung ab, eine Anzahlung ist nicht nötig.',
-  },
-  {
-    id: 'klein',
-    question: 'Lohnt sich eine Reparatur auch bei kleinen Schäden?',
-    answer: 'Häufig ja. Bei kleineren Lackschäden ist Spot-Repair unsere bevorzugte Methode, weil nur der betroffene Bereich bearbeitet wird. Bei Dellen mit intaktem Lack entfällt das Lackieren sogar ganz. Beides ist deutlich weniger aufwendig als eine Komplettlackierung.',
-  },
-  {
-    id: 'leasing',
-    question: 'Kann das CarCare Center mein Auto auf die Leasingrückgabe vorbereiten?',
-    answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe und setzen Gebrauchsspuren fachgerecht instand, um vermeidbare Nachbelastungen durch den Rückgabegutachter zu reduzieren.',
-  },
-  {
-    id: 'mobil',
-    question: 'Bleibe ich während der Reparatur mobil?',
-    answer: 'Nach Verfügbarkeit stellen wir Ihnen ein Werkstattersatzfahrzeug zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir es einplanen können.',
-  },
-];
-
 const PrivatkundenPage: React.FC = () => (
   // Motiv der Kachel „Privatkunden" aus „Fuer wen wir arbeiten" (Startseite).
   <BackdropLayout image="/assets/kacheln/privatkunden-leipzig-carcare.webp">
@@ -208,7 +165,7 @@ const PrivatkundenPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen von Privatkunden." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/privatkunden" />
       </div>
     </section>
 

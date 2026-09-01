@@ -14,12 +14,6 @@ const usp = [
   { title: 'Full-Service auf über 3.000 m²', description: 'Autoglas, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
 ];
 
-const faqs = [
-  { id: 'garantie', question: 'Gibt es eine Garantie auf die Autoglas-Reparatur?', answer: 'Ja. Als WINTEC-Partner geben wir 30 Jahre Garantie auf die Autoglas-Reparatur und die Dichtigkeit ausgetauschter Scheiben.' },
-  { id: 'leistungen', question: 'Welche Autoglas-Leistungen bietet das CarCare Center?', answer: 'Neuverglasung für PKW, LKW und Bus, Steinschlagreparaturen sowie Folienbeschichtungen aller Art – von der Scheibenfolierung bis zu Schutzfolien für den Lack.' },
-  { id: 'ersatz', question: 'Bekomme ich während der Arbeiten ein Ersatzfahrzeug?', answer: 'Ja. Während der Arbeiten stellen wir Ihnen ein Werkstatt-Ersatzfahrzeug gratis zur Verfügung.' },
-  { id: 'steinschlag', question: 'Kann ein Steinschlag repariert werden oder muss die Scheibe getauscht werden?', answer: 'Je nach Größe und Lage lässt sich ein Steinschlag reparieren, bevor sich Risse ausbreiten. Ist das nicht möglich, tauschen wir die Scheibe fachgerecht aus.' },
-];
 
 const AutoglasPage: React.FC = () => (
   <>
@@ -47,7 +41,7 @@ const AutoglasPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zu Autoglas und Scheibenfolien." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/autoglas-leipzig" />
       </div>
     </section>
     <PageCTA title="Steinschlag oder Scheibenschaden in Leipzig?" description="Melden Sie sich bei uns – wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen ein Ersatzfahrzeug bereit." primaryLabel="Autoglas anfragen" primaryHref="/kontakt#contact-termin" />

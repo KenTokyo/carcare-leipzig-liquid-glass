@@ -80,44 +80,6 @@ const steps = [
   { title: 'Qualität sichern', description: 'Dokumentation, Endabnahme und transparente Rückmeldung gehören zum Prozess.' },
 ];
 
-const faqs = [
-  {
-    id: 'rahmen',
-    question: 'Sind feste Abläufe für Geschäftskunden möglich?',
-    answer: 'Ja. Wir strukturieren wiederkehrende Prozesse für Autohäuser, Fuhrparks, Versicherungen und Agenturen — mit festem Ansprechpartner, vereinbarter Frequenz und definierten Kommunikationswegen.',
-  },
-  {
-    id: 'schadensteuerung',
-    question: 'Arbeitet das CarCare Center mit Versicherungen und Schadensteuerern zusammen?',
-    answer: 'Ja. Versicherer und Schadensteuerer gehören zu unseren Geschäftskunden. Wir übernehmen Schadenaufnahme, Kalkulation über das anerkannte System Audatex und die Instandsetzung aus einer Hand — inklusive Schriftverkehr und Abstimmung mit dem Gutachter.',
-  },
-  {
-    id: 'partner',
-    question: 'Für welche Unternehmen arbeitet das CarCare Center bereits?',
-    answer: 'Zu den Betrieben, für die wir arbeiten, zählen unter anderem Volkswagen Automobile Leipzig, das Audi Zentrum Leipzig, das Porsche Zentrum Leipzig, das Porsche Werk Leipzig und das Autohaus Otto Grimm. Im Schadenbereich wickeln wir Fälle mit über 30 Versicherern ab, darunter HUK Coburg, Gothaer, VHV, Generali, R+V und Signal Iduna.',
-  },
-  {
-    id: 'flotte',
-    question: 'Können mehrere Fahrzeuge gleichzeitig bearbeitet werden?',
-    answer: 'Ja. Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich auch mehrere Fahrzeuge parallel bearbeiten — etwa bei Hagelereignissen oder wiederkehrender Flottenpflege. Umfang und Zeitfenster werden vorab abgestimmt.',
-  },
-  {
-    id: 'einhaus',
-    question: 'Werden Arbeiten an Fremdbetriebe weitergegeben?',
-    answer: 'Nein. Karosserie, Lackierung, Smart Repair, Felgeninstandsetzung, Autoglas und Aufbereitung finden im eigenen Haus statt. Das spart eine Schnittstelle und hält die Verantwortung an einer Stelle.',
-  },
-  {
-    id: 'premium',
-    question: 'Hat das CarCare Center Erfahrung mit Premiumfahrzeugen?',
-    answer: 'Ja. Wir arbeiten als Glasurit-Lackpartner farbtongenau und mit sorgfältigem Umgang bei hochwertigen Fahrzeugen und sensiblen Oberflächen.',
-  },
-  {
-    id: 'digital',
-    question: 'Gibt es digitale Schadenübermittlung?',
-    answer: 'Eine digitale Schadenübermittlung ist perspektivisch vorgesehen und kann in der Zusammenarbeit berücksichtigt werden. Aktuell erfolgt die Übermittlung telefonisch, per E-Mail oder über das Formular.',
-  },
-];
-
 /** Namensliste als kompakter Block — bewusst ohne Logos, Begruendung in `data/partners.ts`. */
 const PartnerNames: React.FC<{ names: string[] }> = ({ names }) => (
   <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
@@ -242,7 +204,7 @@ const BusinessCustomersPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen für Geschäftskunden." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/geschaeftskunden" />
       </div>
     </section>
 

@@ -2,39 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { FAQItem } from '../types';
+import { faqsByRoute } from '../data/faqs';
 
-const defaultFaqs: FAQItem[] = [
-  {
-    id: 'unfall',
-    question: 'Kann ich beim CarCare Center einen Unfallschaden in Leipzig melden?',
-    answer:
-      'Ja. Sie können Ihren Unfallschaden online über das Formular oder telefonisch melden. Wir unterstützen Sie bei Schadenaufnahme, Kalkulation und Reparatur.',
-  },
-  {
-    id: 'versicherung',
-    question: 'Unterstützt das CarCare Center bei der Abstimmung mit Versicherung oder Gutachter?',
-    answer:
-      'Auf Wunsch begleiten wir die Abstimmung mit Gutachtern und Versicherern und halten Sie während der Reparatur persönlich auf dem Laufenden.',
-  },
-  {
-    id: 'aufbereitung',
-    question: 'Kann ich einen Termin für Fahrzeugaufbereitung online anfragen?',
-    answer:
-      'Ja. Über das Formular „Termin anfragen“ können Sie Fahrzeug, Wunschleistung und bevorzugten Termin übermitteln.',
-  },
-  {
-    id: 'business',
-    question: 'Arbeitet das CarCare Center auch für Autohäuser, Fuhrparks und Agenturen?',
-    answer:
-      'Ja. Geschäftskunden erhalten strukturierte Abläufe, feste Ansprechpartner und planbare Fahrzeugdienstleistungen.',
-  },
-  {
-    id: 'ersatzwagen',
-    question: 'Gibt es während der Reparatur Ersatzmobilität?',
-    answer:
-      'Ersatzmobilität wird kommuniziert und organisiert, sofern ein passendes Fahrzeug verfügbar ist und die Rahmenbedingungen stimmen.',
-  },
-];
 
 interface FAQSectionProps {
   className?: string;
@@ -49,7 +18,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
   className = 'bg-gray-50/70',
   description = 'Kurz beantwortet: Schadenmeldung, Aufbereitung, Geschäftskunden und Ersatzmobilität.',
   eyebrow = 'FAQ',
-  faqs = defaultFaqs,
+  faqs = faqsByRoute['/'],
   id = 'faq',
   title = 'Häufige Fragen zum CarCare Center Leipzig.',
 }) => {

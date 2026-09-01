@@ -84,44 +84,6 @@ const audiences = [
   { title: 'Autohäuser & Fuhrparks', description: 'Planbare Abläufe, kurze Wege und transparente Reparaturkommunikation für Flotten.', href: '/geschaeftskunden' },
 ];
 
-const faqs = [
-  {
-    id: 'melden',
-    question: 'Wie melde ich einen Unfallschaden beim CarCare Center Leipzig?',
-    answer: 'Sie können den Schaden telefonisch unter 0341 - 261 77 90 oder über das Online-Formular melden. Hilfreich sind Fahrzeugdaten, Schadenart, Fotos des Schadens und Informationen zur Versicherung.',
-  },
-  {
-    id: 'versicherung',
-    question: 'Übernimmt das CarCare Center die Abstimmung mit der Versicherung?',
-    answer: 'Ja. Auf Wunsch übernehmen wir die Kommunikation mit Ihrer Versicherung sowie den Schriftverkehr rund um den Schadenfall und stimmen uns bei Bedarf mit dem Gutachter ab.',
-  },
-  {
-    id: 'welche',
-    question: 'Welche Reparaturmethode kommt bei meinem Schaden infrage?',
-    answer: 'Das hängt vom Schadenbild ab. Ist der Lack intakt und die Delle zugänglich, entfernen wir sie lackfrei. Bei kleineren Lackschäden greift Spot-Repair, bei dem nur der betroffene Bereich bearbeitet wird. Erst wenn beides nicht ausreicht, folgt die Komplettlackierung des Bauteils.',
-  },
-  {
-    id: 'wertminderung',
-    question: 'Entsteht durch die Reparatur eine Wertminderung?',
-    answer: 'Bei der lackfreien Dellenentfernung nicht: Die Methode ist lackschonend und im Nachhinein nicht sicht- oder nachweisbar. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur ohne erkennbare Farbton- oder Effektunterschiede zur Originallackierung.',
-  },
-  {
-    id: 'anzahlung',
-    question: 'Muss ich bei einem Hagelschaden in Vorleistung gehen?',
-    answer: 'Nein. Eine Anzahlung ist nicht nötig – wir rechnen direkt mit der Versicherung ab. Die Kalkulation erfolgt über das von Versicherern und Gutachtern anerkannte System Audatex.',
-  },
-  {
-    id: 'ersatzmobilitaet',
-    question: 'Gibt es Ersatzmobilität während der Reparatur?',
-    answer: 'Nach Verfügbarkeit stellen wir ein Werkstattersatzfahrzeug bereit, damit Sie während der Reparatur mobil bleiben. Sprechen Sie uns bei der Schadenmeldung darauf an, damit wir es einplanen können.',
-  },
-  {
-    id: 'marken',
-    question: 'Repariert das CarCare Center auch mein Fahrzeugfabrikat?',
-    answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeiten alle Marken – vom Kleinwagen bis zum Premiumfahrzeug.',
-  },
-];
-
 const AccidentRepairPage: React.FC = () => (
   // Motiv der Kachel „Unfallinstandsetzung" aus der Leistungsuebersicht.
   <BackdropLayout image="/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp">
@@ -182,7 +144,7 @@ const AccidentRepairPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Unfallinstandsetzung." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/unfallinstandsetzung-leipzig" />
       </div>
     </section>
 

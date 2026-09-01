@@ -8,11 +8,6 @@ const leistungen = [
   { title: 'Starke Kooperationspartner', description: 'Profitieren Sie von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
 ];
 
-const faqs = [
-  { id: 'umfang', question: 'Welche Arbeiten übernimmt der Fuhrparkservice?', answer: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf übernehmen wir sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.' },
-  { id: 'schaden', question: 'Was passiert im Schadensfall?', answer: 'Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein, damit Ihr Betrieb weiterläuft.' },
-  { id: 'partner', question: 'Arbeitet das CarCare Center mit Partnern aus der Branche zusammen?', answer: 'Ja. Sie profitieren von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
-];
 
 const usp = [
   { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
@@ -46,7 +41,7 @@ const FuhrparkservicePage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zum Fuhrparkservice." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/fuhrparkservice-leipzig" />
       </div>
     </section>
     <PageCTA title="Planbare Betreuung für Ihren Fuhrpark?" description="Sprechen Sie mit uns über die Betreuung Ihrer Fahrzeuge – von der regelmäßigen Pflege bis zur Schadenabwicklung." primaryLabel="Fuhrparkservice anfragen" primaryHref="/kontakt#contact-termin" />
