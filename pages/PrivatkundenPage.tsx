@@ -159,7 +159,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageHero
       eyebrow="Privatkunden"
       title="Ihr Auto in Leipzig – gepflegt, repariert und wieder wie neu."
-      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: CarCare Center Leipzig übernimmt Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
+      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
       keywords={['Autoaufbereitung Leipzig', 'Autoreparatur Leipzig', 'Smart Repair Leipzig', 'Leasingrückgabe Leipzig']}

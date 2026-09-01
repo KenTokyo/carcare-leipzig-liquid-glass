@@ -96,6 +96,15 @@ den Namen, nicht die dritte Person.
 * [x] Unangetastet: 9 × juristische Firmierung „BS CarCare GmbH", 6 Code-Kommentare,
       `components/Hero.tsx` (User-Vorgabe)
 * [x] 158 Regeln, 162 Ersetzungen in 32 Dateien, jede Regel mit Trefferzahl-Assertion
+* [x] **Nachtrag nach der Gegenprobe:** zwei sichtbare PageHero-Leadtexte hatten
+      den Firmennamen weiterhin als Subjekt in dritter Person —
+      `pages/BusinessCustomersPage.tsx:143` und `pages/PrivatkundenPage.tsx:162`.
+      Ursache: die erste Restsuche prüfte „CarCare Center" + Verb, aber nicht
+      „CarCare Center **Leipzig**" + Verb. Behoben, Name bleibt erhalten und
+      wandert ins Präpositionalgefüge („Im CarCare Center Leipzig arbeiten wir …")
+* [x] Bewusste Ausnahme: `seo/structuredData.ts:61` (JSON-LD `AutoRepair.description`)
+      bleibt in dritter Person. Strukturierte Daten sind Maschinen-Metadaten über
+      die Entität; `CLAUDE.md` nennt sie ausdrücklich als Ausnahme
 
 **Referenzen:**
 `seo/pageSchemas.ts`

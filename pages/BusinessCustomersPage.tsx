@@ -140,7 +140,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageHero
       eyebrow="Geschäftskunden"
       title="Fahrzeugdienstleistungen für Autohäuser, Flotten und Versicherer."
-      description="CarCare Center Leipzig arbeitet für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.000 m² im eigenen Haus."
+      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.000 m² im eigenen Haus."
       primaryCta={{ label: 'Geschäftskundenanfrage stellen', href: '/kontakt#contact-business' }}
       secondaryCta={{ label: 'Leistungen ansehen', href: '/leistungen' }}
       keywords={['Fuhrparkservice Leipzig', 'Autohäuser Leipzig', 'Schadensteuerung Leipzig', 'Leasingrückgabe Leipzig']}
