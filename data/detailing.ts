@@ -71,6 +71,32 @@ export const priceOffers = [
   { name: 'Heißvernebelung (KC-Refresher)', price: '59.00', description: 'Lang anhaltende Innenraum-Desinfektion gegen Bakterien, behüllte Viren und Schimmelpilze.' },
 ];
 
+/**
+ * EINZIGE QUELLE der Motive im Aufbereitungs-Kontext.
+ *
+ * Bis 2026-09-02 lagen die Bildpfade doppelt: hier in `detailingScopes` und in
+ * `components/AutoDetailingExpertiseSection.tsx` in `expertiseCards`. Wer nur eine
+ * Stelle drehte, bekam auf Startseiten-Kachel und Subseiten-Karte verschiedene
+ * Motive — dasselbe Muster wie bei den FAQ vor dem Single-Source-Umbau.
+ *
+ * ZUORDNUNG NACH DER ROCHADE (Backlog 1.13, Kundenvorgabe):
+ *   aussen  <- vormals Lackaufbereitungsmotiv
+ *   leasing <- vormals Aussenaufbereitungsmotiv
+ *   lack    <- Lackiermotiv, durch die Rochade frei geworden
+ *
+ * DATEINAMEN BLEIBEN: `fahrzeugaufbereitung-…` und `smart-repair-…` sind KEINE
+ * Ein-Zweck-Assets, sie tragen auch die Kacheln „Fahrzeugaufbereitung" bzw.
+ * „Smart Repair" in `data/services.ts`. Ein Umbenennen nach dem neuen Einsatzort
+ * wuerde die Namen dort falsch machen. Deshalb hier dokumentiert statt umbenannt.
+ */
+export const aufbereitungKacheln = {
+  innen: '/assets/kacheln/innenaufbereitung-leipzig-carcare.webp',
+  aussen: '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp',
+  lack: '/assets/kacheln/autolackierung-leipzig-carcare.webp',
+  leasing: '/assets/kacheln/smart-repair-leipzig-carcare.webp',
+  wissen: '/assets/kacheln/wissensdatenbank-leipzig-carcare.webp',
+} as const;
+
 export interface DetailingScope {
   /**
    * Anker-Ziel auf `/fahrzeugaufbereitung-leipzig`. Die gleichnamigen Kacheln der
@@ -112,7 +138,7 @@ export interface DetailingScope {
 export const detailingScopes: DetailingScope[] = [
   {
     id: 'innenaufbereitung',
-    image: '/assets/kacheln/innenaufbereitung-leipzig-carcare.webp',
+    image: aufbereitungKacheln.innen,
     imageAlt: 'Gereinigter Fahrzeuginnenraum mit Cockpit und Polstern nach der Innenaufbereitung im CarCare Center Leipzig',
     imageWidth: 2400,
     imageHeight: 1340,
@@ -124,8 +150,8 @@ export const detailingScopes: DetailingScope[] = [
   },
   {
     id: 'aussenaufbereitung',
-    image: '/assets/kacheln/smart-repair-leipzig-carcare.webp',
-    imageAlt: 'Fahrzeugaußenseite mit aufbereitetem Lack nach der Außenaufbereitung im CarCare Center Leipzig',
+    image: aufbereitungKacheln.aussen,
+    imageAlt: 'Aufbereitete Fahrzeugoberfläche nach der Außenaufbereitung im CarCare Center Leipzig',
     imageWidth: 1400,
     imageHeight: 1045,
     title: 'Außenaufbereitung',
@@ -136,7 +162,7 @@ export const detailingScopes: DetailingScope[] = [
   },
   {
     id: 'lackaufbereitung',
-    image: '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp',
+    image: aufbereitungKacheln.lack,
     imageAlt: 'Polierte und versiegelte Lackoberfläche nach der Lackaufbereitung im CarCare Center Leipzig',
     imageWidth: 1400,
     imageHeight: 1045,

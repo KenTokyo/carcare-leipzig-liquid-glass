@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
+import { aufbereitungKacheln } from '../data/detailing';
 
 /** Kachel-Foto je Karte — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
-const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
 
 /**
  * Expertise-Karten. Nutzen bewusst **dieselbe Komponente** wie die Leistungsuebersicht
@@ -16,36 +16,30 @@ const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
  * Karte auf den Wissenshub, statt als leicht uebersehbarer Link danebenzustehen. Der Textlink
  * wurde entfernt — sonst stuende dasselbe Ziel zweimal in derselben Sektion.
  *
- * FOTO-STAND (2026-07-22): „Innenaufbereitung" und „Mehr über Aufbereitung erfahren" haben
- * ihre FINALEN Kundenmotive. „Außenaufbereitung" und „Lackaufbereitung" tragen die vom User
- * bewusst umsortierten Bestandsfotos, „Leasingrückgabe" laeuft noch auf einem Interim-Motiv.
- * Alle fuenf sind unterschiedlich — der Aufklapp-Effekt lebt vom Bildwechsel.
- * Tausch = nur der `backgroundImage`-Pfad je Karte.
+ * FOTO-STAND (2026-09-02): Die Kachel „Lackaufbereitung" ist entfallen (Backlog 1.7),
+ * ihr Inhalt steht jetzt vollstaendig auf `/aussenaufbereitung-leipzig`. Damit bleiben
+ * VIER Karten. Die Motive kamen mit der Rochade aus Backlog 1.13 neu zu:
+ * Aussenaufbereitung traegt das vormalige Lackmotiv, Leasingrueckgabe das vormalige
+ * Aussenmotiv. Alle vier sind unterschiedlich — der Aufklapp-Effekt lebt vom Bildwechsel.
+ * Die Pfade stehen in `aufbereitungKacheln` (data/detailing.ts) und werden dort
+ * gemeinsam mit den Subseiten-Karten gepflegt — nie wieder an zwei Stellen.
  */
 const expertiseCards: ExpandingCardItem[] = [
   {
     id: 'innen',
     title: 'Innenaufbereitung',
     description: 'Sorgfältige Reinigung und Pflege von Cockpit, Oberflächen, Polstern und Innenraumdetails.',
-    href: '/fahrzeugaufbereitung-leipzig#innenaufbereitung',
+    href: '/innenaufbereitung-leipzig',
     cta: 'Zur Innenaufbereitung',
-    backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
+    backgroundImage: aufbereitungKacheln.innen,
   },
   {
     id: 'aussen',
     title: 'Außenaufbereitung',
     description: 'Schonende Außenreinigung, Lackreinigung und ein durchgehend gepflegtes Erscheinungsbild.',
-    href: '/fahrzeugaufbereitung-leipzig#aussenaufbereitung',
+    href: '/aussenaufbereitung-leipzig',
     cta: 'Zur Außenaufbereitung',
-    backgroundImage: kachel('smart-repair-leipzig-carcare'),
-  },
-  {
-    id: 'lack',
-    title: 'Lackaufbereitung',
-    description: 'Lackreinigung, Politur und Versiegelung für mehr Glanz und langfristigen Werterhalt.',
-    href: '/fahrzeugaufbereitung-leipzig#lackaufbereitung',
-    cta: 'Zur Lackaufbereitung',
-    backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
+    backgroundImage: aufbereitungKacheln.aussen,
   },
   {
     id: 'leasing',
@@ -53,7 +47,7 @@ const expertiseCards: ExpandingCardItem[] = [
     description: 'Prüfung und fachgerechte Aufbereitung vor der Rückgabe, damit der Fahrzeugzustand überzeugt.',
     href: '/leasingrueckgabe-leipzig',
     cta: 'Leasingrückgabe ansehen',
-    backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
+    backgroundImage: aufbereitungKacheln.leasing,
   },
   {
     id: 'wissen',
@@ -62,7 +56,7 @@ const expertiseCards: ExpandingCardItem[] = [
       'Ratgeber rund um Innenraum, Lack, Werterhalt und Leasingrückgabe – verständlich erklärt im Wissensbereich.',
     href: '/autoaufbereitung-wissen',
     cta: 'Zum Wissensbereich',
-    backgroundImage: kachel('wissensdatenbank-leipzig-carcare'),
+    backgroundImage: aufbereitungKacheln.wissen,
   },
 ];
 
