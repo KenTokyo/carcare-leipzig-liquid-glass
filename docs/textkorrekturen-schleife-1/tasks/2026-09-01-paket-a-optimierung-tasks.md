@@ -65,73 +65,10 @@ Bestand bereits vor Paket A — Messung vor und nach der Änderung: identisch 7 
 
 ---
 
-### ⬜ 2. 🟠 Hoch — `components/Hero.tsx` ist toter Code
-Hero.tsx ist toter Code (kein Import, Unsplash-Hotlink, Jahreszahl 2010) –
-Löschung in eigenem Commit prüfen. Hotlink ist lizenzrechtlich und
-performanceseitig relevant.
-
-* [ ] Prüfen, ob die Komponente irgendwo dynamisch geladen wird
-* [ ] Löschung als eigener Commit
-* [ ] Restliche Unsplash-Hotlinks im Projekt suchen und mit bewerten
-
----
-
-### ⬜ 3. 🟡 Mittel — Kartentitel und Kartenbeschreibung doppeln „seit 1998"
-**Befund:** Auf fünf Serviceseiten trägt der Kartentitel „Meisterbetrieb seit 1998"
-und die Beschreibung direkt darunter erneut „seit 1998":
-`pages/AutolackierungPage.tsx:21`, `pages/SmartRepairPage.tsx:19`,
-`pages/DellenentfernungPage.tsx:20`, `pages/FelgenreparaturPage.tsx:21`,
-`pages/HagelschadenreparaturPage.tsx:21`.
-
-Inhaltlich korrekt und bewusst so umgesetzt (User-Vorgabe: keine Dauerangabe,
-stattdessen „seit 1998"). Sprachlich ist die Wiederholung im selben Sichtfeld
-unschön. Aufzulösen ist sie über den **Titel**, nicht über die Jahreszahl.
-
-* [ ] Kartentitel auf „Meisterbetrieb" kürzen, Jahreszahl bleibt in der Beschreibung —
-      oder umgekehrt, einheitlich über alle fünf Seiten
-
----
-
-### ⬜ 4. 🟡 Mittel — 16 von 17 `PageMeta`-Descriptions außerhalb 140–160 Zeichen
-**Befund:** Spanne 67 bis 180 Zeichen. Betroffen sind unter anderem
-`pages/NotFoundPage.tsx:6` (67), `pages/ContactPage.tsx:13` (115),
-`pages/HomePage.tsx:25` (130), `pages/HagelschadenreparaturPage.tsx:26` (180).
-Einzige Seite im Zielkorridor: `pages/KnowledgeHubPage.tsx`.
-
-Bestandsproblem, unabhängig von 1.1/1.2 — keine der in diesem Paket geänderten
-Zeilen ist eine Meta-Description. Verstoß gegen SEO-GEO §3.1.
-
-* [ ] Alle 16 Descriptions auf 140–160 Zeichen bringen, Hauptkeyword + CTA erhalten
-* [ ] Titles im selben Durchgang gegen 50–60 Zeichen prüfen
-* [ ] Prüfskript aus dieser Session dauerhaft ablegen (`scripts/`), damit die
-      Längen bei künftigen Textänderungen nicht wieder abdriften
-
----
-
-### ⬜ 5. 🟡 Mittel — drei Meta-Titles weiterhin außerhalb 50–60 Zeichen
-Nach Paket A liegen die neun überarbeiteten Titles bei 50–59 Zeichen. Offen bleiben
-drei, die den Namen bereits korrekt führen oder gar nicht enthalten:
-
-| Datei | Zeichen |
-|---|---|
-| `pages/HomePage.tsx` | 83 |
-| `pages/KnowledgeHubPage.tsx` | 65 |
-| `pages/AccidentRepairPage.tsx` | 62 |
-
-* [ ] Auf 50–60 Zeichen kürzen, Hauptkeyword und Ort erhalten
-
----
-
-### ⬜ 6. 🟡 Mittel — fünf `metaTitle` im Wissensbereich zu lang
-`data/knowledgeArticles.ts:38`, `:110`, `:182`, `:254`, `:326` tragen jetzt
-`| CarCare Center Wissen` und liegen bei 69–83 Zeichen. Sie lagen vorher schon
-bei 62–76 — Paket A hat die Überlänge um 7 Zeichen verschärft, nicht verursacht.
-
-* [ ] Kürzen; Marken-Suffix ggf. auf `| CarCare Center` reduzieren
-
----
-
-### ⬜ 7. 🔴 Kritisch — `npm run typecheck` prüft keine einzige JSX-Property
+### ⬜ 2. 🔴 Kritisch — `npm run typecheck` prüft keine einzige JSX-Property
+> **Reihenfolge (User, 2026-09-02): direkt nach Paket B.** Je mehr Komponenten
+> in Paket B entstehen, desto mehr ungeprüfte Props sammeln sich an — der
+> Aufwand wächst mit jedem Tag, an dem der Punkt liegen bleibt.
 **Gefunden am 2026-09-02** beim Rebase auf `main`.
 
 `@types/react` und `@types/react-dom` sind **nicht installiert** — weder in
@@ -162,3 +99,69 @@ echt geprüft.
 * [ ] Fehler beheben oder, wo unvermeidbar, bewusst und kommentiert unterdrücken
 * [ ] Erst danach ist „Typecheck grün" wieder eine belastbare Aussage
 * [ ] Prüfen, ob `strict` sinnvoll aktivierbar ist (aktuell nicht gesetzt)
+
+---
+
+### ⬜ 3. 🟠 Hoch — `components/Hero.tsx` ist toter Code
+Hero.tsx ist toter Code (kein Import, Unsplash-Hotlink, Jahreszahl 2010) –
+Löschung in eigenem Commit prüfen. Hotlink ist lizenzrechtlich und
+performanceseitig relevant.
+
+* [ ] Prüfen, ob die Komponente irgendwo dynamisch geladen wird
+* [ ] Löschung als eigener Commit
+* [ ] Restliche Unsplash-Hotlinks im Projekt suchen und mit bewerten
+
+---
+
+### ⬜ 4. 🟡 Mittel — Kartentitel und Kartenbeschreibung doppeln „seit 1998"
+**Befund:** Auf fünf Serviceseiten trägt der Kartentitel „Meisterbetrieb seit 1998"
+und die Beschreibung direkt darunter erneut „seit 1998":
+`pages/AutolackierungPage.tsx:21`, `pages/SmartRepairPage.tsx:19`,
+`pages/DellenentfernungPage.tsx:20`, `pages/FelgenreparaturPage.tsx:21`,
+`pages/HagelschadenreparaturPage.tsx:21`.
+
+Inhaltlich korrekt und bewusst so umgesetzt (User-Vorgabe: keine Dauerangabe,
+stattdessen „seit 1998"). Sprachlich ist die Wiederholung im selben Sichtfeld
+unschön. Aufzulösen ist sie über den **Titel**, nicht über die Jahreszahl.
+
+* [ ] Kartentitel auf „Meisterbetrieb" kürzen, Jahreszahl bleibt in der Beschreibung —
+      oder umgekehrt, einheitlich über alle fünf Seiten
+
+---
+
+### ⬜ 5. 🟡 Mittel — 16 von 17 `PageMeta`-Descriptions außerhalb 140–160 Zeichen
+**Befund:** Spanne 67 bis 180 Zeichen. Betroffen sind unter anderem
+`pages/NotFoundPage.tsx:6` (67), `pages/ContactPage.tsx:13` (115),
+`pages/HomePage.tsx:25` (130), `pages/HagelschadenreparaturPage.tsx:26` (180).
+Einzige Seite im Zielkorridor: `pages/KnowledgeHubPage.tsx`.
+
+Bestandsproblem, unabhängig von 1.1/1.2 — keine der in diesem Paket geänderten
+Zeilen ist eine Meta-Description. Verstoß gegen SEO-GEO §3.1.
+
+* [ ] Alle 16 Descriptions auf 140–160 Zeichen bringen, Hauptkeyword + CTA erhalten
+* [ ] Titles im selben Durchgang gegen 50–60 Zeichen prüfen
+* [ ] Prüfskript aus dieser Session dauerhaft ablegen (`scripts/`), damit die
+      Längen bei künftigen Textänderungen nicht wieder abdriften
+
+---
+
+### ⬜ 6. 🟡 Mittel — drei Meta-Titles weiterhin außerhalb 50–60 Zeichen
+Nach Paket A liegen die neun überarbeiteten Titles bei 50–59 Zeichen. Offen bleiben
+drei, die den Namen bereits korrekt führen oder gar nicht enthalten:
+
+| Datei | Zeichen |
+|---|---|
+| `pages/HomePage.tsx` | 83 |
+| `pages/KnowledgeHubPage.tsx` | 65 |
+| `pages/AccidentRepairPage.tsx` | 62 |
+
+* [ ] Auf 50–60 Zeichen kürzen, Hauptkeyword und Ort erhalten
+
+---
+
+### ⬜ 7. 🟡 Mittel — fünf `metaTitle` im Wissensbereich zu lang
+`data/knowledgeArticles.ts:38`, `:110`, `:182`, `:254`, `:326` tragen jetzt
+`| CarCare Center Wissen` und liegen bei 69–83 Zeichen. Sie lagen vorher schon
+bei 62–76 — Paket A hat die Überlänge um 7 Zeichen verschärft, nicht verursacht.
+
+* [ ] Kürzen; Marken-Suffix ggf. auf `| CarCare Center` reduzieren

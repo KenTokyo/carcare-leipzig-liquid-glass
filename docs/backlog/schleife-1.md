@@ -30,6 +30,15 @@ folgenden Pakete auf korrigiertem Stand aufsetzen.
 
 ---
 
+## Paket A – abgeschlossen
+
+1.1 bis 1.4 sind umgesetzt und in `main` gemergt (2026-09-02). Offene Folgepunkte
+stehen in `docs/textkorrekturen-schleife-1/tasks/2026-09-01-paket-a-optimierung-tasks.md`.
+**Direkt nach Paket B** kommt dort Punkt 2 (fehlende React-Typen) — je mehr
+Komponenten Paket B erzeugt, desto mehr ungeprüfte Props sammeln sich an.
+
+---
+
 ## Paket B – Informationsarchitektur Fahrzeugaufbereitung
 
 Größtes Paket, enthält zwei neue Seiten. Ggf. auf zwei Sessions aufteilen
