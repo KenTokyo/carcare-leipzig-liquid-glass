@@ -122,3 +122,37 @@ drei, die den Namen bereits korrekt führen oder gar nicht enthalten:
 bei 62–76 — Paket A hat die Überlänge um 7 Zeichen verschärft, nicht verursacht.
 
 * [ ] Kürzen; Marken-Suffix ggf. auf `| CarCare Center` reduzieren
+
+---
+
+### ⬜ 7. 🔴 Kritisch — `npm run typecheck` prüft keine einzige JSX-Property
+**Gefunden am 2026-09-02** beim Rebase auf `main`.
+
+`@types/react` und `@types/react-dom` sind **nicht installiert** — weder in
+`dependencies` noch in `devDependencies`. Damit ist `React.FC` für TypeScript
+`any`, und `tsc --noEmit` prüft Komponenten-Props überhaupt nicht.
+
+**Belegt statt vermutet:** Nach dem Rebase stand in beiden neuen Seiten
+`<PageFAQ faqs={faqs} />`, obwohl die Komponente inzwischen `{ route: string }`
+verlangt. `tsc` meldete nichts. Gegenprobe mit einer Wegwerf-Datei:
+
+```tsx
+const A = () => <PageFAQ faqs={[]} />;   // unbekannte Property
+const B = () => <PageFAQ />;             // Pflicht-Property fehlt
+```
+
+Beides fehlerfrei. Ein normaler Typfehler (`const x: number = "kaputt"`) wird
+dagegen gemeldet — `tsc` läuft also, es fehlt ihm nur jede Kenntnis von React.
+
+**Tragweite:** Falsche, fehlende und falsch typisierte Props sind projektweit
+unsichtbar. Das betrifft rückwirkend jede Aussage „`tsc --noEmit` sauber" in
+den bisherigen Phasenprotokollen: für Komponenten-Code war sie ohne Substanz.
+Build, Prerender und die HTML-Prüfungen bleiben davon unberührt — die haben
+echt geprüft.
+
+* [ ] `@types/react` und `@types/react-dom` passend zu React 19 installieren
+* [ ] `tsc --noEmit` laufen lassen und die aufschlagenden Fehler sichten —
+      die Menge ist vorher nicht abschätzbar
+* [ ] Fehler beheben oder, wo unvermeidbar, bewusst und kommentiert unterdrücken
+* [ ] Erst danach ist „Typecheck grün" wieder eine belastbare Aussage
+* [ ] Prüfen, ob `strict` sinnvoll aktivierbar ist (aktuell nicht gesetzt)

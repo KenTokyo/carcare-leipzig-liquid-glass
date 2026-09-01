@@ -5,7 +5,9 @@ Anlass: `main` war beim Anlegen der Branches 5 Commits alt. `0b666d1` hat
 `pages/LeasingrueckgabePage.tsx` (265 Zeilen) und `pages/UeberUnsPage.tsx`
 (219 Zeilen) neu hinzugefügt — beide kennen die Korrekturen aus Paket A nicht.
 
-> **Nichts geändert.** Diese Datei ist die Vorlage zur Freigabe.
+> **Status: umgesetzt am 2026-09-02** nach Freigabe. 46 Ersetzungen in 3 Dateien,
+> plus zwei Nachträge, die erst die Gesamt-Gegenprobe zutage gefördert hat
+> (`foundingDate` im JSON-LD, drei Alt-Texte in `data/detailing.ts`).
 
 ---
 
