@@ -6,7 +6,13 @@ Sortierung nach Gewichtung.
 
 ---
 
-### ⬜ 1. 🔴 Kritisch — Schema-FAQ und sichtbarer Inhalt: Doppelpflege UND sieben Waisen
+### ✅ 1. 🔴 Kritisch — Schema-FAQ und sichtbarer Inhalt: Doppelpflege UND Waisen
+
+> **Erledigt am 2026-09-01** auf Branch `optimierung/faq-single-source`, drei Commits.
+> Eine Quelle (`data/faqs.ts`), Schema daraus abgeleitet, Build-Wächter
+> `scripts/check-faq.mjs` gegen Rückfall. Die Waisen des Wissensbereichs sind
+> sichtbar ergänzt. Details und ein neu gefundener Folgebefund:
+> `docs/faq-single-source/tasks/2026-09-01-faq-single-source-tasks.md`
 **Ziel:** Eine Quelle für jede FAQ-Antwort. Strukturierte Daten lesen daraus,
 statt eine Kopie zu halten.
 
