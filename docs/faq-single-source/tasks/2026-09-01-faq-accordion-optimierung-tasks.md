@@ -1,8 +1,8 @@
 # FAQ-Akkordeon: ausgezeichnete Antworten fehlen im ausgelieferten HTML
 
 Referenz: `docs/faq-single-source/tasks/2026-09-01-faq-single-source-tasks.md`, Phase 3, Finding 1
-Status: **Phase 1 und 2 umgesetzt** am 2026-09-01, Branch `optimierung/faq-akkordeon-dom`.
-Phase 3 bleibt offen.
+Status: **abgeschlossen** am 2026-09-01, Branch `optimierung/faq-akkordeon-dom`.
+Phase 1 und 2 umgesetzt, Phase 3 **bewusst nicht umgesetzt** (Begründung dort).
 
 Vorgabe des Users: Panels gemountet lassen und Höhe animieren genügt — Google
 erlaubt FAQPage-Inhalte hinter Aufklapp-Elementen, solange sie im initialen HTML
@@ -100,13 +100,25 @@ sich für den Nutzer unverändert.
 
 ---
 
-### ⬜ Phase 3 — Eine Darstellung statt zwei
-**Ziel:** `PageFAQ` (offene Liste) und `FAQSection` (Akkordeon) zeigen denselben
-Inhalt in zwei Bauformen. Nach Phase 1 unterscheiden sie sich nur noch optisch.
+### 🚫 Phase 3 — Eine Darstellung statt zwei · **bewusst nicht umgesetzt**
+**Entscheidung des Users am 2026-09-01.** Nicht vertagt, nicht offen — verworfen.
 
-* [ ] Prüfen, ob eine Komponente mit Variante `list | accordion` reicht
-* [ ] Nur zusammenführen, wenn dabei kein Design-Unterschied verloren geht —
-      die offene Liste auf den Unterseiten ist eine bewusste Entscheidung
+`PageFAQ` und `FAQSection` sehen sich nach dem Umbau ähnlich. Ähnlichkeit
+rechtfertigt aber keine Zusammenlegung: Zwei Komponenten hätten nur dann eine
+gemeinsame Zukunft, wenn sie sich künftig **gemeinsam ändern**. Das ist hier
+nicht zu erwarten — die offene Liste auf den Unterseiten und das Akkordeon auf
+Startseite und Artikelseiten folgen unterschiedlichen Zwecken.
+
+Eine `variant`-Prop (`list | accordion`) würde beim ersten abweichenden Wunsch
+zur Verzweigung im Inneren der gemeinsamen Komponente. Man tauscht zwei klare
+Komponenten gegen eine mit Fallunterscheidung — und hat nichts gewonnen.
+
+Der Duplikationsschmerz, der ein Zusammenlegen rechtfertigen würde, ist ohnehin
+schon weg: Seit `data/faqs.ts` die einzige Quelle ist, liegt der **Inhalt** nur
+noch einmal. Doppelt sind nur zwei Darstellungen, und das sollen sie sein.
+
+**Konsequenz für Finding 2 im Hauptplan** (`2026-09-01-faq-single-source-tasks.md`,
+Phase 3): erledigt durch Entscheidung, nicht durch Umsetzung.
 
 
 ---

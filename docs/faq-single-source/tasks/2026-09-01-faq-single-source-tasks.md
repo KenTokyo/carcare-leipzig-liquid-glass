@@ -139,6 +139,12 @@ in `prebuild` verdrahtet ✅, Fehlermeldungen nennen die Lösung ✅
    initialen HTML steht — viele KI-Crawler rendern kein JavaScript.
    **Bestand vor diesem Branch**, unabhängig von der Umstellung.
    → eigener Optimierungsplan, siehe `2026-09-01-faq-accordion-optimierung-tasks.md`
-2. 🟡 **Mittel:** `PageFAQ` und `FAQSection` sind zwei Darstellungen desselben
-   Inhalts — die eine als offene Liste, die andere als Akkordeon. Nach Behebung
-   von Finding 1 lohnt die Prüfung, ob eine Komponente reicht.
+2. 🟡 **Mittel — geprüft und verworfen (2026-09-01):** `PageFAQ` und `FAQSection`
+   sind zwei Darstellungen desselben Inhalts. Sie werden **nicht** zusammengelegt.
+   Ähnlichkeit allein rechtfertigt keine gemeinsame Komponente — die beiden
+   müssten sich künftig gemeinsam ändern, und das tun sie nicht: offene Liste auf
+   Unterseiten und Akkordeon auf Startseite/Artikeln folgen verschiedenen Zwecken.
+   Eine `variant`-Prop würde beim nächsten abweichenden Wunsch zur Verzweigung.
+   Der Duplikationsschmerz ist mit `data/faqs.ts` als einziger Quelle bereits
+   entfallen: doppelt sind nur noch die Darstellungen, nicht die Inhalte.
+   Details: `2026-09-01-faq-accordion-optimierung-tasks.md`, Phase 3.
