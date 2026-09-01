@@ -67,6 +67,8 @@ const collaboration = [
   { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.000 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
   { title: 'Instand setzen statt tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
+  // Backlog 1.16: Programmname vom Kunden bestaetigt — "Data Motive", nicht "Beta Motive".
+  { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive — ohne Medienbruch zwischen den Schritten.' },
   { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und Endabnahme gehören zum Ablauf.' },
   { title: 'Erfahrung mit Premiumfahrzeugen', description: 'Sorgfältiger Umgang mit hochwertigen Fahrzeugen und sensiblen Oberflächen.' },
   { title: 'Ersatzmobilität', description: 'Werkstattersatzfahrzeug nach Verfügbarkeit — damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },

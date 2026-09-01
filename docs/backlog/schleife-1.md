@@ -81,7 +81,7 @@ acht einzeln angepasste Seiten. Erst Komponente bauen, dann Seiten migrieren.
 | 1.23 | „Jetzt bewerben"-Banner oben auf der Karriereseite | offen |
 | 1.24 | Serviceberater aus den offenen Positionen entfernen | offen |
 | 1.25 | Über-uns-Seite ist nirgends verlinkt → in Navigation aufnehmen | offen |
-| 1.16 | Geschäftskunden: volldigitale Abwicklung über eigenes Programm namentlich erwähnen | blockiert |
+| 1.16 | Geschäftskunden: volldigitale Abwicklung über eigenes Programm namentlich erwähnen | umgesetzt |
 
 **1.16 ist blockiert:** Schreibweise „Data Motive" vs. „Beta Motive" bei André
 bestätigen lassen. Alternativ zunächst ohne Produktnamen umsetzen
