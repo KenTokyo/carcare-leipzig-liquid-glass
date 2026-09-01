@@ -51,6 +51,9 @@ const GRADIENTS = [
 
 // Platzhalter-Motive rund um die Fahrzeugaufbereitung. `src` je Eintrag ergaenzen,
 // sobald echte Fotos vorliegen (z. B. src: '/assets/galerie/innenraum.jpg').
+//
+// NICHT WIEDER AUFNEHMEN: „Scheinwerfer-Politur“ wurde am 2026-09-02 entfernt
+// (Backlog 1.12, rechtlich heikel). Es war die einzige Fundstelle im ganzen Projekt.
 const ITEMS: GalleryItem[] = [
   { label: 'Innenaufbereitung', iconName: 'Sparkles', gradient: GRADIENTS[0] },
   { label: 'Außenreinigung', iconName: 'Droplets', gradient: GRADIENTS[1] },
@@ -59,7 +62,6 @@ const ITEMS: GalleryItem[] = [
   { label: 'Versiegelung', iconName: 'ShieldCheck', gradient: GRADIENTS[4] },
   { label: 'Felgenreinigung', iconName: 'Wrench', gradient: GRADIENTS[5] },
   { label: 'Lederpflege', iconName: 'Sparkles', gradient: GRADIENTS[1] },
-  { label: 'Scheinwerfer-Politur', iconName: 'Gauge', gradient: GRADIENTS[2] },
   { label: 'Motorraumpflege', iconName: 'Wrench', gradient: GRADIENTS[0] },
   { label: 'Keramikschutz', iconName: 'ShieldCheck', gradient: GRADIENTS[3] },
   { label: 'Politur-Finish', iconName: 'Droplets', gradient: GRADIENTS[4] },
