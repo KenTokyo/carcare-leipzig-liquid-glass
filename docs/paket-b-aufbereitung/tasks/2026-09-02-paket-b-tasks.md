@@ -4,7 +4,8 @@ Branch: `schleife-1/paket-b` (auf `main` @ `d5244b5`)
 Backlog: `docs/backlog/schleife-1.md`, Paket B — 1.8, 1.9, 1.7, 1.6, 1.10–1.13
 Mit dabei: **1.16** (Data Motive, nicht mehr blockiert)
 
-> **Planung. Noch kein Code.**
+> **Abgeschlossen am 2026-09-02.** Acht Commits, Reihenfolge 1.8/1.9 vor 1.7 eingehalten.
+> Nach jedem Commit Build mit beiden Wächtern — durchgehend grün.
 
 Reihenfolge zwingend: **1.8 und 1.9 anlegen, dann 1.7.** Andernfalls zeigen die
 Kacheln zwischenzeitlich ins Leere.
@@ -195,3 +196,66 @@ zusätzlich die Route im gebauten `dist/` prüfen (Prerender 23 → 25 Routen).
   Betrifft Paket E, nicht Paket B; die Exklusivleistungs-Abschnitte hier bleiben
   davon unabhängig strukturell leer.
 - **1.26** — Benefits und Mitarbeiterstimmen für die Karriereseite (Paket D).
+
+
+---
+
+## Phasenprotokoll
+
+### ✅ 1.8 / 1.9 — die beiden neuen Subseiten
+* [x] `/aussenaufbereitung-leipzig` — trägt auch die Lackaufbereitung ausführlich,
+      weil deren Kachel mit 1.7 entfällt und der Inhalt hier aufgeht
+* [x] `/innenaufbereitung-leipzig`
+* [x] Je alle sieben Anschlusspunkte: Seite, `App.tsx`, `scripts/routes.mjs`,
+      `data/faqs.ts`, `seo/pageSchemas.ts`, `data/services.ts`, interne Verlinkung
+* [x] Je fünf FAQ-Einträge mit echten Preisen aus `data/detailing.ts`
+* [x] Titles 59/60 Zeichen, Descriptions 157/157 — beide im SEO-GEO-Korridor
+* [x] Exklusivleistungen strukturell, ohne Text, mit `TODO 1.18`-Kommentar
+* [x] Nachträglich auf `BackdropLayout` und die halbtransparenten Ablauf-Karten
+      umgestellt (User-Sichtung); gegen die Referenzseite gemessen, nicht geschaut
+
+**Referenzen:** `pages/AussenaufbereitungPage.tsx` · `pages/InnenaufbereitungPage.tsx` · `data/faqs.ts`
+
+### ✅ Dublettenstrategie (a)
+* [x] Teaser auf `/fahrzeugaufbereitung-leipzig`, **eigenständig formuliert**
+* [x] `DetailingScope.items` optional, Detaillisten stehen auf den neuen Seiten
+* [x] Ratgeber-Links auf die neuen Seiten gewandert, wechselseitige Verlinkung
+
+### ✅ 1.7 / 1.13 — Kachel raus, Bilder gedreht
+* [x] Lack-Kachel entfernt, vier Karten bleiben (Wissens-Karte inklusive)
+* [x] Rochade samt `imageAlt`; Bildzuordnung einquellig in `aufbereitungKacheln`
+* [x] Grid 5→4 gemessen: Desktop 1440 px eine Zeile, mobil 375 px gestapelt,
+      kein horizontaler Überlauf
+* [x] Dateinamen **nicht** umbenannt — Begründung im Commit und in
+      `data/detailing.ts`, Nachfolge als Backlog 1.28
+
+### ✅ 1.6 · 1.10 · 1.11 · 1.12 · 1.16
+* [x] 1.6 Kacheltext auf Alltag und Werterhalt erweitert
+* [x] 1.10 Desinfektion direkt unter die Pflegepakete — im gebauten HTML
+      nachgemessen (4186 → 5421 → 6370 → 8823)
+* [x] 1.11 zusätzlich als „Optional buchbar" auf der **neuen** Subseite
+* [x] 1.12 Scheinwerferaufbereitung entfernt — vollständige Suche vorgelegt,
+      genau eine Fundstelle, nie im JSON-LD
+* [x] 1.16 Data Motive, Karte plus FAQ-Eintrag in der Single Source
+
+---
+
+## Kommentare
+
+### Paket B gesamt
+**Eingehalten**: Reihenfolge 1.8/1.9 vor 1.7 ✅, Build mit beiden Wächtern nach
+jedem Commit ✅, keine erfundenen Inhalte auf Kundenseiten ✅, SEO-GEO-Korridore
+für Title und Description ✅, alle Dateien unter 700 Zeilen ✅, Encoding sauber ✅
+
+**Auffälligkeiten/Findings (nach Schwere):**
+1. 🟠 **Hoch:** `DetailingGallery` führt eine zweite, ungeprüfte Leistungsliste.
+   Solange Platzhalter, folgenlos; mit echten Fotos wird sie zur Aussage über das
+   Angebot. → eigener Optimierungsplan, Punkt 1.
+2. 🟡 **Mittel:** Bildmotive doppelt belegt, Umbenennen scheidet aus. → Backlog 1.28.
+3. 🟡 **Mittel, behoben:** Die Bildzuordnung lag doppelt (Daten + Komponente). Der
+   Umbau war klein genug, um ihn in 1.13 mitzunehmen statt zu vertagen.
+
+**Zwei Selbstkorrekturen unterwegs:** In den Teasern hatte ich „Bremsstaub an den
+Felgen" und „Rückstände an Front, Spiegeln und Scheiben" ergänzt — plausibel, aber
+in der abgestimmten Quelle nicht belegt. Zurückgenommen. Auf einer Kundenseite ist
+das der Unterschied zwischen Übernehmen und Ausschmücken.

@@ -46,17 +46,23 @@ Größtes Paket, enthält zwei neue Seiten. Ggf. auf zwei Sessions aufteilen
 
 | Nr. | Aufgabe | Status |
 |---|---|---|
-| 1.8 | Neue Subseite „Außenaufbereitung" – inkl. Lackaufbereitung ausführlich + Exklusivleistungen (Keramikversiegelung, Nanoversiegelung, Lackbausteine) | offen |
-| 1.9 | Neue Subseite „Innenaufbereitung" – inkl. Exklusivleistungen (z. B. Alcantara-Lenkrad ausbauen und aufarbeiten, Schaum-/Tornador-Verfahren) | offen |
-| 1.7 | Kachel „Lackaufbereitung" auf der Mainpage entfernen – verbleiben: Innenaufbereitung, Außenaufbereitung, Leasingrückgabe | offen |
-| 1.6 | Kacheltext Aufbereitung: Botschaft erweitern auf Werterhalt und Wohlfühlen im Alltag, nicht nur Verkauf/Leasingrückgabe | offen |
-| 1.10 | Ozonbehandlung / Heißvernebelung weiter nach oben – direkt unter die Aufbereitungspakete mit Preisen | offen |
-| 1.11 | Ozon/Heißvernebelung zusätzlich als optional buchbar bei Innenaufbereitung (v. a. Intensiv-Innenreinigung) hinterlegen | offen |
-| 1.12 | Scheinwerferaufbereitung herausnehmen (rechtlich heikel) | offen |
-| 1.13 | Bild-Rochade: Lackaufbereitungsbild → Außenaufbereitung; bisheriges Außenaufbereitungsbild → Leasingrückgabe | offen |
+| 1.8 | Neue Subseite „Außenaufbereitung" – inkl. Lackaufbereitung ausführlich + Exklusivleistungen (Keramikversiegelung, Nanoversiegelung, Lackbausteine) | umgesetzt |
+| 1.9 | Neue Subseite „Innenaufbereitung" – inkl. Exklusivleistungen (z. B. Alcantara-Lenkrad ausbauen und aufarbeiten, Schaum-/Tornador-Verfahren) | umgesetzt |
+| 1.7 | Kachel „Lackaufbereitung" auf der Mainpage entfernen – verbleiben: Innenaufbereitung, Außenaufbereitung, Leasingrückgabe | umgesetzt |
+| 1.6 | Kacheltext Aufbereitung: Botschaft erweitern auf Werterhalt und Wohlfühlen im Alltag, nicht nur Verkauf/Leasingrückgabe | umgesetzt |
+| 1.10 | Ozonbehandlung / Heißvernebelung weiter nach oben – direkt unter die Aufbereitungspakete mit Preisen | umgesetzt |
+| 1.11 | Ozon/Heißvernebelung zusätzlich als optional buchbar bei Innenaufbereitung (v. a. Intensiv-Innenreinigung) hinterlegen | umgesetzt |
+| 1.12 | Scheinwerferaufbereitung herausnehmen (rechtlich heikel) | umgesetzt |
+| 1.13 | Bild-Rochade: Lackaufbereitungsbild → Außenaufbereitung; bisheriges Außenaufbereitungsbild → Leasingrückgabe | umgesetzt |
 
 **Reihenfolge:** 1.8 und 1.9 zuerst, danach 1.7 (sonst zeigen die Kacheln
-zwischenzeitlich ins Leere).
+zwischenzeitlich ins Leere). — So umgesetzt am 2026-09-02.
+
+**Paket B abgeschlossen** (2026-09-02): 1.6 bis 1.13 umgesetzt, 1.16 mit erledigt.
+Neue Seiten `/aussenaufbereitung-leipzig` und `/innenaufbereitung-leipzig`.
+Offen bleibt allein die Zulieferung durch André (1.18, 1.28) — die
+Exklusivleistungs-Abschnitte stehen strukturell, aber bewusst ohne Text.
+Findings: `docs/paket-b-aufbereitung/tasks/2026-09-02-paket-b-optimierung-tasks.md`
 
 ---
 
