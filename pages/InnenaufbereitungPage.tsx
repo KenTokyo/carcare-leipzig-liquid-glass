@@ -1,6 +1,6 @@
 import React from 'react';
-import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { aufbereitungKacheln } from '../data/detailing';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { aufbereitungKacheln, disinfectionServices } from '../data/detailing';
 
 /**
  * Innenaufbereitung als eigene Leistungsseite (Backlog 1.9).
@@ -56,6 +56,28 @@ const InnenaufbereitungPage: React.FC = () => (
           description="Die Intensiv Innenreinigung kostet 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte."
         />
         <ProcessList steps={innenLeistungen} />
+      </div>
+    </section>
+
+    {/*
+      Backlog 1.11: Ozon und Heissvernebelung sind hier als OPTIONAL BUCHBAR
+      hinterlegt, nicht nur auf der Aufbereitungs-Bestandsseite. Wer gezielt die
+      Innenaufbereitung sucht, ist genau die Zielgruppe fuer Geruchsbehandlung.
+      Preise und Beschreibungen kommen aus `disinfectionServices` in
+      data/detailing.ts — dieselbe Quelle wie dort, damit sie nicht auseinanderlaufen.
+    */}
+    <section id="optional" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Optional buchbar"
+          title="Geruchsbehandlung zur Innenaufbereitung dazu."
+          description="Sitzt der Geruch tiefer, als eine Reinigung erreicht, lassen sich diese beiden Verfahren zur Innenaufbereitung dazubuchen."
+        />
+        <PricingGrid
+          items={disinfectionServices}
+          ctaLabel="Termin anfragen"
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer, zusätzlich zur gebuchten Innenaufbereitung."
+        />
       </div>
     </section>
 

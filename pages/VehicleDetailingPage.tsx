@@ -66,6 +66,26 @@ const VehicleDetailingPage: React.FC = () => (
     </section>
 
     {/*
+      Backlog 1.10: Ozon und Heissvernebelung stehen bewusst DIREKT unter den
+      Pflegepaketen. Vorher lagen sie weit unten hinter Umfang, Leasingrueckgabe,
+      Ablauf und Galerie — wer die Preise las, sah die Zusatzleistungen nicht mehr.
+    */}
+    <section id="desinfektion" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Desinfektion & Hygiene"
+          title="Innenraum-Desinfektion gegen Keime, Viren und Gerüche."
+          description="Für ein hygienisch sauberes Fahrzeug: professionelle Verfahren, die Bakterien, Viren, Schimmelpilze und Gerüche auch in unzugänglichen Bereichen erreichen."
+        />
+        <PricingGrid
+          items={disinfectionServices}
+          ctaLabel="Termin anfragen"
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf."
+        />
+      </div>
+    </section>
+
+    {/*
       Layout bewusst UNVERAENDERT gegenueber dem Stand vor 2026-08-09: eine Sektion,
       dreispaltiges Kartenraster, `shadow-sm`. Ein zwischenzeitlicher Umbau auf drei
       volle Bildsektionen wurde zurueckgenommen — er verdreifachte die Malflaeche direkt
@@ -163,21 +183,6 @@ const VehicleDetailingPage: React.FC = () => (
           description="Von der Leistungsauswahl bis zur gepflegten Übergabe – in fünf klaren Schritten, aus einer Hand."
         />
         <ProcessList steps={detailingSteps} />
-      </div>
-    </section>
-
-    <section id="desinfektion" className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro
-          eyebrow="Desinfektion & Hygiene"
-          title="Innenraum-Desinfektion gegen Keime, Viren und Gerüche."
-          description="Für ein hygienisch sauberes Fahrzeug: professionelle Verfahren, die Bakterien, Viren, Schimmelpilze und Gerüche auch in unzugänglichen Bereichen erreichen."
-        />
-        <PricingGrid
-          items={disinfectionServices}
-          ctaLabel="Termin anfragen"
-          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf."
-        />
       </div>
     </section>
 
