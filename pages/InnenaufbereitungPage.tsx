@@ -1,5 +1,6 @@
 import React from 'react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { aufbereitungKacheln } from '../data/detailing';
 
 /**
  * Innenaufbereitung als eigene Leistungsseite (Backlog 1.9).
@@ -29,7 +30,10 @@ const usp = [
 ];
 
 const InnenaufbereitungPage: React.FC = () => (
-  <>
+  // Stehendes Foto wie auf `/fahrzeugaufbereitung-leipzig` (User-Vorgabe 2026-09-02).
+  // Motiv aus `aufbereitungKacheln`. Kein `zoom`: das Innenraum-Motiv (2400x1340) ist
+  // querformatig und fuellt die Backdrop-Flaeche ohne sichtbare Bildkante.
+  <BackdropLayout image={aufbereitungKacheln.innen}>
     <PageMeta
       canonical="/innenaufbereitung-leipzig"
       title="Innenaufbereitung Leipzig | Polster & Leder | CarCare Center"
@@ -51,7 +55,7 @@ const InnenaufbereitungPage: React.FC = () => (
           title="Was zur Innenaufbereitung gehört."
           description="Die Intensiv Innenreinigung kostet 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte."
         />
-        <FeatureGrid items={innenLeistungen} />
+        <ProcessList steps={innenLeistungen} />
       </div>
     </section>
 
@@ -67,7 +71,7 @@ const InnenaufbereitungPage: React.FC = () => (
         <SectionIntro eyebrow="Exklusivleistungen" title="Alcantara-Lenkrad und Schaum-/Tornador-Verfahren." />
         <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
           {['Alcantara-Lenkrad ausbauen und aufarbeiten', 'Schaum-/Tornador-Verfahren'].map((leistung) => (
-            <li key={leistung} className="rounded-2xl border border-gray-100 bg-white p-6 text-lg font-bold leading-tight text-gray-950">
+            <li key={leistung} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6 text-lg font-bold leading-tight text-gray-950">
               {leistung}
             </li>
           ))}
@@ -78,7 +82,7 @@ const InnenaufbereitungPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Aufbereitung im Meisterbetrieb, nicht in der Waschstraße." />
-        <FeatureGrid items={usp} />
+        <FeatureGrid items={usp} tone="translucent" />
       </div>
     </section>
 
@@ -113,7 +117,7 @@ const InnenaufbereitungPage: React.FC = () => (
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default InnenaufbereitungPage;

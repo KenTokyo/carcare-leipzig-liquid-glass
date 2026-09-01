@@ -1,5 +1,6 @@
 import React from 'react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { aufbereitungKacheln } from '../data/detailing';
 
 /**
  * Aussenaufbereitung als eigene Leistungsseite (Backlog 1.8).
@@ -36,7 +37,12 @@ const usp = [
 ];
 
 const AussenaufbereitungPage: React.FC = () => (
-  <>
+  // Stehendes Foto wie auf `/fahrzeugaufbereitung-leipzig` (User-Vorgabe 2026-09-02).
+  // Motiv aus `aufbereitungKacheln` — dieselbe Quelle wie die Startseiten-Kachel, damit
+  // Kachel und Seite dasselbe Bild zeigen.
+  // `zoom={1}`: Das Motiv (1400x1045) ist hochformatiger als die Backdrop-Flaeche;
+  // formatfuellend wirkte es zu nah herangeholt. Gleiche Begruendung wie dort.
+  <BackdropLayout image={aufbereitungKacheln.aussen} zoom={1}>
     <PageMeta
       canonical="/aussenaufbereitung-leipzig"
       title="Außenaufbereitung Leipzig | Politur & Lack | CarCare Center"
@@ -58,7 +64,7 @@ const AussenaufbereitungPage: React.FC = () => (
           title="Was zur Außenaufbereitung gehört."
           description="Die Brillant Außenpflege kostet 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte."
         />
-        <FeatureGrid items={aussenLeistungen} />
+        <ProcessList steps={aussenLeistungen} />
       </div>
     </section>
 
@@ -69,7 +75,7 @@ const AussenaufbereitungPage: React.FC = () => (
           title="Wie wir die Lackoberfläche aufarbeiten."
           description="Die Lackaufbereitung entfernt Anhaftungen und matte Stellen, holt Glanz zurück und schützt das Ergebnis anschließend."
         />
-        <FeatureGrid items={lackLeistungen} />
+        <ProcessList steps={lackLeistungen} />
       </div>
     </section>
 
@@ -96,7 +102,7 @@ const AussenaufbereitungPage: React.FC = () => (
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Aufbereitung im Meisterbetrieb, nicht in der Waschstraße." />
-        <FeatureGrid items={usp} />
+        <FeatureGrid items={usp} tone="translucent" />
       </div>
     </section>
 
@@ -131,7 +137,7 @@ const AussenaufbereitungPage: React.FC = () => (
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"
     />
-  </>
+  </BackdropLayout>
 );
 
 export default AussenaufbereitungPage;

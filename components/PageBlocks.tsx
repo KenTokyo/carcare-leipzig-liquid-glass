@@ -112,8 +112,16 @@ export const SectionIntro: React.FC<{ eyebrow: string; title: string; descriptio
   </div>
 );
 
-export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | 'four' }> = ({ items, columns = 'three' }) => {
+/**
+ * `tone`:
+ *  - `solid` (Standard) — weisse Karten. Richtig auf Seiten OHNE Foto-Hintergrund.
+ *  - `translucent` — halbtransparente Karten wie in der Ablauf-Sektion auf
+ *    `/fahrzeugaufbereitung-leipzig`. Auf Seiten MIT `BackdropLayout` scheint das
+ *    stehende Foto durch; weisse Karten wuerden es zudecken (User-Vorgabe 2026-09-02).
+ */
+export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | 'four'; tone?: 'solid' | 'translucent' }> = ({ items, columns = 'three', tone = 'solid' }) => {
   const gridClass = columns === 'four' ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
+  const kartenTon = tone === 'translucent' ? 'bg-gray-50/70' : 'bg-white shadow-sm';
   return (
     <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${gridClass}`}>
       {items.map((item, idx) => {
@@ -127,7 +135,7 @@ export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | '
             {item.href && <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">Mehr erfahren <ArrowRight size={14} /></span>}
           </>
         );
-        const className = 'group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60';
+        const className = `group rounded-2xl border border-gray-100 ${kartenTon} p-6 transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60`;
         return item.href ? (
           <motion.a key={item.title} href={item.href} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.4, delay: idx * 0.04 }} className={className}>
             {content}
