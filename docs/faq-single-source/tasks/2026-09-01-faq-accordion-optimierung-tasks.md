@@ -1,8 +1,12 @@
 # FAQ-Akkordeon: ausgezeichnete Antworten fehlen im ausgelieferten HTML
 
 Referenz: `docs/faq-single-source/tasks/2026-09-01-faq-single-source-tasks.md`, Phase 3, Finding 1
-Status: **offen**, noch nicht umgesetzt — braucht eine Entscheidung, weil es das
-sichtbare Verhalten des Akkordeons ändert.
+Status: **Phase 1 und 2 umgesetzt** am 2026-09-01, Branch `optimierung/faq-akkordeon-dom`.
+Phase 3 bleibt offen.
+
+Vorgabe des Users: Panels gemountet lassen und Höhe animieren genügt — Google
+erlaubt FAQPage-Inhalte hinter Aufklapp-Elementen, solange sie im initialen HTML
+stehen. Einträge müssen nicht standardmäßig geöffnet sein, die Optik bleibt.
 
 ---
 
@@ -53,32 +57,46 @@ Der Befund bestand vor dem Single-Source-Umbau und ist unabhängig davon.
 
 ---
 
-### ⬜ Phase 1 — Antworten dauerhaft ins DOM
+### ✅ Phase 1 — Antworten dauerhaft ins DOM
 **Ziel:** Alle Antworten stehen im ausgelieferten HTML, das Akkordeon verhält
 sich für den Nutzer unverändert.
 
-* [ ] `{isOpen && …}` auflösen: `motion.div` bleibt gemountet, animiert wird
-      `height` zwischen `0` und `auto` statt Ein-/Aushängen
-* [ ] `overflow-hidden` beibehalten, damit geschlossen nichts durchscheint
-* [ ] Barrierefreiheit: geschlossene Panels bekommen `aria-hidden` bzw. `inert`,
-      damit Screenreader nicht durch unsichtbaren Text laufen. `aria-expanded`
-      am Button bleibt
-* [ ] Mobil prüfen: laut Projekthistorie sind Height-Transitions auf Flex-Items
-      auf Mobilgeräten unzuverlässig; die Größe wird deshalb über Framer
-      animiert, nicht über eine CSS-Transition
-* [ ] Gegenprobe im gebauten `dist/`: 0 fehlende Antworten statt 14
+* [x] `{isOpen && …}` und `AnimatePresence` aufgelöst: `motion.div` bleibt
+      gemountet, animiert wird `height` zwischen `0` und `auto`
+* [x] `overflow-hidden` beibehalten
+* [x] Frage in eine echte `h3` gesetzt — per Überschriften-Navigation erreichbar
+      (ARIA-APG-Muster, identisch zur offenen Liste in `PageFAQ`)
+* [x] Trigger: `aria-expanded` **und** `aria-controls` auf die Panel-id
+* [x] Panel: `id`, `role="region"`, `aria-labelledby` auf den Trigger
+* [x] Geschlossene Panels `inert` + `aria-hidden` — kein Tastaturfokus, nicht im
+      Accessibility-Tree. Weil nur das offene Panel im Baum liegt, entsteht die
+      von der ARIA-APG gewarnte Landmark-Flut bei vielen Panels nicht
+* [x] Größe über Framer animiert, nicht über CSS-Transition (Projekthistorie:
+      Height-Transitions auf Flex-Items sind mobil unzuverlässig)
+* [x] Gegenprobe im gebauten `dist/`: **0 fehlende Antworten statt 14**
+* [x] Im Browser geprüft: ein erzwungenes `tabindex="0"` im geschlossenen Panel
+      bekommt keinen Fokus — `inert` greift wirklich, nicht nur als Attribut.
+      Klick öffnet (Höhe 69.5 px, `inert` weg, `aria-expanded="true"`), das vorher
+      offene schließt, genau eines bleibt offen. Screenshot: Optik unverändert
+
+**Referenzen:**
+`components/FAQSection.tsx`
 
 ---
 
-### ⬜ Phase 2 — Prüfung in den Wächter aufnehmen
+### ✅ Phase 2 — Prüfung in den Wächter aufnehmen
 **Ziel:** Rückfall unmöglich machen, wie schon bei den Waisen.
 
-* [ ] `scripts/check-faq.mjs` um eine Nachbau-Prüfung erweitern **oder** eigenes
-      `scripts/check-faq-html.mjs`, das nach dem Prerender über `dist/` läuft
-      und jede `FAQPage`-Frage/-Antwort im sichtbaren Text der Seite sucht
-* [ ] In `postbuild` hinter den Prerender hängen — vorher existiert `dist/` nicht
-* [ ] Fehlerinjektion wie in Phase 3 des Hauptplans: eine Antwort aus dem
-      sichtbaren Text entfernen, Build muss brechen, zurücknehmen
+* [x] Eigenes `scripts/check-faq-html.mjs` statt Erweiterung von `check-faq.mjs` —
+      die beiden prüfen zu verschiedenen Zeitpunkten gegen verschiedene Artefakte
+* [x] In `postbuild` hinter den Prerender gehängt
+* [x] **Fehlerinjektion:** bedingtes Rendern der Antwort wieder eingebaut, also
+      exakt der alte Fehler. Wächter meldete alle 14 Fälle namentlich und brach
+      mit Exit 1 ab. Zurückgenommen, danach regulärer Build grün
+
+**Referenzen:**
+`scripts/check-faq-html.mjs`
+`package.json`
 
 ---
 
@@ -89,3 +107,35 @@ Inhalt in zwei Bauformen. Nach Phase 1 unterscheiden sie sich nur noch optisch.
 * [ ] Prüfen, ob eine Komponente mit Variante `list | accordion` reicht
 * [ ] Nur zusammenführen, wenn dabei kein Design-Unterschied verloren geht —
       die offene Liste auf den Unterseiten ist eine bewusste Entscheidung
+
+
+---
+
+## Kommentare
+
+### Phase 1
+**Eingehalten**: Optik unverändert ✅, genau ein Eintrag offen ✅, Barrierefreiheit
+besser statt nur anders ✅, Framer statt CSS-Transition ✅, unter 700 Zeilen ✅ (120),
+im Browser verifiziert statt nur im Quellcode ✅
+
+**Auffälligkeiten:** `inert` ist kein Selbstläufer — das Attribut kann im Markup
+stehen und trotzdem wirkungslos sein, wenn React es als unbekanntes Prop
+verschluckt oder der Browser es nicht kennt. Deshalb wurde nicht das Attribut
+geprüft, sondern die Wirkung: ein künstlich fokussierbar gemachtes Element im
+geschlossenen Panel bekommt keinen Fokus.
+
+### Phase 2
+**Eingehalten**: Wächter greift nachweislich ✅, Fehlermeldung nennt die Ursache
+(„bedingtes Rendern") und die Lösung ✅, in `postbuild` verdrahtet ✅
+
+**Auffälligkeiten:** Der Prüfpfad muss den sichtbaren Text aus dem HTML gewinnen
+(Skripte raus, Tags raus, Entitäten auflösen, Whitespace normalisieren) — sonst
+schlägt er bei jedem `&amp;` oder Zeilenumbruch falsch an. Die Normalisierung ist
+der eigentliche Kern des Skripts, nicht der Vergleich.
+
+**Zwei Wächter, zwei Zeitpunkte, zwei Fehlerklassen:**
+
+| | wann | fängt ab |
+|---|---|---|
+| `check-faq.mjs` | `prebuild` | Markup ohne sichtbaren Block (Waisen, Doppelpflege) |
+| `check-faq-html.mjs` | `postbuild` | sichtbarer Block ohne ausgelieferten Text |
