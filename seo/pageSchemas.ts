@@ -29,27 +29,8 @@ import { priceOffers } from '../data/detailing';
 
 
 // MUSS mit den sichtbaren FAQs in `pages/LeasingrueckgabePage.tsx` uebereinstimmen.
-const leasingFaq = [
-  { id: 'lohnt', question: 'Lohnt es sich, vor der Leasingrückgabe reparieren zu lassen?', answer: 'In der Regel ja, wenn erkennbare Schäden vorliegen. Der Leasinggeber rechnet festgestellte Schäden nach seinen eigenen Sätzen ab, die meist über den Kosten einer Reparatur im Fachbetrieb liegen. Bei reiner Gebrauchsspur ohne Substanzschaden raten wir dagegen häufig ab — wir sagen Ihnen bei der Begutachtung, was in Ihrem Fall sinnvoll ist.' },
-  { id: 'wann', question: 'Wie früh vor der Rückgabe sollte ich mich melden?', answer: 'Planen Sie einige Wochen Vorlauf ein. Dann bleibt genug Zeit für Begutachtung, Kostenvoranschlag, Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin knapp wird. Bei mehreren Fuhrparkfahrzeugen sollte der Vorlauf entsprechend größer sein.' },
-  { id: 'was', question: 'Was bewertet der Rückgabegutachter?', answer: 'Bewertet werden unter anderem Lackschäden, Beschädigungen an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe und der Zustand des Innenraums. Normale Abnutzung bei vertragsgemäßer Nutzung ist in der Regel abgedeckt; wo genau die Grenze liegt, legt Ihr Leasingvertrag fest.' },
-  { id: 'kosten', question: 'Was kostet die Vorbereitung auf die Leasingrückgabe?', answer: 'Für die Reparaturen gibt es keinen Listenpreis, weil der Aufwand vom Schadenbild abhängt — Sie erhalten dafür einen Kostenvoranschlag. Für die Aufbereitung gelten feste Preise: Intensiv Innenreinigung 199,00 €, Premiumpflege mit Innen- und Außenaufbereitung 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer.' },
-  { id: 'wertminderung', question: 'Entsteht durch die Reparatur eine Wertminderung?', answer: 'Bei der lackfreien Dellenentfernung nicht: Sie ist lackschonend und im Nachhinein nicht nachweisbar. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur — als Glasurit-Lackpartner arbeiten wir farbtongenau, sodass weder Farbton noch Effektunterschiede für das Auge erkennbar sind.' },
-  { id: 'fuhrpark', question: 'Bereitet das CarCare Center auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?', answer: 'Ja. Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.' },
-  { id: 'ersatz', question: 'Bekomme ich während der Arbeiten ein Ersatzfahrzeug?', answer: 'Nach Verfügbarkeit stellen wir ein Werkstattersatzfahrzeug zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir es einplanen können.' },
-  { id: 'marken', question: 'Gilt das für alle Fahrzeugmarken?', answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.' },
-];
 
 // MUSS mit den sichtbaren FAQs in `pages/UeberUnsPage.tsx` uebereinstimmen.
-const ueberUnsFaq = [
-  { id: 'wer', question: 'Wer steht hinter dem CarCare Center Leipzig?', answer: 'Betreiber ist die BS CarCare GmbH mit Sitz An den Tierkliniken 42, 04103 Leipzig. Wir bestehen seit 1998, sind Meisterbetrieb des Kfz-Lackierhandwerks und beschäftigen über 50 Mitarbeiter auf über 3.000 m² Betriebsfläche.' },
-  { id: 'groesse', question: 'Wie groß ist der Betrieb?', answer: 'Wir gehören mit über 3.000 m² Betriebsfläche und über 50 Mitarbeitern zu den größten Karosserie- und Lackierbetrieben in Leipzig und Umgebung. Die Größe erlaubt es uns, mehrere Fahrzeuge parallel zu bearbeiten und Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung vollständig im eigenen Haus abzudecken.' },
-  { id: 'marken', question: 'Ist das CarCare Center an eine Fahrzeugmarke gebunden?', answer: 'Nein. Wir sind markenunabhängig und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug. Zu unseren Kunden zählen unter anderem Werksniederlassungen deutscher Premiumhersteller.' },
-  { id: 'zertifikate', question: 'Welche Qualifikationen und Partnerschaften hat das CarCare Center?', answer: 'Wir sind Meisterbetrieb des Kfz-Lackierhandwerks, Glasurit-Lackpartner, WINTEC-Partner für Autoglas nach ISO 9001 mit TÜV-Zertifizierung und arbeiten mit einem TÜV-zertifizierten Felgenreparaturverfahren. Schäden werden mit dem anerkannten System Audatex kalkuliert.' },
-  { id: 'einzugsgebiet', question: 'Welches Gebiet betreut das CarCare Center?', answer: 'Schwerpunkt ist Leipzig mit dem Umland bis etwa 50 km — darunter Markkleeberg, Schkeuditz, Taucha, Markranstädt, Zwenkau, Borna, Grimma, Wurzen, Delitzsch, Eilenburg und Halle (Saale). Geschäftskunden wie Autohäuser und Fuhrparks werden auch darüber hinaus betreut.' },
-  { id: 'bewerbung', question: 'Sucht das CarCare Center neue Mitarbeiter?', answer: 'Wir beschäftigen Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater. Offene Stellen und der Weg zur Initiativbewerbung stehen auf der Karriereseite.' },
-  { id: 'partner', question: 'Kann mein Autohaus oder meine Versicherung Partner werden?', answer: 'Ja. Wir arbeiten mit Autohäusern, Fuhrparks, Versicherungen und Versicherungsagenturen zusammen. Für die Zusammenarbeit gibt es feste Ansprechpartner, strukturierte Abläufe und die komplette Schadenabwicklung inklusive Audatex-Kalkulation.' },
-];
 
 export const pageSchemas: Record<string, unknown[]> = {
   '/': [
@@ -78,7 +59,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   '/leasingrueckgabe-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Leasingrückgabe Leipzig', path: '/leasingrueckgabe-leipzig' }]),
     serviceSchema('Leasingrückgabe-Vorbereitung Leipzig', 'Begutachtung vor der Leasingrückgabe sowie Instandsetzung von Dellen, Lackschäden, Felgen und Glas mit anschließender Fahrzeugaufbereitung — für Privatkunden und Fuhrparks in Leipzig.', '/leasingrueckgabe-leipzig'),
-    faqSchema(leasingFaq),
+    faqSchema(faqsByRoute['/leasingrueckgabe-leipzig']),
   ],
   '/smart-repair-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Smart Repair Leipzig', path: '/smart-repair-leipzig' }]),
@@ -128,7 +109,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   '/ueber-uns': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Über uns', path: '/ueber-uns' }]),
     aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist seit 1998 Meisterbetrieb des Kfz-Lackierhandwerks in Leipzig. Über 50 Mitarbeiter bearbeiten auf über 3.000 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
-    faqSchema(ueberUnsFaq),
+    faqSchema(faqsByRoute['/ueber-uns']),
   ],
   '/karriere': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Karriere', path: '/karriere' }]),

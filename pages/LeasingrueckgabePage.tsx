@@ -119,48 +119,6 @@ const steps = [
   { title: 'Fahrzeug übernehmen', description: 'Sie erhalten das Fahrzeug gereinigt zurück, mit Erklärung, was gemacht wurde. Danach geht es in die Rückgabe.' },
 ];
 
-const faqs = [
-  {
-    id: 'lohnt',
-    question: 'Lohnt es sich, vor der Leasingrückgabe reparieren zu lassen?',
-    answer: 'In der Regel ja, wenn erkennbare Schäden vorliegen. Der Leasinggeber rechnet festgestellte Schäden nach seinen eigenen Sätzen ab, die meist über den Kosten einer Reparatur im Fachbetrieb liegen. Bei reiner Gebrauchsspur ohne Substanzschaden raten wir dagegen häufig ab — wir sagen Ihnen bei der Begutachtung, was in Ihrem Fall sinnvoll ist.',
-  },
-  {
-    id: 'wann',
-    question: 'Wie früh vor der Rückgabe sollte ich mich melden?',
-    answer: 'Planen Sie einige Wochen Vorlauf ein. Dann bleibt genug Zeit für Begutachtung, Kostenvoranschlag, Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin knapp wird. Bei mehreren Fuhrparkfahrzeugen sollte der Vorlauf entsprechend größer sein.',
-  },
-  {
-    id: 'was',
-    question: 'Was bewertet der Rückgabegutachter?',
-    answer: 'Bewertet werden unter anderem Lackschäden, Beschädigungen an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe und der Zustand des Innenraums. Normale Abnutzung bei vertragsgemäßer Nutzung ist in der Regel abgedeckt; wo genau die Grenze liegt, legt Ihr Leasingvertrag fest.',
-  },
-  {
-    id: 'kosten',
-    question: 'Was kostet die Vorbereitung auf die Leasingrückgabe?',
-    answer: 'Für die Reparaturen gibt es keinen Listenpreis, weil der Aufwand vom Schadenbild abhängt — Sie erhalten dafür einen Kostenvoranschlag. Für die Aufbereitung gelten feste Preise: Intensiv Innenreinigung 199,00 €, Premiumpflege mit Innen- und Außenaufbereitung 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer.',
-  },
-  {
-    id: 'wertminderung',
-    question: 'Entsteht durch die Reparatur eine Wertminderung?',
-    answer: 'Bei der lackfreien Dellenentfernung nicht: Sie ist lackschonend und im Nachhinein nicht nachweisbar. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur — als Glasurit-Lackpartner arbeiten wir farbtongenau, sodass weder Farbton noch Effektunterschiede für das Auge erkennbar sind.',
-  },
-  {
-    id: 'fuhrpark',
-    question: 'Bereitet das CarCare Center auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?',
-    answer: 'Ja. Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.',
-  },
-  {
-    id: 'ersatz',
-    question: 'Bekomme ich während der Arbeiten ein Ersatzfahrzeug?',
-    answer: 'Nach Verfügbarkeit stellen wir ein Werkstattersatzfahrzeug zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir es einplanen können.',
-  },
-  {
-    id: 'marken',
-    question: 'Gilt das für alle Fahrzeugmarken?',
-    answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
-  },
-];
 
 const LeasingrueckgabePage: React.FC = () => (
   // Motiv der Kachel „Leasingrueckgabe" aus der Leistungsuebersicht.
@@ -249,7 +207,7 @@ const LeasingrueckgabePage: React.FC = () => (
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Leasingrückgabe." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/leasingrueckgabe-leipzig" />
       </div>
     </section>
 

@@ -70,43 +70,6 @@ const history = [
   { title: 'Heute — über 3.000 m² in Leipzig', description: 'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.' },
 ];
 
-const faqs = [
-  {
-    id: 'wer',
-    question: 'Wer steht hinter dem CarCare Center Leipzig?',
-    answer: 'Betreiber ist die BS CarCare GmbH mit Sitz An den Tierkliniken 42, 04103 Leipzig. Wir bestehen seit 1998, sind Meisterbetrieb des Kfz-Lackierhandwerks und beschäftigen über 50 Mitarbeiter auf über 3.000 m² Betriebsfläche.',
-  },
-  {
-    id: 'groesse',
-    question: 'Wie groß ist der Betrieb?',
-    answer: 'Wir gehören mit über 3.000 m² Betriebsfläche und über 50 Mitarbeitern zu den größten Karosserie- und Lackierbetrieben in Leipzig und Umgebung. Die Größe erlaubt es uns, mehrere Fahrzeuge parallel zu bearbeiten und Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung vollständig im eigenen Haus abzudecken.',
-  },
-  {
-    id: 'marken',
-    question: 'Ist das CarCare Center an eine Fahrzeugmarke gebunden?',
-    answer: 'Nein. Wir sind markenunabhängig und bearbeiten alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug. Zu unseren Kunden zählen unter anderem Werksniederlassungen deutscher Premiumhersteller.',
-  },
-  {
-    id: 'zertifikate',
-    question: 'Welche Qualifikationen und Partnerschaften hat das CarCare Center?',
-    answer: 'Wir sind Meisterbetrieb des Kfz-Lackierhandwerks, Glasurit-Lackpartner, WINTEC-Partner für Autoglas nach ISO 9001 mit TÜV-Zertifizierung und arbeiten mit einem TÜV-zertifizierten Felgenreparaturverfahren. Schäden werden mit dem anerkannten System Audatex kalkuliert.',
-  },
-  {
-    id: 'einzugsgebiet',
-    question: 'Welches Gebiet betreut das CarCare Center?',
-    answer: 'Schwerpunkt ist Leipzig mit dem Umland bis etwa 50 km — darunter Markkleeberg, Schkeuditz, Taucha, Markranstädt, Zwenkau, Borna, Grimma, Wurzen, Delitzsch, Eilenburg und Halle (Saale). Geschäftskunden wie Autohäuser und Fuhrparks werden auch darüber hinaus betreut.',
-  },
-  {
-    id: 'bewerbung',
-    question: 'Sucht das CarCare Center neue Mitarbeiter?',
-    answer: 'Wir beschäftigen Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater. Offene Stellen und der Weg zur Initiativbewerbung stehen auf der Karriereseite.',
-  },
-  {
-    id: 'partner',
-    question: 'Kann mein Autohaus oder meine Versicherung Partner werden?',
-    answer: 'Ja. Wir arbeiten mit Autohäusern, Fuhrparks, Versicherungen und Versicherungsagenturen zusammen. Für die Zusammenarbeit gibt es feste Ansprechpartner, strukturierte Abläufe und die komplette Schadenabwicklung inklusive Audatex-Kalkulation.',
-  },
-];
 
 const UeberUnsPage: React.FC = () => (
   // Werkstattmotiv statt Kachelbild: Diese Seite zeigt den Betrieb selbst, nicht eine
@@ -203,7 +166,7 @@ const UeberUnsPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zum Unternehmen." />
-        <PageFAQ faqs={faqs} />
+        <PageFAQ route="/ueber-uns" />
       </div>
     </section>
 
