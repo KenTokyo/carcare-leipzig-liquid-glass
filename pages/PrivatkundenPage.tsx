@@ -108,8 +108,8 @@ const steps = [
 const faqs = [
   {
     id: 'vorteil',
-    question: 'Was habe ich als Privatkunde von CarCare gegenüber einer Vertragswerkstatt?',
-    answer: 'Sie bekommen Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung an einem Standort statt bei mehreren Betrieben, mit einem festen Ansprechpartner. CarCare ist markenunabhängig, arbeitet als Glasurit-Lackpartner farbtongenau und empfiehlt grundsätzlich die kleinere Reparaturlösung, wo sie fachlich ausreicht.',
+    question: 'Was habe ich als Privatkunde vom CarCare Center gegenüber einer Vertragswerkstatt?',
+    answer: 'Sie bekommen Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung an einem Standort statt bei mehreren Betrieben, mit einem festen Ansprechpartner. Wir sind markenunabhängig, arbeiten als Glasurit-Lackpartner farbtongenau und empfehlen grundsätzlich die kleinere Reparaturlösung, wo sie fachlich ausreicht.',
   },
   {
     id: 'kosten',
@@ -123,13 +123,13 @@ const faqs = [
   },
   {
     id: 'marken',
-    question: 'Arbeitet CarCare an allen Fahrzeugmarken?',
+    question: 'Arbeitet das CarCare Center an allen Fahrzeugmarken?',
     answer: 'Ja. Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Marken — vom Kleinwagen bis zum Premiumfahrzeug.',
   },
   {
     id: 'versicherung',
     question: 'Muss ich den Schaden selbst mit der Versicherung klären?',
-    answer: 'Nein. Auf Wunsch übernimmt CarCare die komplette Abwicklung: Kostenvoranschlag, Abstimmung mit Versicherern und Gutachtern sowie die Kommunikation während der Reparatur. Bei einem Hagelschaden rechnen wir direkt mit der Versicherung ab, eine Anzahlung ist nicht nötig.',
+    answer: 'Nein. Auf Wunsch übernehmen wir die komplette Abwicklung: Kostenvoranschlag, Abstimmung mit Versicherern und Gutachtern sowie die Kommunikation während der Reparatur. Bei einem Hagelschaden rechnen wir direkt mit der Versicherung ab, eine Anzahlung ist nicht nötig.',
   },
   {
     id: 'klein',
@@ -138,7 +138,7 @@ const faqs = [
   },
   {
     id: 'leasing',
-    question: 'Kann CarCare mein Auto auf die Leasingrückgabe vorbereiten?',
+    question: 'Kann das CarCare Center mein Auto auf die Leasingrückgabe vorbereiten?',
     answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe und setzen Gebrauchsspuren fachgerecht instand, um vermeidbare Nachbelastungen durch den Rückgabegutachter zu reduzieren.',
   },
   {
@@ -154,7 +154,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageMeta
       canonical="/privatkunden"
       title="Privatkunden Leipzig | Ihre Vorteile bei CarCare Center"
-      description="Ihre Vorteile als Privatkunde bei CarCare Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzfahrzeug."
+      description="Ihre Vorteile als Privatkunde im CarCare Center Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzfahrzeug."
     />
     <PageHero
       eyebrow="Privatkunden"
@@ -169,7 +169,7 @@ const PrivatkundenPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Ihre Vorteile"
-          title="Warum Privatkunden zu CarCare kommen."
+          title="Warum Privatkunden zu uns kommen."
           description="Nicht Werbeversprechen, sondern das, was im Alltag den Unterschied macht: kurze Wege, klare Preise und eine ehrliche Empfehlung zur Reparaturmethode."
         />
         <FeatureGrid items={advantages} columns="four" />

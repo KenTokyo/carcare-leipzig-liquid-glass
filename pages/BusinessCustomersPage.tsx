@@ -84,17 +84,17 @@ const faqs = [
   {
     id: 'rahmen',
     question: 'Sind feste Abläufe für Geschäftskunden möglich?',
-    answer: 'Ja. CarCare strukturiert wiederkehrende Prozesse für Autohäuser, Fuhrparks, Versicherungen und Agenturen — mit festem Ansprechpartner, vereinbarter Frequenz und definierten Kommunikationswegen.',
+    answer: 'Ja. Wir strukturieren wiederkehrende Prozesse für Autohäuser, Fuhrparks, Versicherungen und Agenturen — mit festem Ansprechpartner, vereinbarter Frequenz und definierten Kommunikationswegen.',
   },
   {
     id: 'schadensteuerung',
-    question: 'Arbeitet CarCare mit Versicherungen und Schadensteuerern zusammen?',
-    answer: 'Ja. Versicherer und Schadensteuerer gehören zu den Geschäftskunden von CarCare. Wir übernehmen Schadenaufnahme, Kalkulation über das anerkannte System Audatex und die Instandsetzung aus einer Hand — inklusive Schriftverkehr und Abstimmung mit dem Gutachter.',
+    question: 'Arbeitet das CarCare Center mit Versicherungen und Schadensteuerern zusammen?',
+    answer: 'Ja. Versicherer und Schadensteuerer gehören zu unseren Geschäftskunden. Wir übernehmen Schadenaufnahme, Kalkulation über das anerkannte System Audatex und die Instandsetzung aus einer Hand — inklusive Schriftverkehr und Abstimmung mit dem Gutachter.',
   },
   {
     id: 'partner',
-    question: 'Für welche Unternehmen arbeitet CarCare bereits?',
-    answer: 'Zu den Betrieben, für die CarCare arbeitet, zählen unter anderem Volkswagen Automobile Leipzig, das Audi Zentrum Leipzig, das Porsche Zentrum Leipzig, das Porsche Werk Leipzig und das Autohaus Otto Grimm. Im Schadenbereich wickelt CarCare Fälle mit über 30 Versicherern ab, darunter HUK Coburg, Gothaer, VHV, Generali, R+V und Signal Iduna.',
+    question: 'Für welche Unternehmen arbeitet das CarCare Center bereits?',
+    answer: 'Zu den Betrieben, für die wir arbeiten, zählen unter anderem Volkswagen Automobile Leipzig, das Audi Zentrum Leipzig, das Porsche Zentrum Leipzig, das Porsche Werk Leipzig und das Autohaus Otto Grimm. Im Schadenbereich wickeln wir Fälle mit über 30 Versicherern ab, darunter HUK Coburg, Gothaer, VHV, Generali, R+V und Signal Iduna.',
   },
   {
     id: 'flotte',
@@ -108,8 +108,8 @@ const faqs = [
   },
   {
     id: 'premium',
-    question: 'Hat CarCare Erfahrung mit Premiumfahrzeugen?',
-    answer: 'Ja. CarCare arbeitet als Glasurit-Lackpartner farbtongenau und mit sorgfältigem Umgang bei hochwertigen Fahrzeugen und sensiblen Oberflächen.',
+    question: 'Hat das CarCare Center Erfahrung mit Premiumfahrzeugen?',
+    answer: 'Ja. Wir arbeiten als Glasurit-Lackpartner farbtongenau und mit sorgfältigem Umgang bei hochwertigen Fahrzeugen und sensiblen Oberflächen.',
   },
   {
     id: 'digital',
@@ -135,7 +135,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageMeta
       canonical="/geschaeftskunden"
       title="Geschäftskunden Leipzig | Autohäuser, Flotten & Versicherer"
-      description="CarCare Leipzig für Autohäuser, Fuhrparks, Versicherungen und Schadensteuerer: Leasingrückgabe, Fuhrparkservice, Unfallinstandsetzung und Aufbereitung aus einer Hand."
+      description="CarCare Center Leipzig für Autohäuser, Fuhrparks, Versicherungen und Schadensteuerer: Leasingrückgabe, Fuhrparkservice, Unfallinstandsetzung und Aufbereitung aus einer Hand."
     />
     <PageHero
       eyebrow="Geschäftskunden"
@@ -198,7 +198,7 @@ const BusinessCustomersPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Zusammenarbeit"
-          title="Wie die Zusammenarbeit mit CarCare aussieht."
+          title="Wie die Zusammenarbeit mit uns aussieht."
           description="Gewerbliche Auftraggeber bewerten nicht das einzelne Ergebnis, sondern die Verlässlichkeit über viele Fahrzeuge hinweg. Genau darauf ist der Ablauf ausgelegt."
         />
         <FeatureGrid items={collaboration} columns="four" />
@@ -209,21 +209,21 @@ const BusinessCustomersPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Bestehende Zusammenarbeit"
-          title="Für diese Unternehmen arbeitet CarCare bereits."
-          description="Namensnennung als Referenz – CarCare ist ein markenunabhängiger freier Meisterbetrieb und keine autorisierte Vertragswerkstatt der genannten Hersteller."
+          title="Für diese Unternehmen arbeiten wir bereits."
+          description="Namensnennung als Referenz – wir sind ein markenunabhängiger freier Meisterbetrieb und keine autorisierte Vertragswerkstatt der genannten Hersteller."
         />
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Autohäuser & Werke</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
-              Leipziger Autohäuser und Werke, für die CarCare Aufbereitung, Instandsetzung und Lackarbeiten übernimmt.
+              Leipziger Autohäuser und Werke, für die wir Aufbereitung, Instandsetzung und Lackarbeiten übernehmen.
             </p>
             <PartnerNames names={dealerPartners.map((partner) => partner.name)} />
           </div>
           <div className="lg:col-span-7">
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Versicherer & Schadensteuerer</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
-              Mit diesen {insurancePartners.length} Versicherern wickelt CarCare Schadenfälle ab — von der Schadenaufnahme über die
+              Mit diesen {insurancePartners.length} Versicherern wickeln wir Schadenfälle ab — von der Schadenaufnahme über die
               Audatex-Kalkulation bis zur Freigabe.
             </p>
             <PartnerNames names={insurancePartners.map((partner) => partner.name)} />
@@ -234,7 +234,7 @@ const BusinessCustomersPage: React.FC = () => (
 
     <section id="ablauf" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Ablauf" title="So startet die Zusammenarbeit mit CarCare." />
+        <SectionIntro eyebrow="Ablauf" title="So startet die Zusammenarbeit mit uns." />
         <ProcessList steps={steps} />
       </div>
     </section>
@@ -248,7 +248,7 @@ const BusinessCustomersPage: React.FC = () => (
 
     <PageCTA
       title="Sie betreuen Fahrzeuge gewerblich?"
-      description="Sprechen Sie mit CarCare über feste Ansprechpartner, wiederkehrende Abläufe und passende Prozesse."
+      description="Sprechen Sie mit uns über feste Ansprechpartner, wiederkehrende Abläufe und passende Prozesse."
       primaryLabel="Partneranfrage stellen"
       primaryHref="/kontakt#contact-business"
     />

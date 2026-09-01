@@ -256,7 +256,7 @@ const TargetGroupCards: React.FC = () => {
               Der richtige Ansprechpartner für Ihr Fahrzeug.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg lg:text-gray-200 lg:[text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
-              Ob privat, gewerblich oder nach einem Unfall: CarCare verbindet persönliche Beratung mit professionellen Werkstattprozessen.
+              Ob privat, gewerblich oder nach einem Unfall: Wir verbinden persönliche Beratung mit professionellen Werkstattprozessen.
             </p>
           </div>
         </div>

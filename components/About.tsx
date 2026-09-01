@@ -23,7 +23,7 @@ const About: React.FC = () => {
                  <span className="text-sm font-bold uppercase tracking-widest text-blue-600">Über Uns</span>
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-8 leading-[1.1]">
-                CarCare-Center <br/>
+                CarCare Center <br/>
                 <span className="text-gray-400">Leipzig.</span>
               </h2>
               

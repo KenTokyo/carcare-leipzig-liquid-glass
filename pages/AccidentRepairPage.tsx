@@ -59,7 +59,7 @@ const caseHandling = [
   { title: 'Schadenaufnahme', description: 'Erfassung des Schadens vor Ort oder anhand Ihrer Fotos, inklusive Dokumentation von Umfang und Hergang.' },
   { title: 'Schadenskalkulation', description: 'Nachvollziehbare Kalkulation als Grundlage für Reparatur, Freigabe und weitere Abstimmung.' },
   { title: 'Gutachterservice', description: 'Koordination und Kommunikation mit Gutachtern, sofern das für den Schadenfall sinnvoll ist.' },
-  { title: 'Versicherungsabwicklung', description: 'Auf Wunsch übernimmt CarCare Schriftverkehr und Abstimmung mit Versicherern und Agenturen.' },
+  { title: 'Versicherungsabwicklung', description: 'Auf Wunsch übernehmen wir Schriftverkehr und Abstimmung mit Versicherern und Agenturen.' },
   { title: 'Karosseriearbeiten', description: 'Fachgerechte Instandsetzung beschädigter Karosserie- und Anbauteile im eigenen Haus.' },
   { title: 'Ersatzmobilität', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug.' },
   { title: 'Dokumentation', description: 'Nachvollziehbare Dokumentation der Schritte und saubere Übergabe nach Abschluss.' },
@@ -87,13 +87,13 @@ const audiences = [
 const faqs = [
   {
     id: 'melden',
-    question: 'Wie melde ich einen Unfallschaden bei CarCare Leipzig?',
+    question: 'Wie melde ich einen Unfallschaden beim CarCare Center Leipzig?',
     answer: 'Sie können den Schaden telefonisch unter 0341 - 261 77 90 oder über das Online-Formular melden. Hilfreich sind Fahrzeugdaten, Schadenart, Fotos des Schadens und Informationen zur Versicherung.',
   },
   {
     id: 'versicherung',
-    question: 'Übernimmt CarCare die Abstimmung mit der Versicherung?',
-    answer: 'Ja. Auf Wunsch übernimmt CarCare die Kommunikation mit Ihrer Versicherung sowie den Schriftverkehr rund um den Schadenfall und stimmt sich bei Bedarf mit dem Gutachter ab.',
+    question: 'Übernimmt das CarCare Center die Abstimmung mit der Versicherung?',
+    answer: 'Ja. Auf Wunsch übernehmen wir die Kommunikation mit Ihrer Versicherung sowie den Schriftverkehr rund um den Schadenfall und stimmen uns bei Bedarf mit dem Gutachter ab.',
   },
   {
     id: 'welche',
@@ -117,8 +117,8 @@ const faqs = [
   },
   {
     id: 'marken',
-    question: 'Repariert CarCare auch mein Fahrzeugfabrikat?',
-    answer: 'Ja. CarCare ist ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeitet alle Marken – vom Kleinwagen bis zum Premiumfahrzeug.',
+    question: 'Repariert das CarCare Center auch mein Fahrzeugfabrikat?',
+    answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks und bearbeiten alle Marken – vom Kleinwagen bis zum Premiumfahrzeug.',
   },
 ];
 
@@ -155,7 +155,7 @@ const AccidentRepairPage: React.FC = () => (
         <SectionIntro
           eyebrow="Leistungen im Schadenfall"
           title="Alles Wichtige für die Reparatur Ihres Unfallschadens."
-          description="CarCare bündelt technische Reparatur, persönliche Betreuung und strukturierte Abstimmung in einem Prozess."
+          description="Wir bündeln technische Reparatur, persönliche Betreuung und strukturierte Abstimmung in einem Prozess."
         />
         <FeatureGrid items={caseHandling} columns="four" />
       </div>
@@ -165,7 +165,7 @@ const AccidentRepairPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Ablauf"
-          title="So läuft die Unfallinstandsetzung bei CarCare."
+          title="So läuft die Unfallinstandsetzung bei uns."
           description="Von der Schadenmeldung bis zum Ersatzwagen – in fünf klaren Schritten, aus einer Hand."
         />
         <ProcessList steps={steps} />
@@ -188,7 +188,7 @@ const AccidentRepairPage: React.FC = () => (
 
     <PageCTA
       title="Unfallschaden in Leipzig? Wir nehmen den Fall auf."
-      description="Senden Sie die wichtigsten Informationen direkt an CarCare oder rufen Sie an, wenn es schnell gehen muss."
+      description="Senden Sie die wichtigsten Informationen direkt an uns oder rufen Sie an, wenn es schnell gehen muss."
       primaryLabel="Schaden jetzt melden"
       primaryHref="/kontakt#contact-schaden"
     />

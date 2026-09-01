@@ -6,7 +6,7 @@ Sortierung nach Gewichtung.
 
 ---
 
-### ⬜ 1. 🔴 Kritisch — FAQ-Texte laufen zwischen Schema und sichtbarem Inhalt auseinander
+### ⬜ 1. 🔴 Kritisch — Schema-FAQ und sichtbarer Inhalt: Doppelpflege UND sieben Waisen
 **Ziel:** Eine Quelle für jede FAQ-Antwort. Strukturierte Daten lesen daraus,
 statt eine Kopie zu halten.
 
@@ -34,6 +34,28 @@ musste doppelt korrigiert werden.
 * [ ] Weitere FAQ-Blöcke auf denselben Doppelpflege-Fall prüfen
 * [ ] Prüfschritt ergänzen, der Schema-Antwort gegen sichtbaren Text vergleicht
       (Skriptmuster liegt vor, siehe Verifikation aus Phase 2)
+
+**Nachtrag aus Phase 3+4 — der Befund ist größer als gedacht.** Die Paritätsmessung
+über alle 135 Schema-Texte ergab: **sieben davon stehen auf keiner Seite.** Sie sind
+nicht doppelt gepflegt, sie haben überhaupt keine sichtbare Entsprechung:
+
+| Schema-Eintrag | gehört zu |
+|---|---|
+| „Ja. Über das Formular Termin anfragen können Sie Fahrzeug, Wunschleistung …" | Kontaktseite |
+| „Wofür ist der Wissensbereich gedacht?" + Antwort | Wissensbereich |
+| „Ersetzt der Ratgeber eine Fahrzeugprüfung?" + Antwort | Wissensbereich |
+| „Kann das CarCare Center die beschriebenen Leistungen in Leipzig umsetzen?" + Antwort | Wissensbereich |
+
+Google verlangt für `FAQPage`, dass das Markup **sichtbaren** Seiteninhalt abbildet.
+Sieben unsichtbare Einträge sind kein Redundanzproblem mehr, sondern ein
+Richtlinienverstoß mit Sanktionsrisiko für die betroffenen Seiten.
+
+Bestand bereits vor Paket A — Messung vor und nach der Änderung: identisch 7 von 135.
+
+* [ ] Für jeden der sieben Einträge entscheiden: sichtbaren FAQ-Block auf der Seite
+      ergänzen **oder** den Schema-Eintrag entfernen
+* [ ] Kontaktseite und Wissensbereich haben keinen sichtbaren FAQ-Block — prüfen,
+      ob einer inhaltlich sinnvoll ist (GEO-Nutzen) oder das Markup weg soll
 
 ---
 
@@ -77,3 +99,26 @@ Zeilen ist eine Meta-Description. Verstoß gegen SEO-GEO §3.1.
 * [ ] Titles im selben Durchgang gegen 50–60 Zeichen prüfen
 * [ ] Prüfskript aus dieser Session dauerhaft ablegen (`scripts/`), damit die
       Längen bei künftigen Textänderungen nicht wieder abdriften
+
+---
+
+### ⬜ 5. 🟡 Mittel — drei Meta-Titles weiterhin außerhalb 50–60 Zeichen
+Nach Paket A liegen die neun überarbeiteten Titles bei 50–59 Zeichen. Offen bleiben
+drei, die den Namen bereits korrekt führen oder gar nicht enthalten:
+
+| Datei | Zeichen |
+|---|---|
+| `pages/HomePage.tsx` | 83 |
+| `pages/KnowledgeHubPage.tsx` | 65 |
+| `pages/AccidentRepairPage.tsx` | 62 |
+
+* [ ] Auf 50–60 Zeichen kürzen, Hauptkeyword und Ort erhalten
+
+---
+
+### ⬜ 6. 🟡 Mittel — fünf `metaTitle` im Wissensbereich zu lang
+`data/knowledgeArticles.ts:38`, `:110`, `:182`, `:254`, `:326` tragen jetzt
+`| CarCare Center Wissen` und liegen bei 69–83 Zeichen. Sie lagen vorher schon
+bei 62–76 — Paket A hat die Überlänge um 7 Zeichen verschärft, nicht verursacht.
+
+* [ ] Kürzen; Marken-Suffix ggf. auf `| CarCare Center` reduzieren

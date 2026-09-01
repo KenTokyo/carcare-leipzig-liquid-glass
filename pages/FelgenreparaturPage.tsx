@@ -25,7 +25,7 @@ const usp = [
 
 const FelgenreparaturPage: React.FC = () => (
   <>
-    <PageMeta canonical="/felgenreparatur-leipzig" title="Felgenreparatur Leipzig | TÜV-zertifiziert, Wheel-Doctor | CarCare" description="Felgenreparatur in Leipzig: TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb – bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben." />
+    <PageMeta canonical="/felgenreparatur-leipzig" title="Felgenreparatur Leipzig | TÜV-zertifiziert | CarCare Center" description="Felgenreparatur in Leipzig: TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb – bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben." />
     <PageHero
       eyebrow="Felgenreparatur Leipzig"
       title="Felgenreparatur in Leipzig."
@@ -36,13 +36,13 @@ const FelgenreparaturPage: React.FC = () => (
     />
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Leistungsumfang" title="Zertifizierte Felgenreparatur als Wheel-Doctor-Fachbetrieb." description="Das CarCare-Center Leipzig ist einer der zertifizierten Wheel-Doctor-Fachbetriebe und kennt alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien – denn nicht in jedem Fall ist eine Felgenreparatur erlaubt." />
+        <SectionIntro eyebrow="Leistungsumfang" title="Zertifizierte Felgenreparatur als Wheel-Doctor-Fachbetrieb." description="Wir sind einer der zertifizierten Wheel-Doctor-Fachbetriebe und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien – denn nicht in jedem Fall ist eine Felgenreparatur erlaubt." />
         <FeatureGrid items={scope} />
       </div>
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Zertifizierter Meisterbetrieb – Full-Service in Leipzig." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Zertifizierter Meisterbetrieb – Full-Service in Leipzig." />
         <FeatureGrid items={usp} />
       </div>
     </section>

@@ -17,31 +17,31 @@ const benefits = [
 
 const process = [
   { title: 'Kontakt aufnehmen', description: 'Kurze Bewerbung oder Initiativkontakt über die Kontaktseite senden.' },
-  { title: 'Rückmeldung erhalten', description: 'CarCare prüft den passenden Bereich und meldet sich persönlich.' },
+  { title: 'Rückmeldung erhalten', description: 'Wir prüfen den passenden Bereich und melden uns persönlich.' },
   { title: 'Kennenlernen', description: 'Gemeinsames Gespräch über Erfahrung, Stärken und Aufgabenbereich.' },
   { title: 'Start im Team', description: 'Wenn es passt, beginnt der Einstieg in einem professionellen Umfeld.' },
 ];
 
 const faqs = [
   { id: 'initiativ', question: 'Kann ich mich initiativ bewerben?', answer: 'Ja. Initiativbewerbungen sind willkommen, besonders für Aufbereitung, Lackierung, Karosserie und Service.' },
-  { id: 'bereiche', question: 'Welche Jobbereiche gibt es?', answer: 'CarCare sucht unter anderem Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater.' },
-  { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über die Kontaktseite oder telefonisch. CarCare meldet sich anschließend persönlich zurück.' },
+  { id: 'bereiche', question: 'Welche Jobbereiche gibt es?', answer: 'Wir suchen unter anderem Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater.' },
+  { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über die Kontaktseite oder telefonisch. Wir melden uns anschließend persönlich zurück.' },
 ];
 
 const CareerPage: React.FC = () => (
   <>
-    <PageMeta canonical="/karriere" title="Karriere bei CarCare Leipzig" description="Karriere bei CarCare Leipzig: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
+    <PageMeta canonical="/karriere" title="Karriere beim CarCare Center Leipzig" description="Karriere beim CarCare Center Leipzig: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
     <PageHero
       eyebrow="Karriere"
-      title="Karriere bei CarCare Leipzig"
-      description="Dein Job bei CarCare: Fahrzeuge, Qualität und ein starkes Team. Entdecke Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
+      title="Karriere beim CarCare Center Leipzig"
+      description="Dein Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecke Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
       primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
     />
     <section id="jobbereiche" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Job-Cards" title="Jobbereiche bei CarCare." />
+        <SectionIntro eyebrow="Job-Cards" title="Jobbereiche bei uns." />
         <FeatureGrid items={jobs} columns="four" />
       </div>
     </section>
@@ -53,7 +53,7 @@ const CareerPage: React.FC = () => (
     </section>
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Bewerbungsprozess" title="So läuft der Kontakt zu CarCare." />
+        <SectionIntro eyebrow="Bewerbungsprozess" title="So läuft der Kontakt zu uns." />
         <ProcessList steps={process} />
       </div>
     </section>
@@ -63,7 +63,7 @@ const CareerPage: React.FC = () => (
         <PageFAQ faqs={faqs} />
       </div>
     </section>
-    <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. CarCare prüft gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
+    <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. Wir prüfen gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
   </>
 );
 

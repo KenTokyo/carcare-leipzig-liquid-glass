@@ -11,9 +11,9 @@ import { serviceGroups, servicesByGroup } from '../data/services';
 const faqs = [
   {
     id: 'umfang',
-    question: 'Welche Leistungen bietet CarCare in Leipzig an?',
+    question: 'Welche Leistungen bietet das CarCare Center in Leipzig an?',
     answer:
-      'CarCare bündelt Fahrzeugaufbereitung, Leasingrückgabe-Vorbereitung, Unfallinstandsetzung, Neu- und Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas mit Scheibenfolierung sowie Fuhrpark- und Geschäftskundenservice — alles an einem Standort in Leipzig.',
+      'Wir bündeln Fahrzeugaufbereitung, Leasingrückgabe-Vorbereitung, Unfallinstandsetzung, Neu- und Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas mit Scheibenfolierung sowie Fuhrpark- und Geschäftskundenservice — alles an einem Standort in Leipzig.',
   },
   {
     id: 'einhaus',
@@ -25,13 +25,13 @@ const faqs = [
     id: 'beratung',
     question: 'Welche Leistung ist für mein Fahrzeug sinnvoll?',
     answer:
-      'Das hängt von Fahrzeugzustand, Schadenbild und Ziel ab. Bei kleineren Lackschäden prüfen wir zuerst Smart Repair, weil es günstiger und schneller ist als eine Komplettlackierung. CarCare berät vor Ort oder telefonisch und empfiehlt den passenden Ablauf.',
+      'Das hängt von Fahrzeugzustand, Schadenbild und Ziel ab. Bei kleineren Lackschäden prüfen wir zuerst Smart Repair, weil es günstiger und schneller ist als eine Komplettlackierung. Wir beraten vor Ort oder telefonisch und empfehlen den passenden Ablauf.',
   },
   {
     id: 'versicherung',
-    question: 'Übernimmt CarCare die Abwicklung mit der Versicherung?',
+    question: 'Übernimmt das CarCare Center die Abwicklung mit der Versicherung?',
     answer:
-      'Ja. Auf Wunsch übernimmt CarCare die Abstimmung mit Versicherern, Agenturen und Gutachtern — von der Schadenaufnahme über die Kalkulation bis zur Freigabe.',
+      'Ja. Auf Wunsch übernehmen wir die Abstimmung mit Versicherern, Agenturen und Gutachtern — von der Schadenaufnahme über die Kalkulation bis zur Freigabe.',
   },
   {
     id: 'business',
@@ -45,12 +45,12 @@ const ServicesPage: React.FC = () => (
   <>
     <PageMeta
       canonical="/leistungen"
-      title="Leistungen in Leipzig | Aufbereitung, Unfall & Lack | CarCare"
-      description="Alle Leistungen von CarCare Leipzig im Überblick: Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Dellen, Hagel, Felgen, Autoglas und Fuhrparkservice."
+      title="Leistungen Leipzig | Aufbereitung & Lack | CarCare Center"
+      description="Alle Leistungen vom CarCare Center Leipzig im Überblick: Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Dellen, Hagel, Felgen, Autoglas und Fuhrparkservice."
     />
     <PageHero
       eyebrow="Leistungen"
-      title="Alle Leistungen von CarCare Leipzig im Überblick."
+      title="Alle Leistungen vom CarCare Center Leipzig im Überblick."
       description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas — auf über 3.000 m² aus einer Hand, als Meisterbetrieb und Glasurit-Lackpartner seit 1998."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
@@ -85,7 +85,7 @@ const ServicesPage: React.FC = () => (
 
     <PageCTA
       title="Welche Leistung passt zu Ihrem Fahrzeug?"
-      description="CarCare Leipzig berät persönlich und findet den passenden Weg für Aufbereitung, Reparatur oder Schadenabwicklung."
+      description="Wir beraten persönlich und finden den passenden Weg für Aufbereitung, Reparatur oder Schadenabwicklung."
       primaryLabel="Kontakt aufnehmen"
       primaryHref="/kontakt"
     />

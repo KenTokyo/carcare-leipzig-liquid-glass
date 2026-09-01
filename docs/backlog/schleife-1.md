@@ -14,8 +14,8 @@ folgenden Pakete auf korrigiertem Stand aufsetzen.
 |---|---|---|
 | 1.1 | Jahreszahl überall korrigieren: „seit 1993" → „seit 1998" (inkl. Fußzeile) | umgesetzt |
 | 1.2 | Flächenangabe überall auf „über 3.000 m²" vereinheitlichen | umgesetzt |
-| 1.3 | „CarCare" allein nicht mehr verwenden → durchgehend „CarCare Center" oder „wir". Falschschreibweisen (Kcare, KCare, Kare) mit korrigieren | offen |
-| 1.4 | Alle Texte aus der 3. Person in die 1. Person Plural umschreiben – vollständige Umformulierung inkl. Verbform, Possessivpronomen und Satzbau, keine wortweise Ersetzung. Kundenansprache bleibt „Sie" | offen |
+| 1.3 | „CarCare" allein nicht mehr verwenden → durchgehend „CarCare Center" oder „wir". Falschschreibweisen (Kcare, KCare, Kare) mit korrigieren | umgesetzt |
+| 1.4 | Alle Texte aus der 3. Person in die 1. Person Plural umschreiben – vollständige Umformulierung inkl. Verbform, Possessivpronomen und Satzbau, keine wortweise Ersetzung. Kundenansprache bleibt „Sie" | umgesetzt |
 
 **Hinweis zu 1.3 und 1.4:** kein Suchen-und-Ersetzen.
 

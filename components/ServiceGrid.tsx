@@ -41,7 +41,7 @@ const ServiceGrid: React.FC = () => {
               Unsere Leistungen rund ums Fahrzeug.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg">
-              Von der gründlichen Fahrzeugaufbereitung bis zur kompletten Unfallinstandsetzung: CarCare Leipzig bietet Pflege, Werterhalt, Reparatur und Schadenabwicklung aus einer Hand.
+              Von der gründlichen Fahrzeugaufbereitung bis zur kompletten Unfallinstandsetzung: Wir bieten Pflege, Werterhalt, Reparatur und Schadenabwicklung aus einer Hand.
             </p>
           </div>
           <a href="#contact-termin" className="cc-gradient-button inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white">

@@ -6,15 +6,15 @@ import { FAQItem } from '../types';
 const defaultFaqs: FAQItem[] = [
   {
     id: 'unfall',
-    question: 'Kann ich bei CarCare einen Unfallschaden in Leipzig melden?',
+    question: 'Kann ich beim CarCare Center einen Unfallschaden in Leipzig melden?',
     answer:
-      'Ja. Sie können Ihren Unfallschaden online über das Formular oder telefonisch melden. CarCare unterstützt bei Schadenaufnahme, Kalkulation und Reparatur.',
+      'Ja. Sie können Ihren Unfallschaden online über das Formular oder telefonisch melden. Wir unterstützen Sie bei Schadenaufnahme, Kalkulation und Reparatur.',
   },
   {
     id: 'versicherung',
-    question: 'Unterstützt CarCare bei der Abstimmung mit Versicherung oder Gutachter?',
+    question: 'Unterstützt das CarCare Center bei der Abstimmung mit Versicherung oder Gutachter?',
     answer:
-      'Auf Wunsch begleitet CarCare die Abstimmung mit Gutachtern und Versicherern und hält Sie während der Reparatur persönlich auf dem Laufenden.',
+      'Auf Wunsch begleiten wir die Abstimmung mit Gutachtern und Versicherern und halten Sie während der Reparatur persönlich auf dem Laufenden.',
   },
   {
     id: 'aufbereitung',
@@ -24,7 +24,7 @@ const defaultFaqs: FAQItem[] = [
   },
   {
     id: 'business',
-    question: 'Arbeitet CarCare auch für Autohäuser, Fuhrparks und Agenturen?',
+    question: 'Arbeitet das CarCare Center auch für Autohäuser, Fuhrparks und Agenturen?',
     answer:
       'Ja. Geschäftskunden erhalten strukturierte Abläufe, feste Ansprechpartner und planbare Fahrzeugdienstleistungen.',
   },
@@ -51,7 +51,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
   eyebrow = 'FAQ',
   faqs = defaultFaqs,
   id = 'faq',
-  title = 'Häufige Fragen zu CarCare Leipzig.',
+  title = 'Häufige Fragen zum CarCare Center Leipzig.',
 }) => {
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
   const headingId = `${id}-heading`;

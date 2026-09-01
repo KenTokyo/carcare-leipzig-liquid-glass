@@ -67,24 +67,41 @@ immer mit „über", auch in den strukturierten Daten.
 
 ---
 
-### ⬜ Phase 3 — 1.3 „CarCare" allein ersetzen
-**Ziel:** Durchgehend „CarCare Center" oder „wir"; Falschschreibweisen
-(Kcare, KCare, K-Care, Kare, KKR) mit korrigieren. Kein Suchen-und-Ersetzen —
-pro Fundstelle wird entschieden, ob der Name oder „wir" besser passt.
+### ✅ Phase 3 + 4 — 1.3 Namensschreibweise und 1.4 erste Person Plural
+**Ziel:** „CarCare" steht nirgends mehr allein; alle Aussagesätze über den eigenen
+Betrieb stehen in der ersten Person Plural. Kundenansprache bleibt „Sie".
+1.3 und 1.4 greifen in denselben Satz und wurden gemeinsam bearbeitet — ein Satz,
+eine Änderung, kein Suchen-und-Ersetzen.
 
-* [ ] Bestandsaufnahme aller Fundstellen „CarCare" ohne „Center"
-* [ ] Falschschreibweisen suchen und korrigieren
-* [ ] Titles/Meta-Descriptions gesondert prüfen (Zeichenlimit 50–60 / 140–160)
+**Ordnungsprinzip (aus CLAUDE.md abgeleitet):** Der Firmenname darf stehen, aber
+nie als Subjekt eines Verbs in der dritten Person. `CLAUDE.md` führt „CarCare Center
+kümmert sich um Ihr Fahrzeug" ausdrücklich als falsch auf — die SEO-Ausnahme rettet
+den Namen, nicht die dritte Person.
 
----
+* [x] Bestandsaufnahme aller 164 Fundstellen, Review-Datei mit fertigem Zielsatz
+      je Stelle erstellt und vom User freigegeben
+* [x] Falschschreibweisen (Kcare, KCare, K-Care, Kare, KKR) gesucht — **null Treffer**
+* [x] Dritte Person ohne Markennamen („Das Unternehmen", „Der Betrieb", „In seinem
+      Betrieb") gesucht — **null Treffer**, 1.4 deckt sich vollständig mit 1.3
+* [x] Fall A (28): nominale Positionen, „Center" ergänzt
+* [x] Fall B (57): Aussagesätze vollständig umformuliert, inkl. Verbform,
+      Possessivpronomen und Satzbau
+* [x] Fall C (20 × 2): FAQ-Fragen auf „das CarCare Center" (User-Entscheidung),
+      Seite und Schema wortgleich
+* [x] Alt-Texte (10): „Unser Mitarbeiter" statt „CarCare-Mitarbeiter" (User-Entscheidung)
+* [x] Neun Meta-Titles gekürzt, damit „CarCare Center" hineinpasst — alle jetzt
+      50–59 Zeichen (vorher 57–66, mit Namensergänzung wären es 63–73 gewesen)
+* [x] Bindestrich-Verstöße „CarCare-Center" behoben: `components/About.tsx:26`,
+      `pages/FelgenreparaturPage.tsx:39`
+* [x] Unangetastet: 9 × juristische Firmierung „BS CarCare GmbH", 6 Code-Kommentare,
+      `components/Hero.tsx` (User-Vorgabe)
+* [x] 158 Regeln, 162 Ersetzungen in 32 Dateien, jede Regel mit Trefferzahl-Assertion
 
-### ⬜ Phase 4 — 1.4 Dritte Person → erste Person Plural
-**Ziel:** Eigenperspektive durchgehend „wir", Kundenansprache bleibt „Sie".
-Vollständige Umformulierung inkl. Verbform, Possessivpronomen und Satzbau.
-
-* [ ] Bestandsaufnahme aller Sätze in der 3. Person
-* [ ] Satzweise umformulieren (gemeinsam mit 1.3, nicht in zwei Durchläufen)
-* [ ] Ausnahme prüfen: Hero und strukturierte Daten dürfen den Firmennamen behalten
+**Referenzen:**
+`seo/pageSchemas.ts`
+`pages/BusinessCustomersPage.tsx`
+`pages/CareerPage.tsx`
+`docs/textkorrekturen-schleife-1/tasks/2026-09-01-1314-fundstellen-review.md`
 
 ---
 
@@ -100,20 +117,42 @@ Garantieangaben vom Betriebsalter unterschieden ✅, keine relativen Altersangab
    hält wortgleiche Kopien der sichtbaren Texte aus `pages/ServicesPage.tsx:22`
    und `pages/BusinessCustomersPage.tsx:102`. Läuft der Wortlaut auseinander,
    zeichnet das Schema Inhalte aus, die so nicht auf der Seite stehen
-   (SEO-GEO §5: „Nur auszeichnen, was sichtbar ist"). Genau dieser Backlog-Punkt
-   hat die Divergenz erzeugt.
+   (SEO-GEO §5). Genau dieser Backlog-Punkt hat die Divergenz erzeugt.
 2. 🟠 **Hoch:** `components/Hero.tsx` ist toter Code (kein Import, Unsplash-Hotlink,
    Jahreszahl 2010).
 3. 🟡 **Mittel:** Kartentitel und Kartenbeschreibung tragen auf fünf Serviceseiten
-   jetzt beide „seit 1998" (Titel „Meisterbetrieb seit 1998" + Beschreibung).
-   Inhaltlich korrekt, sprachlich redundant.
-4. 🟡 **Mittel:** 16 von 17 `PageMeta`-Descriptions liegen außerhalb der
-   SEO-GEO-Vorgabe von 140–160 Zeichen (Spanne 67–180).
-
-→ Alle vier in `2026-09-01-paket-a-optimierung-tasks.md` aufgenommen.
+   beide „seit 1998". Inhaltlich korrekt, sprachlich redundant.
+4. 🟡 **Mittel:** 16 von 17 `PageMeta`-Descriptions außerhalb 140–160 Zeichen.
 
 ### Phase 2
 **Eingehalten**: Einheit `m²` durchgehend ✅, „über" ergänzt ✅,
 Schema wortgleich mit sichtbarem Inhalt ✅, Regeldatei mitkorrigiert ✅
 
 **Auffälligkeiten:** keine neuen über Phase 1 hinaus.
+
+### Phase 3 + 4
+**Eingehalten**: vollständige Umformulierung statt Ersetzung ✅, Kundenansprache
+„Sie" durchgehend ✅, juristische Firmierung unangetastet ✅, Hero.tsx unangetastet ✅,
+Schema-Seite-Parität gemessen statt behauptet ✅, Titles im Zielkorridor ✅,
+Encoding sauber ✅, Freigabe vor Umsetzung eingeholt ✅
+
+**Auffälligkeiten/Kritische Findings (nach Schwere):**
+1. 🔴 **Kritisch, neu belegt:** **Sieben FAQ-Texte in `seo/pageSchemas.ts` haben
+   überhaupt keine sichtbare Entsprechung** — sie sind nicht bloß doppelt gepflegt,
+   sie stehen auf keiner Seite. Betroffen: der Kontaktseiten-Eintrag „Über das
+   Formular Termin anfragen …" sowie vier Einträge des Wissensbereichs
+   („Wofür ist der Wissensbereich gedacht?", „Ersetzt der Ratgeber eine
+   Fahrzeugprüfung?", „Kann das CarCare Center die beschriebenen Leistungen in
+   Leipzig umsetzen?"). Das ist ein direkter Verstoß gegen die Google-Richtlinie
+   für `FAQPage` (Markup nur für sichtbaren Seiteninhalt) und gegen SEO-GEO §5.
+   **Bestand schon vor diesem Paket** — Messung vor und nach der Änderung ergibt
+   identisch 7 von 135. Die Änderung hat es weder verursacht noch verschlimmert.
+2. 🟡 **Mittel:** Drei `PageMeta`-Titles liegen weiterhin außerhalb 50–60 Zeichen:
+   `HomePage.tsx` (83), `KnowledgeHubPage.tsx` (65), `AccidentRepairPage.tsx` (62).
+   Nicht Teil dieses Pakets, weil sie „CarCare Center" bereits korrekt führen
+   bzw. den Namen nicht enthalten.
+3. 🟡 **Mittel:** Fünf `metaTitle` in `data/knowledgeArticles.ts` sind durch die
+   Namensergänzung um 7 Zeichen länger geworden (jetzt 69–83). Sie lagen schon
+   vorher über der Vorgabe; das Paket verschärft es geringfügig.
+
+→ Findings 1 bis 3 sind in `2026-09-01-paket-a-optimierung-tasks.md` aufgenommen.

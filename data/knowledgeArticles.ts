@@ -35,9 +35,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Grundlagen',
     readTime: '6 Min.',
     title: 'Was ist Autoaufbereitung?',
-    metaTitle: 'Was ist Autoaufbereitung? Definition, Ablauf und Tipps | CarCare Wissen',
+    metaTitle: 'Was ist Autoaufbereitung? Definition, Ablauf und Tipps | CarCare Center Wissen',
     metaDescription:
-      'Was Autoaufbereitung bedeutet, wann sie sich lohnt, wie der Ablauf aussieht und welche Fehler Sie vermeiden sollten. Fachlicher Ratgeber von CarCare.',
+      'Was Autoaufbereitung bedeutet, wann sie sich lohnt, wie der Ablauf aussieht und welche Fehler Sie vermeiden sollten. Fachlicher Ratgeber vom CarCare Center.',
     cardTitle: 'Was ist Autoaufbereitung?',
     cardDescription: 'Grundlagen zu professioneller Fahrzeugpflege, Werterhalt, Ablauf und sinnvoller Vorbereitung.',
     introAnswer:
@@ -107,7 +107,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Innenraum',
     readTime: '7 Min.',
     title: 'Was gehört zu einer professionellen Innenaufbereitung?',
-    metaTitle: 'Innenaufbereitung: Ablauf, Kostenfaktoren und Tipps | CarCare Wissen',
+    metaTitle: 'Innenaufbereitung: Ablauf, Kostenfaktoren und Tipps | CarCare Center Wissen',
     metaDescription:
       'Innenaufbereitung verständlich erklärt: Polster, Leder, Cockpit, Gerüche, Ablauf, Kostenfaktoren und typische Fehler.',
     cardTitle: 'Innenaufbereitung',
@@ -179,7 +179,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Lackpflege',
     readTime: '8 Min.',
     title: 'Wie funktioniert eine professionelle Lackaufbereitung?',
-    metaTitle: 'Lackaufbereitung: Politur, Versiegelung und Ablauf | CarCare Wissen',
+    metaTitle: 'Lackaufbereitung: Politur, Versiegelung und Ablauf | CarCare Center Wissen',
     metaDescription:
       'Lackaufbereitung fachlich erklärt: Lackreinigung, Politur, Versiegelung, Kostenfaktoren, Profi-Tipps und häufige Fehler.',
     cardTitle: 'Lackaufbereitung',
@@ -251,7 +251,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Werterhalt',
     readTime: '7 Min.',
     title: 'Wie bereitet man ein Auto auf die Leasingrückgabe vor?',
-    metaTitle: 'Leasingrückgabe vorbereiten: Checkliste und Tipps | CarCare Wissen',
+    metaTitle: 'Leasingrückgabe vorbereiten: Checkliste und Tipps | CarCare Center Wissen',
     metaDescription:
       'Leasingrückgabe vorbereiten: typische Gebrauchsspuren, Aufbereitung, Smart Repair, Kostenfaktoren und professionelle Tipps.',
     cardTitle: 'Leasingrückgabe vorbereiten',
@@ -323,7 +323,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Smart Repair',
     readTime: '7 Min.',
     title: 'Kann man Dellen ohne Lackieren entfernen?',
-    metaTitle: 'Dellen ohne Lackieren entfernen: Möglichkeiten und Grenzen | CarCare Wissen',
+    metaTitle: 'Dellen ohne Lackieren entfernen: Möglichkeiten und Grenzen | CarCare Center Wissen',
     metaDescription:
       'Dellen ohne Lackieren entfernen: Wann Smart Repair funktioniert, welche Grenzen es gibt, Ablauf, Kostenfaktoren und Profi-Tipps.',
     cardTitle: 'Dellen ohne Lackieren entfernen',

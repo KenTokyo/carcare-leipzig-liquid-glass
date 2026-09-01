@@ -51,7 +51,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
     { id: 'wann-lohnt-es-sich', title: 'Wann lohnt sich das?', items: article.whenItPays },
     { id: 'ablauf', title: 'Ablauf', items: article.process, ordered: true },
     { id: 'kostenfaktoren', title: 'Kostenfaktoren', items: article.costFactors },
-    { id: 'profi-tipps', title: 'Profi-Tipps von CarCare', items: article.tips },
+    { id: 'profi-tipps', title: 'Profi-Tipps vom CarCare Center', items: article.tips },
     { id: 'haeufige-fehler', title: 'Häufige Fehler', items: article.mistakes },
   ];
 
@@ -96,13 +96,13 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
             <section aria-labelledby="local-cta-heading" className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-white p-6 md:p-8">
               <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-700">
                 <MapPin size={15} />
-                CarCare Leipzig
+                CarCare Center Leipzig
               </span>
               <h2 id="local-cta-heading" className="text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-3xl">
                 Beratung und professionelle Umsetzung vor Ort.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-gray-600">
-                Wenn Sie eine fachliche Einschätzung für Ihr Fahrzeug wünschen, unterstützt CarCare Leipzig bei Autoaufbereitung, Lackpflege, Leasingrückgabe-Vorbereitung und Smart Repair.
+                Wenn Sie eine fachliche Einschätzung für Ihr Fahrzeug wünschen, unterstützen wir Sie bei Autoaufbereitung, Lackpflege, Leasingrückgabe-Vorbereitung und Smart Repair.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-bold text-white">

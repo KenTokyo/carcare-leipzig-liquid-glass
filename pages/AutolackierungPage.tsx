@@ -24,7 +24,7 @@ const usp = [
 
 const AutolackierungPage: React.FC = () => (
   <>
-    <PageMeta canonical="/autolackierung-leipzig" title="Neu- & Reparaturlackierung Leipzig | unsichtbar | CarCare" description="Neu- und Reparaturlackierung in Leipzig: Unser Ziel ist die unsichtbare Reparatur – weder Farbton noch Effektunterschiede zur Originallackierung. Spot-Repair bevorzugt." />
+    <PageMeta canonical="/autolackierung-leipzig" title="Neu- & Reparaturlackierung Leipzig | CarCare Center" description="Neu- und Reparaturlackierung in Leipzig: Unser Ziel ist die unsichtbare Reparatur – weder Farbton noch Effektunterschiede zur Originallackierung. Spot-Repair bevorzugt." />
     <PageHero
       eyebrow="Neu- und Reparaturlackierung Leipzig"
       title="Neu- und Reparaturlackierung in Leipzig."
@@ -41,7 +41,7 @@ const AutolackierungPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
         <FeatureGrid items={usp} />
       </div>
     </section>

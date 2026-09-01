@@ -11,7 +11,7 @@ const NotFoundPage: React.FC = () => (
       primaryCta={{ label: 'Zur Startseite', href: '/' }}
       secondaryCta={{ label: 'Kontakt aufnehmen', href: '/kontakt' }}
     />
-    <PageCTA title="Brauchen Sie direkt Hilfe?" description="CarCare Leipzig hilft bei Schadenmeldung, Aufbereitungstermin oder Geschäftskundenanfrage." primaryLabel="Kontakt öffnen" primaryHref="/kontakt" />
+    <PageCTA title="Brauchen Sie direkt Hilfe?" description="Wir helfen Ihnen bei Schadenmeldung, Aufbereitungstermin oder Geschäftskundenanfrage." primaryLabel="Kontakt öffnen" primaryHref="/kontakt" />
   </>
 );
 

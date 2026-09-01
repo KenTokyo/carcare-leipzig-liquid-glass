@@ -32,11 +32,11 @@ const faqs = [
   {
     id: 'dauer',
     question: 'Wie lange dauert eine Fahrzeugaufbereitung?',
-    answer: 'Das hängt von Leistung, Zustand und Umfang ab. Eine reine Außenpflege ist deutlich schneller erledigt als die kombinierte Premiumpflege mit Motorreinigung und Versiegelung. CarCare stimmt den Ablauf nach der Anfrage persönlich ab und nennt Ihnen dabei den Zeitrahmen für Ihr Fahrzeug.',
+    answer: 'Das hängt von Leistung, Zustand und Umfang ab. Eine reine Außenpflege ist deutlich schneller erledigt als die kombinierte Premiumpflege mit Motorreinigung und Versiegelung. Wir stimmen den Ablauf nach der Anfrage persönlich ab und nennen Ihnen dabei den Zeitrahmen für Ihr Fahrzeug.',
   },
   {
     id: 'preise',
-    question: 'Was kostet eine Autoaufbereitung bei CarCare Leipzig?',
+    question: 'Was kostet eine Autoaufbereitung beim CarCare Center Leipzig?',
     answer: 'Die Brillant Außenpflege kostet 169,00 €, die Intensiv Innenreinigung 199,00 € und die Premiumpflege als Kombination beider Pakete 299,00 €. Die Premiumpflege „exklusiv“ mit SWIZÖL-Wachsen beginnt bei 348,00 €. Alle Preise verstehen sich inklusive gesetzlicher Mehrwertsteuer.',
   },
   {
@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     id: 'leasing',
-    question: 'Hilft CarCare bei der Leasingrückgabe?',
+    question: 'Hilft das CarCare Center bei der Leasingrückgabe?',
     answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe, setzen Gebrauchsspuren wie Dellen, Lackschäden oder Felgenschäden fachgerecht instand und bereiten es auf. Das reduziert vermeidbare Nachbelastungen durch den Rückgabegutachter.',
   },
   {
@@ -67,7 +67,7 @@ const faqs = [
   {
     id: 'business',
     question: 'Ist Autoaufbereitung auch für Autohäuser und Fuhrparks möglich?',
-    answer: 'Ja. CarCare arbeitet für Privatkunden, Autohäuser, Fuhrparks und Geschäftskunden mit hohen Qualitätsstandards. Für wiederkehrende Aufbereitung gibt es feste Ansprechpartner und planbare Abläufe.',
+    answer: 'Ja. Wir arbeiten für Privatkunden, Autohäuser, Fuhrparks und Geschäftskunden mit hohen Qualitätsstandards. Für wiederkehrende Aufbereitung gibt es feste Ansprechpartner und planbare Abläufe.',
   },
 ];
 
@@ -80,7 +80,7 @@ const VehicleDetailingPage: React.FC = () => (
   <BackdropLayout image="/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp" zoom={1}>
     <PageMeta
       canonical="/fahrzeugaufbereitung-leipzig"
-      title="Fahrzeugaufbereitung Leipzig | Preise ab 169 € | CarCare"
+      title="Fahrzeugaufbereitung Leipzig | ab 169 € | CarCare Center"
       description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenreinigung 199 €, Premiumpflege 299 €. Innen, außen, Lack und Leasingrückgabe."
     />
     <PageHero
@@ -195,7 +195,7 @@ const VehicleDetailingPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Ablauf"
-          title="So läuft Ihre Autoaufbereitung bei CarCare."
+          title="So läuft Ihre Autoaufbereitung bei uns."
           description="Von der Leistungsauswahl bis zur gepflegten Übergabe – in fünf klaren Schritten, aus einer Hand."
         />
         <ProcessList steps={detailingSteps} />
@@ -222,7 +222,7 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Expertise"
           title="Für Premiumfahrzeuge, Autohäuser, Fuhrparks und hohe Qualitätsstandards."
-          description="CarCare arbeitet neutral, professionell und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern."
+          description="Wir arbeiten neutral, professionell und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern."
         />
         <FeatureGrid items={expertPoints} columns="four" />
       </div>
@@ -237,7 +237,7 @@ const VehicleDetailingPage: React.FC = () => (
 
     <PageCTA
       title="Ihr Fahrzeug soll sichtbar gepflegter wirken?"
-      description="Fragen Sie Ihren Aufbereitungstermin in Leipzig an. CarCare empfiehlt die passende Leistung für Zustand und Ziel."
+      description="Fragen Sie Ihren Aufbereitungstermin in Leipzig an. Wir empfehlen die passende Leistung für Zustand und Ziel."
       primaryLabel="Termin anfragen"
       primaryHref="/kontakt#contact-termin"
     />

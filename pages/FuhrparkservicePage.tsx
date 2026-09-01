@@ -11,7 +11,7 @@ const leistungen = [
 const faqs = [
   { id: 'umfang', question: 'Welche Arbeiten übernimmt der Fuhrparkservice?', answer: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf übernehmen wir sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.' },
   { id: 'schaden', question: 'Was passiert im Schadensfall?', answer: 'Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein, damit Ihr Betrieb weiterläuft.' },
-  { id: 'partner', question: 'Arbeitet CarCare mit Partnern aus der Branche zusammen?', answer: 'Ja. Sie profitieren von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
+  { id: 'partner', question: 'Arbeitet das CarCare Center mit Partnern aus der Branche zusammen?', answer: 'Ja. Sie profitieren von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
 ];
 
 const usp = [
@@ -22,7 +22,7 @@ const usp = [
 
 const FuhrparkservicePage: React.FC = () => (
   <>
-    <PageMeta canonical="/fuhrparkservice-leipzig" title="Fuhrparkservice Leipzig | Firmenfuhrpark-Betreuung | CarCare" description="Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks – von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf. Im Schadensfall halten wir Sie mobil." />
+    <PageMeta canonical="/fuhrparkservice-leipzig" title="Fuhrparkservice Leipzig | Firmenflotte | CarCare Center" description="Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks – von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf. Im Schadensfall halten wir Sie mobil." />
     <PageHero
       eyebrow="Fuhrparkservice Leipzig"
       title="Fuhrparkservice in Leipzig."
@@ -39,7 +39,7 @@ const FuhrparkservicePage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Full-Service-Partner für Ihren Fuhrpark." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Full-Service-Partner für Ihren Fuhrpark." />
         <FeatureGrid items={usp} />
       </div>
     </section>
@@ -49,7 +49,7 @@ const FuhrparkservicePage: React.FC = () => (
         <PageFAQ faqs={faqs} />
       </div>
     </section>
-    <PageCTA title="Planbare Betreuung für Ihren Fuhrpark?" description="Sprechen Sie mit CarCare Leipzig über die Betreuung Ihrer Fahrzeuge – von der regelmäßigen Pflege bis zur Schadenabwicklung." primaryLabel="Fuhrparkservice anfragen" primaryHref="/kontakt#contact-termin" />
+    <PageCTA title="Planbare Betreuung für Ihren Fuhrpark?" description="Sprechen Sie mit uns über die Betreuung Ihrer Fahrzeuge – von der regelmäßigen Pflege bis zur Schadenabwicklung." primaryLabel="Fuhrparkservice anfragen" primaryHref="/kontakt#contact-termin" />
   </>
 );
 

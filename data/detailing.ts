@@ -169,6 +169,6 @@ export const detailingSteps = [
   { title: 'Leistung auswählen', description: 'Passendes Paket oder individuelle Aufbereitung wählen.' },
   { title: 'Termin anfragen', description: 'Wunschtermin online oder telefonisch übermitteln.' },
   { title: 'Fahrzeug abgeben', description: 'Persönliche Übergabe mit kurzer Beratung vor Ort.' },
-  { title: 'Professionelle Aufbereitung', description: 'Innen, außen, Lack und Details nach CarCare-Standard.' },
+  { title: 'Professionelle Aufbereitung', description: 'Innen, außen, Lack und Details nach unserem Standard.' },
   { title: 'Gepflegt zurückerhalten', description: 'Sichtbar aufgewertet und bereit für Alltag oder Rückgabe.' },
 ];

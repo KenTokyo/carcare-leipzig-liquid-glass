@@ -133,7 +133,7 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             className="lg:col-span-5"
           >
             <p className="text-base leading-relaxed text-gray-600 md:text-lg">
-              CarCare bereitet Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks mit langjähriger Erfahrung auf und erklärt transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Kunden bei Lack, Innenraum und Leasingrückgabe achten sollten.
+              Wir bereiten Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks mit langjähriger Erfahrung auf und erklären transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Sie bei Lack, Innenraum und Leasingrückgabe achten sollten.
             </p>
           </motion.div>
         </div>

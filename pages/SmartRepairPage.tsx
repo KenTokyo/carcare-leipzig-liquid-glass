@@ -22,7 +22,7 @@ const usp = [
 
 const SmartRepairPage: React.FC = () => (
   <>
-    <PageMeta canonical="/smart-repair-leipzig" title="Smart Repair Leipzig | Spot-Repair, geringer Aufwand | CarCare" description="Smart Repair in Leipzig: punktuelle Lackinstandsetzung mit geringem Aufwand. Ziel ist die unsichtbare Reparatur – kleine Schäden gezielt statt Komplettlackierung." />
+    <PageMeta canonical="/smart-repair-leipzig" title="Smart Repair Leipzig | Spot-Repair | CarCare Center" description="Smart Repair in Leipzig: punktuelle Lackinstandsetzung mit geringem Aufwand. Ziel ist die unsichtbare Reparatur – kleine Schäden gezielt statt Komplettlackierung." />
     <PageHero
       eyebrow="Smart Repair Leipzig"
       title="Smart Repair in Leipzig – punktuelle Reparatur mit geringem Aufwand."
@@ -39,7 +39,7 @@ const SmartRepairPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
         <FeatureGrid items={usp} />
       </div>
     </section>

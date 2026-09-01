@@ -35,7 +35,7 @@ const AccidentFocus: React.FC = () => {
               <span className="text-gray-400">Reparatur, Gutachten und Abstimmung mit der Versicherung.</span>
             </h2>
             <p className="text-base md:text-lg text-gray-300 font-light leading-relaxed max-w-xl mb-10">
-              Ein Unfallschaden ist ärgerlich genug. CarCare unterstützt Sie von der ersten Schadenaufnahme über die Kalkulation bis zur fachgerechten Reparatur. Auf Wunsch stimmen wir uns mit Gutachtern und Versicherern ab und sorgen dafür, dass Sie während der Reparatur mobil bleiben.
+              Ein Unfallschaden ist ärgerlich genug. Wir unterstützen Sie von der ersten Schadenaufnahme über die Kalkulation bis zur fachgerechten Reparatur. Auf Wunsch stimmen wir uns mit Gutachtern und Versicherern ab und sorgen dafür, dass Sie während der Reparatur mobil bleiben.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="#contact-schaden" className="inline-flex items-center gap-2 bg-white text-gray-900 px-7 py-4 rounded-full text-sm font-bold hover:bg-gray-100 transition-colors">

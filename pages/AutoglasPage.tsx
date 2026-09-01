@@ -16,14 +16,14 @@ const usp = [
 
 const faqs = [
   { id: 'garantie', question: 'Gibt es eine Garantie auf die Autoglas-Reparatur?', answer: 'Ja. Als WINTEC-Partner geben wir 30 Jahre Garantie auf die Autoglas-Reparatur und die Dichtigkeit ausgetauschter Scheiben.' },
-  { id: 'leistungen', question: 'Welche Autoglas-Leistungen bietet CarCare?', answer: 'Neuverglasung für PKW, LKW und Bus, Steinschlagreparaturen sowie Folienbeschichtungen aller Art – von der Scheibenfolierung bis zu Schutzfolien für den Lack.' },
+  { id: 'leistungen', question: 'Welche Autoglas-Leistungen bietet das CarCare Center?', answer: 'Neuverglasung für PKW, LKW und Bus, Steinschlagreparaturen sowie Folienbeschichtungen aller Art – von der Scheibenfolierung bis zu Schutzfolien für den Lack.' },
   { id: 'ersatz', question: 'Bekomme ich während der Arbeiten ein Ersatzfahrzeug?', answer: 'Ja. Während der Arbeiten stellen wir Ihnen ein Werkstatt-Ersatzfahrzeug gratis zur Verfügung.' },
   { id: 'steinschlag', question: 'Kann ein Steinschlag repariert werden oder muss die Scheibe getauscht werden?', answer: 'Je nach Größe und Lage lässt sich ein Steinschlag reparieren, bevor sich Risse ausbreiten. Ist das nicht möglich, tauschen wir die Scheibe fachgerecht aus.' },
 ];
 
 const AutoglasPage: React.FC = () => (
   <>
-    <PageMeta canonical="/autoglas-leipzig" title="Autoglas & Scheibenfolien Leipzig | WINTEC-Partner | CarCare" description="Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Scheibenfolierung. Als WINTEC-Partner ISO-9001-TÜV-zertifiziert mit 30 Jahren Garantie und gratis Ersatzfahrzeug." />
+    <PageMeta canonical="/autoglas-leipzig" title="Autoglas Leipzig | WINTEC-Partner | CarCare Center" description="Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Scheibenfolierung. Als WINTEC-Partner ISO-9001-TÜV-zertifiziert mit 30 Jahren Garantie und gratis Ersatzfahrzeug." />
     <PageHero
       eyebrow="Autoglas & Scheibenfolien Leipzig"
       title="Autoglas und Scheibenfolien in Leipzig."
@@ -40,7 +40,7 @@ const AutoglasPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="WINTEC-Partner, ISO-9001-zertifiziert, 30 Jahre Garantie." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="WINTEC-Partner, ISO-9001-zertifiziert, 30 Jahre Garantie." />
         <FeatureGrid items={usp} />
       </div>
     </section>
@@ -50,7 +50,7 @@ const AutoglasPage: React.FC = () => (
         <PageFAQ faqs={faqs} />
       </div>
     </section>
-    <PageCTA title="Steinschlag oder Scheibenschaden in Leipzig?" description="Melden Sie sich bei CarCare – wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen ein Ersatzfahrzeug bereit." primaryLabel="Autoglas anfragen" primaryHref="/kontakt#contact-termin" />
+    <PageCTA title="Steinschlag oder Scheibenschaden in Leipzig?" description="Melden Sie sich bei uns – wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen ein Ersatzfahrzeug bereit." primaryLabel="Autoglas anfragen" primaryHref="/kontakt#contact-termin" />
   </>
 );
 

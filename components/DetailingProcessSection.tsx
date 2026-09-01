@@ -26,7 +26,7 @@ const steps: ProcessStepCard[] = [
     title: 'Leistung auswählen',
     description: 'Passendes Paket oder individuelle Aufbereitung wählen.',
     image: kachel('fahrzeugaufbereitung-leipzig-carcare'),
-    imageAlt: 'Fahrzeugaufbereitung bei CarCare Leipzig: Ein Fahrzeug wird fachgerecht gepflegt.',
+    imageAlt: 'Fahrzeugaufbereitung im CarCare Center Leipzig: Ein Fahrzeug wird fachgerecht gepflegt.',
   },
   {
     n: '02',
@@ -34,7 +34,7 @@ const steps: ProcessStepCard[] = [
     description: 'Wunschtermin online oder telefonisch übermitteln.',
     image: kachel('privatkunden-leipzig-carcare'),
     imageAlt:
-      'Kunde bespricht am Empfangstresen von CarCare Leipzig den Wunschtermin für die Fahrzeugaufbereitung.',
+      'Kunde bespricht am Empfangstresen des CarCare Center Leipzig den Wunschtermin für die Fahrzeugaufbereitung.',
     cta: { label: 'Termin anfragen', href: '#contact-termin' },
   },
   {
@@ -42,21 +42,21 @@ const steps: ProcessStepCard[] = [
     title: 'Fahrzeug abgeben',
     description: 'Persönliche Übergabe mit kurzer Beratung vor Ort.',
     image: kachel('ersatzwagen-leipzig-carcare'),
-    imageAlt: 'Fahrzeugschlüssel wird vor der Werkstatt von CarCare Leipzig persönlich übergeben.',
+    imageAlt: 'Fahrzeugschlüssel wird vor der Werkstatt des CarCare Center Leipzig persönlich übergeben.',
   },
   {
     n: '04',
     title: 'Professionelle Aufbereitung',
-    description: 'Innen, außen, Lack und Details nach CarCare-Standard.',
+    description: 'Innen, außen, Lack und Details nach unserem Standard.',
     image: kachel('autolackierung-leipzig-carcare'),
-    imageAlt: 'Lack- und Oberflächenbearbeitung in der CarCare-Werkstatt in Leipzig.',
+    imageAlt: 'Lack- und Oberflächenbearbeitung in unserer Werkstatt in Leipzig.',
   },
   {
     n: '05',
     title: 'Gepflegt zurückerhalten',
     description: 'Sichtbar aufgewertet und bereit für Alltag oder Rückgabe.',
     image: kachel('leasingrueckgabe-leipzig-carcare'),
-    imageAlt: 'Gepflegtes Fahrzeug nach der Aufbereitung bei CarCare Leipzig.',
+    imageAlt: 'Gepflegtes Fahrzeug nach der Aufbereitung im CarCare Center Leipzig.',
   },
 ];
 

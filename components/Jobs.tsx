@@ -60,7 +60,7 @@ const Jobs: React.FC = () => {
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
            >
-             <p className="text-xs font-bold tracking-widest text-blue-600 uppercase mb-4">Karriere bei CarCare</p>
+             <p className="text-xs font-bold tracking-widest text-blue-600 uppercase mb-4">Karriere im CarCare Center</p>
              <h2 className="text-4xl md:text-6xl font-bold leading-[1.1] mb-8 text-gray-900">
                Werde Teil <br/> des Teams.
              </h2>

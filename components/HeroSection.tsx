@@ -136,7 +136,7 @@ const HeroSection: React.FC = () => {
             id="home-heading"
             className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? CarCare kümmert sich.
+            Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? Wir kümmern uns.
           </h1>
 
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:text-xl">
@@ -181,7 +181,7 @@ const HeroSection: React.FC = () => {
           className="mt-8 border-t border-white/15 pt-6"
         >
           <p className="text-center text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">
-            Dafür steht CarCare Leipzig
+            Dafür steht das CarCare Center Leipzig
           </p>
           {/* Zweite Trennlinie UNTER dem Label — das Label steht damit zwischen zwei Strichen
               (User-Vorgabe 2026-07-22); der obere Strich ist das `border-t` dieses Blocks. */}

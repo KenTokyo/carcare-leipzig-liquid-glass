@@ -10,12 +10,12 @@ const KnowledgeHubPage: React.FC = () => (
     <PageMeta
       canonical="/autoaufbereitung-wissen"
       title="Autoaufbereitung Wissen | Ratgeber zu Fahrzeugpflege & Werterhalt"
-      description="Autoaufbereitung Wissen von CarCare: verständliche Ratgeber zu Fahrzeugpflege, Innenaufbereitung, Lackaufbereitung, Leasingrückgabe und Smart Repair."
+      description="Autoaufbereitung Wissen vom CarCare Center: verständliche Ratgeber zu Fahrzeugpflege, Innenaufbereitung, Lackaufbereitung, Leasingrückgabe und Smart Repair."
     />
     <PageHero
       eyebrow="Autoaufbereitung Wissen"
       title="Autoaufbereitung, Fahrzeugpflege und Werterhalt verständlich erklärt."
-      description="Der Wissensbereich von CarCare erklärt fachlich und praxisnah, wann professionelle Fahrzeugaufbereitung sinnvoll ist, wie typische Arbeiten ablaufen und wo Smart Repair oder Leasingrückgabe-Vorbereitung helfen können."
+      description="In unserem Wissensbereich erklären wir fachlich und praxisnah, wann professionelle Fahrzeugaufbereitung sinnvoll ist, wie typische Arbeiten ablaufen und wo Smart Repair oder Leasingrückgabe-Vorbereitung helfen können."
       primaryCta={{ label: 'Artikel ansehen', href: '#artikel' }}
       secondaryCta={{ label: 'Fahrzeugaufbereitung Leipzig', href: '/fahrzeugaufbereitung-leipzig' }}
       keywords={['Autoaufbereitung', 'Fahrzeugpflege', 'Werterhalt', 'Leasingrückgabe', 'Smart Repair']}
@@ -62,7 +62,7 @@ const KnowledgeHubPage: React.FC = () => (
           <article className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
             <h2 className="text-xl font-bold leading-tight text-gray-950">Termin oder Einschätzung anfragen</h2>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
-              Für Innenraum, Lack, Leasingrückgabe oder kleine Schäden können Sie CarCare direkt mit Fahrzeugdaten kontaktieren.
+              Für Innenraum, Lack, Leasingrückgabe oder kleine Schäden können Sie uns direkt mit Fahrzeugdaten kontaktieren.
             </p>
             <a href="/kontakt#contact-termin" className="mt-5 inline-flex font-bold text-blue-700 hover:text-blue-800">
               Kontaktformular öffnen

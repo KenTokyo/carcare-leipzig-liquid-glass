@@ -23,7 +23,7 @@ const usp = [
 
 const HagelschadenreparaturPage: React.FC = () => (
   <>
-    <PageMeta canonical="/hagelschadenreparatur-leipzig" title="Hagelschadenreparatur Leipzig | Audatex, Versicherung | CarCare" description="Hagelschadenreparatur in Leipzig: Wir versetzen Ihr Fahrzeug in den Originalzustand – Kalkulation mit Audatex, komplette Abwicklung mit Versicherung und Gutachter, keine Anzahlung." />
+    <PageMeta canonical="/hagelschadenreparatur-leipzig" title="Hagelschadenreparatur Leipzig | Audatex | CarCare Center" description="Hagelschadenreparatur in Leipzig: Wir versetzen Ihr Fahrzeug in den Originalzustand – Kalkulation mit Audatex, komplette Abwicklung mit Versicherung und Gutachter, keine Anzahlung." />
     <PageHero
       eyebrow="Hagelschadenreparatur Leipzig"
       title="Hagelschadenreparatur in Leipzig."
@@ -40,7 +40,7 @@ const HagelschadenreparaturPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Meisterbetrieb mit kompletter Versicherungsabwicklung." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Meisterbetrieb mit kompletter Versicherungsabwicklung." />
         <FeatureGrid items={usp} />
       </div>
     </section>

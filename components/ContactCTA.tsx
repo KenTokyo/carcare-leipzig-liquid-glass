@@ -19,7 +19,7 @@ const ContactCTA: React.FC = () => {
                 Schnell zur richtigen Anfrage.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg">
-                Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenkontakt starten. CarCare Leipzig meldet sich persönlich zurück.
+                Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenkontakt starten. Wir melden uns persönlich zurück.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a href="/kontakt#contact-schaden" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">

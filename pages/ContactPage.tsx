@@ -13,8 +13,8 @@ const ContactPage: React.FC = () => (
     <PageMeta canonical="/kontakt" title="Kontakt | CarCare Center Leipzig" description="Kontakt zu CarCare Center Leipzig: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden." />
     <PageHero
       eyebrow="Kontakt"
-      title="Kontakt zu CarCare Leipzig"
-      description="Wählen Sie die passende Anfrageart: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. CarCare meldet sich persönlich zurück."
+      title="Kontakt zum CarCare Center Leipzig"
+      description="Wählen Sie die passende Anfrageart: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. Wir melden uns persönlich zurück."
       primaryCta={{ label: 'Schaden melden', href: '#contact-schaden' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Schaden melden Leipzig', 'Aufbereitungstermin Leipzig', 'Geschäftskundenanfrage']}

@@ -25,7 +25,7 @@ const steps: ProcessStepCard[] = [
       'Melden Sie Ihren Unfallschaden online über unser Formular – mit Fahrzeugdaten, Schadenart, Fotos und Angaben zur Versicherung. Telefonisch geht es genauso.',
     image: kachel('schaden-melden-leipzig-carcare'),
     imageAlt:
-      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über das Online-Schadenformular von CarCare Leipzig – im Hintergrund das beschädigte Fahrzeug.',
+      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über das Online-Schadenformular des CarCare Center Leipzig – im Hintergrund das beschädigte Fahrzeug.',
     cta: { label: 'Schaden melden', href: '/kontakt#contact-schaden' },
   },
   {
@@ -35,7 +35,7 @@ const steps: ProcessStepCard[] = [
       'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
     image: kachel('schadenaufnahme-leipzig-carcare'),
     imageAlt:
-      'CarCare-Mitarbeiter nimmt gemeinsam mit einer Kundin den Unfallschaden an einem gelben Sportwagen auf und dokumentiert ihn per Tablet.',
+      'Unser Mitarbeiter nimmt gemeinsam mit einer Kundin den Unfallschaden an einem gelben Sportwagen auf und dokumentiert ihn per Tablet.',
   },
   {
     n: '03',
@@ -44,7 +44,7 @@ const steps: ProcessStepCard[] = [
       'Auf Wunsch stimmen wir uns mit einem Gutachter ab und erstellen eine nachvollziehbare Kostenkalkulation für die Reparatur.',
     image: kachel('kalkulation-leipzig-carcare'),
     imageAlt:
-      'Kundin unterschreibt am Empfangstresen den Kostenvoranschlag, während der CarCare-Berater die Kalkulation auf dem Tablet erläutert.',
+      'Kundin unterschreibt am Empfangstresen den Kostenvoranschlag, während unser Berater die Kalkulation auf dem Tablet erläutert.',
   },
   {
     n: '04',
@@ -53,7 +53,7 @@ const steps: ProcessStepCard[] = [
       'Wir übernehmen die Kommunikation mit Ihrer Versicherung und kümmern uns um den Schriftverkehr rund um den Schadenfall.',
     image: kachel('versicherungsabwicklung-leipzig-carcare'),
     imageAlt:
-      'CarCare-Mitarbeiterin klärt am Telefon mit Tablet und Unterlagen die Versicherungsabwicklung eines Schadenfalls.',
+      'Unsere Mitarbeiterin klärt am Telefon mit Tablet und Unterlagen die Versicherungsabwicklung eines Schadenfalls.',
   },
   {
     n: '05',
@@ -62,7 +62,7 @@ const steps: ProcessStepCard[] = [
       'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen für die Dauer der Reparatur.',
     image: kachel('ersatzwagen-leipzig-carcare'),
     imageAlt:
-      'CarCare-Mitarbeiter übergibt einer Kundin vor der Werkstatt den Schlüssel für einen Ersatzwagen.',
+      'Unser Mitarbeiter übergibt einer Kundin vor der Werkstatt den Schlüssel für einen Ersatzwagen.',
   },
 ];
 

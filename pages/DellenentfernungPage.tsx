@@ -24,7 +24,7 @@ const usp = [
 
 const DellenentfernungPage: React.FC = () => (
   <>
-    <PageMeta canonical="/dellenentfernung-leipzig" title="Dellenentfernung Leipzig | ohne lackieren (PDR) | CarCare" description="Dellenentfernung ohne Lackieren in Leipzig: lackierfreie Methode bei Parkplatzdellen und Hagelschäden – keine Wertminderung, keine Farbunterschiede, von Versicherungen anerkannt." />
+    <PageMeta canonical="/dellenentfernung-leipzig" title="Dellenentfernung Leipzig | ohne Lackieren | CarCare Center" description="Dellenentfernung ohne Lackieren in Leipzig: lackierfreie Methode bei Parkplatzdellen und Hagelschäden – keine Wertminderung, keine Farbunterschiede, von Versicherungen anerkannt." />
     <PageHero
       eyebrow="Dellenentfernung Leipzig"
       title="Dellenentfernung (ohne lackieren) in Leipzig."
@@ -41,7 +41,7 @@ const DellenentfernungPage: React.FC = () => (
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Leipzig" title="Erfahrener Meisterbetrieb – Full-Service in Leipzig." />
+        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Erfahrener Meisterbetrieb – Full-Service in Leipzig." />
         <FeatureGrid items={usp} />
       </div>
     </section>
