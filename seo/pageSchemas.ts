@@ -65,6 +65,15 @@ export const pageSchemas: Record<string, unknown[]> = {
     serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche, Lackreinigung, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
   ],
+  '/innenaufbereitung-leipzig': [
+    breadcrumbSchema([
+      { name: 'Startseite', path: '/' },
+      { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
+      { name: 'Innenaufbereitung Leipzig', path: '/innenaufbereitung-leipzig' },
+    ]),
+    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Scheibenreinigung und Geruchsentfernung — Intensiv Innenreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
+    faqSchema(faqsByRoute['/innenaufbereitung-leipzig']),
+  ],
   '/leasingrueckgabe-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Leasingrückgabe Leipzig', path: '/leasingrueckgabe-leipzig' }]),
     serviceSchema('Leasingrückgabe-Vorbereitung Leipzig', 'Begutachtung vor der Leasingrückgabe sowie Instandsetzung von Dellen, Lackschäden, Felgen und Glas mit anschließender Fahrzeugaufbereitung — für Privatkunden und Fuhrparks in Leipzig.', '/leasingrueckgabe-leipzig'),

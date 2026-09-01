@@ -16,6 +16,7 @@ const staticRoutes = [
   { path: '/fahrzeugaufbereitung-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/leasingrueckgabe-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/aussenaufbereitung-leipzig', changefreq: 'monthly', priority: '0.9' },
+  { path: '/innenaufbereitung-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/smart-repair-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/autolackierung-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/dellenentfernung-leipzig', changefreq: 'monthly', priority: '0.9' },

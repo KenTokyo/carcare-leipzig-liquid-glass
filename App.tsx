@@ -9,6 +9,7 @@ import ServicesPage from './pages/ServicesPage';
 import AccidentRepairPage from './pages/AccidentRepairPage';
 import VehicleDetailingPage from './pages/VehicleDetailingPage';
 import AussenaufbereitungPage from './pages/AussenaufbereitungPage';
+import InnenaufbereitungPage from './pages/InnenaufbereitungPage';
 import LeasingrueckgabePage from './pages/LeasingrueckgabePage';
 import SmartRepairPage from './pages/SmartRepairPage';
 import AutolackierungPage from './pages/AutolackierungPage';
@@ -90,6 +91,8 @@ const App: React.FC = () => {
         return <VehicleDetailingPage />;
       case '/aussenaufbereitung-leipzig':
         return <AussenaufbereitungPage />;
+      case '/innenaufbereitung-leipzig':
+        return <InnenaufbereitungPage />;
       case '/leasingrueckgabe-leipzig':
         return <LeasingrueckgabePage />;
       case '/smart-repair-leipzig':

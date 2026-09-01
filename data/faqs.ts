@@ -182,6 +182,15 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'versiegelung', question: 'Wie lange hält eine Lackversiegelung?', answer: 'Das hängt von Nutzung, Pflege und Stellplatz ab. Die Versiegelung schützt den vorbereiteten Lack und erleichtert die Reinigung. Wir sagen Ihnen bei der Begutachtung, welcher Schutz für Ihr Fahrzeug sinnvoll ist.' },
     { id: 'wachs', question: 'Was hat es mit den SWIZÖL-Wachsen auf sich?', answer: 'Auf Wunsch arbeiten wir mit Wachsen von SWIZÖL mit einem Carnaubaanteil von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad. Diese Handarbeit ist Teil der Premiumpflege „exklusiv" ab 348,00 €.' },
   ],
+
+  // Innenaufbereitung (Backlog 1.9)
+  '/innenaufbereitung-leipzig': [
+    { id: 'umfang', question: 'Was gehört zur Innenaufbereitung?', answer: 'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit und Oberflächen, Polstershampoonierung oder materialgerechte Lederpflege, Scheibenreinigung innen und außen sowie auf Wunsch Geruchsentfernung. Als Intensiv Innenreinigung kostet dieser Umfang 199,00 € inklusive gesetzlicher Mehrwertsteuer.' },
+    { id: 'leder', question: 'Wird Leder anders behandelt als Stoffpolster?', answer: 'Ja. Stoffpolster werden shampooniert, Leder bekommt stattdessen eine materialgerechte Pflege. Welches Verfahren zum Einsatz kommt, richtet sich nach der Ausstattung Ihres Fahrzeugs.' },
+    { id: 'geruch', question: 'Lassen sich Gerüche dauerhaft entfernen?', answer: 'Oft ja, wenn die Ursache mitbehandelt wird. Zur Innenaufbereitung kommen bei Bedarf Ozonbehandlung für 45,00 € oder Heißvernebelung mit dem KC-Refresher für 59,00 € dazu. Sitzt die Ursache in durchfeuchtetem Material, klären wir das vorab bei der Begutachtung.' },
+    { id: 'motorreinigung', question: 'Ist die Motorreinigung enthalten?', answer: 'Nicht in der Intensiv Innenreinigung. Sie ist Teil der Premiumpflege für 299,00 €, die Innen- und Außenaufbereitung kombiniert.' },
+    { id: 'tierhaare', question: 'Was ist bei starker Verschmutzung oder Tierhaaren?', answer: 'Fahrzeuge mit extremen Verschmutzungen, etwa Tierhaaren, bedürfen einer gesonderten Absprache. Der Aufwand liegt dort über dem Paketumfang — wir schätzen ihn vorab ein und stimmen ihn mit Ihnen ab.' },
+  ],
 };
 
 /** Routen mit sichtbarem FAQ-Block. Basis fuer Schema-Ableitung und Build-Pruefung. */

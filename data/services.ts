@@ -137,6 +137,20 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     backgroundImage: kachel('autoglas-scheibenreparatur-leipzig-carcare'),
   },
   {
+    id: 'innenaufbereitung',
+    group: 'aufbereitung',
+    title: 'Innenaufbereitung',
+    localTitle: 'Innenaufbereitung Leipzig',
+    description: 'Cockpit, Polster oder Leder, Scheiben und Geruchsentfernung.',
+    listDescription: 'Intensive Reinigung des gesamten Innenraumes, Polstershampoonierung oder Lederpflege, Scheibenreinigung und auf Wunsch Geruchsentfernung.',
+    iconName: 'Sparkles',
+    href: '/innenaufbereitung-leipzig',
+    cta: 'Innenaufbereitung ansehen',
+    backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
+    // Nur auf `/leistungen`, siehe Hinweis beim Eintrag `aussenaufbereitung`.
+    inOverviewGrid: false,
+  },
+  {
     id: 'aussenaufbereitung',
     group: 'aufbereitung',
     title: 'Außenaufbereitung',
