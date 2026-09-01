@@ -67,7 +67,7 @@ export const baseOrganizationSchemas = [organization, localBusiness, autoRepair]
  * Unternehmensseite auszeichnen.
  *
  * Nur Angaben, die auf `/ueber-uns` auch sichtbar stehen (SEO-GEO-STANDARDS.md §5):
- * Gruendungsjahr 1993, ueber 50 Mitarbeiter, Meisterbetrieb, Glasurit-Lackpartner.
+ * Gruendungsjahr 1998, ueber 50 Mitarbeiter, Meisterbetrieb, Glasurit-Lackpartner.
  * `foundingDate` und `numberOfEmployees` sind die Angaben, die KI-Antwortsysteme bei
  * „wie gross/alt ist der Betrieb" am ehesten uebernehmen.
  */
@@ -87,7 +87,7 @@ export const aboutPageSchema = (path: string, description: string) => ({
     address: localBusiness.address,
     geo: localBusiness.geo,
     areaServed: localBusiness.areaServed,
-    foundingDate: '1993',
+    foundingDate: '1998',
     numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 50 },
     knowsAbout: [
       'Karosserieinstandsetzung',

@@ -104,7 +104,7 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'innenaufbereitung',
     image: '/assets/kacheln/innenaufbereitung-leipzig-carcare.webp',
-    imageAlt: 'Gereinigter Fahrzeuginnenraum mit Cockpit und Polstern nach der Innenaufbereitung bei CarCare Leipzig',
+    imageAlt: 'Gereinigter Fahrzeuginnenraum mit Cockpit und Polstern nach der Innenaufbereitung im CarCare Center Leipzig',
     imageWidth: 2400,
     imageHeight: 1340,
     title: 'Innenaufbereitung',
@@ -123,7 +123,7 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'aussenaufbereitung',
     image: '/assets/kacheln/smart-repair-leipzig-carcare.webp',
-    imageAlt: 'Fahrzeugaußenseite mit aufbereitetem Lack nach der Außenaufbereitung bei CarCare Leipzig',
+    imageAlt: 'Fahrzeugaußenseite mit aufbereitetem Lack nach der Außenaufbereitung im CarCare Center Leipzig',
     imageWidth: 1400,
     imageHeight: 1045,
     title: 'Außenaufbereitung',
@@ -142,7 +142,7 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'lackaufbereitung',
     image: '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp',
-    imageAlt: 'Polierte und versiegelte Lackoberfläche nach der Lackaufbereitung bei CarCare Leipzig',
+    imageAlt: 'Polierte und versiegelte Lackoberfläche nach der Lackaufbereitung im CarCare Center Leipzig',
     imageWidth: 1400,
     imageHeight: 1045,
     title: 'Lackaufbereitung',
