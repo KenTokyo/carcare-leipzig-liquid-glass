@@ -18,6 +18,14 @@
       "destination": "/index.html"
     },
     {
+      "source": "/aussenaufbereitung-leipzig",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/innenaufbereitung-leipzig",
+      "destination": "/index.html"
+    },
+    {
       "source": "/smart-repair-leipzig",
       "destination": "/index.html"
     },

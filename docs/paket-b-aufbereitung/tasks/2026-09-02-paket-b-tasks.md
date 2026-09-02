@@ -14,8 +14,13 @@ Kacheln zwischenzeitlich ins Leere.
 
 ## 1 — Anatomie einer bestehenden Subseite
 
-Eine Leistungsseite hängt an **sieben** Stellen. Fehlt eine, bricht entweder der
-Build oder die Seite ist unerreichbar. Referenz: `pages/DellenentfernungPage.tsx`
+Eine Leistungsseite hängt an **acht** Stellen. Fehlt eine, bricht entweder der
+Build oder die Seite ist unerreichbar.
+
+> ⚠️ **Nachtrag 2026-09-02, aus Schaden gelernt:** Diese Liste hatte ursprünglich
+> nur sieben Punkte — `vercel.json` fehlte. Folge: `/aussenaufbereitung-leipzig`
+> und `/innenaufbereitung-leipzig` lieferten in der Testumgebung **404**, obwohl
+> lokal alles grün war. Punkt 8 unten ist die Lehre daraus. Referenz: `pages/DellenentfernungPage.tsx`
 (58 Zeilen, die schlankste).
 
 | # | Datei | Was dort steht | Bricht sonst |
@@ -27,6 +32,7 @@ Build oder die Seite ist unerreichbar. Referenz: `pages/DellenentfernungPage.tsx
 | 5 | `seo/pageSchemas.ts` | `breadcrumbSchema` + `serviceSchema` + `faqSchema(faqsByRoute['/route'])` | `check-faq` bricht ab, wenn die Route fehlt |
 | 6 | `data/services.ts` | Katalogeintrag (`group`, `localTitle`, `listDescription`, `href`, Kachelbild) | Leistung fehlt auf Startseite und `/leistungen` |
 | 7 | Navigation / interne Links | `components/Navbar.tsx` (`megaSections.leistungen`, aktuell nur 4 Einträge) und thematisch passende Bestandsseiten | Verwaiste Seite, SEO-GEO §4.4 |
+| **8** | **`vercel.json`** | Rewrite-Regel je Route. **Wird NICHT im Build erzeugt** — Vercel liest die Datei aus dem Repository, bevor der Build startet. Nach jeder Routenänderung `npm run vercel-config` laufen lassen und das Ergebnis mitcommitten. | **404 in der Deployment-Umgebung**, sobald der Prerender aussetzt — und das tut er dort |
 
 **Zwei Wächter prüfen das anschließend automatisch:**
 `check-faq.mjs` (prebuild) — jede Route in `faqsByRoute` wird gerendert, jedes
