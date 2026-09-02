@@ -26,7 +26,25 @@ import { getRoutes } from './routes.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = resolve(root, 'dist');
 const PORT = 4319;
-const STRICT = process.env.PRERENDER_STRICT === '1';
+/**
+ * Harter Abbruch statt Warnung.
+ *
+ * AUF VERCEL IMMER. Die nicht-blockierende Philosophie war als Schutz vor einem
+ * Deploy-Totalausfall gedacht. Tatsaechlich hat sie am 2026-09-02 einen wochenlangen
+ * SEO-Totalausfall unsichtbar gemacht: Chromium startete nicht (fehlende
+ * `libnspr4.so` im Build-Image), der Deploy wurde gruen, und die Seite ging als leere
+ * SPA-Huelle live — kein JSON-LD, kein Text im ausgelieferten HTML. Ein gruener Deploy,
+ * der die Crawlbarkeit still abschaltet, ist schlechter als ein roter, den jemand sieht.
+ *
+ * LOKAL WEITERHIN NUR WARNUNG, damit ein fehlendes Chromium auf einer
+ * Entwicklungsmaschine nicht jeden Build blockiert.
+ *
+ * Unterschieden ueber `VERCEL` (setzt Vercel in jeder Buildumgebung), NICHT ueber
+ * NODE_ENV: das steht auch bei einem lokalen Produktionsbuild auf "production" und
+ * wuerde die beiden Faelle vermischen.
+ */
+const AUF_VERCEL = Boolean(process.env.VERCEL);
+const STRICT = process.env.PRERENDER_STRICT === '1' || AUF_VERCEL;
 
 const routes = getRoutes().map((r) => r.path);
 
@@ -39,10 +57,15 @@ function bail(msg) {
   const bar = '='.repeat(66);
   console.error(
     `\n${bar}\n` +
-      `[prerender] WARNUNG: ${msg}\n` +
-      `[prerender] Deploy läuft weiter mit normaler Client-SPA (ohne Prerender).\n` +
-      `[prerender] Folge: Crawlbarkeit/GEO eingeschränkt, bis behoben.\n` +
-      (STRICT ? '[prerender] PRERENDER_STRICT=1 -> harter Abbruch.\n' : '') +
+      `[prerender] ${STRICT ? 'FEHLER' : 'WARNUNG'}: ${msg}\n` +
+      (STRICT
+        ? AUF_VERCEL
+          ? '[prerender] Buildumgebung Vercel -> BUILD WIRD ABGEBROCHEN.\n' +
+            '[prerender] Ohne Prerender ginge die Seite als leere SPA-Huelle live:\n' +
+            '[prerender] kein JSON-LD, kein Text im ausgelieferten HTML.\n'
+          : '[prerender] PRERENDER_STRICT=1 -> Build wird abgebrochen.\n'
+        : '[prerender] Build läuft weiter mit normaler Client-SPA (ohne Prerender).\n' +
+          '[prerender] Folge: Crawlbarkeit/GEO eingeschränkt, bis behoben.\n') +
       `${bar}\n`
   );
   process.exit(STRICT ? 1 : 0);
