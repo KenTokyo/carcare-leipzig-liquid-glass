@@ -1,26 +1,34 @@
 /**
  * Post-Build-Waechter: steht jeder ausgezeichnete FAQ-Text auch im
- * AUSGELIEFERTEN HTML?
+ * AUSGELIEFERTEN HTML — und ist ueberhaupt jede Route vorgerendert worden?
  *
- * `scripts/check-faq.mjs` prueft vor dem Build die Quellen — dass jede Route mit
- * FAQ-Markup auch einen sichtbaren Block rendert. Das genuegt nicht: eine
- * Komponente kann den Block rendern und den Text trotzdem nicht ausliefern.
- * Genau das war bis 2026-09-01 der Fall — `FAQSection` haengte geschlossene
- * Antworten per `{isOpen && …}` aus dem DOM aus, 14 ausgezeichnete Antworten
- * fehlten im statischen HTML.
+ * `scripts/check-faq.mjs` prueft vor dem Build die Quellen. Das genuegt nicht: eine
+ * Komponente kann den Block rendern und den Text trotzdem nicht ausliefern. Genau das
+ * war bis 2026-09-01 der Fall — `FAQSection` haengte geschlossene Antworten per
+ * `{isOpen && …}` aus dem DOM aus.
  *
- * Google erlaubt FAQ-Inhalte hinter Aufklapp-Elementen, verlangt aber, dass sie
- * im initialen HTML stehen. SEO-GEO §2.1 ebenso: viele KI-Crawler rendern kein
- * oder nur eingeschraenktes JavaScript, und laut CLAUDE.md ist der FAQ-Block
- * ausdruecklich als maschinenlesbare Zusammenfassung fuer genau diese Systeme
- * gedacht.
+ * ⚠️ VOLLSTAENDIGKEITSPRUEFUNG (ergaenzt 2026-09-03, aus Schaden gelernt)
+ * Dieses Skript prueft, was es findet. Findet es nichts, meldete es frueher "ok".
+ * Am 2026-09-02 brach der Prerender auf Vercel ab (Chromium ohne `libnspr4.so`),
+ * es blieb allein `dist/index.html` uebrig — und im Build-Log stand:
+ *
+ *     [check-faq-html] ok: 1 Seiten, 0 FAQPage-Texte, alle im ausgelieferten HTML.
+ *
+ * Ein Totalausfall als Erfolg gemeldet. Deshalb steht der Abgleich gegen
+ * `scripts/routes.mjs` jetzt VOR der Inhaltspruefung: weniger Seiten als erwartet ist
+ * ein Fehler, kein "ok". Dasselbe gilt, wenn kein einziger FAQPage-Block gefunden wird,
+ * obwohl `data/faqs.ts` welche vorsieht.
  *
  * Laeuft in `postbuild` NACH dem Prerender — vorher existiert `dist/` nicht.
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { getRoutes } from './routes.mjs';
 
+const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WURZEL = 'dist';
+
 if (!fs.existsSync(WURZEL)) {
   console.error('[check-faq-html] dist/ fehlt — laeuft dieses Skript vor dem Prerender?');
   process.exit(1);
@@ -34,13 +42,40 @@ const seiten = [];
   }
 })(WURZEL);
 
-const entitaeten = (s) => s
-  .replace(/&quot;/g, '"')
-  .replace(/&#39;/g, "'")
-  .replace(/&#x27;/g, "'")
-  .replace(/&lt;/g, '<')
-  .replace(/&gt;/g, '>')
-  .replace(/&amp;/g, '&');
+// ---------- 1. Vollstaendigkeit: ist jede Route ueberhaupt vorgerendert? ----------
+const erwartet = getRoutes().map((r) => r.path);
+const dateiFuer = (route) =>
+  route === '/' ? path.join(WURZEL, 'index.html') : path.join(WURZEL, route.slice(1), 'index.html');
+const fehlendeSeiten = erwartet.filter((r) => !fs.existsSync(dateiFuer(r)));
+
+if (fehlendeSeiten.length) {
+  console.error(
+    `\n[check-faq-html] BUILD ABGEBROCHEN — ${seiten.length} von ${erwartet.length} Seiten vorgerendert.` +
+      `\n  Es fehlen ${fehlendeSeiten.length} Route(n):\n`
+  );
+  for (const r of fehlendeSeiten.slice(0, 10)) console.error('  - ' + r);
+  if (fehlendeSeiten.length > 10) console.error(`  … und ${fehlendeSeiten.length - 10} weitere`);
+  console.error(
+    '\n  Fast immer heisst das: der Prerender ist ausgestiegen. Die Ursache steht' +
+      '\n  weiter oben im Log, in der Warnung von scripts/prerender.mjs.\n'
+  );
+  process.exit(1);
+}
+
+/** Wie viele Routen laut Quelle einen FAQ-Block fuehren. */
+const faqRoutenAnzahl = [
+  ...fs.readFileSync(path.join(wurzel, 'data/faqs.ts'), 'utf8').matchAll(/^ {2}'(\/[^']*)':/gm),
+].length;
+
+// ---------- 2. Inhalt: steht jeder ausgezeichnete Text auch im HTML? ----------
+const entitaeten = (s) =>
+  s
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
 
 /** Sichtbarer Text: Skripte raus, Tags raus, Entitaeten aufloesen, Whitespace normalisieren. */
 const sichtbarerText = (html) =>
@@ -83,10 +118,22 @@ if (fehler.length) {
   console.error('\n[check-faq-html] BUILD ABGEBROCHEN — FAQPage zeichnet Text aus, der nicht ausgeliefert wird:\n');
   for (const f of fehler) console.error('  - ' + f);
   console.error(
-    '\n  Ursache ist fast immer bedingtes Rendern (z. B. `{isOpen && …}`).\n' +
-    '  Inhalt hinter Aufklapp-Elementen muss im DOM bleiben; animiert wird die Hoehe.\n'
+    '\n  Ursache ist fast immer bedingtes Rendern (z. B. `{isOpen && …}`).' +
+      '\n  Inhalt hinter Aufklapp-Elementen muss im DOM bleiben; animiert wird die Hoehe.\n'
   );
   process.exit(1);
 }
 
-console.log(`[check-faq-html] ok: ${seiten.length} Seiten, ${geprueft} FAQPage-Texte, alle im ausgelieferten HTML.`);
+// ---------- 3. Gar kein FAQPage, obwohl die Quelle welche vorsieht ----------
+if (geprueft === 0 && faqRoutenAnzahl > 0) {
+  console.error(
+    `\n[check-faq-html] BUILD ABGEBROCHEN — kein einziger FAQPage-Block im gebauten HTML,` +
+      `\n  obwohl data/faqs.ts ${faqRoutenAnzahl} Routen mit FAQ-Block fuehrt.` +
+      '\n  Das Markup entsteht dann erst im Browser und fehlt im ausgelieferten HTML vollstaendig.\n'
+  );
+  process.exit(1);
+}
+
+console.log(
+  `[check-faq-html] ok: ${seiten.length}/${erwartet.length} Seiten, ${geprueft} FAQPage-Texte, alle im ausgelieferten HTML.`
+);
