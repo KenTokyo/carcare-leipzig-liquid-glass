@@ -65,7 +65,7 @@ Bestand bereits vor Paket A — Messung vor und nach der Änderung: identisch 7 
 
 ---
 
-### ⬜ 2. 🔴 Kritisch — `npm run typecheck` prüft keine einzige JSX-Property
+### ✅ 2. 🔴 Kritisch — `npm run typecheck` prüft keine einzige JSX-Property
 > **Reihenfolge (User, 2026-09-02): direkt nach Paket B.** Je mehr Komponenten
 > in Paket B entstehen, desto mehr ungeprüfte Props sammeln sich an — der
 > Aufwand wächst mit jedem Tag, an dem der Punkt liegen bleibt.
@@ -93,12 +93,37 @@ den bisherigen Phasenprotokollen: für Komponenten-Code war sie ohne Substanz.
 Build, Prerender und die HTML-Prüfungen bleiben davon unberührt — die haben
 echt geprüft.
 
-* [ ] `@types/react` und `@types/react-dom` passend zu React 19 installieren
-* [ ] `tsc --noEmit` laufen lassen und die aufschlagenden Fehler sichten —
-      die Menge ist vorher nicht abschätzbar
-* [ ] Fehler beheben oder, wo unvermeidbar, bewusst und kommentiert unterdrücken
-* [ ] Erst danach ist „Typecheck grün" wieder eine belastbare Aussage
-* [ ] Prüfen, ob `strict` sinnvoll aktivierbar ist (aktuell nicht gesetzt)
+* [x] `@types/react` 19.2.18 und `@types/react-dom` 19.2.5 installiert
+* [x] `tsc --noEmit` gelaufen — **null Fehler**
+* [x] Nichts zu beheben, nichts zu unterdrücken
+* [x] „Typecheck grün" ist wieder eine belastbare Aussage
+* [x] `strict: true` aktiviert — ebenfalls null Fehler
+
+### Warum der Punkt kostenlos ausging
+
+Erwartet war eine unbekannte Menge Fehler, möglicherweise über mehrere
+Durchläufe. Tatsächlich lief der Bestand ohne einen einzigen Fehler durch —
+auch unter `strict`. Der Grund ist nachvollziehbar und sollte festgehalten sein,
+weil er erklärt, warum `strict` jetzt trägt:
+
+**Der Code ist durchgehend mit expliziten Typen geschrieben** — `React.FC<{…}>`
+mit ausformulierten Props, `interface`-Definitionen in `types.ts`, typisierte
+Datenmodule. Diese Disziplin entstand, *weil* nie eine Prüfung lief: Wo kein
+Compiler widerspricht, hilft nur, alles auszuschreiben. Die fehlende Kontrolle
+hat also nicht zu Nachlässigkeit geführt, sondern zu Gründlichkeit.
+
+**Das ist kein Freibrief.** Die Prüfung fehlte trotzdem: `<PageFAQ />` ohne
+Pflicht-Property und `<PageFAQ faqs={[]} />` mit unbekannter Property blieben
+beide stumm — nachgewiesen an echtem Code, der nach dem Rebase im Baum stand.
+Was fehlte, war die Absicherung gegen den nächsten Fehler, nicht die Reparatur
+des letzten.
+
+**Verifiziert statt geglaubt:** Ein stilles Null sieht genauso aus wie der
+Zustand vorher. Deshalb gegengeprüft — `@types/react/index.d.ts` im Programm,
+61 Projektdateien geprüft, `index.tsx` inklusive, und eine Wegwerf-Datei mit
+implizitem `any` erzeugt unter `strict` TS7006, ohne `strict` nichts.
+
+Commits: `72e4173` (Typen), `8cefe17` (strict).
 
 ---
 
