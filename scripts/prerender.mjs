@@ -105,13 +105,48 @@ async function run() {
   const base = `http://localhost:${PORT}`;
   const closeServer = () => new Promise((res) => server.httpServer.close(res));
 
+  /**
+   * ZWEI CHROMIUM-WEGE, bewusst getrennt.
+   *
+   * AUF VERCEL: `@sparticuz/chromium` statt des von puppeteer gebuendelten Browsers.
+   * Grund steht im Build-Log vom 2026-09-02: Das gebuendelte Chromium liegt zwar
+   * korrekt im Cache, startet aber nicht —
+   *   "error while loading shared libraries: libnspr4.so: cannot open shared object file"
+   * Dem Vercel-Build-Image fehlen die NSS/NSPR-Bibliotheken. Sie waren bis Node 14 im
+   * Image enthalten und sind ab Node 18 entfernt, betreffen also alle heute
+   * unterstuetzten Versionen. `@sparticuz/chromium` bringt einen Build mit, der ohne
+   * diese Systembibliotheken auskommt.
+   *
+   * LOKAL UNVERAENDERT: Das Paket liefert ausschliesslich Linux-Binaries und ist auf
+   * einer Windows- oder macOS-Maschine nutzlos. Dort bleibt es beim gebuendelten
+   * Chromium bzw. an PUPPETEER_EXECUTABLE_PATH.
+   *
+   * ⚠️ VERSIONSPAARUNG IST EXAKT, NICHT UNGEFAEHR:
+   *   @sparticuz/chromium 149.0.0  ->  Chromium 149
+   *   puppeteer-core      25.1.0   ->  Chromium 149.0.7827.22
+   * Das lokal genutzte `puppeteer` 25.3.0 faehrt dagegen Chromium 150 — deshalb ist
+   * `puppeteer-core` in package.json OHNE Caret festgenagelt. Ein Minor-Sprung auf
+   * 25.2 wuerde auf Chromium 150 zeigen und nicht mehr zum Sparticuz-Build passen.
+   * Beim Anheben also BEIDE Pakete gemeinsam bewegen.
+   */
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
+    if (AUF_VERCEL) {
+      const { default: chromium } = await import('@sparticuz/chromium');
+      const { default: puppeteerCore } = await import('puppeteer-core');
+      browser = await puppeteerCore.launch({
+        headless: true,
+        executablePath: await chromium.executablePath(),
+        args: chromium.args,
+      });
+      console.log('[prerender] Chromium-Quelle: @sparticuz/chromium (Vercel-Build).');
+    } else {
+      browser = await puppeteer.launch({
+        headless: true,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+    }
   } catch (err) {
     await closeServer();
     bail(`Headless-Chromium konnte nicht starten: ${err.message}`);
