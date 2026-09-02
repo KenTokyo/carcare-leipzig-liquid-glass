@@ -16,7 +16,8 @@
     "images": "node scripts/convert-images.mjs",
     "preloader-assets": "node scripts/build-preloader-assets.mjs",
     "eu-emblem": "node scripts/build-eu-emblem.mjs",
-    "verify-preloader": "node scripts/verify-preloader.mjs"
+    "verify-preloader": "node scripts/verify-preloader.mjs",
+    "smoke": "node scripts/check-deployment.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.29.2",
