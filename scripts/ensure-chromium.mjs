@@ -27,6 +27,26 @@ import { dirname, resolve } from 'node:path';
 const bar = '='.repeat(66);
 const require = createRequire(import.meta.url);
 
+/**
+ * AUF VERCEL NICHT NOETIG — seit 2026-09-03.
+ *
+ * Dort rendert `scripts/prerender.mjs` mit `@sparticuz/chromium`, weil das von
+ * puppeteer gebuendelte Chromium im Vercel-Image nicht startet (fehlende
+ * `libnspr4.so`). Der Download hier lief trotzdem weiter und zog bei JEDEM Build
+ * rund 8 Sekunden und ~150 MB Cache-Volumen fuer einen Browser, den niemand
+ * benutzt — nachweisbar im Build-Log vom 2026-09-02, Zeile 26.
+ *
+ * Lokal bleibt alles wie gehabt: Dort ist das gebuendelte Chromium der Weg, weil
+ * `@sparticuz/chromium` ausschliesslich Linux-Binaries liefert.
+ *
+ * Unterschieden ueber `VERCEL` wie in prerender.mjs — nicht ueber NODE_ENV, das
+ * auch bei lokalen Produktionsbuilds auf "production" steht.
+ */
+if (process.env.VERCEL) {
+  console.log('[ensure-chromium] Uebersprungen: auf Vercel rendert der Prerender mit @sparticuz/chromium.');
+  process.exit(0);
+}
+
 function warn(msg) {
   console.error(
     `\n${bar}\n` +
