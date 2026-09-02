@@ -41,7 +41,19 @@ const faqRouten = new Set([
     .matchAll(/path:\s*'(\/autoaufbereitung-wissen\/[^']+)'/g)].map((m) => m[1]),
 ]);
 
-const MARKER = 'Meisterbetrieb';
+/**
+ * Marker, der auf JEDER Seite im ausgelieferten Text stehen muss — er belegt, dass
+ * ueberhaupt gerenderter Inhalt und nicht nur die SPA-Huelle ausgeliefert wird.
+ *
+ * Beim ersten Lauf stand hier "Meisterbetrieb". Das war falsch gewaehlt: Der Begriff
+ * steht nicht auf Autoglas, Kontakt, Karriere und den Wissens-Artikeln. Der Test
+ * meldete dort Fehler, obwohl die Seiten in Ordnung waren.
+ *
+ * "BS CarCare GmbH" steht ueber den Footer auf jeder Seite und ist als juristische
+ * Firmierung zugleich der stabilste Textbaustein im Projekt — er faellt auch bei
+ * kuenftigen Textueberarbeitungen nicht weg (CLAUDE.md, Textregel 1).
+ */
+const MARKER = 'BS CarCare GmbH';
 
 const sichtbarerText = (html) =>
   html
