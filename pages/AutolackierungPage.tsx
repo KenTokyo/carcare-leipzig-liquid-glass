@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import ServiceLayout from '../components/ServiceLayout';
 
 const scope = [
   { title: 'Spot-Repair', description: 'Die möglichst perfekte Lackinstandsetzung mit geringem Aufwand – unsere bevorzugte Reparaturmethode.' },
@@ -10,7 +10,6 @@ const scope = [
   { title: 'Farbtongenaue Angleichung', description: 'Ziel ist, dass weder Farbton noch Effektunterschiede zur Originallackierung erkennbar sind.' },
 ];
 
-
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue, makellose Reparaturen mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
   { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks, am Markt seit 1998.' },
@@ -18,36 +17,42 @@ const usp = [
 ];
 
 const AutolackierungPage: React.FC = () => (
-  <>
-    <PageMeta canonical="/autolackierung-leipzig" title="Neu- & Reparaturlackierung Leipzig | CarCare Center" description="Neu- und Reparaturlackierung in Leipzig: Unser Ziel ist die unsichtbare Reparatur – weder Farbton noch Effektunterschiede zur Originallackierung. Spot-Repair bevorzugt." />
-    <PageHero
-      eyebrow="Neu- und Reparaturlackierung Leipzig"
-      title="Neu- und Reparaturlackierung in Leipzig."
-      description="Zu einer fachgerechten Lackierung gehört, dass weder Farbton noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind. Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges."
-      primaryCta={{ label: 'Lackierung anfragen', href: '/kontakt#contact-termin' }}
-      secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
-      keywords={['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig']}
-    />
-    <section className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Leistungsumfang" title="Von Spot-Repair bis zur Komplettlackierung." description="Spot-Repair, die möglichst perfekte Lackinstandsetzung mit geringem Aufwand, ist unsere bevorzugte Reparaturmethode. Wo sie nicht ausreicht, folgt die Komplettlackierung des Bauteils." />
-        <FeatureGrid items={scope} />
-      </div>
-    </section>
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Glasurit-Lackpartner und Meisterbetrieb – seit 1998." />
-        <FeatureGrid items={usp} />
-      </div>
-    </section>
-    <section className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Lackierung." />
-        <PageFAQ route="/autolackierung-leipzig" />
-      </div>
-    </section>
-    <PageCTA title="Lackschaden in Leipzig? Wir beraten Sie zur unsichtbaren Reparatur." description="Beschreiben Sie Ihr Anliegen oder senden Sie Fotos – wir prüfen, ob Spot-Repair ausreicht oder eine Komplettlackierung sinnvoll ist." primaryLabel="Lackierung anfragen" primaryHref="/kontakt#contact-termin" />
-  </>
+  <ServiceLayout
+    route="/autolackierung-leipzig"
+    meta={{
+      title: 'Neu- & Reparaturlackierung Leipzig | CarCare Center',
+      description:
+        'Neu- und Reparaturlackierung in Leipzig: Unser Ziel ist die unsichtbare Reparatur – weder Farbton noch Effektunterschiede zur Originallackierung. Spot-Repair bevorzugt.',
+    }}
+    hero={{
+      eyebrow: 'Neu- und Reparaturlackierung Leipzig',
+      title: 'Neu- und Reparaturlackierung in Leipzig.',
+      description:
+        'Zu einer fachgerechten Lackierung gehört, dass weder Farbton noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind. Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges.',
+      primaryCta: { label: 'Lackierung anfragen', href: '/kontakt#contact-termin' },
+      secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
+      keywords: ['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig'],
+    }}
+    // TODO 1.15 — eigenstaendige Erklaerung der Leistung. Text steht noch aus; bis dahin
+    // bleibt das Feld ausdruecklich leer statt mit Platzhaltertext gefuellt.
+    erklaerung={null}
+    leistung={{
+      eyebrow: 'Leistungsumfang',
+      title: 'Von Spot-Repair bis zur Komplettlackierung.',
+      description:
+        'Spot-Repair, die möglichst perfekte Lackinstandsetzung mit geringem Aufwand, ist unsere bevorzugte Reparaturmethode. Wo sie nicht ausreicht, folgt die Komplettlackierung des Bauteils.',
+      items: scope,
+    }}
+    usp={{ title: 'Glasurit-Lackpartner und Meisterbetrieb – seit 1998.', items: usp }}
+    faq={{ title: 'Häufige Fragen zur Lackierung.' }}
+    cta={{
+      title: 'Lackschaden in Leipzig? Wir beraten Sie zur unsichtbaren Reparatur.',
+      description:
+        'Beschreiben Sie Ihr Anliegen oder senden Sie Fotos – wir prüfen, ob Spot-Repair ausreicht oder eine Komplettlackierung sinnvoll ist.',
+      primaryLabel: 'Lackierung anfragen',
+      primaryHref: '/kontakt#contact-termin',
+    }}
+  />
 );
 
 export default AutolackierungPage;
