@@ -30,8 +30,15 @@
  * unterscheidet die beiden Faelle. Mit `--seit HEAD` verlangt der Test, dass das
  * Deployment juenger ist als der letzte lokale Commit.
  *
+ * WARUM ZUSAETZLICH DER BUNDLE-ABGLEICH
+ * `--seit` ist notwendig, aber nicht hinreichend. Am 2026-09-03 lief nach dem Push von
+ * `main` noch ein fremder Stand: gebaut 14:36 UTC, Commit 14:04 UTC — der Altersvergleich
+ * war also erfuellt, obwohl der eigene Code nicht live war (er ging erst 14:42 live).
+ * Deshalb wird zusaetzlich die Bundle-Kennung `assets/index-<hash>.js` gegen den lokalen
+ * Build verglichen. Vite leitet den Hash aus dem Inhalt ab: gleicher Hash = gleicher Code.
+ *
  * OHNE Parameter verhaelt sich alles wie bisher — ein schneller Lauf ohne Argumente
- * bleibt moeglich.
+ * bleibt moeglich; der Bundle-Abgleich meldet sich dann nur als Hinweis.
  *
  * Exitcode 1, sobald eine Pruefung fehlschlaegt — damit taugt es auch fuer CI.
  */
@@ -109,6 +116,32 @@ const faqRouten = new Set([
  */
 const MARKER = 'BS CarCare GmbH';
 
+/**
+ * Bundle-Kennung: der Inhalts-Hash des Einstiegsbundles, den Vite in den Dateinamen
+ * schreibt (`assets/index-<hash>.js`).
+ *
+ * WARUM ZUSAETZLICH ZU `--seit`
+ * `--seit` beantwortet nur "ist das Deployment juenger als mein Commit". Das ist
+ * notwendig, aber nicht hinreichend: JEDES fremde Deployment, das nach dem Commit
+ * lief, besteht die Pruefung. Genau das passierte am 2026-09-03 — nach dem Push von
+ * `main` lief noch ein anderer Stand, gebaut 14:36 UTC, waehrend der Commit von
+ * 14:04 UTC war. `--seit HEAD` haette gruen gemeldet; das eigene Bundle ging erst um
+ * 14:42 live.
+ *
+ * Der Hash ist dagegen Inhalts-Identitaet: gleicher Hash = gleicher Code. Er wird
+ * gegen den LOKALEN Build verglichen, also gegen genau das, was hier gepruefte
+ * Waechter durchlaufen hat.
+ */
+const bundleKennung = (html) => (html.match(/assets\/index-[A-Za-z0-9_-]+\.js/) ?? [null])[0];
+
+function lokalesBundle() {
+  try {
+    return bundleKennung(fs.readFileSync(path.join(wurzel, 'dist/index.html'), 'utf8'));
+  } catch {
+    return null; // kein lokaler Build vorhanden - dann gibt es nichts zu vergleichen
+  }
+}
+
 const sichtbarerText = (html) =>
   html
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
@@ -136,6 +169,8 @@ const zeilen = [];
 const fehler = [];
 /** Bauzeit des ausgelieferten Deployments, aus dem Last-Modified der ersten Antwort. */
 let deploymentZeit = null;
+/** Bundle-Kennung aus der ersten ausgelieferten Seite. */
+let ausgeliefertesBundle = null;
 
 for (const route of routen) {
   const url = basis + route;
@@ -152,6 +187,7 @@ for (const route of routen) {
   if (deploymentZeit === null) {
     const lm = res.headers.get('last-modified');
     deploymentZeit = lm ? new Date(lm) : undefined;
+    ausgeliefertesBundle = bundleKennung(html);
   }
 
   const bloecke = jsonLdBloecke(html);
@@ -208,6 +244,33 @@ if (mindestalter) {
   } else {
     console.log(`\n[smoke] Deployment gebaut am ${deploymentZeit.toISOString()} — juenger als verlangt.`);
   }
+}
+
+// ---------- Herkunft des Deployments ----------
+// Getrennt vom Alter, weil es eine andere Frage beantwortet: nicht "wie alt", sondern
+// "ist es ueberhaupt meins".
+const lokal = lokalesBundle();
+if (!lokal) {
+  console.log('\n[smoke] Bundle-Abgleich uebersprungen: kein lokaler Build unter dist/.');
+} else if (!ausgeliefertesBundle) {
+  console.log('\n[smoke] Bundle-Abgleich uebersprungen: in der ausgelieferten Seite steht keine Bundle-Kennung.');
+} else if (ausgeliefertesBundle === lokal) {
+  console.log(`\n[smoke] Ausgeliefertes Bundle ${lokal} — identisch mit dem lokalen Build.`);
+} else {
+  const text =
+    'AUSGELIEFERTES BUNDLE STAMMT NICHT AUS DIESEM BUILD — vermutlich laeuft ein\n' +
+    '    fremdes oder aelteres Deployment. Nicht im eigenen Code suchen: Der Code hier\n' +
+    '    ist gar nicht der, der beantwortet wird. Schau ins Vercel-Dashboard, welches\n' +
+    '    Deployment gerade auf der Domain liegt und aus welchem Commit es gebaut wurde.\n' +
+    `    ausgeliefert : ${ausgeliefertesBundle}\n` +
+    `    lokal gebaut : ${lokal}\n` +
+    '    Hinweis: Ein Altersvergleich allein faengt diesen Fall NICHT — jedes fremde\n' +
+    '    Deployment nach dem eigenen Commit besteht ihn.';
+  // Harter Befund nur mit `--seit`: Dort behauptet der Aufrufer ausdruecklich, dass
+  // hier der eigene, aktuelle Stand laufen soll. Ohne `--seit` ist ein abweichendes
+  // Bundle oft nur ein veralteter lokaler Build und deshalb bloss ein Hinweis.
+  if (mindestalter) fehler.push(text);
+  else console.log(`\n[smoke] HINWEIS: ${text}`);
 }
 
 if (fehler.length) {
