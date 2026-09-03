@@ -4,7 +4,8 @@ Backlog: `docs/backlog/schleife-1.md`, Paket C
 Vorgabe aus dem Backlog: *„1.14 ist ein Fall für eine gemeinsame Layout-Komponente,
 nicht für acht einzeln angepasste Seiten. Erst Komponente bauen, dann migrieren."*
 
-> **Stand 2026-09-03:** Phase 1 umgesetzt (Komponente + Pilot). Phasen 2-6 offen.
+> **Stand 2026-09-03:** Phasen 1 und 2 umgesetzt (Komponente, Pilot, längste Seite).
+> Phasen 3-6 offen.
 
 ---
 
@@ -107,6 +108,13 @@ Projekt statt siebenmal.
   Ohne diesen Ausweg wird die Komponente beim ersten Sonderwunsch aufgebohrt oder
   umgangen. Absehbarer Fall: 1.15.
 
+  > **Bekannte Einschränkung, bewusst nicht vorgebaut.** `children` landet zwischen
+  > Vertrauens- und FAQ-Sektion. Eine Seite, die etwas *vor* der Fachsektion braucht,
+  > kann das damit nicht ausdrücken. Der Fall ist bisher nicht eingetreten; träte er
+  > ein, wäre er mit einem zweiten Slot schnell ergänzt. Vorher einen einzubauen hieße,
+  > eine Vermutung zu bauen — dieselbe Begründung, aus der die Komponente erst mit
+  > ihrem ersten Verwender kam. *(Entschieden am 2026-09-03.)*
+
 ### Warum keine vollständig datengetriebene Lösung
 
 Man könnte die sieben Seiten ganz in Daten auflösen und eine generische Seite alle
@@ -154,22 +162,41 @@ den echten Verwender im selben Commit gar nicht aufgefallen.
 `pages/DellenentfernungPage.tsx`
 `scripts/check-faq.mjs`
 
-### ⏸ Phase 2 — Hagelschaden + Autoglas
-**Ziel:** Die beiden übrigen Seiten ohne `description`, gleicher Zuschnitt wie der Pilot.
+### ✅ Phase 2 — Felgenreparatur, die längste Seite *(Commits `c47e581`, `eaf2b22`, `ddc6161`)*
+**Ziel:** Prüfen, ob die Gliederung ohne den Wechsel Weiß/Grau auch auf einer vollen
+Seite trägt. Vorgabe: *„Bei Dellenentfernung trägt das, aber die Seite ist schlank."*
 
-* [ ] `pages/HagelschadenreparaturPage.tsx` migrieren (4 Karten → `four` abgeleitet)
-* [ ] `pages/AutoglasPage.tsx` migrieren (4 Karten → `four` abgeleitet)
-* [ ] Build, visuell Desktop + mobil
+Ausgewählt wurde nicht nach Quelltextlänge (die sagt hier nichts — 51 bis 53 Zeilen bei
+allen sieben), sondern nach der **gerenderten Höhe**:
 
-> **Wartet auf Freigabe.** Der Stand nach Phase 1 wird zuerst gezeigt — am Schnitt der
-> Komponente ist nach einer Migration billiger zu ändern als nach sieben.
+| Seite | Desktop | Mobil | Karten |
+|---|---|---|---|
+| **Felgenreparatur** | **4.428 px** | **6.752 px** | **13** |
+| Dellenentfernung *(Pilot)* | 4.365 px | 6.322 px | 12 |
+| Neu- & Reparaturlackierung | 4.362 px | 6.570 px | 12 |
+| Smart Repair | 4.225 px | 6.185 px | 10 |
+| Autoglas | 4.143 px | 6.057 px | 11 |
+| Hagelschadenreparatur | 4.119 px | 6.035 px | 11 |
+| Fuhrparkservice | 4.020 px | 5.718 px | 10 |
 
-### ⏸ Phase 3 — Die vier Seiten mit `description`
+* [x] `pages/FelgenreparaturPage.tsx` migriert — zugleich die erste Seite **mit**
+      `description` an der Fachsektion, deckt damit beide Varianten des Musters ab
+* [x] Beide Sektionsgrenzen visuell belegt, Desktop und mobil
+* [x] 🔴 Kontrastfehler gefunden und behoben, siehe Kommentare Phase 2
+* [x] Build grün, `check-faq` meldet „davon 2 über Layout-Komponente"
+
+**Ergebnis zur Ausgangsfrage:** Die Gliederung trägt. Den Übergang leisten Weißraum,
+blauer Eyebrow und die große Überschrift; der frühere harte Kantenwechsel fehlt nicht.
+
+### ⏸ Phase 3 — Die restlichen fünf
+* [ ] `pages/HagelschadenreparaturPage.tsx` (4 Karten → `four`)
+* [ ] `pages/AutoglasPage.tsx` (4 Karten → `four`)
 * [ ] `pages/AutolackierungPage.tsx` (6 Karten)
 * [ ] `pages/SmartRepairPage.tsx` (4 Karten)
-* [ ] `pages/FelgenreparaturPage.tsx` (6 Karten)
 * [ ] `pages/FuhrparkservicePage.tsx` (4 Karten)
 * [ ] Build, visuell, danach `npm run smoke -- --seit HEAD`
+
+> **Wartet auf Freigabe.** Der Stand nach Phase 2 wird zuerst gezeigt.
 
 ### ⏸ Phase 4 — Leasingrückgabe prüfen, nicht migrieren
 * [ ] Belegen, dass die Seite weiterhin dasselbe Foto-Verhalten zeigt
@@ -295,4 +322,63 @@ unberührt (kein Text geändert) ✅, Encoding sauber ✅.
    für den Optimierungsplan.
 
 **Kein Refactoring-Plan nötig für 1–3** — sie sind in derselben Phase behoben und
-gegengeprüft. 4 und 5 wandern in Phase 6 in den Optimierungsplan.
+gegengeprüft. 4 und 5 stehen in Abschnitt 7.
+
+### Phase 2
+**Eingehalten:** Mobile-First geprüft ✅, Auswahl der Prüfseite nach gemessener statt
+vermuteter Länge ✅, CSS-native Lösung (Media Query statt Inline-Style) ✅, schwächste
+wirksame Variante gewählt ✅, Fixes in getrennten, einzeln zurücknehmbaren Commits ✅,
+Encoding sauber ✅.
+
+**Auffälligkeiten/Findings (nach Schwere):**
+
+1. 🔴 **Kritisch — Hero-Fließtext verfehlte auf dem Telefon den WCAG-Kontrast.**
+   *(behoben, `eaf2b22` + `ddc6161`)*
+   Beim visuellen Durchgang aufgefallen, dann nachgemessen. **Kein Fehler aus Paket C:**
+   Alle vier seit August live stehenden Backdrop-Seiten waren betroffen — Paket C hätte
+   ihn nur von vier auf elf Seiten ausgeweitet.
+
+   Ursache: Der weiße Textschutz ist ein Verlauf über die **Viewport**-Breite, der Text
+   steht in einer **Spalte**. Auf dem Desktop endet die Spalte (`max-w-3xl`) bei rund
+   59 % der Breite, dort liegt noch Schutz. Unter 768 px läuft sie über die volle
+   Breite — das letzte Drittel jeder Zeile stand auf blankem Foto.
+
+   | Seite | 390 px vorher | 390 px jetzt | 1440 px |
+   |---|---|---|---|
+   | `/leasingrueckgabe` | **2,05:1** | 6,78:1 | 8,41:1 |
+   | `/felgenreparatur` | **2,68:1** | 7,33:1 | 8,70:1 |
+   | `/innenaufbereitung` | **2,66:1** | 7,11:1 | 9,69:1 |
+   | `/dellenentfernung` | **2,52:1** | 7,05:1 | 9,88:1 |
+   | `/fahrzeugaufbereitung` | 4,74:1 | 8,94:1 | 9,82:1 |
+   | `/aussenaufbereitung` | 4,65:1 | 8,87:1 | 9,89:1 |
+
+   WCAG 2.1 AA verlangt 4,5:1 für Fließtext. Über 768 px ändert sich nichts — derselbe
+   Verlauf wie bisher. Mobil bleiben rechts 52 % Deckung statt 0 %: Das Foto ist weiter
+   zu sehen, nur verschleiert. Drei Stärken durchgemessen, die behutsamste genommen.
+
+2. 🟠 **Hoch — meine ersten beiden Messungen waren falsch.** *(korrigiert)*
+   Anlauf 1 zählte antialiaste Glyphenränder zum Hintergrund und meldete 3,84:1 statt
+   2,68:1. Anlauf 2 maß den Kontrast **an** gerenderten Glyphenpixeln — das misst die
+   Schriftglättung, nicht die Farbwahl, und lieferte über alle Seiten hinweg identische
+   Werte, was der Hinweis auf den Fehler war. Erst Anlauf 3 rechnet nach WCAG-Definition:
+   Hintergrundfläche ohne Text aufnehmen, die halbtransparente Textfarbe rechnerisch
+   voll deckend darüberlegen, und nur Pixel innerhalb der Glyphenmaske werten.
+   **Lehre:** Bei halbtransparenten Textfarben (dieses Projekt: `gray-300..700` tragen
+   eingebackene Alphas) taugt kein Kontrastwert, der aus einem einzelnen Screenshot
+   stammt.
+
+3. 🟡 **Mittel — Auswahl nach Quelltextlänge wäre danebengegangen.**
+   Die sieben Seiten liegen bei 51 bis 53 Zeilen; die Tabelle in Abschnitt 1 hätte
+   Autolackierung oder Felgenreparatur nahegelegt, beide 53. Gerendert ist
+   Felgenreparatur mit 4.428 px tatsächlich die längste, Autolackierung liegt mit
+   4.362 px hinter der schlanken Dellenentfernung (4.365 px). Quelltextzeilen sagen bei
+   diesen Seiten nichts über Seitenlänge — Karten- und FAQ-Zahl entscheiden.
+
+---
+
+## 7 — Für den Optimierungsplan (nach Paket C)
+
+| # | Fund | Stand |
+|---|---|---|
+| 1 | **`npm run shots` ins Projekt.** Die visuellen Nachweise entstehen jedes Mal über ein Wegwerf-Skript (`vite preview` + Puppeteer, Scroll-Halteschleife gegen Lenis, Sektionsgrenzen automatisch anfahren). Bei Seiten mit stehendem Foto gehört die Sichtprüfung zu jeder Änderung. **Dazu gehört der Kontrastmesser aus Phase 2** — er hat einen Fehler gefunden, den drei Durchgänge mit dem Auge nicht gefunden haben. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
+| 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und wird mit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
