@@ -127,4 +127,4 @@ export const STELLEN_POPUP_AKTIV = true;
  * seitenlokalen Anker umgestellt wird. Drei Konstanten in drei Dateien waeren beim
  * Umstellen zwei vergessene.
  */
-export const BEWERBUNGS_ZIEL = '/kontakt';
+export const BEWERBUNGS_ZIEL = '/karriere#bewerbung';

@@ -4,6 +4,7 @@ import { BEWERBUNGS_ZIEL } from '../data/jobs';
 import JobBanner from '../components/JobBanner';
 import JobCards from '../components/JobCards';
 import JobPopup from '../components/JobPopup';
+import RequestForm from '../components/RequestForm';
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
@@ -42,6 +43,18 @@ const CareerPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro eyebrow="Bewerbungsprozess" title="So läuft der Kontakt zu uns." />
         <ProcessList steps={process} />
+      </div>
+    </section>
+    <section id="bewerbung" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Bewerbung"
+          title="Bewerben Sie sich in wenigen Minuten."
+          description="Name, Kontakt und ein paar Sätze reichen. Den Rest klären wir im Gespräch."
+        />
+        <div className="mx-auto max-w-3xl">
+          <RequestForm kind="bewerbung" />
+        </div>
       </div>
     </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">

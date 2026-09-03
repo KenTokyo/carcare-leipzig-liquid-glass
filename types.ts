@@ -78,7 +78,7 @@ export interface FAQItem {
   answer: string;
 }
 
-export type RequestFormKind = 'schaden' | 'termin' | 'business';
+export type RequestFormKind = 'schaden' | 'termin' | 'business' | 'bewerbung';
 
 export interface RequestFormConfig {
   kind: RequestFormKind;
