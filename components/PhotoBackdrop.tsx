@@ -46,15 +46,18 @@ export type TextGuard = 'default' | 'wide';
  */
 const EDGE_FADE = 'linear-gradient(to right, transparent 0%, #000 22%)';
 
-const GUARD: Record<TextGuard, { horizontal: string; radialCenter: string }> = {
-  default: {
-    horizontal: 'linear-gradient(to right, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.45) 28%, rgb(255 255 255 / 0) 52%)',
-    radialCenter: '58% 48%',
-  },
-  wide: {
-    horizontal: 'linear-gradient(to right, rgb(255 255 255 / 0.90) 0%, rgb(255 255 255 / 0.74) 34%, rgb(255 255 255 / 0.42) 56%, rgb(255 255 255 / 0) 76%)',
-    radialCenter: '72% 48%',
-  },
+/**
+ * Der horizontale Veil liegt als KLASSE in index.css, nicht als Inline-Style.
+ *
+ * Grund: Unter 768 px laeuft die Textspalte ueber die volle Breite, waehrend sich der
+ * Verlauf auf die Viewport-Breite bezieht — das letzte Drittel jeder Zeile stand dort
+ * auf blankem Foto und verfehlte den WCAG-Kontrast deutlich. Der schmale Fall braucht
+ * also einen eigenen Verlauf, und ein Media Query gehoert ins Stylesheet. Die Messwerte
+ * und die Begruendung der gewaehlten Staerke stehen dort bei `.cc-guard-wide`.
+ */
+const GUARD: Record<TextGuard, { klasse: string; radialCenter: string }> = {
+  default: { klasse: 'cc-guard-default', radialCenter: '58% 48%' },
+  wide: { klasse: 'cc-guard-wide', radialCenter: '72% 48%' },
 };
 
 export interface PhotoBackdropProps {
@@ -128,7 +131,7 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'round
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45" />
-          <div className="absolute inset-0" style={{ background: GUARD[textGuard].horizontal }} />
+          <div className={`absolute inset-0 ${GUARD[textGuard].klasse}`} />
           <div
             className="absolute inset-0"
             style={{ background: `radial-gradient(ellipse closest-side at ${GUARD[textGuard].radialCenter}, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)` }}

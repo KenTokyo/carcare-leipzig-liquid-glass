@@ -617,6 +617,68 @@ textarea {
   background-image: none;
 }
 
+/* ---------------------------------------------------------------------------
+   Weisser Textschutz ueber dem Foto (`PhotoBackdrop`, Ebene 2 von 3)
+   ---------------------------------------------------------------------------
+   WARUM HIER UND NICHT INLINE IN DER KOMPONENTE: Der Schutz braucht einen
+   Breakpoint, und ein Media Query gehoert ins Stylesheet, nicht in eine
+   Inline-Style-Berechnung (Projektregel: CSS-native Loesungen vor JavaScript).
+
+   WARUM DER SCHMALE FALL EINEN EIGENEN VERLAUF BRAUCHT
+   Der Verlauf bezieht sich auf die VIEWPORT-Breite, der Text auf die Textspalte.
+   Auf dem Desktop endet die Spalte (`max-w-3xl`) bei rund 59 % der Breite, dort
+   liegt noch Schutz. Unter 768 px laeuft die Spalte ueber die volle Breite — das
+   letzte Drittel jeder Zeile stand damit auf blankem Foto.
+
+   Gemessen am Hero-Absatz (WCAG-Kontrast, 5. Perzentil ueber die Glyphenmaske,
+   AA verlangt 4.5:1 fuer Fliesstext):
+
+                              390 px vorher   390 px jetzt   1440 px
+     /leasingrueckgabe            2.05:1         4.99:1       5.85:1
+     /felgenreparatur             2.68:1         5.29:1       6.00:1
+     /innenaufbereitung           2.66:1         5.17:1       6.48:1
+     /dellenentfernung            2.52:1         5.14:1       6.57:1
+
+   Vier der sechs Seiten mit stehendem Foto lagen auf dem Telefon unter der Haelfte
+   des Verlangten — seit August live. Die Werte oben sind mit `gray-600` gerechnet,
+   der Schutz traegt also fuer sich allein; der dunklere Hero-Ton ist Reserve, kein
+   Bestandteil der Loesung.
+
+   BEWUSST DIE SCHWAECHSTE VARIANTE, DIE TRAEGT: Drei Staerken durchgemessen, die
+   behutsamste genommen. Rechts bleiben 52 % Deckung statt 0 % — das Foto ist auf
+   dem Telefon weiterhin zu sehen, nur verschleiert. Staerkere Kandidaten haetten
+   6.0:1 erreicht und das Motiv mobil praktisch weggewaschen. */
+.cc-guard-default {
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0.85) 0%,
+    rgb(255 255 255 / 0.45) 28%,
+    rgb(255 255 255 / 0) 52%
+  );
+}
+
+.cc-guard-wide {
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0.9) 0%,
+    rgb(255 255 255 / 0.74) 34%,
+    rgb(255 255 255 / 0.42) 56%,
+    rgb(255 255 255 / 0) 76%
+  );
+}
+
+@media (max-width: 767px) {
+  .cc-guard-wide {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.9) 0%,
+      rgb(255 255 255 / 0.8) 40%,
+      rgb(255 255 255 / 0.66) 72%,
+      rgb(255 255 255 / 0.52) 100%
+    );
+  }
+}
+
 /* Utilities ZULETZT (siehe Hinweis am Dateianfang) — damit Tailwind-Utilities
    Custom-Regeln gleicher Spezifitaet ueberschreiben, exakt wie im frueheren CDN-Setup. */
 @tailwind utilities;
