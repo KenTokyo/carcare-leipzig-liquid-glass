@@ -248,3 +248,14 @@ export const overviewServices: OverviewService[] = serviceCatalog.filter(
 /** Leistungen einer Gruppe, in Katalogreihenfolge. */
 export const servicesByGroup = (group: ServiceGroupId): ServiceCatalogEntry[] =>
   serviceCatalog.filter((service) => service.group === group);
+
+/**
+ * Katalogeintrag zu einer Route.
+ *
+ * Gelesen von `components/ServiceLayout.tsx`: Die Leistungs-Unterseiten beziehen ihren
+ * Seitenhintergrund aus dem Kachelmotiv ihres eigenen Katalogeintrags. Damit zeigen
+ * Uebersichtskachel und Zielseite zwangslaeufig dasselbe Foto, ohne dass die Zuordnung
+ * ein zweites Mal gepflegt wird.
+ */
+export const serviceByHref = (href: string): ServiceCatalogEntry | undefined =>
+  serviceCatalog.find((service) => service.href === href);

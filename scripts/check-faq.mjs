@@ -43,19 +43,77 @@ for (const wurzel of ['pages', 'components']) {
     }
   })(wurzel);
 }
+/**
+ * DURCHREICHENDE KOMPONENTEN — warum es diesen Schritt gibt.
+ *
+ * Der Waechter suchte urspruenglich nur nach `<PageFAQ route="…">`. Sobald eine
+ * Layout-Komponente dazwischentritt und die Route weitergibt, findet er nichts mehr
+ * und meldet lauter Waisen — genau das passierte am 2026-09-03 beim ersten Umzug auf
+ * `ServiceLayout` (Backlog 1.14). Der bequeme Ausweg waere gewesen, den Komponenten-
+ * namen hier fest einzutragen. Dann waere der Waechter beim naechsten Layout wieder
+ * blind, diesmal aber lautlos: kein Abbruch, sondern eine Waise, die durchrutscht.
+ *
+ * Stattdessen wird die Durchreichung ERKANNT: Jede .tsx, die `PageFAQ` eine Route als
+ * Ausdruck uebergibt (`route={…}`), gilt als Durchreicher. Deren eigene Verwendungen
+ * mit literaler Route zaehlen dann ebenfalls als „sichtbar gerendert".
+ */
+const durchreicher = new Set();
+for (const datei of tsxDateien) {
+  if (/<PageFAQ\s+route=\{/.test(lies(datei))) durchreicher.add(path.basename(datei, '.tsx'));
+}
+
+/**
+ * Text der OEFFNENDEN JSX-Tags einer Komponente, inklusive aller Props.
+ *
+ * Kein simples `<Name[^>]*>`: Ein `>` kann in einem Ausdrucks-Prop stehen
+ * (`items={xs.map((x) => x)}`) und wuerde das Tag zu frueh beenden. Deshalb Klammern
+ * mitzaehlen und Zeichenketten ueberspringen.
+ */
+function oeffnendeTags(quelle, name) {
+  const treffer = [];
+  const start = new RegExp(`<${name}\\b`, 'g');
+  let m;
+  while ((m = start.exec(quelle))) {
+    let tiefe = 0;
+    let i = m.index + m[0].length;
+    for (; i < quelle.length; i++) {
+      const c = quelle[i];
+      if (c === '{') tiefe += 1;
+      else if (c === '}') tiefe -= 1;
+      else if (c === '"' || c === "'" || c === '`') {
+        const ende = quelle.indexOf(c, i + 1);
+        i = ende === -1 ? quelle.length : ende;
+      } else if (c === '>' && tiefe === 0) break;
+    }
+    treffer.push(quelle.slice(m.index, i));
+  }
+  return treffer;
+}
+
 const gerendert = new Set();
+const ueberDurchreicher = new Set();
 for (const datei of tsxDateien) {
   const s = lies(datei);
   for (const m of s.matchAll(/<PageFAQ\s+route="([^"]+)"/g)) gerendert.add(m[1]);
   // FAQSection ohne `faqs`-Prop rendert die Startseite aus der Quelle
   for (const m of s.matchAll(/faqsByRoute\['(\/[^']*)'\]/g)) gerendert.add(m[1]);
+  for (const name of durchreicher) {
+    for (const tag of oeffnendeTags(s, name)) {
+      const r = /\broute="([^"]+)"/.exec(tag);
+      if (r) {
+        gerendert.add(r[1]);
+        ueberDurchreicher.add(r[1]);
+      }
+    }
+  }
 }
 
 for (const route of quellRouten) {
   if (!gerendert.has(route)) {
     fehler.push(
       `Waise: '${route}' steht in data/faqs.ts, wird aber von keiner Seite gerendert.\n` +
-      `        Entweder <PageFAQ route="${route}" /> auf der Seite einbinden oder den Eintrag entfernen.`
+      `        Entweder <PageFAQ route="${route}" /> auf der Seite einbinden (oder eine\n` +
+      `        Layout-Komponente wie <ServiceLayout route="${route}" …>) oder den Eintrag entfernen.`
     );
   }
 }
@@ -108,3 +166,11 @@ console.log(
   `[check-faq] ok: ${quellRouten.length} Routen aus data/faqs.ts, alle sichtbar gerendert; ` +
   `${schemaAufrufe.length} faqSchema-Aufrufe, alle aus der Quelle gespeist.`
 );
+// Die Durchreichung sichtbar machen: Ein Waechter, der ueber einen Mechanismus prueft,
+// den niemand im Log sieht, ist schwer zu widerlegen, wenn er einmal falsch liegt.
+if (durchreicher.size) {
+  console.log(
+    `[check-faq] davon ${ueberDurchreicher.size} ueber Layout-Komponente ` +
+    `(${[...durchreicher].sort().join(', ')}).`
+  );
+}

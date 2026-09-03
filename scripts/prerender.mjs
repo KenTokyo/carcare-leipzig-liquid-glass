@@ -157,6 +157,23 @@ async function run() {
   try {
     for (const route of routes) {
       const page = await browser.newPage();
+      /**
+       * Unbehandelte Ausnahmen der Seite als solche melden — und sofort.
+       *
+       * Ohne das endete jeder Renderfehler in „Waiting failed: 30000ms exceeded": 30
+       * Sekunden Wartezeit je Route und eine Meldung, die die Ursache verschweigt.
+       * Gemessen am 2026-09-03 beim Gegentest zu `ServiceLayout`, das bei fehlendem
+       * Katalogeintrag bewusst wirft — die aussagekraeftige Fehlermeldung stand im
+       * Browser und kam nirgends an.
+       */
+      const seitenfehler = new Promise((_, reject) => {
+        page.once('pageerror', (e) => reject(new Error(`Unbehandelte Ausnahme der Seite: ${e.message}`)));
+      });
+      // Feuert die Ausnahme ERST, nachdem das Rennen unten entschieden ist (z. B. ein
+      // Fehler nach erfolgreichem Render), stuende sie ohne Empfaenger da — Node beendet
+      // den Prozess bei unbehandelten Rejections. Dieser Griff haelt sie behandelt,
+      // ohne dem Rennen etwas zu nehmen.
+      seitenfehler.catch(() => {});
       try {
         // Preloader im Prerender hart aus. `evaluateOnNewDocument` laeuft VOR allen
         // Seitenskripten — also auch vor dem Inline-Script in index.html, das sonst
@@ -168,15 +185,20 @@ async function run() {
         });
         await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 30000 });
         // Warten bis die App gerendert hat: #root hat Inhalt UND JSON-LD ist da.
-        await page.waitForFunction(
-          () => {
-            const rootEl = document.getElementById('root');
-            const hasContent = !!(rootEl && rootEl.querySelector('h1, main, footer'));
-            const hasJsonLd = !!document.querySelector('script[type="application/ld+json"]');
-            return hasContent && hasJsonLd;
-          },
-          { timeout: 30000 }
-        );
+        // Gegen `seitenfehler` gerennt, damit ein Renderfehler nicht als Zeitueberschreitung
+        // maskiert wird, sondern mit seiner eigenen Meldung ankommt.
+        await Promise.race([
+          page.waitForFunction(
+            () => {
+              const rootEl = document.getElementById('root');
+              const hasContent = !!(rootEl && rootEl.querySelector('h1, main, footer'));
+              const hasJsonLd = !!document.querySelector('script[type="application/ld+json"]');
+              return hasContent && hasJsonLd;
+            },
+            { timeout: 30000 }
+          ),
+          seitenfehler,
+        ]);
         await autoScroll(page);
 
         let html = await page.content();
