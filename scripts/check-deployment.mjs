@@ -234,10 +234,26 @@ if (mindestalter) {
         'Bei Vercel ist er normalerweise gesetzt — liegt ein Proxy oder CDN davor?'
     );
   } else if (deploymentZeit < mindestalter.zeit) {
+    // ZWEI URSACHEN, ZWEI RICHTUNGEN. Die Meldung nannte anfangs nur den Deploy-Ausfall
+    // und schickte damit ins Dashboard — auch dann, wenn die Commits schlicht noch nicht
+    // gepusht waren. Genau das passierte am 2026-09-03 beim Lauf von einem Arbeitsbranch.
+    // `git merge-base --is-ancestor` unterscheidet die beiden Faelle.
+    let gepusht;
+    try {
+      execFileSync('git', ['merge-base', '--is-ancestor', 'HEAD', 'origin/main'], { cwd: wurzel, stdio: 'ignore' });
+      gepusht = true;
+    } catch {
+      gepusht = false; // Exitcode != 0: HEAD liegt nicht auf origin/main
+    }
+    const ursache = gepusht
+      ? '\n    Vermutlich ist der letzte Deploy fehlgeschlagen und der vorherige\n' +
+        '    Stand ist noch live. Schau ins Vercel-Dashboard auf den Status des\n' +
+        '    juengsten Deployments, nicht in den Code.'
+      : '\n    Der aktuelle HEAD liegt NICHT auf origin/main — diese Commits sind\n' +
+        '    noch gar nicht ausgeliefert. Auf einem Arbeitsbranch ist das der Normalfall\n' +
+        '    und kein Defekt; erst nach Merge und Push sagt der Altersvergleich etwas.'
     fehler.push(
-      'AUSGELIEFERTES DEPLOYMENT IST AELTER ALS ERWARTET — vermutlich ist der letzte\n' +
-        '    Deploy fehlgeschlagen und der vorherige Stand ist noch live. Schau ins\n' +
-        '    Vercel-Dashboard auf den Status des juengsten Deployments, nicht in den Code.\n' +
+      'AUSGELIEFERTES DEPLOYMENT IST AELTER ALS ERWARTET.' + ursache + '\n' +
         `    ausgeliefert : ${deploymentZeit.toISOString()}\n` +
         `    erwartet ab  : ${mindestalter.zeit.toISOString()}  (${mindestalter.quelle})`
     );
