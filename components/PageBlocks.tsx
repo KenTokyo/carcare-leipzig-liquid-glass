@@ -73,7 +73,15 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
               Komposita passen dort in keine Zeile. `lang="de"` steht am <html>, die
               Trennung folgt also deutschen Regeln. Ab `md` greift es praktisch nie. */}
           <h1 className="text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 [hyphens:auto] break-words md:text-6xl">{title}</h1>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-gray-600 md:text-xl">{description}</p>
+          {/* `gray-700` statt `gray-600` — Reserve, nicht die Reparatur.
+              Dieser Absatz ist der einzige laengere Fliesstext, der auf Seiten mit
+              `BackdropLayout` ohne Karte direkt auf dem Foto liegt. Behoben ist der
+              Kontrast durch den Textschutz selbst (`.cc-guard-wide` in index.css, dort
+              stehen die Messwerte); der dunklere Ton hebt den schlechtesten gemessenen
+              Wert von 4.99:1 auf 6.78:1 und schafft damit Abstand zur AA-Grenze von
+              4.5:1, statt knapp darueber zu liegen.
+              Unabhaengig zuruecknehmbar: ohne ihn bleibt die Seite AA-konform. */}
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-gray-700 md:text-xl">{description}</p>
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {primaryCta && (
