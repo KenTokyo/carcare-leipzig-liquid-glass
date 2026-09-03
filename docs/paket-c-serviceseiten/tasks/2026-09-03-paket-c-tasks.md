@@ -87,9 +87,14 @@ die Struktur ist schon einheitlich, sie ist nur siebenmal abgeschrieben.
 | FAQ-Eyebrow | fest „FAQ" | dito |
 | **Spaltenzahl** | Kartenzahl: vier Karten → vier Spalten, sonst drei | **war schon vorher die gelebte Regel, nur ungeschrieben** — exakt die vier Seiten mit vier Karten setzten `columns="four"`. Es ist auch die richtige Regel: vier Karten in drei Spalten lassen eine Karte allein in der zweiten Reihe stehen. Als Prop weiterhin überschreibbar. |
 
-Damit schrumpft jede Seite von ~52 Zeilen auf Daten plus einen Aufruf. Die drei
-`SectionIntro`-Gerüste, die drei `<section>`-Hüllen und der Hintergrundwechsel
-`bg-white` / `bg-gray-50/70` liegen nur noch einmal im Projekt.
+Die drei `SectionIntro`-Gerüste, die drei `<section>`-Hüllen mit ihren Klassenketten
+und der Hintergrundwechsel `bg-white` / `bg-gray-50/70` liegen danach einmal im
+Projekt statt siebenmal.
+
+> **Kein Größenversprechen.** Am Pilot gemessen bleibt die Seitendatei etwa gleich groß
+> (3.600 → 3.703 Zeichen): 19 Zeilen Gerüst-JSX verschwinden, dafür stehen die Texte
+> jetzt umbrochen statt in 360 Zeichen langen Zeilen. Der Gewinn ist nicht die
+> Dateigröße, sondern dass eine Layoutänderung eine Änderung ist und nicht sieben.
 
 ### Was sie können muss, weil es Abweichungen gibt
 
@@ -131,7 +136,8 @@ Nach jeder Phase Build mit beiden Wächtern; nach Phase 3 zusätzlich
 * [x] `components/ServiceLayout.tsx` erzeugt (198 Zeilen)
 * [x] `serviceByHref()` in `data/services.ts` ergänzt — Katalogeintrag zur Route,
       Quelle des Seitenhintergrunds
-* [x] `pages/DellenentfernungPage.tsx` migriert: 52 → 64 Zeilen, davon 0 Zeilen Gerüst
+* [x] `pages/DellenentfernungPage.tsx` migriert: 19 Zeilen Gerüst-JSX raus, Datei
+      bleibt etwa gleich groß (siehe Hinweis in Abschnitt 2)
 * [x] Erklärsektion (1.15) als **Pflichtfeld, aber leerbar** eingebaut, vor der
       Fachsektion
 * [x] `scripts/check-faq.mjs`: erkennt durchreichende Layout-Komponenten selbst
