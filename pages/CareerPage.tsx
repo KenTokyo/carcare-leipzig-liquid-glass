@@ -1,14 +1,6 @@
 import React from 'react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { jobPositions } from '../data/jobs';
-
-/**
- * Positionen kommen aus `data/jobs.ts` — dieselbe Quelle, aus der die
- * `JobPosting`-Auszeichnung entsteht. Bis 2026-09-03 standen sie hier und dort
- * getrennt; der Serviceberater war deshalb als offene Stelle ausgezeichnet, obwohl
- * er nicht gesucht wird.
- */
-const jobs = jobPositions.map((job) => ({ title: job.title, description: job.description }));
+import JobCards from '../components/JobCards';
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
@@ -35,12 +27,7 @@ const CareerPage: React.FC = () => (
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
     />
-    <section id="jobbereiche" className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Job-Cards" title="Jobbereiche bei uns." />
-        <FeatureGrid items={jobs} columns="four" />
-      </div>
-    </section>
+    <JobCards />
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Arbeitgeberversprechen" title="Ein professionelles Umfeld für Menschen, die Qualität mögen." />
