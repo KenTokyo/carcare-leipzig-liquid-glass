@@ -391,6 +391,47 @@ Encoding sauber ✅.
 | 1 | **`npm run shots` und `npm run kontrast` ins Projekt** — Spezifikation unten. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
 | 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und ist seit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
 
+### 7.0 🔴 Kontrast außerhalb der Backdrop-Seiten — geprüft, zwei Ergebnisse
+
+Auftrag: *„Der Mechanismus — Verlauf über Viewport-Breite, Text in Spalte, unter 768 px
+volle Breite — ist nicht auf ServiceLayout beschränkt."*
+
+**Ergebnis 1: Der Mechanismus selbst tritt nirgends sonst auf — und war überall schon
+mitrepariert.** `textGuard="wide"` gibt es ausschließlich in `BackdropLayout`. Das nutzen
+neben `ServiceLayout` (7 Seiten) noch acht weitere: Unfallinstandsetzung,
+Fahrzeugaufbereitung, Innen- und Außenaufbereitung, Leasingrückgabe, Privatkunden,
+Geschäftskunden, Über uns. Weil die Reparatur in der gemeinsamen Klasse
+`.cc-guard-wide` sitzt, hat sie alle davon erfasst — auch die vier, die seit August live
+standen. Die zweite Variante `textGuard="default"` nutzt nur `ServiceGrid` auf der
+Startseite; dort ist der Text ein kurzer Kopfbereich, keine Spalte über die volle Breite.
+
+**Ergebnis 2: Dabei ist ein größeres Problem aufgefallen, das mit Fotos nichts zu tun
+hat.** Drei Farbtokens verfehlen AA auf schlichtem Weiß. Exakt gerechnet aus den
+Token-Definitionen, nicht gemessen:
+
+| Token | löst auf zu | auf Weiß | Verwendung |
+|---|---|---|---|
+| `text-blue-700` | signal-blue `47 128 237` | **3,87:1** | **48×** — u. a. der Eyebrow in `PageHero` (11 px fett) und „Mehr erfahren" in `FeatureGrid`; damit auf fast jeder Seite |
+| `text-gray-400` | graphite @ 42 % | **2,66:1** | 16× |
+| `text-gray-500` | graphite @ 58 % | **4,30:1** | 12× |
+
+Zum Vergleich, dieselbe Rechnung für die Nachbartokens: `text-blue-600` (trust-blue)
+**10,04:1**, `text-gray-600` **6,92:1**, `text-gray-700` **10,66:1**. Der Eyebrow in
+`SectionIntro` nutzt `blue-600` und ist deshalb in Ordnung — der in `PageHero` nutzt
+`blue-700` und ist es nicht.
+
+**Naheliegende Reparatur, bewusst nicht ausgeführt:** `text-blue-700` → `text-blue-600`
+für Text (nicht für Flächen). Das sind 48 Fundstellen und eine sichtbare Änderung auf
+der ganzen Kundenseite — außerhalb dessen, was Paket C abdeckt, und eine Entscheidung,
+die gezeigt gehört, bevor sie passiert. Auftrag war ausdrücklich *prüfen*.
+
+> **Was ich nicht behaupte.** Der Rundumlauf über alle 25 Routen lieferte auch nach vier
+> Korrekturen am Messaufbau noch unplausible Werte (Kartentext auf weißem Grund mit
+> 1,36:1). Diese Liste ist deshalb **nicht** als Befund verwendet. Die Zahlen oben sind
+> aus den Token-Definitionen gegen Weiß gerechnet — exakt, ohne Messung — und für den
+> Blau-Fall zusätzlich zweimal unabhängig am Bildschirm bestätigt (3,87:1). Was der
+> Rundumlauf noch braucht, steht in 7.2.
+
 ### 7.1 `npm run shots` — Sichtprüfung als Werkzeug
 
 Die visuellen Nachweise entstehen bisher jedes Mal über ein Wegwerf-Skript. Bei Seiten
