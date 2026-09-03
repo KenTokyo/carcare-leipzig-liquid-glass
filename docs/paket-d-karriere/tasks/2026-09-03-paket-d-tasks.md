@@ -2,7 +2,8 @@
 
 Backlog: `docs/backlog/schleife-1.md`, Paket D
 
-> **Planung. Kein Code.**
+> **Stand 2026-09-03:** Alle fünf offenen Entscheidungen beantwortet (Abschnitt 8).
+> Der Zuschnitt hat sich dadurch an drei Stellen geändert — siehe dort.
 
 ---
 
@@ -204,7 +205,7 @@ Mitarbeiterstimmen, Zulieferung André).
 
 ---
 
-## 7 — Commit-Aufteilung
+## 7 — Commit-Aufteilung *(überholt, siehe Abschnitt 9)*
 
 | # | Inhalt | Warum eigener Commit |
 |---|---|---|
@@ -223,14 +224,93 @@ auf 390 px.
 
 ---
 
-## 8 — Was ich von dir brauche, bevor Code entsteht
+## 8 — Entscheidungen (beantwortet am 2026-09-03)
 
-1. **1.24 / „Vier Berufsbilder"** — auf drei ändern oder Zahl herausnehmen? Hängt
-   davon ab, ob der Serviceberater später zurückkommt. Frage an André.
-2. **1.21** — was hat André mit „keine Drehanimationen" gemeint? Auf der heutigen Seite
-   gibt es keine; die verwaiste `Jobs.tsx` hat welche.
-3. **1.23** — Banner zusätzlich zu den zwei Hero-CTAs, oder den bestehenden CTA
-   ausbauen?
-4. **1.22 / 1.17** — Versand vorziehen oder Bewerbungsformular zurückstellen?
-5. **Benefits** — vier generische Einträge wirklich entfernen, auch wenn die Seite
-   dadurch kürzer wird?
+### 1. Serviceberater: nicht entfernen, sondern „Nicht suchend"
+
+> *„Geh davon aus, dass der Serviceberater wieder ausgeschrieben wird, aber setze die
+> Kacheln gerade auf ein ‚Nicht suchend'-Status."*
+
+**Das dreht 1.24 um.** Statt sieben Fundstellen zu entfernen, bekommt jede Position
+einen **Status**. Was daraus folgt:
+
+| Fundstelle | vorher geplant | jetzt |
+|---|---|---|
+| `CareerPage.tsx:8` Positionskarte | entfernen | **bleibt**, mit Status „Nicht suchend" |
+| `pageSchemas.ts:137` `jobPostingSchema` | entfernen | **entfernen** — eine `JobPosting`-Auszeichnung für eine nicht ausgeschriebene Stelle wäre eine Falschangabe an Google |
+| `faqs.ts:144` „Welche Jobbereiche gibt es?" (`/karriere`) | umformulieren | **umformulieren** — die Antwort sagt „Wir **suchen**"; der Serviceberater gehört dort heraus |
+| `faqs.ts:174` „Sucht … neue Mitarbeiter?" (`/ueber-uns`) | umformulieren | **bleibt** — die Antwort sagt „Wir **beschäftigen**", und das stimmt weiterhin |
+| `UeberUnsPage.tsx:61` „Vier Berufsbilder" | Zahl korrigieren | **bleibt** — vier Berufsbilder gibt es weiterhin, nur drei werden gesucht |
+| `CareerPage.tsx:27` Meta-Description | kürzen | **bleibt** — sie beschreibt die Berufsbilder, nicht die offenen Stellen |
+| `Jobs.tsx:43` | entfernen | **unberührt** — verwaiste Komponente |
+
+**Der Status ist damit der eigentliche Träger:** Nur Positionen mit Status *suchend*
+erzeugen `JobPosting`-Markup. Kommt der Serviceberater zurück, ist es ein Wort in den
+Daten — nicht wieder sieben Stellen im Code.
+
+Folge für die Auszeichnung: `/karriere` geht von **9 auf 8 JSON-LD-Blöcke**,
+4 → 3 JobPostings.
+
+### 2. Kartendesign: wie die Leistungskacheln der Startseite
+
+> *„… so gestaltet, wie die Dienstleistungskacheln in der Mainpage unter ‚Unsere
+> Leistungen rund ums Fahrzeug.' — ein sauberes großes Hintergrundbild, eine Textbox
+> drüber und so weiter. Nur, dass auch in der Textbox die Stellenanforderung und
+> Beschreibung als scrollbarer Text innerhalb des Textfeldes entstehen soll."*
+
+Vorlage ist `components/ExpandingCardAccordion.tsx` (genutzt von `ServiceGrid` für
+genau diese Sektion): Hintergrundbild je Karte, Verlauf darüber, weiße Textbox mit
+Titel + blauem Punkt, Beschreibung, CTA-Zeile, Logo-Badge. Desktop horizontales
+Akkordeon, mobil vertikal.
+
+Zwei Erweiterungen nötig, beide rückwärtskompatibel:
+
+- **Scrollbarer Textbereich.** Das Muster existiert bereits: `.cc-card-scroll`
+  (index.css, seit 2026-07-24 in `TargetGroupCards`) — schmale, dezente Scrollleiste in
+  Kartenfarbe. Wird für Beschreibung + Anforderungen wiederverwendet, nicht neu erfunden.
+- **Statusabzeichen** auf der Karte für „Nicht suchend".
+
+Die Frage nach den „Drehanimationen" ist damit erledigt: *„Das kannst du ignorieren."*
+
+### 3. 1.23: CTA ausbauen **und** ein abschaltbares Pop-up
+
+> *„Der bestehende CTA soll ausgebaut werden, aber parallel ein ein- und ausschaltbares
+> Pop-up für explizite Stellengesuche … und auch als aktiviert in unserem Build erstmal
+> bleiben."*
+
+Also beides. Das Pop-up braucht einen **Schalter an einer Stelle**, nicht verstreute
+Bedingungen — ein Flag in den Jobdaten bzw. einer kleinen Konfiguration, Standard `an`.
+
+### 4. 1.22: Formular vorbauen, Versand später
+
+> *„Bau bitte schon mal das Formular vor, das Verbinden und die Funktion … später."*
+
+Damit ist der Blocker aus Abschnitt 5 aufgehoben — mit einer Auflage: Ein Formular, das
+sichtbar „Danke, wir melden uns" sagt und nichts versendet, darf **so nicht live gehen**.
+Die Bestätigung muss bis zur Anbindung ehrlich sein oder der Absenden-Knopf erkennbar
+inaktiv. Das ist keine Meinung über die Gestaltung, sondern über die Aussage.
+
+### 5. Benefits: bleiben, werden später optimiert
+
+> *„Ne, nicht leeren, einfach füllen und es wird im Nachgang nochmal optimiert."*
+
+Die Sektion bleibt bestückt. **Abweichung von der Regel aus 1.18/1.29, bewusst und auf
+Ansage** — der Unterschied zu den Erklärtexten: Dort gibt es gar keinen Text, hier steht
+bereits abgenommener, wenn auch generischer Inhalt. 1.26 ersetzt ihn später durch echte
+Benefits und Mitarbeiterstimmen.
+
+---
+
+## 9 — Commit-Aufteilung (überarbeitet nach den Entscheidungen)
+
+| # | Inhalt |
+|---|---|
+| **1** | `data/jobs.ts` als einzige Quelle: Positionen mit Status, Beschreibung, Anforderungen, Motiv. `jobPostingSchema` daraus ableiten — nur Status *suchend*. FAQ auf `/karriere` umformulieren. **Damit ist 1.24 vollständig.** |
+| **2** | **1.21** Positionskarten im Akkordeon-Design mit scrollbarem Textbereich und Statusabzeichen |
+| **3** | **1.25** „Über uns" in die Navigation (Weg A) + Sitemap-Priorität |
+| **4** | **1.23** Hero-CTA ausgebaut + abschaltbares Stellen-Pop-up, Standard an |
+| **5** | **1.22** Bewerbungsvariante des Formulars, ohne Versand, mit ehrlicher Beschriftung |
+| **6** | Doku, Backlog |
+
+Nach jedem Commit Build mit beiden Wächtern. Nach Commit 1 die JSON-LD-Zahl auf
+`/karriere` gegenprüfen (9 → 8), nach Commit 2 und 3 Sichtprüfung Desktop und mobil.
