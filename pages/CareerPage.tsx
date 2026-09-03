@@ -1,12 +1,14 @@
 import React from 'react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { jobPositions } from '../data/jobs';
 
-const jobs = [
-  { title: 'Kfz-Aufbereiter', description: 'Fahrzeugpflege, Innen- und Außenaufbereitung sowie sorgfältige Detailarbeit.' },
-  { title: 'Fahrzeuglackierer', description: 'Lackierarbeiten, Oberflächenqualität und saubere Reparaturlackierung.' },
-  { title: 'Karosserie- und Fahrzeugbaumechaniker', description: 'Karosseriearbeiten, Instandsetzung und handwerkliche Präzision.' },
-  { title: 'Serviceberater', description: 'Kundenkontakt, Auftragskoordination und Kommunikation im Team.' },
-];
+/**
+ * Positionen kommen aus `data/jobs.ts` — dieselbe Quelle, aus der die
+ * `JobPosting`-Auszeichnung entsteht. Bis 2026-09-03 standen sie hier und dort
+ * getrennt; der Serviceberater war deshalb als offene Stelle ausgezeichnet, obwohl
+ * er nicht gesucht wird.
+ */
+const jobs = jobPositions.map((job) => ({ title: job.title, description: job.description }));
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },

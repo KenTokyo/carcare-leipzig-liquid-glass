@@ -141,7 +141,9 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
   // Karriere
   '/karriere': [
     { id: 'initiativ', question: 'Kann ich mich initiativ bewerben?', answer: 'Ja. Initiativbewerbungen sind willkommen, besonders für Aufbereitung, Lackierung, Karosserie und Service.' },
-    { id: 'bereiche', question: 'Welche Jobbereiche gibt es?', answer: 'Wir suchen unter anderem Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater.' },
+    // Antwort nennt die derzeit AUSGESCHRIEBENEN Stellen. Der Serviceberater gehoert zum
+    // Betrieb, ist aber nicht ausgeschrieben (data/jobs.ts) — deshalb steht er hier nicht.
+    { id: 'bereiche', question: 'Welche Stellen sind aktuell ausgeschrieben?', answer: 'Aktuell suchen wir Kfz-Aufbereiter, Fahrzeuglackierer sowie Karosserie- und Fahrzeugbaumechaniker. Weitere Berufsbilder wie den Serviceberater besetzen wir zurzeit nicht neu — eine Initiativbewerbung ist trotzdem willkommen.' },
     { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über die Kontaktseite oder telefonisch. Wir melden uns anschließend persönlich zurück.' },
   ],
 
