@@ -109,7 +109,41 @@ brauchen keinen Textkontrast.
 
 ---
 
-## 4 — Was geprüft wurde
+## 4 — Fünf der geänderten Komponenten sind verwaist
+
+Beim Suchen nach einer geeigneten Prüfseite aufgefallen: **`About`, `AccidentFocus`,
+`Hero`, `Jobs` und `TargetGroups` werden nirgends importiert.** Sie stehen im Code,
+erscheinen aber auf keiner Seite.
+
+Folgen für diese Reparatur:
+
+- **6 der 19 Grau-Änderungen liegen in totem Code** — `About.tsx:27`,
+  `AccidentFocus.tsx:35`, `AccidentFocus.tsx:61`, `Jobs.tsx:94`, `Jobs.tsx:95`,
+  `TargetGroups.tsx:69`. Sichtbar sind 13.
+- **Alle 48 Blau-Änderungen sind live.** Keine der betroffenen Dateien ist verwaist.
+- **`Hero.tsx` ist selbst verwaist.** Die Datei wurde trotzdem nicht angefasst — die
+  Projektvorgabe gilt unabhängig davon —, aber die beiden dort notierten
+  Kontrast-Stellen erscheinen auf keiner Seite.
+
+Die Änderungen im toten Code bleiben stehen: Sie sind korrekt, und eine Komponente,
+die eines Tages wieder eingebunden wird, soll nicht mit dem alten Fehler zurückkommen.
+
+**Nicht nebenbei aufräumen.** `About.tsx` trägt laut Kommentar in `pages/UeberUnsPage.tsx`
+noch echte Kundentexte („verwaiste Komponente, aber echte Kundentexte"). Vor dem Löschen
+muss also geklärt sein, was an Inhalt noch gebraucht wird. Aufgenommen als Punkt 3 im
+Optimierungsplan (`docs/paket-c-serviceseiten/tasks/2026-09-03-paket-c-tasks.md`).
+
+> **Hinweis zur Prüfmethode:** Der erste Grep meldete `MobileStickyCTA`, `RequestForm`
+> und `ScrollPinnedProcess` fälschlich als verwaist — sie werden über `./Name` aus einer
+> anderen Komponente importiert, nicht über `components/Name` aus einer Seite. Und er
+> fand Treffer in `.claude/worktrees/…`, also in fremden Arbeitskopien. Eine
+> Verwaisungsprüfung, die nur nach einem Pfadmuster sucht, taugt nicht — dieselbe
+> Leitfrage wie bei den Wächtern: *Was besteht diese Prüfung, ohne dass die Sache
+> tatsächlich in Ordnung ist?*
+
+---
+
+## 5 — Was geprüft wurde
 
 * [x] `npx tsc --noEmit` grün
 * [x] Build mit beiden Wächtern grün: 25/25 Routen, 224 FAQPage-Texte

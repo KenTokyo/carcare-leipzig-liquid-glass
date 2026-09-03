@@ -415,6 +415,7 @@ Encoding sauber ✅.
 |---|---|---|
 | 1 | **`npm run shots` und `npm run kontrast` ins Projekt** — Spezifikation unten. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
 | 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und ist seit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
+| 3 | **Fünf verwaiste Komponenten.** `About`, `AccidentFocus`, `Hero`, `Jobs` und `TargetGroups` werden nirgends importiert und erscheinen auf keiner Seite. Aufgefallen bei der Token-Reparatur: 6 von 19 Grau-Änderungen lagen in totem Code. **Nicht einfach löschen** — `About.tsx` trägt laut Kommentar in `pages/UeberUnsPage.tsx` noch echte Kundentexte; `Hero.tsx` steht zusätzlich unter der Projektvorgabe „nicht anfassen", die dann zu klären wäre. Vorgehen: Verwaisung über den Import-Graph belegen (nicht per Pfad-Grep, siehe Hinweis in der Token-Doku), je Komponente entscheiden — löschen, oder Text vorher sichern. | offen, eigener Durchgang |
 
 ### 7.0 🔴 Kontrast außerhalb der Backdrop-Seiten — geprüft, zwei Ergebnisse
 
