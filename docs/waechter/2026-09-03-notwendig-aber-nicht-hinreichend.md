@@ -1,0 +1,82 @@
+# Notwendig, aber nicht hinreichend — die Woche der grünen Wächter
+
+Stand: 2026-09-03. Gilt für alle künftigen Build-Wächter und Prüfskripte in diesem
+Projekt.
+
+---
+
+## Der Befund
+
+Fünf Prüfungen aus dieser Woche waren **notwendig, aber nicht hinreichend**. Alle fünf
+haben grün gemeldet — und zwar in genau der Lage, in der sie hätten greifen müssen.
+
+| # | Prüfung | Was sie tatsächlich prüfte | Was sie durchließ | Grün gemeldet |
+|---|---|---|---|---|
+| 1 | `prerender.mjs`, Warnung statt Abbruch | „Ein Prerender-Fehler soll den Deploy nicht abwürgen" | Einen Deploy, bei dem der Prerender **gar nicht lief** — die Seite ging als leere SPA-Hülle live | Wochenlang, bis jemand die Seite ohne JavaScript ansah |
+| 2 | `check-faq-html.mjs` | „Stimmen die gefundenen FAQ-Texte mit der Quelle überein?" | Dass **nichts** gefunden wurde: `ok: 1 Seiten, 0 FAQPage-Texte` | Bei genau dem Totalausfall aus 1 |
+| 3 | `npm run smoke` ohne `--seit` | „Antwortet jede Route mit Inhalt, JSON-LD und Marker?" | Einen **alten Stand**, der noch live ist, weil der neue Deploy scheiterte | Bei jedem fehlgeschlagenen Deploy |
+| 4 | `--seit` ohne Wert | — | Der Parser übersprang die Prüfung stillschweigend | **Genau dann, wenn jemand sie ausdrücklich anforderte** |
+| 5 | `--seit HEAD` | „Ist das Deployment jünger als mein Commit?" | **Jedes fremde Deployment**, das nach dem Commit lief | 2026-09-03, unmittelbar nach dem Push von `main` |
+
+Zu 5, weil es das jüngste und lehrreichste ist: Commit 14:04 UTC, ausgeliefertes
+Deployment 14:36 UTC, eigener Stand erst 14:42 UTC live. Der Altersvergleich war
+erfüllt, der eigene Code war es nicht. Aufgefallen ist es nur, weil zusätzlich der
+Bundle-Hash verglichen wurde — Inhalts-Identität statt Zeitstempel.
+
+---
+
+## Die Frage für jeden neuen Wächter
+
+> **Was besteht diese Prüfung, ohne dass die Sache tatsächlich in Ordnung ist?**
+
+Nicht „prüft sie das Richtige?" — das tun alle fünf oben. Sondern: welche Lage sieht
+für diese Prüfung genauso aus wie der Gutfall? Wer die Frage nicht beantworten kann,
+hat den Wächter noch nicht verstanden.
+
+### Zwei wiederkehrende Antworten
+
+**„Nichts gefunden" sieht aus wie „nichts zu beanstanden".** Fälle 2 und 4. Ein Wächter
+muss zwischen *geprüft und in Ordnung* und *nichts geprüft* unterscheiden — und die
+Zahl der geprüften Objekte gegen eine unabhängige Erwartung halten. `check-faq-html.mjs`
+vergleicht seit dem Fix gegen `scripts/routes.mjs` und bricht bei `25/25` erwarteten,
+aber weniger gefundenen Seiten ab. Der Parser von `--seit` unterscheidet seitdem
+„Flag nicht angegeben" von „Flag ohne Wert".
+
+**Ein notwendiges Merkmal wird für ein hinreichendes gehalten.** Fälle 3 und 5. „Die
+Seite antwortet" und „das Deployment ist jung" sind beide wahr, wenn alles stimmt — und
+eben auch dann, wenn es nicht stimmt. Abhilfe ist jeweils ein Merkmal, das **nur** im
+Gutfall zutrifft: eine Identität statt einer Eigenschaft. Der Bundle-Hash ist so eine
+Identität, der Zeitstempel nicht.
+
+---
+
+## Zwei verwandte Fälle, andere Form
+
+**Ein Wächter kann nach einem Refactoring erblinden.** `check-faq.mjs` suchte
+`<PageFAQ route="…">`. Nach der Einführung von `ServiceLayout` fand er nichts mehr und
+schlug Alarm — der harmlose Ausgang. Der gefährliche wäre der bequeme Fix gewesen: den
+neuen Komponentennamen fest eintragen. Beim nächsten Layout wäre der Wächter wieder
+blind gewesen, dann aber **lautlos**. Er erkennt durchreichende Komponenten jetzt
+selbst und schreibt in sein Protokoll, wie viele Routen er auf diesem Weg gefunden hat
+— damit die Mechanik widerlegbar ist und nicht nur behauptet.
+
+**Ein Messwerkzeug kann selbstbewusst das Falsche messen.** Beim Kontrast lieferten
+drei Messaufbauten hintereinander plausibel aussehende Zahlen, die Artefakte waren:
+Kantenglättung, nicht gemalte DOM-Elemente, Abtastung außerhalb der Leinwand. Erkennbar
+war es an einem Muster, nicht an einem Fehler — über alle Seiten hinweg identische
+Werte. Für Messwerkzeuge lautet die Frage entsprechend: **Welches Ergebnis würde ich
+auch dann bekommen, wenn das Werkzeug nichts misst?**
+
+---
+
+## Anwendung
+
+Für jeden neuen Wächter, jedes Prüfskript und jeden Smoke-Test in diesem Projekt gilt:
+
+1. Die Frage oben beantworten, **bevor** der Wächter geschrieben wird.
+2. Eine Gegenprobe fahren: den Fehlerfall künstlich herstellen, sehen dass es bricht,
+   zurücknehmen. Ein Wächter, der nie rot war, ist unbelegt.
+3. Die Fehlermeldung benennt **den Fall**, nicht nur die Zahlen. „Ausgeliefertes Bundle
+   stammt nicht aus diesem Build" schickt jemanden ins Dashboard; zwei
+   gegenübergestellte Hashes schicken ihn in den eigenen Code.
+4. Was der Wächter geprüft hat, gehört ins Protokoll — nicht nur, dass er zufrieden war.

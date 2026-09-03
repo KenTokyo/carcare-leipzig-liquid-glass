@@ -84,6 +84,11 @@ Vom Kunden abgenommen, nicht wegoptimieren:
   (z. B. `position: sticky` mit gestaffelten Offsets statt Scroll-Listener).
 - Sticky- und Scroll-Verhalten früh auf Tablet und Smartphone prüfen,
   nicht erst am Ende.
+- **Vor jedem neuen Build-Wächter oder Prüfskript die Frage beantworten:**
+  *Was besteht diese Prüfung, ohne dass die Sache tatsächlich in Ordnung ist?*
+  Fünf Wächter haben 2026-09-03 grün gemeldet, während sie hätten greifen müssen.
+  Begründung, Fälle und Anwendung:
+  `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`
 
 ## Backlog
 

@@ -467,6 +467,19 @@ Serviceseiten-Layout heißt, nichts verloren.
 > Blau-Fall zusätzlich zweimal unabhängig am Bildschirm bestätigt (3,87:1). Was der
 > Rundumlauf noch braucht, steht in 7.2.
 
+### 7.0b Das Muster hinter den Wächter-Funden — eigenes Dokument
+
+Die Findings dieser Woche haben eine gemeinsame Form, die in Einzelbefunden verstreibt
+und deshalb ausgelagert ist:
+
+**`docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`**
+
+Fünf Prüfungen waren notwendig, aber nicht hinreichend — und alle fünf haben grün
+gemeldet in genau der Lage, in der sie hätten greifen müssen. Die Leitfrage für jeden
+künftigen Wächter steht dort, ebenso in `CLAUDE.md` unter *Umsetzungsprinzipien*:
+
+> **Was besteht diese Prüfung, ohne dass die Sache tatsächlich in Ordnung ist?**
+
 ### 7.1 `npm run shots` — Sichtprüfung als Werkzeug
 
 Die visuellen Nachweise entstehen bisher jedes Mal über ein Wegwerf-Skript. Bei Seiten
