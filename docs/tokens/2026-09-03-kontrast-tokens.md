@@ -103,9 +103,16 @@ brauchen keinen Textkontrast.
 
 > **Offen, nicht erledigt:** Die Footer-Icons und `AccidentFocus.tsx:69` stehen auf
 > `bg-gray-900` und sind dort rechnerisch bei 1,00:1 — als Dekoration nicht
-> kennzeichnungspflichtig, aber praktisch unsichtbar. Das ist eine Gestaltungsfrage,
-> keine Kontraktverletzung, und gehört in einen eigenen Durchgang. Ebenso die beiden
-> `Hero.tsx`-Stellen, sobald die Sperre für diese Datei aufgehoben wird.
+> kennzeichnungspflichtig, aber praktisch unsichtbar.
+>
+> **Das ist eine Gestaltungsfrage für André, nicht unsere Entscheidung.** Ob die Icons
+> im Footer sichtbar sein sollen oder bewusst zurücktreten, ist eine Aussage über das
+> Erscheinungsbild und keine über Barrierefreiheit — die Regel verlangt hier nichts.
+> Wir stellen die Frage, wir beantworten sie nicht. Vorzulegen wäre sie zusammen mit
+> den übrigen offenen Punkten zur Gestaltung.
+>
+> Ebenso die beiden `Hero.tsx`-Stellen, sobald die Sperre für diese Datei aufgehoben
+> wird.
 
 ---
 
