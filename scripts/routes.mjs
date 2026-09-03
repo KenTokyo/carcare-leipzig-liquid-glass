@@ -26,7 +26,9 @@ const staticRoutes = [
   { path: '/autoglas-leipzig', changefreq: 'monthly', priority: '0.9' },
   { path: '/privatkunden', changefreq: 'monthly', priority: '0.9' },
   { path: '/geschaeftskunden', changefreq: 'monthly', priority: '0.9' },
-  { path: '/ueber-uns', changefreq: 'yearly', priority: '0.8' },
+  // Seit 1.25 in der Hauptnavigation, deshalb 0.9 wie die uebrigen Hub-Seiten.
+  // `yearly` bleibt: Unternehmensinhalte aendern sich tatsaechlich selten.
+  { path: '/ueber-uns', changefreq: 'yearly', priority: '0.9' },
   { path: '/kontakt', changefreq: 'yearly', priority: '0.8' },
   { path: '/karriere', changefreq: 'monthly', priority: '0.7' },
   { path: '/autoaufbereitung-wissen', changefreq: 'weekly', priority: '0.7' },

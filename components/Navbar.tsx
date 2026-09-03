@@ -21,12 +21,20 @@ const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
 const navLinks = [
   { label: 'Leistungen', href: '/leistungen', hasDropdown: true, dropdownKey: 'leistungen' },
   { label: 'Wissen', href: '/autoaufbereitung-wissen' },
+  { label: 'Über uns', href: '/ueber-uns' },
   { label: 'Karriere', href: '/karriere' },
   { label: 'Kontakt', href: '/kontakt', hasDropdown: true, dropdownKey: 'kontakt' },
 ];
 
-const desktopLeftLinks = navLinks.slice(0, 2);
-const desktopRightLinks = navLinks.slice(2);
+/**
+ * Die Teilung ist NICHT beliebig: Das Logo steht auf Desktop mittig zwischen beiden
+ * Haelften. Mit vier Eintraegen war 2/2 symmetrisch; „Über uns" (Backlog 1.25) macht es
+ * zu fuenf. Deshalb 3/2 statt 2/3 — „Über uns" schliesst die linke, inhaltliche Haelfte
+ * ab, waehrend „Karriere" und „Kontakt" rechts die handlungsnahen Ziele bleiben.
+ * Wer hier einen Eintrag ergaenzt, entscheidet die Teilung mit.
+ */
+const desktopLeftLinks = navLinks.slice(0, 3);
+const desktopRightLinks = navLinks.slice(3);
 
 const navActionClass =
   'cc-gradient-button group inline-flex h-11 w-11 items-center justify-start overflow-hidden whitespace-nowrap rounded-[20px] border text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-[width,filter,transform,box-shadow] duration-300 hover:w-[168px] focus-visible:w-[168px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
