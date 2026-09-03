@@ -4,8 +4,8 @@ Backlog: `docs/backlog/schleife-1.md`, Paket C
 Vorgabe aus dem Backlog: *„1.14 ist ein Fall für eine gemeinsame Layout-Komponente,
 nicht für acht einzeln angepasste Seiten. Erst Komponente bauen, dann migrieren."*
 
-> **Stand 2026-09-03:** Phasen 1 und 2 umgesetzt (Komponente, Pilot, längste Seite).
-> Phasen 3-6 offen.
+> **Stand 2026-09-03:** 1.14 abgeschlossen — alle sieben Seiten migriert (Phasen 1-3).
+> Offen: Phase 4 (Leasingrückgabe prüfen), Phase 5 (1.15), Phase 6 (Doku).
 
 ---
 
@@ -188,15 +188,23 @@ allen sieben), sondern nach der **gerenderten Höhe**:
 **Ergebnis zur Ausgangsfrage:** Die Gliederung trägt. Den Übergang leisten Weißraum,
 blauer Eyebrow und die große Überschrift; der frühere harte Kantenwechsel fehlt nicht.
 
-### ⏸ Phase 3 — Die restlichen fünf
-* [ ] `pages/HagelschadenreparaturPage.tsx` (4 Karten → `four`)
-* [ ] `pages/AutoglasPage.tsx` (4 Karten → `four`)
-* [ ] `pages/AutolackierungPage.tsx` (6 Karten)
-* [ ] `pages/SmartRepairPage.tsx` (4 Karten)
-* [ ] `pages/FuhrparkservicePage.tsx` (4 Karten)
-* [ ] Build, visuell, danach `npm run smoke -- --seit HEAD`
+### ✅ Phase 3 — Die restlichen fünf *(Commit `bc75311`)*
+* [x] `pages/HagelschadenreparaturPage.tsx` (4 Karten → `four` abgeleitet)
+* [x] `pages/AutoglasPage.tsx` (4 Karten → `four` abgeleitet)
+* [x] `pages/AutolackierungPage.tsx` (6 Karten → `three`)
+* [x] `pages/SmartRepairPage.tsx` (4 Karten → `four` abgeleitet)
+* [x] `pages/FuhrparkservicePage.tsx` (4 Karten → `four` abgeleitet)
+* [x] Build grün, `check-faq` meldet „davon 7 über Layout-Komponente"
+* [x] Gegenprobe auf Textverlust (siehe unten)
 
-> **Wartet auf Freigabe.** Der Stand nach Phase 2 wird zuerst gezeigt.
+**Gegenprobe auf Textverlust.** Alle Zeichenketten der sieben Seitendateien gegen den
+Stand vor Paket C (`dd71719`) verglichen. Einziger Baustein, der die Seitendateien
+verlassen hat, ist der Eyebrow „Warum CarCare Center Leipzig" — der steht jetzt in der
+Komponente und im ausgelieferten HTML aller sieben. **Jeder andere Text ist wörtlich
+unverändert.** Ebenfalls geprüft: sieben Routen, sieben verschiedene Kachelmotive, je
+das eigene.
+
+**Damit ist 1.14 abgeschlossen.**
 
 ### ⏸ Phase 4 — Leasingrückgabe prüfen, nicht migrieren
 * [ ] Belegen, dass die Seite weiterhin dasselbe Foto-Verhalten zeigt
@@ -380,5 +388,50 @@ Encoding sauber ✅.
 
 | # | Fund | Stand |
 |---|---|---|
-| 1 | **`npm run shots` ins Projekt.** Die visuellen Nachweise entstehen jedes Mal über ein Wegwerf-Skript (`vite preview` + Puppeteer, Scroll-Halteschleife gegen Lenis, Sektionsgrenzen automatisch anfahren). Bei Seiten mit stehendem Foto gehört die Sichtprüfung zu jeder Änderung. **Dazu gehört der Kontrastmesser aus Phase 2** — er hat einen Fehler gefunden, den drei Durchgänge mit dem Auge nicht gefunden haben. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
-| 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und wird mit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
+| 1 | **`npm run shots` und `npm run kontrast` ins Projekt** — Spezifikation unten. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
+| 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und ist seit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
+
+### 7.1 `npm run shots` — Sichtprüfung als Werkzeug
+
+Die visuellen Nachweise entstehen bisher jedes Mal über ein Wegwerf-Skript. Bei Seiten
+mit stehendem Foto gehört die Sichtprüfung zu jeder Änderung. Was das Skript können muss:
+
+- `vite preview` gegen `dist/` starten, Puppeteer, Route und Breite als Argumente
+- **Scroll-Halteschleife gegen Lenis** — `scrollTop` in einer eigenen `requestAnimationFrame`-
+  Schleife *nach* Lenis halten, sonst federt die Seite vor der Aufnahme zurück
+- `window.__CC_NO_PRELOADER__ = true` per `evaluateOnNewDocument`, sonst liegt die Blende im Bild
+- **Sektionsgrenzen automatisch anfahren** statt fester Viewport-Vielfacher — die
+  Übergänge sind das, was man sehen will
+- Desktop 1440 und mobil 390 in einem Lauf
+
+### 7.2 `npm run kontrast` — der eigentliche Gewinn
+
+**Er hat gefunden, was drei Sichtprüfungen nicht gefunden haben** (Phase 2, 🔴). Das
+gehört ins Repo, nicht in ein Wegwerf-Skript. Der Aufbau ist allerdings voller Fallen —
+ich bin in fünf davon getappt, deshalb hier die Spezifikation und nicht nur der Wunsch:
+
+1. **Nicht an gerenderten Textpixeln messen.** Kantenglättung erzeugt teildeckende
+   Pixel mit beliebig schlechtem Kontrast — das misst die Schriftglättung, nicht die
+   Farbwahl. Erkennungszeichen: über alle Seiten hinweg identische Werte.
+2. **Zwei Aufnahmen derselben Stelle**, mit und ohne Text
+   (`*{color:transparent!important;-webkit-text-fill-color:transparent!important}`).
+   Die Textfarbe rechnerisch voll deckend über den gemessenen Hintergrund legen.
+3. **Halbtransparente Textfarben mitrechnen.** In diesem Projekt tragen `gray-300..700`
+   eingebackene Alphas — der wirksame Ton hängt vom Hintergrund ab.
+4. **Nur hinter den Glyphen messen**, nicht über den ganzen Zeilenkasten.
+   `Range.getClientRects()` liefert die Zeilenkästen; die Glyphenmaske ergibt sich aus
+   der Differenz der beiden Aufnahmen. Ohne diesen Schritt zählen Kasteneckchen mit —
+   etwa die helle Rundung eines dunklen Knopfes unter weißer Schrift.
+5. **Nur messen, was auch gemalt wird.** Navigations-Flyout und mobile Schublade stehen
+   im DOM, haben Layout mitten im Viewport und sind trotzdem unsichtbar. Weißer
+   Fußleistentext, der unsichtbar über dem hellen Hero liegt, ergibt rechnerisch 1:1.
+   Zwei Filter zusammen fangen das: `el.checkVisibility({opacityProperty: true,
+   visibilityProperty: true})` für Blenden am Vorfahren, und eine Trefferprobe per
+   `document.elementFromPoint()` auf die Mitte des Zeilenkastens für alles Verschobene,
+   Überdeckte und Weggeschnittene.
+6. **Sample-Rechteck auf die Leinwand begrenzen.** `getImageData` außerhalb liefert
+   transparentes Schwarz — bei halbtransparenter Schrift wieder rechnerisch ~1:1.
+
+Schwelle: WCAG 2.1 AA, 4,5:1 für Fließtext, 3:1 für großen Text (≥24 px, oder ≥18,66 px
+ab Schriftschnitt 700). Ausgabe: schlechtester Wert je Route/Breite/Textstelle,
+aufsteigend sortiert, Exitcode 1 bei Unterschreitung — damit taugt er als Wächter.
