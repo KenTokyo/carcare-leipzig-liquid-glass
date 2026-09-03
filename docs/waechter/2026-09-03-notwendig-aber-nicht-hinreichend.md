@@ -79,4 +79,12 @@ Für jeden neuen Wächter, jedes Prüfskript und jeden Smoke-Test in diesem Proj
 3. Die Fehlermeldung benennt **den Fall**, nicht nur die Zahlen. „Ausgeliefertes Bundle
    stammt nicht aus diesem Build" schickt jemanden ins Dashboard; zwei
    gegenübergestellte Hashes schicken ihn in den eigenen Code.
+
+   **Und sie benennt den *richtigen* Fall.** Der Altersvergleich meldete anfangs immer
+   „vermutlich ist der letzte Deploy fehlgeschlagen" — auch dann, wenn die Commits
+   schlicht noch nicht gepusht waren. Auf einem Arbeitsbranch ist das der Normalfall
+   und kein Defekt; die Meldung schickte trotzdem ins Dashboard. Sie unterscheidet die
+   beiden Ursachen jetzt über `git merge-base --is-ancestor HEAD origin/main`. Eine
+   Meldung, die nur eine von zwei möglichen Ursachen kennt, ist eine halbe Diagnose —
+   und kostet beim nächsten Mal genau die Zeit, die der Wächter sparen sollte.
 4. Was der Wächter geprüft hat, gehört ins Protokoll — nicht nur, dass er zufrieden war.
