@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { jobPositions, offeneStellen } from '../data/jobs';
+import { BEWERBUNGS_ZIEL, jobPositions, offeneStellen } from '../data/jobs';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
 
@@ -24,9 +24,6 @@ import PhotoBackdrop from './PhotoBackdrop';
  * Abzeichen auf der Karte; `JobPosting`-Markup bekommen nur die offenen Stellen
  * (siehe `data/jobs.ts`).
  */
-
-/** Ziel der Karten-CTA. Wird mit dem Bewerbungsformular auf `#bewerbung` umgestellt. */
-const BEWERBUNGS_ZIEL = '/kontakt';
 
 const alsKarte = (job: (typeof jobPositions)[number]): ExpandingCardItem => {
   const offen = job.status === 'suchend';

@@ -119,3 +119,12 @@ export const offeneStellen = jobPositions.filter((job) => job.status === 'suchen
  * ohne dass jemand Markup anfassen muss.
  */
 export const STELLEN_POPUP_AKTIV = true;
+
+/**
+ * Ziel aller Bewerbungs-Handlungsaufrufe: Karten, Banner, Pop-up.
+ *
+ * An EINER Stelle, weil es drei Verwender hat und mit dem Bewerbungsformular auf einen
+ * seitenlokalen Anker umgestellt wird. Drei Konstanten in drei Dateien waeren beim
+ * Umstellen zwei vergessene.
+ */
+export const BEWERBUNGS_ZIEL = '/kontakt';

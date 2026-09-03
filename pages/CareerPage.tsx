@@ -1,6 +1,9 @@
 import React from 'react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BEWERBUNGS_ZIEL } from '../data/jobs';
+import JobBanner from '../components/JobBanner';
 import JobCards from '../components/JobCards';
+import JobPopup from '../components/JobPopup';
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
@@ -27,6 +30,7 @@ const CareerPage: React.FC = () => (
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
     />
+    <JobBanner href={BEWERBUNGS_ZIEL} />
     <JobCards />
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
@@ -46,6 +50,7 @@ const CareerPage: React.FC = () => (
         <PageFAQ route="/karriere" />
       </div>
     </section>
+    <JobPopup href={BEWERBUNGS_ZIEL} />
     <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. Wir prüfen gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
   </>
 );
