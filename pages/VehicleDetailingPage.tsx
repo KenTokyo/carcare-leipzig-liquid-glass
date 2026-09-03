@@ -133,13 +133,13 @@ const VehicleDetailingPage: React.FC = () => (
                 <ul className="mt-5 flex-grow space-y-2.5">
                   {scope.items.map((item) => (
                     <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-gray-600">
-                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-700" aria-hidden="true" />
+                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-600" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               )}
-              <a href={scope.href} className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+              <a href={scope.href} className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
                 {scope.hrefLabel} <ArrowRight size={14} />
               </a>
             </article>
@@ -157,16 +157,16 @@ const VehicleDetailingPage: React.FC = () => (
         />
         <FeatureGrid items={leasingChecks} columns="four" />
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <a href="/leasingrueckgabe-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/leasingrueckgabe-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Alles zur Leasingrückgabe <ArrowRight size={14} />
           </a>
-          <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Ratgeber Leasingrückgabe <ArrowRight size={14} />
           </a>
-          <a href="/dellenentfernung-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/dellenentfernung-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Dellen lackfrei entfernen <ArrowRight size={14} />
           </a>
-          <a href="/smart-repair-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/smart-repair-leipzig" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Smart Repair bei Lackschäden <ArrowRight size={14} />
           </a>
         </div>

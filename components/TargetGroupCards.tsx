@@ -428,7 +428,7 @@ const TargetGroupCards: React.FC = () => {
                       <div
                         className={`mt-5 border-t border-gray-100 pt-4 ${PARTNER_HIDE_CLASS[group.partnersHideBelow ?? 860]}`}
                       >
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-600">
                           {group.partnersLabel ?? 'Partnerbetriebe'}
                         </p>
                         {/* EIN Raster fuer alle Kacheln — gleiche Spalten, Abstaende und

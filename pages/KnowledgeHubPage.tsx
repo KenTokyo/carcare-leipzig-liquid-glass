@@ -55,7 +55,7 @@ const KnowledgeHubPage: React.FC = () => (
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Wenn aus Wissen ein konkreter Bedarf wird, hilft die Seite zur Fahrzeugaufbereitung Leipzig mit Leistungen, Ablauf und Anfrage.
             </p>
-            <a href="/fahrzeugaufbereitung-leipzig" className="mt-5 inline-flex font-bold text-blue-700 hover:text-blue-800">
+            <a href="/fahrzeugaufbereitung-leipzig" className="mt-5 inline-flex font-bold text-blue-600 hover:text-blue-800">
               Fahrzeugaufbereitung Leipzig ansehen
             </a>
           </article>
@@ -64,7 +64,7 @@ const KnowledgeHubPage: React.FC = () => (
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Für Innenraum, Lack, Leasingrückgabe oder kleine Schäden können Sie uns direkt mit Fahrzeugdaten kontaktieren.
             </p>
-            <a href="/kontakt#contact-termin" className="mt-5 inline-flex font-bold text-blue-700 hover:text-blue-800">
+            <a href="/kontakt#contact-termin" className="mt-5 inline-flex font-bold text-blue-600 hover:text-blue-800">
               Kontaktformular öffnen
             </a>
           </article>
@@ -73,7 +73,7 @@ const KnowledgeHubPage: React.FC = () => (
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Bei Unfallschäden geht es um Schadenaufnahme, Kalkulation, Karosserie, Lack und Abstimmung mit Beteiligten.
             </p>
-            <a href="/unfallinstandsetzung-leipzig" className="mt-5 inline-flex font-bold text-blue-700 hover:text-blue-800">
+            <a href="/unfallinstandsetzung-leipzig" className="mt-5 inline-flex font-bold text-blue-600 hover:text-blue-800">
               Unfallinstandsetzung Leipzig
             </a>
           </article>

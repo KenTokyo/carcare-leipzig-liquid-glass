@@ -32,7 +32,7 @@ const AccidentFocus: React.FC = () => {
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] mb-8">
               Unfallschaden? Wir übernehmen{' '}
-              <span className="text-gray-400">Reparatur, Gutachten und Abstimmung mit der Versicherung.</span>
+              <span className="text-gray-300">Reparatur, Gutachten und Abstimmung mit der Versicherung.</span>
             </h2>
             <p className="text-base md:text-lg text-gray-300 font-light leading-relaxed max-w-xl mb-10">
               Ein Unfallschaden ist ärgerlich genug. Wir unterstützen Sie von der ersten Schadenaufnahme über die Kalkulation bis zur fachgerechten Reparatur. Auf Wunsch stimmen wir uns mit Gutachtern und Versicherern ab und sorgen dafür, dass Sie während der Reparatur mobil bleiben.
@@ -58,7 +58,7 @@ const AccidentFocus: React.FC = () => {
             className="lg:col-span-6"
           >
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Unsere Leistungen im Schadenfall</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-300 mb-6">Unsere Leistungen im Schadenfall</p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {bullets.map((b) => (
                   <li key={b.text} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">

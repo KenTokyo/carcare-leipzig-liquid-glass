@@ -170,7 +170,7 @@ const LeasingrueckgabePage: React.FC = () => (
         />
         <FeatureGrid items={businessBenefits} columns="four" />
         <div className="mt-8">
-          <a href="/geschaeftskunden" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/geschaeftskunden" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Zum Geschäftskundenservice
           </a>
         </div>
@@ -197,7 +197,7 @@ const LeasingrueckgabePage: React.FC = () => (
         />
         <ProcessList steps={steps} />
         <div className="mt-8">
-          <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Ausführlicher Ratgeber zur Leasingrückgabe
           </a>
         </div>

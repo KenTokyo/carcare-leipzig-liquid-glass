@@ -66,7 +66,7 @@ const TargetGroups: React.FC = () => {
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 leading-[1.1]">
               Der richtige Ansprechpartner für Ihr Fahrzeug –{' '}
-              <span className="text-gray-400">egal, ob privat, gewerblich oder nach einem Unfall.</span>
+              <span className="text-gray-500">egal, ob privat, gewerblich oder nach einem Unfall.</span>
             </h2>
           </motion.div>
         </div>

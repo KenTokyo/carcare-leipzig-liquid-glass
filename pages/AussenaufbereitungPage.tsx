@@ -121,10 +121,10 @@ const AussenaufbereitungPage: React.FC = () => (
           description="Wie Lackaufbereitung im Detail funktioniert, wo ihre Grenzen liegen und was sie kostet, erklärt der Ratgeber unabhängig von der Beauftragung."
         />
         <div className="mt-6 flex flex-wrap gap-4">
-          <a href="/autoaufbereitung-wissen/lackaufbereitung" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+          <a href="/autoaufbereitung-wissen/lackaufbereitung" className="inline-flex font-bold text-blue-600 hover:text-blue-800">
             Ratgeber Lackaufbereitung
           </a>
-          <a href="/innenaufbereitung-leipzig" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+          <a href="/innenaufbereitung-leipzig" className="inline-flex font-bold text-blue-600 hover:text-blue-800">
             Innenaufbereitung ansehen
           </a>
         </div>

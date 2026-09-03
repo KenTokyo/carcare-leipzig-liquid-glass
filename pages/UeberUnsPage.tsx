@@ -156,7 +156,7 @@ const UeberUnsPage: React.FC = () => (
         />
         <FeatureGrid items={employer} columns="four" />
         <div className="mt-8">
-          <a href="/karriere" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href="/karriere" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             Offene Stellen und Initiativbewerbung
           </a>
         </div>

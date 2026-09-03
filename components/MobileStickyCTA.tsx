@@ -101,7 +101,7 @@ const MobileStickyCTA: React.FC = () => {
             aria-label="Navigation starten"
             className="pointer-events-auto mb-2.5 rounded-2xl border border-gray-200 bg-white/95 p-2 shadow-[0_20px_40px_-10px_rgb(var(--cc-carbon-rgb)/0.25)] backdrop-blur-xl"
           >
-            <p className="px-2 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500">
+            <p className="px-2 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-600">
               Route zu {ADRESSE}
             </p>
             <div className="grid grid-cols-2 gap-2">

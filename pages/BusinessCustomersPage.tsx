@@ -133,12 +133,12 @@ const BusinessCustomersPage: React.FC = () => (
             <article key={highlight.title} className="flex flex-col rounded-2xl border border-blue-100 bg-white p-6 shadow-sm md:p-8">
               <h3 className="text-2xl font-bold leading-tight tracking-tight text-gray-950">{highlight.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-gray-600 md:text-base">{highlight.intro}</p>
-              <ul className="mt-6 flex-grow list-disc space-y-2 pl-5 marker:text-blue-700">
+              <ul className="mt-6 flex-grow list-disc space-y-2 pl-5 marker:text-blue-600">
                 {highlight.items.map((item) => (
                   <li key={item} className="text-sm leading-relaxed text-gray-600">{item}</li>
                 ))}
               </ul>
-              <a href={highlight.href} className="mt-7 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+              <a href={highlight.href} className="mt-7 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
                 Mehr dazu <ArrowRight size={14} />
               </a>
             </article>
@@ -178,14 +178,14 @@ const BusinessCustomersPage: React.FC = () => (
         />
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Autohäuser & Werke</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Autohäuser & Werke</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Leipziger Autohäuser und Werke, für die wir Aufbereitung, Instandsetzung und Lackarbeiten übernehmen.
             </p>
             <PartnerNames names={dealerPartners.map((partner) => partner.name)} />
           </div>
           <div className="lg:col-span-7">
-            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Versicherer & Schadensteuerer</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Versicherer & Schadensteuerer</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Mit diesen {insurancePartners.length} Versicherern wickeln wir Schadenfälle ab — von der Schadenaufnahme über die
               Audatex-Kalkulation bis zur Freigabe.

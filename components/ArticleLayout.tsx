@@ -33,7 +33,7 @@ const ArticleContentSection: React.FC<ArticleSection> = ({ id, title, items, ord
         <ListTag className="mt-5 space-y-3">
           {items.map((item, idx) => (
             <li key={item} className="flex gap-3 text-sm leading-relaxed text-gray-700 md:text-base">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-700">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-600">
                 {ordered ? idx + 1 : <CheckCircle2 size={15} />}
               </span>
               <span>{item}</span>
@@ -59,15 +59,15 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
     <article className="bg-white">
       <header className="bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-14 pt-32 md:pb-20 md:pt-40">
         <div className="container mx-auto max-w-5xl">
-          <nav aria-label="Breadcrumb" className="mb-7 flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-500">
-            <a href="/" className="transition-colors hover:text-blue-700">Start</a>
+          <nav aria-label="Breadcrumb" className="mb-7 flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-600">
+            <a href="/" className="transition-colors hover:text-blue-600">Start</a>
             <ChevronRight size={15} />
-            <a href="/autoaufbereitung-wissen" className="transition-colors hover:text-blue-700">Autoaufbereitung Wissen</a>
+            <a href="/autoaufbereitung-wissen" className="transition-colors hover:text-blue-600">Autoaufbereitung Wissen</a>
             <ChevronRight size={15} />
             <span className="text-gray-950">{article.cardTitle}</span>
           </nav>
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-blue-100 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-700">
+            <span className="rounded-full border border-blue-100 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600">
               {article.category}
             </span>
             <span className="rounded-full bg-gray-100 px-4 py-2 text-xs font-bold text-gray-600">{article.readTime} Lesezeit</span>
@@ -94,7 +94,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
             ))}
 
             <section aria-labelledby="local-cta-heading" className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-white p-6 md:p-8">
-              <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-700">
+              <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
                 <MapPin size={15} />
                 CarCare Center Leipzig
               </span>
@@ -118,21 +118,21 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
           </div>
 
           <aside className="h-fit rounded-2xl border border-gray-100 bg-white p-5 shadow-sm lg:sticky lg:top-28">
-            <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500">Im Artikel</h2>
+            <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-gray-600">Im Artikel</h2>
             <nav aria-label="Artikelabschnitte" className="mt-4 space-y-2">
               {sections.map((section) => (
-                <a key={section.id} href={`#${section.id}`} className="block rounded-xl px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-blue-50 hover:text-blue-700">
+                <a key={section.id} href={`#${section.id}`} className="block rounded-xl px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-blue-50 hover:text-blue-600">
                   {section.title}
                 </a>
               ))}
             </nav>
             {relatedArticles.length > 0 && (
               <div className="mt-7 border-t border-gray-100 pt-5">
-                <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-gray-500">Weiterlesen</h2>
+                <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-gray-600">Weiterlesen</h2>
                 <ul className="mt-4 space-y-3">
                   {relatedArticles.map((related) => (
                     <li key={related.slug}>
-                      <a href={related.path} className="group inline-flex items-start gap-2 text-sm font-bold leading-snug text-gray-950 transition-colors hover:text-blue-700">
+                      <a href={related.path} className="group inline-flex items-start gap-2 text-sm font-bold leading-snug text-gray-950 transition-colors hover:text-blue-600">
                         <ArrowRight size={14} className="mt-0.5 shrink-0 text-blue-600 transition-transform group-hover:translate-x-1" />
                         {related.cardTitle}
                       </a>

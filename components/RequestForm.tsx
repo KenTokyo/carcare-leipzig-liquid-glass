@@ -84,7 +84,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
   const head = headlineByKind[kind];
   const inputClass =
     'w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 transition-all';
-  const labelClass = 'block text-xs font-bold uppercase tracking-[0.15em] text-gray-500 mb-2';
+  const labelClass = 'block text-xs font-bold uppercase tracking-[0.15em] text-gray-600 mb-2';
 
   return (
     <motion.div
@@ -96,11 +96,11 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
     >
       <div className="mb-8">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5">
-          <span className="text-blue-700">{head.icon}</span>
+          <span className="text-blue-600">{head.icon}</span>
           <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-700">{head.eyebrow}</span>
         </div>
         <h3 className="mb-3 text-2xl font-bold leading-tight text-gray-950 md:text-3xl">{head.title}</h3>
-        <p className="text-sm leading-relaxed text-gray-500 md:text-base">{head.subtitle}</p>
+        <p className="text-sm leading-relaxed text-gray-600 md:text-base">{head.subtitle}</p>
       </div>
 
       {submitted ? (
@@ -109,7 +109,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
             <CheckCircle2 size={24} />
           </div>
           <h4 className="mb-2 text-lg font-bold text-gray-950">Anfrage übermittelt.</h4>
-          <p className="text-sm leading-relaxed text-gray-500">
+          <p className="text-sm leading-relaxed text-gray-600">
             Vielen Dank - wir melden uns zeitnah bei Ihnen. Bei dringenden Anliegen erreichen Sie uns telefonisch unter
             <span className="font-semibold text-gray-950"> 0341 - 261 77 90</span>.
           </p>
@@ -264,7 +264,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
               <Send size={14} />
               Anfrage absenden
             </button>
-            <p className="text-[11px] leading-relaxed text-gray-400">
+            <p className="text-[11px] leading-relaxed text-gray-600">
               Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß Datenschutzerklärung zu.
             </p>
           </div>

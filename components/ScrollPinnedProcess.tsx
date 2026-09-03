@@ -117,7 +117,7 @@ const ProcessCard: React.FC<{
           Titel mit blauem Punkt + Beschreibung. Unten verankert, Breite gedeckelt -> das Foto
           bleibt oben/rechts sichtbar. */}
       <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-[rgb(255_255_255/0.92)] p-5 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] backdrop-blur-sm sm:right-auto sm:max-w-[68%] sm:p-6 lg:max-w-[380px]">
-        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700">
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600">
           Schritt {step.n}
         </span>
         <h3 className="mt-1.5 text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
@@ -240,7 +240,7 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
         <div className="container relative mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
           {/* Links/oben: statischer Header + CTAs + Fortschritt */}
           <div className="lg:w-[45%]">
-            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
               {badgeIcon}
               {badgeLabel}
             </div>
@@ -265,7 +265,7 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
                   }`}
                 />
               ))}
-              <span className="ml-2 text-xs font-bold tracking-wide text-gray-400">
+              <span className="ml-2 text-xs font-bold tracking-wide text-gray-600">
                 {steps[active].n} / {String(steps.length).padStart(2, '0')}
               </span>
             </div>

@@ -65,7 +65,7 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-16 pt-32 md:pb-24 md:pt-40">
       <div className="container relative mx-auto">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-4xl">
-          <span className="mb-5 inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-700">
+          <span className="mb-5 inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
             {eyebrow}
           </span>
           {/* `[hyphens:auto]` + `break-words`: Ohne das lief „Fahrzeugaufbereitung" auf
@@ -135,12 +135,12 @@ export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | '
       {items.map((item, idx) => {
         const content = (
           <>
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
               <CheckCircle2 size={20} />
             </div>
             <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
-            {item.href && <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">Mehr erfahren <ArrowRight size={14} /></span>}
+            {item.href && <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">Mehr erfahren <ArrowRight size={14} /></span>}
           </>
         );
         const className = `group rounded-2xl border border-gray-100 ${kartenTon} p-6 transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60`;
@@ -162,7 +162,7 @@ export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => (
   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
     {steps.map((step, idx) => (
       <article key={step.title} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
-        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-base font-bold text-blue-700 shadow-sm ring-1 ring-gray-100">
+        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-base font-bold text-blue-600 shadow-sm ring-1 ring-gray-100">
           {idx + 1}
         </div>
         <h3 className="text-lg font-bold text-gray-950">{step.title}</h3>
@@ -209,13 +209,13 @@ export const PricingGrid: React.FC<{
             <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{item.price}</span>
           </div>
           <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{item.description}</p>
-          <a href={ctaHref} className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+          <a href={ctaHref} className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
             {ctaLabel} <ArrowRight size={14} />
           </a>
         </motion.article>
       ))}
     </div>
-    {note && <p className="mt-6 text-xs leading-relaxed text-gray-500">{note}</p>}
+    {note && <p className="mt-6 text-xs leading-relaxed text-gray-600">{note}</p>}
   </>
 );
 

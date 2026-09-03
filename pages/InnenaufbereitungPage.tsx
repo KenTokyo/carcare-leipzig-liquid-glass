@@ -123,10 +123,10 @@ const InnenaufbereitungPage: React.FC = () => (
           description="Wie eine Innenaufbereitung abläuft, welche Kostenfaktoren es gibt und worauf bei Polstern und Leder zu achten ist, erklärt der Ratgeber unabhängig von der Beauftragung."
         />
         <div className="mt-6 flex flex-wrap gap-4">
-          <a href="/autoaufbereitung-wissen/innenaufbereitung" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+          <a href="/autoaufbereitung-wissen/innenaufbereitung" className="inline-flex font-bold text-blue-600 hover:text-blue-800">
             Ratgeber Innenaufbereitung
           </a>
-          <a href="/aussenaufbereitung-leipzig" className="inline-flex font-bold text-blue-700 hover:text-blue-800">
+          <a href="/aussenaufbereitung-leipzig" className="inline-flex font-bold text-blue-600 hover:text-blue-800">
             Außenaufbereitung ansehen
           </a>
         </div>

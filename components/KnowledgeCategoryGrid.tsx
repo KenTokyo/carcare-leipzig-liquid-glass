@@ -30,7 +30,7 @@ const KnowledgeCategoryGrid: React.FC<KnowledgeCategoryGridProps> = ({ articles,
           transition={{ duration: 0.45, delay: idx * 0.05 }}
           className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
         >
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
+          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
             {icons[category.id]}
           </div>
           <h3 className="text-xl font-bold leading-tight text-gray-950">{category.title}</h3>
@@ -38,7 +38,7 @@ const KnowledgeCategoryGrid: React.FC<KnowledgeCategoryGridProps> = ({ articles,
           <ul className="mt-6 space-y-3">
             {categoryArticles.map((article) => (
               <li key={article.slug}>
-                <a href={article.path} className="group inline-flex items-start gap-2 text-sm font-bold leading-snug text-gray-950 transition-colors hover:text-blue-700">
+                <a href={article.path} className="group inline-flex items-start gap-2 text-sm font-bold leading-snug text-gray-950 transition-colors hover:text-blue-600">
                   <ArrowRight size={15} className="mt-0.5 shrink-0 text-blue-600 transition-transform group-hover:translate-x-1" />
                   {article.cardTitle}
                 </a>

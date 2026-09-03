@@ -91,8 +91,8 @@ const Jobs: React.FC = () => {
                       </div>
                       <div>
                          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{job.title}</h3>
-                         <p className="text-sm text-gray-500 mb-4 leading-relaxed">{job.description}</p>
-                         <div className="flex flex-wrap gap-3 text-xs text-gray-400 font-medium uppercase tracking-wide">
+                         <p className="text-sm text-gray-600 mb-4 leading-relaxed">{job.description}</p>
+                         <div className="flex flex-wrap gap-3 text-xs text-gray-600 font-medium uppercase tracking-wide">
                             <span className="bg-gray-50 px-3 py-1 rounded-md">{job.area}</span>
                             <span className="bg-gray-50 px-3 py-1 rounded-md">Leipzig</span>
                             <span className="bg-gray-50 px-3 py-1 rounded-md">{job.type}</span>
