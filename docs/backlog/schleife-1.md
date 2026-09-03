@@ -95,11 +95,11 @@ Findings: `docs/paket-c-serviceseiten/tasks/2026-09-03-paket-c-tasks.md`
 
 | Nr. | Aufgabe | Status |
 |---|---|---|
-| 1.21 | Karriereseite mit Karten im Website-Stil je Position: Fahrzeug-/Karosseriebauer, Lackierer, Aufbereiter, Mechaniker – keine Drehanimationen | offen |
-| 1.22 | Bewerbungsformular: Name, E-Mail, Telefon, Nachricht; Lebenslauf optional, Absenden auch ohne Anhang | offen |
-| 1.23 | „Jetzt bewerben"-Banner oben auf der Karriereseite | offen |
-| 1.24 | Serviceberater aus den offenen Positionen entfernen | offen |
-| 1.25 | Über-uns-Seite ist nirgends verlinkt → in Navigation aufnehmen | offen |
+| 1.21 | Karriereseite mit Karten im Website-Stil je Position: Fahrzeug-/Karosseriebauer, Lackierer, Aufbereiter, Mechaniker – keine Drehanimationen | umgesetzt |
+| 1.22 | Bewerbungsformular: Name, E-Mail, Telefon, Nachricht; Lebenslauf optional, Absenden auch ohne Anhang | Formular steht, **Versand offen (1.17)** |
+| 1.23 | „Jetzt bewerben"-Banner oben auf der Karriereseite | umgesetzt, zzgl. abschaltbarem Stellen-Pop-up |
+| 1.24 | Serviceberater aus den offenen Positionen entfernen | umgesetzt (als Status „nicht suchend") |
+| 1.25 | Über-uns-Seite ist nirgends verlinkt → in Navigation aufnehmen | umgesetzt |
 | 1.16 | Geschäftskunden: volldigitale Abwicklung über eigenes Programm namentlich erwähnen | umgesetzt |
 
 **1.16 ist blockiert:** Schreibweise „Data Motive" vs. „Beta Motive" bei André
@@ -108,6 +108,22 @@ bestätigen lassen. Alternativ zunächst ohne Produktnamen umsetzen
 
 **1.21/1.24 teilweise blockiert:** Ob Ausbildungsstellen aktuell besetzt werden
 sollen, ist offen. Kartenstruktur bauen, Ausbildungskarte nachziehen.
+
+**Paket D umgesetzt** (2026-09-03), bis auf zwei benannte Reste:
+
+- **1.24 wurde umgedreht.** Der Serviceberater ist nicht entfernt, sondern hat den
+  Status „nicht suchend" (`data/jobs.ts`). Berufsbild und Ausschreibungsstand sind
+  damit getrennt: `JobPosting`-Markup entsteht nur aus offenen Stellen, die Karte
+  bleibt sichtbar. Ein Wechsel ist ein Wort in den Daten statt sieben Stellen im Code.
+  `/karriere` ging dadurch von 9 auf 8 JSON-LD-Blöcke.
+- **1.22 wartet auf 1.17.** Das Formular steht vollständig, der Absenden-Knopf ist
+  inaktiv und nennt Telefon und E-Mail. Grund: `handleSubmit` versendet bis heute
+  nichts. Bei einer Bewerbung ist eine falsche Empfangsbestätigung nicht vertretbar.
+  Schalter: `VERSAND_AKTIV` in `components/RequestForm.tsx`.
+- **Ausbildungskarte** weiterhin offen — sie entsteht mit einem Eintrag in
+  `data/jobs.ts`, sobald André zusagt.
+
+Findings: `docs/paket-d-karriere/tasks/2026-09-03-paket-d-tasks.md`
 
 ---
 
