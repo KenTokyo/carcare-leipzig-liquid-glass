@@ -4,8 +4,8 @@ Backlog: `docs/backlog/schleife-1.md`, Paket C
 Vorgabe aus dem Backlog: *„1.14 ist ein Fall für eine gemeinsame Layout-Komponente,
 nicht für acht einzeln angepasste Seiten. Erst Komponente bauen, dann migrieren."*
 
-> **Stand 2026-09-03:** 1.14 abgeschlossen — alle sieben Seiten migriert (Phasen 1-3).
-> Offen: Phase 4 (Leasingrückgabe prüfen), Phase 5 (1.15), Phase 6 (Doku).
+> **Stand 2026-09-03:** Paket C strukturell abgeschlossen. 1.14 umgesetzt, bei 1.15
+> steht die Sektion und ist leer — die Texte liefert André (Backlog **1.29**).
 
 ---
 
@@ -206,20 +206,45 @@ das eigene.
 
 **Damit ist 1.14 abgeschlossen.**
 
-### ⏸ Phase 4 — Leasingrückgabe prüfen, nicht migrieren
-* [ ] Belegen, dass die Seite weiterhin dasselbe Foto-Verhalten zeigt
-* [ ] Dokumentieren, warum sie außen vor bleibt (6 Sektionen, Preis- und
-      Zielgruppenblöcke — sie wäre ein `children`-Bündel, kein Muster)
+### ✅ Phase 4 — Leasingrückgabe geprüft, nicht migriert
+* [x] Foto-Verhalten unverändert — sie nutzt dieselbe `BackdropLayout`-Mechanik und
+      hat den Kontrastfix aus Phase 2 automatisch mitbekommen (2,05:1 → 6,78:1 mobil)
+* [x] Bleibt außen vor, und zwar begründet
 
-### ⏸ Phase 5 — 1.15: eigenständige Erklärung je Leistung
-* [ ] Sieben Erklärtexte schreiben, `erklaerung={null}` je Seite ersetzen
-* [ ] Prüfen, ob dabei Dopplungen zur Hero-Description entstehen
+**Warum sie nicht migriert wird.** Sie hat sechs Sektionen statt drei: zwei
+Zielgruppenblöcke (Privat- und Geschäftskunden, je vier Karten), einen Leistungsblock
+mit Querverweisen auf vier andere Seiten und einen `ProcessList`-Ablauf. Über
+`ServiceLayout` wäre davon nur die FAQ-Sektion abgedeckt; alles andere käme als
+`children`-Bündel herein. Das Ergebnis wäre eine Komponente, die für eine Seite ein
+Gerüst trägt und für die andere nur ein Umschlag ist — **die Migration würde die Seite
+nicht vereinheitlichen, sondern nur verstecken, dass sie anders ist.**
 
-> **Texte erst nach Sichtung der Struktur** — ausdrückliche Vorgabe.
+### ✅ Phase 5 — 1.15: Struktur steht, Texte ausstehend
+* [x] Erklärsektion als Pflichtfeld in `ServiceLayout`, vor der Fachsektion
+* [x] `erklaerung={null}` auf allen sieben Seiten — die Sektion existiert und ist leer
+* [x] TODO-Kommentar auf jeder der sieben Seiten, mit der konkreten Frage
+      („Was ist Smart Repair?") und Verweis auf Backlog **1.29**
+* [x] Backlog-Punkt 1.29 angelegt: Zulieferung André
+* [ ] Texte einsetzen — **wartet auf 1.29**
 
-### ⏸ Phase 6 — Doku, Backlog, Optimierungsplan
-* [ ] `docs/backlog/schleife-1.md`: 1.14/1.15 auf umgesetzt
-* [ ] Optimierungsplan mit den Funden aus den Kommentaren unten
+**Warum die Texte nicht von mir kommen.** Zwei bis drei Absätze zu „Was ist X?" sind
+fachliche Aussage über Verfahren und Machbarkeit — wann Smart Repair reicht, bis zu
+welcher Tiefe eine Felge repariert werden darf, wann der Lack für die lackfreie
+Dellenentfernung noch intakt genug ist. Das lässt sich nicht formulieren, ohne dass
+André es hinterher korrigiert. Dieselbe Regel wie beim Exklusivleistungs-Block (1.18):
+erfundener Text sieht im Review wie fertiger Text aus und geht so live.
+
+**Zustand im Code, damit es nicht vergessen wird:** `erklaerung` ist Pflichtfeld vom
+Typ `ServiceErklaerung | null`. Eine neue Leistungsseite ohne Entscheidung darüber gibt
+es nicht — das wäre ein Typfehler beim Build. `null` rendert nichts: kein Platzhalter,
+keine leere Sektion mit Innenabstand.
+
+### ✅ Phase 6 — Doku, Backlog, Optimierungsplan
+* [x] `docs/backlog/schleife-1.md`: 1.14 auf umgesetzt, 1.15 auf „Struktur umgesetzt,
+      Texte offen", Paket-C-Abschluss vermerkt
+* [x] Backlog **1.29** angelegt (Erklärtexte, Zulieferung André)
+* [x] Abschnitt 7 dieses Plans: Kontrastprüfung, `npm run shots`, `npm run kontrast`,
+      Token-Reparatur als eigener Branch
 
 ---
 
@@ -420,10 +445,20 @@ Zum Vergleich, dieselbe Rechnung für die Nachbartokens: `text-blue-600` (trust-
 `SectionIntro` nutzt `blue-600` und ist deshalb in Ordnung — der in `PageHero` nutzt
 `blue-700` und ist es nicht.
 
-**Naheliegende Reparatur, bewusst nicht ausgeführt:** `text-blue-700` → `text-blue-600`
-für Text (nicht für Flächen). Das sind 48 Fundstellen und eine sichtbare Änderung auf
-der ganzen Kundenseite — außerhalb dessen, was Paket C abdeckt, und eine Entscheidung,
-die gezeigt gehört, bevor sie passiert. Auftrag war ausdrücklich *prüfen*.
+**Reparatur entschieden am 2026-09-03: eigener Branch nach Paket C, dann vollständig.**
+
+* [ ] `text-blue-700` → `text-blue-600` für **Text** — **alle 48 Fundstellen**, nicht nur
+      der Eyebrow. Ein halb umgestellter Token ist schlimmer als der alte: Dann stehen
+      zwei Blautöne nebeneinander und niemand weiß mehr, welcher gilt.
+* [ ] `text-gray-400` (16×) und `text-gray-500` (12×) im selben Durchgang — aber
+      **pro Fundstelle prüfen, ob es Text oder Dekoration ist.** Rahmen, Trenner und
+      Icon-Flächen brauchen keinen Textkontrast; sie dürfen bleiben. Nur wo der Token
+      Fließtext einfärbt, wird gehoben.
+* [ ] Nicht für Flächen (`bg-blue-700`) — nur für Schriftfarben.
+
+Der Umfang ist der Grund für den eigenen Branch: 48 plus 28 Fundstellen sind eine
+sichtbare Änderung auf der ganzen Kundenseite und haben in einem Paket, das
+Serviceseiten-Layout heißt, nichts verloren.
 
 > **Was ich nicht behaupte.** Der Rundumlauf über alle 25 Routen lieferte auch nach vier
 > Korrekturen am Messaufbau noch unplausible Werte (Kartentext auf weißem Grund mit

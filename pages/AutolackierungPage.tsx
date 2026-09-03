@@ -33,8 +33,19 @@ const AutolackierungPage: React.FC = () => (
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig'],
     }}
-    // TODO 1.15 — eigenstaendige Erklaerung der Leistung. Text steht noch aus; bis dahin
-    // bleibt das Feld ausdruecklich leer statt mit Platzhaltertext gefuellt.
+    /*
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+
+      Zwei bis drei Absätze auf die Frage „Was ist Neu- und Reparaturlackierung?“ — was das
+      Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist
+      fachliche Aussage über Machbarkeit, keine Textarbeit.
+
+      Die Sektion steht in `ServiceLayout` und sitzt vor der Fachsektion; das Feld
+      ist Pflicht, ein Vergessen wäre ein Typfehler. `null` heisst „Text steht noch
+      aus“, nicht „wird nicht gebraucht“. BEWUSST KEIN PLATZHALTER: erfundener Text
+      sieht im Review wie fertiger Text aus und geht so live — gleiche Regel wie
+      beim Exklusivleistungs-Block (1.18).
+    */
     erklaerung={null}
     leistung={{
       eyebrow: 'Leistungsumfang',

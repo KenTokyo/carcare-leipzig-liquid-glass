@@ -70,11 +70,24 @@ Findings: `docs/paket-b-aufbereitung/tasks/2026-09-02-paket-b-optimierung-tasks.
 
 | Nr. | Aufgabe | Status |
 |---|---|---|
-| 1.14 | Layout durchgehend vereinheitlichen (Hintergrundfoto oben, weich übergehend in Weiß) für: Neu- & Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas & Scheibenfolierung, Leasingrückgabe, Fuhrparkservice | offen |
-| 1.15 | Jede Leistung kurz und eigenständig erklären (Ziel: direkte Landung bei Suche „Smart Repair Leipzig") | offen |
+| 1.14 | Layout durchgehend vereinheitlichen (Hintergrundfoto oben, weich übergehend in Weiß) für: Neu- & Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas & Scheibenfolierung, Leasingrückgabe, Fuhrparkservice | umgesetzt |
+| 1.15 | Jede Leistung kurz und eigenständig erklären (Ziel: direkte Landung bei Suche „Smart Repair Leipzig") | Struktur umgesetzt, Texte offen (**1.29**) |
 
 **Hinweis:** 1.14 ist ein Fall für eine gemeinsame Layout-Komponente, nicht für
 acht einzeln angepasste Seiten. Erst Komponente bauen, dann Seiten migrieren.
+
+**Paket C abgeschlossen** (2026-09-03): `components/ServiceLayout.tsx` trägt das
+Gerüst, sieben Seiten sind migriert. Leasingrückgabe hatte `BackdropLayout` bereits
+und bleibt außen vor — sie weicht mit sechs Sektionen bewusst vom Muster ab.
+
+Bei 1.15 steht die Struktur: Die Erklärsektion ist fester Bestandteil der Komponente
+und sitzt vor der Fachsektion. Das Feld `erklaerung` ist ein **Pflichtfeld**, steht
+aber auf allen sieben Seiten auf `null` — „Text steht noch aus", nicht „wird nicht
+gebraucht". Ein Vergessen wäre ein Typfehler beim Build. Bewusst kein Platzhaltertext:
+erfundener Text sieht im Review wie fertiger Text aus und geht so live. Die Texte
+liefert André, siehe 1.29.
+
+Findings: `docs/paket-c-serviceseiten/tasks/2026-09-03-paket-c-tasks.md`
 
 ---
 
@@ -122,3 +135,4 @@ Schleife 1 – entweder bewusst vorziehen oder ans Ende der Schleife legen.
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite zusammentragen | offen (André) |
 | 1.28 | Eigene Bildmotive für Leasingrückgabe und Außenaufbereitung liefern. Aktuell teilen sich beide ein Motiv mit anderen Kacheln (`smart-repair-…`, `fahrzeugaufbereitung-…`), weshalb Dateiname und Einsatzort auseinanderfallen. Mit eigenen Motiven löst sich das von selbst. Passt zur ohnehin offenen Fotolieferung. | offen (André) |
 | 1.27 | Zeitleiste auf `/ueber-uns`: Gibt es zwischen der Gründung 1998 und heute weitere Meilensteine, die dort stehen sollen? Aktuell nur zwei Stationen („1998 — Gründung", „Heute"). | offen (André) |
+| 1.29 | **Erklärtexte für die sieben Leistungsseiten** (Grundlage für 1.15). Je Leistung zwei bis drei Absätze, die die Frage „Was ist X?" beantworten: was das Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist fachliche Aussage über Machbarkeit und Verfahren — nichts, was sich ohne André formulieren lässt, ohne dass er es hinterher korrigiert. Betrifft: Neu- & Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas & Scheibenfolierung, Fuhrparkservice. Die Sektion steht bereits, sie ist leer. | offen (André) |
