@@ -10,7 +10,7 @@
     "dev": "vite",
     "prebuild": "node scripts/check-faq.mjs && node scripts/check-vercel-config.mjs && node scripts/generate-sitemap.mjs && node scripts/ensure-chromium.mjs",
     "build": "tsc --noEmit && vite build",
-    "postbuild": "node scripts/prerender.mjs && node scripts/check-faq-html.mjs",
+    "postbuild": "node scripts/prerender.mjs && node scripts/check-faq-html.mjs && node scripts/check-dummies.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "sitemap": "node scripts/generate-sitemap.mjs",
@@ -20,7 +20,8 @@
     "preloader-assets": "node scripts/build-preloader-assets.mjs",
     "eu-emblem": "node scripts/build-eu-emblem.mjs",
     "verify-preloader": "node scripts/verify-preloader.mjs",
-    "smoke": "node scripts/check-deployment.mjs"
+    "smoke": "node scripts/check-deployment.mjs",
+    "dummies": "node scripts/check-dummies.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.29.2",
