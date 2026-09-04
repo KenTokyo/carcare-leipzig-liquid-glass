@@ -32,9 +32,20 @@ const staticRoutes = [
   { path: '/kontakt', changefreq: 'yearly', priority: '0.8' },
   { path: '/karriere', changefreq: 'monthly', priority: '0.7' },
   { path: '/autoaufbereitung-wissen', changefreq: 'weekly', priority: '0.7' },
+  // Rechtsseiten. Niedrige Prioritaet: sie sollen erreichbar und crawlbar sein,
+  // aber keine Leistungsseite verdraengen.
+  { path: '/impressum', changefreq: 'yearly', priority: '0.3' },
+  // `sitemap: false` — die Seite wird ausgeliefert und vorgerendert, gehoert aber
+  // nicht in den Suchindex: sie ist bisher nur ein Geruest ohne Erklaerungstext
+  // (Backlog 3.34). Die Ausnahme steht ausdruecklich AN DER ROUTE, nicht als
+  // Sonderfall in einem der fuenf Skripte, die diese Liste lesen.
+  { path: '/datenschutz', changefreq: 'yearly', priority: '0.3', sitemap: false },
 ];
 
 // Alle Routen (statisch + Artikel) inkl. Sitemap-Metadaten.
+// `sitemap: false` an einer Route heisst: ausliefern und vorrendern ja, in
+// sitemap.xml aufnehmen nein. Ausgewertet wird das nur in generate-sitemap.mjs —
+// Prerender, vercel.json und beide Waechter sehen die Route wie jede andere.
 export function getRoutes() {
   const src = readFileSync(resolve(root, 'data/knowledgeArticles.ts'), 'utf8');
   const articleRoutes = [...src.matchAll(/path:\s*'(\/autoaufbereitung-wissen\/[^']+)'/g)]

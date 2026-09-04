@@ -389,7 +389,8 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
               </p>
             ) : (
               <p className="text-[11px] leading-relaxed text-gray-600">
-                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß Datenschutzerklärung zu.
+                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß{' '}
+                <a href="/datenschutz" className="font-semibold text-gray-950 underline">Datenschutzerklärung</a> zu.
               </p>
             )}
           </div>

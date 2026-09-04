@@ -10,7 +10,11 @@ import { getRoutes } from './routes.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://www.carcare-center.de';
 
-const routes = getRoutes();
+// Nur indexierbare Routen. `sitemap: false` haelt Seiten heraus, die zwar
+// ausgeliefert werden, aber nichts im Suchindex verloren haben (siehe routes.mjs).
+const alleRouten = getRoutes();
+const routes = alleRouten.filter((r) => r.sitemap !== false);
+const ausgeschlossen = alleRouten.length - routes.length;
 const today = new Date().toISOString().slice(0, 10);
 
 const body = routes
@@ -33,4 +37,7 @@ ${body}
 
 writeFileSync(resolve(root, 'public/sitemap.xml'), xml);
 const articleCount = routes.filter((r) => r.path.startsWith('/autoaufbereitung-wissen/')).length;
-console.log(`sitemap.xml erzeugt: ${routes.length} URLs (${articleCount} Artikel, ${routes.length - articleCount} statische Seiten).`);
+console.log(
+  `sitemap.xml erzeugt: ${routes.length} URLs (${articleCount} Artikel, ${routes.length - articleCount} statische Seiten)` +
+    (ausgeschlossen ? `, ${ausgeschlossen} Route(n) bewusst nicht indexiert.` : '.')
+);
