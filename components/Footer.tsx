@@ -218,8 +218,8 @@ const Footer: React.FC = () => {
                 <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
                 <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Autoaufbereitung Wissen</a></li>
                 <li><a href="/karriere" className="hover:text-white transition-colors">Jobangebote</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Impressum</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Datenschutz</a></li>
+                <li><a href="/impressum" className="hover:text-white transition-colors">Impressum</a></li>
+                <li><a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a></li>
               </ul>
             </motion.div>
 

@@ -23,6 +23,8 @@ import PrivatkundenPage from './pages/PrivatkundenPage';
 import UeberUnsPage from './pages/UeberUnsPage';
 import CareerPage from './pages/CareerPage';
 import ContactPage from './pages/ContactPage';
+import ImpressumPage from './pages/ImpressumPage';
+import DatenschutzPage from './pages/DatenschutzPage';
 import KnowledgeArticlePage from './pages/KnowledgeArticlePage';
 import KnowledgeHubPage from './pages/KnowledgeHubPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -119,6 +121,10 @@ const App: React.FC = () => {
         return <CareerPage />;
       case '/kontakt':
         return <ContactPage />;
+      case '/impressum':
+        return <ImpressumPage />;
+      case '/datenschutz':
+        return <DatenschutzPage />;
       case '/autoaufbereitung-wissen':
         return <KnowledgeHubPage />;
       default:
