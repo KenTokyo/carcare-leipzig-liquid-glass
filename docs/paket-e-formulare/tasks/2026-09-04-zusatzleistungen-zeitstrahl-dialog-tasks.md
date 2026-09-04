@@ -93,6 +93,46 @@ Zusammenfassung. Ergänzen ist eine Zeile.
 
 ---
 
+### ✅ Phase 5 — Echter Zeitstrahl statt Kartenraster mit Linie
+**Ziel:** Nachforderung des Users. Die Fassung aus Phase 2 war ein Kartenraster mit
+verbindender Linie — technisch eine Zeitleiste, gelesen aber als Raster.
+
+* [x] Durchgehende Achse von links nach rechts, Punkte sitzen DARAUF.
+* [x] Karten hängen abwechselnd über und unter der Achse, mit Stichleitung zum Punkt.
+* [x] Achse zeichnet sich beim Eintreten; jeder Punkt erscheint, wenn die Linie ihn
+  erreicht, danach seine Karte.
+* [x] Interaktiv: Punkt ist ein `<button>`, Punkt und Karte heben sich gemeinsam hervor
+  — bei Zeigerkontakt, Tastaturfokus und Klick. `aria-describedby` verbindet beide.
+* [x] Mobil senkrechte Achse mit Karten rechts daneben, ein einziger Markup-Block.
+* [x] Stationen in eine eigene Datenquelle `data/historie.ts` verlegt.
+
+**Referenzen:**
+`components/Timeline.tsx`
+`data/historie.ts`
+`pages/UeberUnsPage.tsx`
+
+---
+
+### ✅ Phase 6 — Wächter gegen Platzhalter-Inhalte
+**Ziel:** Dummy-Texte gehen live, weil sie beim Review niemand sucht. Dieselbe Logik wie
+bei TODO-Kommentaren, nur maschinell.
+
+* [x] `scripts/check-dummies.mjs`, eingehängt im `postbuild`.
+* [x] **Netz 1 über das Feld, nicht über den Text:** Die Datenmodule werden mit esbuild
+  übersetzt und ausgeführt; gelesen wird der echte Wert von `istDummy` /
+  `istPlatzhalter`. Schlägt deshalb auch bei umbenannten Platzhaltern an.
+* [x] **Netz 2 über den Text im ausgelieferten HTML** für Platzhalter ohne Feld.
+* [x] Hart auf Vercel und in CI, Warnung lokal.
+* [x] Abschnitt „Was besteht diese Prüfung, ohne dass die Sache in Ordnung ist" im Skript.
+* [x] Gegenprobe in drei Fällen, siehe Kommentare.
+
+**Referenzen:**
+`scripts/check-dummies.mjs`
+`data/historie.ts`
+`data/zusatzleistungen.ts`
+
+---
+
 ## Kommentare
 
 Drei Fehler sind erst beim Pruefen aufgetaucht, keiner davon beim Lesen des Codes.
@@ -192,3 +232,67 @@ Bildschirmgroessen geprueft ✅.
    `#contact-termin` den Reiter um, das Abfangen wuerde diese Logik brechen. Auf der
    Startseite gibt es keine solche Abhaengigkeit, und der Dialog ist dort das gewuenschte
    Verhalten („keine Weiterleitung zum bestehenden Formular").
+
+### Phase 5
+**Eingehalten:** echte Achse ✅, Punkte auf der Linie ✅, Karten abwechselnd ✅,
+interaktiv mit Tastatur ✅, ein Markup-Block für beide Richtungen ✅, Kontrast
+nachgemessen ✅.
+
+**Gemessen am gebauten Stand** (1440px, Spaltenbreite 243,19px):
+
+| Prüfung | Ergebnis |
+|---|---|
+| Punkte waagerecht in der Spaltenmitte | 202 / 461 / 720 / 979 / 1238 — deckungsgleich |
+| Punkte auf der Achse | Punkt-y 566, Achse-y 566 |
+| Reihenfolge | streng von links nach rechts |
+| Karten | oben / unten / oben / unten / oben |
+| Textkontrast, 15 Messungen | schlechtester Wert **5,00:1** („Heute" über dem dunkelsten Bildteil), Schwelle 4,5:1 |
+
+**Auffälligkeiten (nach Schwere):**
+
+1. 🔴 **Kritisch (behoben) — Punkte mobil unsichtbar, dauerhaft.**
+   `initial={{ scale: 0 }}` und `whileInView` sassen auf demselben Element. Ein auf null
+   skaliertes Element hat keine Fläche, und der IntersectionObserver, der es beobachten
+   soll, sitzt auf ebendiesem Element — es beobachtet sich selbst weg. Gemessen auf
+   390x844: `box=0x0`, `transform=matrix(0,…)`, auch nach 4 Sekunden unverändert,
+   während die Karten daneben (nur `opacity`/`y`, Fläche bleibt) sauber erschienen.
+   Behoben: Beobachtet wird jetzt das `<li>`, Punkt und Karte bekommen den Zustand über
+   `variants` vererbt.
+   **Warum es fast durchgerutscht wäre:** Auf dem Desktop trat es nicht auf, weil mein
+   erster Prüflauf den Viewport auf die volle Abschnittshöhe aufgeblasen hatte. Der
+   Fehler zeigte sich erst, als ich in einem NORMALEN Fenster scrollte, wie ein Mensch.
+2. 🟠 **Hoch (behoben) — Punkte 22px neben der Spaltenmitte.**
+   Framer schreibt `transform` inline; `lg:-translate-x-1/2 lg:-translate-y-1/2` war damit
+   vollständig überschrieben. Die Punkte sassen rechts der Mitte und unter der Achse.
+   Weil alle fünf gleich verschoben waren, sah der Abstand stimmig aus — und meine erste
+   Prüfung meldete grün, weil sie die Abstände untereinander gemessen hat statt gegen die
+   Spaltenmitte. Zentrierung läuft jetzt über negative Ränder.
+   **Lehre:** Eine Prüfung, die nur Gleichmässigkeit misst, fängt keinen gleichmässigen
+   Versatz.
+3. 🟡 **Mittel (behoben) — `lg:grid-cols-${anzahl}`.** Tailwind liest den Quelltext als
+   Text; eine zusammengesetzte Klasse steht dort nie und wird nicht erzeugt. Das Raster
+   wäre stumm auf eine Spalte gefallen. Jetzt ausgeschriebene Klassen in `SPALTEN`.
+
+### Phase 6
+**Eingehalten:** Feld statt Stringsuche ✅, hart auf Vercel / Warnung lokal ✅,
+Gegenprobe ✅, Pflichtabschnitt „notwendig, aber nicht hinreichend" im Skript ✅.
+
+**Gegenprobe in drei Fällen:**
+
+| Fall | Erwartung | Ergebnis |
+|---|---|---|
+| Platzhalter drin, lokal | Warnung, Exit 0 | 10 Befunde, Exit 0 |
+| Platzhalter drin, `VERCEL=1` bzw. `CI=1` | Abbruch, Exit 1 | Exit 1 |
+| **umbenannt, Kennzeichen bleibt** | Netz 2 blind, Netz 1 greift | Netz 2 fand nur noch „Jahr offen", Netz 1 alle fünf — Exit 1 |
+| vollständig ersetzt, Kennzeichen entfernt | grün | 0 Befunde, Exit 0 |
+| zurückgenommen | bricht wieder | Exit 1 |
+
+**Auffälligkeiten:**
+
+1. 🟢 **Bestätigung der Bauentscheidung.** „Zusatzleistung 1" steht überhaupt nicht im
+   vorgerenderten HTML — der Termin-Reiter ist nicht der Standardreiter, das Formular
+   wird erst im Client gerendert. Eine reine Textprüfung hätte diese Platzhalter also
+   **nie** gefunden. Genau dafür ist das Feld-Netz da.
+2. 🟡 **Mittel (dokumentiert):** Der Wächter kennt nur die in `QUELLEN` registrierten
+   Datenmodule. Ein neues Modul mit Platzhaltern fällt durch, bis es dort steht — steht
+   als erster Punkt im Pflichtabschnitt des Skripts.
