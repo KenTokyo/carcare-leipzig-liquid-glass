@@ -132,9 +132,22 @@ Findings: `docs/paket-d-karriere/tasks/2026-09-03-paket-d-tasks.md`
 | Nr. | Aufgabe | Status |
 |---|---|---|
 | 1.17 | Aufbereitung → eigenes Formular, Anfrage direkt ins E-Mail-Postfach, auch mit Pop-up | offen |
-| 1.18 | Aufbereitungsformular: neben Pflegepaketen auch „gewünschte Zusatzleistungen" auswählbar machen | offen |
+| 1.18 | Aufbereitungsformular: neben Pflegepaketen auch „gewünschte Zusatzleistungen" auswählbar machen | **Struktur steht**, Liste offen (André) |
 | 1.19 | Gewählte Leistung beim Aufruf automatisch vorauswählen | offen |
-| 1.20 | Kontaktanfrage als Pop-up, keine Weiterleitung | offen |
+| 1.20 | Kontaktanfrage als Pop-up, keine Weiterleitung | **erledigt** |
+
+**Stand 2026-09-04:** 1.20 ist umgesetzt — der Terminanfrage-Aufruf öffnet einen
+Dialog statt zum Formular zu springen (`components/AnfrageDialog.tsx`). Er hängt
+einmal in `Layout` und wird über `ANFRAGE_ZIELE` eingehängt, nicht je Seite —
+`#contact-termin` steht an rund 40 Stellen im Projekt. Bei 1.18 steht die Struktur
+mit zwei Dummy-Einträgen in `data/zusatzleistungen.ts`; Ergänzen ist eine Zeile dort.
+
+**⚠️ Kopplung an 1.17:** Dialog und Zusatzleistungen erfassen Eingaben, aber es geht
+weiterhin nichts raus — im ganzen Projekt gibt es keinen Netzwerkaufruf. Der Dialog
+bestätigt also einen Versand, der nicht stattfindet. Das muss gemeinsam mit 1.17
+scharf gestellt werden, ebenso wie die Datenschutzerklärung (3.34).
+
+Findings: `docs/paket-e-formulare/tasks/2026-09-04-zusatzleistungen-zeitstrahl-dialog-tasks.md`
 
 **Konflikt beachten:** André hat im Review festgelegt, dass der Formularbau
 zuletzt erfolgt, wenn alle Inhalte stehen (Punkt 3.17). Paket E steht in
@@ -183,7 +196,7 @@ Faktenblatt: `docs/rechtsseiten/2026-09-04-faktenblatt-datenschutz.md`
 | 1.5 | FAQ-Block pro Subseite bleibt (KI-SEO) – von André geprüft und freigegeben | abgenommen |
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite zusammentragen | offen (André) |
 | 1.28 | Eigene Bildmotive für Leasingrückgabe und Außenaufbereitung liefern. Aktuell teilen sich beide ein Motiv mit anderen Kacheln (`smart-repair-…`, `fahrzeugaufbereitung-…`), weshalb Dateiname und Einsatzort auseinanderfallen. Mit eigenen Motiven löst sich das von selbst. Passt zur ohnehin offenen Fotolieferung. | offen (André) |
-| 1.27 | Zeitleiste auf `/ueber-uns`: Gibt es zwischen der Gründung 1998 und heute weitere Meilensteine, die dort stehen sollen? Aktuell nur zwei Stationen („1998 — Gründung", „Heute"). | offen (André) |
+| 1.27 | **Meilensteine für den Zeitstrahl auf `/ueber-uns`.** Die Darstellung ist seit 2026-09-04 ein echter Zeitstrahl mit fünf Stationen: 1998 Gründung, drei Platzhalter „Meilenstein 1–3", Heute. **Zu liefern je Meilenstein:** Jahr und ein Satz, was dazukam. Die Platzhalter tragen bewusst KEIN Jahr — eine erfundene Jahreszahl sieht aus wie eine geprüfte Angabe. Zwei bestehende, aber undatierte Phasentexte („Ausbau zum Full-Service-Betrieb", „Aufbereitung als eigener Bereich") stehen als Kandidaten im Kommentar von `pages/UeberUnsPage.tsx` — ihnen fehlen nur die Jahreszahlen. *(Der frühere Vermerk „aktuell nur zwei Stationen" war veraltet, es waren vier.)* | offen (André) |
 | 3.32 | **Ausbildung bestätigen und Eckdaten liefern.** Die drei Ausbildungsberufe (Fahrzeuglackierer/in, Karosserie- und Fahrzeugbaumechaniker/in, Industriekaufmann/-frau) stehen auf `/karriere` als eigene Reihe, alle auf Status „nicht suchend" — sie erscheinen also mit Schleier und Initiativ-Aufruf. **Zu bestätigen:** Wird im kommenden Jahrgang ausgebildet? **Zu liefern, je Beruf:** Ausbildungsbeginn, Dauer, schulische Voraussetzungen, Übernahmechancen. Ohne diese Angaben bleiben die Karten fachlich dünn; erfundene Eckdaten zu einer Ausbildung liest jemand als Zusage. Geht gebündelt mit 1.26 raus. | offen (André) |
 | 1.29 | **Erklärtexte für die sieben Leistungsseiten** (Grundlage für 1.15). Je Leistung zwei bis drei Absätze, die die Frage „Was ist X?" beantworten: was das Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist fachliche Aussage über Machbarkeit und Verfahren — nichts, was sich ohne André formulieren lässt, ohne dass er es hinterher korrigiert. Betrifft: Neu- & Reparaturlackierung, Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur, Autoglas & Scheibenfolierung, Fuhrparkservice. Die Sektion steht bereits, sie ist leer. | offen (André) |
 | 3.33 | **Impressumsangaben vervollständigen.** `/impressum` steht mit allen Angaben, die auf der Altseite belegt sind (Firma, Anschrift, Geschäftsführung, Amtsgericht Leipzig HRB 23667, USt-IdNr. DE 257 851 313, Telefax, Haftungshinweis). **Vier Angaben fehlen und sind bewusst leer geblieben statt geraten:** (1) **Telefonnummer** – die Altseite nennt zwei nebeneinander (`0341 - 222 96 20` und `0341 - 261 77 90`), das Projekt führt nur die zweite; welche gilt? (2) **Handwerkskammer, gesetzliche Berufsbezeichnung, Staat der Verleihung und berufsrechtliche Regelung** – nach § 5 Abs. 1 Nr. 5 DDG bei zulassungspflichtigen Handwerken erforderlich, fehlt **auch auf der Altseite**, Übernehmen allein löst es also nicht; wir schreiben auf jeder Seite „Meisterbetrieb“. (3) **Verbraucherstreitbeilegung nach § 36 VSBG** – Teilnahme ja oder nein, beide Antworten zulässig, aber eine muss dastehen. (4) Zu prüfen: ob der Wissensbereich ein Angebot nach § 18 Abs. 2 MStV ist und ein Verantwortlicher zu benennen wäre. **Muss vor dem Livegang stehen.** | offen (André) |
