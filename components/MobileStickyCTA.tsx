@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, AlertTriangle, CalendarClock, Navigation } from 'lucide-react';
+import { useAnfrageDialog } from './AnfrageDialog';
 
 /**
  * Navigationsziel. Wortlaut EXAKT wie NAP_ADRESSE in CLAUDE.md / Impressum / Footer —
@@ -20,6 +21,7 @@ const KARTEN_ZIELE = [
 ];
 
 const MobileStickyCTA: React.FC = () => {
+  const { oeffnen } = useAnfrageDialog();
   const [nearBottom, setNearBottom] = useState(false);
   // Auswahl-Popover fuer die Navigation. Bewusst eine Nachfrage statt Plattform-Automatik:
   // Auto-Erkennung liegt bei Android-Nutzern mit Apple-Konto bzw. Desktop-Safari regelmaessig
@@ -136,7 +138,10 @@ const MobileStickyCTA: React.FC = () => {
           <AlertTriangle size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
         </button>
-        <button type="button" onClick={() => scrollTo('contact-termin')} className={buttonKlassen}>
+        {/* Termin oeffnet den Dialog statt zu scrollen — sonst haetten Mobil- und
+            Desktopnutzer zwei verschiedene Wege zum selben Formular. Ueber den Hook
+            statt ueber das Link-Abfangen, weil das hier ein <button> ist. */}
+        <button type="button" onClick={() => oeffnen('termin')} className={buttonKlassen}>
           <CalendarClock size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Termin</span>
         </button>
