@@ -38,9 +38,13 @@ import PhotoBackdrop from './PhotoBackdrop';
  * ausserdem nie der einzige Traeger der Information: Abzeichen, dieser Satz, der
  * geaenderte Handlungsaufruf und die Sektionseinleitung sagen dasselbe in Worten.
  * Farbe allein duerfte es nicht sein (WCAG 1.4.1).
+ *
+ * BEWUSST KURZ UND OHNE DOPPLUNG: Die erste Fassung wiederholte in drei Zeilen, was das
+ * Abzeichen darueber schon sagt („zurzeit nicht ausgeschrieben"), und schob dabei die
+ * Anforderungen fast aus der Karte. Der Satz sagt jetzt nur das, was das Abzeichen NICHT
+ * sagt — was man trotzdem tun kann.
  */
-const HINWEIS_NICHT_SUCHEND =
-  'Diese Stelle ist derzeit nicht ausgeschrieben. Eine Initiativbewerbung nehmen wir gern entgegen.';
+const HINWEIS_NICHT_SUCHEND = 'Initiativbewerbungen nehmen wir trotzdem gern entgegen.';
 
 const alsKarte = (job: JobPosition): ExpandingCardItem => {
   const offen = job.status === 'suchend';
