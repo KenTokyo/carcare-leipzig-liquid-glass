@@ -10,6 +10,7 @@ import {
   serviceSchema,
 } from './structuredData';
 import { faqsByRoute } from '../data/faqs';
+import { offeneStellen } from '../data/jobs';
 import { knowledgeArticles } from '../data/knowledgeArticles';
 import { priceOffers } from '../data/detailing';
 
@@ -129,12 +130,24 @@ export const pageSchemas: Record<string, unknown[]> = {
     aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist seit 1998 Meisterbetrieb des Kfz-Lackierhandwerks in Leipzig. Über 50 Mitarbeiter bearbeiten auf über 3.000 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
     faqSchema(faqsByRoute['/ueber-uns']),
   ],
+  /**
+   * `JobPosting` NUR fuer tatsaechlich offene Stellen.
+   *
+   * Bis 2026-09-03 standen hier vier Aufrufe von Hand, darunter der Serviceberater —
+   * eine Stelle, die derzeit nicht ausgeschrieben ist. Google haette sie weiterhin als
+   * offene Stelle angezeigt. Die Liste kommt jetzt aus `data/jobs.ts` und filtert ueber
+   * den Status; ein Wechsel ist dort ein Wort und hier gar nichts.
+   *
+   * Der sichtbare Inhalt der Seite zeigt weiterhin ALLE Berufsbilder — auch die nicht
+   * ausgeschriebenen, mit Statusabzeichen. Das ist kein Widerspruch zu SEO-GEO §5
+   * („nur auszeichnen, was sichtbar ist"): Ausgezeichnet wird eine Teilmenge des
+   * Sichtbaren, nicht mehr.
+   */
   '/karriere': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Karriere', path: '/karriere' }]),
-    jobPostingSchema('Kfz-Aufbereiter', 'Kfz-Aufbereiter beim CarCare Center Leipzig für professionelle Fahrzeugaufbereitung und Detailarbeit.'),
-    jobPostingSchema('Fahrzeuglackierer', 'Fahrzeuglackierer beim CarCare Center Leipzig für Lackierarbeiten und Reparaturlackierung.'),
-    jobPostingSchema('Karosserie- und Fahrzeugbaumechaniker', 'Karosserie- und Fahrzeugbaumechaniker beim CarCare Center Leipzig für Instandsetzung und Karosseriearbeiten.'),
-    jobPostingSchema('Serviceberater', 'Serviceberater beim CarCare Center Leipzig für Kundenkontakt und Auftragskoordination.'),
+    ...offeneStellen.map((job) =>
+      jobPostingSchema(job.title, `${job.title} beim CarCare Center Leipzig. ${job.description}`)
+    ),
     faqSchema(faqsByRoute['/karriere']),
   ],
   '/kontakt': [

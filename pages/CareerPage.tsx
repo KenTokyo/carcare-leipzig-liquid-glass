@@ -1,12 +1,10 @@
 import React from 'react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
-
-const jobs = [
-  { title: 'Kfz-Aufbereiter', description: 'Fahrzeugpflege, Innen- und Außenaufbereitung sowie sorgfältige Detailarbeit.' },
-  { title: 'Fahrzeuglackierer', description: 'Lackierarbeiten, Oberflächenqualität und saubere Reparaturlackierung.' },
-  { title: 'Karosserie- und Fahrzeugbaumechaniker', description: 'Karosseriearbeiten, Instandsetzung und handwerkliche Präzision.' },
-  { title: 'Serviceberater', description: 'Kundenkontakt, Auftragskoordination und Kommunikation im Team.' },
-];
+import { BEWERBUNGS_ZIEL } from '../data/jobs';
+import JobBanner from '../components/JobBanner';
+import JobCards from '../components/JobCards';
+import JobPopup from '../components/JobPopup';
+import RequestForm from '../components/RequestForm';
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
@@ -33,12 +31,8 @@ const CareerPage: React.FC = () => (
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
     />
-    <section id="jobbereiche" className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro eyebrow="Job-Cards" title="Jobbereiche bei uns." />
-        <FeatureGrid items={jobs} columns="four" />
-      </div>
-    </section>
+    <JobBanner href={BEWERBUNGS_ZIEL} />
+    <JobCards />
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Arbeitgeberversprechen" title="Ein professionelles Umfeld für Menschen, die Qualität mögen." />
@@ -51,12 +45,25 @@ const CareerPage: React.FC = () => (
         <ProcessList steps={process} />
       </div>
     </section>
+    <section id="bewerbung" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Bewerbung"
+          title="Bewerben Sie sich in wenigen Minuten."
+          description="Name, Kontakt und ein paar Sätze reichen. Den Rest klären wir im Gespräch."
+        />
+        <div className="mx-auto max-w-3xl">
+          <RequestForm kind="bewerbung" />
+        </div>
+      </div>
+    </section>
     <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Karriere." />
         <PageFAQ route="/karriere" />
       </div>
     </section>
+    <JobPopup href={BEWERBUNGS_ZIEL} />
     <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. Wir prüfen gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
   </>
 );

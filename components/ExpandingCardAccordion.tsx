@@ -16,6 +16,44 @@ export interface ExpandingCardItem {
   cta?: string;
   /** Hintergrundbild der Karte (Pfad in /public/assets). Pro Karte austauschbar. */
   backgroundImage?: string;
+  /**
+   * Zusaetzliche Punkte unter der Beschreibung, z. B. Stellenanforderungen.
+   * Sie wachsen der Karte ueber den Kopf — deshalb scrollt der Textbereich,
+   * statt die Karte zu strecken. Ohne Angabe aendert sich am Layout nichts.
+   */
+  details?: string[];
+  /** Ueberschrift ueber der Detailliste, z. B. „Das bringen Sie mit". */
+  detailsLabel?: string;
+  /**
+   * Kleines Abzeichen ueber dem Titel, z. B. ein Ausschreibungsstand.
+   * `ton: 'ruhig'` fuer Zustaende, die KEINE Handlung nahelegen (nicht suchend) —
+   * ein blaues Abzeichen an dieser Stelle liest sich wie eine Einladung.
+   */
+  badge?: { label: string; ton?: 'aktiv' | 'ruhig' };
+  /**
+   * Kurzer Hinweis ueber der Beschreibung, z. B. warum die Karte gedaempft ist.
+   * Traegt die Erklaerung dorthin, wo die Daempfung auffaellt.
+   */
+  hinweis?: string;
+  /**
+   * Gedaempfte Darstellung: Foto in Graustufen und abgedunkelt, Textbox leicht
+   * eingegraut. Fuer Zustaende, die es gibt, auf die man aber gerade nicht handeln kann.
+   *
+   * ⚠️ DIE STAERKEN SIND GEMESSEN, NICHT GESCHAETZT — nicht ohne Nachrechnen aendern.
+   * Die Textbox ist `weiss @ 92 %` ueber dem Foto; im schlechtesten Fall (schwarzes
+   * Fotopixel) liegt `gray-600` darauf bei 6,33:1. Ein Schleier darueber senkt das:
+   *
+   *   Schleier 0,15 → 5,30:1     0,20 → 4,95:1     0,26 → 4,50:1 (Grenze)
+   *   Schleier 0,30 → 3,90:1  ✗  0,45 → 3,2:1   ✗
+   *
+   * Deshalb ZWEI Staerken statt einer: 0,45 auf dem Foto, wo kein Text liegt, und nur
+   * 0,15 auf der Textbox. Ein einziger Wert ueber allem muesste unter 0,26 bleiben und
+   * waere dann kaum zu sehen — visuell gegengeprueft am 2026-09-03.
+   *
+   * Der weisse Titel der EINGEKLAPPTEN Karte gewinnt dabei: 3,95:1 → 8,69:1, weil das
+   * Foto dunkler wird.
+   */
+  gedaempft?: boolean;
 }
 
 /**
@@ -45,6 +83,16 @@ interface ExpandingCardAccordionProps {
    * getriebener Section-Hintergrund).
    */
   onActiveImageChange?: (image: string | null) => void;
+  /**
+   * Hoehe der aufgeklappten Karte auf Mobile, in Pixeln. Default 340.
+   *
+   * Braucht Anhebung, sobald `details` gesetzt sind: Bei 340 px blieb auf 390 px Breite
+   * nach Beschreibung und Zwischenueberschrift kein Platz mehr fuer die Liste — die
+   * Ueberschrift „Das bringen Sie mit" stand ohne Inhalt ueber dem CTA und sah aus wie
+   * ein Fehler. Der Scrollbereich braucht sichtbare Zeilen, sonst kann niemand ahnen,
+   * dass es etwas zu scrollen gibt. Desktop ist nicht betroffen (feste Sektionshoehe).
+   */
+  mobileActiveHeight?: number;
 }
 
 /**
@@ -53,7 +101,7 @@ interface ExpandingCardAccordionProps {
  * weiße Textbox (Titel + blauer Punkt + Beschreibung + CTA/Pfeil-Badge) + Logo-Badge ein.
  * Geteilt von Leistungsuebersicht (`ServiceGrid`) und Autoaufbereitungs-Expertise.
  */
-const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, className, onActiveImageChange }) => {
+const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, className, onActiveImageChange, mobileActiveHeight = 340 }) => {
   // Aktiv (aufgeklappt): Desktop = horizontales Akkordeon (skiper52),
   // Mobile = vertikales Akkordeon (skiper53).
   const [active, setActive] = useState(0);
@@ -146,7 +194,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             initial={false}
             animate={{
               flexGrow: isActive ? 6 : 1,
-              height: isDesktop ? '100%' : isActive ? 340 : 64,
+              height: isDesktop ? '100%' : isActive ? mobileActiveHeight : 64,
             }}
             transition={cardTransition}
             className="group relative min-w-0 overflow-hidden rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0"
@@ -158,9 +206,15 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`}
             />
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.62)] via-[rgb(var(--cc-carbon-rgb)/0.14)] to-transparent" />
+            {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
+                eingeklappten Titel (gleicher Stapel, spaeter im DOM) und hinter der
+                Textbox (z-10). Deshalb kein z-Index — die DOM-Reihenfolge genuegt. */}
+            {item.gedaempft && (
+              <div aria-hidden="true" className="absolute inset-0 bg-[rgb(var(--cc-carbon-rgb)/0.45)]" />
+            )}
 
             {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop),
                 faded bei aktiv aus */}
@@ -173,8 +227,30 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
 
             {/* Aktiv: weiße Textbox im TargetGroupCards-Design */}
             <div
-              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] transition duration-300 sm:w-[62%] lg:w-[300px] ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
+              // Der zweite, schwaechere Schleier liegt als INSET-Schatten in derselben
+              // `box-shadow`-Angabe wie der Schlagschatten — zwei Klassen wuerden sich
+              // gegenseitig ueberschreiben, box-shadow stapelt nicht ueber Klassen hinweg.
+              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 transition duration-300 sm:w-[62%] lg:w-[300px] ${
+                item.gedaempft
+                  ? 'shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5),inset_0_0_0_9999px_rgb(var(--cc-carbon-rgb)/0.15)]'
+                  : 'shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)]'
+              } ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
             >
+              {item.badge && (
+                <span
+                  className={`mb-3 inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] ${
+                    item.badge.ton === 'ruhig'
+                      ? 'bg-gray-100 text-gray-700'
+                      : 'bg-blue-50 text-blue-600'
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`h-1.5 w-1.5 rounded-full ${item.badge.ton === 'ruhig' ? 'bg-gray-400' : 'bg-blue-600'}`}
+                  />
+                  {item.badge.label}
+                </span>
+              )}
               <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
                 {davor && `${davor} `}
                 <span className="whitespace-nowrap">
@@ -182,8 +258,44 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
                 </span>
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
-              <div className="mt-auto flex items-center justify-between gap-3 pt-6">
+              {/* Scrollbarer Textbereich. `min-h-0` ist hier nicht kosmetisch: Ohne das
+                  bekommt ein Flex-Kind die Mindesthoehe seines Inhalts und laeuft aus der
+                  Karte heraus, statt zu scrollen. `.cc-card-scroll` liefert die schmale
+                  Leiste in Kartenfarbe (index.css, aus TargetGroupCards uebernommen). */}
+              {/* `relative`, damit der Verlauf unten im Scrollbereich haengt und nicht in
+                  der Karte. Er zeigt an, dass unterhalb der Kante weitergeht — ohne ihn
+                  wirkt eine mitten im Wort abgeschnittene Zeile wie ein Darstellungsfehler
+                  statt wie eine Einladung zu scrollen. */}
+              <div className="relative mt-3 flex min-h-0 flex-1 flex-col">
+                <div className="cc-card-scroll min-h-0 flex-1 overflow-y-auto pr-1">
+                {item.hinweis && (
+                  <p className="mb-3 rounded-lg bg-gray-100 px-3 py-2 text-xs leading-relaxed text-gray-700">
+                    {item.hinweis}
+                  </p>
+                )}
+                <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                {item.details && item.details.length > 0 && (
+                  <>
+                    <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-700">
+                      {item.detailsLabel ?? 'Das bringen Sie mit'}
+                    </p>
+                    <ul className="mt-2 space-y-1.5">
+                      {item.details.map((punkt) => (
+                        <li key={punkt} className="flex gap-2 text-sm leading-relaxed text-gray-600">
+                          <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-600" />
+                          {punkt}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                </div>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-[rgb(255_255_255/0.92)] to-transparent"
+                />
+              </div>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-4">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-900">{item.cta ?? 'Mehr ansehen'}</span>
                 <span className="cc-gradient-fill flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45">
                   <ArrowUpRight size={16} />
