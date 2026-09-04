@@ -291,7 +291,32 @@ const Footer: React.FC = () => {
               </p>
               <div className="max-w-2xl text-[10px] text-gray-300 leading-relaxed space-y-2">
                 <p><span className="font-semibold text-gray-300">Verantwortliche Stelle:</span> BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig.</p>
-                <p><span className="font-semibold text-gray-300">Datenschutz:</span> Anonymisierte Webanalyse via Matomo, gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden.</p>
+                {/*
+                  2026-09-04 KORRIGIERT. Hier stand: „Anonymisierte Webanalyse via Matomo,
+                  gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden."
+
+                  DAS WAR FALSCH. Es gibt kein Matomo — kein Script, kein `_paq`, kein Piwik,
+                  keine Analytics irgendeiner Art, weder im Quellcode noch im ausgelieferten
+                  HTML. Der Satz stammt aus der Datenschutzerklärung der alten Kundenseite,
+                  und schon dort steht seit dem 25.05.2018, dass kein Tracking mehr stattfindet.
+                  Eine unrichtige Angabe über die eigene Datenverarbeitung wiegt schwerer als
+                  eine fehlende — deshalb raus, unabhängig vom Rest der Rechtsseiten.
+
+                  DIE AUFSICHTSBEHÖRDE IST MIT RAUS: Sie gehört in die Datenschutzerklärung,
+                  nicht in den Footer, und die dort genannte Form war nicht geprüft. Sie neben
+                  einer gerade wegen fehlender Prüfung entfernten Aussage stehen zu lassen,
+                  wäre derselbe Fehler eine Zeile tiefer.
+
+                  DER ERSATZSATZ IST GEGEN DEN AUSGELIEFERTEN STAND GEPRÜFT, nicht angenommen:
+                    - `Set-Cookie` auf /, /karriere, /kontakt: keine
+                    - Analyse-/Tracking-Scripte im HTML und im Bundle: keine
+                    - Elemente, die von Fremdhosts laden (img/link/script/source): 0
+                      (Unsplash steht nur in `og:image` und JSON-LD — Metadaten, die der
+                      Browser des Besuchers nicht abruft. Siehe Faktenblatt.)
+                    - Schriften self-hosted, keine eingebettete Karte, nur ausgehende Links
+                  Wer den Satz ändert, prüft diese vier Punkte neu.
+                */}
+                <p><span className="font-semibold text-gray-300">Datenschutz:</span> Diese Website nutzt keine Analyse- oder Tracking-Dienste und setzt keine Cookies.</p>
               </div>
             </div>
           </motion.div>
