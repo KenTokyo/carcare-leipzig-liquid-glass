@@ -1,6 +1,7 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
-import Timeline, { type TimelineStation } from '../components/Timeline';
+import Timeline from '../components/Timeline';
+import { historie } from '../data/historie';
 
 /**
  * Unternehmensseite „Ueber uns" — stellt die BS CarCare GmbH vor.
@@ -64,57 +65,6 @@ const employer = [
   { title: 'Beständigkeit', description: 'Wir bestehen seit 1998 und beschäftigen über 50 Menschen — das bietet ein anderes Maß an Planbarkeit als ein junger Kleinbetrieb.' },
 ];
 
-/**
- * Stationen des Zeitstrahls (Backlog 1.27).
- *
- * ANFANG UND ENDE STEHEN, DIE MITTE FEHLT. Gruendung 1998 und der heutige Stand sind
- * belegt; was dazwischen liegt, ist Zulieferung von Andre. Die drei Platzhalter tragen
- * deshalb BEWUSST KEIN JAHR — ein Zeitstrahl mit erfundenen Jahreszahlen waere schlimmer
- * als eine sichtbare Luecke, weil eine Jahreszahl wie eine gepruefte Angabe aussieht.
- *
- * DIE BEIDEN BISHERIGEN TEXTE SIND NICHT VERLOREN, sie standen hier vorher als
- * undatierte Phasen und sind Kandidaten fuer die Meilenstein-Plaetze:
- *
- *   „Ausbau zum Full-Service-Betrieb" — Karosserie, Smart Repair, Dellenentfernung,
- *   Felgen und Autoglas kommen zur Lackierung hinzu, damit ein Fahrzeug den Betrieb
- *   fuer keinen Arbeitsschritt verlassen muss.
- *
- *   „Aufbereitung als eigener Bereich" — die Fahrzeugaufbereitung waechst vom Zusatz
- *   zur eigenstaendigen Leistung mit festen Paketen, Desinfektionsverfahren und
- *   Leasingrueckgabe-Vorbereitung.
- *
- * Beide beschreiben zutreffend, WAS passiert ist, aber nicht WANN. Sobald Andre die
- * Jahreszahlen liefert, werden daraus zwei echte Stationen.
- */
-const stationen: TimelineStation[] = [
-  {
-    zeit: '1998',
-    title: 'Gründung in Leipzig',
-    description: 'Start als Betrieb des Kfz-Lackierhandwerks. Der Meisterbrief ist von Anfang an die fachliche Grundlage.',
-  },
-  {
-    title: 'Meilenstein 1',
-    description: 'Platzhalter — wird durch die abgestimmte Station ersetzt.',
-    istPlatzhalter: true,
-  },
-  {
-    title: 'Meilenstein 2',
-    description: 'Platzhalter — wird durch die abgestimmte Station ersetzt.',
-    istPlatzhalter: true,
-  },
-  {
-    title: 'Meilenstein 3',
-    description: 'Platzhalter — wird durch die abgestimmte Station ersetzt.',
-    istPlatzhalter: true,
-  },
-  {
-    zeit: 'Heute',
-    title: 'Über 3.000 m² in Leipzig',
-    description: 'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.',
-  },
-];
-
-
 const UeberUnsPage: React.FC = () => (
   // Werkstattmotiv statt Kachelbild: Diese Seite zeigt den Betrieb selbst, nicht eine
   // einzelne Leistung. `carcare-hero-workshop.webp` ist mit 2400x1800 hoch genug
@@ -176,7 +126,7 @@ const UeberUnsPage: React.FC = () => (
           title="Von der Lackiererei zum Full-Service-Betrieb."
           description="Entwicklung seit 1998 — jeder Schritt kam dazu, weil Kunden ihn gebraucht haben."
         />
-        <Timeline stations={stationen} />
+        <Timeline stations={historie} />
       </div>
     </section>
 
