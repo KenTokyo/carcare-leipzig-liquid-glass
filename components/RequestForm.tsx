@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
-import { jobPositions } from '../data/jobs';
+import { ausbildungsberufe, berufsbilder } from '../data/jobs';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
@@ -308,16 +308,47 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
                 </div>
                 <div>
                   <label className={labelClass} htmlFor="bewerbung-position">Bereich</label>
-                  <select id="bewerbung-position" name="position" value={(values as FormFieldsByKind['bewerbung']).position} onChange={handleChange} className={inputClass}>
+                  {/*
+                    NICHT AUSGESCHRIEBENE BEREICHE BLEIBEN SICHTBAR, sind aber nicht
+                    waehlbar — man soll sehen, dass es den Beruf gibt.
+
+                    NATIVES `disabled`, NICHT `aria-disabled`: Die Sorge, deaktivierte
+                    Elemente seien fuer Screenreader unerreichbar, gilt fuer `<button>`
+                    und `<input>` — die fallen aus der Tabreihenfolge. Ein `<option>`
+                    ist ein anderer Fall: Der `<select>` bleibt fokussierbar, die Option
+                    bleibt in der Liste. `aria-disabled` waere hier schlechter, weil die
+                    ARIA-Zuordnung fuer native Optionen duenn ist UND die Auswahl nicht
+                    verhindert — man haette eine Option, die als „nicht verfuegbar"
+                    angesagt wird und sich trotzdem waehlen laesst.
+
+                    ABSICHERUNG: Manche Screenreader ueberspringen deaktivierte Optionen
+                    beim Durchgehen. Deshalb steht der Grund IM BESCHRIFTUNGSTEXT, nicht
+                    nur im Zustand — plus ein sichtbarer Hinweis unter dem Feld.
+                  */}
+                  <select id="bewerbung-position" name="position" value={(values as FormFieldsByKind['bewerbung']).position} onChange={handleChange} className={inputClass} aria-describedby="bewerbung-position-hinweis">
                     <option value="">Bitte wählen</option>
-                    {jobPositions.map((job) => (
-                      <option key={job.id} value={job.id}>
-                        {job.title}
-                        {job.status === 'suchend' ? '' : ' (initiativ)'}
-                      </option>
-                    ))}
+                    <optgroup label="Berufsbilder">
+                      {berufsbilder.map((job) => (
+                        <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
+                          {job.title}
+                          {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Ausbildung">
+                      {ausbildungsberufe.map((job) => (
+                        <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
+                          {job.title}
+                          {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
+                        </option>
+                      ))}
+                    </optgroup>
                     <option value="initiativ">Anderer Bereich / Initiativbewerbung</option>
                   </select>
+                  <p id="bewerbung-position-hinweis" className="mt-2 text-[11px] leading-relaxed text-gray-600">
+                    Ausgegraute Bereiche gehören zum Betrieb, sind aber gerade nicht ausgeschrieben.
+                    Wählen Sie dafür „Anderer Bereich / Initiativbewerbung" und nennen Sie den Beruf in der Nachricht.
+                  </p>
                 </div>
               </div>
               {/* Lebenslauf ausdruecklich OPTIONAL, und das Formular ist auch ohne Anhang

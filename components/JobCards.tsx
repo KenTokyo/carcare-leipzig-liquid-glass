@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { BEWERBUNGS_ZIEL, jobPositions, offeneStellen } from '../data/jobs';
+import { BEWERBUNGS_ZIEL, ausbildungsberufe, berufsbilder, offeneStellen, type JobPosition } from '../data/jobs';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
 
@@ -19,13 +19,30 @@ import PhotoBackdrop from './PhotoBackdrop';
  * die Kartenhoehe. Statt die Karte zu strecken (dann wird das Foto zur Randleiste)
  * scrollt der Textbereich innerhalb der Box — `details` im Akkordeon.
  *
- * ALLE BERUFSBILDER, AUCH DIE NICHT AUSGESCHRIEBENEN: Wer sich fuer den Betrieb
+ * ZWEI REIHEN AUS EINER QUELLE: Berufsbilder oben, Ausbildung darunter, getrennt ueber
+ * `art` in `data/jobs.ts`. Sieben Karten in EINER Reihe waeren auf 1440 px rund 90 px
+ * je eingeklappter Karte — zu schmal fuer die senkrechten Titel. Inhaltlich sind es
+ * ausserdem zwei Zielgruppen mit verschiedenen Fragen.
+ *
+ * ALLE EINTRAEGE STEHEN, AUCH DIE NICHT AUSGESCHRIEBENEN: Wer sich fuer den Betrieb
  * interessiert, will wissen, welche Gewerke es gibt. Der Ausschreibungsstand steht als
- * Abzeichen auf der Karte; `JobPosting`-Markup bekommen nur die offenen Stellen
- * (siehe `data/jobs.ts`).
+ * Abzeichen, als Schleier und als Satz in der Karte; `JobPosting`-Markup bekommen nur
+ * die offenen Stellen (siehe `data/jobs.ts`).
  */
 
-const alsKarte = (job: (typeof jobPositions)[number]): ExpandingCardItem => {
+/**
+ * Der Satz, der erklaert, warum eine Karte gedaempft ist.
+ *
+ * Ein grauer Kasten ohne Erklaerung wirkt wie ein Fehler — dieselbe Lehre wie bei der
+ * mitten im Wort abgeschnittenen Zeile, bevor der Verlauf dazukam. Die Daempfung ist
+ * ausserdem nie der einzige Traeger der Information: Abzeichen, dieser Satz, der
+ * geaenderte Handlungsaufruf und die Sektionseinleitung sagen dasselbe in Worten.
+ * Farbe allein duerfte es nicht sein (WCAG 1.4.1).
+ */
+const HINWEIS_NICHT_SUCHEND =
+  'Diese Stelle ist derzeit nicht ausgeschrieben. Eine Initiativbewerbung nehmen wir gern entgegen.';
+
+const alsKarte = (job: JobPosition): ExpandingCardItem => {
   const offen = job.status === 'suchend';
   return {
     id: job.id,
@@ -36,6 +53,8 @@ const alsKarte = (job: (typeof jobPositions)[number]): ExpandingCardItem => {
     backgroundImage: job.backgroundImage,
     details: job.anforderungen,
     detailsLabel: 'Das bringen Sie mit',
+    hinweis: offen ? undefined : HINWEIS_NICHT_SUCHEND,
+    gedaempft: !offen,
     // „Ruhig" fuer nicht ausgeschriebene Stellen: Ein blaues Abzeichen an dieser Stelle
     // liest sich wie eine Einladung und widerspraeche dem Text daneben.
     badge: offen
@@ -54,6 +73,9 @@ const JobCards: React.FC = () => {
       aria-labelledby="jobs-heading"
       className="relative isolate bg-gray-50/70 px-6 py-20 md:py-28"
     >
+      {/* Nur die erste Reihe speist den Sektionshintergrund. Zwei Akkordeons, die
+          beide daran ziehen, wuerden sich gegenseitig ueberschreiben — und ein
+          entsaettigtes Ausbildungsmotiv hinter der ganzen Sektion waere ohnehin falsch. */}
       <PhotoBackdrop image={activeImage} />
 
       <div className="container relative mx-auto">
@@ -67,8 +89,8 @@ const JobCards: React.FC = () => {
               {anzahl === 1
                 ? 'Aktuell ist eine Stelle ausgeschrieben.'
                 : `Aktuell sind ${anzahl} Stellen ausgeschrieben.`}{' '}
-              Die übrigen Berufsbilder gehören zum Betrieb, werden aber gerade nicht neu besetzt —
-              eine Initiativbewerbung ist trotzdem willkommen.
+              Ausgegraute Karten gehören zum Betrieb, werden aber gerade nicht neu besetzt —
+              eine Initiativbewerbung ist dort trotzdem willkommen.
             </p>
           </div>
           <a
@@ -83,10 +105,26 @@ const JobCards: React.FC = () => {
         {/* 470 statt 340 px: Die Anforderungsliste braucht mobil sichtbare Zeilen,
             sonst steht ihre Ueberschrift allein ueber dem CTA. */}
         <ExpandingCardAccordion
-          items={jobPositions.map(alsKarte)}
+          items={berufsbilder.map(alsKarte)}
           onActiveImageChange={setActiveImage}
           mobileActiveHeight={470}
         />
+
+        {ausbildungsberufe.length > 0 && (
+          <div className="mt-16 md:mt-20">
+            <div className="mb-8 max-w-3xl md:mb-10">
+              <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Ausbildung</span>
+              <h3 className="text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-4xl">
+                Ausbildung im Betrieb.
+              </h3>
+              <p className="mt-4 text-base leading-relaxed text-gray-600">
+                Diese Ausbildungsberufe gibt es bei uns. Ob im kommenden Jahrgang ausgebildet wird,
+                stimmen wir gerade ab — melden Sie sich gern jetzt schon, dann kommen Sie auf die Liste.
+              </p>
+            </div>
+            <ExpandingCardAccordion items={ausbildungsberufe.map(alsKarte)} mobileActiveHeight={430} />
+          </div>
+        )}
       </div>
     </section>
   );

@@ -30,6 +30,30 @@ export interface ExpandingCardItem {
    * ein blaues Abzeichen an dieser Stelle liest sich wie eine Einladung.
    */
   badge?: { label: string; ton?: 'aktiv' | 'ruhig' };
+  /**
+   * Kurzer Hinweis ueber der Beschreibung, z. B. warum die Karte gedaempft ist.
+   * Traegt die Erklaerung dorthin, wo die Daempfung auffaellt.
+   */
+  hinweis?: string;
+  /**
+   * Gedaempfte Darstellung: Foto in Graustufen und abgedunkelt, Textbox leicht
+   * eingegraut. Fuer Zustaende, die es gibt, auf die man aber gerade nicht handeln kann.
+   *
+   * ⚠️ DIE STAERKEN SIND GEMESSEN, NICHT GESCHAETZT — nicht ohne Nachrechnen aendern.
+   * Die Textbox ist `weiss @ 92 %` ueber dem Foto; im schlechtesten Fall (schwarzes
+   * Fotopixel) liegt `gray-600` darauf bei 6,33:1. Ein Schleier darueber senkt das:
+   *
+   *   Schleier 0,15 → 5,30:1     0,20 → 4,95:1     0,26 → 4,50:1 (Grenze)
+   *   Schleier 0,30 → 3,90:1  ✗  0,45 → 3,2:1   ✗
+   *
+   * Deshalb ZWEI Staerken statt einer: 0,45 auf dem Foto, wo kein Text liegt, und nur
+   * 0,15 auf der Textbox. Ein einziger Wert ueber allem muesste unter 0,26 bleiben und
+   * waere dann kaum zu sehen — visuell gegengeprueft am 2026-09-03.
+   *
+   * Der weisse Titel der EINGEKLAPPTEN Karte gewinnt dabei: 3,95:1 → 8,69:1, weil das
+   * Foto dunkler wird.
+   */
+  gedaempft?: boolean;
 }
 
 /**
@@ -182,9 +206,15 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`}
             />
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.62)] via-[rgb(var(--cc-carbon-rgb)/0.14)] to-transparent" />
+            {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
+                eingeklappten Titel (gleicher Stapel, spaeter im DOM) und hinter der
+                Textbox (z-10). Deshalb kein z-Index — die DOM-Reihenfolge genuegt. */}
+            {item.gedaempft && (
+              <div aria-hidden="true" className="absolute inset-0 bg-[rgb(var(--cc-carbon-rgb)/0.45)]" />
+            )}
 
             {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop),
                 faded bei aktiv aus */}
@@ -197,7 +227,14 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
 
             {/* Aktiv: weiße Textbox im TargetGroupCards-Design */}
             <div
-              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] transition duration-300 sm:w-[62%] lg:w-[300px] ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
+              // Der zweite, schwaechere Schleier liegt als INSET-Schatten in derselben
+              // `box-shadow`-Angabe wie der Schlagschatten — zwei Klassen wuerden sich
+              // gegenseitig ueberschreiben, box-shadow stapelt nicht ueber Klassen hinweg.
+              className={`absolute inset-y-3 left-3 z-10 flex w-[78%] flex-col rounded-2xl bg-[rgb(255_255_255/0.92)] p-6 transition duration-300 sm:w-[62%] lg:w-[300px] ${
+                item.gedaempft
+                  ? 'shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5),inset_0_0_0_9999px_rgb(var(--cc-carbon-rgb)/0.15)]'
+                  : 'shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)]'
+              } ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
             >
               {item.badge && (
                 <span
@@ -231,6 +268,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   statt wie eine Einladung zu scrollen. */}
               <div className="relative mt-3 flex min-h-0 flex-1 flex-col">
                 <div className="cc-card-scroll min-h-0 flex-1 overflow-y-auto pr-1">
+                {item.hinweis && (
+                  <p className="mb-3 rounded-lg bg-gray-100 px-3 py-2 text-xs leading-relaxed text-gray-700">
+                    {item.hinweis}
+                  </p>
+                )}
                 <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
                 {item.details && item.details.length > 0 && (
                   <>
