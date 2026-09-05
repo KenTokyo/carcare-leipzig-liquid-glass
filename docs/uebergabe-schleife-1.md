@@ -71,53 +71,35 @@ getrennt und zuerst.
 
 ---
 
-## 3. Ein offener Fehler, keine Zulieferung: 3.36
+## 3. Behoben nach der ersten Fassung dieser Übergabe: 3.36
 
-**Fünf Reparaturseiten öffnen das falsche Formular.** Wer dort „… anfragen" klickt,
-landet im **Aufbereitungs**formular und bekommt Felder für Pflegepakete und Wunschtermin
-statt für Schadenart, Versicherung und Bilder.
+**Fünf Reparaturseiten öffneten das falsche Formular.** Wer dort „… anfragen" klickte,
+landete im **Aufbereitungs**formular und bekam Felder für Pflegepakete und Wunschtermin
+statt für Schadenart, Versicherung und Fahrbereitschaft.
 
-Gemessen, nicht geschätzt:
+Erledigt am 2026-09-05, in drei getrennten Commits:
 
-| Seite | Aufruf zeigt heute auf | richtig wäre |
-|---|---|---|
-| `/dellenentfernung-leipzig` | `#contact-termin` | Schaden, Schadenart „Delle" |
-| `/felgenreparatur-leipzig` | `#contact-termin` | Schaden, Schadenart „Felge" |
-| `/autoglas-leipzig` | `#contact-termin` | Schaden, Schadenart „Glasschaden" *(existiert)* |
-| `/smart-repair-leipzig` | `#contact-termin` | Schaden, Schadenart „Lackschaden" *(existiert)* |
-| `/autolackierung-leipzig` | `#contact-termin` | Schaden, Schadenart „Lackschaden" *(existiert)* |
-| `/hagelschadenreparatur-leipzig` | `#contact-schaden` | **bereits richtig** |
-| `/fuhrparkservice-leipzig` | `#contact-termin` | Geschäftskunden — anderer Fall, B2B |
+1. **Refactoring vorab.** Die vier Variantenblöcke liegen jetzt einzeln in
+   `components/formulare/`; `RequestForm.tsx` fiel von 654 auf 425 Zeilen. Reiner Umzug,
+   eigener Commit — damit Refactoring und neue Felder nicht im selben Diff liegen.
+2. **Das Schadenformular trägt beide Fälle.** Kein zweites Formular: Unfall mit
+   Versicherungsbezug und Reparatur ohne unterscheiden sich durch **ein Gabelungsfeld**
+   („Wer trägt die Kosten?") und vier bedingte Felder. Der Selbstzahler sieht ein
+   *kürzeres* Formular, kein anderes. `reparaturpunkt.info` bleibt als spätere Option —
+   die Schadenmeldung funktioniert vollständig ohne es, und die Weiterleitung ließe sich
+   herausnehmen, ohne ein Formular nachbauen zu müssen.
+3. **Die Wegführung.** `TERMIN_UEBERSCHREIBUNG` in `data/leistungsauswahl.ts` ordnet fünf
+   Seiten dem Schadenformular zu, mit vorausgewählter Schadenart, und Fuhrparkservice dem
+   Geschäftskundenformular. Keine der rund 40 CTA-Fundstellen wurde angefasst.
 
-**Nicht die Beschriftungen sind falsch, sondern das Ziel.** „Dellenentfernung anfragen"
-ist genau richtig, es führt nur an die falsche Stelle.
+**Neu dabei:** `data/schadenFelder.ts` ist die einzige Quelle der Felder — Streichen ist
+ein Dateneintrag, und die serverseitige Prüfung folgt automatisch. Die Uploadfelder für
+Schadenbilder und Lebenslauf sind **entfernt**; an ihre Stelle tritt eine
+**Vorgangsnummer** mit vorbereitetem E-Mail-Weg (siehe unten).
 
-### Drei Wege, und was sie kosten
-
-**A — Reparaturseiten öffnen das Schadenformular, mit vorausgewählter Schadenart.**
-Empfohlen. Das Schadenformular fragt bereits genau das Richtige: Fahrzeug, Schadenart,
-Versicherung, Bilderupload. Die Mechanik dafür steht seit 1.19 und 1.20 — es braucht
-eine Zuordnungstabelle Route → Formularvariante und zwei neue Schadenarten („Delle",
-„Felgenschaden"). **Keine der rund 40 Aufruf-Fundstellen wird angefasst.**
-Aufwand: klein, eine Sitzung.
-
-**B — Eigenes Reparaturformular als fünfte Variante.**
-Nur sinnvoll, wenn Reparaturanfragen andere Felder brauchen als Schadenmeldungen. Nach
-dem heutigen Stand tun sie das nicht; das einzige teilweise unpassende Feld ist
-„Versicherung vorhanden", und dafür gibt es bereits die Antwort „Noch unklar". Ein
-zweites, fast gleiches Formular ist der Anfang des Auseinanderlaufens.
-Aufwand: mittel, plus dauerhafte Pflege.
-
-**C — Weiterleitung auf ein externes Reparaturportal.**
-⚠️ **Hier fehlt mir eine Information.** In der Aufgabe war von „reparatur.info" die Rede.
-Diese Adresse kommt im gesamten Projekt und im gesamten Backlog **nicht vor**, und 3.34
-ist die Datenschutzerklärung, die zur Formularführung nichts sagt. Falls es ein solches
-Portal gibt, fehlt mir der Name und die Frage, ob dorthin überhaupt verwiesen werden
-soll — eine Weiterleitung nach außen gäbe die Anfrage aus der Hand und bräuchte einen
-eigenen Abschnitt in der Datenschutzerklärung.
-
-**Empfehlung: A.** Kleinste Änderung, nutzt was schon gebaut ist, behebt genau die
-Beschwerde. Auf ein Wort hin sofort umsetzbar.
+**Was daraus offen bleibt:** **3.40** — André muss die Feldliste durchgehen. 12 sichtbare
+Felder sind viel für jemanden, der gerade einen Unfall hatte. Vorlage zum Streichen:
+`docs/formulare/schadenmeldung-felder-fuer-andre.md`.
 
 ---
 
@@ -125,10 +107,9 @@ Beschwerde. Auf ein Wort hin sofort umsetzbar.
 
 Begründet, nicht nur nummeriert:
 
-**Zuerst — 3.36 beheben.** Der einzige bekannte Funktionsfehler auf der Seite. Kleine,
-abgegrenzte Änderung, braucht nur eine Entscheidung zwischen A und C.
+**~~Zuerst — 3.36 beheben.~~ Erledigt am 2026-09-05.**
 
-**Dann — die drei roten Punkte parallel bei André anstoßen** (3.33, 3.34, 3.38). Sie
+**Zuerst — die drei roten Punkte parallel bei André anstoßen** (3.33, 3.34, 3.38). Sie
 haben die längste Durchlaufzeit, weil ein Dritter beteiligt ist: der
 Datenschutzbeauftragte. Je früher sie laufen, desto weniger blockieren sie am Ende.
 
@@ -192,7 +173,15 @@ mehr passt, ist selbst ein Fehler und bricht den Build. Die Liste kann nicht ver
   und ein Transform kapert den Bezugsrahmen für `position: fixed`.
 - **Der ehrliche Zustand ist der Ausgangszustand.** Das Formular hält den Absenden-Knopf
   gesperrt, bis die Funktion bestätigt, dass sie senden kann. Kein Deployment kann eine
-  Erfolgsmeldung zeigen, hinter der kein Versand steht.
+  Erfolgsmeldung zeigen, hinter der kein Versand steht. **Dasselbe gilt für die
+  Vorgangsnummer:** Sie entsteht erst, wenn die Mail angenommen wurde — nicht bei 503,
+  nicht bei 502, nicht beim Honigtopf. Eine Nummer für einen Vorgang, den es nicht gibt,
+  wäre dasselbe Muster.
+- **Die Vorgangsnummer ist keine Eindeutigkeitsgarantie.** `CC-MMTT-XXXXX`, 30 Zeichen
+  ohne verwechselbare Glyphen, 24,3 Millionen Werte je Tag. Es gibt keine Datenbank und
+  nichts prüft auf Doppelung — bei 50 Anfragen am Tag kollidiert sie rechnerisch alle
+  54 Jahre. Gemessen an 20.000 Ziehungen: 6 Doppelungen bei 8,23 erwarteten, alle
+  30 Zeichen gleichverteilt (Chi-Quadrat 39,9 bei kritisch 42,6).
 
 ### Drei Fallen, die in dieser Schleife Zeit gekostet haben
 
