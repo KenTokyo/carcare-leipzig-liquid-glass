@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import MobileStickyCTA from './MobileStickyCTA';
+import { AnfrageDialogProvider } from './AnfrageDialog';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -34,6 +35,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
+    // Der Anfrage-Dialog haengt EINMAL hier, nicht je Seite: Sein Ausloeser
+    // (`#contact-termin`) steht an rund 40 Stellen. Siehe AnfrageDialog.tsx.
+    <AnfrageDialogProvider>
     <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
       {/* Unified Solidroad Frame & Header HUD-Layer */}
       <div className="solidroad-shell-frame-container">
@@ -72,6 +76,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Footer />
       <MobileStickyCTA />
     </div>
+    </AnfrageDialogProvider>
   );
 };
 

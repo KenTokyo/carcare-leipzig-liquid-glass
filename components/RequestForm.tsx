@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
 import { ausbildungsberufe, berufsbilder } from '../data/jobs';
+import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
@@ -24,6 +25,8 @@ interface FormFieldsByKind {
     email: string;
     vehicle: string;
     service: string;
+    /** Mehrfachauswahl, Quelle: `data/zusatzleistungen.ts` (Backlog 1.18). */
+    zusatzleistungen: string[];
     preferredDate: string;
     description: string;
   };
@@ -46,7 +49,7 @@ interface FormFieldsByKind {
 
 const initialState: FormFieldsByKind = {
   schaden: { name: '', phone: '', email: '', vehicle: '', incident: '', insuranceAvailable: '', description: '' },
-  termin: { name: '', phone: '', email: '', vehicle: '', service: '', preferredDate: '', description: '' },
+  termin: { name: '', phone: '', email: '', vehicle: '', service: '', zusatzleistungen: [], preferredDate: '', description: '' },
   business: { company: '', contact: '', phone: '', email: '', partnerType: '', description: '' },
   bewerbung: { name: '', email: '', phone: '', position: '', description: '' },
 };
@@ -93,17 +96,70 @@ const headlineByKind: Record<RequestFormKind, { icon: React.ReactNode; eyebrow: 
  */
 const VERSAND_AKTIV = false;
 
-const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
-  const [values, setValues] = useState(initialState[kind]);
-  const [submitted, setSubmitted] = useState(false);
+/**
+ * Frischer Startwert je Variante.
+ *
+ * BEWUSST EINE KOPIE: `initialState` ist eine Vorlage, kein Zustand. Seit `termin` ein
+ * Array fuehrt (`zusatzleistungen`), waere die geteilte Referenz zwischen zwei
+ * gleichzeitig sichtbaren Formularen — Kontaktseite und Anfrage-Dialog — dieselbe Liste.
+ * Bei reinen Zeichenketten fiel das nie auf, weil jede Aenderung ohnehin ein neues
+ * Objekt erzeugt hat.
+ */
+const startwerte = (kind: RequestFormKind) => structuredClone(initialState[kind]);
 
-  React.useEffect(() => {
-    setValues(initialState[kind] as never);
+/**
+ * Titel je Variante, abgeleitet aus derselben Quelle wie die sichtbare Ueberschrift.
+ * Der Anfrage-Dialog braucht ihn fuer sein `aria-label` — ohne diesen Export haette er
+ * einen zweiten Titelsatz gefuehrt, der beim naechsten Textwechsel auseinanderlaeuft.
+ */
+export const formularTitel = Object.fromEntries(
+  Object.entries(headlineByKind).map(([art, kopf]) => [art, kopf.title])
+) as Record<RequestFormKind, string>;
+
+const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
+  const [values, setValues] = useState(() => startwerte(kind));
+  const [submitted, setSubmitted] = useState(false);
+  const [gezeigteArt, setGezeigteArt] = useState(kind);
+
+  /**
+   * Variantenwechsel WAEHREND DES RENDERNS nachziehen, nicht in einem Effect.
+   *
+   * Vorher stand hier ein `useEffect([kind])`. Effects laufen NACH dem Rendern — der
+   * erste Durchlauf mit der neuen Variante rendert also noch die Werte der alten. Bei
+   * lauter Zeichenketten blieb das unsichtbar: ein Feld, das es in der neuen Variante
+   * nicht gibt, ist `undefined` und rendert als leer.
+   *
+   * Mit `zusatzleistungen: string[]` wurde daraus ein Absturz — `undefined.includes(...)`
+   * beim Wechsel auf den Termin-Reiter, gemessen auf `/kontakt#contact-termin`. Der
+   * Fehler steckte also schon vorher im Bauteil und wurde nur nie sichtbar.
+   *
+   * Das ist Reacts dokumentiertes Muster fuer „Zustand an geaenderte Props anpassen":
+   * Ein `set` waehrend des Renderns verwirft das Ergebnis und ruft die Komponente sofort
+   * erneut auf, bevor irgendetwas ins DOM geht. Kein zusaetzlicher Frame, kein Flackern.
+   *
+   * ⚠️ ES ERSETZT ABER KEINE ABSICHERUNG BEIM LESEN. React laesst den laufenden Durchlauf
+   * ZU ENDE laufen und wirft das Ergebnis erst danach weg — eine Ausnahme im Rumpf fliegt
+   * vorher. Genau daran ist die erste Fassung dieses Fixes gescheitert: Der Absturz blieb.
+   * Deshalb liest die Mehrfachauswahl unten ueber `?? []`. Beides zusammen, nicht eines
+   * statt des anderen.
+   */
+  if (kind !== gezeigteArt) {
+    setGezeigteArt(kind);
+    setValues(startwerte(kind));
     setSubmitted(false);
-  }, [kind]);
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value } as never));
+  };
+
+  /** Mehrfachauswahl: an- und abwaehlen, ohne die uebrigen Felder anzufassen. */
+  const handleZusatzleistung = (id: string, aktiv: boolean) => {
+    setValues((prev) => {
+      const bisher = (prev as FormFieldsByKind['termin']).zusatzleistungen ?? [];
+      const neu = aktiv ? [...bisher, id] : bisher.filter((eintrag) => eintrag !== id);
+      return { ...prev, zusatzleistungen: neu } as never;
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -242,6 +298,59 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
                   <input id="termin-date" name="preferredDate" type="date" value={(values as FormFieldsByKind['termin']).preferredDate} onChange={handleChange} className={inputClass} />
                 </div>
               </div>
+              {/*
+                ZUSATZLEISTUNGEN (Backlog 1.18). Die Liste kommt vollstaendig aus
+                `data/zusatzleistungen.ts` — hier steht kein einziger Eintrag fest
+                verdrahtet. Ergaenzen ist eine Zeile in den Daten.
+
+                <fieldset> mit <legend> statt eines <div> mit Ueberschrift: Screenreader
+                sagen die Gruppenbeschriftung dann bei JEDEM Kaestchen mit an. Ohne das
+                hoert man fuenfmal „Kontrollkaestchen" ohne zu wissen, wozu sie gehoeren.
+              */}
+              <fieldset className="rounded-xl border border-gray-200 p-4">
+                <legend className="px-1 text-xs font-bold uppercase tracking-[0.15em] text-gray-600">
+                  Gewünschte Zusatzleistungen
+                </legend>
+                {enthaeltDummies && (
+                  <p className="mb-3 rounded-lg bg-gray-100 px-3 py-2 text-[11px] leading-relaxed text-gray-700">
+                    Diese Auswahl ist noch in Abstimmung — die endgültigen Zusatzleistungen folgen.
+                    Nennen Sie Ihren Wunsch gern zusätzlich in der Nachricht.
+                  </p>
+                )}
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {zusatzleistungen.map((leistung) => {
+                    // `?? []`: Beim Reiterwechsel laeuft genau ein Renderdurchlauf mit den
+                    // Werten der VORHERIGEN Variante, in denen es dieses Feld nicht gibt.
+                    // Siehe die Begruendung oben am Variantenwechsel.
+                    const gewaehlt = ((values as FormFieldsByKind['termin']).zusatzleistungen ?? []).includes(leistung.id);
+                    return (
+                      <label
+                        key={leistung.id}
+                        htmlFor={`termin-${leistung.id}`}
+                        className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors ${
+                          gewaehlt ? 'border-blue-600 bg-blue-600/5' : 'border-gray-200 bg-white hover:border-gray-300'
+                        }`}
+                      >
+                        <input
+                          id={`termin-${leistung.id}`}
+                          type="checkbox"
+                          name="zusatzleistungen"
+                          value={leistung.id}
+                          checked={gewaehlt}
+                          onChange={(e) => handleZusatzleistung(leistung.id, e.target.checked)}
+                          className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
+                        />
+                        <span className="min-w-0">
+                          <span className="block text-sm font-semibold text-gray-950">{leistung.label}</span>
+                          {leistung.hinweis && (
+                            <span className="mt-0.5 block text-[11px] leading-relaxed text-gray-600">{leistung.hinweis}</span>
+                          )}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
               <div>
                 <label className={labelClass} htmlFor="termin-description">Nachricht</label>
                 <textarea id="termin-description" name="description" rows={4} value={(values as FormFieldsByKind['termin']).description} onChange={handleChange} className={inputClass} placeholder="Sonderwünsche, Fahrzeugzustand ..." />

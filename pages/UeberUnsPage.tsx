@@ -1,5 +1,7 @@
 import React from 'react';
-import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import Timeline from '../components/Timeline';
+import { historie } from '../data/historie';
 
 /**
  * Unternehmensseite „Ueber uns" — stellt die BS CarCare GmbH vor.
@@ -63,14 +65,6 @@ const employer = [
   { title: 'Beständigkeit', description: 'Wir bestehen seit 1998 und beschäftigen über 50 Menschen — das bietet ein anderes Maß an Planbarkeit als ein junger Kleinbetrieb.' },
 ];
 
-const history = [
-  { title: '1998 — Gründung', description: 'Start als Betrieb des Kfz-Lackierhandwerks in Leipzig. Der Meisterbrief ist von Anfang an die fachliche Grundlage.' },
-  { title: 'Ausbau zum Full-Service-Betrieb', description: 'Karosserie, Smart Repair, Dellenentfernung, Felgen und Autoglas kommen zur Lackierung hinzu — damit ein Fahrzeug den Betrieb für keinen Arbeitsschritt verlassen muss.' },
-  { title: 'Aufbereitung als eigener Bereich', description: 'Die Fahrzeugaufbereitung wächst vom Zusatz zur eigenständigen Leistung mit festen Paketen, Desinfektionsverfahren und Leasingrückgabe-Vorbereitung.' },
-  { title: 'Heute — über 3.000 m² in Leipzig', description: 'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.' },
-];
-
-
 const UeberUnsPage: React.FC = () => (
   // Werkstattmotiv statt Kachelbild: Diese Seite zeigt den Betrieb selbst, nicht eine
   // einzelne Leistung. `carcare-hero-workshop.webp` ist mit 2400x1800 hoch genug
@@ -132,7 +126,7 @@ const UeberUnsPage: React.FC = () => (
           title="Von der Lackiererei zum Full-Service-Betrieb."
           description="Entwicklung seit 1998 — jeder Schritt kam dazu, weil Kunden ihn gebraucht haben."
         />
-        <ProcessList steps={history} />
+        <Timeline stations={historie} />
       </div>
     </section>
 
