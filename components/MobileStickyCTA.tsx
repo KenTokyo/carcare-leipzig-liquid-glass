@@ -67,17 +67,9 @@ const MobileStickyCTA: React.FC = () => {
     if (nearBottom) setKartenOffen(false);
   }, [nearBottom]);
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) {
-      window.history.pushState(null, '', `/kontakt#${id}`);
-      window.dispatchEvent(new Event('carcare:navigate'));
-      return;
-    }
-    const offset = 80;
-    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  };
+  // `scrollTo` ist mit 1.20 entfallen: Beide Anfrage-Knoepfe oeffnen jetzt den Dialog,
+  // statt zur Kontaktseite zu springen. Der Helfer stand danach nur noch als toter Code
+  // herum und haette beim naechsten Lesen so ausgesehen, als gaebe es den Sprungweg noch.
 
   const buttonKlassen =
     'cc-gradient-button pointer-events-auto flex flex-col items-center justify-center gap-1 rounded-2xl border py-3 text-white';
@@ -134,7 +126,7 @@ const MobileStickyCTA: React.FC = () => {
           <Phone size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
         </a>
-        <button type="button" onClick={() => scrollTo('contact-schaden')} className={buttonKlassen}>
+        <button type="button" onClick={() => oeffnen('schaden')} className={buttonKlassen}>
           <AlertTriangle size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
         </button>

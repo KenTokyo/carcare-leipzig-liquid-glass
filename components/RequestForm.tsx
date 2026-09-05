@@ -3,10 +3,17 @@ import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
 import { ausbildungsberufe, berufsbilder } from '../data/jobs';
 import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
+import { terminLeistungen } from '../data/leistungsauswahl';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
   kind: RequestFormKind;
+  /**
+   * Vorausgewaehlte Leistung fuer die Termin-Variante (Backlog 1.19). Kommt vom
+   * Anfrage-Dialog, der sie aus der aufrufenden Seite ableitet
+   * (`data/leistungsauswahl.ts`). Ohne Angabe bleibt das Feld auf „Bitte waehlen".
+   */
+  vorauswahl?: string;
 }
 
 interface FormFieldsByKind {
@@ -105,7 +112,16 @@ const VERSAND_AKTIV = false;
  * Bei reinen Zeichenketten fiel das nie auf, weil jede Aenderung ohnehin ein neues
  * Objekt erzeugt hat.
  */
-const startwerte = (kind: RequestFormKind) => structuredClone(initialState[kind]);
+const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
+  const werte = structuredClone(initialState[kind]);
+  // Vorauswahl gilt nur fuer die Termin-Variante und nur, wenn die Leistung existiert.
+  // Ein unbekannter Wert wuerde das <select> auf einen Zustand setzen, den es nicht
+  // anzeigen kann — das Feld saehe leer aus, waere aber belegt.
+  if (kind === 'termin' && vorauswahl && terminLeistungen.some((l) => l.id === vorauswahl)) {
+    (werte as FormFieldsByKind['termin']).service = vorauswahl;
+  }
+  return werte;
+};
 
 /**
  * Titel je Variante, abgeleitet aus derselben Quelle wie die sichtbare Ueberschrift.
@@ -116,8 +132,8 @@ export const formularTitel = Object.fromEntries(
   Object.entries(headlineByKind).map(([art, kopf]) => [art, kopf.title])
 ) as Record<RequestFormKind, string>;
 
-const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
-  const [values, setValues] = useState(() => startwerte(kind));
+const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
+  const [values, setValues] = useState(() => startwerte(kind, vorauswahl));
   const [submitted, setSubmitted] = useState(false);
   const [gezeigteArt, setGezeigteArt] = useState(kind);
 
@@ -145,7 +161,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
    */
   if (kind !== gezeigteArt) {
     setGezeigteArt(kind);
-    setValues(startwerte(kind));
+    setValues(startwerte(kind, vorauswahl));
     setSubmitted(false);
   }
 
@@ -286,15 +302,14 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <label className={labelClass} htmlFor="termin-service">Gewünschte Leistung</label>
+                  {/* Optionen aus `data/leistungsauswahl.ts` — dieselbe Quelle, aus der
+                      die Vorauswahl abgeleitet wird (1.19). Zwei Listen waeren zwei Orte,
+                      an denen dieselben Schluessel gepflegt werden muessten. */}
                   <select id="termin-service" name="service" value={(values as FormFieldsByKind['termin']).service} onChange={handleChange} className={inputClass}>
                     <option value="">Bitte wählen</option>
-                    <option value="innen">Innenaufbereitung</option>
-                    <option value="aussen">Außenaufbereitung</option>
-                    <option value="komplett">Komplettaufbereitung</option>
-                    <option value="lack">Lackpflege / Politur</option>
-                    <option value="leasing">Leasingrückgabe</option>
-                    <option value="verkauf">Verkaufsaufbereitung</option>
-                    <option value="sonstiges">Sonstiges</option>
+                    {terminLeistungen.map((leistung) => (
+                      <option key={leistung.id} value={leistung.id}>{leistung.label}</option>
+                    ))}
                   </select>
                 </div>
                 <div>

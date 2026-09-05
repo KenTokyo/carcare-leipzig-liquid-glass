@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import RequestForm, { formularTitel } from './RequestForm';
 import { getLenis } from '../hooks/useSmoothScroll';
+import { leistungFuerRoute } from '../data/leistungsauswahl';
 import { RequestFormKind } from '../types';
 
 /**
@@ -46,18 +47,25 @@ import { RequestFormKind } from '../types';
 /**
  * Sprungziel → Formularvariante. **Hier wird eingehaengt.**
  *
- * Vorerst nur die Terminanfrage, wie abgestimmt. `'#contact-schaden': 'schaden'` und
- * `'#contact-business': 'business'` sind je eine Zeile, sobald das gewuenscht ist.
+ * Seit 2026-09-05 alle drei Anfragearten (Backlog 1.20 vollstaendig). Vorher nur die
+ * Terminanfrage — mit der Folge, dass zwei der drei Handlungsaufrufe weiterhin auf die
+ * Kontaktseite sprangen und derselbe Knopf je nach Anliegen etwas anderes tat.
  */
 export const ANFRAGE_ZIELE: Record<string, RequestFormKind> = {
   '#contact-termin': 'termin',
+  '#contact-schaden': 'schaden',
+  '#contact-business': 'business',
 };
 
 /** Seiten, auf denen NICHT abgefangen wird, weil das Formular dort schon steht. */
 const AUSGENOMMENE_PFADE = ['/kontakt'];
 
 interface AnfrageDialogWerte {
-  oeffnen: (art: RequestFormKind) => void;
+  /**
+   * `vorauswahl` ist die Leistung, die im Terminformular vorbelegt wird (Backlog 1.19).
+   * Wird sie weggelassen, leitet der Dialog sie aus dem aktuellen Seitenpfad ab.
+   */
+  oeffnen: (art: RequestFormKind, vorauswahl?: string) => void;
   schliessen: () => void;
   offen: boolean;
 }
@@ -78,13 +86,20 @@ const FOKUSSIERBAR =
 
 export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [art, setArt] = useState<RequestFormKind | null>(null);
+  const [vorauswahl, setVorauswahl] = useState<string | undefined>(undefined);
   const panelRef = useRef<HTMLDivElement>(null);
   const schliessenRef = useRef<HTMLButtonElement>(null);
   /** Element, das den Dialog geoeffnet hat — dorthin geht der Fokus zurueck. */
   const ausloeserRef = useRef<HTMLElement | null>(null);
 
-  const oeffnen = useCallback((neueArt: RequestFormKind) => {
+  const oeffnen = useCallback((neueArt: RequestFormKind, gewuenscht?: string) => {
     ausloeserRef.current = document.activeElement as HTMLElement | null;
+    // Ohne ausdrueckliche Angabe aus dem aktuellen Seitenpfad ableiten: Wer von
+    // `/innenaufbereitung-leipzig` kommt, meint die Innenaufbereitung (Backlog 1.19).
+    // Gibt es keine eindeutige Entsprechung, bleibt das Feld auf „Bitte waehlen" —
+    // eine falsche Vorauswahl sieht aus wie eine Entscheidung des Nutzers und wird
+    // deshalb nicht korrigiert.
+    setVorauswahl(gewuenscht ?? leistungFuerRoute(window.location.pathname));
     setArt(neueArt);
   }, []);
 
@@ -207,7 +222,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                   >
                     <X size={16} />
                   </button>
-                  <RequestForm kind={art} />
+                  <RequestForm kind={art} vorauswahl={vorauswahl} />
                 </motion.div>
                 </div>
               </motion.div>
