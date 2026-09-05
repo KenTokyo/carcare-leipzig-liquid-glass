@@ -133,6 +133,47 @@ bei TODO-Kommentaren, nur maschinell.
 
 ---
 
+### ✅ Phase 7 — 1.19 Vorauswahl, 1.20 vollständig
+**Ziel:** Der Rest von Paket E, soweit ohne Entscheidung baubar.
+
+* [x] `data/leistungsauswahl.ts` liefert die Optionen des Auswahlfelds UND die Zuordnung
+  Herkunftsseite → Leistung. Vorher standen die sieben `<option>`-Zeilen im Formular.
+* [x] Zugeordnet wird nur, wo es eindeutig ist. Ohne Entsprechung bleibt „Bitte wählen".
+* [x] `ANFRAGE_ZIELE` um Schaden und Geschäftskunden ergänzt — vorher öffnete nur die
+  Terminanfrage den Dialog, dieselbe Geste tat je nach Anliegen etwas anderes.
+* [x] Schaden-Knopf der mobilen Aktionsleiste öffnet den Dialog; toter `scrollTo`-Helfer entfernt.
+
+**Referenzen:**
+`data/leistungsauswahl.ts`
+`components/AnfrageDialog.tsx`
+`components/RequestForm.tsx`
+
+---
+
+### ✅ Phase 8 — 1.17 Formularversand
+**Ziel:** Anfragen erreichen das Postfach. Zwei Entscheidungen wurden vorab eingeholt:
+Vercel-Funktion mit Mail-Dienst, und erste Fassung ohne Anhänge.
+
+* [x] `api/anfrage.ts` in der Edge-Laufzeit, Versand als einzelner `fetch` — kein
+  zusätzliches npm-Paket.
+* [x] `data/anfrageSchema.ts` als gemeinsame Quelle für Pflichtfelder, Feldbeschriftungen
+  und Betreffzeilen.
+* [x] **Ehrlicher Ausgangszustand:** Ohne Zugangsdaten antwortet die Funktion mit 503, das
+  Formular fragt das beim Laden ab und lässt den Knopf gesperrt.
+* [x] Honigtopf gegen Formularroboter, still verworfen statt abgewiesen.
+* [x] Zustände im Formular: sendet — Fehler — Erfolg. Fehlermeldungen nennen einen Weg,
+  der funktioniert, und verraten keine Konfiguration.
+* [x] `.env.example` als Vorlage; `.env` in `.gitignore` ergänzt (stand dort nicht).
+* [x] Faktenblatt für den Datenschutzbeauftragten fortgeschrieben — es sagte bis dahin,
+  dass nichts übertragen wird.
+
+**Referenzen:**
+`api/anfrage.ts`
+`data/anfrageSchema.ts`
+`components/RequestForm.tsx`
+
+---
+
 ## Kommentare
 
 Drei Fehler sind erst beim Pruefen aufgetaucht, keiner davon beim Lesen des Codes.
@@ -296,3 +337,53 @@ Gegenprobe ✅, Pflichtabschnitt „notwendig, aber nicht hinreichend" im Skript
 2. 🟡 **Mittel (dokumentiert):** Der Wächter kennt nur die in `QUELLEN` registrierten
    Datenmodule. Ein neues Modul mit Platzhaltern fällt durch, bis es dort steht — steht
    als erster Punkt im Pflichtabschnitt des Skripts.
+
+### Phase 7
+**Eingehalten:** eine Quelle für Optionen und Zuordnung ✅, nur eindeutige Vorauswahl ✅,
+alle drei Anfragearten ✅, toter Code entfernt ✅.
+
+**Auffälligkeiten:**
+
+1. 🟠 **Hoch (Backlog 3.36):** Sieben Reparaturseiten führen ihren Handlungsaufruf auf das
+   AUFBEREITUNGS-Formular. Aufgefallen genau hier: Für sie gibt es keine sinnvolle
+   Vorauswahl, weil die gesuchte Leistung dort gar nicht vorkommt. Inhaltliche
+   Entscheidung über rund ein Dutzend Aufrufe.
+2. 🟡 **Mittel — zwei falsche Befunde aus dem eigenen Prüfaufbau.** Der Test traf einmal
+   den Navigations-Link in einem zugeklappten Menü statt den im Inhalt, und einmal
+   klickte er auf gemessene Koordinaten, während Lenis noch weiterscrollte. Beide Wege
+   funktionieren — nachgewiesen mit DOM-Klick und mit echtem Mausklick nach Scroll-Ruhe.
+   Als Muster im Wächter-Dokument ergänzt: *Habe ich den Defekt gemessen oder meinen Aufbau?*
+
+### Phase 8
+**Eingehalten:** ehrlicher Ausgangszustand ✅, serverseitige Prüfung ✅, keine
+Konfiguration in Fehlermeldungen ✅, Faktenblatt nachgezogen ✅, unter 700 Zeilen ✅ (653).
+
+**Geprüft, 18 Fälle gegen die gebündelte Funktion mit abgefangenem Mail-Dienst:**
+
+| Fall | Ergebnis |
+|---|---|
+| ohne Konfiguration, GET / POST | je 503, nennt die fehlenden Variablen |
+| mit Konfiguration, gültige Anfrage | 200, korrekt adressiert, `Reply-To` = Absender |
+| Pflichtfeld fehlt / ungültige Adresse / unbekannte Art / zu langes Feld / DELETE | abgewiesen, **nichts versendet** |
+| Honigtopf ausgefüllt | 202 `{ok:true}`, keine Mail |
+| Mail-Dienst antwortet 500 | 502, Meldung nennt Telefon und E-Mail, verrät keine Konfiguration |
+
+Dazu im Browser beide Zustände: ohne Funktion gesperrt mit Ersatzhinweis, mit Funktion
+Absenden bis zur Bestätigung samt vollständig angekommener Daten.
+
+**Auffälligkeiten (nach Schwere):**
+
+1. 🔴 **Kritisch (behoben) — `.env` stand nicht in `.gitignore`.** Nur `*.local` war
+   eingetragen, das fängt `.env.local`, aber nicht `.env`. Wer die Zugangsdaten lokal
+   angelegt hätte, hätte sie beim nächsten `git add .` mitcommittet.
+2. 🟠 **Hoch (Backlog 3.38, Kopplung):** Mit dem Freischalten wird Resend zum ZWEITEN
+   Auftragsverarbeiter neben Vercel, ebenfalls US-Unternehmen. AV-Vertrag und der
+   Abschnitt in der Datenschutzerklärung (3.34) müssen **vor** dem Freischalten stehen.
+3. 🟠 **Hoch (Backlog 3.37):** Anhänge werden weiterhin nicht übertragen. Das Formular
+   sagt das, aber die Upload-Felder stehen sichtbar da — ein Zustand, der erklärt werden
+   muss und nicht dauerhaft bleiben sollte.
+4. 🟡 **Mittel — wieder eine Messung am falschen Ding.** Meine Prüfung des Honigtopfs
+   meldete ihn als sichtbar (201×24 px). Gemessen war der Kasten des Feldes, nicht seine
+   Sichtbarkeit; es steckt in einem `0×0`-Element mit `overflow:hidden` und `opacity:0`.
+   Mit `checkVisibility({opacityProperty:true})` korrekt: unsichtbar, `tabIndex -1`, in
+   `aria-hidden`. Dritter Fall desselben Musters an einem Tag.
