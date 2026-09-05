@@ -69,6 +69,59 @@ auch dann bekommen, wenn das Werkzeug nichts misst?**
 
 ---
 
+## Die Prüfung misst eine Nebeneigenschaft statt der eigentlichen
+
+*Ergänzt am 2026-09-05, aus dem Bau des Zeitstrahls.*
+
+Fünf Punkte sollten auf den Mitten ihrer Spalten sitzen. Geprüft wurde, ob sie
+**gleichmäßig verteilt** sind — Abstand 259 px, fünfmal identisch, grün. Tatsächlich saß
+jeder Punkt 22 px rechts der Mitte und unter der Achse, weil Framer Motion `transform`
+inline schreibt und Tailwinds `-translate-x-1/2` damit überschrieben war.
+
+Der gemeinsame Versatz ist der Kern des Falls: Gleichmäßigkeit ist gegen eine
+Verschiebung **aller** Elemente vollkommen unempfindlich. Bei 200 px Versatz hätte
+dieselbe Prüfung genauso grün gemeldet. Sie maß eine Eigenschaft, die mit der gesuchten
+korreliert, aber nicht dasselbe ist.
+
+> **Misst diese Prüfung die Eigenschaft, die mich interessiert — oder eine, die
+> zufällig mitläuft?**
+
+Abhilfe ist immer ein **Bezugspunkt außerhalb der geprüften Menge**. Nicht „die Punkte
+zueinander", sondern „jeder Punkt gegen die Mitte seiner Spalte" und „die Punkte gegen
+die y-Position der Achse". Nach der Umstellung: 202/461/720/979/1238 gegen Spaltenmitten
+202/461/720/979/1238, Punkt-y 566 gegen Achse-y 566.
+
+Verwandt mit „ein notwendiges Merkmal wird für ein hinreichendes gehalten", aber
+schärfer: Dort ist das Merkmal wenigstens dasselbe Ding. Hier ist es ein anderes, das
+sich im Gutfall genauso verhält.
+
+---
+
+## Der Prüfaufbau schließt den Fehler aus, den er finden soll
+
+*Ergänzt am 2026-09-05, aus demselben Bau.*
+
+Die Punkte des Zeitstrahls blendeten sich per `whileInView` ein. Auf schmalen Schirmen
+erschienen sie nie — `initial={{ scale: 0 }}` und der `IntersectionObserver` saßen auf
+demselben Element, und ein auf null skaliertes Element hat keine Fläche, an der ein
+Schnitt entstehen könnte. Es beobachtete sich selbst weg.
+
+Der erste Prüflauf fand das **nicht**, und zwar aus einem Grund, der im Aufbau steckte:
+Um den ganzen Abschnitt aufs Bild zu bekommen, hatte ich den Viewport auf dessen volle
+Höhe gesetzt. Damit war alles von Anfang an sichtbar — und genau das Scrollen fiel weg,
+das den Fehler auslöst. Der Aufbau hatte die Bedingung entfernt, unter der der Defekt
+auftritt.
+
+> **Enthält mein Prüfaufbau noch die Bedingung, unter der der Fehler entsteht?**
+
+Für scroll- und sichtbarkeitsabhängiges Verhalten heißt das konkret: in einem
+**normalen** Fenster prüfen und wirklich scrollen. Ein aufgeblasener Viewport ist für
+Screenshots bequem und für `whileInView`, `IntersectionObserver`, Lazy-Loading und
+`position: sticky` wertlos. Dieselbe Falle in anderer Form: Headless meldet kein
+`prefers-reduced-motion`, Windows schon.
+
+---
+
 ## Anwendung
 
 Für jeden neuen Wächter, jedes Prüfskript und jeden Smoke-Test in diesem Projekt gilt:
@@ -88,3 +141,14 @@ Für jeden neuen Wächter, jedes Prüfskript und jeden Smoke-Test in diesem Proj
    Meldung, die nur eine von zwei möglichen Ursachen kennt, ist eine halbe Diagnose —
    und kostet beim nächsten Mal genau die Zeit, die der Wächter sparen sollte.
 4. Was der Wächter geprüft hat, gehört ins Protokoll — nicht nur, dass er zufrieden war.
+5. **Den Bezugspunkt außerhalb der geprüften Menge wählen.** Eine Prüfung, die Elemente
+   nur zueinander vergleicht, ist gegen einen gemeinsamen Fehler blind.
+6. **Den Prüfaufbau selbst prüfen:** Schließt er die Bedingung aus, unter der der Fehler
+   entsteht? Für Scroll- und Sichtbarkeitsverhalten in einem normalen Fenster messen und
+   wirklich scrollen, nicht den Viewport aufblasen.
+7. **Der Wächter darf bei kaputter Eingabe keine Befunde erfinden.** `check-dummies.mjs`
+   meldete nach einem abgebrochenen Prerender zwei Anerkennungen als „verrottet", die es
+   nicht waren — das Textnetz hatte schlicht keine Seiten zu lesen. Er hält die Zahl der
+   gefundenen Seiten jetzt gegen `scripts/routes.mjs` und überspringt diesen Teil mit
+   Begründung, statt zu raten. Ein Wächter, der bei kaputter Eingabe falsche Befunde
+   erzeugt, wird nach dem zweiten Mal ignoriert — und dann nützt auch der richtige nichts.
