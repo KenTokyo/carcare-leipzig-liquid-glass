@@ -164,6 +164,10 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Ohne angebundenen Versand gibt es keine Bestaetigung. Der Knopf ist bereits
+    // inaktiv; das hier ist die zweite Sperre, damit ein Absenden per Eingabetaste
+    // oder ein spaeter geaendertes `disabled` nicht doch eine Erfolgsmeldung erzeugt.
+    if (!VERSAND_AKTIV) return;
     setSubmitted(true);
   };
 
@@ -189,7 +193,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
         <p className="text-sm leading-relaxed text-gray-600 md:text-base">{head.subtitle}</p>
       </div>
 
-      {submitted ? (
+      {submitted && VERSAND_AKTIV ? (
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
           <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white">
             <CheckCircle2 size={24} />
@@ -477,21 +481,34 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind }) => {
             </>
           )}
 
-          {/* Absenden: fuer die Bewerbung inaktiv, solange der Versand nicht angebunden ist
-              (siehe `VERSAND_AKTIV`). Ein Knopf, der „uebermittelt" meldet und nichts
-              versendet, kostet hier eine Bewerbung — nicht nur eine Anfrage. */}
+          {/*
+            ABSENDEN IST INAKTIV, SOLANGE `VERSAND_AKTIV` AUS IST — fuer ALLE Varianten.
+            Bis zum 2026-09-05 galt das nur fuer die Bewerbung; die drei aelteren
+            Varianten meldeten „Anfrage uebermittelt", ohne dass etwas hinausging.
+
+            Was das geaendert hat: Seit 1.20 haengt dasselbe Formular im Anfrage-Dialog,
+            und der oeffnet sich an rund 40 Handlungsaufrufen im ganzen Projekt. Eine
+            Erfolgsmeldung, die nichts versendet, war vorher ein Fehler auf zwei Seiten —
+            jetzt waere sie einer auf jeder.
+
+            Statt Erfolg zu melden, nennt der Hinweis darunter die Wege, die funktionieren.
+            Dasselbe Muster wie beim Bewerbungsformular aus Paket D.
+          */}
           <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center">
             <button
               type="submit"
-              disabled={kind === 'bewerbung' && !VERSAND_AKTIV}
+              disabled={!VERSAND_AKTIV}
               className="cc-gradient-button inline-flex w-full items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               <Send size={14} />
               {kind === 'bewerbung' ? 'Bewerbung senden' : 'Anfrage absenden'}
             </button>
-            {kind === 'bewerbung' && !VERSAND_AKTIV ? (
-              <p className="text-[11px] leading-relaxed text-gray-600">
-                Der Online-Versand wird gerade eingerichtet. Bis dahin erreichen Sie uns unter{' '}
+            {!VERSAND_AKTIV ? (
+              <p className="text-[11px] leading-relaxed text-gray-700">
+                <span className="font-semibold text-gray-950">
+                  {kind === 'bewerbung' ? 'Bewerbungen' : 'Anfragen'} nehmen wir derzeit telefonisch oder per E-Mail entgegen.
+                </span>{' '}
+                Der Online-Versand wird gerade eingerichtet. Sie erreichen uns unter{' '}
                 <a href="tel:+493412617790" className="font-semibold text-gray-950 underline">0341 - 261 77 90</a>
                 {' '}oder{' '}
                 <a href="mailto:info@carcare-center.de" className="font-semibold text-gray-950 underline">info@carcare-center.de</a>.
