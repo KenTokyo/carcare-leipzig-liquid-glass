@@ -39,3 +39,8 @@ output/preloader-verify/
 *.njsproj
 *.sln
 *.sw?
+
+# Zugangsdaten fuer den Formularversand. Vorlage: .env.example
+.env
+.env.local
+.env*.local

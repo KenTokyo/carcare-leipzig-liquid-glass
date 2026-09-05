@@ -4,6 +4,7 @@ import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle
 import { ausbildungsberufe, berufsbilder } from '../data/jobs';
 import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
 import { terminLeistungen } from '../data/leistungsauswahl';
+import { HONIGTOPF } from '../data/anfrageSchema';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
@@ -101,7 +102,41 @@ const headlineByKind: Record<RequestFormKind, { icon: React.ReactNode; eyebrow: 
  * ihre Umstellung ist eine eigene Entscheidung, nicht Teil von 1.22. Festgehalten im
  * Paket-D-Plan, Abschnitt 5.
  */
-const VERSAND_AKTIV = false;
+const VERSAND_AKTIV = true;
+
+/**
+ * Ist der Versand auf DIESEM Deployment eingerichtet?
+ *
+ * `VERSAND_AKTIV` oben ist der Notschalter im Code. Ob wirklich gesendet werden kann,
+ * weiss aber nur die Umgebung: `api/anfrage.ts` braucht `RESEND_API_KEY`,
+ * `ANFRAGE_EMPFAENGER` und `ANFRAGE_ABSENDER`. Fehlt eines, antwortet die Funktion mit
+ * 503 und `{ bereit: false }`.
+ *
+ * ⚠️ DER EHRLICHE ZUSTAND IST DER AUSGANGSZUSTAND. Vor der Antwort gilt „nicht bereit":
+ * Der Knopf ist gesperrt und nennt Telefon und E-Mail. Erst eine bestaetigte Bereitschaft
+ * schaltet ihn frei. Damit kann kein Deployment eine Erfolgsmeldung zeigen, hinter der
+ * kein Versand steht — der Fehler, der bis zum 2026-09-05 in allen vier Varianten steckte.
+ *
+ * Das Ergebnis wird je Sitzung einmal geholt: Auf der Kontaktseite und im Dialog stehen
+ * bis zu zwei Formulare gleichzeitig, und beide braeuchten sonst eine eigene Anfrage.
+ */
+let versandStandCache: boolean | null = null;
+let versandStandLaeuft: Promise<boolean> | null = null;
+
+const versandBereitschaft = (): Promise<boolean> => {
+  if (versandStandCache !== null) return Promise.resolve(versandStandCache);
+  if (versandStandLaeuft) return versandStandLaeuft;
+  versandStandLaeuft = fetch('/api/anfrage', { method: 'GET' })
+    .then((r) => (r.ok ? r.json() : { bereit: false }))
+    .then((j) => Boolean(j?.bereit))
+    .catch(() => false)
+    .then((bereit) => {
+      versandStandCache = bereit;
+      versandStandLaeuft = null;
+      return bereit;
+    });
+  return versandStandLaeuft;
+};
 
 /**
  * Frischer Startwert je Variante.
@@ -135,6 +170,25 @@ export const formularTitel = Object.fromEntries(
 const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const [values, setValues] = useState(() => startwerte(kind, vorauswahl));
   const [submitted, setSubmitted] = useState(false);
+  const [bereit, setBereit] = useState(false);
+  const [sendet, setSendet] = useState(false);
+  const [fehler, setFehler] = useState<string | null>(null);
+  /** Honigtopf. Fuer Menschen unsichtbar, Formularroboter fuellen ihn aus. */
+  const [honigtopf, setHonigtopf] = useState('');
+
+  React.useEffect(() => {
+    if (!VERSAND_AKTIV) return;
+    let abgemeldet = false;
+    versandBereitschaft().then((b) => {
+      if (!abgemeldet) setBereit(b);
+    });
+    return () => {
+      abgemeldet = true;
+    };
+  }, []);
+
+  /** Darf tatsaechlich gesendet werden? Notschalter UND Umgebung muessen zustimmen. */
+  const versandMoeglich = VERSAND_AKTIV && bereit;
   const [gezeigteArt, setGezeigteArt] = useState(kind);
 
   /**
@@ -178,13 +232,42 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ohne angebundenen Versand gibt es keine Bestaetigung. Der Knopf ist bereits
-    // inaktiv; das hier ist die zweite Sperre, damit ein Absenden per Eingabetaste
-    // oder ein spaeter geaendertes `disabled` nicht doch eine Erfolgsmeldung erzeugt.
-    if (!VERSAND_AKTIV) return;
-    setSubmitted(true);
+    // Zweite Sperre neben dem inaktiven Knopf: faengt das Absenden per Eingabetaste
+    // und ein spaeter versehentlich geaendertes `disabled`. Ohne bestaetigten Versand
+    // gibt es keine Bestaetigung.
+    if (!versandMoeglich || sendet) return;
+    setSendet(true);
+    setFehler(null);
+    try {
+      const antwort = await fetch('/api/anfrage', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ art: kind, daten: { ...values, [HONIGTOPF]: honigtopf } }),
+      });
+      const inhalt = await antwort.json().catch(() => ({}));
+      if (!antwort.ok) {
+        // Die Funktion liefert bei 503 mit, dass sie nicht eingerichtet ist. Dann ist
+        // der Knopf ab sofort gesperrt statt bei jedem Versuch erneut zu scheitern.
+        if (antwort.status === 503) {
+          versandStandCache = false;
+          setBereit(false);
+        }
+        setFehler(
+          inhalt?.fehler ??
+            'Die Anfrage konnte nicht zugestellt werden. Bitte rufen Sie uns an oder schreiben Sie direkt an info@carcare-center.de.'
+        );
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setFehler(
+        'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung — oder rufen Sie uns an unter 0341 - 261 77 90.'
+      );
+    } finally {
+      setSendet(false);
+    }
   };
 
   const head = headlineByKind[kind];
@@ -209,7 +292,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
         <p className="text-sm leading-relaxed text-gray-600 md:text-base">{head.subtitle}</p>
       </div>
 
-      {submitted && VERSAND_AKTIV ? (
+      {submitted && versandMoeglich ? (
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
           <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white">
             <CheckCircle2 size={24} />
@@ -221,7 +304,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
           </p>
         </motion.div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="relative space-y-5">
           {kind === 'schaden' && (
             <>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -509,16 +592,42 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
             Statt Erfolg zu melden, nennt der Hinweis darunter die Wege, die funktionieren.
             Dasselbe Muster wie beim Bewerbungsformular aus Paket D.
           */}
+          {/* Honigtopf: fuer Menschen unsichtbar, Formularroboter fuellen ihn aus.
+              Bewusst NICHT `display:none` — manche Roboter ueberspringen genau das.
+              `tabIndex={-1}` und `aria-hidden` halten Tastatur und Screenreader fern. */}
+          <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
+            <label htmlFor={`${kind}-${HONIGTOPF}`}>Bitte nicht ausfüllen</label>
+            <input
+              id={`${kind}-${HONIGTOPF}`}
+              name={HONIGTOPF}
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honigtopf}
+              onChange={(e) => setHonigtopf(e.target.value)}
+            />
+          </div>
+
+          {fehler && (
+            <p role="alert" className="rounded-xl border border-gray-200 bg-white p-4 text-sm leading-relaxed text-gray-950">
+              {fehler}
+            </p>
+          )}
+
           <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center">
             <button
               type="submit"
-              disabled={!VERSAND_AKTIV}
+              disabled={!versandMoeglich || sendet}
               className="cc-gradient-button inline-flex w-full items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               <Send size={14} />
-              {kind === 'bewerbung' ? 'Bewerbung senden' : 'Anfrage absenden'}
+              {sendet
+                ? 'Wird gesendet …'
+                : kind === 'bewerbung'
+                  ? 'Bewerbung senden'
+                  : 'Anfrage absenden'}
             </button>
-            {!VERSAND_AKTIV ? (
+            {!versandMoeglich ? (
               <p className="text-[11px] leading-relaxed text-gray-700">
                 <span className="font-semibold text-gray-950">
                   {kind === 'bewerbung' ? 'Bewerbungen' : 'Anfragen'} nehmen wir derzeit telefonisch oder per E-Mail entgegen.
