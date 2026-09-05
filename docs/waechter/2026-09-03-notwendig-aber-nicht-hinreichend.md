@@ -120,6 +120,18 @@ Screenshots bequem und für `whileInView`, `IntersectionObserver`, Lazy-Loading 
 `position: sticky` wertlos. Dieselbe Falle in anderer Form: Headless meldet kein
 `prefers-reduced-motion`, Windows schon.
 
+**Derselbe Aufbau erzeugt auch falsche Befunde — zweimal an einem Tag.** Beim Prüfen
+der Anfrage-Aufrufe meldete der Testlauf zwei Fundstellen als defekt. Beide waren in
+Ordnung; der Test hatte danebengegriffen. Einmal traf er den Navigations-Link in einem
+zugeklappten Menü statt den im Seiteninhalt, einmal klickte er auf gemessene
+Koordinaten, während Lenis noch weiterscrollte — das Element war dort nicht mehr.
+Abhilfe: den Klick im DOM auslösen, oder vor dem Messen warten, bis `window.scrollY`
+über mehrere Frames stillsteht (Lenis läuft nach dem nativen `scrollTo` weiter).
+
+Ein falscher Befund kostet mehr als ein übersehener: Er schickt jemanden in Code, der
+in Ordnung ist. Deshalb gehört zu jedem roten Befund die Gegenfrage: **Habe ich den
+Defekt gemessen oder meinen Aufbau?**
+
 ---
 
 ## Anwendung
