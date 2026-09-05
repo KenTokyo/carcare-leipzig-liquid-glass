@@ -44,6 +44,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { transform } from 'esbuild';
+import { getRoutes } from './routes.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -85,6 +86,47 @@ const VERDAECHTIGE_TEXTE = [
   'Lorem ipsum',
 ];
 
+/**
+ * AUSDRUECKLICH ANERKANNTE PLATZHALTER.
+ *
+ * ⚠️ WARUM ES DIESE LISTE GIBT — und warum sie den Waechter nicht entwertet:
+ *
+ * Der Waechter war zuerst ohne sie gebaut, und die Folge trat sofort ein: Die
+ * Platzhalter, die in derselben Sitzung bewusst angelegt wurden (1.18, 1.27), machten
+ * `main` unbaubar. Damit stand nicht nur der Livegang still, sondern jedes
+ * Review-Deployment auf `carcare-center.vercel.app` — also genau der Weg, auf dem der
+ * Kunde die Zwischenstaende ueberhaupt sieht.
+ *
+ * Der Zweck des Waechters ist nicht „keine Platzhalter im Code". Er ist: „kein
+ * Platzhalter geht unbemerkt live". Ein Platzhalter, der hier namentlich steht, mit
+ * Datum und Backlog-Nummer, ist per Definition bemerkt. Ein neuer ist es nicht — und
+ * bricht weiterhin den Build.
+ *
+ * DREI EIGENSCHAFTEN HALTEN DIE LISTE EHRLICH:
+ *  1. Sie wird bei JEDEM Build laut ausgegeben, auch wenn alles gruen ist. Man kommt an
+ *     ihr nicht vorbei, ohne sie zu lesen.
+ *  2. Sie greift ueber den SICHTBAREN TEXT, nicht ueber eine ID. Wer einen Platzhalter
+ *     umbenennt, verliert die Anerkennung — der Build bricht, weil ein umbenannter
+ *     Platzhalter ein ungeprueter Zustand ist.
+ *  3. Ein Eintrag, der auf nichts mehr passt, ist ein FEHLER. Die Liste kann nicht
+ *     verrotten: Sobald Andre liefert und der Platzhalter verschwindet, muss der
+ *     Eintrag hier mit weg, sonst bricht der Build.
+ *
+ * Wer den Waechter streng haben will, leert diese Liste. Dann bricht jeder Build,
+ * solange irgendein Platzhalter im Projekt steht.
+ */
+const ANERKANNT = [
+  { text: 'Zusatzleistung 1', backlog: '1.18', seit: '2026-09-04' },
+  { text: 'Zusatzleistung 2', backlog: '1.18', seit: '2026-09-04' },
+  { text: 'Meilenstein 1', backlog: '1.27', seit: '2026-09-04' },
+  { text: 'Meilenstein 2', backlog: '1.27', seit: '2026-09-04' },
+  { text: 'Meilenstein 3', backlog: '1.27', seit: '2026-09-04' },
+  { text: 'Jahr offen', backlog: '1.27', seit: '2026-09-04' },
+  { text: 'Platzhalter — wird durch', backlog: '1.18 / 1.27', seit: '2026-09-04' },
+];
+
+const anerkanntFuer = (text) => ANERKANNT.find((a) => a.text === text);
+
 const HART = Boolean(process.env.VERCEL || process.env.CI);
 const AUSGABE = 'dist';
 
@@ -114,6 +156,8 @@ async function ladeDatenmodul(relativ) {
 }
 
 const befunde = [];
+/** Platzhalter, die in ANERKANNT stehen — gemeldet, aber nicht fatal. */
+const anerkannteTreffer = [];
 const hinweise = [];
 
 for (const q of QUELLEN) {
@@ -130,11 +174,15 @@ for (const q of QUELLEN) {
   const markiert = liste.filter((eintrag) => eintrag && eintrag[q.flagge] === true);
   hinweise.push(`${q.datei}: ${liste.length} Eintraege, davon ${markiert.length} als Platzhalter markiert`);
   for (const eintrag of markiert) {
-    befunde.push({
+    const name = eintrag[q.bezeichner];
+    const ok = anerkanntFuer(name);
+    (ok ? anerkannteTreffer : befunde).push({
       art: 'flagge',
-      text: `${q.was}: "${eintrag[q.bezeichner]}" traegt ${q.flagge}: true`,
+      name,
+      text: `${q.was}: "${name}" traegt ${q.flagge}: true`,
       datei: q.datei,
-      backlog: q.backlog,
+      backlog: ok ? ok.backlog : q.backlog,
+      seit: ok?.seit,
     });
   }
 }
@@ -165,33 +213,103 @@ for (const seite of seiten) {
   }
 }
 for (const [wendung, routen] of textTreffer) {
-  befunde.push({ art: 'text', text: `"${wendung}" steht im ausgelieferten HTML`, routen: [...routen] });
+  const ok = anerkanntFuer(wendung);
+  (ok ? anerkannteTreffer : befunde).push({
+    art: 'text',
+    name: wendung,
+    text: `"${wendung}" steht im ausgelieferten HTML`,
+    routen: [...routen],
+    backlog: ok?.backlog,
+    seit: ok?.seit,
+  });
+}
+
+// ------------------------------------------- Verrottete Anerkennungen --------
+// Ein Eintrag, der auf nichts mehr passt, ist ein Fehler: Sonst bliebe die Liste
+// stehen, nachdem der Platzhalter laengst ersetzt wurde — und der naechste Platzhalter
+// mit demselben Wortlaut waere stillschweigend freigegeben.
+//
+// ⚠️ NUR BEI VOLLSTAENDIGEM `dist/`. Einige Anerkennungen ("Jahr offen") tauchen
+// ausschliesslich im gerenderten HTML auf. Liegt nur eine Teilausgabe vor — etwa weil
+// der Prerender abgebrochen ist —, findet das Textnetz sie nicht, und die Anerkennung
+// saehe faelschlich verrottet aus. Gemessen am 2026-09-05: nach einem abgebrochenen
+// Prerender meldete diese Pruefung zwei Eintraege als verrottet, die es nicht waren.
+// Ein Waechter, der bei kaputter Eingabe falsche Befunde erzeugt, wird nach dem zweiten
+// Mal ignoriert.
+const erwarteteSeiten = getRoutes().length;
+const vollstaendig = seiten.length >= erwarteteSeiten;
+
+if (!vollstaendig) {
+  hinweise.push(
+    `nur ${seiten.length} von ${erwarteteSeiten} Seiten in ${AUSGABE}/ — Pruefung auf verrottete ` +
+      'Anerkennungen uebersprungen (unvollstaendige Ausgabe)'
+  );
+} else {
+  const gefundeneNamen = new Set([...befunde, ...anerkannteTreffer].map((b) => b.name).filter(Boolean));
+  for (const a of ANERKANNT) {
+    if (!gefundeneNamen.has(a.text)) {
+      befunde.push({
+        art: 'verrottet',
+        text: `ANERKANNT enthaelt "${a.text}", aber dieser Platzhalter existiert nicht mehr`,
+        backlog: a.backlog,
+      });
+    }
+  }
 }
 
 // --------------------------------------------------------------- Ausgabe -----
 
 for (const h of hinweise) console.log(`[check-dummies] ${h}`);
 
+// Anerkannte Platzhalter werden IMMER gemeldet, auch wenn sonst alles gruen ist.
+// Eine Ausnahme, die man nicht sieht, ist keine Ausnahme mehr, sondern eine Luecke.
+if (anerkannteTreffer.length) {
+  const namen = [...new Set(anerkannteTreffer.map((b) => b.name))];
+  console.log(
+    `[check-dummies] ${namen.length} Platzhalter ausdruecklich anerkannt (siehe ANERKANNT im Skript):`
+  );
+  for (const name of namen) {
+    const eintrag = anerkannteTreffer.find((b) => b.name === name);
+    const wo = anerkannteTreffer
+      .filter((b) => b.name === name)
+      .map((b) => (b.art === 'flagge' ? b.datei : (b.routen ?? []).join(', ')))
+      .join(' + ');
+    console.log(`                 - "${name}" — Backlog ${eintrag.backlog}, seit ${eintrag.seit} — ${wo}`);
+  }
+  console.log('[check-dummies] Diese muessen VOR dem Livegang ersetzt werden. Neue Platzhalter brechen den Build.');
+}
+
 if (befunde.length === 0) {
-  console.log(`[check-dummies] ok: ${seiten.length} Seiten geprueft, keine Platzhalter gefunden.`);
+  console.log(`[check-dummies] ok: ${seiten.length} Seiten geprueft, keine unbekannten Platzhalter.`);
   process.exit(0);
 }
 
 const kopf = HART ? 'BUILD ABGEBROCHEN' : 'WARNUNG';
-console.error(`\n[check-dummies] ${kopf} — ${befunde.length} Platzhalter-Befund(e).\n`);
+console.error(`
+[check-dummies] ${kopf} — ${befunde.length} nicht anerkannte(r) Befund(e).
+`);
 
 const nachFlagge = befunde.filter((b) => b.art === 'flagge');
 const nachText = befunde.filter((b) => b.art === 'text');
 const nachQuelle = befunde.filter((b) => b.art === 'quelle');
+const verrottet = befunde.filter((b) => b.art === 'verrottet');
 
 if (nachFlagge.length) {
   console.error('  Ueber das Kennzeichen gefunden (zuverlaessig, ueberlebt Umbenennen):');
-  for (const b of nachFlagge) console.error(`    - ${b.text}\n      ${b.datei} — Zulieferung Backlog ${b.backlog}`);
+  for (const b of nachFlagge) console.error(`    - ${b.text}
+      ${b.datei} — Zulieferung Backlog ${b.backlog}`);
   console.error('');
 }
 if (nachText.length) {
   console.error('  Ueber den Text im ausgelieferten HTML gefunden:');
-  for (const b of nachText) console.error(`    - ${b.text}\n      auf: ${b.routen.join(', ')}`);
+  for (const b of nachText) console.error(`    - ${b.text}
+      auf: ${b.routen.join(', ')}`);
+  console.error('');
+}
+if (verrottet.length) {
+  console.error('  Verrottete Anerkennung — Eintrag steht in ANERKANNT, passt aber auf nichts:');
+  for (const b of verrottet) console.error(`    - ${b.text}
+      Backlog ${b.backlog} — Eintrag aus ANERKANNT entfernen.`);
   console.error('');
 }
 if (nachQuelle.length) {
@@ -201,12 +319,16 @@ if (nachQuelle.length) {
 }
 
 if (HART) {
-  console.error('  Diese Inhalte duerfen nicht ausgeliefert werden. Entweder den echten Text');
-  console.error('  einsetzen UND das Kennzeichen entfernen, oder den Eintrag ganz herausnehmen.');
-  console.error('  Ein umbenannter Platzhalter mit stehendem Kennzeichen bleibt ein Platzhalter.\n');
+  console.error('  Diese Inhalte duerfen nicht ausgeliefert werden. Drei Wege:');
+  console.error('    - den echten Text einsetzen UND das Kennzeichen entfernen (der Regelfall),');
+  console.error('    - den Eintrag ganz herausnehmen,');
+  console.error('    - oder ihn bewusst in ANERKANNT aufnehmen, mit Backlog-Nummer und Datum.');
+  console.error('  Ein umbenannter Platzhalter mit stehendem Kennzeichen bleibt ein Platzhalter,');
+  console.error('  und er verliert dabei seine Anerkennung — das ist Absicht.');
+  console.error('');
   process.exit(1);
 }
 
 console.error('  Lokal nur ein Hinweis — auf Vercel bricht der Build damit ab.');
-console.error('  Vor dem Ausliefern also entweder ersetzen oder herausnehmen.\n');
+console.error('');
 process.exit(0);
