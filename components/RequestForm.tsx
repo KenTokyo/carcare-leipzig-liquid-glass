@@ -5,6 +5,11 @@ import { ausbildungsberufe, berufsbilder } from '../data/jobs';
 import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
 import { terminLeistungen } from '../data/leistungsauswahl';
 import { HONIGTOPF } from '../data/anfrageSchema';
+import SchadenFelder from './formulare/SchadenFelder';
+import TerminFelder from './formulare/TerminFelder';
+import GeschaeftskundenFelder from './formulare/GeschaeftskundenFelder';
+import BewerbungFelder from './formulare/BewerbungFelder';
+import { inputClass, labelClass, type FormFieldsByKind } from './formulare/felder';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
@@ -15,44 +20,6 @@ interface RequestFormProps {
    * (`data/leistungsauswahl.ts`). Ohne Angabe bleibt das Feld auf „Bitte waehlen".
    */
   vorauswahl?: string;
-}
-
-interface FormFieldsByKind {
-  schaden: {
-    name: string;
-    phone: string;
-    email: string;
-    vehicle: string;
-    incident: string;
-    insuranceAvailable: string;
-    description: string;
-  };
-  termin: {
-    name: string;
-    phone: string;
-    email: string;
-    vehicle: string;
-    service: string;
-    /** Mehrfachauswahl, Quelle: `data/zusatzleistungen.ts` (Backlog 1.18). */
-    zusatzleistungen: string[];
-    preferredDate: string;
-    description: string;
-  };
-  business: {
-    company: string;
-    contact: string;
-    phone: string;
-    email: string;
-    partnerType: string;
-    description: string;
-  };
-  bewerbung: {
-    name: string;
-    email: string;
-    phone: string;
-    position: string;
-    description: string;
-  };
 }
 
 const initialState: FormFieldsByKind = {
@@ -271,9 +238,6 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   };
 
   const head = headlineByKind[kind];
-  const inputClass =
-    'w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 transition-all';
-  const labelClass = 'block text-xs font-bold uppercase tracking-[0.15em] text-gray-600 mb-2';
 
   return (
     <motion.div
@@ -306,277 +270,23 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
       ) : (
         <form onSubmit={handleSubmit} className="relative space-y-5">
           {kind === 'schaden' && (
-            <>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="schaden-name">Name</label>
-                  <input id="schaden-name" name="name" required value={(values as FormFieldsByKind['schaden']).name} onChange={handleChange} className={inputClass} placeholder="Max Mustermann" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="schaden-phone">Telefon</label>
-                  <input id="schaden-phone" name="phone" required type="tel" value={(values as FormFieldsByKind['schaden']).phone} onChange={handleChange} className={inputClass} placeholder="0341 - ..." />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="schaden-email">E-Mail</label>
-                  <input id="schaden-email" name="email" required type="email" value={(values as FormFieldsByKind['schaden']).email} onChange={handleChange} className={inputClass} placeholder="name@beispiel.de" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="schaden-vehicle">Fahrzeug</label>
-                  <input id="schaden-vehicle" name="vehicle" value={(values as FormFieldsByKind['schaden']).vehicle} onChange={handleChange} className={inputClass} placeholder="Marke / Modell" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="schaden-incident">Schadenart</label>
-                  <select id="schaden-incident" name="incident" value={(values as FormFieldsByKind['schaden']).incident} onChange={handleChange} className={inputClass}>
-                    <option value="">Bitte wählen</option>
-                    <option value="unfall">Unfallschaden</option>
-                    <option value="hagel">Hagelschaden</option>
-                    <option value="lack">Lackschaden</option>
-                    <option value="glas">Glasschaden</option>
-                    <option value="sonstiges">Sonstiges</option>
-                  </select>
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="schaden-insurance">Versicherung vorhanden?</label>
-                  <select id="schaden-insurance" name="insuranceAvailable" value={(values as FormFieldsByKind['schaden']).insuranceAvailable} onChange={handleChange} className={inputClass}>
-                    <option value="">Bitte wählen</option>
-                    <option value="ja">Ja</option>
-                    <option value="nein">Nein</option>
-                    <option value="unklar">Noch unklar</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="schaden-images">Bilderupload</label>
-                <input id="schaden-images" name="images" type="file" multiple accept="image/*" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="schaden-description">Nachricht</label>
-                <textarea id="schaden-description" name="description" required rows={4} value={(values as FormFieldsByKind['schaden']).description} onChange={handleChange} className={inputClass} placeholder="Hergang, Datum, Umfang ..." />
-              </div>
-            </>
+            <SchadenFelder werte={values as FormFieldsByKind['schaden']} onChange={handleChange} />
           )}
 
           {kind === 'termin' && (
-            <>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="termin-name">Name</label>
-                  <input id="termin-name" name="name" required value={(values as FormFieldsByKind['termin']).name} onChange={handleChange} className={inputClass} placeholder="Max Mustermann" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="termin-phone">Telefon</label>
-                  <input id="termin-phone" name="phone" required type="tel" value={(values as FormFieldsByKind['termin']).phone} onChange={handleChange} className={inputClass} placeholder="0341 - ..." />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="termin-email">E-Mail</label>
-                  <input id="termin-email" name="email" required type="email" value={(values as FormFieldsByKind['termin']).email} onChange={handleChange} className={inputClass} placeholder="name@beispiel.de" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="termin-vehicle">Fahrzeug</label>
-                  <input id="termin-vehicle" name="vehicle" value={(values as FormFieldsByKind['termin']).vehicle} onChange={handleChange} className={inputClass} placeholder="Marke / Modell" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="termin-service">Gewünschte Leistung</label>
-                  {/* Optionen aus `data/leistungsauswahl.ts` — dieselbe Quelle, aus der
-                      die Vorauswahl abgeleitet wird (1.19). Zwei Listen waeren zwei Orte,
-                      an denen dieselben Schluessel gepflegt werden muessten. */}
-                  <select id="termin-service" name="service" value={(values as FormFieldsByKind['termin']).service} onChange={handleChange} className={inputClass}>
-                    <option value="">Bitte wählen</option>
-                    {terminLeistungen.map((leistung) => (
-                      <option key={leistung.id} value={leistung.id}>{leistung.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="termin-date">Wunschtermin</label>
-                  <input id="termin-date" name="preferredDate" type="date" value={(values as FormFieldsByKind['termin']).preferredDate} onChange={handleChange} className={inputClass} />
-                </div>
-              </div>
-              {/*
-                ZUSATZLEISTUNGEN (Backlog 1.18). Die Liste kommt vollstaendig aus
-                `data/zusatzleistungen.ts` — hier steht kein einziger Eintrag fest
-                verdrahtet. Ergaenzen ist eine Zeile in den Daten.
-
-                <fieldset> mit <legend> statt eines <div> mit Ueberschrift: Screenreader
-                sagen die Gruppenbeschriftung dann bei JEDEM Kaestchen mit an. Ohne das
-                hoert man fuenfmal „Kontrollkaestchen" ohne zu wissen, wozu sie gehoeren.
-              */}
-              <fieldset className="rounded-xl border border-gray-200 p-4">
-                <legend className="px-1 text-xs font-bold uppercase tracking-[0.15em] text-gray-600">
-                  Gewünschte Zusatzleistungen
-                </legend>
-                {enthaeltDummies && (
-                  <p className="mb-3 rounded-lg bg-gray-100 px-3 py-2 text-[11px] leading-relaxed text-gray-700">
-                    Diese Auswahl ist noch in Abstimmung — die endgültigen Zusatzleistungen folgen.
-                    Nennen Sie Ihren Wunsch gern zusätzlich in der Nachricht.
-                  </p>
-                )}
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {zusatzleistungen.map((leistung) => {
-                    // `?? []`: Beim Reiterwechsel laeuft genau ein Renderdurchlauf mit den
-                    // Werten der VORHERIGEN Variante, in denen es dieses Feld nicht gibt.
-                    // Siehe die Begruendung oben am Variantenwechsel.
-                    const gewaehlt = ((values as FormFieldsByKind['termin']).zusatzleistungen ?? []).includes(leistung.id);
-                    return (
-                      <label
-                        key={leistung.id}
-                        htmlFor={`termin-${leistung.id}`}
-                        className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors ${
-                          gewaehlt ? 'border-blue-600 bg-blue-600/5' : 'border-gray-200 bg-white hover:border-gray-300'
-                        }`}
-                      >
-                        <input
-                          id={`termin-${leistung.id}`}
-                          type="checkbox"
-                          name="zusatzleistungen"
-                          value={leistung.id}
-                          checked={gewaehlt}
-                          onChange={(e) => handleZusatzleistung(leistung.id, e.target.checked)}
-                          className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
-                        />
-                        <span className="min-w-0">
-                          <span className="block text-sm font-semibold text-gray-950">{leistung.label}</span>
-                          {leistung.hinweis && (
-                            <span className="mt-0.5 block text-[11px] leading-relaxed text-gray-600">{leistung.hinweis}</span>
-                          )}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </fieldset>
-              <div>
-                <label className={labelClass} htmlFor="termin-description">Nachricht</label>
-                <textarea id="termin-description" name="description" rows={4} value={(values as FormFieldsByKind['termin']).description} onChange={handleChange} className={inputClass} placeholder="Sonderwünsche, Fahrzeugzustand ..." />
-              </div>
-            </>
+            <TerminFelder
+              werte={values as FormFieldsByKind['termin']}
+              onChange={handleChange}
+              onZusatzleistung={handleZusatzleistung}
+            />
           )}
 
           {kind === 'business' && (
-            <>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="business-company">Firma</label>
-                  <input id="business-company" name="company" required value={(values as FormFieldsByKind['business']).company} onChange={handleChange} className={inputClass} placeholder="Autohaus / Fuhrpark / Agentur" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="business-contact">Ansprechpartner</label>
-                  <input id="business-contact" name="contact" required value={(values as FormFieldsByKind['business']).contact} onChange={handleChange} className={inputClass} placeholder="Vor- und Nachname" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="business-phone">Telefon</label>
-                  <input id="business-phone" name="phone" required type="tel" value={(values as FormFieldsByKind['business']).phone} onChange={handleChange} className={inputClass} placeholder="0341 - ..." />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="business-email">E-Mail</label>
-                  <input id="business-email" name="email" required type="email" value={(values as FormFieldsByKind['business']).email} onChange={handleChange} className={inputClass} placeholder="kontakt@firma.de" />
-                </div>
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="business-partner">Art der Zusammenarbeit</label>
-                <select id="business-partner" name="partnerType" value={(values as FormFieldsByKind['business']).partnerType} onChange={handleChange} className={inputClass}>
-                  <option value="">Bitte wählen</option>
-                  <option value="autohaus">Autohaus</option>
-                  <option value="fuhrpark">Fuhrpark</option>
-                  <option value="versicherung">Versicherung / Versicherungsagentur</option>
-                  <option value="rahmenvertrag">Rahmenvertrag / laufende Zusammenarbeit</option>
-                  <option value="sonstiges">Sonstiges</option>
-                </select>
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="business-description">Nachricht</label>
-                <textarea id="business-description" name="description" required rows={4} value={(values as FormFieldsByKind['business']).description} onChange={handleChange} className={inputClass} placeholder="Umfang, Frequenz, Sonderwünsche ..." />
-              </div>
-            </>
+            <GeschaeftskundenFelder werte={values as FormFieldsByKind['business']} onChange={handleChange} />
           )}
 
           {kind === 'bewerbung' && (
-            <>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="bewerbung-name">Name</label>
-                  <input id="bewerbung-name" name="name" required value={(values as FormFieldsByKind['bewerbung']).name} onChange={handleChange} className={inputClass} placeholder="Vor- und Nachname" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="bewerbung-phone">Telefon</label>
-                  <input id="bewerbung-phone" name="phone" required type="tel" value={(values as FormFieldsByKind['bewerbung']).phone} onChange={handleChange} className={inputClass} placeholder="0341 - ..." />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="bewerbung-email">E-Mail</label>
-                  <input id="bewerbung-email" name="email" required type="email" value={(values as FormFieldsByKind['bewerbung']).email} onChange={handleChange} className={inputClass} placeholder="name@beispiel.de" />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="bewerbung-position">Bereich</label>
-                  {/*
-                    NICHT AUSGESCHRIEBENE BEREICHE BLEIBEN SICHTBAR, sind aber nicht
-                    waehlbar — man soll sehen, dass es den Beruf gibt.
-
-                    NATIVES `disabled`, NICHT `aria-disabled`: Die Sorge, deaktivierte
-                    Elemente seien fuer Screenreader unerreichbar, gilt fuer `<button>`
-                    und `<input>` — die fallen aus der Tabreihenfolge. Ein `<option>`
-                    ist ein anderer Fall: Der `<select>` bleibt fokussierbar, die Option
-                    bleibt in der Liste. `aria-disabled` waere hier schlechter, weil die
-                    ARIA-Zuordnung fuer native Optionen duenn ist UND die Auswahl nicht
-                    verhindert — man haette eine Option, die als „nicht verfuegbar"
-                    angesagt wird und sich trotzdem waehlen laesst.
-
-                    ABSICHERUNG: Manche Screenreader ueberspringen deaktivierte Optionen
-                    beim Durchgehen. Deshalb steht der Grund IM BESCHRIFTUNGSTEXT, nicht
-                    nur im Zustand — plus ein sichtbarer Hinweis unter dem Feld.
-                  */}
-                  <select id="bewerbung-position" name="position" value={(values as FormFieldsByKind['bewerbung']).position} onChange={handleChange} className={inputClass} aria-describedby="bewerbung-position-hinweis">
-                    <option value="">Bitte wählen</option>
-                    <optgroup label="Berufsbilder">
-                      {berufsbilder.map((job) => (
-                        <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
-                          {job.title}
-                          {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Ausbildung">
-                      {ausbildungsberufe.map((job) => (
-                        <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
-                          {job.title}
-                          {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
-                        </option>
-                      ))}
-                    </optgroup>
-                    <option value="initiativ">Anderer Bereich / Initiativbewerbung</option>
-                  </select>
-                  <p id="bewerbung-position-hinweis" className="mt-2 text-[11px] leading-relaxed text-gray-600">
-                    Ausgegraute Bereiche gehören zum Betrieb, sind aber gerade nicht ausgeschrieben.
-                    Wählen Sie dafür „Anderer Bereich / Initiativbewerbung" und nennen Sie den Beruf in der Nachricht.
-                  </p>
-                </div>
-              </div>
-              {/* Lebenslauf ausdruecklich OPTIONAL, und das Formular ist auch ohne Anhang
-                  absendbar — beides Vorgabe aus 1.22. Deshalb kein `required` und ein
-                  Hinweis, der das benennt, statt es nur wegzulassen. */}
-              <div>
-                <label className={labelClass} htmlFor="bewerbung-cv">Lebenslauf <span className="text-gray-500">(optional)</span></label>
-                <input id="bewerbung-cv" name="cv" type="file" accept=".pdf,.doc,.docx,image/*" className={inputClass} />
-                <p className="mt-2 text-[11px] leading-relaxed text-gray-600">
-                  PDF, Word oder Foto. Ohne Anhang geht es genauso — wir melden uns und klären den Rest.
-                </p>
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="bewerbung-description">Nachricht</label>
-                <textarea id="bewerbung-description" name="description" required rows={4} value={(values as FormFieldsByKind['bewerbung']).description} onChange={handleChange} className={inputClass} placeholder="Ein paar Sätze zu Ihrer Erfahrung und dazu, ab wann Sie können ..." />
-              </div>
-            </>
+            <BewerbungFelder werte={values as FormFieldsByKind['bewerbung']} onChange={handleChange} />
           )}
 
           {/*
