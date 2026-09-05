@@ -36,7 +36,8 @@ beschreibt einen anderen Hoster, nennt Matomo und kennt die heutigen Formulare n
 | Auslieferungsregion | `fra1` (Frankfurt am Main), aus `X-Vercel-Id` aller Antworten |
 | Transportverschlüsselung | HTTPS erzwungen, HSTS `max-age=63072000; includeSubDomains; preload` |
 | Eigene Datenbank | **keine** |
-| Serverseitige Anwendungslogik | **keine** — es werden ausschließlich vorgefertigte statische Dateien ausgeliefert |
+| Serverseitige Anwendungslogik | **eine** serverlose Funktion für den Formularversand (siehe Abschnitt 3); alles übrige sind vorgefertigte statische Dateien |
+| Weiterer Auftragsverarbeiter | **Resend** (Mail-Versand), Resend Inc., Unternehmen mit Sitz in den USA |
 
 **Was ich nicht aus dem Code belegen kann und was Sie beim Hoster prüfen müssen:**
 Umfang und Aufbewahrungsdauer der Server-Logdateien, die Liste der Unterauftragsverarbeiter
@@ -87,22 +88,53 @@ Es gibt vier Formularvarianten auf drei Seiten:
 | Schaden melden, Aufbereitungstermin, Geschäftskunden | Startseite `/` und `/kontakt` (drei Reiter) |
 | Bewerbung | `/karriere` |
 
-### ⚠️ Wichtig zum heutigen Stand: es wird nichts übertragen
+### Der Weg einer abgesendeten Anfrage
 
-**Derzeit verlässt kein Formulardatum den Browser.** Die Absendefunktion setzt lediglich
-eine Bestätigungsansicht; im gesamten Projekt gibt es keinen einzigen Netzwerkaufruf
-(kein `fetch`, kein `XMLHttpRequest`, kein `sendBeacon`). Die eingegebenen Daten
-verbleiben im Arbeitsspeicher des Browsers und sind mit dem Schließen der Seite fort.
+*Geändert am 2026-09-05. Bis dahin übertrug kein Formular etwas; die Absendefunktion
+setzte nur eine Bestätigungsansicht.*
 
-Der Versandweg wird **später** eingerichtet (interne Aufgabe 1.17). Erst damit entsteht
-eine Verarbeitung. Beim Bewerbungsformular ist der Absendeknopf bereits jetzt sichtbar
-deaktiviert und nennt Telefon und E-Mail als Weg; die drei übrigen Varianten zeigen die
-Bestätigung ohne tatsächlichen Versand — das wird mit 1.17 mitbehoben.
+1. Der Browser sendet die ausgefüllten Felder als JSON an eine **serverlose Funktion**
+   im selben Projekt (`/api/anfrage`), die bei Vercel in der Edge-Laufzeit läuft.
+2. Die Funktion prüft die Pflichtangaben und übergibt den Inhalt als **E-Mail** an den
+   Dienst **Resend** (HTTPS an `api.resend.com`).
+3. Resend stellt die Mail an das hinterlegte Postfach zu. Als Antwortadresse
+   (`Reply-To`) steht die E-Mail-Adresse des Absenders, damit eine Antwort direkt bei
+   ihm landet.
 
-**Für Sie heißt das:** Die Datenschutzerklärung muss den Zustand **nach** 1.17
-beschreiben, und beides muss gemeinsam scharf gestellt werden. Eine Erklärung, die einen
-Versandweg beschreibt, den es noch nicht gibt, wäre derselbe Fehler wie der Matomo-Satz —
-nur in die andere Richtung.
+**Was dabei NICHT passiert:** Es wird nichts in einer Datenbank abgelegt, nichts
+zwischengespeichert und nichts an weitere Dritte gegeben. Die Funktion hält keinen
+Zustand; nach dem Versand ist der Vorgang für die Website beendet. Der Inhalt liegt
+danach im Postfach — und, nach den Regeln des Anbieters, zeitweise bei Resend.
+
+**Für Sie zu klären:** Resend Inc. ist ein **US-Unternehmen** und damit ein zweiter
+Auftragsverarbeiter neben Vercel. Nötig sind ein Auftragsverarbeitungsvertrag, die
+Aufnahme ins Verzeichnis der Verarbeitungstätigkeiten und ein Abschnitt in der
+Datenschutzerklärung. Ob Resend so bleibt, ist offen — der Versandweg steckt an einer
+Stelle im Code und ist austauschbar.
+
+**Ohne hinterlegte Zugangsdaten sendet die Website nichts.** Fehlen die
+Umgebungsvariablen, meldet die Funktion das, und der Absenden-Knopf bleibt gesperrt mit
+dem Hinweis auf Telefon und E-Mail. Der ehrliche Zustand ist der Ausgangszustand.
+
+### Schutz vor automatisierten Einsendungen
+
+Die Formulare enthalten ein für Menschen unsichtbares Feld („Honigtopf"). Füllt ein
+Programm es aus, nimmt die Funktion die Anfrage entgegen und **verwirft sie
+stillschweigend**, ohne eine Mail zu erzeugen. Es findet keine Auswertung des
+Nutzerverhaltens statt, es wird kein CAPTCHA eingebunden und keine IP-basierte Bewertung
+vorgenommen.
+
+### ⚠️ Anhänge werden weiterhin nicht übertragen
+
+Die Upload-Felder für Schadenbilder und den Lebenslauf sind im Formular vorhanden, ihr
+Inhalt wird aber **nicht** mitgesendet. Grund ist eine technische Grenze: Der
+Anfragekörper einer solchen Funktion ist auf wenige Megabyte begrenzt, während
+Handyfotos oft 3–8 MB je Bild wiegen. Ein Versand, der bei großen Dateien scheitert,
+wäre schlechter als keiner — er sieht für den Absender wie ein Erfolg aus.
+
+Das Formular weist darauf hin, dass Bilder und Unterlagen per E-Mail nachgereicht werden
+können. Sobald das anders gelöst wird (interne Aufgabe 3.37), ändert sich die Datenlage
+erneut — insbesondere für Bewerbungsunterlagen.
 
 ### Erhobene Felder je Variante
 
@@ -200,9 +232,9 @@ Vier Punkte, die über die technische Bestandsaufnahme hinausgehen:
 ## 6. Offene Fragen, die ich nicht beantworten kann
 
 - Umfang, Speicherdauer und Zugriff auf die Server-Logdateien bei Vercel
-- Stand des Auftragsverarbeitungsvertrags und der Unterauftragsverarbeiter
-- Empfängeradresse und Übertragungsweg der Formulare nach 1.17 (E-Mail? Postfach? Dritter Dienst?)
-- Aufbewahrungsfristen für Anfragen und für Bewerbungsunterlagen
+- Auftragsverarbeitungsvertrag und Unterauftragsverarbeiter — **bei Vercel und bei Resend**
+- Wie lange Resend zugestellte Nachrichten vorhält
+- Aufbewahrungsfristen für Anfragen und Bewerbungsunterlagen im Postfach
 - Zuständige Aufsichtsbehörde in der heute korrekten Bezeichnung — im Seitenfuß stand
   bisher eine Angabe, die ich nicht verifizieren konnte, deshalb ist sie entfernt
 - Ob der Wissensbereich der Website als journalistisch-redaktionelles Angebot im Sinne
@@ -212,8 +244,9 @@ Vier Punkte, die über die technische Bestandsaufnahme hinausgehen:
 
 ## 7. Zusammenfassung in drei Sätzen
 
-Die neue Website ist eine rein statische Seite ohne Cookies, ohne Analyse- oder
-Werbewerkzeuge und ohne eine einzige Einbindung von einem fremden Server. Personenbezogene
-Daten entstehen ausschließlich dort, wo jemand ein Formular ausfüllt — und selbst das
-wird derzeit noch nicht übertragen. Zu klären sind daher im Wesentlichen zwei Dinge: der
-Hoster als Auftragsverarbeiter und der künftige Weg der Formulardaten.
+Die neue Website ist eine statische Seite ohne Cookies, ohne Analyse- oder Werbewerkzeuge
+und ohne eine einzige Einbindung von einem fremden Server. Personenbezogene Daten
+entstehen ausschließlich dort, wo jemand ein Formular ausfüllt und absendet; sie gehen
+dann als E-Mail ins Postfach und werden nirgendwo sonst gespeichert. Zu klären sind daher
+im Wesentlichen zwei Dinge: **Vercel als Hoster und Resend als Mail-Versender** — beides
+US-Unternehmen, beides Auftragsverarbeiter.
