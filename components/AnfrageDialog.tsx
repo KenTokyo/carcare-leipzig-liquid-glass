@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import RequestForm, { formularTitel } from './RequestForm';
 import { getLenis } from '../hooks/useSmoothScroll';
-import { leistungFuerRoute } from '../data/leistungsauswahl';
+import { TERMIN_UEBERSCHREIBUNG, leistungFuerRoute } from '../data/leistungsauswahl';
 import { RequestFormKind } from '../types';
 
 /**
@@ -117,7 +117,13 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
       const ziel = ANFRAGE_ZIELE[link.hash];
       if (!ziel) return;
       e.preventDefault();
-      oeffnen(ziel);
+      // Auf Reparaturseiten meint „Termin anfragen" eine Schadenmeldung (3.36).
+      const eintrag = TERMIN_UEBERSCHREIBUNG[window.location.pathname];
+      // Greift in zwei Faellen: wenn das Sprungziel `termin` waere und etwas anderes
+      // gemeint ist — und wenn es ohnehin passt, dann nur fuer die Vorauswahl.
+      // Ein `#contact-business`-Aufruf auf einer Reparaturseite behaelt seine Bedeutung.
+      const abweichung = eintrag && (ziel === 'termin' || eintrag.art === ziel) ? eintrag : undefined;
+      oeffnen(abweichung?.art ?? ziel, abweichung?.vorauswahl);
     };
     document.addEventListener('click', beiKlick);
     return () => document.removeEventListener('click', beiKlick);

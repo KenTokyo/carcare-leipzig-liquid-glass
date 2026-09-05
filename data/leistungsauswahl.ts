@@ -13,12 +13,9 @@
  * als keine: Sie sieht aus wie eine Entscheidung des Nutzers und wird deshalb nicht
  * korrigiert.
  *
- * ⚠️ BEKANNTE UNSTIMMIGKEIT, NICHT HIER ZU LOESEN: Mehrere REPARATUR-Seiten
- * (Dellenentfernung, Hagelschaden, Felgen, Autoglas, Smart Repair, Fuhrpark) fuehren
- * ihren Handlungsaufruf auf `#contact-termin`, also auf das AUFBEREITUNGS-Formular.
- * Fuer sie gibt es hier bewusst keine Zuordnung — es gaebe keine richtige. Der passende
- * Ort waere das Schadenformular; das ist eine inhaltliche Entscheidung ueber rund ein
- * Dutzend Handlungsaufrufe und steht als Backlog 3.36.
+ * REPARATURSEITEN STEHEN NICHT IN DIESER LISTE, sondern in `TERMIN_UEBERSCHREIBUNG`
+ * weiter unten: Ihr Handlungsaufruf zeigt zwar auf `#contact-termin`, gemeint ist aber
+ * eine Schadenmeldung. Behoben mit 3.36 am 2026-09-05.
  */
 
 export interface Leistungsoption {
@@ -68,3 +65,30 @@ export const terminLeistungen: Leistungsoption[] = [
  */
 export const leistungFuerRoute = (pfad: string): string | undefined =>
   terminLeistungen.find((leistung) => leistung.routen?.includes(pfad))?.id;
+
+/**
+ * Seiten, auf denen „Termin anfragen" etwas ANDERES meint (Backlog 3.36).
+ *
+ * Der Befund: Wer auf einer Reparaturseite „Dellenentfernung anfragen" klickte, landete
+ * im Aufbereitungsformular und bekam Felder fuer Pflegepakete und Wunschtermin statt
+ * fuer Schadenart, Versicherung und Fahrbereitschaft. **Nicht die Beschriftung war
+ * falsch, sondern das Ziel.**
+ *
+ * Diese Tabelle greift NUR, wenn die Variante sonst `termin` waere. Ein
+ * `#contact-business`-Aufruf auf derselben Seite behaelt seine Bedeutung — sonst
+ * risse die Ueberschreibung Aufrufe mit, die richtig waren.
+ *
+ * `/hagelschadenreparatur-leipzig` zeigt bereits korrekt auf `#contact-schaden` und wird
+ * deshalb nicht umgeleitet — die Vorauswahl bekommt es trotzdem, weil die Seite eindeutig
+ * sagt, worum es geht.
+ */
+export const TERMIN_UEBERSCHREIBUNG: Record<string, { art: 'schaden' | 'business'; vorauswahl?: string }> = {
+  '/hagelschadenreparatur-leipzig': { art: 'schaden', vorauswahl: 'hagel' },
+  '/dellenentfernung-leipzig': { art: 'schaden', vorauswahl: 'delle' },
+  '/felgenreparatur-leipzig': { art: 'schaden', vorauswahl: 'felge' },
+  '/autoglas-leipzig': { art: 'schaden', vorauswahl: 'glas' },
+  '/smart-repair-leipzig': { art: 'schaden', vorauswahl: 'lack' },
+  '/autolackierung-leipzig': { art: 'schaden', vorauswahl: 'lack' },
+  // Anders gelagert: Fuhrparkservice ist B2B und gehoert ins Geschaeftskundenformular.
+  '/fuhrparkservice-leipzig': { art: 'business' },
+};

@@ -124,6 +124,15 @@ const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
   if (kind === 'termin' && vorauswahl && terminLeistungen.some((l) => l.id === vorauswahl)) {
     (werte as FormFieldsByKind['termin']).service = vorauswahl;
   }
+  // Bei der Schadenmeldung belegt die Vorauswahl die Schadenart (3.36): Wer von
+  // `/felgenreparatur-leipzig` kommt, findet „Felgenschaden" gewaehlt. Den
+  // KOSTENTRAEGER setzt die Herkunftsseite bewusst NICHT — ein Bordsteinschaden
+  // kann Kasko sein, und eine falsche Vorauswahl sieht aus wie eine Entscheidung
+  // des Nutzers und wird deshalb nicht korrigiert.
+  const schadenarten = schadenFelder.find((f) => f.id === 'incident')?.optionen ?? [];
+  if (kind === 'schaden' && vorauswahl && schadenarten.some((o) => o.id === vorauswahl)) {
+    (werte as Record<string, string>).incident = vorauswahl;
+  }
   return werte;
 };
 
