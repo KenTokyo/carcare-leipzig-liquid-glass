@@ -14,15 +14,13 @@ import type React from 'react';
  */
 
 interface FormFieldsByKind {
-  schaden: {
-    name: string;
-    phone: string;
-    email: string;
-    vehicle: string;
-    incident: string;
-    insuranceAvailable: string;
-    description: string;
-  };
+  /**
+   * Offen typisiert, weil die Feldliste DATEN sind: `data/schadenFelder.ts`. Ein fester
+   * Typ muesste bei jedem gestrichenen Feld mitgepflegt werden — genau die zweite
+   * Stelle, die der datengetriebene Aufbau vermeiden soll. Die verbindliche Pruefung
+   * macht ohnehin der Server gegen dieselbe Quelle (`data/anfrageSchema.ts`).
+   */
+  schaden: Record<string, string>;
   termin: {
     name: string;
     phone: string;

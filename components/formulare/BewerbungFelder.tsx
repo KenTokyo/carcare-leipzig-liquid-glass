@@ -76,14 +76,25 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) =>
         </p>
       </div>
     </div>
-    {/* Lebenslauf ausdruecklich OPTIONAL, und das Formular ist auch ohne Anhang
-        absendbar — beides Vorgabe aus 1.22. Deshalb kein `required` und ein
-        Hinweis, der das benennt, statt es nur wegzulassen. */}
-    <div>
-      <label className={labelClass} htmlFor="bewerbung-cv">Lebenslauf <span className="text-gray-500">(optional)</span></label>
-      <input id="bewerbung-cv" name="cv" type="file" accept=".pdf,.doc,.docx,image/*" className={inputClass} />
-      <p className="mt-2 text-[11px] leading-relaxed text-gray-600">
-        PDF, Word oder Foto. Ohne Anhang geht es genauso — wir melden uns und klären den Rest.
+    {/*
+      DAS UPLOADFELD IST ENTFERNT (2026-09-05, Backlog 3.37).
+      Anhaenge werden nicht mitgesendet — der Anfragekoerper der Versandfunktion ist auf
+      wenige Megabyte begrenzt. Ein bedienbares Feld, das seinen Inhalt verwirft, ist
+      dieselbe Klasse Fehler wie eine Erfolgsmeldung ohne Versand: Wer seinen Lebenslauf
+      anhaengt und absendet, glaubt, ihn geschickt zu haben.
+
+      An seine Stelle tritt ein Weg, der heute funktioniert: Die Bestaetigung nennt eine
+      Vorgangsnummer und oeffnet auf Knopfdruck eine vorbereitete E-Mail — der Bewerber
+      haengt nur noch die Dateien an. Siehe `RequestForm.tsx`.
+
+      Der Hinweis hier bleibt, weil 1.22 ausdruecklich verlangt, dass die Bewerbung auch
+      OHNE Unterlagen abgeschickt werden kann. Das gilt weiterhin.
+    */}
+    <div className="rounded-xl border border-gray-200 bg-white p-4">
+      <p className="text-[11px] leading-relaxed text-gray-700">
+        <span className="font-semibold text-gray-950">Unterlagen sind nicht nötig, um zu starten.</span>{' '}
+        Schicken Sie erst einmal diese Angaben ab — Lebenslauf und Zeugnisse reichen Sie danach
+        bequem per E-Mail nach. Den Weg dafür zeigen wir Ihnen direkt nach dem Absenden.
       </p>
     </div>
     <div>

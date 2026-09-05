@@ -5,6 +5,7 @@ import { ausbildungsberufe, berufsbilder } from '../data/jobs';
 import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
 import { terminLeistungen } from '../data/leistungsauswahl';
 import { HONIGTOPF } from '../data/anfrageSchema';
+import { schadenFelder, sichtbareFelder } from '../data/schadenFelder';
 import SchadenFelder from './formulare/SchadenFelder';
 import TerminFelder from './formulare/TerminFelder';
 import GeschaeftskundenFelder from './formulare/GeschaeftskundenFelder';
@@ -23,7 +24,8 @@ interface RequestFormProps {
 }
 
 const initialState: FormFieldsByKind = {
-  schaden: { name: '', phone: '', email: '', vehicle: '', incident: '', insuranceAvailable: '', description: '' },
+  // Aus der Feldliste abgeleitet — ein gestrichenes Feld verschwindet damit auch hier.
+  schaden: Object.fromEntries(schadenFelder.map((f) => [f.id, ''])),
   termin: { name: '', phone: '', email: '', vehicle: '', service: '', zusatzleistungen: [], preferredDate: '', description: '' },
   business: { company: '', contact: '', phone: '', email: '', partnerType: '', description: '' },
   bewerbung: { name: '', email: '', phone: '', position: '', description: '' },
@@ -139,6 +141,8 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const [submitted, setSubmitted] = useState(false);
   const [bereit, setBereit] = useState(false);
   const [sendet, setSendet] = useState(false);
+  /** Vorgangsnummer aus der Antwort des Servers. Nur gesetzt, wenn wirklich gesendet wurde. */
+  const [vorgang, setVorgang] = useState<string | null>(null);
   const [fehler, setFehler] = useState<string | null>(null);
   /** Honigtopf. Fuer Menschen unsichtbar, Formularroboter fuellen ihn aus. */
   const [honigtopf, setHonigtopf] = useState('');
@@ -187,7 +191,17 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value } as never));
+    setValues((prev) => {
+      const naechste = { ...prev, [e.target.name]: e.target.value };
+      // Ausgeblendete Felder verlieren ihren Wert. Sonst stuende eine Schadennummer in
+      // der Mail, obwohl der Absender am Ende „Ich selbst" gewaehlt hat — die Werkstatt
+      // laese eine Angabe, die der Kunde zurueckgenommen hat.
+      if (kind !== 'schaden') return naechste as never;
+      const werte = naechste as Record<string, string>;
+      const sichtbar = new Set(sichtbareFelder(werte).map((f) => f.id));
+      for (const feld of schadenFelder) if (!sichtbar.has(feld.id)) werte[feld.id] = '';
+      return werte as never;
+    });
   };
 
   /** Mehrfachauswahl: an- und abwaehlen, ohne die uebrigen Felder anzufassen. */
@@ -227,6 +241,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
         );
         return;
       }
+      setVorgang(typeof inhalt?.vorgang === 'string' ? inhalt.vorgang : null);
       setSubmitted(true);
     } catch {
       setFehler(
@@ -261,11 +276,58 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
           <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white">
             <CheckCircle2 size={24} />
           </div>
-          <h4 className="mb-2 text-lg font-bold text-gray-950">Anfrage übermittelt.</h4>
+          <h4 className="mb-2 text-lg font-bold text-gray-950">
+            {kind === 'bewerbung' ? 'Bewerbung übermittelt.' : 'Anfrage übermittelt.'}
+          </h4>
           <p className="text-sm leading-relaxed text-gray-600">
-            Vielen Dank - wir melden uns zeitnah bei Ihnen. Bei dringenden Anliegen erreichen Sie uns telefonisch unter
+            Vielen Dank — wir melden uns zeitnah bei Ihnen. Bei dringenden Anliegen erreichen Sie uns telefonisch unter
             <span className="font-semibold text-gray-950"> 0341 - 261 77 90</span>.
           </p>
+
+          {/*
+            VORGANGSNUMMER UND DER WEG FUER DIE ANHAENGE (Backlog 3.37).
+            Solange Dateien nicht mitgesendet werden koennen, waere ein Uploadfeld eine
+            Luege: Wer drei Fotos seines Schadens anhaengt und absendet, glaubt, den
+            Schaden mit Beleg gemeldet zu haben. Das Feld ist deshalb entfernt, und an
+            seine Stelle tritt ein Weg, der heute funktioniert — vorbereitete Mail mit
+            der Vorgangsnummer im Betreff, der Absender haengt nur noch die Dateien an.
+
+            Die Nummer kommt vom Server und NUR bei tatsaechlichem Versand. Eine Nummer
+            fuer einen Vorgang, den es nicht gibt, waere dasselbe Muster wie eine
+            Erfolgsmeldung ohne Versand.
+          */}
+          {vorgang && (
+            <div className="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-5 text-left">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600">Ihre Vorgangsnummer</p>
+              <p className="mt-1 font-mono text-lg font-bold tracking-wide text-gray-950">{vorgang}</p>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                {kind === 'bewerbung'
+                  ? 'Ihre Unterlagen — Lebenslauf, Zeugnisse — schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
+                  : 'Bilder vom Schaden helfen uns sehr bei der Einschätzung. Schicken Sie sie bitte per E-Mail nach — die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Anfrage zuordnen.'}
+              </p>
+              <a
+                href={`mailto:info@carcare-center.de?subject=${encodeURIComponent(
+                  (kind === 'bewerbung' ? 'Unterlagen zum Vorgang ' : 'Bilder zum Vorgang ') + vorgang
+                )}&body=${encodeURIComponent(
+                  `Guten Tag,
+
+anbei ${kind === 'bewerbung' ? 'meine Unterlagen' : 'die Bilder'} zum Vorgang ${vorgang}.
+
+Mit freundlichen Grüßen
+`
+                )}`}
+                className="cc-gradient-button mt-4 inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white"
+              >
+                <Send size={14} />
+                {kind === 'bewerbung' ? 'Unterlagen per E-Mail nachreichen' : 'Bilder per E-Mail nachreichen'}
+              </a>
+              <p className="mt-3 text-[11px] leading-relaxed text-gray-600">
+                Öffnet sich kein E-Mail-Programm: an{' '}
+                <span className="font-semibold text-gray-950">info@carcare-center.de</span> mit{' '}
+                <span className="font-semibold text-gray-950">{vorgang}</span> im Betreff.
+              </p>
+            </div>
+          )}
         </motion.div>
       ) : (
         <form onSubmit={handleSubmit} className="relative space-y-5">

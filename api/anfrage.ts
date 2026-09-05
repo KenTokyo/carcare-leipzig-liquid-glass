@@ -6,6 +6,7 @@ import {
   MAX_FELDER,
   MAX_LAENGE,
   PFLICHTFELDER,
+  lesbarerWert,
 } from '../data/anfrageSchema';
 
 /**
@@ -43,6 +44,48 @@ export const config = { runtime: 'edge' };
 
 const RESEND_ENDPUNKT = 'https://api.resend.com/emails';
 
+const ZEICHEN = '23456789ABCDEFGHJKMNPQRSTVWXYZ';
+
+/**
+ * Vorgangsnummer im Format `CC-MMTT-XXXXX`.
+ *
+ * ZEICHENWAHL: 30 Zeichen ohne alles, was am Telefon oder beim Abtippen verwechselt
+ * wird - kein 0/O, kein 1/I/L, kein U (klingt wie V). Die Nummer wird vorgelesen und
+ * abgeschrieben, das ist der einzige Grund fuer diese Auswahl.
+ *
+ * SIE WIRD NUR ERZEUGT, WENN DIE MAIL ANGENOMMEN WURDE. Eine Nummer fuer einen Vorgang,
+ * den es nicht gibt, waere dasselbe Muster wie eine Erfolgsmeldung ohne Versand: Der
+ * Kunde nennt sie, und niemand findet etwas dazu.
+ *
+ * KOLLISIONEN, ehrlich gerechnet: Es gibt keine Datenbank und nichts prueft auf
+ * Doppelung. Das ist KEINE Eindeutigkeitsgarantie, sondern eine Nummer, deren
+ * Doppelvergabe vernachlaessigbar unwahrscheinlich ist. 30^5 = 24.300.000 Werte je Tag;
+ * das Datum begrenzt das Fenster, in dem eine Doppelung ueberhaupt stoeren wuerde - sie
+ * stoert nur bei zwei Anfragen AM SELBEN TAG mit derselben Endung.
+ *
+ *    50 Anfragen/Tag  -> etwa 0,005 % je Tag -> rechnerisch einmal in ~55 Jahren
+ *   200 Anfragen/Tag  -> etwa 0,08 % je Tag  -> rechnerisch einmal in ~3,4 Jahren
+ *
+ * Zufall aus `crypto.getRandomValues`, nicht `Math.random`. Werte ab 240 werden
+ * verworfen: 256 ist kein Vielfaches von 30, ein blosses `% 30` waere verzerrt.
+ */
+const vorgangsnummer = (): string => {
+  const jetzt = new Date();
+  const mm = String(jetzt.getUTCMonth() + 1).padStart(2, '0');
+  const tt = String(jetzt.getUTCDate()).padStart(2, '0');
+  let ende = '';
+  while (ende.length < 5) {
+    const puffer = new Uint8Array(8);
+    crypto.getRandomValues(puffer);
+    for (const wert of puffer) {
+      if (ende.length >= 5) break;
+      if (wert >= 240) continue;
+      ende += ZEICHEN[wert % 30];
+    }
+  }
+  return `CC-${mm}${tt}-${ende}`;
+};
+
 const antwort = (koerper: unknown, status: number) =>
   new Response(JSON.stringify(koerper), {
     status,
@@ -58,14 +101,16 @@ const einrichtung = () => {
 };
 
 /** Zeilenweise Klartextfassung der Anfrage, in der Reihenfolge der Beschriftungen. */
-const alsText = (art: RequestFormKind, daten: Record<string, string>) => {
-  const zeilen: string[] = [`Anfrageart: ${BETREFF[art]}`, ''];
+const alsText = (art: RequestFormKind, daten: Record<string, string>, vorgang: string) => {
+  const zeilen: string[] = [`Anfrageart: ${BETREFF[art]}`, `Vorgangsnummer: ${vorgang}`, ''];
   for (const [feld, beschriftung] of Object.entries(FELDBESCHRIFTUNG)) {
     const wert = daten[feld];
     if (!wert) continue;
-    zeilen.push(`${beschriftung}: ${wert}`);
+    // Klartext statt Schluessel: "Haftpflicht der Gegenseite" statt "haftpflicht".
+    zeilen.push(`${beschriftung}: ${wert.split(', ').map((w) => lesbarerWert(feld, w)).join(', ')}`);
   }
   zeilen.push('', '—', 'Gesendet über das Formular auf carcare-center.de.');
+  zeilen.push(`Bilder und Unterlagen reicht der Absender per E-Mail mit "${vorgang}" im Betreff nach.`);
   return zeilen.join('\n');
 };
 
@@ -141,7 +186,8 @@ export default async function handler(request: Request): Promise<Response> {
     return antwort({ fehler: 'E-Mail-Adresse sieht nicht gültig aus.' }, 400);
   }
 
-  const text = alsText(art, daten);
+  const vorgang = vorgangsnummer();
+  const text = alsText(art, daten, vorgang);
   const versand = await fetch(RESEND_ENDPUNKT, {
     method: 'POST',
     headers: {
@@ -153,7 +199,7 @@ export default async function handler(request: Request): Promise<Response> {
       to: [stand.empfaenger],
       // Antworten geht direkt an den Absender der Anfrage, nicht an die Website-Adresse.
       reply_to: daten.email,
-      subject: `${BETREFF[art]} — ${daten.name ?? daten.company ?? 'ohne Namen'}`,
+      subject: `[${vorgang}] ${BETREFF[art]} — ${daten.name ?? daten.company ?? 'ohne Namen'}`,
       text,
       html: `<pre style="font:14px/1.6 ui-monospace,monospace">${entschaerfen(text)}</pre>`,
     }),
@@ -173,5 +219,6 @@ export default async function handler(request: Request): Promise<Response> {
     );
   }
 
-  return antwort({ ok: true }, 200);
+  // Erst hier ist der Vorgang echt - vorher geht keine Nummer nach draussen.
+  return antwort({ ok: true, vorgang }, 200);
 }

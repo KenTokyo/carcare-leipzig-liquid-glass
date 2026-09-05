@@ -1,4 +1,6 @@
 import type { RequestFormKind } from '../types';
+import { schadenFelder } from './schadenFelder';
+import { terminLeistungen } from './leistungsauswahl';
 
 /**
  * Was eine Anfrage enthalten muss und wie die Felder in der E-Mail heissen (Backlog 1.17).
@@ -15,7 +17,9 @@ import type { RequestFormKind } from '../types';
 
 /** Felder, ohne die eine Anfrage nicht angenommen wird. */
 export const PFLICHTFELDER: Record<RequestFormKind, string[]> = {
-  schaden: ['name', 'phone', 'email', 'description'],
+  // Aus der Feldliste abgeleitet: Wer dort `pflicht` streicht, aendert damit auch die
+  // serverseitige Pruefung. Zwei Listen waeren zwei Wahrheiten.
+  schaden: schadenFelder.filter((f) => f.pflicht).map((f) => f.id),
   termin: ['name', 'phone', 'email'],
   business: ['company', 'contact', 'phone', 'email', 'description'],
   bewerbung: ['name', 'phone', 'email', 'description'],
@@ -28,16 +32,45 @@ export const FELDBESCHRIFTUNG: Record<string, string> = {
   contact: 'Ansprechpartner',
   phone: 'Telefon',
   email: 'E-Mail',
+  kennzeichen: 'Kennzeichen',
   vehicle: 'Fahrzeug',
+  baujahr: 'Erstzulassung',
   incident: 'Schadenart',
-  insuranceAvailable: 'Versicherung vorhanden',
+  fahrbereit: 'Fahrbereit',
+  kostentraeger: 'Kostenträger',
+  versicherung: 'Versicherung',
+  schadennummer: 'Schaden-/Vorgangsnummer',
+  schadendatum: 'Schadendatum',
+  gutachter: 'Gutachter beauftragt',
   service: 'Gewünschte Leistung',
   zusatzleistungen: 'Zusatzleistungen',
   preferredDate: 'Wunschtermin',
+  wunsch: 'Gewünschter nächster Schritt',
+  ersatzfahrzeug: 'Ersatzfahrzeug gewünscht',
   partnerType: 'Art der Partnerschaft',
   position: 'Bereich',
   description: 'Nachricht',
 };
+
+/**
+ * Auswahlwerte in Klartext.
+ *
+ * In der Mail stand bisher der technische Wert („kostentraeger: haftpflicht"). Wer sie
+ * liest, soll den Satz lesen, den der Absender angeklickt hat — nicht dessen Schluessel.
+ * Quellen sind dieselben Listen, aus denen das Formular seine Optionen baut.
+ */
+const AUSWAHLTEXTE: Record<string, Record<string, string>> = {
+  ...Object.fromEntries(
+    schadenFelder
+      .filter((f) => f.optionen?.length)
+      .map((f) => [f.id, Object.fromEntries(f.optionen!.map((o) => [o.id, o.label]))])
+  ),
+  service: Object.fromEntries(terminLeistungen.map((l) => [l.id, l.label])),
+};
+
+/** Uebersetzt einen Feldwert in seinen Klartext, sofern es einen gibt. */
+export const lesbarerWert = (feld: string, wert: string): string =>
+  AUSWAHLTEXTE[feld]?.[wert] ?? wert;
 
 /** Betreffzeile je Anfrageart. */
 export const BETREFF: Record<RequestFormKind, string> = {
