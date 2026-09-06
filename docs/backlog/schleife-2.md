@@ -87,7 +87,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | 2.22 | Terminanfrage-Button analog kfz-lindner.de: Klick → Pop-up mit Auswahl aus zwei Servicebereichen | Oalab | ✅ **erledigt** | **Erledigt durch 1.20.** *`components/AnfrageDialog.tsx`, eingehängt über `ANFRAGE_ZIELE`. Deckt inzwischen drei Anfragearten statt zwei.* |
 | 2.23 | Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info-Link (kein eigenes Formular) | Oalab | **zurückgestellt** | ✅ **Entschieden — bleibt vorerst so.** *Gebaut wurde bewusst ein eigenes Schadenformular statt der Weiterleitung; reparatur.info bleibt „spätere Option". Die Abweichung ist eine Entscheidung von Oalab, kein Versehen, und wird **im Nachgang** angepasst. **Nicht "aufräumen".** Hängt zusätzlich an 3.34 (wird reparatur.info überhaupt genutzt?).* |
 | 2.24 | Geschäftskunden-Anfragen an André's persönliche Mailadresse, nicht an Info-Adresse | Oalab | offen | *Heute geht alles an eine Adresse (`ANFRAGE_EMPFAENGER`). Braucht eine zweite Variable — mit 3.38 zusammen einrichten.* |
-| 2.25 | Geschäftskunden-Formular reduzieren auf: Autohaus, Fuhrpark, Versicherung, Rahmenvertrag, Sonstiges – „laufende Zusammenarbeit" streichen | Oalab | offen | *Optionen stimmen (5 Stück), aber Option 4 heißt `Rahmenvertrag / laufende Zusammenarbeit` (`components/formulare/GeschaeftskundenFelder.tsx:45`) — Begriff zusammengeführt, nicht gestrichen. Wörtlich offen.* |
+| 2.25 | Geschäftskunden-Formular reduzieren auf: Autohaus, Fuhrpark, Versicherung, Rahmenvertrag, Sonstiges – „laufende Zusammenarbeit" streichen | Oalab | ✅ **erledigt** | *Die fünf Optionen stimmen. Option 4 heißt `Rahmenvertrag / laufende Zusammenarbeit` — **das Zusammenführen ist am 2026-09-06 von Oalab ausdrücklich bestätigt worden.** Der Begriff sollte nicht als eigene Option stehen, aber als Bestandteil der Rahmenvertrags-Option erhalten bleiben. **Nicht „aufräumen".** Keine Codeänderung nötig.* |
 
 ---
 
@@ -111,14 +111,15 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
 | **2.22** | vollständig erledigt (Anfrage-Dialog, 1.20) — Statusspalte am 2026-09-06 nachgezogen |
 | **2.5** | erledigt, am 2026-09-06 gegen `data/services.ts` gegengeprüft |
+| **2.25** | war strittig, am 2026-09-06 entschieden: Zusammenführen ist gewollt |
 
 ## Am 2026-09-06 erledigt
 
-**2.5** · **2.6** · **2.9** · **2.10** · **2.17** · **2.19** · **2.22** — sieben Punkte.
+**2.5** · **2.6** · **2.9** · **2.10** · **2.17** · **2.19** · **2.22** · **2.25** — acht Punkte.
 
 Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen — gemessen H1 75 Z.,
-Absatz 165 Z., eher ein Blick-Urteil), **2.12** (Prüfauftrag), **2.25** (Wortlaut,
-braucht eine Entscheidung), **2.24** (zweite Empfängeradresse, scharf erst mit 3.38).
+Absatz 165 Z., eher ein Blick-Urteil), **2.12** (Prüfauftrag),
+**2.24** (zweite Empfängeradresse, scharf erst mit 3.38).
 
 ### Nachgezogen aus 2.6: Der Dialog fragt jetzt zuerst nach dem Anliegen
 
