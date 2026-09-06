@@ -92,9 +92,25 @@ Vom Kunden abgenommen, nicht wegoptimieren:
 
 ## Backlog
 
-Offene Aufgaben aus den Kundenreviews liegen unter:
-`docs/backlog/schleife-1.md`
+**Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`
+
+Dort liegen alle drei Review-Schleifen mit 103 Aufgaben, die Auswertung „was ist
+wirklich offen", und die vom Kunden gelieferte Quell-CSV.
+
+| Datei | Nummernraum |
+|---|---|
+| `docs/backlog/schleife-1.md` | 1.1 – 1.26 (abgeschlossen) |
+| `docs/backlog/schleife-2.md` | 2.1 – 2.27 |
+| `docs/backlog/schleife-3.md` | 3.1 – 3.37 |
+| `docs/backlog/nicht-relevant.md` | ohne Nummer |
+| `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |
 
 Aufgaben werden über ihre Nummer referenziert (z. B. „setze 1.7 und 1.8 um").
 Ein Arbeitspaket = ein Branch = eine Session.
 Stopp-Punkte innerhalb eines Pakets gemäß @phasenweise-oder-stopps-implementieren.md.
+
+**⚠️ Nummern nicht selbst vergeben.** Die Räume gehören dem Kunden. Eigene Befunde
+bekommen das Kürzel `R<n>` („Repo-Befund"), niemals eine freie `x.y`-Nummer. Grund:
+3.32–3.40 wurden einmal repo-lokal vergeben und kollidieren seitdem mit fünf echten
+Kundenpunkten — darunter beide Livegang-Blocker. Auflösung:
+`docs/backlog/tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`

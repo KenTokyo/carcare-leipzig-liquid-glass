@@ -1,48 +1,61 @@
 # Offene Punkte, konsolidiert
 
-**Stand:** 2026-09-05
-**Quellen:** `docs/backlog/schleife-1.md`, alle Optimierungspläne aus Paket A–E, die
+**Stand:** 2026-09-06
+**Quellen:** `docs/backlog/schleife-1.md`, `schleife-2.md`, `schleife-3.md`,
+`nicht-relevant.md`, alle Optimierungspläne aus Paket A–E, die
 Task-Dateien mit offenen Kästchen, sowie die während Schleife 1 entstandenen Befunde.
 **Methode:** Jeder offene Punkt wurde **gegen den Code geprüft**, nicht aus der
 Dokumentation übernommen — mehrere Kästchen waren veraltet (siehe Abschnitt 4).
 
 ---
 
-## ⚠️ Zuerst: Die Nummerierung ist auseinandergelaufen
+## ✅ Gelöst: Die Nummerierung ist aufgeklärt — und sie kollidiert
 
-**Im Repository liegt nur `schleife-1.md`.** Es gibt weder `schleife-2.md` noch
-`schleife-3.md`. Die Nummern 2.x und 3.x existieren hier ausschließlich als **Verweise**
-aus Schleife 1 heraus:
+**Am 2026-09-06 hat der Kunde die vollständige Aufgabenliste geliefert**
+(`docs/backlog/quelle/2026-09-06-alle-schleifen.csv`, 103 Einträge, alle drei Schleifen).
+Schleife 2 und 3 liegen seitdem im Repo: `schleife-2.md` (27 Punkte, 2.1–2.27) und
+`schleife-3.md` (37 Punkte, 3.1–3.37). Beide bisher toten Verweise lösen sich wortgenau
+auf — **2.26** ist die Zusatzleistungsliste, **3.17** ist „Formularbau zuletzt".
 
-| Verweis | Wortlaut im Repo | Zieldokument |
-|---|---|---|
-| **2.26** | „1.18 hängt zudem an der Zulieferung der Zusatzleistungsliste durch André (2.26)." | **fehlt im Repo** |
-| **3.17** | „André hat im Review festgelegt, dass der Formularbau zuletzt erfolgt (Punkt 3.17)." | **fehlt im Repo** |
+**Damit ist aus dem vermuteten Konflikt eine gemessene Kollision geworden.**
 
-Beide stehen seit der **ersten Fassung** des Backlogs im Repo (Commit `5a88d4f`) — sie
-stammen also aus Loop und wurden beim Abschreiben mitgenommen, ohne dass die zugehörigen
-Dokumente je hierher kamen.
+### Fünf Nummern bedeuten auf beiden Seiten etwas anderes
 
-### Der eigentliche Konflikt
+| Nr. | Beim Kunden (echt, Schleife 3) | Im Repo (selbst vergeben) | |
+|---|---|---|---|
+| ***„3.32“*** | Ausbildungsstellen — widersprüchliche Aussage klären | Ausbildung bestätigen + Eckdaten je Beruf | *dasselbe Thema, zufällig* |
+| ***„3.33“*** | **Bilder-Upload im Formular: finales Go** | **Impressumsangaben vervollständigen** | 🔴 Kollision |
+| ***„3.34“*** | **reparatur.info / PDR Cloud: wird das genutzt?** | **Datenschutzerklärung schreiben** | 🔴 Kollision |
+| ***„3.35“*** | Preisdarstellung Zusatzleistungen entscheiden | Echtes Vorschaubild statt Stockfoto | 🔴 Kollision |
+| ***„3.36“*** | Slogan-Wortlaut festlegen | Reparaturseiten führten ins falsche Formular | 🔴 Kollision |
+| ***„3.37“*** | „Bildtechnisch noch was ändern" — Rückfrage | Anhänge mitsenden | 🔴 Kollision |
+| 3.38 – 3.40 | *existiert nicht — Schleife 3 endet bei 3.37* | Zugangsdaten · Felder datengetrieben · Feldliste | frei, aber im fremden Raum |
+| 1.27 – 1.29 | *existiert nicht — Schleife 1 endet bei 1.26* | Zeitstrahl · Bildmotive · Erklärtexte | frei, aber im fremden Raum |
 
-**Die Nummern 3.32 bis 3.40 habe ich selbst vergeben** — erstmals in Commit `cbd28d6`
-während Paket D. Ich hatte keinen Blick auf Loop und wusste nicht, was dort im 3.x-Raum
-bereits steht. Belegt ist nur, dass er **nicht leer** ist: 3.17 existiert dort.
+### Warum das dringend ist
 
-**Damit sind 3.32–3.40 keine Loop-Nummern, sondern repo-lokale Nummern im selben
-Namensraum.** Wenn Loop ein eigenes 3.32 führt, meinen beide Seiten dasselbe Kürzel für
-verschiedene Dinge — und zwar unbemerkt, weil niemand beide Listen nebeneinander hat.
+**Die drei Livegang-Blocker sind André unter 3.33, 3.34 und 3.38 kommuniziert worden.**
+Schlägt er 3.33 in seiner eigenen Liste nach, findet er „Bilder-Upload im Formular";
+unter 3.34 findet er „reparatur.info". Beide Male die falsche Aufgabe, und zwar genau
+bei den Punkten, an denen der Livegang hängt.
 
-### Zwei Wege heraus
+### Auflösung
 
-1. **Bevorzugt:** Schleife 2 und 3 aus Loop ins Repo übernehmen. Dann ist der Namensraum
-   sichtbar, Doppelungen fallen sofort auf, und die Verweise auf 2.26 und 3.17 gehen
-   nicht mehr ins Leere.
-2. **Falls das nicht geht:** Meine Befunde auf ein eigenes Kürzel umbenennen, das mit
-   Loop nicht kollidieren kann — etwa `R1`–`R9` für „Repo-Befund". Kostet eine Sitzung,
-   betrifft rund 40 Fundstellen in den Dokumenten.
+Die echten Nummern des Kunden sind gesetzt und werden **nicht** angefasst. Umbenannt
+werden die neun repo-lokalen Befunde, auf ein Kürzel, das nie kollidieren kann:
+`R1`–`R9` („Repo-Befund"). Plan, Zuordnungstabelle und die betroffenen Fundstellen:
+`docs/backlog/tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`
 
-Bis dahin gilt in dieser Übersicht: **1.x stammt aus Loop, 3.32–3.40 von uns.**
+**Bis dahin gilt in diesem Dokument:** Nummern in *kursiv mit Anführungszeichen*
+(z. B. *„3.33"*) sind repo-lokal und meinen **nicht** dasselbe wie beim Kunden.
+
+### Ein Punkt widerspricht einer bereits getroffenen Entscheidung
+
+**2.23** verlangt „Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info,
+kein eigenes Formular". Gebaut wurde am 2026-09-05 das Gegenteil: ein vollwertiges
+Schadenformular im Haus. Das ist keine Nachlässigkeit — die Entscheidung fiel, bevor
+Schleife 2 im Repo lag. Sie muss aber bestätigt oder zurückgenommen werden, und sie
+hängt zusätzlich an der offenen Frage 3.34 (wird reparatur.info überhaupt genutzt?).
 
 ---
 
@@ -50,9 +63,9 @@ Bis dahin gilt in dieser Übersicht: **1.x stammt aus Loop, 3.32–3.40 von uns.
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **3.33** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen |
-| **3.34** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit | André + Datenschutz&shy;beauftragter | muss **zwei** Auftragsverarbeiter nennen: Vercel und Resend, beide USA | offen |
-| **3.38** | Technik / Recht | **Zugangsdaten für den Formularversand** in Vercel hinterlegen (3 Variablen, Vorlage `.env.example`) | André | **hängt an 3.34** — vorher verarbeitet die Seite Daten über einen Dienstleister, der nirgends steht | offen |
+| ***„3.33“*** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen |
+| ***„3.34“*** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit | André + Datenschutz&shy;beauftragter | muss **zwei** Auftragsverarbeiter nennen: Vercel und Resend, beide USA | offen |
+| ***„3.38“*** | Technik / Recht | **Zugangsdaten für den Formularversand** in Vercel hinterlegen (3 Variablen, Vorlage `.env.example`) | André | **hängt an 3.34** — vorher verarbeitet die Seite Daten über einen Dienstleister, der nirgends steht | offen |
 
 ---
 
@@ -60,14 +73,14 @@ Bis dahin gilt in dieser Übersicht: **1.x stammt aus Loop, 3.32–3.40 von uns.
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **3.40** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | offen |
-| **1.29** | Inhalt | **Erklärtexte für sieben Leistungsseiten**, je 2–3 Absätze „Was ist X?" | André | blockiert **1.15** — die Sektion steht auf sieben Seiten und ist leer | offen |
-| **1.27** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | drei Platzhalter stehen sichtbar auf `/ueber-uns` | offen |
+| ***„3.40“*** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | offen |
+| ***„1.29“*** | Inhalt | **Erklärtexte für sieben Leistungsseiten**, je 2–3 Absätze „Was ist X?" | André | blockiert **1.15** — die Sektion steht auf sieben Seiten und ist leer | offen |
+| ***„1.27“*** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | drei Platzhalter stehen sichtbar auf `/ueber-uns` | offen |
 | **1.18** = **2.26** | Inhalt | **Liste der Zusatzleistungen** fürs Aufbereitungsformular. Dabei klären: Was ist Paket, was Zusatz | André | zwei Platzhalter im Formular | Struktur steht |
-| **3.32** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen |
+| ***„3.32“*** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen |
 | **1.26** | Inhalt | **Benefits + Mitarbeiterstimmen** für die Karriereseite | André | bündeln mit 3.32 | offen |
-| **3.35** | Bild | **Echtes Vorschaubild statt Unsplash-Stockfoto** (`og:image`, JSON-LD). *Deckungsgleich mit dem offenen OG-Bild-Punkt im Preloader-Plan* | André | — | offen |
-| **1.28** | Bild | **Eigene Motive** für Leasingrückgabe und Außenaufbereitung | André | beide teilen sich ein Bild mit anderen Kacheln | offen |
+| ***„3.35“*** | Bild | **Echtes Vorschaubild statt Unsplash-Stockfoto** (`og:image`, JSON-LD). *Deckungsgleich mit dem offenen OG-Bild-Punkt im Preloader-Plan* | André | — | offen |
+| ***„1.28“*** | Bild | **Eigene Motive** für Leasingrückgabe und Außenaufbereitung | André | beide teilen sich ein Bild mit anderen Kacheln | offen |
 | *(ohne Nr.)* | Bild / Recht | **Partnerlogos:** schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schutzraum | André | ohne Freigabe dürfen die Logos nicht stehen | offen |
 
 **Bündelvorschlag:** Karriere (1.26 + 3.32) · Leistungstexte (1.29) · Bilder (3.35 + 1.28 + Partnerlogos) · Formularfelder (3.40 + 1.18).
@@ -78,8 +91,8 @@ Bis dahin gilt in dieser Übersicht: **1.x stammt aus Loop, 3.32–3.40 von uns.
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **3.37** | Formulare | **Anhänge mitsenden.** Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | OALAB | **3.38** — erst wenn der Versand läuft, ist absehbar, welcher Weg sich lohnt | offen |
-| **3.39** | Technik | **Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen.** Beim Schadenformular ist Streichen seit 3.36 ein Dateneintrag, bei den anderen dreien nicht | OALAB | — | offen |
+| ***„3.37“*** | Formulare | **Anhänge mitsenden.** Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | OALAB | **3.38** — erst wenn der Versand läuft, ist absehbar, welcher Weg sich lohnt | offen |
+| ***„3.39“*** | Technik | **Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen.** Beim Schadenformular ist Streichen seit 3.36 ein Dateneintrag, bei den anderen dreien nicht | OALAB | — | offen |
 | *(ohne Nr.)* | SEO | **19 von 27 Meta-Descriptions außerhalb 140–160 Zeichen** (12 zu lang, 7 zu kurz). Gemessen am ausgelieferten HTML | OALAB | — | offen |
 | *(ohne Nr.)* | SEO | **Titles im selben Durchgang** gegen 50–60 Zeichen prüfen | OALAB | — | offen |
 | *(ohne Nr.)* | Technik | **Fünf verwaiste Komponenten** — `About`, `AccidentFocus`, `Hero`, `Jobs`, `TargetGroups`, alle **0 Importe** | OALAB | `Hero.tsx` bleibt unangetastet (Vorgabe); `About.tsx` enthält echten Kundentext | offen |

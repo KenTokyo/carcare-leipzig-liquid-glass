@@ -4,6 +4,11 @@ Quelle: zwei Vor-Ort-Reviews mit André Bosse.
 
 > **Schleife 1 ist abgeschlossen.** Zusammenfassung, offene Zulieferungen und die
 > Reihenfolge für Schleife 2: `docs/uebergabe-schleife-1.md`
+>
+> **Schleife 2 und 3 liegen seit 2026-09-06 im Repo:** `schleife-2.md` (2.1–2.27),
+> `schleife-3.md` (3.1–3.37). Übersicht über alles: `README.md`.
+> Damit sind die beiden Verweise unten aufgelöst — **2.26** ist die
+> Zusatzleistungsliste, **3.17** ist „Formularbau zuletzt".
 Status je Aufgabe: `offen` → `in Arbeit` → `umgesetzt` → `abgenommen`.
 
 ---
