@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import LeistungsKarten from '../components/LeistungsKarten';
 
 /**
  * Leistungsseite Leasingrueckgabe.
@@ -184,7 +185,8 @@ const LeasingrueckgabePage: React.FC = () => (
           title="Von der Parkplatzdelle bis zur Innenraumaufbereitung."
           description="Alle Arbeiten laufen im eigenen Haus — Sie müssen für Delle, Lack, Felge, Glas und Aufbereitung nicht vier Betriebe ansteuern."
         />
-        <FeatureGrid items={repairs} columns="three" />
+        {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
+        <LeistungsKarten items={repairs} columns="three" />
       </div>
     </section>
 

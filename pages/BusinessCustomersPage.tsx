@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import LeistungsKarten from '../components/LeistungsKarten';
 import { dealerPartners, insurancePartners } from '../data/partners';
 
 /**
@@ -154,7 +155,8 @@ const BusinessCustomersPage: React.FC = () => (
           title="Das komplette Spektrum – auch für gewerbliche Auftraggeber."
           description="Jede Leistung lässt sich einzeln beauftragen oder in einen wiederkehrenden Ablauf einbinden."
         />
-        <FeatureGrid items={offerings} columns="four" />
+        {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
+        <LeistungsKarten items={offerings} columns="four" />
       </div>
     </section>
 

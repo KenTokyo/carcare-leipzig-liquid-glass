@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import LeistungsKarten from '../components/LeistungsKarten';
 
 /**
  * Hub-Seite des Reparatur-Strangs (Unfall, Karosserie, Lack, Rad und Glas).
@@ -21,7 +22,7 @@ import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, Proc
 const repairServices = [
   {
     title: 'Unfallinstandsetzung',
-    description: 'Der komplette Schadenfall aus einer Hand: Schadenaufnahme, Kalkulation, Karosseriearbeiten, Reparaturlackierung und die Abstimmung mit Versicherung und Gutachter — bis zur dokumentierten Übergabe.',
+    description: 'Der komplette Schadenfall aus einer Hand: Schadenaufnahme, Kalkulation, Karosseriearbeiten, Reparaturlackierung und die Abstimmung mit Versicherung und Gutachter — bis zur dokumentierten Übergabe.', imageHref: '/unfallinstandsetzung-leipzig',
   },
   {
     title: 'Neu- und Reparaturlackierung',
@@ -110,7 +111,9 @@ const AccidentRepairPage: React.FC = () => (
           title="Welche Reparatur Ihr Fahrzeug braucht – und was dahintersteckt."
           description="Von der kompletten Unfallinstandsetzung bis zur punktuellen Reparatur an Lack, Delle, Felge oder Scheibe. Wir empfehlen grundsätzlich die kleinere Lösung, wo sie fachlich ausreicht."
         />
-        <FeatureGrid items={repairServices} columns="four" />
+        {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf /ueber-uns und
+            /fahrzeugaufbereitung-leipzig. */}
+        <LeistungsKarten items={repairServices} columns="four" />
       </div>
     </section>
 

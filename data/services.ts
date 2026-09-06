@@ -33,6 +33,20 @@ export interface ServiceCatalogEntry extends OverviewService {
    * Default (undefined) = true.
    */
   inOverviewGrid?: boolean;
+  /**
+   * Alternativtext und Masse des Kachelmotivs.
+   *
+   * WARUM HIER UND NICHT JE SEITE: Dasselbe Foto erscheint auf der Startseiten-Kachel,
+   * auf `/leistungen`, in den Leistungskarten mehrerer Seiten und als Seitenhintergrund
+   * der Zielseite. Stuenden Alternativtext und Masse je Verwendung dort, muesste ein
+   * Motivwechsel an fuenf Stellen nachgezogen werden — und die fuenfte wird vergessen.
+   *
+   * Die Masse gehoeren dazu, weil sie sich je Datei unterscheiden (1200x896, 1400x1045,
+   * 2400x1340). Ein pauschaler Wert waere schlicht falsch.
+   */
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 /**
@@ -51,6 +65,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/fahrzeugaufbereitung-leipzig',
     cta: 'Zur Aufbereitung',
     backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
+    imageAlt: 'Fahrzeug nach der Aufbereitung im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'unfall',
@@ -63,6 +80,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/unfallinstandsetzung-leipzig',
     cta: 'Unfall melden',
     backgroundImage: kachel('versicherung-schadenabwicklung-leipzig-carcare'),
+    imageAlt: 'Schadenaufnahme und Abwicklung eines Unfallschadens im CarCare Center Leipzig',
+    imageWidth: 1200,
+    imageHeight: 896,
   },
   {
     id: 'lackierung',
@@ -75,6 +95,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/autolackierung-leipzig',
     cta: 'Zur Lackierung',
     backgroundImage: kachel('autolackierung-leipzig-carcare'),
+    imageAlt: 'Fahrzeuglackierung in der Lackierkabine des CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'smart',
@@ -87,6 +110,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/smart-repair-leipzig',
     cta: 'Smart Repair ansehen',
     backgroundImage: kachel('smart-repair-leipzig-carcare'),
+    imageAlt: 'Punktuelle Lackinstandsetzung per Smart Repair im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'dellen',
@@ -99,6 +125,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/dellenentfernung-leipzig',
     cta: 'Dellen entfernen',
     backgroundImage: kachel('dellenentfernung-leipzig-carcare'),
+    imageAlt: 'Lackfreie Dellenentfernung an einem Fahrzeug im CarCare Center Leipzig',
+    imageWidth: 1200,
+    imageHeight: 896,
   },
   {
     id: 'hagel',
@@ -111,6 +140,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/hagelschadenreparatur-leipzig',
     cta: 'Hagelschaden prüfen',
     backgroundImage: kachel('hagelschadenreparatur-leipzig'),
+    imageAlt: 'Fahrzeug mit Hagelschaden vor der Instandsetzung im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'felgen',
@@ -123,6 +155,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/felgenreparatur-leipzig',
     cta: 'Felgen reparieren',
     backgroundImage: kachel('felgenreparatur-leipzig-carcare'),
+    imageAlt: 'Aufbereitete Alufelge nach der Felgenreparatur im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'glas',
@@ -135,6 +170,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/autoglas-leipzig',
     cta: 'Zum Autoglas',
     backgroundImage: kachel('autoglas-scheibenreparatur-leipzig-carcare'),
+    imageAlt: 'Scheibentausch an einem Fahrzeug im CarCare Center Leipzig',
+    imageWidth: 1200,
+    imageHeight: 896,
   },
   {
     id: 'innenaufbereitung',
@@ -147,6 +185,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/innenaufbereitung-leipzig',
     cta: 'Innenaufbereitung ansehen',
     backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
+    imageAlt: 'Gereinigter Fahrzeuginnenraum nach der Innenaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2400,
+    imageHeight: 1340,
     // Nur auf `/leistungen`, siehe Hinweis beim Eintrag `aussenaufbereitung`.
     inOverviewGrid: false,
   },
@@ -161,6 +202,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/aussenaufbereitung-leipzig',
     cta: 'Außenaufbereitung ansehen',
     backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
+    imageAlt: 'Aufbereitete Fahrzeugoberfläche nach der Außenaufbereitung im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
     // Erscheint nur auf `/leistungen`: die Startseite fuehrt die Aufbereitungsbereiche
     // bereits ueber die Aufklapp-Kacheln in `AutoDetailingExpertiseSection`.
     inOverviewGrid: false,
@@ -176,6 +220,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/leasingrueckgabe-leipzig',
     cta: 'Leasing vorbereiten',
     backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
+    imageAlt: 'Fahrzeug in Vorbereitung auf die Leasingrückgabe im CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'fuhrpark',
@@ -188,6 +235,9 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     href: '/fuhrparkservice-leipzig',
     cta: 'Fuhrparkservice',
     backgroundImage: kachel('autohaus-fuhrpark-service-leipzig-carcare'),
+    imageAlt: 'Firmenfahrzeuge im Fuhrparkservice des CarCare Center Leipzig',
+    imageWidth: 1400,
+    imageHeight: 1045,
   },
   {
     id: 'geschaeftskunden',

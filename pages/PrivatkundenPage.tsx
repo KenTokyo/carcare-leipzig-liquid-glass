@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import LeistungsKarten from '../components/LeistungsKarten';
 
 /**
  * Zielgruppenseite Privatkunden — Gegenstueck zu `BusinessCustomersPage`.
@@ -151,7 +152,8 @@ const PrivatkundenPage: React.FC = () => (
           title="Was wir für Ihr Fahrzeug tun können."
           description="Von der Pflege bis zum Unfallschaden — wählen Sie den Bereich, der zu Ihrem Anliegen passt."
         />
-        <FeatureGrid items={services} columns="four" />
+        {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
+        <LeistungsKarten items={services} columns="four" />
       </div>
     </section>
 
