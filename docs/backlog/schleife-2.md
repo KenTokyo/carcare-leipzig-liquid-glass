@@ -32,7 +32,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 2.4 | Hero-Text kürzen, weniger Platz einnehmen lassen | Oalab | offen | — |
-| 2.5 | Kacheln verlinken künftig auf die jeweilige Detail-Subseite, nicht auf die Paketübersicht | Oalab | offen | *Teilweise durch Paket B erledigt (Kachelrochade, neue Subseiten). Verlinkungsziele einzeln gegenprüfen.* |
+| 2.5 | Kacheln verlinken künftig auf die jeweilige Detail-Subseite, nicht auf die Paketübersicht | Oalab | ✅ **erledigt (geprüft)** | *Gegengeprüft 2026-09-06: Alle 13 Ziele in `data/services.ts` zeigen auf Detailseiten. Die zwei Hub-Ziele (`/fahrzeugaufbereitung-leipzig`, `/geschaeftskunden`) sind eigene Einstiegsseiten, keine Paketübersicht. Kam mit Paket B.* |
 | 2.6 | Kontaktformular aus der letzten Sektion komplett entfernen, wandert in den Kontaktbereich | Oalab | offen | *Berührt 1.20: Anfragen laufen jetzt über den Dialog. Kann die Sektion damit ganz entfallen?* |
 | 2.7 | Globalen Slogan anpassen: „Premium" bleibt, Fahrzeugpflege geringer gewichten, Unfallinstandsetzung / Karosserie- und Lackierarbeiten aufnehmen, ggf. „alles aus einer Hand" | Oalab | offen | *Blockiert durch 3.36 (Wortlaut noch nicht final).* |
 | 2.8 | Angepassten Slogan überall konsistent platzieren | Oalab | offen | *Hängt an 2.7.* |
@@ -67,7 +67,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.19 | „Mehr erfahren"-Verlinkungen: Dellen → Dellenentfernung; Komplettlackierung → Neu- & Reparaturlackierung; Spot Repair → Wissensbeitrag (neu anlegen); Unsichtbare Reparatur → Wissensbeitrag Farbtongenauigkeit | Oalab | offen | **Zwei Ziele existieren noch nicht** — *die Wissensbeiträge „Spot Repair" und „Farbtongenauigkeit" müssen angelegt werden (`data/knowledgeArticles.ts`).* |
+| 2.19 | „Mehr erfahren"-Verlinkungen: Dellen → Dellenentfernung; Komplettlackierung → Neu- & Reparaturlackierung; Spot Repair → Wissensbeitrag (neu anlegen); Unsichtbare Reparatur → Wissensbeitrag Farbtongenauigkeit | Oalab | 🟨 **zur Hälfte** | *Gemessen 2026-09-06 in `pages/SmartRepairPage.tsx`: „Lackfreie Dellenentfernung" → `/dellenentfernung-leipzig` ✅ und „Komplettlackierung bei Bedarf" → `/autolackierung-leipzig` ✅ stehen. **Offen: „Spot-Repair am Lack" und „Unsichtbare Reparatur" haben kein `href`** — beide Ziele sind Wissensbeiträge, die es noch nicht gibt (`data/knowledgeArticles.ts` führt 5 Artikel, keiner davon).* |
 
 ---
 
@@ -84,7 +84,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.22 | Terminanfrage-Button analog kfz-lindner.de: Klick → Pop-up mit Auswahl aus zwei Servicebereichen | Oalab | offen | **Erledigt durch 1.20.** *`components/AnfrageDialog.tsx`, eingehängt über `ANFRAGE_ZIELE`. Deckt inzwischen drei Anfragearten statt zwei.* |
+| 2.22 | Terminanfrage-Button analog kfz-lindner.de: Klick → Pop-up mit Auswahl aus zwei Servicebereichen | Oalab | ✅ **erledigt** | **Erledigt durch 1.20.** *`components/AnfrageDialog.tsx`, eingehängt über `ANFRAGE_ZIELE`. Deckt inzwischen drei Anfragearten statt zwei.* |
 | 2.23 | Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info-Link (kein eigenes Formular) | Oalab | **zurückgestellt** | ✅ **Entschieden — bleibt vorerst so.** *Gebaut wurde bewusst ein eigenes Schadenformular statt der Weiterleitung; reparatur.info bleibt „spätere Option". Die Abweichung ist eine Entscheidung von Oalab, kein Versehen, und wird **im Nachgang** angepasst. **Nicht "aufräumen".** Hängt zusätzlich an 3.34 (wird reparatur.info überhaupt genutzt?).* |
 | 2.24 | Geschäftskunden-Anfragen an André's persönliche Mailadresse, nicht an Info-Adresse | Oalab | offen | *Heute geht alles an eine Adresse (`ANFRAGE_EMPFAENGER`). Braucht eine zweite Variable — mit 3.38 zusammen einrichten.* |
 | 2.25 | Geschäftskunden-Formular reduzieren auf: Autohaus, Fuhrpark, Versicherung, Rahmenvertrag, Sonstiges – „laufende Zusammenarbeit" streichen | Oalab | offen | *Optionen stimmen (5 Stück), aber Option 4 heißt `Rahmenvertrag / laufende Zusammenarbeit` (`components/formulare/GeschaeftskundenFelder.tsx:45`) — Begriff zusammengeführt, nicht gestrichen. Wörtlich offen.* |
@@ -109,6 +109,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | **2.5** | teilweise — Kachelrochade aus Paket B, Ziele einzeln prüfen |
 | **2.25** | strittig — Optionen stimmen, Wortlaut nicht |
 | **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
+| **2.22** | vollständig erledigt (Anfrage-Dialog, 1.20) — Statusspalte am 2026-09-06 nachgezogen |
+| **2.5** | erledigt, am 2026-09-06 gegen `data/services.ts` gegengeprüft |
 
 ## Am 2026-09-06 erledigt
 
