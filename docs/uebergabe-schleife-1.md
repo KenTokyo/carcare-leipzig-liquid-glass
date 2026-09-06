@@ -16,7 +16,7 @@ oder Bildern, die nur André liefern kann.
 |---|---|---|
 | **A** | Namensschreibweise, Gründungsjahr 1998, Fläche 3.000 m², durchgehend erste Person Plural | fertig |
 | **B** | Informationsarchitektur Fahrzeugaufbereitung: eigene Seiten für Innen- und Außenaufbereitung, Kachelrochade, Ozon/Heißvernebelung neu einsortiert | fertig |
-| **C** | `ServiceLayout` — sieben Leistungsseiten auf ein Layout vereinheitlicht; Erklärsektion strukturell vorhanden, Texte offen (1.29) | fertig bis auf Texte |
+| **C** | `ServiceLayout` — sieben Leistungsseiten auf ein Layout vereinheitlicht; Erklärsektion strukturell vorhanden, Texte offen (R3) | fertig bis auf Texte |
 | **D** | Karriereseite mit Positionskarten, Ausbildungsreihe, Bewerbungsformular, Banner und Stellen-Popup, „Über uns" in der Navigation | fertig |
 | **E** | Zusatzleistungen, echter Zeitstrahl, Anfrage-Dialog an allen Aufrufen, Leistungs-Vorauswahl, Formularversand | fertig bis auf Zugangsdaten |
 | **Rechtsseiten** | `/impressum` gebaut, `/datenschutz` als Gerüst, falsche Matomo-Aussage entfernt | Angaben offen |
@@ -44,34 +44,34 @@ Zehn Punkte, nach Dringlichkeit. Die ersten drei **blockieren den Livegang**.
 
 | Nr. | Was | Warum es blockiert |
 |---|---|---|
-| **3.33** | **Impressumsangaben.** Vier Angaben fehlen: Telefonnummer (die Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung. | § 5 DDG. Die Kammer-Angaben fehlen **auch auf der Altseite** — Übernehmen allein löst es nicht. Wir schreiben auf jeder Seite „Meisterbetrieb". |
-| **3.34** | **Datenschutzerklärung.** `/datenschutz` ist ein Gerüst. Das technische Faktenblatt liegt bereit: `docs/rechtsseiten/2026-09-04-faktenblatt-datenschutz.md`. | Ohne sie darf die Seite nicht öffentlich sein. Sie muss **zwei** Auftragsverarbeiter nennen: Vercel (Hosting) und Resend (Mailversand), beides US-Unternehmen. |
-| **3.38** | **Zugangsdaten für den Formularversand** (drei Umgebungsvariablen in Vercel, Vorlage `.env.example`). | Ohne sie sendet die Website nichts — sie sagt das ehrlich, aber Anfragen kommen nicht an. **Erst nach 3.34 freischalten**, sonst verarbeitet die Seite Daten über einen Dienstleister, der nirgends steht. |
+| **R5** | **Impressumsangaben.** Vier Angaben fehlen: Telefonnummer (die Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung. | § 5 DDG. Die Kammer-Angaben fehlen **auch auf der Altseite** — Übernehmen allein löst es nicht. Wir schreiben auf jeder Seite „Meisterbetrieb". |
+| **R6** | **Datenschutzerklärung.** `/datenschutz` ist ein Gerüst. Das technische Faktenblatt liegt bereit: `docs/rechtsseiten/2026-09-04-faktenblatt-datenschutz.md`. | Ohne sie darf die Seite nicht öffentlich sein. Sie muss **zwei** Auftragsverarbeiter nennen: Vercel (Hosting) und Resend (Mailversand), beides US-Unternehmen. |
+| **R10** | **Zugangsdaten für den Formularversand** (drei Umgebungsvariablen in Vercel, Vorlage `.env.example`). | Ohne sie sendet die Website nichts — sie sagt das ehrlich, aber Anfragen kommen nicht an. **Erst nach R6 freischalten**, sonst verarbeitet die Seite Daten über einen Dienstleister, der nirgends steht. |
 
 ### 🟠 Inhalte, die sichtbare Lücken schließen
 
 | Nr. | Was | Wo es fehlt |
 |---|---|---|
-| **1.29** | Erklärtexte für sieben Leistungsseiten, je zwei bis drei Absätze „Was ist X?" | Die Sektion steht auf allen sieben Seiten und ist leer. Fachliche Aussage über Verfahren und Machbarkeit. |
-| **1.27** | Meilensteine für den Zeitstrahl: Jahr und ein Satz je Station | Drei Platzhalter „Meilenstein 1–3" stehen sichtbar auf `/ueber-uns`. Zwei fertige, aber undatierte Texte liegen als Kandidaten im Code. |
+| **R3** | Erklärtexte für sieben Leistungsseiten, je zwei bis drei Absätze „Was ist X?" | Die Sektion steht auf allen sieben Seiten und ist leer. Fachliche Aussage über Verfahren und Machbarkeit. |
+| **R1** | Meilensteine für den Zeitstrahl: Jahr und ein Satz je Station | Drei Platzhalter „Meilenstein 1–3" stehen sichtbar auf `/ueber-uns`. Zwei fertige, aber undatierte Texte liegen als Kandidaten im Code. |
 | **1.18** | Liste der Zusatzleistungen fürs Aufbereitungsformular | Zwei Platzhalter im Formular. **Dabei klären:** Was ist Paket, was ist Zusatz — „Lackpflege / Politur" ist beides denkbar. |
-| **3.32** | Ausbildung bestätigen: Wird im kommenden Jahrgang ausgebildet? Dazu je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | Die drei Ausbildungsberufe stehen mit Schleier und Initiativ-Aufruf. Das stimmt in jedem Fall — nach einer Zusage ist es ein Wort in den Daten. |
-| **1.26** | Benefits und Mitarbeiterstimmen für die Karriereseite | Sektion bewusst leer. Geht gebündelt mit 3.32 raus. |
+| **R4** | Ausbildung bestätigen: Wird im kommenden Jahrgang ausgebildet? Dazu je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | Die drei Ausbildungsberufe stehen mit Schleier und Initiativ-Aufruf. Das stimmt in jedem Fall — nach einer Zusage ist es ein Wort in den Daten. |
+| **1.26** | Benefits und Mitarbeiterstimmen für die Karriereseite | Sektion bewusst leer. Geht gebündelt mit R4 raus. |
 
 ### 🟡 Bilder
 
 | Nr. | Was |
 |---|---|
-| **3.35** | Echtes Vorschaubild statt Unsplash-Stockfoto. `og:image` zeigt auf allen Seiten ein Stockfoto — das ist das Bild, das Google in Rich Results und jede Plattform beim Teilen anzeigt. |
-| **1.28** | Eigene Motive für Leasingrückgabe und Außenaufbereitung. Beide teilen sich derzeit ein Bild mit anderen Kacheln. |
+| **R7** | Echtes Vorschaubild statt Unsplash-Stockfoto. `og:image` zeigt auf allen Seiten ein Stockfoto — das ist das Bild, das Google in Rich Results und jede Plattform beim Teilen anzeigt. |
+| **R2** | Eigene Motive für Leasingrückgabe und Außenaufbereitung. Beide teilen sich derzeit ein Bild mit anderen Kacheln. |
 
-**Bündelvorschlag:** 1.26 + 3.32 (Karriere) in einer Lieferung, 1.29 (Leistungstexte) in
-einer zweiten, 3.35 + 1.28 (Bilder) in einer dritten. Die drei roten Punkte laufen
+**Bündelvorschlag:** 1.26 + R4 (Karriere) in einer Lieferung, R3 (Leistungstexte) in
+einer zweiten, R7 + R2 (Bilder) in einer dritten. Die drei roten Punkte laufen
 getrennt und zuerst.
 
 ---
 
-## 3. Behoben nach der ersten Fassung dieser Übergabe: 3.36
+## 3. Behoben nach der ersten Fassung dieser Übergabe: R8
 
 **Fünf Reparaturseiten öffneten das falsche Formular.** Wer dort „… anfragen" klickte,
 landete im **Aufbereitungs**formular und bekam Felder für Pflegepakete und Wunschtermin
@@ -97,7 +97,7 @@ ein Dateneintrag, und die serverseitige Prüfung folgt automatisch. Die Uploadfe
 Schadenbilder und Lebenslauf sind **entfernt**; an ihre Stelle tritt eine
 **Vorgangsnummer** mit vorbereitetem E-Mail-Weg (siehe unten).
 
-**Was daraus offen bleibt:** **3.40** — André muss die Feldliste durchgehen. 12 sichtbare
+**Was daraus offen bleibt:** **R12** — André muss die Feldliste durchgehen. 12 sichtbare
 Felder sind viel für jemanden, der gerade einen Unfall hatte. Vorlage zum Streichen:
 `docs/formulare/schadenmeldung-felder-fuer-andre.md`.
 
@@ -107,24 +107,24 @@ Felder sind viel für jemanden, der gerade einen Unfall hatte. Vorlage zum Strei
 
 Begründet, nicht nur nummeriert:
 
-**~~Zuerst — 3.36 beheben.~~ Erledigt am 2026-09-05.**
+**~~Zuerst — R8 beheben.~~ Erledigt am 2026-09-05.**
 
-**Zuerst — die drei roten Punkte parallel bei André anstoßen** (3.33, 3.34, 3.38). Sie
+**Zuerst — die drei roten Punkte parallel bei André anstoßen** (R5, R6, R10). Sie
 haben die längste Durchlaufzeit, weil ein Dritter beteiligt ist: der
 Datenschutzbeauftragte. Je früher sie laufen, desto weniger blockieren sie am Ende.
 
-**Dann — 1.29, die Erklärtexte.** Größter inhaltlicher Hebel: Sieben Seiten haben eine
+**Dann — R3, die Erklärtexte.** Größter inhaltlicher Hebel: Sieben Seiten haben eine
 leere Sektion, die für die Auffindbarkeit gebaut wurde („Was ist Smart Repair?"). Ohne
 die Texte trägt Paket C nur die halbe Wirkung.
 
-**Dann — 1.17 scharf stellen**, sobald 3.34 und 3.38 stehen. Erst danach kommen
+**Dann — 1.17 scharf stellen**, sobald R6 und R10 stehen. Erst danach kommen
 Formularanfragen tatsächlich an.
 
-**Dann — 3.37, die Anhänge.** Erst wenn der Versand läuft, ist absehbar, wie oft Bilder
+**Dann — R9, die Anhänge.** Erst wenn der Versand läuft, ist absehbar, wie oft Bilder
 wirklich gebraucht werden und welcher Weg sich lohnt.
 
 **Danach die Inhaltslücken** in der Reihenfolge, in der André liefert: Karriere (1.26,
-3.32), Zeitstrahl (1.27), Zusatzleistungen (1.18), Bilder (3.35, 1.28).
+R4), Zeitstrahl (R1), Zusatzleistungen (1.18), Bilder (R7, R2).
 
 **Nebenher, wenn Luft ist:**
 - `npm run shots` und `npm run kontrast` ins Repository holen. Der Kontrastmesser hat
@@ -157,7 +157,7 @@ Wächter, siehe `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`.
 
 **Zum Dummy-Wächter:** Er bricht den Build auf Vercel ab, außer der Platzhalter steht
 namentlich in seiner `ANERKANNT`-Liste. Derzeit stehen dort fünf Einträge aus 1.18 und
-1.27. **Sobald André liefert, muss der Eintrag mit weg** — ein Eintrag, der auf nichts
+R1. **Sobald André liefert, muss der Eintrag mit weg** — ein Eintrag, der auf nichts
 mehr passt, ist selbst ein Fehler und bricht den Build. Die Liste kann nicht verrotten.
 
 ### Architekturentscheidungen, die man kennen sollte

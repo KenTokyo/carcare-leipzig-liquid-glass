@@ -189,7 +189,7 @@ Einträge in `const benefits`.
 Betrieb passen. Genau das, was 1.26 ersetzen soll (echte Benefits plus
 Mitarbeiterstimmen, Zulieferung André).
 
-**Vorgehen nach derselben Regel wie 1.18 und 1.29:**
+**Vorgehen nach derselben Regel wie 1.18 und R3:**
 
 * Die vier generischen Einträge **entfernen**, nicht umformulieren.
 * Die Sektion bleibt struktureller Bestandteil der Seite, das Feld ist Pflicht und
@@ -294,7 +294,7 @@ inaktiv. Das ist keine Meinung über die Gestaltung, sondern über die Aussage.
 
 > *„Ne, nicht leeren, einfach füllen und es wird im Nachgang nochmal optimiert."*
 
-Die Sektion bleibt bestückt. **Abweichung von der Regel aus 1.18/1.29, bewusst und auf
+Die Sektion bleibt bestückt. **Abweichung von der Regel aus 1.18/R3, bewusst und auf
 Ansage** — der Unterschied zu den Erklärtexten: Dort gibt es gar keinen Text, hier steht
 bereits abgenommener, wenn auch generischer Inhalt. 1.26 ersetzt ihn später durch echte
 Benefits und Mitarbeiterstimmen.

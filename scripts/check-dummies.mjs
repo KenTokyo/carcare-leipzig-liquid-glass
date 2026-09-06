@@ -70,7 +70,7 @@ const QUELLEN = [
     flagge: 'istPlatzhalter',
     bezeichner: 'title',
     was: 'Station im Zeitstrahl auf /ueber-uns',
-    backlog: '1.27',
+    backlog: 'R1',
   },
   {
     datei: 'data/videos.ts',
@@ -79,6 +79,14 @@ const QUELLEN = [
     bezeichner: 'titel',
     was: 'Videoplatz auf /ueber-uns bzw. /karriere',
     backlog: '3.18 / 3.21',
+  },
+  {
+    datei: 'data/stimmen.ts',
+    ausfuhr: 'stimmen',
+    flagge: 'istPlatzhalter',
+    bezeichner: 'beruf',
+    was: 'Mitarbeiterstimme auf /karriere',
+    backlog: '3.19 / 1.26',
   },
 ];
 
@@ -97,6 +105,7 @@ const VERDAECHTIGE_TEXTE = [
   // einzusetzen — dann faellt Netz 1 aus, der Rahmen steht aber weiter im HTML.
   'Videoplatz',
   'Das Material wird nachgeliefert',
+  'Mitarbeiterstimme',
 ];
 
 /**
@@ -105,7 +114,7 @@ const VERDAECHTIGE_TEXTE = [
  * ⚠️ WARUM ES DIESE LISTE GIBT — und warum sie den Waechter nicht entwertet:
  *
  * Der Waechter war zuerst ohne sie gebaut, und die Folge trat sofort ein: Die
- * Platzhalter, die in derselben Sitzung bewusst angelegt wurden (1.18, 1.27), machten
+ * Platzhalter, die in derselben Sitzung bewusst angelegt wurden (1.18, R1), machten
  * `main` unbaubar. Damit stand nicht nur der Livegang still, sondern jedes
  * Review-Deployment auf `carcare-center.vercel.app` — also genau der Weg, auf dem der
  * Kunde die Zwischenstaende ueberhaupt sieht.
@@ -131,17 +140,21 @@ const VERDAECHTIGE_TEXTE = [
 const ANERKANNT = [
   { text: 'Zusatzleistung 1', backlog: '1.18', seit: '2026-09-04' },
   { text: 'Zusatzleistung 2', backlog: '1.18', seit: '2026-09-04' },
-  { text: 'Meilenstein 1', backlog: '1.27', seit: '2026-09-04' },
-  { text: 'Meilenstein 2', backlog: '1.27', seit: '2026-09-04' },
-  { text: 'Meilenstein 3', backlog: '1.27', seit: '2026-09-04' },
-  { text: 'Jahr offen', backlog: '1.27', seit: '2026-09-04' },
-  { text: 'Platzhalter — wird durch', backlog: '1.18 / 1.27', seit: '2026-09-04' },
+  { text: 'Meilenstein 1', backlog: 'R1', seit: '2026-09-04' },
+  { text: 'Meilenstein 2', backlog: 'R1', seit: '2026-09-04' },
+  { text: 'Meilenstein 3', backlog: 'R1', seit: '2026-09-04' },
+  { text: 'Jahr offen', backlog: 'R1', seit: '2026-09-04' },
+  { text: 'Platzhalter — wird durch', backlog: '1.18 / R1', seit: '2026-09-04' },
   { text: 'Videoplatz Betriebsrundgang', backlog: '3.21', seit: '2026-09-06' },
   { text: 'Videoplatz Arbeitsplatz', backlog: '3.18', seit: '2026-09-06' },
   // Netz 2 findet diese beiden Wendungen im gerenderten HTML der Platzhalterrahmen.
   // Sie verschwinden mit dem letzten Rahmen — dann muessen auch diese Zeilen weg.
   { text: 'Videoplatz', backlog: '3.18 / 3.21', seit: '2026-09-06' },
   { text: 'Das Material wird nachgeliefert', backlog: '3.18 / 3.21', seit: '2026-09-06' },
+  { text: 'Mitarbeiterstimme', backlog: '3.19 / 1.26', seit: '2026-09-06' },
+  { text: 'Mitarbeiterstimme 1', backlog: '3.19 / 1.26', seit: '2026-09-06' },
+  { text: 'Mitarbeiterstimme 2', backlog: '3.19 / 1.26', seit: '2026-09-06' },
+  { text: 'Mitarbeiterstimme 3', backlog: '3.19 / 1.26', seit: '2026-09-06' },
 ];
 
 const anerkanntFuer = (text) => ANERKANNT.find((a) => a.text === text);

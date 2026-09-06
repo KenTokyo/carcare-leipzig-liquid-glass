@@ -133,7 +133,7 @@ Handyfotos oft 3–8 MB je Bild wiegen. Ein Versand, der bei großen Dateien sch
 wäre schlechter als keiner — er sieht für den Absender wie ein Erfolg aus.
 
 Das Formular weist darauf hin, dass Bilder und Unterlagen per E-Mail nachgereicht werden
-können. Sobald das anders gelöst wird (interne Aufgabe 3.37), ändert sich die Datenlage
+können. Sobald das anders gelöst wird (interne Aufgabe R9), ändert sich die Datenlage
 erneut — insbesondere für Bewerbungsunterlagen.
 
 ### Erhobene Felder je Variante

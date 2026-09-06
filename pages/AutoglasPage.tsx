@@ -20,7 +20,7 @@ const AutoglasPage: React.FC = () => (
     meta={{
       title: 'Autoglas Leipzig | WINTEC-Partner | CarCare Center',
       description:
-        'Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Scheibenfolierung. Als WINTEC-Partner ISO-9001-TÜV-zertifiziert mit 30 Jahren Garantie und gratis Ersatzfahrzeug.',
+        'Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Folierung. Als WINTEC-Partner ISO-9001-zertifiziert, mit 30 Jahren Garantie und Ersatzfahrzeug.',
     }}
     hero={{
       eyebrow: 'Autoglas & Scheibenfolien Leipzig',
@@ -32,7 +32,7 @@ const AutoglasPage: React.FC = () => (
       keywords: ['Autoglas Leipzig', 'Steinschlagreparatur Leipzig', 'Scheibenfolierung Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Autoglas und Scheibenfolien?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

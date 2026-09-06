@@ -3,8 +3,12 @@
 **Angelegt:** 2026-09-06
 **Auslöser:** André/Oalab hat die vollständige Aufgabenliste als CSV geliefert
 (`docs/backlog/quelle/2026-09-06-alle-schleifen.csv`, 103 Einträge, alle drei Schleifen).
+> **Nachtrag 2026-09-06:** Die Umbenennung auf `R1`–`R12` ist **ausgeführt**.
+> Wo unten noch von „3.33" u. Ä. als Repo-Befund die Rede ist, heißt das heute `R5`.
+> Zuordnungstabelle: `docs/backlog/offene-punkte-konsolidiert.md`
+
 **Vorgeschichte:** `docs/backlog/offene-punkte-konsolidiert.md` hatte festgehalten, dass
-Schleife 2 und 3 im Repository fehlen und dass die Nummern 3.32–3.40 repo-lokal vergeben
+Schleife 2 und 3 im Repository fehlen und dass die Nummern R4–R12 repo-lokal vergeben
 wurden — mit unbekanntem Kollisionsrisiko. Die CSV löst genau das auf.
 
 ---
@@ -22,7 +26,7 @@ Eintrag welche Backlog-Nummer ist — geraten wäre schlimmer als gar nicht impo
 * [x] **Formel:** `Nr. = (letzte Zeile des Blocks) − (Zeile) + 1`
 * [x] Blockgrenzen bestimmt: 1. Schleife = Zeilen 66–91 (26 Punkte, 1.1–1.26) ·
       2. Schleife = Zeilen 39–65 (27 Punkte, 2.1–2.27) ·
-      3. Schleife = Zeilen 2–38 (37 Punkte, 3.1–3.37) ·
+      3. Schleife = Zeilen 2–38 (37 Punkte, 3.1–R9) ·
       „Nicht relevant" = Zeilen 92–104 (13 Punkte, ohne Nummer)
 * [x] **Gegen das Repo verifiziert, nicht nur plausibilisiert.** `schleife-1.md` führt
       1.1–1.26 bereits aus. Alle 26 Ableitungen stimmen mit der bestehenden Datei überein
@@ -61,8 +65,8 @@ Eintrag welche Backlog-Nummer ist — geraten wäre schlimmer als gar nicht impo
 ### ✅ Phase 3 — `schleife-3.md` erzeugt
 **Ziel:** 37 Punkte, gleiche Form.
 
-* [x] `docs/backlog/schleife-3.md` angelegt, 3.1–3.37, Wortlaut unverändert
-* [x] Sechs „Offene Fragen" (3.32–3.37) als eigener Block — sie blockieren Umsetzung
+* [x] `docs/backlog/schleife-3.md` angelegt, 3.1–R9, Wortlaut unverändert
+* [x] Sechs „Offene Fragen" (R4–R9) als eigener Block — sie blockieren Umsetzung
 * [x] Neun Foto-/Freigabe-Bringschulden (3.23–3.31) gebündelt
 * [x] Abgleich gegen den Ist-Stand ergänzt
 
@@ -88,9 +92,11 @@ abgenommene Entscheidungen, die den Code erklären (z. B. „Expertise-Block ble
 Nicht raten, sondern auszählen.
 
 * [x] Gegenüberstellung erzeugt: echte Nummer (Kunde) vs. repo-lokal vergebene Nummer
-* [x] **5 harte Kollisionen** gefunden: 3.33, 3.34, 3.35, 3.36, 3.37
-* [x] **1 Beinahe-Treffer:** 3.32 meint auf beiden Seiten die Ausbildungsfrage
-* [x] **6 Nummern außerhalb des echten Raums:** 1.27, 1.28, 1.29, 3.38, 3.39, 3.40
+* [x] **5 harte Kollisionen** gefunden: die damaligen 3.33 bis 3.37
+      (heißen seit der Umbenennung R5 bis R9)
+* [x] **1 Beinahe-Treffer:** das damalige 3.32 (heute R4) meint auf beiden Seiten die Ausbildungsfrage
+* [x] **6 Nummern außerhalb des echten Raums:** die damaligen 1.27–1.29 und 3.38–3.40
+      (heute R1–R3 und R10–R12)
       (Schleife 1 endet bei 1.26, Schleife 3 bei 3.37)
 * [x] Kollisionstabelle in `offene-punkte-konsolidiert.md` eingesetzt, der bisherige
       Abschnitt „Die Nummerierung ist auseinandergelaufen" ersetzt
@@ -127,8 +133,8 @@ unauflösbare Fremdverweise als unauflösbar gekennzeichnet statt erfunden ✅.
 **Auffälligkeiten/Kritische Findings (nach Schwere):**
 
 1. 🔴 **Kritisch: Fünf Nummern sind doppelt belegt — und zwei davon stehen in der
-   Kundenkommunikation.** Die Übergabe nennt **3.33** (Impressumsangaben) und
-   **3.34** (Datenschutzerklärung) als Livegang-Blocker für André. In Andrés eigener
+   Kundenkommunikation.** Die Übergabe nennt **R5** (Impressumsangaben) und
+   **R6** (Datenschutzerklärung) als Livegang-Blocker für André. In Andrés eigener
    Liste bedeuten dieselben Nummern **„Bilder-Upload im Formular"** und
    **„reparatur.info / PDR Cloud: wird das aktiv genutzt?"**. Wer die Nummer
    nachschlägt, findet die falsche Aufgabe — bei genau den zwei Punkten, die den
@@ -137,9 +143,9 @@ unauflösbare Fremdverweise als unauflösbar gekennzeichnet statt erfunden ✅.
 2. 🟠 **Hoch: 2.23 widerspricht einer bereits getroffenen Umsetzungsentscheidung.**
    Der Review verlangt „Unfallinstandsetzung → Weiterleitung zu PDR Cloud /
    reparatur.info-Link (kein eigenes Formular)". Umgesetzt wurde am 2026-09-05 das
-   Gegenteil: ein vollwertiges Schadenformular im Haus (3.36 repo-lokal), mit
+   Gegenteil: ein vollwertiges Schadenformular im Haus (R8 repo-lokal), mit
    reparatur.info ausdrücklich nur als „spätere Option". Zusätzlich hängt 2.23 an der
-   offenen Frage 3.34 (echte Nummer): Wird reparatur.info überhaupt genutzt? Das ist
+   offenen Kundenfrage 3.34: Wird reparatur.info überhaupt genutzt? Das ist
    keine Nachlässigkeit, sondern eine Entscheidung, die jemand bestätigen muss.
 
 3. 🟠 **Hoch: Sechs sichtbare Aufgaben waren dem Projekt bisher unbekannt.**
@@ -160,14 +166,14 @@ unauflösbare Fremdverweise als unauflösbar gekennzeichnet statt erfunden ✅.
    Begriff ist zusammengeführt, nicht entfernt. Vermutlich im Sinne des Reviews,
    aber wörtlich nicht erfüllt.
 
-6. 🟡 **Mittel: 1.28 ist eine Dopplung.** Der repo-lokal vergebene Punkt 1.28
+6. 🟡 **Mittel: R2 ist eine Dopplung.** Der repo-lokal vergebene Punkt R2
    („eigene Motive für Leasingrückgabe und Außenaufbereitung") deckt sich inhaltlich
    mit dem echten **2.14** („Leasingrückgabe braucht ein eigenes Bild") und
    **2.15/3.29** (Innenaufbereitung: kein Transporter). Beim Zusammenführen als ein
    Punkt führen, sonst wird dieselbe Lieferung zweimal angefordert.
 
 7. 🔵 **Niedrig: Drei Fremdverweise bleiben unauflösbar.** 3.16 verweist auf „Nr. 78",
-   3.34 auf „Nr. 66 und 103". Diese Zahlen gehören zu einer globalen Durchnummerierung
+   R6 auf „Nr. 66 und 103". Diese Zahlen gehören zu einer globalen Durchnummerierung
    der Originalliste, die sich aus der CSV **nicht** rekonstruieren lässt — die Datei
    ist nach Relevanz umsortiert. Sie sind im Wortlaut belassen und als unauflösbar
    markiert; die naheliegende inhaltliche Lesart steht als solche gekennzeichnet daneben.

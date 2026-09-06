@@ -31,9 +31,9 @@ const lackLeistungen = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb seit 1998 – das Lackwissen aus der Reparatur kommt der Pflege zugute.' },
   { title: 'Full-Service auf über 3.000 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart/Spot Repair und Felgen aus einer Hand.' },
-  { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Erfahrung mit Privatkunden, Autohäusern und Firmenfuhrparks.' },
+  { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Einzelfahrzeuge ebenso wie ganze Flotten von Autohäusern und Firmenfuhrparks.' },
 ];
 
 const AussenaufbereitungPage: React.FC = () => (

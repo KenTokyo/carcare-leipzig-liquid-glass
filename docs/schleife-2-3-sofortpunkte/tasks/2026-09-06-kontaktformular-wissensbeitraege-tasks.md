@@ -27,7 +27,7 @@ Wissensbeiträge, die geschrieben werden mussten.
 * [x] Sitemap und `vercel.json` neu erzeugt — **29 statt 27 Routen**
 
 **Inhaltliche Leitplanke:** Beide Texte beschreiben **Handwerksverfahren**, keine
-Aussagen über den Betrieb. Damit fallen sie nicht unter 1.29, wo André liefern muss.
+Aussagen über den Betrieb. Damit fallen sie nicht unter R3, wo André liefern muss.
 Genannt wird nur, was belegt ist: die Glasurit-Partnerschaft. Keine Preise, keine
 Bearbeitungsdauern — beides wäre erfunden.
 
@@ -68,7 +68,7 @@ Bearbeitungsdauern — beides wäre erfunden.
 * [x] „Zurück" führt vom Formular zur Auswahl, ohne das Fenster zu schließen
 * [x] Escape, Fokusfalle und Scroll-Sperre hängen jetzt am Fenster statt an der
       Formularart — sonst hätten sie im Auswahlschritt nicht gegriffen
-* [x] **Regression geprüft:** 1.19 (Leistungs-Vorauswahl) und 3.36 (Seitenzuordnung
+* [x] **Regression geprüft:** 1.19 (Leistungs-Vorauswahl) und R8 (Seitenzuordnung
       plus vorbelegte Schadenart) funktionieren unverändert
 
 **Referenzen:**
@@ -102,7 +102,7 @@ Regressionen aktiv gegengeprüft statt angenommen ✅.
    stiller Inhaltsverlust gewesen.
 
 2. 🟠 **Hoch: Der Auswahlschritt hätte zwei ältere Punkte aushebeln können.** 1.19
-   (Leistungs-Vorauswahl) und 3.36 (Reparaturseiten → Schadenformular) hängen daran,
+   (Leistungs-Vorauswahl) und R8 (Reparaturseiten → Schadenformular) hängen daran,
    dass beim Öffnen ein Kontext gesetzt wird. Beide wurden **im Browser nachgemessen**,
    nicht nur gelesen. Sie greifen weiter, weil der Kontext beim Öffnen entsteht und der
    Auswahlschritt ihn nur durchreicht.

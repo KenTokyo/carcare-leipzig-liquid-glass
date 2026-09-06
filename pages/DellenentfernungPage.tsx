@@ -20,8 +20,8 @@ const vorteile = [
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Karosserie und Lack aus einer Hand.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
-  { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Erfahrung mit Privatkunden, Autohäusern und Firmenfuhrparks.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Ist der Lack doch verletzt, geht es ohne Umweg in Karosserie und Lackierung im selben Haus.' },
+  { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Von der Parkdelle am Privatwagen bis zur Hagelserie im Firmenfuhrpark.' },
 ];
 
 const DellenentfernungPage: React.FC = () => (
@@ -30,7 +30,7 @@ const DellenentfernungPage: React.FC = () => (
     meta={{
       title: 'Dellenentfernung Leipzig | ohne Lackieren | CarCare Center',
       description:
-        'Dellenentfernung ohne Lackieren in Leipzig: lackierfreie Methode bei Parkplatzdellen und Hagelschäden – keine Wertminderung, keine Farbunterschiede, von Versicherungen anerkannt.',
+        'Dellenentfernung ohne Lackieren in Leipzig: lackfreie Methode bei Parkdellen und Hagelschäden – keine Farbunterschiede, von Versicherungen anerkannt.',
     }}
     hero={{
       eyebrow: 'Dellenentfernung Leipzig',
@@ -42,7 +42,7 @@ const DellenentfernungPage: React.FC = () => (
       keywords: ['Dellenentfernung Leipzig', 'lackfreie Dellenentfernung Leipzig', 'Parkdelle reparieren Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Dellenentfernung?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

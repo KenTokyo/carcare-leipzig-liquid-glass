@@ -12,8 +12,8 @@ const scope = [
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue, makellose Reparaturen mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks, am Markt seit 1998.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998 – Lackierung ist unser Kernhandwerk.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Reicht Spot-Repair nicht aus, folgt die Komplettlackierung in derselben Halle – ohne Ortswechsel.' },
 ];
 
 const AutolackierungPage: React.FC = () => (
@@ -22,7 +22,7 @@ const AutolackierungPage: React.FC = () => (
     meta={{
       title: 'Neu- & Reparaturlackierung Leipzig | CarCare Center',
       description:
-        'Neu- und Reparaturlackierung in Leipzig: Unser Ziel ist die unsichtbare Reparatur – weder Farbton noch Effektunterschiede zur Originallackierung. Spot-Repair bevorzugt.',
+        'Neu- und Reparaturlackierung in Leipzig: Ziel ist die unsichtbare Reparatur – kein Farbton- oder Effektunterschied zur Originallackierung. Glasurit-Lackpartner.',
     }}
     hero={{
       eyebrow: 'Neu- und Reparaturlackierung Leipzig',
@@ -34,7 +34,7 @@ const AutolackierungPage: React.FC = () => (
       keywords: ['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Neu- und Reparaturlackierung?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

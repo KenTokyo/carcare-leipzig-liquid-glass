@@ -233,7 +233,7 @@ zusätzlich die Route im gebauten `dist/` prüfen (Prerender 23 → 25 Routen).
 * [x] Grid 5→4 gemessen: Desktop 1440 px eine Zeile, mobil 375 px gestapelt,
       kein horizontaler Überlauf
 * [x] Dateinamen **nicht** umbenannt — Begründung im Commit und in
-      `data/detailing.ts`, Nachfolge als Backlog 1.28
+      `data/detailing.ts`, Nachfolge als Backlog R2
 
 ### ✅ 1.6 · 1.10 · 1.11 · 1.12 · 1.16
 * [x] 1.6 Kacheltext auf Alltag und Werterhalt erweitert
@@ -257,7 +257,7 @@ für Title und Description ✅, alle Dateien unter 700 Zeilen ✅, Encoding saub
 1. 🟠 **Hoch:** `DetailingGallery` führt eine zweite, ungeprüfte Leistungsliste.
    Solange Platzhalter, folgenlos; mit echten Fotos wird sie zur Aussage über das
    Angebot. → eigener Optimierungsplan, Punkt 1.
-2. 🟡 **Mittel:** Bildmotive doppelt belegt, Umbenennen scheidet aus. → Backlog 1.28.
+2. 🟡 **Mittel:** Bildmotive doppelt belegt, Umbenennen scheidet aus. → Backlog R2.
 3. 🟡 **Mittel, behoben:** Die Bildzuordnung lag doppelt (Daten + Komponente). Der
    Umbau war klein genug, um ihn in 1.13 mitzunehmen statt zu vertagen.
 

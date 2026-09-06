@@ -9,7 +9,7 @@ const leistungen = [
 ];
 
 const usp = [
-  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Pflege, Lack, Karosserie und Aufbereitung für ganze Flotten an einem Standort statt bei vier Dienstleistern.' },
   { title: 'Erfahrung mit Flottenkunden', description: 'Langjährige Erfahrung mit Autohäusern, Firmenfuhrparks und Geschäftskunden.' },
   { title: 'Komplette Versicherungsabwicklung', description: 'Im Schadensfall inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
 ];
@@ -20,7 +20,7 @@ const FuhrparkservicePage: React.FC = () => (
     meta={{
       title: 'Fuhrparkservice Leipzig | Firmenflotte | CarCare Center',
       description:
-        'Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks – von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf. Im Schadensfall halten wir Sie mobil.',
+        'Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks – von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, inklusive Ersatzwagen.',
     }}
     hero={{
       eyebrow: 'Fuhrparkservice Leipzig',
@@ -32,7 +32,7 @@ const FuhrparkservicePage: React.FC = () => (
       keywords: ['Fuhrparkservice Leipzig', 'Firmenfuhrpark Leipzig', 'Flottenservice Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Fuhrparkservice?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

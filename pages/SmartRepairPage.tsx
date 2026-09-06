@@ -14,8 +14,8 @@ const scope = [
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackinstandsetzung mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks, am Markt seit 1998.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Lackierung, Karosserie, Smart/Spot Repair, Felgen und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998 – auch auf kleinsten Flächen.' },
+  { title: 'Full-Service auf über 3.000 m²', description: 'Zeigt sich am Bauteil mehr als gedacht, übernehmen Karosserie und Lackierung direkt nebenan.' },
 ];
 
 const SmartRepairPage: React.FC = () => (
@@ -24,7 +24,7 @@ const SmartRepairPage: React.FC = () => (
     meta={{
       title: 'Smart Repair Leipzig | Spot-Repair | CarCare Center',
       description:
-        'Smart Repair in Leipzig: punktuelle Lackinstandsetzung mit geringem Aufwand. Ziel ist die unsichtbare Reparatur – kleine Schäden gezielt statt Komplettlackierung.',
+        'Smart Repair in Leipzig: punktuelle Lackinstandsetzung mit geringem Aufwand. Ziel ist die unsichtbare Reparatur statt einer Komplettlackierung des Bauteils.',
     }}
     hero={{
       eyebrow: 'Smart Repair Leipzig',
@@ -36,7 +36,7 @@ const SmartRepairPage: React.FC = () => (
       keywords: ['Smart Repair Leipzig', 'Spot-Repair Leipzig', 'kleine Lackschäden reparieren Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Smart Repair?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

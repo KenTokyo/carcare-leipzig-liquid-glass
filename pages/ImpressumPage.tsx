@@ -10,12 +10,12 @@ import { PageHero, PageMeta } from '../components/PageBlocks';
  *
  * WAS NICHT BELEGT IST, STEHT NICHT DA. Vier Angaben fehlen bewusst; sie sind unten
  * einzeln als TODO markiert. Kein sichtbarer Platzhalter, keine Vermutung — dieselbe
- * Regel wie bei den Benefits (1.18) und der Ausstattungsliste (1.29): ein leeres Feld
+ * Regel wie bei den Benefits (1.18) und der Ausstattungsliste (R3): ein leeres Feld
  * ist ein ehrlicher Zustand, ein geratenes ist eine falsche Angabe. Und eine falsche
  * Angabe im Impressum ist genau die Sorte Fehler, die der Matomo-Satz im Footer war.
  *
  * DASS DIE LUECKEN UNSICHTBAR SIND, IST DER PREIS DIESER REGEL. Getragen wird er von
- * Backlog 3.33, wo sie als Zulieferung mit dem Vermerk „vor dem Livegang" stehen.
+ * Backlog R5, wo sie als Zulieferung mit dem Vermerk „vor dem Livegang" stehen.
  *
  * E-MAIL BEWUSST IM KLARTEXT: Auf der Altseite ist sie hinter JavaScript verborgen
  * („Diese E-Mail-Adresse ist vor Spambots geschuetzt"). Das Impressum muss unmittelbar
@@ -41,7 +41,7 @@ const ImpressumPage: React.FC = () => (
   <>
     <PageMeta
       canonical="/impressum"
-      title="Impressum | CarCare Center Leipzig"
+      title="Impressum der BS CarCare GmbH | CarCare Center Leipzig"
       description="Impressum der BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig. Angaben nach § 5 DDG, Handelsregister, Umsatzsteuer-Identifikationsnummer und Kontakt."
     />
     <PageHero
@@ -67,7 +67,7 @@ const ImpressumPage: React.FC = () => (
         <Abschnitt title="Kontakt">
           <dl>
             {/*
-              TODO (Backlog 3.33): TELEFONNUMMER FEHLT — bewusst.
+              TODO (Backlog R5): TELEFONNUMMER FEHLT — bewusst.
               Die Altseite nennt ZWEI Nummern nebeneinander: 0341 - 222 96 20 und
               0341 - 261 77 90. Das Projekt fuehrt durchgaengig nur die zweite
               (CLAUDE.md, NAP_TELEFON). Welche ins Impressum gehoert, ob beide oder
@@ -97,7 +97,7 @@ const ImpressumPage: React.FC = () => (
         </Abschnitt>
 
         {/*
-          TODO (Backlog 3.33): BERUFSRECHTLICHE ANGABEN FEHLEN GANZ — bewusst.
+          TODO (Backlog R5): BERUFSRECHTLICHE ANGABEN FEHLEN GANZ — bewusst.
           § 5 Abs. 1 Nr. 5 DDG verlangt bei zulassungspflichtigen Handwerken die
           zustaendige Kammer, die gesetzliche Berufsbezeichnung, den Staat der
           Verleihung und die Bezeichnung der berufsrechtlichen Regelung.
@@ -111,7 +111,7 @@ const ImpressumPage: React.FC = () => (
         */}
 
         {/*
-          TODO (Backlog 3.33): VERBRAUCHERSTREITBEILEGUNG FEHLT — bewusst.
+          TODO (Backlog R5): VERBRAUCHERSTREITBEILEGUNG FEHLT — bewusst.
           § 36 VSBG verlangt eine Aussage, ob an einem Streitbeilegungsverfahren vor
           einer Verbraucherschlichtungsstelle teilgenommen wird. Beide Antworten sind
           zulaessig, aber es muss eine dastehen. Welche, entscheidet Andre.

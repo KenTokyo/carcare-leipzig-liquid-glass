@@ -10,7 +10,7 @@ const contactWays = [
 
 const ContactPage: React.FC = () => (
   <>
-    <PageMeta canonical="/kontakt" title="Kontakt | CarCare Center Leipzig" description="Kontakt zu CarCare Center Leipzig: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden." />
+    <PageMeta canonical="/kontakt" title="Kontakt, Anfahrt & Öffnungszeiten | CarCare Center Leipzig" description="Kontakt zum CarCare Center Leipzig: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. An den Tierkliniken 42, 04103 Leipzig." />
     <PageHero
       eyebrow="Kontakt"
       title="Kontakt zum CarCare Center Leipzig"

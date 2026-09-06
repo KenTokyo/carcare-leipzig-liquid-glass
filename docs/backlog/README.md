@@ -19,7 +19,7 @@ findet sie über die Tabelle unten.
 |---|---|---|---|
 | [`schleife-1.md`](schleife-1.md) | Erste Review-Runde, **abgeschlossen** (25 von 29 umgesetzt) | 26 | **1.1 – 1.26** |
 | [`schleife-2.md`](schleife-2.md) | Zweite Review-Runde | 27 | **2.1 – 2.27** |
-| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde, enthält 6 offene Entscheidungen | 37 | **3.1 – 3.37** |
+| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde, enthält 6 offene Entscheidungen | 37 | **3.1 – R9** |
 | [`nicht-relevant.md`](nicht-relevant.md) | Ohne Schleifenzuordnung — 8 abgenommene Entscheidungen, 5 offene Punkte | 13 | *ohne Nummer* |
 | | **Summe** | **103** | |
 
@@ -53,11 +53,11 @@ Ableitungen stimmen damit überein**. Zusätzlich lösen sich beide bisher toten
 wortgenau auf: `2.26` = Zusatzleistungsliste, `3.17` = Formularbau zuletzt.
 Beleg: [`tasks/2026-09-06-schleifen-2-3-import-tasks.md`](tasks/2026-09-06-schleifen-2-3-import-tasks.md)
 
-### 2. Die Nummern 3.32–3.40 sind doppelt belegt
+### 2. Die Nummern R4–R12 sind doppelt belegt
 
-Bevor die Kundenliste vorlag, wurden im Repository eigene Befunde unter 3.32–3.40
+Bevor die Kundenliste vorlag, wurden im Repository eigene Befunde unter R4–R12
 abgelegt. Beim Kunden bedeuten fünf dieser Nummern etwas anderes.
-**Betroffen sind die beiden Livegang-Blocker, die André unter 3.33 und 3.34 kennt.**
+**Betroffen sind die beiden Livegang-Blocker, die André unter R5 und R6 kennt.**
 Gegenüberstellung und Auflösung:
 [`offene-punkte-konsolidiert.md`](offene-punkte-konsolidiert.md) ·
 Umbenennungsplan: [`tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`](tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md)
@@ -69,8 +69,8 @@ Umbenennungsplan: [`tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`](task
 Drei Punkte, alle bei André, alle rechtlich:
 
 1. **Impressumsangaben vervollständigen** — Handwerkskammer, Berufsbezeichnung,
-   Verbraucherstreitbeilegung, Telefonnummer *(repo-lokal „3.33")*
-2. **Datenschutzerklärung schreiben** — Faktenblatt liegt bereit *(repo-lokal „3.34")*
-3. **Zugangsdaten für den Formularversand** — hängt an Punkt 2 *(repo-lokal „3.38")*
+   Verbraucherstreitbeilegung, Telefonnummer *(repo-lokal „R5")*
+2. **Datenschutzerklärung schreiben** — Faktenblatt liegt bereit *(repo-lokal „R6")*
+3. **Zugangsdaten für den Formularversand** — hängt an Punkt 2 *(repo-lokal „R10")*
 
 Details und Wortlaut in [`offene-punkte-konsolidiert.md`](offene-punkte-konsolidiert.md).

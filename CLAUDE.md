@@ -90,6 +90,24 @@ Vom Kunden abgenommen, nicht wegoptimieren:
   Begründung, Fälle und Anwendung:
   `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`
 
+## Messwerkzeuge
+
+Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht schätzen.**
+
+| Befehl | Was er misst | Wann |
+|---|---|---|
+| `npm run kontrast` | WCAG-AA-Kontrast im ausgelieferten HTML, je Route/Breite/Textstelle | nach jeder Farb-, Verlaufs- oder Transparenzänderung |
+| `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
+| `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
+| `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
+
+Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
+selbst — **niemals** `npm run dev` dafür starten.
+
+**Der Kontrastmesser hat 2026-09-03 gefunden, was drei Sichtprüfungen nicht fanden.**
+Die sechs Fallen seines Aufbaus stehen im Kopf von `scripts/check-kontrast.mjs`;
+wer daran etwas ändert, liest sie zuerst.
+
 ## Backlog
 
 **Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`
@@ -101,7 +119,7 @@ wirklich offen", und die vom Kunden gelieferte Quell-CSV.
 |---|---|
 | `docs/backlog/schleife-1.md` | 1.1 – 1.26 (abgeschlossen) |
 | `docs/backlog/schleife-2.md` | 2.1 – 2.27 |
-| `docs/backlog/schleife-3.md` | 3.1 – 3.37 |
+| `docs/backlog/schleife-3.md` | 3.1 – R9 |
 | `docs/backlog/nicht-relevant.md` | ohne Nummer |
 | `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |
 
@@ -111,6 +129,6 @@ Stopp-Punkte innerhalb eines Pakets gemäß @phasenweise-oder-stopps-implementie
 
 **⚠️ Nummern nicht selbst vergeben.** Die Räume gehören dem Kunden. Eigene Befunde
 bekommen das Kürzel `R<n>` („Repo-Befund"), niemals eine freie `x.y`-Nummer. Grund:
-3.32–3.40 wurden einmal repo-lokal vergeben und kollidieren seitdem mit fünf echten
+R4–R12 wurden einmal repo-lokal vergeben und kollidieren seitdem mit fünf echten
 Kundenpunkten — darunter beide Livegang-Blocker. Auflösung:
 `docs/backlog/tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`

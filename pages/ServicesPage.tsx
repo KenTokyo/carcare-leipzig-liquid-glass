@@ -13,7 +13,7 @@ const ServicesPage: React.FC = () => (
     <PageMeta
       canonical="/leistungen"
       title="Leistungen Leipzig | Aufbereitung & Lack | CarCare Center"
-      description="Alle Leistungen vom CarCare Center Leipzig im Überblick: Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Dellen, Hagel, Felgen, Autoglas und Fuhrparkservice."
+      description="Alle Leistungen im Überblick: Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Dellen, Hagel, Felgen und Autoglas in Leipzig, im Haus."
     />
     <PageHero
       eyebrow="Leistungen"

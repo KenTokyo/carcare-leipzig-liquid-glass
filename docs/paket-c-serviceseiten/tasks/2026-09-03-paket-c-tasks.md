@@ -5,7 +5,7 @@ Vorgabe aus dem Backlog: *„1.14 ist ein Fall für eine gemeinsame Layout-Kompo
 nicht für acht einzeln angepasste Seiten. Erst Komponente bauen, dann migrieren."*
 
 > **Stand 2026-09-03:** Paket C strukturell abgeschlossen. 1.14 umgesetzt, bei 1.15
-> steht die Sektion und ist leer — die Texte liefert André (Backlog **1.29**).
+> steht die Sektion und ist leer — die Texte liefert André (Backlog **R3**).
 
 ---
 
@@ -223,9 +223,9 @@ nicht vereinheitlichen, sondern nur verstecken, dass sie anders ist.**
 * [x] Erklärsektion als Pflichtfeld in `ServiceLayout`, vor der Fachsektion
 * [x] `erklaerung={null}` auf allen sieben Seiten — die Sektion existiert und ist leer
 * [x] TODO-Kommentar auf jeder der sieben Seiten, mit der konkreten Frage
-      („Was ist Smart Repair?") und Verweis auf Backlog **1.29**
-* [x] Backlog-Punkt 1.29 angelegt: Zulieferung André
-* [ ] Texte einsetzen — **wartet auf 1.29**
+      („Was ist Smart Repair?") und Verweis auf Backlog **R3**
+* [x] Backlog-Punkt R3 angelegt: Zulieferung André
+* [ ] Texte einsetzen — **wartet auf R3**
 
 **Warum die Texte nicht von mir kommen.** Zwei bis drei Absätze zu „Was ist X?" sind
 fachliche Aussage über Verfahren und Machbarkeit — wann Smart Repair reicht, bis zu
@@ -242,7 +242,7 @@ keine leere Sektion mit Innenabstand.
 ### ✅ Phase 6 — Doku, Backlog, Optimierungsplan
 * [x] `docs/backlog/schleife-1.md`: 1.14 auf umgesetzt, 1.15 auf „Struktur umgesetzt,
       Texte offen", Paket-C-Abschluss vermerkt
-* [x] Backlog **1.29** angelegt (Erklärtexte, Zulieferung André)
+* [x] Backlog **R3** angelegt (Erklärtexte, Zulieferung André)
 * [x] Abschnitt 7 dieses Plans: Kontrastprüfung, `npm run shots`, `npm run kontrast`,
       Token-Reparatur als eigener Branch
 
@@ -291,7 +291,7 @@ Begründung wie bei den Exklusivleistungen aus Paket B (1.18).
 **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist nach der Rochade
 aus 1.13 das Kachelmotiv der Leasingrückgabe — und wäre nach dieser Migration
 gleichzeitig der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. Löst
-sich mit Backlog **1.28** (eigene Motive, Zulieferung André).
+sich mit Backlog **R2** (eigene Motive, Zulieferung André).
 
 **Sieben Kanonische von Hand.** Jede der sieben Seiten schreibt ihr `canonical` selbst.
 Beim Durchsehen war keines falsch — aber es gibt keinen Grund, das Risiko sieben Mal
@@ -341,11 +341,11 @@ unberührt (kein Text geändert) ✅, Encoding sauber ✅.
    Aufgefallen beim Durchsehen der Seiten vor dem Schreiben — die Regel ist
    jetzt hergeleitet statt abgeschrieben.
 
-4. 🟢 **Gering — ein Motiv doppelt belegt.** *(offen, gehört zu 1.28)*
+4. 🟢 **Gering — ein Motiv doppelt belegt.** *(offen, gehört zu R2)*
    `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das
    Kachelmotiv der Leasingrückgabe und wird ab Phase 3 zusätzlich der
    Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. Löst sich mit
-   der Zulieferung eigener Motive durch André (Backlog 1.28).
+   der Zulieferung eigener Motive durch André (Backlog R2).
 
 5. 🟢 **Gering — kein Screenshot-Skript mehr im Projekt.** *(offen)*
    Die visuellen Nachweise entstehen jedes Mal über ein Wegwerf-Skript
@@ -414,7 +414,7 @@ Encoding sauber ✅.
 | # | Fund | Stand |
 |---|---|---|
 | 1 | **`npm run shots` und `npm run kontrast` ins Projekt** — Spezifikation unten. | eingeplant, *nicht jetzt* — nach Abschluss von Paket C *(Vorgabe 2026-09-03)* |
-| 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und ist seit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **1.28** (eigene Motive, Zulieferung André) |
+| 2 | **Ein Motiv doppelt belegt.** `smart-repair-leipzig-carcare.webp` ist seit der Rochade aus 1.13 das Kachelmotiv der Leasingrückgabe und ist seit Phase 3 zusätzlich der Seitenhintergrund von Smart Repair. Kein Fehler, aber sichtbar. | löst sich mit Backlog **R2** (eigene Motive, Zulieferung André) |
 | 3 | **Fünf verwaiste Komponenten.** `About`, `AccidentFocus`, `Hero`, `Jobs` und `TargetGroups` werden nirgends importiert und erscheinen auf keiner Seite. Aufgefallen bei der Token-Reparatur: 6 von 19 Grau-Änderungen lagen in totem Code. **Nicht einfach löschen** — `About.tsx` trägt laut Kommentar in `pages/UeberUnsPage.tsx` noch echte Kundentexte; `Hero.tsx` steht zusätzlich unter der Projektvorgabe „nicht anfassen", die dann zu klären wäre. Vorgehen: Verwaisung über den Import-Graph belegen (nicht per Pfad-Grep, siehe Hinweis in der Token-Doku), je Komponente entscheiden — löschen, oder Text vorher sichern. | offen, eigener Durchgang |
 
 ### 7.0 🔴 Kontrast außerhalb der Backdrop-Seiten — geprüft, zwei Ergebnisse

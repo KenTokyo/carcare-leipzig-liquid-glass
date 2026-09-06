@@ -20,7 +20,7 @@ const scope = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998 – der Felgenlack entsteht im eigenen Haus.' },
   { title: 'Full-Service auf über 3.000 m²', description: 'Felgen, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackierung der Felgen für ein Ergebnis optisch wie neu.' },
 ];
@@ -31,7 +31,7 @@ const FelgenreparaturPage: React.FC = () => (
     meta={{
       title: 'Felgenreparatur Leipzig | TÜV-zertifiziert | CarCare Center',
       description:
-        'Felgenreparatur in Leipzig: TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb – bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben.',
+        'Felgenreparatur in Leipzig: TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb – bis zu 90 % der Bordstein- und Korrosionsschäden günstig behoben.',
     }}
     hero={{
       eyebrow: 'Felgenreparatur Leipzig',
@@ -43,7 +43,7 @@ const FelgenreparaturPage: React.FC = () => (
       keywords: ['Felgenreparatur Leipzig', 'Alufelgen reparieren Leipzig', 'Bordsteinschaden Felge Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Felgenreparatur?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist

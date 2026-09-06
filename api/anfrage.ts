@@ -27,13 +27,14 @@ import {
  * EINZURICHTEN IN VERCEL (Project Settings -> Environment Variables):
  *   RESEND_API_KEY       Schluessel des Mail-Dienstes
  *   ANFRAGE_EMPFAENGER   Zieladresse, z. B. info@carcare-center.de
+ *   ANFRAGE_EMPFAENGER_BUSINESS  optional: eigene Adresse fuer Geschaeftskunden (2.24)
  *   ANFRAGE_ABSENDER     verifizierte Absenderadresse, z. B. website@carcare-center.de
  *
  * KEINE ANHAENGE IN DIESER FASSUNG. Handyfotos liegen oft bei 3–8 MB je Bild, und das
  * Schadenformular erlaubt mehrere; die Anfragekoerper waeren regelmaessig zu gross und
  * der Versand waere unzuverlaessig — schlimmer als gar keiner, weil er beim Absender wie
  * ein Erfolg aussieht. Das Formular sagt deshalb ausdruecklich, dass Bilder und
- * Unterlagen per E-Mail nachgereicht werden. Backlog 3.37.
+ * Unterlagen per E-Mail nachgereicht werden. Backlog R9.
  *
  * WAS HIER NICHT PASSIERT: Es wird nichts gespeichert, nichts protokolliert und nichts
  * an Dritte ausser den Mail-Dienst gegeben. Siehe das Faktenblatt fuer den
@@ -99,6 +100,20 @@ const einrichtung = () => {
   const absender = process.env.ANFRAGE_ABSENDER;
   return { schluessel, empfaenger, absender, bereit: Boolean(schluessel && empfaenger && absender) };
 };
+
+/**
+ * Zieladresse je Anfrageart (Backlog 2.24).
+ *
+ * Geschaeftskundenanfragen sollen an Andres persoenliche Adresse gehen, nicht an das
+ * allgemeine Postfach — sie sind selten, aber jede einzelne ist ein Vertriebskontakt,
+ * der im Info-Postfach untergehen kann.
+ *
+ * OPTIONAL, MIT RUECKFALL: Fehlt `ANFRAGE_EMPFAENGER_BUSINESS`, geht alles wie bisher
+ * an `ANFRAGE_EMPFAENGER`. Der Versand ist damit NICHT von der zweiten Variable
+ * abhaengig — ein fehlender Eintrag darf nicht dazu fuehren, dass gar nichts ankommt.
+ */
+const empfaengerFuer = (art: RequestFormKind, stand: ReturnType<typeof einrichtung>) =>
+  (art === 'business' && process.env.ANFRAGE_EMPFAENGER_BUSINESS) || stand.empfaenger;
 
 /** Zeilenweise Klartextfassung der Anfrage, in der Reihenfolge der Beschriftungen. */
 const alsText = (art: RequestFormKind, daten: Record<string, string>, vorgang: string) => {
@@ -196,7 +211,7 @@ export default async function handler(request: Request): Promise<Response> {
     },
     body: JSON.stringify({
       from: stand.absender,
-      to: [stand.empfaenger],
+      to: [empfaengerFuer(art, stand)],
       // Antworten geht direkt an den Absender der Anfrage, nicht an die Website-Adresse.
       reply_to: daten.email,
       subject: `[${vorgang}] ${BETREFF[art]} — ${daten.name ?? daten.company ?? 'ohne Namen'}`,

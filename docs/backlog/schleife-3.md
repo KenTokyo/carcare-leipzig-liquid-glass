@@ -27,7 +27,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.1 | Scroll-/Sticky-Effekt (5 Kacheln): Verhalten ist gewollt, aber Ablauf flüssiger machen – auch auf Tablet und Handy testen | Oalab | offen | *Deckt sich mit dem offenen Punkt „visueller Nachweis des gepinnten Zustands wurde nie erbracht". `components/ScrollPinnedProcess.tsx`.* |
+| 3.1 | Scroll-/Sticky-Effekt (5 Kacheln): Verhalten ist gewollt, aber Ablauf flüssiger machen – auch auf Tablet und Handy testen | Oalab | ✅ **erledigt** | *Ursache gefunden und behoben (2026-09-06): Track und Bühne rechneten in `vh`. Auf dem Telefon ändert die ein-/ausfahrende Browserleiste genau diesen Wert — die Trackhöhe sprang mitten im Scrollen. Jetzt `svh`, dieselbe Lehre wie bei `BackdropLayout`. Zusätzlich federt die Karte auf Touchgeräten straffer (`pointer: coarse`), weil der weiche Nachlauf beim Fingerscrollen als Verzögerung auffiel.* |
 | 3.2 | Grundsatz: jeder technische Begriff wird perspektivisch mit Wissensbeitrag unterfüttert; nicht unterfütterbare Inhalte auf Nutzen prüfen | Oalab | Prinzip | *Steht bereits als Vorgabe in `CLAUDE.md`, Abschnitt „Inhaltliche SEO-Vorgaben des Kunden".* |
 | 3.3 | Wissensdatenbank wird nach Deploy sukzessive gefüllt, kein Livegang-Blocker | Oalab | vereinbart | *Entscheidung, keine Aufgabe. Entlastet den Livegang.* |
 
@@ -66,7 +66,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 |---|---|---|---|---|
 | 3.10 | Smart-Repair-Foto ersetzen – zeigt Kratzerentfernung/Aufbereitung, nicht Smart Repair | Oalab | offen | *Motiv kommt über 3.25.* |
 | 3.11 | Dellenentfernung: sauberes Bild hinterlegen | Oalab | offen | *Motiv kommt über 3.24.* |
-| 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | offen | *Braucht Logo-Datei und Bestätigung der Mitgliedschaft. Gleiche Freigabefrage wie 3.31.* |
+| 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | 🟨 **Hinweis steht, Logo offen** | *Der Hinweissatz steht seit 2026-09-06 über den Leistungen. **Offen bleibt das Logo:** Es braucht eine Datei vom Kunden plus dieselbe Freigabefrage wie die Partnerlogos (3.31). Die Langform des Verbandsnamens ist im Projekt nirgends belegt und wurde deshalb nicht ausgeschrieben.* |
 | 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | offen | *Hängt mit 3.30 zusammen (Vintech-Klärung).* |
 | 3.14 | Caravan-Segment nicht bewerben (nur vereinzelt für Bestandskunden) | – | erledigt | *Entscheidung, keine Aufgabe.* |
 | 3.15 | Leasingrückgabe: Text bleibt; Seite wird von Fuhrpark/Autohaus und Privat angesteuert | – | erledigt | *Bestätigt die Sonderrolle der Seite: sie ist bewusst nicht auf `ServiceLayout` migriert.* |
@@ -94,7 +94,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 3.18 | Nicht nur Benefits zeigen, sondern den Betrieb (Drohnen-/Rundgangvideo zentral) | Oalab | 🟦 **Platz steht** | *Sektion „Ihr künftiger Arbeitsplatz" auf `/karriere`, direkt nach dem Arbeitgeberversprechen. Zeigt bis zur Lieferung einen markierten Platzhalter. Einhängen = `quelle` in `data/videos.ts` setzen. 2026-09-06* |
-| 3.19 | Mitarbeiterstimmen anonymisiert – nur Berufsbezeichnung + kurzer Kommentar, keine Namen | Oalab | offen | **Präzisiert 1.26.** *Wichtige Vorgabe: keine Namen. Bei der Zulieferung mitgeben.* |
+| 3.19 | Mitarbeiterstimmen anonymisiert – nur Berufsbezeichnung + kurzer Kommentar, keine Namen | Oalab | 🟦 **Struktur steht** | **Präzisiert 1.26.** *Sektion „Aus dem Team" steht seit 2026-09-06 auf `/karriere` mit drei Platzhaltern. **Anonym per Bauart:** `components/Stimmen.tsx` kennt kein Namensfeld — die Vorgabe ist damit eine Eigenschaft des Codes, keine Bitte. Fehlen nur noch die echten Aussagen (1.26).* |
 
 ---
 

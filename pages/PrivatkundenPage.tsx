@@ -111,7 +111,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageMeta
       canonical="/privatkunden"
       title="Privatkunden Leipzig | Ihre Vorteile bei CarCare Center"
-      description="Ihre Vorteile als Privatkunde im CarCare Center Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzfahrzeug."
+      description="Ihre Vorteile als Privatkunde in Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzfahrzeug."
     />
     <PageHero
       eyebrow="Privatkunden"

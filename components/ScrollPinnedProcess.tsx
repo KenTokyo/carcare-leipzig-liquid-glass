@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
@@ -179,7 +179,17 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
   const progress = useScrollProgress(trackRef, { distance: 'through' });
 
   // Karten leicht federn → smoothe, ruckelfreie Ein-/Ausblendungen (darf minimal nachlaufen).
-  const cardProgress = useSpring(progress, { stiffness: 140, damping: 30, mass: 0.4 });
+  // Backlog 3.1: Auf Touchgeraeten straffer. Beim Fingerscrollen wird schneller und
+  // ruckartiger bewegt als mit dem Rad; die weichere Feder wirkte dort als Nachlauf
+  // („die Karte kommt zu spaet"). Auf dem Desktop bleibt sie, weil die Daempfung dort
+  // genau das Ruckeln nimmt, wegen dem sie eingebaut wurde.
+  const grob = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches,
+    []
+  );
+  const cardProgress = useSpring(progress, grob
+    ? { stiffness: 260, damping: 34, mass: 0.25 }
+    : { stiffness: 140, damping: 30, mass: 0.4 });
 
   // Aktiver Karten-Index nur fuer die Fortschrittsanzeige (re-rendert nur bei Wechsel).
   const [active, setActive] = useState(0);
@@ -200,11 +210,16 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
       id={id}
       aria-labelledby={headingId}
       className="relative bg-white"
-      style={{ height: `${steps.length * 100}vh` }}
+      // Backlog 3.1: `svh` statt `vh`. Auf dem Telefon rechnet `vh` die ein- und
+      // ausfahrende Browserleiste mit — die Trackhoehe aendert sich also MITTEN im
+      // Scrollen, und der Fortschritt springt genau dann, wenn die Leiste umschaltet.
+      // Dieselbe Lehre wie bei `BackdropLayout` (dort seit 2026-08 `100svh`), hier war
+      // sie noch nicht nachgezogen. `svh` = kleinste Viewporthoehe, aendert sich nicht.
+      style={{ height: `${steps.length * 100}svh` }}
     >
       {/* Sticky-Pin: die 100vh-Buehne haftet am Viewport-Top, bis der Track durch ist.
           Compositor-getrieben → der linke Kopf steht absolut still, kein Bounce beim Scrollen. */}
-      <div className="sticky top-0 h-screen px-6">
+      <div className="sticky top-0 h-[100svh] px-6">
         {/* Full-Bleed-Hintergrund: Foto der AKTIVEN Karte ueber die gesamte (gepinnte) Sektion —
             1:1 dieselbe Veil-/Transparenz-Anordnung + Crossfade wie ServiceGrid. Rein visueller
             Layer HINTER dem Content. `-z-10` bleibt im Stacking-Context der Sticky-`div` (sticky

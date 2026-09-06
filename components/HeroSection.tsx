@@ -131,16 +131,37 @@ const HeroSection: React.FC = () => {
           className="flex flex-1 flex-col justify-center py-6 md:items-center md:justify-start md:py-0 md:text-center"
         >
           {/* Bewusst OHNE Badges/Chips (2026-07-22, User-Vorgabe „komplett minimal"):
-              Der Hero traegt nur H1, Subline, die zwei CTAs und die Vertrauensleiste unten. */}
+              Der Hero traegt nur H1, Subline, die zwei CTAs und die Vertrauensleiste unten.
+
+              BACKLOG 2.4 — gekuerzt und neu gewichtet (2026-09-06):
+              H1 von 75 auf 53 Zeichen, Subline von 165 auf 128. Der Hero nimmt damit
+              spuerbar weniger Hoehe ein, was die Vorgabe war.
+
+              WARUM DIESE REIHENFOLGE: Die H1 fuehrt jetzt mit „Unfallinstandsetzung,
+              Karosserie und Lack" statt mit der Aufbereitung. Das folgt der Richtung
+              aus 2.7 (Fahrzeugpflege geringer gewichten, Karosserie- und
+              Lackierarbeiten aufnehmen) und bedient zugleich die suchstaerksten
+              Begriffe des Gewerks — „Unfallinstandsetzung Leipzig",
+              „Autolackierung Leipzig", „Karosserie Leipzig". Der Ort steht in der H1,
+              nicht erst in der Subline (SEO-GEO §3.2, lokale Landingpage-Logik).
+
+              WARUM DIE FRAGE WEG IST: „…? Wir kuemmern uns." kostete eine ganze Zeile
+              fuer eine Aussage ohne Fakt. Die Subline traegt jetzt stattdessen die
+              belegbaren Zahlen (1998, 3.000 m²) und die eigentliche
+              Kaufentscheidung — „alles aus einer Hand". Antwort-zuerst statt Aufhaenger.
+
+              ⚠️ 2.7/2.8 (globaler Slogan) sind damit NICHT erledigt. Der endgueltige
+              Wortlaut haengt an der offenen Kundenfrage 3.36. Hier steht die
+              Hero-Fassung, nicht der Slogan. */}
           <h1
             id="home-heading"
             className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Unfallschaden, Reparatur oder Autoaufbereitung in Leipzig? Wir kümmern uns.
+            Unfallinstandsetzung, Karosserie und Lack in Leipzig.
           </h1>
 
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:text-xl">
-            Professionelle Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair und Schadenabwicklung für Privatkunden, Versicherungen, Autohäuser und Fuhrparks.
+            Meisterbetrieb seit 1998. Auf über 3.000 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung — alles aus einer Hand.
           </p>
 
           {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.

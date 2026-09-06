@@ -37,7 +37,7 @@ const staticRoutes = [
   { path: '/impressum', changefreq: 'yearly', priority: '0.3' },
   // `sitemap: false` — die Seite wird ausgeliefert und vorgerendert, gehoert aber
   // nicht in den Suchindex: sie ist bisher nur ein Geruest ohne Erklaerungstext
-  // (Backlog 3.34). Die Ausnahme steht ausdruecklich AN DER ROUTE, nicht als
+  // (Backlog R6). Die Ausnahme steht ausdruecklich AN DER ROUTE, nicht als
   // Sonderfall in einem der fuenf Skripte, die diese Liste lesen.
   { path: '/datenschutz', changefreq: 'yearly', priority: '0.3', sitemap: false },
 ];

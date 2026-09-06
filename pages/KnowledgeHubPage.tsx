@@ -9,7 +9,7 @@ const KnowledgeHubPage: React.FC = () => (
   <>
     <PageMeta
       canonical="/autoaufbereitung-wissen"
-      title="Autoaufbereitung Wissen | Ratgeber zu Fahrzeugpflege & Werterhalt"
+      title="Autoaufbereitung: Wissen & Ratgeber | CarCare Center"
       description="Autoaufbereitung Wissen vom CarCare Center: verständliche Ratgeber zu Fahrzeugpflege, Innenaufbereitung, Lackaufbereitung, Leasingrückgabe und Smart Repair."
     />
     <PageHero

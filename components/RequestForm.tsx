@@ -124,7 +124,7 @@ const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
   if (kind === 'termin' && vorauswahl && terminLeistungen.some((l) => l.id === vorauswahl)) {
     (werte as FormFieldsByKind['termin']).service = vorauswahl;
   }
-  // Bei der Schadenmeldung belegt die Vorauswahl die Schadenart (3.36): Wer von
+  // Bei der Schadenmeldung belegt die Vorauswahl die Schadenart (R8): Wer von
   // `/felgenreparatur-leipzig` kommt, findet „Felgenschaden" gewaehlt. Den
   // KOSTENTRAEGER setzt die Herkunftsseite bewusst NICHT — ein Bordsteinschaden
   // kann Kasko sein, und eine falsche Vorauswahl sieht aus wie eine Entscheidung
@@ -294,7 +294,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
           </p>
 
           {/*
-            VORGANGSNUMMER UND DER WEG FUER DIE ANHAENGE (Backlog 3.37).
+            VORGANGSNUMMER UND DER WEG FUER DIE ANHAENGE (Backlog R9).
             Solange Dateien nicht mitgesendet werden koennen, waere ein Uploadfeld eine
             Luege: Wer drei Fotos seines Schadens anhaengt und absendet, glaubt, den
             Schaden mit Beleg gemeldet zu haben. Das Feld ist deshalb entfernt, und an

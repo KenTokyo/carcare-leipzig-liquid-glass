@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 
 /**
- * Zeitstrahl fuer Unternehmensstationen (Backlog 1.27).
+ * Zeitstrahl fuer Unternehmensstationen (Backlog R1).
  *
  * ECHTE ACHSE, NICHT NUR EINE LINIE ZWISCHEN KACHELN. Eine fruehere Fassung war ein
  * Kartenraster mit verbindender Linie — technisch eine Zeitleiste, gelesen aber als

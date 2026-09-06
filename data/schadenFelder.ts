@@ -1,5 +1,5 @@
 /**
- * Felder der Schadenmeldung (Backlog 3.36).
+ * Felder der Schadenmeldung (Backlog R8).
  *
  * ⚠️ STREICHEN IST EIN EINTRAG HIER, KEIN UMBAU. `SchadenFelder.tsx` rendert
  * ausschliesslich aus dieser Liste; im Markup steht kein einziges Feld fest verdrahtet.
@@ -84,7 +84,7 @@ export const schadenFelder: SchadenFeld[] = [
       { id: 'hagel', label: 'Hagelschaden' },
       { id: 'lack', label: 'Lackschaden' },
       { id: 'glas', label: 'Glasschaden' },
-      // Neu mit 3.36: Bisher fielen Dellen und Felgen unter „Sonstiges", obwohl beide
+      // Neu mit R8: Bisher fielen Dellen und Felgen unter „Sonstiges", obwohl beide
       // eigene Leistungsseiten haben und von dort verlinkt werden.
       { id: 'delle', label: 'Delle / Beule' },
       { id: 'felge', label: 'Felgenschaden' },

@@ -20,7 +20,7 @@ const HagelschadenreparaturPage: React.FC = () => (
     meta={{
       title: 'Hagelschadenreparatur Leipzig | Audatex | CarCare Center',
       description:
-        'Hagelschadenreparatur in Leipzig: Wir versetzen Ihr Fahrzeug in den Originalzustand – Kalkulation mit Audatex, komplette Abwicklung mit Versicherung und Gutachter, keine Anzahlung.',
+        'Hagelschadenreparatur in Leipzig: zurück in den Originalzustand – Kalkulation mit Audatex, komplette Abwicklung mit Versicherung, ohne Anzahlung. BVAT-Mitglied.',
     }}
     hero={{
       eyebrow: 'Hagelschadenreparatur Leipzig',
@@ -32,7 +32,7 @@ const HagelschadenreparaturPage: React.FC = () => (
       keywords: ['Hagelschadenreparatur Leipzig', 'Hagelschaden Auto Leipzig', 'Hageldellen entfernen Leipzig'],
     }}
     /*
-      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog 1.29)
+      TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
       Zwei bis drei Absätze auf die Frage „Was ist Hagelschadenreparatur?“ — was das
       Verfahren ist, wann es infrage kommt, wo seine Grenzen liegen. Das ist
@@ -48,6 +48,14 @@ const HagelschadenreparaturPage: React.FC = () => (
     leistung={{
       eyebrow: 'Unsere Leistungen für Sie',
       title: 'Von der Kalkulation bis zur Versicherungsabwicklung.',
+      // Backlog 3.12: Hinweis auf die BVAT-Mitgliedschaft. Bewusst NUR als Satz und
+      // ohne Ausschreibung des Verbandsnamens — die Langform ist im Projekt nirgends
+      // belegt, und ein falsch ausgeschriebener Verbandsname waere schlechter als die
+      // Abkuerzung. Das LOGO fehlt noch: Es braucht eine Datei vom Kunden plus die
+      // uebliche Freigabefrage (vgl. 3.31, Partnerlogos). Bis dahin steht der Hinweis
+      // allein — er traegt die Aussage auch ohne Bild.
+      description:
+        'Wir sind Mitglied im BVAT und arbeiten bei Hagelschäden nach dessen fachlichen Maßstäben.',
       items: leistungen,
     }}
     usp={{ title: 'Meisterbetrieb mit kompletter Versicherungsabwicklung.', items: usp }}

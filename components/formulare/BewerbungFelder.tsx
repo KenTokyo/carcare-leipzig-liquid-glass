@@ -77,7 +77,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) =>
       </div>
     </div>
     {/*
-      DAS UPLOADFELD IST ENTFERNT (2026-09-05, Backlog 3.37).
+      DAS UPLOADFELD IST ENTFERNT (2026-09-05, Backlog R9).
       Anhaenge werden nicht mitgesendet — der Anfragekoerper der Versandfunktion ist auf
       wenige Megabyte begrenzt. Ein bedienbares Feld, das seinen Inhalt verwirft, ist
       dieselbe Klasse Fehler wie eine Erfolgsmeldung ohne Versand: Wer seinen Lebenslauf

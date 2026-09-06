@@ -4,7 +4,7 @@ import type React from 'react';
  * Gemeinsame Grundlage der vier Formularvarianten.
  *
  * Der Schnitt entstand am 2026-09-05: `RequestForm.tsx` stand bei 654 Zeilen bei einer
- * Projektgrenze von 700, und der anstehende Umbau des Schadenformulars (Backlog 3.36)
+ * Projektgrenze von 700, und der anstehende Umbau des Schadenformulars (Backlog R8)
  * haette sie gesprengt. Die Variantenbloecke liegen deshalb einzeln in
  * `components/formulare/`; `RequestForm` behaelt Rahmen, Zustand und Versand.
  *

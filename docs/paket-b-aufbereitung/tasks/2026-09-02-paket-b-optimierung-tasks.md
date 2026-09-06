@@ -53,7 +53,7 @@ Zwei Beispiele, die das heute schon zeigen:
 ---
 
 ### ⬜ 2. 🟡 Mittel — Bildmotive doppelt belegt
-Siehe Backlog **1.28**: Leasingrückgabe und Außenaufbereitung teilen sich ihr
+Siehe Backlog **R2**: Leasingrückgabe und Außenaufbereitung teilen sich ihr
 Motiv mit anderen Kacheln (`smart-repair-…`, `fahrzeugaufbereitung-…`). Dateiname
 und Einsatzort fallen dadurch auseinander. Umbenennen scheidet aus, weil die
 Namen an ihren anderen Einsatzorten korrekt sind — es braucht eigene Motive.

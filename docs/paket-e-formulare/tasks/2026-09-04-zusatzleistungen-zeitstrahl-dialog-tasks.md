@@ -10,7 +10,7 @@
 1. **Zusatzleistungen im Aufbereitungsformular** (1.18). Zunächst zwei Dummy-Einträge,
    „Zusatzleistung 1" und „Zusatzleistung 2", bewusst als Dummy erkennbar. Die echte
    Liste kommt später von André. Struktur so, dass Ergänzen ein Dateneintrag ist.
-2. **Zeitleiste auf `/ueber-uns`** (1.27). Echter Zeitstrahl, nicht das heutige
+2. **Zeitleiste auf `/ueber-uns`** (R1). Echter Zeitstrahl, nicht das heutige
    Kartenraster. Dummy-Inhalte „Meilenstein 1/2/3". Darstellung im Stil der
    Ablauf-Sektionen. Gründungsjahr 1998 bleibt der erste Eintrag.
 3. **Terminanfrage-CTA öffnet ein echtes Pop-up**, keine Weiterleitung zum bestehenden
@@ -237,7 +237,7 @@ Bestandstexte nicht verloren ✅, Kontrast gemessen statt geschaetzt ✅.
    ueber den Grund gerechnete Mischung. Genau der Fehler, vor dem
    `docs/tokens/2026-09-03-kontrast-tokens.md` warnt.
    **Lehre:** Ein Messwert, der zu gut aussieht, ist ein Befund ueber das Messgeraet.
-3. 🟡 **Mittel (korrigiert):** Backlog 1.27 behauptete „Aktuell nur zwei Stationen".
+3. 🟡 **Mittel (korrigiert):** Backlog R1 behauptete „Aktuell nur zwei Stationen".
    Tatsaechlich waren es vier. Der Eintrag war veraltet.
 4. 🟡 **Mittel (bewusst):** Die drei Platzhalter tragen KEIN Jahr. Ein Zeitstrahl mit
    erfundenen Jahreszahlen waere schlimmer als eine sichtbare Luecke — eine Jahreszahl
@@ -267,7 +267,7 @@ Bildschirmgroessen geprueft ✅.
    Bedingung im Code, und der Kommentar benennt den Fall ausdruecklich.
 3. 🟠 **Hoch (Kopplung):** Der Dialog zeigt dasselbe `RequestForm` wie die Kontaktseite —
    gewollt, er soll es perspektivisch ersetzen. Heisst aber: Solange 1.17 offen ist,
-   bestaetigt der Dialog einen Versand, der nicht stattfindet. Gleiche Kopplung wie 3.34.
+   bestaetigt der Dialog einen Versand, der nicht stattfindet. Gleiche Kopplung wie R6.
 4. 🟡 **Mittel (Entscheidung):** `/kontakt` ist vom Abfangen ausgenommen, `/` nicht —
    obwohl auch dort das Formular auf der Seite steht. Grund: Auf `/kontakt` schaltet
    `#contact-termin` den Reiter um, das Abfangen wuerde diese Logik brechen. Auf der
@@ -344,7 +344,7 @@ alle drei Anfragearten ✅, toter Code entfernt ✅.
 
 **Auffälligkeiten:**
 
-1. 🟠 **Hoch (Backlog 3.36):** Sieben Reparaturseiten führen ihren Handlungsaufruf auf das
+1. 🟠 **Hoch (Backlog R8):** Sieben Reparaturseiten führen ihren Handlungsaufruf auf das
    AUFBEREITUNGS-Formular. Aufgefallen genau hier: Für sie gibt es keine sinnvolle
    Vorauswahl, weil die gesuchte Leistung dort gar nicht vorkommt. Inhaltliche
    Entscheidung über rund ein Dutzend Aufrufe.
@@ -376,10 +376,10 @@ Absenden bis zur Bestätigung samt vollständig angekommener Daten.
 1. 🔴 **Kritisch (behoben) — `.env` stand nicht in `.gitignore`.** Nur `*.local` war
    eingetragen, das fängt `.env.local`, aber nicht `.env`. Wer die Zugangsdaten lokal
    angelegt hätte, hätte sie beim nächsten `git add .` mitcommittet.
-2. 🟠 **Hoch (Backlog 3.38, Kopplung):** Mit dem Freischalten wird Resend zum ZWEITEN
+2. 🟠 **Hoch (Backlog R10, Kopplung):** Mit dem Freischalten wird Resend zum ZWEITEN
    Auftragsverarbeiter neben Vercel, ebenfalls US-Unternehmen. AV-Vertrag und der
-   Abschnitt in der Datenschutzerklärung (3.34) müssen **vor** dem Freischalten stehen.
-3. 🟠 **Hoch (Backlog 3.37):** Anhänge werden weiterhin nicht übertragen. Das Formular
+   Abschnitt in der Datenschutzerklärung (R6) müssen **vor** dem Freischalten stehen.
+3. 🟠 **Hoch (Backlog R9):** Anhänge werden weiterhin nicht übertragen. Das Formular
    sagt das, aber die Upload-Felder stehen sichtbar da — ein Zustand, der erklärt werden
    muss und nicht dauerhaft bleiben sollte.
 4. 🟡 **Mittel — wieder eine Messung am falschen Ding.** Meine Prüfung des Honigtopfs

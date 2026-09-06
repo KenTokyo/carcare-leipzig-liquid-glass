@@ -15,7 +15,7 @@
  *
  * REPARATURSEITEN STEHEN NICHT IN DIESER LISTE, sondern in `TERMIN_UEBERSCHREIBUNG`
  * weiter unten: Ihr Handlungsaufruf zeigt zwar auf `#contact-termin`, gemeint ist aber
- * eine Schadenmeldung. Behoben mit 3.36 am 2026-09-05.
+ * eine Schadenmeldung. Behoben mit R8 am 2026-09-05.
  */
 
 export interface Leistungsoption {
@@ -67,7 +67,7 @@ export const leistungFuerRoute = (pfad: string): string | undefined =>
   terminLeistungen.find((leistung) => leistung.routen?.includes(pfad))?.id;
 
 /**
- * Seiten, auf denen „Termin anfragen" etwas ANDERES meint (Backlog 3.36).
+ * Seiten, auf denen „Termin anfragen" etwas ANDERES meint (Backlog R8).
  *
  * Der Befund: Wer auf einer Reparaturseite „Dellenentfernung anfragen" klickte, landete
  * im Aufbereitungsformular und bekam Felder fuer Pflegepakete und Wunschtermin statt

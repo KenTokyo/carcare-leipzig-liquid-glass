@@ -24,7 +24,7 @@ Zeichen, Stand 2020, mit Matomo-Abschnitt).
 
 1. Matomo-Satz **sofort** raus, eigener Commit, unabhängig vom Rest.
 2. Impressum **bauen** mit den belegten Daten der Altseite. Was nicht belegt ist,
-   bleibt als TODO-Kommentar **leer, nicht geraten** — gleiche Regel wie 1.18/1.29.
+   bleibt als TODO-Kommentar **leer, nicht geraten** — gleiche Regel wie 1.18/R3.
 3. E-Mail **unmittelbar sichtbar**, nicht per JavaScript wie auf der Altseite.
 4. Datenschutz: Route und Gerüst, **den Text von 2020 NICHT übernehmen**. Er
    beschreibt einen anderen Hoster, nennt Matomo und kennt unsere vier Formulare
@@ -63,9 +63,9 @@ gefüllt mit Vermutungen.
   USt-IdNr. DE 257 851 313, Fax, Haftungshinweis.
 * [x] E-Mail als sichtbarer `mailto:`-Link, **nicht** JavaScript-verborgen.
 * [x] Vier Leerstellen bleiben **leer, ohne sichtbaren Platzhalter** — nur TODO-Kommentar
-  im Code, Regel wie 1.18/1.29: Telefonnummer, Handwerkskammer,
+  im Code, Regel wie 1.18/R3: Telefonnummer, Handwerkskammer,
   Berufsbezeichnung/Verleihungsstaat, Verbraucherstreitbeilegung.
-  Dass die Lücken damit unsichtbar sind, trägt Backlog 3.33 — deshalb steht dort
+  Dass die Lücken damit unsichtbar sind, trägt Backlog R5 — deshalb steht dort
   ausdrücklich „vor dem Livegang".
 * [x] Route in `App.tsx`, `scripts/routes.mjs` (Sitemap-Priorität 0.3), damit
   automatisch in Prerender, `vercel.json` und beiden Wächtern.
@@ -117,7 +117,7 @@ Code zu lesen. Alle Angaben gemessen, mit Fundstelle.
 ### ✅ Phase 5 — Backlog, Verifikation, Merge
 **Ziel:** Die Zulieferung ist notiert, der Stand ist gemessen.
 
-* [x] Backlog 3.33 (Impressumsangaben) und 3.34 (Datenschutzerklärung) angelegt,
+* [x] Backlog R5 (Impressumsangaben) und R6 (Datenschutzerklärung) angelegt,
   beide mit dem Vermerk „muss vor dem Livegang stehen".
 * [x] Build mit beiden Wächtern, Prerender 27/27.
 * [x] Smoke gegen Produktion nach dem Merge.
@@ -148,7 +148,7 @@ Gegenprobe am Build ✅, kein Mojibake ✅.
    des Besuchers ruft es nicht ab, es sind reine Metadaten. Aber: Das ist das Bild,
    das Google in Rich Results und jede Plattform beim Teilen anzeigt. Ein
    Leipziger Meisterbetrieb wirbt damit mit einem Stockfoto.
-   → Backlog 3.35.
+   → Backlog R7.
 3. 🟡 **Mittel (dokumentiert):** `components/Hero.tsx` enthält ein `<img>` mit
    ebendieser Unsplash-URL, wird aber nirgends importiert — `HomePage` nutzt
    `HeroSection`. Bestätigt den bekannten Verwaisungsbefund. Die Datei bleibt auf
@@ -162,11 +162,11 @@ E-Mail unmittelbar erreichbar ✅, Route über die zentrale Quelle ✅, unter 70
 
 1. 🟠 **Hoch (Zulieferung):** Die Altseite nennt **zwei** Telefonnummern
    (`0341 - 222 96 20` und `0341 - 261 77 90`), das Projekt führt nur die zweite.
-   Nicht entscheidbar ohne André. → Backlog 3.33.
+   Nicht entscheidbar ohne André. → Backlog R5.
 2. 🟠 **Hoch (Zulieferung):** Handwerkskammer, Berufsbezeichnung, Verleihungsstaat
    und die berufsrechtliche Regelung fehlen **auch auf der Altseite**. Übernehmen
    allein löst das nicht. Für einen Betrieb, der auf jeder Seite „Meisterbetrieb"
-   schreibt, ist das die auffälligste Lücke. → Backlog 3.33.
+   schreibt, ist das die auffälligste Lücke. → Backlog R5.
 3. 🟡 **Mittel (zu prüfen):** §18 Abs. 2 MStV — bei journalistisch-redaktionellen
    Angeboten ist ein Verantwortlicher zu benennen. Ob der Wissensbereich darunter
    fällt, ist eine Rechtsfrage, keine technische. Als Frage im Faktenblatt notiert,
@@ -183,7 +183,7 @@ erkennbar ✅, `noindex` und aus der Sitemap ✅, Formularverweis nachgezogen �
    Datenschutzerklärung zu") steht in allen vier Formularvarianten. Er zeigt jetzt
    auf eine Route, aber die Erklärung dahinter ist leer. Solange der Versand
    inaktiv ist (1.17), entsteht kein Schaden — beides muss aber **gemeinsam** scharf
-   gestellt werden. → im Backlog bei 3.34 vermerkt.
+   gestellt werden. → im Backlog bei R6 vermerkt.
 2. 🟡 **Mittel (gelöst):** `getRoutes()` speist fünf Verbraucher gleichzeitig
    (Sitemap, `vercel.json`, Prerender, `check-faq-html`, `check-deployment`). Eine
    Route, die vorgerendert, aber nicht indexiert werden soll, war bisher nicht

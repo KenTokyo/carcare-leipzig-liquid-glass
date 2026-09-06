@@ -91,7 +91,7 @@ export const useAnfrageDialog = (): AnfrageDialogWerte => {
  *
  * Die Absicht des Aufrufs geht dabei NICHT verloren: Wer „Schaden melden" geklickt hat,
  * findet diese Karte hervorgehoben vor und bestaetigt sie mit einem Klick. Die
- * Leistungs-Vorauswahl aus 1.19 und die Seitenzuordnung aus 3.36 bleiben unberuehrt —
+ * Leistungs-Vorauswahl aus 1.19 und die Seitenzuordnung aus R8 bleiben unberuehrt —
  * sie wirken erst im Formular dahinter.
  */
 const ANLIEGEN: { kind: RequestFormKind; label: string; beschreibung: string; icon: React.ReactNode }[] = [
@@ -152,7 +152,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
       const ziel = ANFRAGE_ZIELE[link.hash];
       if (!ziel) return;
       e.preventDefault();
-      // Auf Reparaturseiten meint „Termin anfragen" eine Schadenmeldung (3.36).
+      // Auf Reparaturseiten meint „Termin anfragen" eine Schadenmeldung (R8).
       const eintrag = TERMIN_UEBERSCHREIBUNG[window.location.pathname];
       // Greift in zwei Faellen: wenn das Sprungziel `termin` waere und etwas anderes
       // gemeint ist — und wenn es ohnehin passt, dann nur fuer die Vorauswahl.

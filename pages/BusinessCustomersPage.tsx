@@ -99,7 +99,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageMeta
       canonical="/geschaeftskunden"
       title="Geschäftskunden Leipzig | Autohäuser, Flotten & Versicherer"
-      description="CarCare Center Leipzig für Autohäuser, Fuhrparks, Versicherungen und Schadensteuerer: Leasingrückgabe, Fuhrparkservice, Unfallinstandsetzung und Aufbereitung aus einer Hand."
+      description="Für Autohäuser, Fuhrparks, Versicherungen und Schadensteuerer in Leipzig: Leasingrückgabe, Fuhrparkservice, Unfallinstandsetzung und Aufbereitung im Haus."
     />
     <PageHero
       eyebrow="Geschäftskunden"

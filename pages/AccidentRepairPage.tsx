@@ -91,8 +91,8 @@ const AccidentRepairPage: React.FC = () => (
   <BackdropLayout image="/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp">
     <PageMeta
       canonical="/unfallinstandsetzung-leipzig"
-      title="Unfallinstandsetzung Leipzig | Karosserie, Lack & Smart Repair"
-      description="Unfallinstandsetzung in Leipzig: Schadenaufnahme, Kalkulation, Karosserie, Lackierung, Smart Repair, Dellen, Hagel, Felgen und Autoglas — inklusive Versicherungsabwicklung."
+      title="Unfallinstandsetzung Leipzig | Karosserie, Lack & Glas"
+      description="Unfallinstandsetzung in Leipzig: Schadenaufnahme, Kalkulation, Karosserie, Lackierung, Smart Repair, Dellen und Autoglas – inklusive Versicherungsabwicklung."
     />
     <PageHero
       eyebrow="Unfallinstandsetzung Leipzig"

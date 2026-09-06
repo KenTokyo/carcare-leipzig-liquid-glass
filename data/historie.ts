@@ -1,7 +1,7 @@
 import type { TimelineStation } from '../components/Timeline';
 
 /**
- * Stationen des Zeitstrahls auf `/ueber-uns` (Backlog 1.27).
+ * Stationen des Zeitstrahls auf `/ueber-uns` (Backlog R1).
  *
  * EIGENE DATENQUELLE, NICHT IN DER SEITE. Zwei Gruende:
  *  1. Dieselbe Regel wie bei `services`, `faqs`, `jobs` — Inhalte, die der Kunde
@@ -11,7 +11,7 @@ import type { TimelineStation } from '../components/Timeline';
  *     nicht: Die Seite zieht React und ein halbes Dutzend Komponenten mit.
  *
  * ANFANG UND ENDE STEHEN, DIE MITTE FEHLT. Gruendung 1998 und der heutige Stand sind
- * belegt; was dazwischen liegt, ist Zulieferung von Andre (Backlog 1.27). Die drei
+ * belegt; was dazwischen liegt, ist Zulieferung von Andre (Backlog R1). Die drei
  * Platzhalter tragen BEWUSST KEIN JAHR — ein Zeitstrahl mit erfundenen Jahreszahlen
  * waere schlimmer als eine sichtbare Luecke, weil eine Jahreszahl wie eine gepruefte
  * Angabe aussieht.

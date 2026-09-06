@@ -35,7 +35,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Grundlagen',
     readTime: '6 Min.',
     title: 'Was ist Autoaufbereitung?',
-    metaTitle: 'Was ist Autoaufbereitung? Definition, Ablauf und Tipps | CarCare Center Wissen',
+    metaTitle: 'Was ist Autoaufbereitung? Definition & Ablauf | CarCare',
     metaDescription:
       'Was Autoaufbereitung bedeutet, wann sie sich lohnt, wie der Ablauf aussieht und welche Fehler Sie vermeiden sollten. Fachlicher Ratgeber vom CarCare Center.',
     cardTitle: 'Was ist Autoaufbereitung?',
@@ -107,9 +107,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Innenraum',
     readTime: '7 Min.',
     title: 'Was gehört zu einer professionellen Innenaufbereitung?',
-    metaTitle: 'Innenaufbereitung: Ablauf, Kostenfaktoren und Tipps | CarCare Center Wissen',
+    metaTitle: 'Innenaufbereitung: Ablauf und Kosten | CarCare Wissen',
     metaDescription:
-      'Innenaufbereitung verständlich erklärt: Polster, Leder, Cockpit, Gerüche, Ablauf, Kostenfaktoren und typische Fehler.',
+      'Innenaufbereitung verständlich erklärt: Polster, Leder, Cockpit und Gerüche. Ablauf, Kostenfaktoren, Profi-Tipps und die häufigsten Fehler im Überblick.',
     cardTitle: 'Innenaufbereitung',
     cardDescription: 'Polster, Leder, Cockpit, Geruchsentfernung und saubere Innenraumdetails fachlich erklärt.',
     introAnswer:
@@ -179,9 +179,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Lackpflege',
     readTime: '8 Min.',
     title: 'Wie funktioniert eine professionelle Lackaufbereitung?',
-    metaTitle: 'Lackaufbereitung: Politur, Versiegelung und Ablauf | CarCare Center Wissen',
+    metaTitle: 'Lackaufbereitung: Politur und Versiegelung | CarCare',
     metaDescription:
-      'Lackaufbereitung fachlich erklärt: Lackreinigung, Politur, Versiegelung, Kostenfaktoren, Profi-Tipps und häufige Fehler.',
+      'Lackaufbereitung fachlich erklärt: Lackreinigung, Hochglanzpolitur und Versiegelung. Wann sie sich lohnt, was sie kostet und welche Fehler teuer werden.',
     cardTitle: 'Lackaufbereitung',
     cardDescription: 'Lackreinigung, Politur, Glanz, Schutz und Grenzen professioneller Lackpflege verständlich erklärt.',
     introAnswer:
@@ -251,9 +251,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Werterhalt',
     readTime: '7 Min.',
     title: 'Wie bereitet man ein Auto auf die Leasingrückgabe vor?',
-    metaTitle: 'Leasingrückgabe vorbereiten: Checkliste und Tipps | CarCare Center Wissen',
+    metaTitle: 'Leasingrückgabe vorbereiten | CarCare Center Wissen',
     metaDescription:
-      'Leasingrückgabe vorbereiten: typische Gebrauchsspuren, Aufbereitung, Smart Repair, Kostenfaktoren und professionelle Tipps.',
+      'Leasingrückgabe vorbereiten: typische Gebrauchsspuren erkennen, Aufbereitung und Smart Repair richtig einsetzen, Kosten einschätzen und Nachzahlungen vermeiden.',
     cardTitle: 'Leasingrückgabe vorbereiten',
     cardDescription: 'Checkpunkte für Innenraum, Lack, Felgen, Dellen und eine realistische Vorbereitung vor der Rückgabe.',
     introAnswer:
@@ -323,9 +323,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Smart Repair',
     readTime: '7 Min.',
     title: 'Kann man Dellen ohne Lackieren entfernen?',
-    metaTitle: 'Dellen ohne Lackieren entfernen: Möglichkeiten und Grenzen | CarCare Center Wissen',
+    metaTitle: 'Dellen ohne Lackieren entfernen | CarCare Center Wissen',
     metaDescription:
-      'Dellen ohne Lackieren entfernen: Wann Smart Repair funktioniert, welche Grenzen es gibt, Ablauf, Kostenfaktoren und Profi-Tipps.',
+      'Dellen ohne Lackieren entfernen: Wann die lackfreie Methode funktioniert, wo ihre Grenzen liegen, wie der Ablauf aussieht und wovon die Kosten abhängen.',
     cardTitle: 'Dellen ohne Lackieren entfernen',
     cardDescription: 'Wann lackschadenfreie Dellenentfernung funktioniert und wann Lack- oder Karosseriearbeiten nötig sind.',
     introAnswer:
@@ -395,9 +395,9 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Smart Repair',
     readTime: '6 Min.',
     title: 'Was ist Spot Repair?',
-    metaTitle: 'Was ist Spot Repair? Ablauf, Grenzen und Kosten | CarCare Center Wissen',
+    metaTitle: 'Was ist Spot Repair? Ablauf und Grenzen | CarCare Center',
     metaDescription:
-      'Spot Repair erklärt: Was punktuelle Lackreparatur leistet, wann sie funktioniert, wo ihre Grenzen liegen und wovon die Kosten abhängen.',
+      'Spot Repair erklärt: Was die punktuelle Lackreparatur leistet, wann sie funktioniert, wo ihre Grenzen liegen und wovon die Kosten im Einzelfall abhängen.',
     cardTitle: 'Was ist Spot Repair?',
     cardDescription: 'Punktuelle Lackreparatur statt Komplettlackierung — wann sie funktioniert und wo ihre Grenzen liegen.',
     introAnswer:
@@ -469,7 +469,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Smart Repair',
     readTime: '6 Min.',
     title: 'Was bedeutet Farbtongenauigkeit beim Lackieren?',
-    metaTitle: 'Farbtongenauigkeit beim Lackieren: So entsteht der passende Ton | CarCare Center Wissen',
+    metaTitle: 'Farbtongenauigkeit beim Lackieren | CarCare Center Wissen',
     metaDescription:
       'Warum der Farbcode allein nicht reicht, wie der passende Lackton ermittelt wird und warum Effektlacke schwieriger sind. Fachlicher Ratgeber.',
     cardTitle: 'Farbtongenauigkeit beim Lackieren',

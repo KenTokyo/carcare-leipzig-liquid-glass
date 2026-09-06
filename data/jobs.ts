@@ -131,14 +131,14 @@ export const jobPositions: JobPosition[] = [
    * beiden decken sich mit den Gewerken aus dem Kundenreview, der dritte ist eine
    * bewusste Ergaenzung.
    *
-   * Alle drei stehen auf `nicht-suchend`, bis Andre bestaetigt (Backlog 3.32). Damit
+   * Alle drei stehen auf `nicht-suchend`, bis Andre bestaetigt (Backlog R4). Damit
    * erscheinen sie mit Schleier und Initiativ-Aufruf — eine Aussage, die in jedem Fall
    * stimmt, waehrend „wir bilden aus" ohne Zusage eine Behauptung waere. Nach der
    * Zusage ist es ein Wort je Eintrag.
    *
    * Die Anforderungen sind bewusst knapp und allgemeingueltig gehalten. Was den Karten
    * fachlich fehlt — Ausbildungsbeginn, Dauer, schulische Voraussetzungen,
-   * Uebernahmechancen — kommt mit der Zulieferung (Backlog 3.32, gebuendelt mit 1.26).
+   * Uebernahmechancen — kommt mit der Zulieferung (Backlog R4, gebuendelt mit 1.26).
    * KEINE PLATZHALTER dafuer: erfundene Eckdaten zu einer Ausbildung liest jemand als
    * Zusage.
    */

@@ -14,7 +14,7 @@ import { PageHero, PageMeta } from '../components/PageBlocks';
  * WAS STATTDESSEN PASSIERT: Der technische Stand ist gemessen und liegt als Faktenblatt
  * fuer den Datenschutzbeauftragten des Kunden bereit
  * (`docs/rechtsseiten/2026-09-04-faktenblatt-datenschutz.md`). Er formuliert die
- * Erklaerung, sie ersetzt dieses Geruest. Backlog 3.34.
+ * Erklaerung, sie ersetzt dieses Geruest. Backlog R6.
  *
  * NOINDEX UND NICHT IN DER SITEMAP: Ein Geruest gehoert nicht in den Suchindex.
  * Ausgeliefert wird die Seite trotzdem statisch (`scripts/routes.mjs`, `sitemap: false`),
@@ -42,8 +42,8 @@ const DatenschutzPage: React.FC = () => (
     <PageMeta
       noindex
       canonical="/datenschutz"
-      title="Datenschutzerklärung | CarCare Center Leipzig"
-      description="Datenschutzerklärung der BS CarCare GmbH Leipzig. Die vollständige Fassung wird derzeit erstellt."
+      title="Datenschutzerklärung der BS CarCare GmbH in Leipzig"
+      description="Datenschutzerklärung der BS CarCare GmbH, An den Tierkliniken 42 in Leipzig. Verantwortliche Stelle und Themen; die vollständige Fassung entsteht gerade."
     />
     <PageHero
       eyebrow="Datenschutz"

@@ -38,7 +38,7 @@ const VehicleDetailingPage: React.FC = () => (
     <PageMeta
       canonical="/fahrzeugaufbereitung-leipzig"
       title="Fahrzeugaufbereitung Leipzig | ab 169 € | CarCare Center"
-      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenreinigung 199 €, Premiumpflege 299 €. Innen, außen, Lack und Leasingrückgabe."
+      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenreinigung 199 €, Premiumpflege 299 €. Innen, außen und Leasingrückgabe."
     />
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
@@ -56,7 +56,7 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
-          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege für 169,00 € bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs ab 348,00 €."
+          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege für 169,00 € bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs ab 348,00 €. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant-Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv-Innenreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege."
         />
         <PricingGrid
           items={carePackages}

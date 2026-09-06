@@ -6,6 +6,7 @@ import JobCards from '../components/JobCards';
 import JobPopup from '../components/JobPopup';
 import RequestForm from '../components/RequestForm';
 import BetriebsVideo from '../components/BetriebsVideo';
+import Stimmen from '../components/Stimmen';
 import { videoPlatz } from '../data/videos';
 
 const benefits = [
@@ -24,10 +25,10 @@ const process = [
 
 const CareerPage: React.FC = () => (
   <>
-    <PageMeta canonical="/karriere" title="Karriere beim CarCare Center Leipzig" description="Karriere beim CarCare Center Leipzig: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
+    <PageMeta canonical="/karriere" title="Jobs & Ausbildung in Leipzig | CarCare Center Karriere" description="Jobs & Ausbildung in Leipzig | CarCare Center Karriere: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
     <PageHero
       eyebrow="Karriere"
-      title="Karriere beim CarCare Center Leipzig"
+      title="Jobs & Ausbildung in Leipzig | CarCare Center Karriere"
       description="Dein Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecke Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
       primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
@@ -57,13 +58,29 @@ const CareerPage: React.FC = () => (
       </div>
     </section>
 
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+    {/* Backlog 3.19: Stimmen aus dem Betrieb, ausdruecklich anonymisiert —
+        Berufsbezeichnung statt Name. Steht nach dem Video: erst der Ort, dann die
+        Menschen, die dort arbeiten. */}
+    <section id="stimmen" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Aus dem Team"
+          title="Was Kolleginnen und Kollegen über die Arbeit sagen."
+          description="Bewusst ohne Namen — die Berufsbezeichnung sagt mehr darüber aus, ob die Stelle zu Ihnen passt."
+        />
+        <div className="mt-12">
+          <Stimmen />
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Bewerbungsprozess" title="So läuft der Kontakt zu uns." />
         <ProcessList steps={process} />
       </div>
     </section>
-    <section id="bewerbung" className="bg-white px-6 py-20 md:py-28">
+    <section id="bewerbung" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Bewerbung"
@@ -75,7 +92,7 @@ const CareerPage: React.FC = () => (
         </div>
       </div>
     </section>
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+    <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="FAQ" title="Häufige Fragen zur Karriere." />
         <PageFAQ route="/karriere" />
