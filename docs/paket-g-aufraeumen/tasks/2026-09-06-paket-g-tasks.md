@@ -108,5 +108,20 @@ Mobile-First ✅, kein Mojibake ✅, Dev-Server nicht gestartet ✅.
    Strings stehen an zwei Stellen (Seiten-Meta und `og:`-Angabe). Kein Fehler, aber der
    Grund, warum die Zahlen nicht aufgehen.
 
-**Kein Optimierungsplan nötig:** 1–6 sind behoben, 7 ist eine Zulieferung, 8 ist eine
-Erklärung.
+9. 🔴 **Kritisch, eigener Plan: Der neue Kontrastmesser hat 23 Stellen unter AA gefunden.**
+   Erster Gesamtlauf: **4.538 Textstellen auf 29 Routen**, davon 23 unter WCAG AA.
+   Sortiert nach gemessenem Hintergrund zeigt sich: **21 davon liegen über dem stehenden
+   Foto** — der weiße Textschutz reicht an einzelnen Scrollpositionen nicht, vor allem
+   mobil. **Das ist derselbe Fehler wie in Paket C**, der dort nur an den vier gemessenen
+   Seiten behoben wurde, nicht an der Ursache. Zwei Treffer hatte ich selbst verursacht
+   (`Stimmen.tsx`, `text-gray-500` bei 10 px) — **behoben und nachgemessen**.
+   Die übrigen 21 brauchen eine gestalterische Abwägung (Foto gegen Lesbarkeit) und
+   damit einen eigenen Durchgang:
+   `docs/kontrast-backdrop/tasks/2026-09-06-kontrast-befunde-tasks.md`
+
+   *Das ist genau der Zweck des Werkzeugs: Es hat beim ersten Lauf gefunden, was seit
+   Paket C unbemerkt auf zwölf weiteren Seiten stand — und sofort auch meinen eigenen
+   frischen Fehler.*
+
+**Optimierungsplan:** `docs/kontrast-backdrop/tasks/2026-09-06-kontrast-befunde-tasks.md`
+für Finding 9. Die übrigen: 1–6 behoben, 7 ist eine Zulieferung, 8 eine Erklärung.
