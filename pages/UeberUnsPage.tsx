@@ -2,7 +2,9 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import Timeline from '../components/Timeline';
 import BetriebsVideo from '../components/BetriebsVideo';
+import { ArrowRight } from 'lucide-react';
 import { historie } from '../data/historie';
+import { serviceByHref } from '../data/services';
 import { videoPlatz } from '../data/videos';
 
 /**
@@ -44,13 +46,61 @@ const qualifications = [
   { title: 'Komplette Unfall- und Versicherungsabwicklung', description: 'Von der Schadenaufnahme über Kostenvoranschlag und Abstimmung mit Versicherern und Gutachtern bis zur Freigabe — auf Wunsch inklusive Werkstattersatzfahrzeug.' },
 ];
 
+/**
+ * Leistungsspektrum als Bildkarten (Auftrag 2026-09-06).
+ *
+ * WARUM DAS FOTO NICHT HIER STEHT: Es kommt ueber `serviceByHref()` aus
+ * `data/services.ts` — demselben Katalog, aus dem Startseiten-Kachel und Zielseite ihr
+ * Motiv beziehen. Damit zeigen alle drei zwangslaeufig dasselbe Bild, ohne dass die
+ * Zuordnung ein drittes Mal gepflegt wird. Ein Motivwechsel im Katalog wirkt hier mit.
+ *
+ * `alt` und die Bildmasse stehen dagegen hier: Der Alternativtext beschreibt, was auf
+ * DIESER Seite gezeigt wird, und die Masse unterscheiden sich je Datei (1400x1045 bzw.
+ * 1200x896) — ein pauschaler Wert waere falsch.
+ */
 const spectrum = [
-  { title: 'Karosserie & Unfallinstandsetzung', description: 'Instandsetzung nach Unfallschäden, von der Schadenaufnahme bis zur fertigen Übergabe.', href: '/unfallinstandsetzung-leipzig' },
-  { title: 'Neu- und Reparaturlackierung', description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, mit dem Ziel der unsichtbaren Reparatur.', href: '/autolackierung-leipzig' },
-  { title: 'Smart Repair & Dellenentfernung', description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — instand setzen statt tauschen.', href: '/smart-repair-leipzig' },
-  { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.', href: '/hagelschadenreparatur-leipzig' },
-  { title: 'Felgen & Autoglas', description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.', href: '/felgenreparatur-leipzig' },
-  { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege mit SWIZÖL-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
+  {
+    title: 'Karosserie & Unfallinstandsetzung',
+    description: 'Instandsetzung nach Unfallschäden, von der Schadenaufnahme bis zur fertigen Übergabe.',
+    href: '/unfallinstandsetzung-leipzig',
+    alt: 'Schadenaufnahme und Abwicklung eines Unfallschadens im CarCare Center Leipzig',
+    w: 1200, h: 896,
+  },
+  {
+    title: 'Neu- und Reparaturlackierung',
+    description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, mit dem Ziel der unsichtbaren Reparatur.',
+    href: '/autolackierung-leipzig',
+    alt: 'Fahrzeuglackierung in der Lackierkabine des CarCare Center Leipzig',
+    w: 1400, h: 1045,
+  },
+  {
+    title: 'Smart Repair & Dellenentfernung',
+    description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — instand setzen statt tauschen.',
+    href: '/smart-repair-leipzig',
+    alt: 'Punktuelle Lackinstandsetzung per Smart Repair im CarCare Center Leipzig',
+    w: 1400, h: 1045,
+  },
+  {
+    title: 'Hagelschadenreparatur',
+    description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.',
+    href: '/hagelschadenreparatur-leipzig',
+    alt: 'Fahrzeug mit Hagelschaden vor der Instandsetzung im CarCare Center Leipzig',
+    w: 1400, h: 1045,
+  },
+  {
+    title: 'Felgen & Autoglas',
+    description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.',
+    href: '/felgenreparatur-leipzig',
+    alt: 'Aufbereitete Alufelge nach der Felgenreparatur im CarCare Center Leipzig',
+    w: 1400, h: 1045,
+  },
+  {
+    title: 'Fahrzeugaufbereitung',
+    description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege mit SWIZÖL-Wachsen.',
+    href: '/fahrzeugaufbereitung-leipzig',
+    alt: 'Fahrzeug nach der Aufbereitung im CarCare Center Leipzig',
+    w: 1400, h: 1045,
+  },
 ];
 
 const customers = [
@@ -109,7 +159,51 @@ const UeberUnsPage: React.FC = () => (
           title="Alles im eigenen Haus – vom Kratzer bis zum Totalschaden."
           description="Als Full-Service-Dienstleister decken wir die gesamte Kette ab. Für Sie heißt das: ein Ansprechpartner, ein Termin, keine Übergaben zwischen Fremdbetrieben."
         />
-        <FeatureGrid items={spectrum} columns="three" />
+        {/*
+          Auftrag 2026-09-06: Dieselbe Kartenform wie die Aufbereitungsbereiche auf
+          `/fahrzeugaufbereitung-leipzig` — Foto oben, Titel, Text, Textlink. Vorher
+          stand hier ein `FeatureGrid` ohne Bild; die Karten wirkten dadurch wie ein
+          anderes Bauteil als die Leistungskarten im Rest der Seite.
+
+          ⚠️ BEWUSST NUR HIER. Der Umbau bleibt auf `/ueber-uns` beschraenkt — die
+          Vorgabe war ausdruecklich, es erst einmal auf dieser Seite zu belassen.
+          `FeatureGrid` wird auf derselben Seite weiter fuer Zahlen und
+          Qualifikationen benutzt und ist unveraendert.
+
+          `aspect-[16/10]` reserviert die Bildflaeche schon vor dem Laden, deshalb gibt
+          es hier keinen Layout-Sprung (CLS) trotz `loading="lazy"`.
+        */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {spectrum.map((bereich) => {
+            const bild = serviceByHref(bereich.href)?.backgroundImage;
+            return (
+              <article
+                key={bereich.title}
+                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
+              >
+                {bild && (
+                  <img
+                    src={bild}
+                    alt={bereich.alt}
+                    width={bereich.w}
+                    height={bereich.h}
+                    loading="lazy"
+                    decoding="async"
+                    className="mb-5 aspect-[16/10] w-full rounded-xl object-cover"
+                  />
+                )}
+                <h3 className="text-xl font-bold leading-tight text-gray-950">{bereich.title}</h3>
+                <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{bereich.description}</p>
+                <a
+                  href={bereich.href}
+                  className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
+                >
+                  Mehr erfahren <ArrowRight size={14} />
+                </a>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
 
