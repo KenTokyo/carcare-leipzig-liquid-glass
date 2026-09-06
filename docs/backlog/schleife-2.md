@@ -22,7 +22,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 2.1 | Karten-Styling: transparent statt weiß, Transparenz so justieren dass Lesbarkeit erhalten bleibt – einheitlich über gesamte Seite | Oalab | offen | *Berührt den A11y-Befund aus Paket C: Transparenz über Foto hat dort den AA-Kontrast gerissen. Vor Umsetzung `npm run kontrast` verfügbar machen.* |
-| 2.2 | Blaue Platzhalter-Füllung ersetzen | Oalab | offen | *Zu prüfen, welche Flächen gemeint sind — die Token-Reparatur (`e77b3b0`) hat blaue Werte bereits angefasst.* |
+| 2.2 | Blaue Platzhalter-Füllung ersetzen | Oalab | ⏸️ **zurückgestellt** | *Geklärt am 2026-09-06: Die blauen Flächen stehen **auf der Aufbereitungs-Subseite** und werden **mit Bildern gefüllt**. Damit ist es kein Farb-, sondern ein Bildthema und gehört zur offenen Fotolieferung (2.13–2.16, 3.23–3.29). **Bis zur Bildlieferung nichts tun.*** |
 | 2.3 | Alle Zeitstrahl- und Prozessdarstellungen einheitlich im Stil „Ablauf in fünf Schritten zum Ziel" (kfz-lindner.de) animieren | Oalab | offen | *Teilweise: `components/Timeline.tsx` existiert seit 2026-09-04 (Zeitstrahl `/ueber-uns`). Die Ablauf-Sektionen der Serviceseiten folgen dem Muster noch nicht.* |
 
 ---
@@ -33,7 +33,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 |---|---|---|---|---|
 | 2.4 | Hero-Text kürzen, weniger Platz einnehmen lassen | Oalab | offen | — |
 | 2.5 | Kacheln verlinken künftig auf die jeweilige Detail-Subseite, nicht auf die Paketübersicht | Oalab | ✅ **erledigt (geprüft)** | *Gegengeprüft 2026-09-06: Alle 13 Ziele in `data/services.ts` zeigen auf Detailseiten. Die zwei Hub-Ziele (`/fahrzeugaufbereitung-leipzig`, `/geschaeftskunden`) sind eigene Einstiegsseiten, keine Paketübersicht. Kam mit Paket B.* |
-| 2.6 | Kontaktformular aus der letzten Sektion komplett entfernen, wandert in den Kontaktbereich | Oalab | offen | *Berührt 1.20: Anfragen laufen jetzt über den Dialog. Kann die Sektion damit ganz entfallen?* |
+| 2.6 | Kontaktformular aus der letzten Sektion komplett entfernen, wandert in den Kontaktbereich | Oalab | ✅ **erledigt** | *Formular von der Startseite entfernt. **Vom Kontaktblock entkoppelt statt mit ihm gelöscht:** Adresse, Öffnungszeiten und Telefon lagen nur im selben Block und stehen jetzt als `components/KontaktDaten.tsx` eigenständig — sonst hätte die Startseite keine Kontaktdaten oberhalb des Footers mehr. Das vollständige Formular bleibt auf `/kontakt`. 2026-09-06* |
 | 2.7 | Globalen Slogan anpassen: „Premium" bleibt, Fahrzeugpflege geringer gewichten, Unfallinstandsetzung / Karosserie- und Lackierarbeiten aufnehmen, ggf. „alles aus einer Hand" | Oalab | offen | *Blockiert durch 3.36 (Wortlaut noch nicht final).* |
 | 2.8 | Angepassten Slogan überall konsistent platzieren | Oalab | offen | *Hängt an 2.7.* |
 
@@ -67,7 +67,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.19 | „Mehr erfahren"-Verlinkungen: Dellen → Dellenentfernung; Komplettlackierung → Neu- & Reparaturlackierung; Spot Repair → Wissensbeitrag (neu anlegen); Unsichtbare Reparatur → Wissensbeitrag Farbtongenauigkeit | Oalab | 🟨 **zur Hälfte** | *Gemessen 2026-09-06 in `pages/SmartRepairPage.tsx`: „Lackfreie Dellenentfernung" → `/dellenentfernung-leipzig` ✅ und „Komplettlackierung bei Bedarf" → `/autolackierung-leipzig` ✅ stehen. **Offen: „Spot-Repair am Lack" und „Unsichtbare Reparatur" haben kein `href`** — beide Ziele sind Wissensbeiträge, die es noch nicht gibt (`data/knowledgeArticles.ts` führt 5 Artikel, keiner davon).* |
+| 2.19 | „Mehr erfahren"-Verlinkungen: Dellen → Dellenentfernung; Komplettlackierung → Neu- & Reparaturlackierung; Spot Repair → Wissensbeitrag (neu anlegen); Unsichtbare Reparatur → Wissensbeitrag Farbtongenauigkeit | Oalab | ✅ **erledigt** | *Alle vier Ziele stehen. Die zwei fehlenden Wissensbeiträge sind am 2026-09-06 **neu geschrieben** worden: „Was ist Spot Repair?" und „Was bedeutet Farbtongenauigkeit beim Lackieren?" — je mit Definition, Ablauf, Kostenfaktoren, Fehlern und drei FAQ. Beide sind im Wissens-Hub gelistet und untereinander sowie mit `lackaufbereitung` und `dellen-ohne-lackieren-entfernen` verlinkt, also nicht verwaist. Das Projekt hat jetzt **29 statt 27 Routen**.* |
 
 ---
 
@@ -114,9 +114,29 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 ## Am 2026-09-06 erledigt
 
-**2.9** · **2.10** · **2.17** — alle drei ohne Zulieferung, siehe Zeilen oben.
-Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen), **2.12** (Prüfung),
-**2.19** (braucht zwei neue Wissensbeiträge), **2.25** (Wortlaut).
+**2.5** · **2.6** · **2.9** · **2.10** · **2.17** · **2.19** · **2.22** — sieben Punkte.
+
+Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen — gemessen H1 75 Z.,
+Absatz 165 Z., eher ein Blick-Urteil), **2.12** (Prüfauftrag), **2.25** (Wortlaut,
+braucht eine Entscheidung), **2.24** (zweite Empfängeradresse, scharf erst mit 3.38).
+
+### Nachgezogen aus 2.6: Der Dialog fragt jetzt zuerst nach dem Anliegen
+
+Weil das Formular von der Startseite verschwunden ist, ist der Anfrage-Dialog der
+einzige Weg zu einer schriftlichen Anfrage. Öffnete er direkt das Formular des
+angeklickten Aufrufs, erführe niemand, dass es die anderen beiden Wege gibt — **vor
+allem die Geschäftskundenanfrage, die ausdrücklich auch schriftlich kommen darf.**
+
+Der Dialog zeigt deshalb als **ersten Schritt** die drei Anliegen (Schaden melden ·
+Aufbereitungstermin · Geschäftskunden) und führt danach ins jeweilige Formular.
+Die Absicht des Aufrufs geht nicht verloren: Die passende Karte ist hervorgehoben und
+mit „Vorgeschlagen" beschriftet. Ein „Zurück" führt vom Formular zur Auswahl.
+
+**Geprüft, dass nichts kaputtgegangen ist:** Die Leistungs-Vorauswahl aus **1.19**
+greift weiterhin (von `/innenaufbereitung-leipzig` aus steht „Innenaufbereitung" im
+Formular), und die Seitenzuordnung aus **3.36** ebenso (von
+`/dellenentfernung-leipzig` ist „Schaden melden" vorgeschlagen und die Schadenart
+„Delle / Beule" vorbelegt).
 | **2.14** | Dopplung mit dem repo-lokalen „1.28" |
 
 ## Unauflösbare Fremdverweise

@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Building2, CalendarClock, X } from 'lucide-react';
 import RequestForm, { formularTitel } from './RequestForm';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { TERMIN_UEBERSCHREIBUNG, leistungFuerRoute } from '../data/leistungsauswahl';
@@ -65,7 +65,7 @@ interface AnfrageDialogWerte {
    * `vorauswahl` ist die Leistung, die im Terminformular vorbelegt wird (Backlog 1.19).
    * Wird sie weggelassen, leitet der Dialog sie aus dem aktuellen Seitenpfad ab.
    */
-  oeffnen: (art: RequestFormKind, vorauswahl?: string) => void;
+  oeffnen: (art?: RequestFormKind, vorauswahl?: string) => void;
   schliessen: () => void;
   offen: boolean;
 }
@@ -80,19 +80,44 @@ export const useAnfrageDialog = (): AnfrageDialogWerte => {
   return werte;
 };
 
+/**
+ * Die drei Anliegen, die der Dialog als ERSTES abfragt (Auftrag 2026-09-06).
+ *
+ * WARUM DIE AUSWAHL VORGESCHALTET IST: Seit das Kontaktformular von der Startseite
+ * genommen ist (Backlog 2.6), ist der Dialog der einzige Weg zu einer schriftlichen
+ * Anfrage. Oeffnete er direkt das Formular des angeklickten Aufrufs, erfuehre niemand,
+ * dass es die anderen beiden Wege ueberhaupt gibt — insbesondere die
+ * Geschaeftskundenanfrage, die ausdruecklich auch schriftlich kommen darf.
+ *
+ * Die Absicht des Aufrufs geht dabei NICHT verloren: Wer „Schaden melden" geklickt hat,
+ * findet diese Karte hervorgehoben vor und bestaetigt sie mit einem Klick. Die
+ * Leistungs-Vorauswahl aus 1.19 und die Seitenzuordnung aus 3.36 bleiben unberuehrt —
+ * sie wirken erst im Formular dahinter.
+ */
+const ANLIEGEN: { kind: RequestFormKind; label: string; beschreibung: string; icon: React.ReactNode }[] = [
+  { kind: 'schaden', label: 'Schaden melden', beschreibung: 'Unfall, Hagel, Lack oder Glas', icon: <AlertTriangle size={18} /> },
+  { kind: 'termin', label: 'Aufbereitungstermin', beschreibung: 'Aufbereitung & Pflege', icon: <CalendarClock size={18} /> },
+  { kind: 'business', label: 'Geschäftskunden', beschreibung: 'Autohäuser, Fuhrparks, Agenturen', icon: <Building2 size={18} /> },
+];
+
 /** Fokussierbares im Dialog, fuer die Fokusfalle. */
 const FOKUSSIERBAR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  /** `true`, sobald das Fenster steht — unabhaengig davon, ob schon gewaehlt wurde. */
+  const [offen, setOffen] = useState(false);
+  /** Gewaehltes Anliegen. `null` = der Auswahlschritt steht noch. */
   const [art, setArt] = useState<RequestFormKind | null>(null);
+  /** Anliegen, das der angeklickte Aufruf nahelegt — im Auswahlschritt hervorgehoben. */
+  const [vorgeschlagen, setVorgeschlagen] = useState<RequestFormKind | null>(null);
   const [vorauswahl, setVorauswahl] = useState<string | undefined>(undefined);
   const panelRef = useRef<HTMLDivElement>(null);
   const schliessenRef = useRef<HTMLButtonElement>(null);
   /** Element, das den Dialog geoeffnet hat — dorthin geht der Fokus zurueck. */
   const ausloeserRef = useRef<HTMLElement | null>(null);
 
-  const oeffnen = useCallback((neueArt: RequestFormKind, gewuenscht?: string) => {
+  const oeffnen = useCallback((neueArt?: RequestFormKind, gewuenscht?: string) => {
     ausloeserRef.current = document.activeElement as HTMLElement | null;
     // Ohne ausdrueckliche Angabe aus dem aktuellen Seitenpfad ableiten: Wer von
     // `/innenaufbereitung-leipzig` kommt, meint die Innenaufbereitung (Backlog 1.19).
@@ -100,10 +125,20 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
     // eine falsche Vorauswahl sieht aus wie eine Entscheidung des Nutzers und wird
     // deshalb nicht korrigiert.
     setVorauswahl(gewuenscht ?? leistungFuerRoute(window.location.pathname));
-    setArt(neueArt);
+    // Immer im Auswahlschritt starten; die Absicht des Aufrufs wird nur hervorgehoben.
+    setVorgeschlagen(neueArt ?? null);
+    setArt(null);
+    setOffen(true);
   }, []);
 
-  const schliessen = useCallback(() => setArt(null), []);
+  const schliessen = useCallback(() => {
+    setOffen(false);
+    setArt(null);
+    setVorgeschlagen(null);
+  }, []);
+
+  /** Zurueck vom Formular zur Auswahl, ohne das Fenster zu schliessen. */
+  const zurueckZurAuswahl = useCallback(() => setArt(null), []);
 
   // ---------------------------------------------------- Links abfangen --------
   useEffect(() => {
@@ -131,7 +166,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // ------------------------------------ Escape, Fokusfalle, Scroll sperren ----
   useEffect(() => {
-    if (!art) return;
+    if (!offen) return;
 
     // Lenis mitanhalten: Ein reines `overflow: hidden` auf <body> haelt den
     // Smooth-Scroller nicht auf, der Hintergrund liefe unter dem Dialog weiter.
@@ -173,15 +208,15 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
       // der Tastatur arbeitet, muss sich seinen Platz neu suchen.
       ausloeserRef.current?.focus?.();
     };
-  }, [art, schliessen]);
+  }, [offen, schliessen]);
 
   return (
-    <AnfrageDialogContext.Provider value={{ oeffnen, schliessen, offen: art !== null }}>
+    <AnfrageDialogContext.Provider value={{ oeffnen, schliessen, offen }}>
       {children}
       {typeof document !== 'undefined' &&
         createPortal(
           <AnimatePresence>
-            {art && (
+            {offen && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -212,7 +247,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                   ref={panelRef}
                   role="dialog"
                   aria-modal="true"
-                  aria-label={formularTitel[art]}
+                  aria-label={art ? formularTitel[art] : 'Anfrage stellen'}
                   initial={{ opacity: 0, y: 24, scale: 0.985 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 16, scale: 0.99 }}
@@ -228,7 +263,79 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                   >
                     <X size={16} />
                   </button>
-                  <RequestForm kind={art} vorauswahl={vorauswahl} />
+                  {art === null ? (
+                    /* Schritt 1: Anliegen waehlen. Bewusst drei gleichwertige Karten statt
+                       einer Auswahlliste — die Beschreibung unter dem Titel beantwortet die
+                       eigentliche Frage („gehoert mein Fall hier rein?"), und ein Klick
+                       genuegt. */
+                    <div className="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-xl md:p-10">
+                      <span className="mb-3 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Anfrage</span>
+                      <h2 className="pr-10 text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-3xl">
+                        Worum geht es?
+                      </h2>
+                      <p className="mt-4 text-sm leading-relaxed text-gray-600 md:text-base">
+                        Wählen Sie Ihr Anliegen — danach fragen wir nur ab, was dafür wirklich
+                        gebraucht wird. Für akute Schadenfälle ist der Anruf unter{' '}
+                        <a href="tel:+493412617790" className="font-semibold text-gray-950 underline-offset-2 hover:underline">
+                          0341 - 261 77 90
+                        </a>{' '}
+                        oft der schnellste Weg.
+                      </p>
+                      <div className="mt-8 space-y-3">
+                        {ANLIEGEN.map((a) => {
+                          const hervor = vorgeschlagen === a.kind;
+                          return (
+                            <button
+                              key={a.kind}
+                              type="button"
+                              onClick={() => setArt(a.kind)}
+                              className={`flex w-full items-center gap-4 rounded-2xl border px-5 py-5 text-left transition-all ${
+                                hervor
+                                  ? 'border-blue-300 bg-blue-50/60 text-gray-950'
+                                  : 'border-gray-200 bg-white text-gray-950 hover:border-blue-200 hover:bg-gray-50'
+                              }`}
+                            >
+                              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gray-100 bg-gray-50 text-blue-600">
+                                {a.icon}
+                              </span>
+                              <span className="min-w-0 flex-1">
+                                <span className="block text-sm font-bold leading-tight">{a.label}</span>
+                                <span className="mt-1 block text-xs text-gray-600">{a.beschreibung}</span>
+                              </span>
+                              {/* Auf schmalen Geraeten ausgeblendet: Gemessen bei 375 px
+                                  draengt das Etikett die Beschreibung in einen Umbruch und
+                                  macht die Karte 13 px hoeher als die anderen. Die
+                                  Hervorhebung traegt die Aussage ohnehin ueber Rahmen und
+                                  Flaeche — das Etikett ist die Beschriftung dazu, nicht
+                                  die Information selbst. */}
+                              {hervor && (
+                                <span className="hidden shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600 sm:inline">
+                                  Vorgeschlagen
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Rueckweg. Ohne ihn muesste jemand, der sich vergriffen hat, das
+                          Fenster schliessen und den Aufruf neu suchen.
+                          RECHTS neben dem Schliessen-Knopf, nicht links: Links oben sitzt
+                          die Kopfzeile des Formulars (Eyebrow-Pille bei p-6/p-10) — ein
+                          Knopf bei `left-4 top-4` laege darueber. Oben rechts ist frei. */}
+                      <button
+                        type="button"
+                        onClick={zurueckZurAuswahl}
+                        className="absolute right-16 top-4 z-10 inline-flex h-9 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 text-xs font-bold text-gray-700 shadow-sm transition-colors hover:bg-gray-950 hover:text-white"
+                      >
+                        <ArrowLeft size={14} />
+                        Zurück
+                      </button>
+                      <RequestForm kind={art} vorauswahl={vorauswahl} />
+                    </>
+                  )}
                 </motion.div>
                 </div>
               </motion.div>

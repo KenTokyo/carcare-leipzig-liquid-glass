@@ -2,8 +2,12 @@ import React from 'react';
 import ServiceLayout from '../components/ServiceLayout';
 
 const scope = [
-  { title: 'Spot-Repair am Lack', description: 'Möglichst perfekte Lackinstandsetzung mit geringem Aufwand – unsere bevorzugte Methode bei kleineren Lackschäden.' },
-  { title: 'Unsichtbare Reparatur', description: 'Ziel ist ein Ergebnis, bei dem weder Farbton noch Effektunterschiede zur Originallackierung erkennbar sind.' },
+  // Backlog 2.19: Ziel ist der Wissensbeitrag, nicht eine Leistungsseite — die Frage
+  // hinter dem Klick ist „was ist das eigentlich", nicht „was bietet ihr an".
+  { title: 'Spot-Repair am Lack', description: 'Möglichst perfekte Lackinstandsetzung mit geringem Aufwand – unsere bevorzugte Methode bei kleineren Lackschäden.', href: '/autoaufbereitung-wissen/spot-repair' },
+  // Backlog 2.19: Der Beitrag erklaert genau das, was diese Karte verspricht — wie ein
+  // Farbton getroffen wird und warum Effektlacke schwieriger sind.
+  { title: 'Unsichtbare Reparatur', description: 'Ziel ist ein Ergebnis, bei dem weder Farbton noch Effektunterschiede zur Originallackierung erkennbar sind.', href: '/autoaufbereitung-wissen/farbtongenauigkeit' },
   { title: 'Lackfreie Dellenentfernung', description: 'Kleine Dellen bei intaktem Lack entfernen wir lackfrei – Details auf unserer Seite zur Dellenentfernung.', href: '/dellenentfernung-leipzig' },
   { title: 'Komplettlackierung bei Bedarf', description: 'Wo Spot-Repair nicht ausreicht, folgt die Komplettlackierung des Bauteils mit bestmöglichem Ergebnis.', href: '/autolackierung-leipzig' },
 ];

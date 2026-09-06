@@ -6,7 +6,7 @@ import TargetGroupCards from '../components/TargetGroupCards';
 import AutoDetailingExpertiseSection from '../components/AutoDetailingExpertiseSection';
 import DetailingProcessSection from '../components/DetailingProcessSection';
 import FAQSection from '../components/FAQSection';
-import ContactSection from '../components/ContactSection';
+import KontaktDaten from '../components/KontaktDaten';
 import { PageMeta } from '../components/PageBlocks';
 
 // Schlanke, conversion-fokussierte Startseite (8 Sektionen statt 13).
@@ -34,7 +34,12 @@ const HomePage: React.FC = () => (
     <AutoDetailingExpertiseSection />
     <DetailingProcessSection />
     <FAQSection />
-    <ContactSection />
+    {/* Backlog 2.6: Das Kontaktformular stand hier als letzte Sektion. Es ist
+        entfernt, weil jede Anfrage seit 1.20 ueber den Anfrage-Dialog laeuft — ein
+        zweites Formular auf derselben Seite waere ein zweiter Weg zum selben Ziel.
+        Die Kontaktdaten bleiben; sie waren nie Teil des Formulars, sondern lagen nur
+        im selben Block. Das vollstaendige Formular steht weiterhin auf /kontakt. */}
+    <KontaktDaten />
   </>
 );
 

@@ -104,6 +104,14 @@
     {
       "source": "/autoaufbereitung-wissen/dellen-ohne-lackieren-entfernen",
       "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/spot-repair",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/autoaufbereitung-wissen/farbtongenauigkeit",
+      "destination": "/index.html"
     }
   ]
 }

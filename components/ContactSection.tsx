@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Building2, CalendarClock, Clock, MapPin, Phone } from 'lucide-react';
+import { AlertTriangle, Building2, CalendarClock } from 'lucide-react';
 import { RequestFormConfig, RequestFormKind } from '../types';
 import RequestForm from './RequestForm';
+import KontaktDaten from './KontaktDaten';
 
 const tabs: RequestFormConfig[] = [
   { kind: 'schaden', label: 'Schaden melden', description: 'Unfall, Hagel, Lack oder Glas', iconName: 'AlertTriangle' },
@@ -96,31 +97,9 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Kontaktinfos – volle Breite unter dem Formular (aus dem vormaligen „Kontaktabschluss" / ContactCTA) */}
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><MapPin size={18} /></span>
-              <h3 className="text-sm font-bold text-gray-950">Adresse</h3>
-            </div>
-            <p className="text-sm leading-relaxed text-gray-600">An den Tierkliniken 42<br />04103 Leipzig</p>
-          </div>
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Clock size={18} /></span>
-              <h3 className="text-sm font-bold text-gray-950">Öffnungszeiten</h3>
-            </div>
-            <p className="text-sm leading-relaxed text-gray-600">Mo - Fr: 07:00 - 18:00 Uhr<br />Sa: nach Vereinbarung</p>
-          </div>
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Phone size={18} /></span>
-              <h3 className="text-sm font-bold text-gray-950">Telefon</h3>
-            </div>
-            <a href="tel:+493412617790" className="text-lg font-bold tracking-tight text-gray-950 transition-colors hover:text-blue-600">0341 - 261 77 90</a>
-            <p className="mt-2 text-sm leading-relaxed text-gray-600">Für akute Schadenfälle ist der direkte Anruf oft der schnellste Weg.</p>
-          </div>
-        </div>
+        {/* Backlog 2.6: Die Kontaktdaten liegen jetzt in `KontaktDaten` — dieselbe
+            Darstellung, aber auch ohne Formular verwendbar (Startseite). */}
+        <KontaktDaten eingebettet />
       </div>
     </section>
   );
