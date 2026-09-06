@@ -95,9 +95,23 @@ export interface PhotoBackdropProps {
    * Transformation berechnet — man saehe denselben Ausschnitt, nur kleiner.
    */
   zoom?: number;
+  /**
+   * Optionale Videoquelle (Backlog 3.20). Ist sie gesetzt, tritt das Video an die
+   * Stelle des Fotos und `image` wird automatisch zu seinem Standbild.
+   *
+   * NUR IM `zoom`-LOSEN FALL: Der `zoom`-Zweig bemisst das Bild ueber seine Hoehe und
+   * blendet die linke Kante per `mask-image` aus — beides waere fuer ein Video eigens
+   * zu pruefen. Die einzige Seite mit Videowunsch (`/ueber-uns`) nutzt `zoom` nicht.
+   * Wird beides zugleich gesetzt, gewinnt sichtbar das Foto; das ist der harmlosere
+   * Fehler als ein Video mit sichtbarer Kante.
+   *
+   * Die drei Veil-Ebenen darueber bleiben unveraendert — der Textschutz haengt am
+   * Hintergrund, nicht an seiner Herkunft.
+   */
+  video?: string | null;
 }
 
-const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom }) => (
+const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom, video }) => (
   <div aria-hidden="true" className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`}>
     <AnimatePresence>
       {image && (
@@ -109,7 +123,22 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'round
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="absolute inset-0"
         >
-          {zoom === undefined ? (
+          {zoom === undefined && video ? (
+            <>
+              <video
+                className="h-full w-full object-cover motion-reduce:hidden"
+                src={video}
+                poster={image}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              />
+              {/* Standbild bei reduzierter Bewegung — dasselbe Poster, kein zweiter Abruf. */}
+              <img src={image} alt="" decoding="async" className="hidden h-full w-full object-cover motion-reduce:block" />
+            </>
+          ) : zoom === undefined ? (
             <img src={image} alt="" decoding="async" className="h-full w-full object-cover" />
           ) : (
             <img

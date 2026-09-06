@@ -35,10 +35,13 @@ export interface PageHeroProps {
  *
  * Die Sektionen geben ihren Hintergrund ueber `.cc-backdrop-content` ab (index.css).
  */
-export const BackdropLayout: React.FC<{ children: React.ReactNode; image: string; zoom?: number }> = ({ children, image, zoom }) => (
+export const BackdropLayout: React.FC<{ children: React.ReactNode; image: string; video?: string | null; zoom?: number }> = ({ children, image, video, zoom }) => (
   <div className="relative isolate">
     <div className="pointer-events-none sticky top-0 -z-10 h-[100svh]">
-      <PhotoBackdrop image={image} className="rounded-none" textGuard="wide" zoom={zoom} />
+      {/* `video` (Backlog 3.20) ist optional: ohne Quelle bleibt es beim Foto. Weil die
+          Flaeche `sticky` steht, laeuft ein Video hier beim Scrollen weiter — genau das
+          war die Vorgabe. */}
+      <PhotoBackdrop image={image} className="rounded-none" textGuard="wide" zoom={zoom} video={video} />
     </div>
     <div className="cc-backdrop-content -mt-[100svh]">{children}</div>
   </div>

@@ -72,6 +72,14 @@ const QUELLEN = [
     was: 'Station im Zeitstrahl auf /ueber-uns',
     backlog: '1.27',
   },
+  {
+    datei: 'data/videos.ts',
+    ausfuhr: 'videoPlaetze',
+    flagge: 'istPlatzhalter',
+    bezeichner: 'titel',
+    was: 'Videoplatz auf /ueber-uns bzw. /karriere',
+    backlog: '3.18 / 3.21',
+  },
 ];
 
 /** Wendungen, die im ausgelieferten HTML nichts verloren haben. */
@@ -84,6 +92,11 @@ const VERDAECHTIGE_TEXTE = [
   'Jahr offen',
   'Platzhalter — wird durch',
   'Lorem ipsum',
+  // Backlog 3.18/3.21: Das Wort steht sichtbar im Platzhalterrahmen. Netz 2 faengt
+  // damit auch den Fall, dass jemand `istPlatzhalter` entfernt, ohne Material
+  // einzusetzen — dann faellt Netz 1 aus, der Rahmen steht aber weiter im HTML.
+  'Videoplatz',
+  'Das Material wird nachgeliefert',
 ];
 
 /**
@@ -123,6 +136,12 @@ const ANERKANNT = [
   { text: 'Meilenstein 3', backlog: '1.27', seit: '2026-09-04' },
   { text: 'Jahr offen', backlog: '1.27', seit: '2026-09-04' },
   { text: 'Platzhalter — wird durch', backlog: '1.18 / 1.27', seit: '2026-09-04' },
+  { text: 'Videoplatz Betriebsrundgang', backlog: '3.21', seit: '2026-09-06' },
+  { text: 'Videoplatz Arbeitsplatz', backlog: '3.18', seit: '2026-09-06' },
+  // Netz 2 findet diese beiden Wendungen im gerenderten HTML der Platzhalterrahmen.
+  // Sie verschwinden mit dem letzten Rahmen — dann muessen auch diese Zeilen weg.
+  { text: 'Videoplatz', backlog: '3.18 / 3.21', seit: '2026-09-06' },
+  { text: 'Das Material wird nachgeliefert', backlog: '3.18 / 3.21', seit: '2026-09-06' },
 ];
 
 const anerkanntFuer = (text) => ANERKANNT.find((a) => a.text === text);

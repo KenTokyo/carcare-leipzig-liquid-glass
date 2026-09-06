@@ -14,8 +14,11 @@ export const carePackages: PriceItem[] = [
     id: 'p1',
     title: 'Brillant Außenpflege',
     price: '169,00 €',
+    // Backlog 2.10: Der zweite Satz trennt zwei Dinge, die sonst verwechselt werden —
+    // die im Paket enthaltene Lackversiegelung und die separat buchbare
+    // Keramikversiegelung. Das Paket ist deren Voraussetzung, nicht deren Ersatz.
     description:
-      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche inkl. Abledern, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung.',
+      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche inkl. Abledern, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
   },
   {
     id: 'p2',
@@ -35,8 +38,11 @@ export const carePackages: PriceItem[] = [
     id: 'p4',
     title: 'Premiumpflege „exklusiv“',
     price: 'ab 348,00 €',
+    // Backlog 2.9: Der Zusatz „Aussen UND Innen" ist ausdruecklich ergaenzt. Ohne ihn
+    // las sich das Paket wie eine reine Lackbehandlung — die Nennung von Wachs,
+    // Carnauba und Glanzgrad zieht den Blick nach aussen. Es umfasst beides.
     description:
-      'Aufbereitung in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes.',
+      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack.',
   },
 ];
 
@@ -66,7 +72,7 @@ export const priceOffers = [
   { name: 'Brillant Außenpflege', price: '169.00', description: 'Außenaufbereitung mit Lackreinigung, Hochglanzpolitur und Lackversiegelung.' },
   { name: 'Intensiv Innenreinigung', price: '199.00', description: 'Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege.' },
   { name: 'Premiumpflege', price: '299.00', description: 'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung.' },
-  { name: 'Premiumpflege „exklusiv“', price: '348.00', from: true, description: 'Handarbeit mit SWIZÖL-Wachsen, Carnaubaanteil 30 bis 60 %.' },
+  { name: 'Premiumpflege „exklusiv“', price: '348.00', from: true, description: 'Aufbereitung außen und innen in Handarbeit, mit SWIZÖL-Wachsen, Carnaubaanteil 30 bis 60 %.' }, // Backlog 2.9
   { name: 'Ozonbehandlung', price: '45.00', description: 'Innenraum-Desinfektion mit Ozon, ca. 30 Minuten Einwirkzeit.' },
   { name: 'Heißvernebelung (KC-Refresher)', price: '59.00', description: 'Lang anhaltende Innenraum-Desinfektion gegen Bakterien, behüllte Viren und Schimmelpilze.' },
 ];

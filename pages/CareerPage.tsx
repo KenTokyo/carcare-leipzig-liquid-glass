@@ -5,6 +5,8 @@ import JobBanner from '../components/JobBanner';
 import JobCards from '../components/JobCards';
 import JobPopup from '../components/JobPopup';
 import RequestForm from '../components/RequestForm';
+import BetriebsVideo from '../components/BetriebsVideo';
+import { videoPlatz } from '../data/videos';
 
 const benefits = [
   { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
@@ -39,7 +41,23 @@ const CareerPage: React.FC = () => (
         <FeatureGrid items={benefits} columns="four" />
       </div>
     </section>
-    <section className="bg-white px-6 py-20 md:py-28">
+    {/* Backlog 3.18: Nicht nur Vorteile aufzaehlen, sondern den Betrieb zeigen. Steht
+        direkt nach dem Arbeitgeberversprechen — die Aufzaehlung behauptet, das Video
+        belegt. */}
+    <section id="betrieb" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Ihr künftiger Arbeitsplatz"
+          title="So sieht der Betrieb aus, in dem Sie arbeiten würden."
+          description="Hallen, Ausstattung und Arbeitsplätze im laufenden Betrieb — damit Sie vor dem ersten Gespräch wissen, worauf Sie sich bewerben."
+        />
+        <div className="mt-12">
+          <BetriebsVideo platz={videoPlatz('karriere-betrieb')} />
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Bewerbungsprozess" title="So läuft der Kontakt zu uns." />
         <ProcessList steps={process} />

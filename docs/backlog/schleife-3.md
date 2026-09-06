@@ -38,7 +38,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 3.4 | Bild 5 (Ersatzwagen nach Verfügbarkeit) durch Foto eines eigenen Mietwagens ersetzen (nice to have) | Oalab / André | offen | *Deckt sich mit 2.21. Braucht Motiv.* |
-| 3.5 | Optionalen „Jetzt bewerben"-Banner schaltbar machen | Oalab | offen | *Halb erledigt: `STELLEN_POPUP_AKTIV` (`data/jobs.ts:206`) schaltet das **Popup**. `components/JobBanner.tsx` hat keinen Schalter — es blendet sich nur aus, wenn keine Stelle offen ist. Schalter fehlt.* |
+| 3.5 | Optionalen „Jetzt bewerben"-Banner schaltbar machen | Oalab | ✅ **erledigt** | *`BEWERBEN_BANNER_AKTIV` in `data/jobs.ts`, gelesen von `components/JobBanner.tsx`. Bewusst ein **zweiter** Schalter neben `STELLEN_POPUP_AKTIV`: „wir suchen niemanden" ergibt sich aus den Daten, „wir wollen das Banner nicht zeigen, obwohl wir suchen" ist eine Gestaltungsentscheidung. 2026-09-06* |
 
 ---
 
@@ -54,9 +54,9 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.7 | Text „Alle Marken" ändern in: „Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen." | Oalab | offen | **Sofort umsetzbar** — *der Ersatztext ist vom Kunden fertig formuliert und freigegeben.* |
+| 3.7 | Text „Alle Marken" ändern in: „Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen." | Oalab | ✅ **erledigt** | *`pages/AccidentRepairPage.tsx`, Karte im Block „Schadenfall". Wortlaut **wörtlich** übernommen und im Code als kundenfreigegeben markiert, damit ihn niemand „schöner" macht. 2026-09-06* |
 | 3.8 | Sektion „Schadenaufnahme": Hintergrundbild ändern, ruhigeres Motiv im Stil der Aufbereitungsseite | Oalab | offen | *Zusammen mit 2.18 (gleiche Sektion, Transparenz).* |
-| 3.9 | Prüfen, ob der obere Block auf jeder Serviceseite wiederholt werden muss oder einmal auf der Subseite reicht | Oalab | Recherche | *Berührt `ServiceLayout` aus Paket C — dort ist der Block heute fester Bestandteil aller sieben Seiten.* |
+| 3.9 | Prüfen, ob der obere Block auf jeder Serviceseite wiederholt werden muss oder einmal auf der Subseite reicht | Oalab | ✅ **beantwortet** | *Gemessen, siehe „Befund zu 3.9" unten. Kurz: Der wiederholte Block ist die USP-Sektion „Warum CarCare Center Leipzig". **Empfehlung: behalten, aber je Seite unterschiedlich formulieren.** Entscheidung liegt beim Kunden. 2026-09-06* |
 
 ---
 
@@ -93,7 +93,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.18 | Nicht nur Benefits zeigen, sondern den Betrieb (Drohnen-/Rundgangvideo zentral) | Oalab | offen | *Hängt an 3.21 (Video existiert nicht).* |
+| 3.18 | Nicht nur Benefits zeigen, sondern den Betrieb (Drohnen-/Rundgangvideo zentral) | Oalab | 🟦 **Platz steht** | *Sektion „Ihr künftiger Arbeitsplatz" auf `/karriere`, direkt nach dem Arbeitgeberversprechen. Zeigt bis zur Lieferung einen markierten Platzhalter. Einhängen = `quelle` in `data/videos.ts` setzen. 2026-09-06* |
 | 3.19 | Mitarbeiterstimmen anonymisiert – nur Berufsbezeichnung + kurzer Kommentar, keine Namen | Oalab | offen | **Präzisiert 1.26.** *Wichtige Vorgabe: keine Namen. Bei der Zulieferung mitgeben.* |
 
 ---
@@ -102,8 +102,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | offen | *Hängt an 3.21. Performance beachten: LCP-Budget aus `SEO-GEO-STANDARDS.md` §2.2.* |
-| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche im aktiven Betrieb – kein Mitarbeiterporträt | Oalab / André | offen | *Größte offene Produktion. Videograf-Kontakt steht im Block „ohne Schleifenzuordnung".* |
+| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | 🟦 **Mechanik steht** | *`BackdropLayout`/`PhotoBackdrop` nehmen jetzt eine Videoquelle; die Fläche steht ohnehin `sticky`, das Video läuft beim Scrollen also von selbst weiter. Solange keine Quelle da ist, bleibt es beim Foto — das ist dann automatisch das Standbild. **Kein sichtbarer Platzhalter nötig.** 2026-09-06* |
+| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche im aktiven Betrieb – kein Mitarbeiterporträt | Oalab / André | 🟦 **Platz steht, Material folgt** | *Sektion „Ein Rundgang durch die Hallen" auf `/ueber-uns`, vor der Zeitleiste. **Der Kunde schneidet das Material selbst** und liefert nach. Bis dahin markierter Platzhalter, der die Liefervorgabe sichtbar nennt. 2026-09-06* |
 
 ---
 
@@ -164,7 +164,50 @@ Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
 
 ## Sofort umsetzbar, ohne jede Zulieferung
 
-**3.7** (Ersatztext liegt fertig vor) · **3.5** (Schalter ergänzen) · **3.9** (Recherche)
+~~**3.7** · **3.5** · **3.9**~~ — **alle drei am 2026-09-06 erledigt.**
+
+---
+
+## Befund zu 3.9 — was sich auf den Serviceseiten wirklich wiederholt
+
+**Gemessen am ausgelieferten HTML der sieben Serviceseiten, nicht geschätzt.**
+
+**Erstes Ergebnis, überraschend:** Vollständig **identischer** Fließtext gibt es fast
+keinen — nur den Footer (Kontakt, Öffnungszeiten, Datenschutzhinweis), 330 Zeichen je
+Seite. Das sind 12,4 % des Fließtextes, und Footer sind naturgemäß gleich.
+
+**Der eigentliche Fund liegt eine Ebene tiefer:** Wiederholt wird nicht der Wortlaut,
+sondern die **Aussage**. Vier Kartentitel stehen auf mehreren Seiten:
+
+| Karte | auf wie vielen Seiten |
+|---|---|
+| „Full-Service auf über 3.000 m²" | **8** |
+| „Meisterbetrieb seit 1998" | **7** |
+| „Glasurit-Lackpartner" | 4 |
+| „Privat-, Geschäfts- und Flottenkunden" | 3 |
+
+Sie sitzen in der Sektion **„Warum CarCare Center Leipzig"** — in `ServiceLayout` fest
+verdrahtet, also auf jeder der sieben Seiten. Das ist der Block, den 3.9 meint. Er steht
+**in der Mitte** der Seite, nicht oben und nicht unten.
+
+### Empfehlung: behalten, aber je Seite anders formulieren
+
+**Nicht entfernen.** Der Kunde hat für den analogen Expertise-Block bereits entschieden,
+dass er bleibt — Begründung im Backlog ohne Schleifenzuordnung und in `CLAUDE.md`:
+Er hebt das Ranking der **Subseite**, und genau darauf zielt jede Leistungsseite
+(„Smart Repair Leipzig"). Wer ihn auf eine Seite zusammenzieht, nimmt sechs Seiten
+ihr Vertrauenssignal, um Text zu sparen, der Besucher nicht stört.
+
+**Aber:** Drei nahezu wortgleiche Karten auf sieben Seiten sind aus SEO-Sicht das, was
+1.15/1.29 vermeiden sollen — austauschbarer Text. Der billige Weg ist nicht Löschen,
+sondern **Zuschneiden**: „Meisterbetrieb seit 1998" kann auf der Felgenseite die
+Felgenkompetenz belegen und auf der Lackseite die Lackkompetenz. Gleiches Signal,
+anderer Satz, kein Verlust.
+
+**Aufwand:** rund 20 Kartentexte. Sinnvoll **gemeinsam mit 1.29** zu machen, wenn die
+Erklärtexte kommen — dann wird jede Seite in einem Durchgang eigenständig statt in zwei.
+
+**Entscheidung liegt beim Kunden.** Ohne Freigabe wird hier nichts umgebaut.
 
 ---
 

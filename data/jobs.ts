@@ -206,6 +206,21 @@ export const offeneStellen = jobPositions.filter((job) => job.status === 'suchen
 export const STELLEN_POPUP_AKTIV = true;
 
 /**
+ * Schaltet das „Jetzt bewerben"-Banner oben auf `/karriere` (Backlog 3.5).
+ *
+ * WARUM EIN EIGENER SCHALTER, obwohl das Banner sich schon selbst ausblendet, wenn
+ * keine Stelle offen ist: Das sind zwei verschiedene Aussagen. „Wir suchen gerade
+ * niemanden" ergibt sich aus den Daten. „Wir wollen das Banner nicht zeigen, obwohl
+ * wir suchen" ist eine Gestaltungsentscheidung — etwa waehrend einer Messe oder
+ * solange die Karriereseite noch abgestimmt wird. Ohne den Schalter liesse sich das
+ * nur erzwingen, indem man Stellen aus den Daten nimmt, die es wirklich gibt.
+ *
+ * Auf `false` verschwindet das Banner vollstaendig; das Pop-up (`STELLEN_POPUP_AKTIV`)
+ * und die Positionskarten bleiben davon unberuehrt.
+ */
+export const BEWERBEN_BANNER_AKTIV = true;
+
+/**
  * Ziel aller Bewerbungs-Handlungsaufrufe: Karten, Banner, Pop-up.
  *
  * An EINER Stelle, weil es drei Verwender hat und mit dem Bewerbungsformular auf einen

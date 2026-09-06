@@ -1,7 +1,9 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import Timeline from '../components/Timeline';
+import BetriebsVideo from '../components/BetriebsVideo';
 import { historie } from '../data/historie';
+import { videoPlatz } from '../data/videos';
 
 /**
  * Unternehmensseite „Ueber uns" — stellt die BS CarCare GmbH vor.
@@ -69,7 +71,10 @@ const UeberUnsPage: React.FC = () => (
   // Werkstattmotiv statt Kachelbild: Diese Seite zeigt den Betrieb selbst, nicht eine
   // einzelne Leistung. `carcare-hero-workshop.webp` ist mit 2400x1800 hoch genug
   // aufgeloest, dass die Backdrop-Flaeche ohne `zoom` auskommt.
-  <BackdropLayout image="/assets/carcare-hero-workshop.webp">
+  // Backlog 3.20: Das Hero-Foto wird durch ein Video ersetzt, das beim Scrollen im
+  // Hintergrund weiterlaeuft. Die Mechanik steht; solange `quelle` in `data/videos.ts`
+  // auf `null` steht, bleibt es beim Foto — es ist dann zugleich das spaetere Standbild.
+  <BackdropLayout image="/assets/carcare-hero-workshop.webp" video={videoPlatz('ueber-uns-hero').quelle}>
     <PageMeta
       canonical="/ueber-uns"
       title="Über uns | Karosserie & Lack Leipzig | CarCare Center"
@@ -119,7 +124,22 @@ const UeberUnsPage: React.FC = () => (
       </div>
     </section>
 
-    <section id="geschichte" className="bg-gray-50/70 px-6 py-20 md:py-28">
+    {/* Backlog 3.21: Betriebsrundgang. Steht bewusst VOR der Entwicklung — erst zeigen,
+        wie es heute aussieht, dann wie es dazu kam. */}
+    <section id="betriebsrundgang" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Der Betrieb"
+          title="Ein Rundgang durch die Hallen."
+          description="Über 3.000 m² lassen sich schwer beschreiben. Ein Durchgang im laufenden Betrieb zeigt Größe, Ausstattung und Arbeitsweise unmittelbarer als jede Aufzählung."
+        />
+        <div className="mt-12">
+          <BetriebsVideo platz={videoPlatz('ueber-uns-betrieb')} />
+        </div>
+      </div>
+    </section>
+
+    <section id="geschichte" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Entwicklung"
@@ -130,7 +150,7 @@ const UeberUnsPage: React.FC = () => (
       </div>
     </section>
 
-    <section id="kunden" className="bg-white px-6 py-20 md:py-28">
+    <section id="kunden" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Für wen wir arbeiten"
@@ -141,7 +161,7 @@ const UeberUnsPage: React.FC = () => (
       </div>
     </section>
 
-    <section id="karriere" className="bg-gray-50/70 px-6 py-20 md:py-28">
+    <section id="karriere" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Arbeiten im CarCare Center"

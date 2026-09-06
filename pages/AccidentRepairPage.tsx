@@ -60,10 +60,12 @@ const caseHandling = [
   { title: 'Schadenskalkulation', description: 'Nachvollziehbare Kalkulation als Grundlage für Reparatur, Freigabe und weitere Abstimmung.' },
   { title: 'Gutachterservice', description: 'Koordination und Kommunikation mit Gutachtern, sofern das für den Schadenfall sinnvoll ist.' },
   { title: 'Versicherungsabwicklung', description: 'Auf Wunsch übernehmen wir Schriftverkehr und Abstimmung mit Versicherern und Agenturen.' },
-  { title: 'Karosseriearbeiten', description: 'Fachgerechte Instandsetzung beschädigter Karosserie- und Anbauteile im eigenen Haus.' },
+  // Backlog 2.17: Umbenannt — die Karte deckt Karosserie UND Lack ab.
+  { title: 'Karosserie- und Lackierarbeiten', description: 'Fachgerechte Instandsetzung beschädigter Karosserie- und Anbauteile im eigenen Haus, inklusive der zugehörigen Lackierarbeiten.' },
   { title: 'Ersatzmobilität', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug.' },
   { title: 'Dokumentation', description: 'Nachvollziehbare Dokumentation der Schritte und saubere Übergabe nach Abschluss.' },
-  { title: 'Alle Marken', description: 'Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate.' },
+  // Backlog 3.7: Wortlaut vom Kunden vorgegeben und freigegeben — nicht umformulieren.
+  { title: 'Alle Marken', description: 'Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen.' },
 ];
 
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, BriefcaseBusiness } from 'lucide-react';
-import { offeneStellen } from '../data/jobs';
+import { BEWERBEN_BANNER_AKTIV, offeneStellen } from '../data/jobs';
 
 /**
  * „Jetzt bewerben"-Banner oben auf `/karriere` (Backlog 1.23).
@@ -24,7 +24,9 @@ interface JobBannerProps {
 
 const JobBanner: React.FC<JobBannerProps> = ({ href }) => {
   const anzahl = offeneStellen.length;
-  if (anzahl === 0) return null;
+  // Backlog 3.5: Zwei getrennte Gruende, nichts zu zeigen — der Schalter (bewusst aus)
+  // und die Datenlage (nichts zu zeigen). Beide fuehren zum selben Ergebnis.
+  if (!BEWERBEN_BANNER_AKTIV || anzahl === 0) return null;
 
   return (
     <section className="bg-white px-6 pb-4 pt-2 md:pb-8">

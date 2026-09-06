@@ -4,7 +4,12 @@
 Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26?"),
 findet sie über die Tabelle unten.
 
-**Stand:** 2026-09-06 · **Website:** `carcare-center.vercel.app`, **noch nicht öffentlich**
+**Stand:** 2026-09-06 · **Website:** `carcare-center.vercel.app`
+
+> **Alles, was hier deployt wird, geht nur in diese Preview-Umgebung** — sie dient der
+> Abstimmung mit dem Kunden. Live unter `www.carcare-center.de` läuft weiterhin der alte
+> Auftritt. Sichtbare Platzhalter und unvollständige Rechtstexte sind hier deshalb in
+> Ordnung, solange sie **markiert** sind.
 
 ---
 

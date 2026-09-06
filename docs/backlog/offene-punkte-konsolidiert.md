@@ -61,6 +61,14 @@ hängt zusätzlich an der offenen Frage 3.34 (wird reparatur.info überhaupt gen
 
 ## 1. 🔴 Blockiert den Livegang (3)
 
+> **Wichtig für die Einordnung:** Was hier deployt wird, geht **nur in die
+> Preview-Umgebung** (`carcare-center.vercel.app`), in der die Zwischenstände mit dem
+> Kunden besprochen werden. Unter `www.carcare-center.de` läuft weiterhin der alte
+> Auftritt. Diese drei Punkte blockieren den **späteren echten Livegang** — sie halten
+> weder ein Deployment noch die Weiterarbeit auf. Fehlende Rechtstexte werden markiert
+> und als „zu hinterlegen" ausgewiesen, nicht abgewartet.
+
+
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
 | ***„3.33“*** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen |

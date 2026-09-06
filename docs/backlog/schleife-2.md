@@ -43,8 +43,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.9 | Klarstellen: Paket „Exklusiv" betrifft auch den Innenraum, nicht nur außen | Oalab | offen | *Textarbeit, ohne Zulieferung machbar.* |
-| 2.10 | Textlich klarstellen: Brillant-Außenpflege ist Basis/Voraussetzung für Keramikversiegelung – Versiegelung selbst nicht enthalten, kommt hinzu | Oalab | offen | *Textarbeit, ohne Zulieferung machbar.* |
+| 2.9 | Klarstellen: Paket „Exklusiv" betrifft auch den Innenraum, nicht nur außen | Oalab | ✅ **erledigt** | *`data/detailing.ts`: „Aufbereitung von außen und innen …" plus Schlusssatz „Der Innenraum wird dabei ebenso behandelt wie der Lack." **Auch die maschinenlesbare Fassung** (`priceOffers` → `Offer`-Schema) nachgezogen, sonst widerspräche das Schema dem sichtbaren Text. 2026-09-06* |
+| 2.10 | Textlich klarstellen: Brillant-Außenpflege ist Basis/Voraussetzung für Keramikversiegelung – Versiegelung selbst nicht enthalten, kommt hinzu | Oalab | ✅ **erledigt** | *`data/detailing.ts`: zwei Sätze ergänzt, die **Lackversiegelung** (im Paket enthalten) und **Keramikversiegelung** (kommt hinzu) auseinanderhalten — die Verwechslung war im alten Text angelegt. 2026-09-06* |
 | 2.11 | Zusatzleistungen als optionale, wählbare Zusatzleistungen auf der Subseite aufführen (Fußnote/Hinweis) | Oalab | offen | *Hängt an 2.26 — die Liste fehlt. Struktur steht in `data/zusatzleistungen.ts`.* |
 | 2.12 | Prüfen, ob die erklärende Darstellung (Innen-/Außen-/Lackaufbereitung) auch für die Pakete oben übernommen wird | Oalab | offen | — |
 | 2.13 | Premium vs. Exklusiv fotografisch schwer trennbar → vorerst ohne Foto, ggf. über Textbausteine lösen | Oalab | offen | — |
@@ -58,7 +58,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 2.16 | Hero-Bild ersetzen – wirkt wie Schadensaufnahme, nicht wie Instandsetzung | Oalab / André | offen | *Braucht Motiv von André.* |
-| 2.17 | Karte „Karosseriearbeiten" → „Karosserie- und Lackierarbeiten" | Oalab | offen | **Sofort umsetzbar.** *Reine Umbenennung.* |
+| 2.17 | Karte „Karosseriearbeiten" → „Karosserie- und Lackierarbeiten" | Oalab | ✅ **erledigt** | *Karte auf `/unfallinstandsetzung-leipzig` umbenannt und die Beschreibung um die Lackierarbeiten ergänzt. **Nicht global ersetzt:** Von 8 Fundstellen nannten 6 die Lackierung bereits daneben — dort wäre die Umbenennung eine Dopplung. Mitgezogen wurden `data/services.ts` (nannte Lack nicht) und `components/AccidentFocus.tsx`. 2026-09-06* |
 | 2.18 | Sektion „Schadenaufnahme": Transparenz reduzieren (bei viel Text unübersichtlich) | Oalab | offen | *Gleiche Ursache wie der A11y-Befund aus Paket C. Mit 2.1 bündeln.* |
 
 ---
@@ -85,7 +85,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 2.22 | Terminanfrage-Button analog kfz-lindner.de: Klick → Pop-up mit Auswahl aus zwei Servicebereichen | Oalab | offen | **Erledigt durch 1.20.** *`components/AnfrageDialog.tsx`, eingehängt über `ANFRAGE_ZIELE`. Deckt inzwischen drei Anfragearten statt zwei.* |
-| 2.23 | Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info-Link (kein eigenes Formular) | Oalab | offen | ⚠️ **Widerspricht der Umsetzung vom 2026-09-05.** *Gebaut wurde ein eigenes Schadenformular; reparatur.info ist ausdrücklich nur „spätere Option". Zusätzlich blockiert durch 3.34 (wird reparatur.info überhaupt genutzt?). Muss entschieden werden.* |
+| 2.23 | Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info-Link (kein eigenes Formular) | Oalab | **zurückgestellt** | ✅ **Entschieden — bleibt vorerst so.** *Gebaut wurde bewusst ein eigenes Schadenformular statt der Weiterleitung; reparatur.info bleibt „spätere Option". Die Abweichung ist eine Entscheidung von Oalab, kein Versehen, und wird **im Nachgang** angepasst. **Nicht "aufräumen".** Hängt zusätzlich an 3.34 (wird reparatur.info überhaupt genutzt?).* |
 | 2.24 | Geschäftskunden-Anfragen an André's persönliche Mailadresse, nicht an Info-Adresse | Oalab | offen | *Heute geht alles an eine Adresse (`ANFRAGE_EMPFAENGER`). Braucht eine zweite Variable — mit 3.38 zusammen einrichten.* |
 | 2.25 | Geschäftskunden-Formular reduzieren auf: Autohaus, Fuhrpark, Versicherung, Rahmenvertrag, Sonstiges – „laufende Zusammenarbeit" streichen | Oalab | offen | *Optionen stimmen (5 Stück), aber Option 4 heißt `Rahmenvertrag / laufende Zusammenarbeit` (`components/formulare/GeschaeftskundenFelder.tsx:45`) — Begriff zusammengeführt, nicht gestrichen. Wörtlich offen.* |
 
@@ -108,6 +108,13 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | **2.3** | teilweise — Zeitstrahl steht, Ablauf-Sektionen folgen dem Muster noch nicht |
 | **2.5** | teilweise — Kachelrochade aus Paket B, Ziele einzeln prüfen |
 | **2.25** | strittig — Optionen stimmen, Wortlaut nicht |
+| **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
+
+## Am 2026-09-06 erledigt
+
+**2.9** · **2.10** · **2.17** — alle drei ohne Zulieferung, siehe Zeilen oben.
+Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen), **2.12** (Prüfung),
+**2.19** (braucht zwei neue Wissensbeiträge), **2.25** (Wortlaut).
 | **2.14** | Dopplung mit dem repo-lokalen „1.28" |
 
 ## Unauflösbare Fremdverweise

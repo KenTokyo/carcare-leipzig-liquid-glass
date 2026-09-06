@@ -7,7 +7,7 @@ const bullets = [
   { icon: <ClipboardCheck size={16} />, text: 'Kalkulation' },
   { icon: <ShieldCheck size={16} />, text: 'Gutachterservice' },
   { icon: <ShieldCheck size={16} />, text: 'Versicherungsabwicklung' },
-  { icon: <Hammer size={16} />, text: 'Karosseriearbeiten' },
+  { icon: <Hammer size={16} />, text: 'Karosserie- und Lackierarbeiten' }, // Backlog 2.17
   { icon: <PaintBucket size={16} />, text: 'Reparaturlackierung' },
   { icon: <Car size={16} />, text: 'Ersatzwagen nach Verfügbarkeit' },
 ];

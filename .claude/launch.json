@@ -4,8 +4,24 @@
     {
       "name": "carcare",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3007,
+      "autoPort": true
+    },
+    {
+      "name": "carcare-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "4173"
+      ],
+      "port": 4173,
       "autoPort": true
     }
   ]

@@ -58,7 +58,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Unfallinstandsetzung',
     localTitle: 'Unfallinstandsetzung Leipzig',
     description: 'Schadenaufnahme, Kalkulation und Reparatur aus einer Hand.',
-    listDescription: 'Schadenaufnahme, Kalkulation, Karosseriearbeiten und Reparaturbegleitung — inklusive Abstimmung mit Versicherung und Gutachter.',
+    listDescription: 'Schadenaufnahme, Kalkulation, Karosserie- und Lackierarbeiten sowie Reparaturbegleitung — inklusive Abstimmung mit Versicherung und Gutachter.', // Backlog 2.17
     iconName: 'Wrench',
     href: '/unfallinstandsetzung-leipzig',
     cta: 'Unfall melden',
