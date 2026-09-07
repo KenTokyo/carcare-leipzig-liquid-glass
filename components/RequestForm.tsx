@@ -95,7 +95,7 @@ export const formularTitel = Object.fromEntries(
   Object.entries(headlineByKind).map(([art, kopf]) => [art, kopf.title])
 ) as Record<RequestFormKind, string>;
 
-const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
+const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const [values, setValues] = useState(() => startwerte(kind, vorauswahl));
   const [submitted, setSubmitted] = useState(false);
   const { ready: bereit, disable: versandDeaktivieren } = useVersandBereitschaft();
@@ -109,38 +109,6 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const versandMoeglich = bereit;
   const kontaktMail = kind === 'business' ? 'abosse@carcare-center.de' : 'info@carcare-center.de';
   const unterlagen = kind === 'bewerbung' || kind === 'business';
-  const [gezeigteArt, setGezeigteArt] = useState(kind);
-
-  /**
-   * Variantenwechsel WAEHREND DES RENDERNS nachziehen, nicht in einem Effect.
-   *
-   * Vorher stand hier ein `useEffect([kind])`. Effects laufen NACH dem Rendern — der
-   * erste Durchlauf mit der neuen Variante rendert also noch die Werte der alten. Bei
-   * lauter Zeichenketten blieb das unsichtbar: ein Feld, das es in der neuen Variante
-   * nicht gibt, ist `undefined` und rendert als leer.
-   *
-   * Mit `zusatzleistungen: string[]` wurde daraus ein Absturz — `undefined.includes(...)`
-   * beim Wechsel auf den Termin-Reiter, gemessen auf `/kontakt#contact-termin`. Der
-   * Fehler steckte also schon vorher im Bauteil und wurde nur nie sichtbar.
-   *
-   * Das ist Reacts dokumentiertes Muster fuer „Zustand an geaenderte Props anpassen":
-   * Ein `set` waehrend des Renderns verwirft das Ergebnis und ruft die Komponente sofort
-   * erneut auf, bevor irgendetwas ins DOM geht. Kein zusaetzlicher Frame, kein Flackern.
-   *
-   * ⚠️ ES ERSETZT ABER KEINE ABSICHERUNG BEIM LESEN. React laesst den laufenden Durchlauf
-   * ZU ENDE laufen und wirft das Ergebnis erst danach weg — eine Ausnahme im Rumpf fliegt
-   * vorher. Genau daran ist die erste Fassung dieses Fixes gescheitert: Der Absturz blieb.
-   * Deshalb liest die Mehrfachauswahl unten ueber `?? []`. Beides zusammen, nicht eines
-   * statt des anderen.
-   */
-  if (kind !== gezeigteArt) {
-    setGezeigteArt(kind);
-    setValues(startwerte(kind, vorauswahl));
-    setSubmitted(false);
-    setFehler(null);
-    setVorgang(null);
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues((prev) => {
       const naechste = { ...prev, [e.target.name]: e.target.value };
@@ -380,5 +348,10 @@ Mit freundlichen Grüßen
     </motion.div>
   );
 };
+
+/** A new request kind owns its own state, including pending async submissions. */
+const RequestForm: React.FC<RequestFormProps> = (props) => (
+  <RequestFormInhalt key={`${props.kind}:${props.vorauswahl ?? ""}`} {...props} />
+);
 
 export default RequestForm;

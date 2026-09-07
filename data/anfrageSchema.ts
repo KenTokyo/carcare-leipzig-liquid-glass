@@ -1,7 +1,7 @@
-import type { RequestFormKind } from '../types';
-import { schadenFelder } from './schadenFelder';
-import { terminLeistungen } from './leistungsauswahl';
-import { zusatzleistungen } from './zusatzleistungen';
+import type { RequestFormKind } from '../types.js';
+import { schadenFelder } from './schadenFelder.js';
+import { terminLeistungen } from './leistungsauswahl.js';
+import { zusatzleistungen } from './zusatzleistungen.js';
 
 export const PARTNER_TYPEN = {
   autohaus: 'Autohaus', fuhrpark: 'Fuhrpark', versicherung: 'Versicherung / Versicherungsagentur',

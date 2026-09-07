@@ -2,9 +2,9 @@ import { createElement } from 'react';
 import { render, toPlainText } from 'react-email';
 import nodemailer from 'nodemailer';
 import { randomInt } from 'node:crypto';
-import type { RequestFormKind } from '../types';
-import { BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, MAX_FELDER, MAX_LAENGE, PFLICHTFELDER } from '../data/anfrageSchema';
-import AnfrageEmail from '../emails/AnfrageEmail';
+import type { RequestFormKind } from '../types.js';
+import { BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, MAX_FELDER, MAX_LAENGE, PFLICHTFELDER } from '../data/anfrageSchema.js';
+import AnfrageEmail from '../emails/AnfrageEmail.js';
 
 /** Node.js is required for SMTP. Credentials stay in the server environment. */
 export const maxDuration = 30;

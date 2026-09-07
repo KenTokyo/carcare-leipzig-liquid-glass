@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import React from 'react';
 import nodemailer from 'nodemailer';
 import { render, toPlainText } from 'react-email';
@@ -49,6 +50,14 @@ try {
   assert.equal((await handler(new Request('https://example.com/api/anfrage'))).status, 503);
   console.log('PASS: four routes, reply-to, escaping, readable values, invalid input, size, SMTP failure, missing routing.');
 } finally { nodemailer.createTransport = original; }
+
+// Vercel runs emitted ESM without tsx's forgiving extension resolution.
+// A successful Vite build and the tests above did not catch ERR_MODULE_NOT_FOUND.
+execFileSync(process.execPath, ['node_modules/typescript/bin/tsc', 'api/anfrage.ts',
+  '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext',
+  '--jsx', 'react-jsx', '--esModuleInterop', '--skipLibCheck', '--outDir', 'output/email-runtime'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--input-type=module', '-e',
+  "import api from './output/email-runtime/api/anfrage.js'; const response = await api.fetch(new Request('http://localhost/api/anfrage')); if (response.status !== 503) throw new Error('Expected disabled configuration'); console.log('PASS: emitted ESM starts in plain Node without tsx or a bundler.');"], { stdio: 'inherit' });
 
 await mkdir('output/email-preview', { recursive: true });
 for (const art of ['business', 'termin', 'schaden', 'bewerbung'] as RequestFormKind[]) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from 'react-email';
-import { BETREFF, FELDBESCHRIFTUNG, lesbarerWert } from '../data/anfrageSchema';
-import type { RequestFormKind } from '../types';
+import { BETREFF, FELDBESCHRIFTUNG, lesbarerWert } from '../data/anfrageSchema.js';
+import type { RequestFormKind } from '../types.js';
 
 export interface AnfrageEmailProps {
   art: RequestFormKind;
