@@ -77,12 +77,16 @@ const employer = [
 
 const UeberUnsPage: React.FC = () => (
   // Werkstattmotiv statt Kachelbild: Diese Seite zeigt den Betrieb selbst, nicht eine
-  // einzelne Leistung. `carcare-hero-workshop.webp` ist mit 2400x1800 hoch genug
-  // aufgeloest, dass die Backdrop-Flaeche ohne `zoom` auskommt.
-  // Backlog 3.20: Das Hero-Foto wird durch ein Video ersetzt, das beim Scrollen im
-  // Hintergrund weiterlaeuft. Die Mechanik steht; solange `quelle` in `data/videos.ts`
-  // auf `null` steht, bleibt es beim Foto — es ist dann zugleich das spaetere Standbild.
-  <BackdropLayout image="/assets/carcare-hero-workshop.webp" video={videoPlatz('ueber-uns-hero').quelle}>
+  // einzelne Leistung.
+  // Backlog 3.20 — seit 2026-09-07 erledigt: Das Hero-Foto ist ein Video, das beim
+  // Scrollen im Hintergrund weiterlaeuft. `image` ist dabei zugleich das Standbild
+  // (Poster und `prefers-reduced-motion`-Fassung), deshalb steht hier das ERSTE BILD DER
+  // SCHLEIFE und nicht mehr `carcare-hero-workshop.webp` — sonst waere das Motiv beim
+  // Anlaufen des Videos sichtbar umgesprungen. Beides kommt aus `npm run video`.
+  <BackdropLayout
+    image={videoPlatz('ueber-uns-hero').poster ?? '/assets/carcare-hero-workshop.webp'}
+    video={videoPlatz('ueber-uns-hero').quelle}
+  >
     <PageMeta
       canonical="/ueber-uns"
       title="Über uns | Karosserie & Lack Leipzig | CarCare Center"

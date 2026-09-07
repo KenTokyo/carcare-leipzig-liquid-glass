@@ -145,12 +145,9 @@ const ANERKANNT = [
   { text: 'Meilenstein 3', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Jahr offen', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Platzhalter — wird durch', backlog: '1.18 / R1', seit: '2026-09-04' },
-  { text: 'Videoplatz Betriebsrundgang', backlog: '3.21', seit: '2026-09-06' },
-  { text: 'Videoplatz Arbeitsplatz', backlog: '3.18', seit: '2026-09-06' },
-  // Netz 2 findet diese beiden Wendungen im gerenderten HTML der Platzhalterrahmen.
-  // Sie verschwinden mit dem letzten Rahmen — dann muessen auch diese Zeilen weg.
-  { text: 'Videoplatz', backlog: '3.18 / 3.21', seit: '2026-09-06' },
-  { text: 'Das Material wird nachgeliefert', backlog: '3.18 / 3.21', seit: '2026-09-06' },
+  // Die vier Videozeilen (3.18, 3.20, 3.21) sind am 2026-09-07 entfallen: Material
+  // geliefert, Platzhalter weg. Genau der in Eigenschaft 3 beschriebene Fall — ein
+  // Eintrag, der auf nichts mehr passt, haette den Build gebrochen.
   { text: 'Mitarbeiterstimme', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 1', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 2', backlog: '3.19 / 1.26', seit: '2026-09-06' },

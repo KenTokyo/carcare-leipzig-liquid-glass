@@ -36,8 +36,25 @@ const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' })
   if (platz.quelle) {
     return (
       <figure className={rahmen} style={{ aspectRatio: format }}>
+        {/*
+          KEIN `motion-reduce:hidden` (entfernt 2026-09-07).
+
+          Es stand hier und hat genau das bewirkt, was niemand wollte: Windows meldet
+          `prefers-reduced-motion: reduce`, sobald „Animationen anzeigen" in den
+          Systemeinstellungen aus ist — eine verbreitete Einstellung, und keine Aussage
+          ueber Videos. Auf solchen Rechnern lief das Video nie, es stand dauerhaft nur
+          das Standbild da. Der Kunde hat genau das gemeldet.
+
+          Deckt sich mit der bestehenden Projektentscheidung, Marken-Animationen nicht an
+          dieses Flag zu haengen.
+
+          ⚠️ OFFEN: WCAG 2.2.2 verlangt fuer automatisch startende Bewegung ueber
+          5 Sekunden eine Moeglichkeit zum Anhalten. Das Flag war bisher diese
+          Moeglichkeit; Ersatz ist ein sichtbares Bedienelement. Notiert in
+          `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.
+        */}
         <video
-          className="h-full w-full object-cover motion-reduce:hidden"
+          className="h-full w-full object-cover"
           src={platz.quelle}
           poster={platz.poster ?? undefined}
           autoPlay
@@ -47,11 +64,6 @@ const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' })
           preload="metadata"
           aria-label={platz.beschreibung}
         />
-        {/* Standbild fuer `prefers-reduced-motion`. Kein zweiter Netzabruf: Es ist
-            dasselbe Poster, das das Video ohnehin laedt. */}
-        {platz.poster && (
-          <img src={platz.poster} alt="" className="hidden h-full w-full object-cover motion-reduce:block" />
-        )}
       </figure>
     );
   }

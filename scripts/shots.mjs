@@ -58,7 +58,19 @@ if (!fs.existsSync(path.join(wurzel, 'dist', 'index.html'))) {
 fs.mkdirSync(AUSGABE, { recursive: true });
 const routen = (nurRoute ? [nurRoute] : getRoutes().map((r) => r.path ?? r)).filter(Boolean);
 const { basis, stopp } = await startePreview(4184);
-const browser = await puppeteer.launch({ headless: 'new' });
+/*
+ * `--force-prefers-no-reduced-motion` ist hier PFLICHT.
+ *
+ * Headless Chrome meldet `prefers-reduced-motion: reduce` von sich aus — gemessen am
+ * 2026-09-07. Ohne diesen Schalter zeigen die Aufnahmen also die REDUZIERTE Fassung:
+ * Videos tragen `motion-reduce:hidden`, sie waeren `display: none` und im Bild stuende
+ * nur das Standbild. Aufgefallen ist es, weil ein Video mit laufender Wiedergabe ein
+ * Rechteck von 0x0 meldete.
+ *
+ * Die uebliche Einstellung auf Windows und macOS ist Bewegung EIN. Bildschirmfotos
+ * sollen zeigen, was die meisten Besucher sehen.
+ */
+const browser = await puppeteer.launch({ headless: 'new', args: ['--force-prefers-no-reduced-motion'] });
 let anzahl = 0;
 
 try {

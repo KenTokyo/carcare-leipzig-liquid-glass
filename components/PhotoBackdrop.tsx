@@ -124,20 +124,35 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'round
           className="absolute inset-0"
         >
           {zoom === undefined && video ? (
-            <>
-              <video
-                className="h-full w-full object-cover motion-reduce:hidden"
-                src={video}
-                poster={image}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-              />
-              {/* Standbild bei reduzierter Bewegung — dasselbe Poster, kein zweiter Abruf. */}
-              <img src={image} alt="" decoding="async" className="hidden h-full w-full object-cover motion-reduce:block" />
-            </>
+            /*
+             * KEIN `motion-reduce:hidden` (entfernt 2026-09-07).
+             *
+             * Es stand hier und hat genau das bewirkt, was niemand wollte: Windows meldet
+             * `prefers-reduced-motion: reduce`, sobald in den Systemeinstellungen
+             * „Animationen anzeigen" aus ist — das ist eine verbreitete Einstellung und
+             * keine Aussage ueber Videos. Auf solchen Rechnern war das Video komplett
+             * ausgeblendet und es stand dauerhaft nur das Standbild da. Der Kunde hat
+             * genau das gemeldet: „Ich wollte doch ein Video und kein statisches Foto."
+             *
+             * Deckt sich mit der bereits bestehenden Projektentscheidung, Marken-
+             * Animationen nicht an dieses Flag zu haengen.
+             *
+             * ⚠️ OFFEN: WCAG 2.2.2 verlangt fuer automatisch startende Bewegung ueber
+             * 5 Sekunden eine Moeglichkeit zum Anhalten. Das Flag war bisher diese
+             * Moeglichkeit. Ersatz muss ein sichtbares Bedienelement sein — hier
+             * schwierig, weil diese Ebene `pointer-events: none` und `-z-10` traegt.
+             * Notiert in `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.
+             */
+            <video
+              className="h-full w-full object-cover"
+              src={video}
+              poster={image}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
           ) : zoom === undefined ? (
             <img src={image} alt="" decoding="async" className="h-full w-full object-cover" />
           ) : (

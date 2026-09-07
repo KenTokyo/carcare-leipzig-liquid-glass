@@ -45,11 +45,16 @@ export const videoPlaetze: VideoPlatz[] = [
     beschreibung: 'Läuft als Hintergrund hinter dem Kopfbereich weiter, während gescrollt wird.',
     zweck:
       'Ruhiger Ausschnitt aus dem Betriebsvideo, der als Endlosschleife im Hintergrund tragen kann — ohne harte Schnitte, ohne Text im Bild.',
-    // Kein sichtbarer Platzhalter: Hier steht bereits das Werkstattfoto und traegt den
-    // Kopfbereich vollstaendig. Sobald `quelle` gesetzt ist, tritt das Video an seine
-    // Stelle und das Foto wird automatisch zum Standbild.
-    quelle: null,
-    poster: '/assets/carcare-hero-workshop.webp',
+    // Geliefert am 2026-09-07. Ausschnitt 9,0–21,2 s aus `2. Video/CarCare .mov` — die
+    // laengste schnittfreie Einstellung des Films, stumm, 1280 breit, 2,1 MiB statt
+    // 115,6 MiB. Herleitung des Ausschnitts und der Parameter: `scripts/build-video.mjs`.
+    //
+    // Das Standbild kommt aus dem ERSTEN Bild der Schleife, nicht aus dem frueheren
+    // `carcare-hero-workshop.webp`: Das zeigt eine andere Halle, das Bild waere beim
+    // Anlaufen des Videos sichtbar umgesprungen. Das alte Foto bleibt, wo es ist —
+    // `ExpandingCardAccordion` und `TargetGroupCards` nutzen es als Standardhintergrund.
+    quelle: '/assets/carcare-ueber-uns-hero.mp4',
+    poster: '/assets/carcare-ueber-uns-hero-standbild.webp',
     istPlatzhalter: false,
     backlog: '3.20',
   },
@@ -59,9 +64,17 @@ export const videoPlaetze: VideoPlatz[] = [
     beschreibung: 'Ein Durchgang durch alle Bereiche im laufenden Betrieb.',
     zweck:
       'Drohnenaufnahme: Anflug, Vogelperspektive, danach langsamer Durchflug durch alle Bereiche im aktiven Betrieb. Ausdrücklich kein Mitarbeiterporträt.',
-    quelle: null,
-    poster: '/assets/carcare-hero-workshop.webp',
-    istPlatzhalter: true,
+    // Geliefert am 2026-09-07, Ausschnitt 21,5–52,2 s aus `2. Video/CarCare .mov`:
+    // Waschplatz, Schadenaufnahme, Werkstatthalle, Karosseriearbeit, Lackierkabine —
+    // ein Durchgang durch die Bereiche, wie hier verlangt. Stumm, weil `autoplay` nur
+    // stumm erlaubt ist; der Film MIT Ton bleibt vorerst ungenutzt.
+    //
+    // Das Standbild stammt bewusst NICHT vom Anfang, sondern von 31,1 s (weite Halle):
+    // Bei reduzierter Bewegung zeigt die Komponente ausschliesslich das Standbild, und
+    // Windows meldet reduzierte Bewegung systemweit. Es muss die Sektion allein tragen.
+    quelle: '/assets/carcare-betriebsrundgang.mp4',
+    poster: '/assets/carcare-betriebsrundgang-standbild.webp',
+    istPlatzhalter: false,
     backlog: '3.21',
   },
   {
@@ -70,9 +83,18 @@ export const videoPlaetze: VideoPlatz[] = [
     beschreibung: 'Zeigt den Betrieb, in dem gearbeitet wird — nicht nur eine Liste von Vorteilen.',
     zweck:
       'Derselbe Rundgang wie auf „Über uns", hier auf den Arbeitsplatz hin geschnitten: Hallen, Ausstattung, Arbeitsplätze im Betrieb.',
-    quelle: null,
-    poster: '/assets/carcare-hero-workshop.webp',
-    istPlatzhalter: true,
+    // Geliefert am 2026-09-07, Ausschnitt 46,3–75,9 s aus derselben Quelle: Lackierkabine,
+    // Teilevorbereitung, Politur, Hebebuehne, Reifenraum. Die Ueberschneidung mit dem
+    // Rundgang ist gewollt — `zweck` verlangt ausdruecklich „derselben Rundgang, hier auf
+    // den Arbeitsplatz hin geschnitten".
+    //
+    // Beginnt bei 46,3 s statt direkt am Schnitt (45,6 s): Davor faehrt die Kamera an
+    // einer Saeule vorbei, die halbe linke Bildhaelfte ist schwarz.
+    // Standbild von 71,1 s — zwei Kollegen am Fahrzeug. Auf einer Karriereseite zaehlen
+    // Menschen bei der Arbeit, nicht eine leere Halle.
+    quelle: '/assets/carcare-arbeitsplatz.mp4',
+    poster: '/assets/carcare-arbeitsplatz-standbild.webp',
+    istPlatzhalter: false,
     backlog: '3.18',
   },
 ];
