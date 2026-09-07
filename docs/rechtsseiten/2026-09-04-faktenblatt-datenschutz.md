@@ -5,6 +5,8 @@
 **Stand:** 2026-09-04
 **Erstellt von:** OALAB (technische Umsetzung)
 
+**Technischer Nachtrag 2026-09-08:** Der aktuelle Formularversand verwendet Node.js bei Vercel und Netcup-SMTP (TLS, Port 465), nicht mehr Resend. Geschäftskunden werden über `carcare.center.business@oalab.de` an `abosse@carcare-center.de`, alle anderen Anfragen über `carcare.center.info@oalab.de` an `info@carcare-center.de` weitergeleitet. Die folgenden Resend-Angaben dokumentieren den früheren Entwurf; aktuelle Datenflüsse, Postfachkopien und Prüfstatus stehen in [Netcup-Versand](../netcup-email/tasks/2026-09-08-netcup-email-tasks.md). Dies ersetzt keine rechtliche Abnahme.
+
 ---
 
 ## Wozu dieses Blatt

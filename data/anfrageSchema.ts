@@ -1,6 +1,12 @@
 import type { RequestFormKind } from '../types';
 import { schadenFelder } from './schadenFelder';
 import { terminLeistungen } from './leistungsauswahl';
+import { zusatzleistungen } from './zusatzleistungen';
+
+export const PARTNER_TYPEN = {
+  autohaus: 'Autohaus', fuhrpark: 'Fuhrpark', versicherung: 'Versicherung / Versicherungsagentur',
+  rahmenvertrag: 'Rahmenvertrag / laufende Zusammenarbeit', sonstiges: 'Sonstiges',
+};
 
 /**
  * Was eine Anfrage enthalten muss und wie die Felder in der E-Mail heissen (Backlog 1.17).
@@ -66,6 +72,8 @@ const AUSWAHLTEXTE: Record<string, Record<string, string>> = {
       .map((f) => [f.id, Object.fromEntries(f.optionen!.map((o) => [o.id, o.label]))])
   ),
   service: Object.fromEntries(terminLeistungen.map((l) => [l.id, l.label])),
+  partnerType: PARTNER_TYPEN,
+  zusatzleistungen: Object.fromEntries(zusatzleistungen.map((l) => [l.id, l.label])),
 };
 
 /** Uebersetzt einen Feldwert in seinen Klartext, sofern es einen gibt. */

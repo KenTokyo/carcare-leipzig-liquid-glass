@@ -1,4 +1,5 @@
 import React from 'react';
+import { PARTNER_TYPEN } from '../../data/anfrageSchema';
 import { inputClass, labelClass, type FeldAenderung, type FormFieldsByKind } from './felder';
 
 /**
@@ -39,11 +40,7 @@ const GeschaeftskundenFelder: React.FC<GeschaeftskundenFelderProps> = ({ werte, 
       <label className={labelClass} htmlFor="business-partner">Art der Zusammenarbeit</label>
       <select id="business-partner" name="partnerType" value={werte.partnerType} onChange={onChange} className={inputClass}>
         <option value="">Bitte wählen</option>
-        <option value="autohaus">Autohaus</option>
-        <option value="fuhrpark">Fuhrpark</option>
-        <option value="versicherung">Versicherung / Versicherungsagentur</option>
-        <option value="rahmenvertrag">Rahmenvertrag / laufende Zusammenarbeit</option>
-        <option value="sonstiges">Sonstiges</option>
+        {Object.entries(PARTNER_TYPEN).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
       </select>
     </div>
     <div>

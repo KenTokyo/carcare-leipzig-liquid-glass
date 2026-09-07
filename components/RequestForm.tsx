@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
-import { ausbildungsberufe, berufsbilder } from '../data/jobs';
-import { enthaeltDummies, zusatzleistungen } from '../data/zusatzleistungen';
 import { terminLeistungen } from '../data/leistungsauswahl';
 import { HONIGTOPF } from '../data/anfrageSchema';
+import { useVersandBereitschaft } from '../hooks/useVersandBereitschaft';
 import { schadenFelder, sichtbareFelder } from '../data/schadenFelder';
 import SchadenFelder from './formulare/SchadenFelder';
 import TerminFelder from './formulare/TerminFelder';
 import GeschaeftskundenFelder from './formulare/GeschaeftskundenFelder';
 import BewerbungFelder from './formulare/BewerbungFelder';
-import { inputClass, labelClass, type FormFieldsByKind } from './formulare/felder';
+import type { FormFieldsByKind } from './formulare/felder';
 import { RequestFormKind } from '../types';
 
 interface RequestFormProps {
@@ -59,55 +58,6 @@ const headlineByKind: Record<RequestFormKind, { icon: React.ReactNode; eyebrow: 
 };
 
 /**
- * VERSAND IST NOCH NICHT ANGEBUNDEN (Backlog 1.17, Paket E).
- *
- * `handleSubmit` setzt bis heute nur `submitted = true` — es geht nichts raus. Bei einer
- * BEWERBUNG ist das nicht vertretbar: Wer seinen Werdegang schickt und „wir melden uns"
- * liest, waehrend niemand etwas bekommen hat, wartet auf eine Antwort, die nie kommt.
- * Deshalb ist der Absenden-Knopf dieser Variante inaktiv und nennt den Weg, der
- * funktioniert. Sobald 1.17 steht, wird hier `true` gesetzt — sonst nichts.
- *
- * Die drei aelteren Varianten bleiben unveraendert: Sie sind seit Langem so live, und
- * ihre Umstellung ist eine eigene Entscheidung, nicht Teil von 1.22. Festgehalten im
- * Paket-D-Plan, Abschnitt 5.
- */
-const VERSAND_AKTIV = true;
-
-/**
- * Ist der Versand auf DIESEM Deployment eingerichtet?
- *
- * `VERSAND_AKTIV` oben ist der Notschalter im Code. Ob wirklich gesendet werden kann,
- * weiss aber nur die Umgebung: `api/anfrage.ts` braucht `RESEND_API_KEY`,
- * `ANFRAGE_EMPFAENGER` und `ANFRAGE_ABSENDER`. Fehlt eines, antwortet die Funktion mit
- * 503 und `{ bereit: false }`.
- *
- * ⚠️ DER EHRLICHE ZUSTAND IST DER AUSGANGSZUSTAND. Vor der Antwort gilt „nicht bereit":
- * Der Knopf ist gesperrt und nennt Telefon und E-Mail. Erst eine bestaetigte Bereitschaft
- * schaltet ihn frei. Damit kann kein Deployment eine Erfolgsmeldung zeigen, hinter der
- * kein Versand steht — der Fehler, der bis zum 2026-09-05 in allen vier Varianten steckte.
- *
- * Das Ergebnis wird je Sitzung einmal geholt: Auf der Kontaktseite und im Dialog stehen
- * bis zu zwei Formulare gleichzeitig, und beide braeuchten sonst eine eigene Anfrage.
- */
-let versandStandCache: boolean | null = null;
-let versandStandLaeuft: Promise<boolean> | null = null;
-
-const versandBereitschaft = (): Promise<boolean> => {
-  if (versandStandCache !== null) return Promise.resolve(versandStandCache);
-  if (versandStandLaeuft) return versandStandLaeuft;
-  versandStandLaeuft = fetch('/api/anfrage', { method: 'GET' })
-    .then((r) => (r.ok ? r.json() : { bereit: false }))
-    .then((j) => Boolean(j?.bereit))
-    .catch(() => false)
-    .then((bereit) => {
-      versandStandCache = bereit;
-      versandStandLaeuft = null;
-      return bereit;
-    });
-  return versandStandLaeuft;
-};
-
-/**
  * Frischer Startwert je Variante.
  *
  * BEWUSST EINE KOPIE: `initialState` ist eine Vorlage, kein Zustand. Seit `termin` ein
@@ -148,7 +98,7 @@ export const formularTitel = Object.fromEntries(
 const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const [values, setValues] = useState(() => startwerte(kind, vorauswahl));
   const [submitted, setSubmitted] = useState(false);
-  const [bereit, setBereit] = useState(false);
+  const { ready: bereit, disable: versandDeaktivieren } = useVersandBereitschaft();
   const [sendet, setSendet] = useState(false);
   /** Vorgangsnummer aus der Antwort des Servers. Nur gesetzt, wenn wirklich gesendet wurde. */
   const [vorgang, setVorgang] = useState<string | null>(null);
@@ -156,19 +106,9 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   /** Honigtopf. Fuer Menschen unsichtbar, Formularroboter fuellen ihn aus. */
   const [honigtopf, setHonigtopf] = useState('');
 
-  React.useEffect(() => {
-    if (!VERSAND_AKTIV) return;
-    let abgemeldet = false;
-    versandBereitschaft().then((b) => {
-      if (!abgemeldet) setBereit(b);
-    });
-    return () => {
-      abgemeldet = true;
-    };
-  }, []);
-
-  /** Darf tatsaechlich gesendet werden? Notschalter UND Umgebung muessen zustimmen. */
-  const versandMoeglich = VERSAND_AKTIV && bereit;
+  const versandMoeglich = bereit;
+  const kontaktMail = kind === 'business' ? 'abosse@carcare-center.de' : 'info@carcare-center.de';
+  const unterlagen = kind === 'bewerbung' || kind === 'business';
   const [gezeigteArt, setGezeigteArt] = useState(kind);
 
   /**
@@ -197,6 +137,8 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
     setGezeigteArt(kind);
     setValues(startwerte(kind, vorauswahl));
     setSubmitted(false);
+    setFehler(null);
+    setVorgang(null);
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -235,22 +177,26 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ art: kind, daten: { ...values, [HONIGTOPF]: honigtopf } }),
+        signal: AbortSignal.timeout(35_000),
       });
       const inhalt = await antwort.json().catch(() => ({}));
       if (!antwort.ok) {
         // Die Funktion liefert bei 503 mit, dass sie nicht eingerichtet ist. Dann ist
         // der Knopf ab sofort gesperrt statt bei jedem Versuch erneut zu scheitern.
         if (antwort.status === 503) {
-          versandStandCache = false;
-          setBereit(false);
+          versandDeaktivieren();
         }
         setFehler(
           inhalt?.fehler ??
-            'Die Anfrage konnte nicht zugestellt werden. Bitte rufen Sie uns an oder schreiben Sie direkt an info@carcare-center.de.'
+            `Die Anfrage konnte nicht versendet werden. Bitte rufen Sie uns an oder schreiben Sie direkt an ${kontaktMail}.`
         );
         return;
       }
-      setVorgang(typeof inhalt?.vorgang === 'string' ? inhalt.vorgang : null);
+      if (inhalt?.ok !== true || typeof inhalt?.vorgang !== 'string') {
+        setFehler('Der Versand wurde nicht bestätigt. Bitte kontaktieren Sie uns direkt per E-Mail.');
+        return;
+      }
+      setVorgang(inhalt.vorgang);
       setSubmitted(true);
     } catch {
       setFehler(
@@ -312,15 +258,19 @@ const RequestForm: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
               <p className="mt-3 text-sm leading-relaxed text-gray-600">
                 {kind === 'bewerbung'
                   ? 'Ihre Unterlagen — Lebenslauf, Zeugnisse — schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
+                  : kind === 'business'
+                    ? 'Weitere Unterlagen zu Ihrer Anfrage können Sie direkt an unsere Geschäftsführung senden. Bitte nennen Sie die Vorgangsnummer im Betreff.'
+                    : kind === 'termin'
+                      ? 'Bei Bedarf können Sie Fahrzeugbilder oder weitere Angaben per E-Mail nachreichen. Bitte nennen Sie die Vorgangsnummer im Betreff.'
                   : 'Bilder vom Schaden helfen uns sehr bei der Einschätzung. Schicken Sie sie bitte per E-Mail nach — die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Anfrage zuordnen.'}
               </p>
               <a
-                href={`mailto:info@carcare-center.de?subject=${encodeURIComponent(
-                  (kind === 'bewerbung' ? 'Unterlagen zum Vorgang ' : 'Bilder zum Vorgang ') + vorgang
+                href={`mailto:${kontaktMail}?subject=${encodeURIComponent(
+                  (unterlagen ? 'Unterlagen zum Vorgang ' : 'Bilder zum Vorgang ') + vorgang
                 )}&body=${encodeURIComponent(
                   `Guten Tag,
 
-anbei ${kind === 'bewerbung' ? 'meine Unterlagen' : 'die Bilder'} zum Vorgang ${vorgang}.
+anbei ${unterlagen ? 'meine Unterlagen' : 'die Bilder'} zum Vorgang ${vorgang}.
 
 Mit freundlichen Grüßen
 `
@@ -328,11 +278,11 @@ Mit freundlichen Grüßen
                 className="cc-gradient-button mt-4 inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white"
               >
                 <Send size={14} />
-                {kind === 'bewerbung' ? 'Unterlagen per E-Mail nachreichen' : 'Bilder per E-Mail nachreichen'}
+                {unterlagen ? 'Unterlagen per E-Mail nachreichen' : 'Bilder per E-Mail nachreichen'}
               </a>
               <p className="mt-3 text-[11px] leading-relaxed text-gray-600">
                 Öffnet sich kein E-Mail-Programm: an{' '}
-                <span className="font-semibold text-gray-950">info@carcare-center.de</span> mit{' '}
+                <span className="font-semibold text-gray-950">{kontaktMail}</span> mit{' '}
                 <span className="font-semibold text-gray-950">{vorgang}</span> im Betreff.
               </p>
             </div>
@@ -361,7 +311,7 @@ Mit freundlichen Grüßen
           )}
 
           {/*
-            ABSENDEN IST INAKTIV, SOLANGE `VERSAND_AKTIV` AUS IST — fuer ALLE Varianten.
+            ABSENDEN IST INAKTIV, SOLANGE DIE SMTP-KONFIGURATION FEHLT — fuer ALLE Varianten.
             Bis zum 2026-09-05 galt das nur fuer die Bewerbung; die drei aelteren
             Varianten meldeten „Anfrage uebermittelt", ohne dass etwas hinausging.
 
@@ -416,7 +366,7 @@ Mit freundlichen Grüßen
                 Der Online-Versand wird gerade eingerichtet. Sie erreichen uns unter{' '}
                 <a href="tel:+493412617790" className="font-semibold text-gray-950 underline">0341 - 261 77 90</a>
                 {' '}oder{' '}
-                <a href="mailto:info@carcare-center.de" className="font-semibold text-gray-950 underline">info@carcare-center.de</a>.
+                <a href={`mailto:${kontaktMail}`} className="font-semibold text-gray-950 underline">{kontaktMail}</a>.
               </p>
             ) : (
               <p className="text-[11px] leading-relaxed text-gray-600">
