@@ -22,6 +22,19 @@ export interface ServiceCatalogEntry extends OverviewService {
   /** Gruppierung auf `/leistungen`. */
   group: ServiceGroupId;
   /**
+   * Diese Leistung ist die Uebersichtsseite ihrer Gruppe.
+   *
+   * Gelesen von `data/navigation.ts`: Im Mega-Menue wird die Gruppe zu einer Karte, und
+   * diese Karte braucht ein Ziel. Ohne Markierung muesste die Navigation eine zweite
+   * Liste fuehren, welche Route zu welcher Gruppe gehoert — genau die Doppelpflege, die
+   * dieser Katalog abgeschafft hat.
+   *
+   * Hoechstens EINE Leistung je Gruppe traegt das Flag. `rad-glas` hat bewusst keine:
+   * Felgen und Glas haben keine gemeinsame Uebersichtsseite, die Karte faellt dort auf
+   * den Abschnitt in `/leistungen` zurueck.
+   */
+  groupHub?: boolean;
+  /**
    * Titel mit Ortsbezug fuer `/leistungen`. Die Kachel auf der Startseite bleibt kurz
    * (`title`), die Leistungsseite nutzt den lokalen Suchbegriff als Ankertext.
    */
@@ -57,6 +70,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
   {
     id: 'aufbereitung',
     group: 'aufbereitung',
+    groupHub: true,
     title: 'Fahrzeugaufbereitung',
     localTitle: 'Fahrzeugaufbereitung Leipzig',
     description: 'Innen, außen und Lack — Wohlfühlen im Alltag und sichtbarer Werterhalt.',
@@ -72,6 +86,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
   {
     id: 'unfall',
     group: 'unfall-lack',
+    groupHub: true,
     title: 'Unfallinstandsetzung',
     localTitle: 'Unfallinstandsetzung Leipzig',
     description: 'Schadenaufnahme, Kalkulation und Reparatur aus einer Hand.',
@@ -242,6 +257,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
   {
     id: 'geschaeftskunden',
     group: 'gewerbe',
+    groupHub: true,
     title: 'Geschäftskundenbetreuung',
     localTitle: 'Geschäftskundenbetreuung Leipzig',
     description: 'Feste Ansprechpartner für Autohäuser, Fuhrparks und Versicherungen.',
@@ -260,6 +276,16 @@ export interface ServiceGroup {
   title: string;
   /** Anker-Id der Section auf `/leistungen` (fuer Direktverlinkung aus anderen Seiten). */
   anchor: string;
+  /**
+   * Kurzform fuer die Navigation. `eyebrow` und `title` sind fuer eine Seitensektion
+   * geschrieben und in einer Menuekarte zu lang — „Fahrzeugaufbereitung & Werterhalt"
+   * bricht dort um. Der Menuetext steht deshalb eigenstaendig hier und nicht als
+   * gekuerzte Ableitung: Kuerzen per Code wuerde bei der naechsten Gruppe raten.
+   */
+  navLabel: string;
+  navDescription: string;
+  /** Lucide-Iconname, aufgeloest in `data/navigation.ts`. */
+  navIconName: string;
 }
 
 /** Reihenfolge der Abschnitte auf `/leistungen`. */
@@ -267,24 +293,36 @@ export const serviceGroups: ServiceGroup[] = [
   {
     id: 'aufbereitung',
     anchor: 'aufbereitung',
+    navLabel: 'Fahrzeugaufbereitung',
+    navDescription: 'Innen, außen, Lack & Werterhalt',
+    navIconName: 'Sparkles',
     eyebrow: 'Fahrzeugaufbereitung & Werterhalt',
     title: 'Pflege, die den Fahrzeugwert sichtbar hält.',
   },
   {
     id: 'unfall-lack',
     anchor: 'unfall-lack',
+    navLabel: 'Unfall & Lack',
+    navDescription: 'Karosserie, Lackierung & Smart Repair',
+    navIconName: 'Wrench',
     eyebrow: 'Unfall, Karosserie & Lack',
     title: 'Von der Schadenaufnahme bis zur fertigen Lackierung.',
   },
   {
     id: 'rad-glas',
     anchor: 'rad-glas',
+    navLabel: 'Rad & Glas',
+    navDescription: 'Felgen und Fahrzeugglas im eigenen Haus',
+    navIconName: 'CircleDot',
     eyebrow: 'Rad & Glas',
     title: 'Felgen und Fahrzeugglas im eigenen Haus.',
   },
   {
     id: 'gewerbe',
     anchor: 'gewerbe',
+    navLabel: 'Geschäftskunden',
+    navDescription: 'Fuhrpark & Autohaus-Lösungen',
+    navIconName: 'Building2',
     eyebrow: 'Geschäftskunden & Flotten',
     title: 'Planbare Fahrzeugdienstleistungen für Unternehmen.',
   },

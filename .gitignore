@@ -44,3 +44,8 @@ output/preloader-verify/
 .env
 .env.local
 .env*.local
+
+# Bildschirmfotos und Messausgaben der Pruefwerkzeuge (npm run shots / kontrast / nav).
+# Werden bei jedem Lauf neu erzeugt, mehrere MB je Durchgang — nichts davon gehoert in
+# die Versionierung. Der Befund gehoert in die Task-Datei, nicht das Bild ins Repo.
+output/

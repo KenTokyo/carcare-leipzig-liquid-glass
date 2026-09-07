@@ -1,19 +1,8 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  AlertTriangle,
-  Building2,
-  CalendarClock,
-  ChevronRight,
-  MapPin,
-  Menu,
-  Phone,
-  Sparkles,
-  User,
-  Wrench,
-  X,
-} from 'lucide-react';
-import NavMegaMenu, { type MegaSection } from './NavMegaMenu';
+import { AlertTriangle, ChevronRight, Menu, Phone, X } from 'lucide-react';
+import NavMegaMenu, { NAV_MEGA_PANEL_ID } from './NavMegaMenu';
+import { navSections } from '../data/navigation';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
@@ -42,75 +31,6 @@ const navActionIconClass = 'flex h-11 w-11 shrink-0 items-center justify-center'
 const navActionLabelClass =
   'max-w-0 overflow-hidden pr-0 opacity-0 transition-[max-width,opacity,padding] duration-200 group-hover:max-w-[112px] group-hover:pr-3 group-hover:opacity-100 group-focus-visible:max-w-[112px] group-focus-visible:pr-3 group-focus-visible:opacity-100';
 
-/**
- * Mega-Menue „Leistungen": die beiden Leistungs-Hubs plus die beiden Zielgruppen.
- *
- * Der fruehere Eintrag „Alle Leistungen" ist entfallen — der Menuetitel „Leistungen"
- * verlinkt selbst auf `/leistungen`, und diese Seite fuehrt seit 2026-08-03 das
- * vollstaendige Angebot (siehe docs/leistungen-nav-restructure/tasks/). Ein zweiter
- * Link auf dasselbe Ziel im selben Menue waere redundant.
- */
-const megaSections: Record<string, MegaSection> = {
-  leistungen: {
-    label: 'Leistungen',
-    items: [
-      {
-        icon: Sparkles,
-        label: 'Fahrzeugaufbereitung',
-        description: 'Lackschutz, Keramik & Premium-Pflege',
-        href: '/fahrzeugaufbereitung-leipzig',
-      },
-      {
-        icon: Wrench,
-        label: 'Unfallinstandsetzung',
-        description: 'Karosserie, Lackierung & Smart Repair',
-        href: '/unfallinstandsetzung-leipzig',
-      },
-      {
-        icon: User,
-        label: 'Privatkunden',
-        description: 'Pflege, Reparatur & Leasingrückgabe',
-        href: '/privatkunden',
-      },
-      {
-        icon: Building2,
-        label: 'Geschäftskunden',
-        description: 'Fuhrparkservice & Autohaus-Lösungen',
-        href: '/geschaeftskunden',
-      },
-    ],
-  },
-  kontakt: {
-    label: 'Kontakt',
-    items: [
-      {
-        icon: MapPin,
-        label: 'Kontakt & Anfahrt',
-        description: 'Ansprechpartner & Standort Leipzig',
-        href: '/kontakt',
-      },
-      {
-        icon: AlertTriangle,
-        label: 'Schaden melden',
-        description: 'Online-Schadenformular ausfüllen',
-        href: '/kontakt#contact-schaden',
-      },
-      {
-        icon: CalendarClock,
-        label: 'Termin anfragen',
-        description: 'Aufbereitung & Reparatur buchen',
-        href: '/kontakt#contact-termin',
-      },
-      {
-        icon: Phone,
-        label: 'Direkt anrufen',
-        description: '0341 - 261 77 90',
-        href: 'tel:+493412617790',
-      },
-    ],
-  },
-};
-
 const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -121,7 +41,22 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     if (!activeDropdown && !isMobileOpen) return;
     const handleOutsideClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      /*
+       * Ein Ziel, das nicht mehr im Dokument haengt, kann nicht "ausserhalb" sein — es
+       * wurde von unserem eigenen Neuzeichnen entfernt.
+       *
+       * DER FALL, DEN DAS BEHEBT (gemessen am 2026-09-07, mobil, 390 px): Ein Tipp auf
+       * das Hamburger-Icon oeffnete das Menue und schloss es sofort wieder. Der Ablauf:
+       * Der Klick trifft das `path`-Element im SVG. React setzt `isMobileOpen`, tauscht
+       * dabei das Icon `Menu` gegen `X` — das getroffene `path` verschwindet also mitten
+       * in der Ereignisausbreitung. Wenn derselbe Klick danach `document` erreicht, ist
+       * `target` losgeloest, `contains()` meldet false, und dieser Handler schliesst das
+       * gerade geoeffnete Menue. Ein Tipp auf die Polsterung neben dem Icon funktionierte,
+       * ein Tipp auf das Icon selbst nicht — deshalb wirkte es wie ein Wackelkontakt.
+       */
+      if (!target.isConnected) return;
       if (navbarRef.current && !navbarRef.current.contains(target)) {
         setActiveDropdown(null);
         setIsMobileOpen(false);
@@ -189,6 +124,26 @@ const Navbar: React.FC = () => {
     }
   };
 
+  /**
+   * Tab vom geoeffneten Trigger springt in das Mega-Menue statt zum naechsten Menuepunkt.
+   *
+   * WARUM UEBERHAUPT: Das Panel liegt im DOM hinter beiden `<nav>`-Bloecken, weil es sich
+   * an der vollen Navbar-Breite ausrichtet. In der natuerlichen Tab-Reihenfolge kaeme es
+   * also erst nach allen Menuepunkten — wer mit der Tastatur „Leistungen" oeffnet, landet
+   * mit dem naechsten Tab bei „Wissen" und sieht die geoeffneten Inhalte nie.
+   * Gegenrichtung (Shift+Tab aus der ersten Karte) sitzt in `NavMegaMenu`.
+   */
+  const handleTriggerTab = (e: React.KeyboardEvent<HTMLAnchorElement>, isOpen: boolean) => {
+    if (e.key !== 'Tab' || e.shiftKey || !isOpen) return;
+    const ersteKarte = document
+      .getElementById(NAV_MEGA_PANEL_ID)
+      ?.querySelector<HTMLAnchorElement>('a[href]');
+    if (!ersteKarte) return;
+    e.preventDefault();
+    cancelClose();
+    ersteKarte.focus();
+  };
+
   const renderDesktopNavLink = (link: (typeof navLinks)[number]) => {
     const hasDropdown = link.hasDropdown;
     const isOpen = activeDropdown === link.dropdownKey;
@@ -204,9 +159,12 @@ const Navbar: React.FC = () => {
       >
         <a
           href={link.href}
+          id={hasDropdown ? `nav-trigger-${link.dropdownKey}` : undefined}
           onClick={(e) => handleLinkClick(e, link.href, true)}
+          onKeyDown={hasDropdown ? (e) => handleTriggerTab(e, isOpen) : undefined}
           aria-haspopup={hasDropdown ? 'true' : undefined}
           aria-expanded={hasDropdown ? isOpen : undefined}
+          aria-controls={hasDropdown && isOpen ? NAV_MEGA_PANEL_ID : undefined}
           className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.13em] text-[var(--cc-carbon)] transition-colors hover:text-[var(--cc-carbon)]"
         >
           <span>{link.label}</span>
@@ -304,7 +262,8 @@ const Navbar: React.FC = () => {
 
           <NavMegaMenu
             activeKey={activeDropdown}
-            sections={megaSections}
+            sections={navSections}
+            triggerId={activeDropdown ? `nav-trigger-${activeDropdown}` : null}
             onNavigate={handleLinkClick}
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
@@ -344,18 +303,58 @@ const Navbar: React.FC = () => {
                           <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--cc-carbon)] block mb-2 px-1">
                             {link.label}
                           </span>
-                          <div className="flex flex-col gap-2.5 pl-3">
-                            {megaSections[link.dropdownKey!].items.map((subItem) => (
-                              <a
-                                key={subItem.href}
-                                href={subItem.href}
-                                onClick={(e) => handleLinkClick(e, subItem.href, true)}
-                                className="text-xs font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors"
-                              >
-                                {subItem.label}
-                                <span className="normal-case font-medium text-[10px] text-[rgb(var(--cc-graphite-rgb)/0.72)] block mt-0.5">{subItem.description}</span>
-                              </a>
+                          {/*
+                            Auf Touch gibt es kein Hover. Die dritte Ebene steht deshalb
+                            dauerhaft offen statt hinter einer Geste — die Frage „was
+                            gehoert darunter?" ist damit ohne Tippen beantwortet.
+                          */}
+                          <div className="flex flex-col gap-3.5 pl-3">
+                            {navSections[link.dropdownKey!].cards.map((card) => (
+                              <div key={card.id} className="flex flex-col">
+                                <a
+                                  href={card.href}
+                                  onClick={(e) => handleLinkClick(e, card.href, true)}
+                                  className="text-xs font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors"
+                                >
+                                  {card.label}
+                                  <span className="normal-case font-medium text-[10px] text-[rgb(var(--cc-graphite-rgb)/0.72)] block mt-0.5">{card.description}</span>
+                                </a>
+                                {card.children.length > 0 && (
+                                  <ul className="mt-2 flex flex-col gap-2 border-l border-gray-100 pl-3">
+                                    {card.children.map((child) => (
+                                      <li key={child.href}>
+                                        <a
+                                          href={child.href}
+                                          onClick={(e) => handleLinkClick(e, child.href, true)}
+                                          className="block text-[11px] font-semibold leading-snug text-[rgb(var(--cc-graphite-rgb)/0.8)] transition-colors hover:text-[var(--cc-carbon)]"
+                                        >
+                                          {child.label}
+                                        </a>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
                             ))}
+                            {navSections[link.dropdownKey!].footerLinks?.length ? (
+                              <div className="flex flex-col gap-2 border-t border-gray-100 pt-3">
+                                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[rgb(var(--cc-graphite-rgb)/0.5)]">
+                                  {navSections[link.dropdownKey!].footerLabel}
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                  {navSections[link.dropdownKey!].footerLinks!.map((child) => (
+                                    <a
+                                      key={child.href}
+                                      href={child.href}
+                                      onClick={(e) => handleLinkClick(e, child.href, true)}
+                                      className="rounded-full border border-black/[0.06] bg-gray-50/70 px-3 py-1.5 text-[11px] font-bold leading-none text-[var(--cc-carbon)] transition-colors hover:border-blue-100 hover:bg-gray-100/70"
+                                    >
+                                      {child.label}
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                       ) : (
