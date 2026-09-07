@@ -59,16 +59,26 @@ for (const q of QUELLEN) {
  * Geprueft wird ausschliesslich `docs/backlog/*.md` (ohne Unterordner) und dort nur die
  * ERSTE ZELLE einer Tabellenzeile — also die Stelle, an der eine Nummer vergeben wird.
  * Fliesstext, Ueberschriften und alle uebrigen Dateien bleiben aussen vor.
+ *
+ * DIE SCHLEIFENDATEIEN WERDEN MITGEPRUEFT. Bis 2026-09-07 sollten sie uebersprungen
+ * werden, doch der Vergleich lief gegen `path.join(...)`: Das liefert auf Windows
+ * `docsacklog...` und passte nie zum Set mit Schraegstrichen. Der Skip griff also
+ * NUR auf Linux — und genau dort, auf Vercel, waere der Build gruen geblieben, waehrend
+ * `schleife-1.md` neun Repo-Befunde unter Kundennummern (3.32-3.40) fuehrte. Gefunden
+ * wurde es nur, weil lokal unter Windows gebaut wurde.
+ *
+ * Der Skip ist deshalb ersatzlos ENTFERNT statt repariert: Eine Schleifendatei kann
+ * ihren EIGENEN Raum nicht verletzen — die Obergrenze wird aus ihr abgeleitet. Sie kann
+ * aber einen FREMDEN Raum verletzen, und hat es getan. Mitpruefen kostet nichts und
+ * faengt genau den Fall, der eingetreten ist.
  */
 const ORDNER = path.join(wurzel, 'docs/backlog');
-const IST_QUELLE = new Set(QUELLEN.map((q) => q.datei));
 const ZELLE = /^\|\s*\**~*([123])\.(\d{1,2})~*\**\s*\|/;
 
 const befunde = [];
 for (const name of fs.readdirSync(ORDNER)) {
   if (!name.endsWith('.md')) continue;
-  const rel = path.join('docs/backlog', name);
-  if (IST_QUELLE.has(rel)) continue;
+  const rel = `docs/backlog/${name}`;
   fs.readFileSync(path.join(ORDNER, name), 'utf8').split('\n').forEach((zeile, i) => {
     const m = ZELLE.exec(zeile);
     if (!m) return;

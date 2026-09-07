@@ -119,7 +119,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen — gemessen H1 75 Z.,
 Absatz 165 Z., eher ein Blick-Urteil), **2.12** (Prüfauftrag),
-**2.24** (zweite Empfängeradresse, scharf erst mit 3.38).
+**2.24** (zweite Empfängeradresse, scharf erst mit R10).
 
 ### Nachgezogen aus 2.6: Der Dialog fragt jetzt zuerst nach dem Anliegen
 
@@ -135,7 +135,7 @@ mit „Vorgeschlagen" beschriftet. Ein „Zurück" führt vom Formular zur Auswa
 
 **Geprüft, dass nichts kaputtgegangen ist:** Die Leistungs-Vorauswahl aus **1.19**
 greift weiterhin (von `/innenaufbereitung-leipzig` aus steht „Innenaufbereitung" im
-Formular), und die Seitenzuordnung aus **3.36** ebenso (von
+Formular), und die Seitenzuordnung aus **R8** ebenso (von
 `/dellenentfernung-leipzig` ist „Schaden melden" vorgeschlagen und die Schadenart
 „Delle / Beule" vorbelegt).
 | **2.14** | Dopplung mit dem repo-lokalen „1.28" |

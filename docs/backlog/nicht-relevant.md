@@ -33,7 +33,7 @@ den `offene-punkte-konsolidiert.md` dokumentiert.
 | Bereich | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | Offene Frage | Programmname: „Beta Motive" vs. „Data Motive" – korrekte Schreibweise bestätigen | André | Klärung | ✅ *Überholt. `pages/BusinessCustomersPage.tsx:70` hält fest, dass „Data Motive" vom Kunden bestätigt wurde; so ist es ausgeliefert. Die CSV ist an dieser Stelle älter als die Bestätigung.* |
-| Bringschuld André | Fotogrundregel: Handyfotos, unbearbeitet, während der Bearbeitung oder kurz vor Ende – keine reinen Ergebnisbilder | André | Prinzip | **Gilt für alle Fotolieferungen** — 3.23–3.29, 2.14, 2.16, 2.20, 3.35. Bei der Anforderung mitschicken. |
+| Bringschuld André | Fotogrundregel: Handyfotos, unbearbeitet, während der Bearbeitung oder kurz vor Ende – keine reinen Ergebnisbilder | André | Prinzip | **Gilt für alle Fotolieferungen** — 3.23–3.29, 2.14, 2.16, 2.20, R7. Bei der Anforderung mitschicken. |
 | Über uns | Videografen kontaktieren (Kontakt über Hariege, Leipzig/Dubai) – diese Woche | Oalab | offen | *Voraussetzung für 3.21 (Drohnenvideo) und damit für 3.18 und 3.20. Die längste Durchlaufzeit von allem Offenen.* |
 | Sonstiges | Instagram-Beispiele frei durch Deutschland fahrender Autoaufbereiter an André schicken | Oalab | offen | *Reine Zuarbeit, kein Website-Thema.* |
 | Sonstiges | Idee zur Prüfung: Aufbereiter mit Kamerabrille, komplette Aufbereitung filmen, 1-Minuten-Video für Social Media | André | Idee | *Idee, keine Aufgabe. Kein Website-Thema.* |
