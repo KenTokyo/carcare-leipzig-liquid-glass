@@ -4,7 +4,8 @@
 **Auslöser:** `npm run kontrast` ist am 2026-09-06 ins Repo gekommen (Paket G) und lief
 zum ersten Mal über **alle** Routen: **4.538 Textstellen auf 29 Routen, 2 Breiten,
 4 Scrollpositionen. 23 davon unter WCAG AA.**
-**Status:** 2 behoben, **21 offen**
+**Status:** ✅ **abgeschlossen am 2026-09-07** — 0 Stellen unter AA.
+16 der 17 Befunde waren **Messartefakte**, einer war echt. Siehe unten.
 
 ---
 
@@ -51,35 +52,92 @@ vorkommt. Vor einer Änderung erst mit dem Auge prüfen.
 
 * [x] **Mitarbeiterstimmen auf `/karriere`** (4.21:1 → geprüft). Die Berufsbezeichnung
       stand auf `text-gray-500`; bei 10 px, weit gesperrt, auf `bg-gray-50/70` bleibt
-      davon keine Reserve. Jetzt `text-gray-700`. **Nicht über dem Foto** — die einzigen
-      zwei Treffer, die eine andere Ursache haben.
+      davon keine Reserve. Jetzt `tex## Was getan wurde
 
-## Was zu tun ist
+> **Die Ausgangsthese war falsch.** Der Kopf dieser Datei sortiert die Befunde nach
+> gemessenem Hintergrund und schliesst daraus auf den Fotoschutz. Eine Nachrechnung am
+> 2026-09-07 hat das widerlegt: Der schlechteste gemessene Hintergrund war
+> `rgb(72 94 122)`. Bei 73 % Mindestdeckung des Schutzes — selbst über schwarzem Foto
+> läge das Ergebnis dann bei mindestens 186 — ist so ein Wert **rechnerisch unmöglich**.
+> Die Stellen lagen also gar nicht über dem Seitenfoto.
 
-### ⬜ Phase 1 — Die Ursache statt der Symptome
-* [ ] `cc-guard-wide` in `index.css` messen statt schätzen: Wie stark deckt der Verlauf
-      an welcher Viewportbreite? Der mobile Fall braucht einen eigenen Wert.
-* [ ] **Erst danach** entscheiden, ob der Schutz verstärkt wird oder ob einzelne
-      Sektionen einen deckenden Hintergrund bekommen.
-* [ ] ⚠️ Gegenprobe: Ein stärkerer Verlauf nimmt dem Foto die Wirkung. Der Bildeindruck
-      war eine bewusste Gestaltungsentscheidung — hier gegen Lesbarkeit abwägen, nicht
-      einfach hochdrehen.
+### ✅ Phase 1 — Erst messen, wo der Wert herkommt
+* [x] Deckungsprofil des Schutzes über schwarzem Grund aufgenommen (Motiv ausgeblendet,
+      Fläche schwarz → gemessen wird 255 × Alpha). Ergebnis: mobil nie unter 73 %,
+      Desktop mit einem Loch bei x≈70 %, y≈50 % (29 %) — der bewusst transparenten
+      Mitte des Radialverlaufs.
+* [x] Damit war klar: Der horizontale Schutz aus Paket C ist in Ordnung und wird **nicht**
+      angefasst. Er misst am Hero weiterhin 4.99–5.29:1.
+* [x] Die schlimmste Stelle einzeln aufgesucht (`/karriere`, mobil, y=8626): Der Text
+      steht **hinter der fixierten Aktionsleiste**. `rgb(72 94 122)` ist deren Verlauf.
 
-### ⬜ Phase 2 — Knöpfe über Foto
-* [ ] `cc-gradient-button` ist halbtransparent. Über dem Foto reicht das nicht.
-      Deckend machen oder einen eigenen Zustand für Backdrop-Seiten.
+### ✅ Phase 2 — Das Messwerkzeug ehrlich machen
+**Ziel:** Erst wenn die Liste stimmt, darf am Design etwas geändert werden.
+* [x] **Überdeckung durch fixierte Leisten** wird erkannt. Die Trefferprobe nutzte
+      `elementFromPoint`; die Aktionsleiste trägt `pointer-events: none` und war für sie
+      unsichtbar, malte aber darüber. Genau die im Kopf des Skripts notierte Falle 4.
+      Jetzt zählen fixierte Elemente mit `z-index ≥ 1` **und eigener Fläche** als Decker —
+      die Flächenbedingung ist nötig, sonst verschlucken der dekorative Rahmen (z 50) und
+      die Analyse-Ebene (z 2147483647) jede Textstelle.
+* [x] **Inaktive Bedienelemente** werden ausgenommen. WCAG 1.4.3 tut das ausdrücklich.
+      Der Absendeknopf ist gesperrt, solange die Zugangsdaten fehlen (**R10**), und trägt
+      dabei `opacity-50` — darunter scheint das Foto durch.
+* [x] Kopfkommentar fortgeschrieben: zwei neue Einschränkungen benannt, statt die alte
+      stillschweigend zu streichen.
 
-### ⬜ Phase 3 — Nachmessen
-* [ ] `npm run kontrast` erneut über alle Routen. Ziel: 0 Stellen unter AA.
-* [ ] Danach `--strikt` im Build erwägen — dann bricht der Build bei Rückfall.
+**Wirkung: 17 Befunde → 1.** Fuenf waren überdeckt, vier waren gesperrte Knöpfe, sieben
+weitere ebenfalls überdeckt. Keiner davon war ein Kontrastfehler.
+
+### ✅ Phase 3 — Der eine echte Befund
+* [x] Hero-Subline der Startseite, `rgb(216,232,255)` auf `rgb(130,130,131)`, 3.09:1.
+      Der Kopf dieser Datei hatte ihn als „zu streng gemessen" markiert (`drop-shadow`).
+      **Mit dem Auge gegengeprüft, wie dort verlangt: Der Befund ist echt.** Die Zeile
+      „und Fahrzeugaufbereitung — alles aus" läuft über das rote Auto und ist dort
+      schlecht zu lesen.
+* [x] Gerechnet statt geraten: Auf diesem Grund erreicht **selbst reines Weiß nur
+      3.84:1**. Farbe allein konnte es nicht lösen, der Grund musste rund 20 % dunkler.
+* [x] Gelöst über den mittleren Stopp von `hero-radial-veil`: 40 % → 55 %. Der Stopp
+      **wandert**, der Wert steigt nicht — so verdichtet sich der Verlauf dort, wo die
+      Schrift steht, statt das Motiv insgesamt abzudunkeln. Grund danach gemessen:
+      `rgb(74,68,77)`.
+
+### ✅ Phase 4 — Nachmessen
+* [x] `npm run kontrast` über alle Routen: **5147 Textstellen, 0 unter AA.**
+* [ ] `--strikt` im Build erwägen. **Bewusst noch nicht:** Der Hero auf `/ueber-uns`
+      trägt seit 2026-09-07 ein Video statt eines Fotos. Ein bewegter Hintergrund liefert
+      je Bild einen anderen Messwert — ein Build, der daran bricht, wäre unzuverlässig.
+      Erst klären, wie das Werkzeug mit Video umgeht.
 
 ---
 
-## Warum das nicht sofort miterledigt wurde
+## Kommentare
 
-Der Auftrag für Paket G war, das **Werkzeug** ins Repo zu holen. Seine Befunde sind neue
-Arbeit: Sie betreffen 12 Seiten, hängen an einer gestalterischen Abwägung (Foto vs.
-Lesbarkeit) und lassen sich nicht nebenbei erledigen, ohne genau den Fehler zu
+### Phasen 1–4
+**Eingehalten:** messen statt schätzen ✅ · Ursache vor Symptom ✅ · schwächste Variante,
+die trägt ✅ · Pflichtfrage zum Wächter beantwortet ✅ · Sichtprüfung vor Änderung ✅
+
+**Auffälligkeiten (nach Schwere):**
+
+1. 🔴 **Kritisch — der Wächter log, und zwar in beide Richtungen.** 16 von 17 Befunden
+   waren falsch. Hätte man sie „repariert", wäre der Fotoschutz massiv verstärkt worden —
+   also genau die Gestaltung beschädigt, die der Kunde abgenommen hat, gegen ein Problem,
+   das es nicht gab. Ein Wächter mit 94 % Fehlalarm ist schädlicher als keiner.
+   Deckt sich mit `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`.
+
+2. 🟠 **Hoch — behoben, aber außerhalb dieser Planung gefunden.** Die H1 der Startseite
+   lief auf dem Telefon aus dem Kasten: 32 px Überlauf bei 390 px, 62 px bei 360 px,
+   102 px bei 320 px. Die `hero-card-shell` hat `overflow-hidden`, die Seite scrollte
+   also **nicht** horizontal — das Wort wurde still abgeschnitten. Aufgefallen nur beim
+   Bildschirmfoto zur Subline. `hyphens-auto` + `break-words`, `<html lang="de">` steht.
+
+3. 🟡 **Mittel — offen, Folgefrage.** Vier Befunde waren gesperrte Absendeknöpfe. WCAG
+   nimmt sie aus, aber ein Knopf, der über einem Foto zu `opacity-50` verblasst, ist auch
+   im gesperrten Zustand schwer zu lesen. Sobald **R10** erledigt ist, ist die Frage weg;
+   bis dahin bleibt es eine Gestaltungsfrage, keine Rechtsfrage.
+
+---
+
+Fehler zu
 wiederholen, den Paket C dokumentiert hat — punktuell reparieren statt die Ursache
 anfassen.
 

@@ -153,9 +153,19 @@ const HeroSection: React.FC = () => {
               ⚠️ 2.7/2.8 (globaler Slogan) sind damit NICHT erledigt. Der endgueltige
               Wortlaut haengt an der offenen Kundenfrage 3.36. Hier steht die
               Hero-Fassung, nicht der Slogan. */}
+          {/* `hyphens-auto`: „Unfallinstandsetzung," ist bei `text-4xl` breiter als ein
+              Telefon. Gemessen am 2026-09-07 lief das Wort um 32 px (390 px), 62 px
+              (360 px) und 102 px (320 px) aus dem Kasten — und wurde vom
+              `overflow-hidden` der `hero-card-shell` STILL ABGESCHNITTEN, ohne dass die
+              Seite horizontal scrollte. Die wichtigste Ueberschrift der Startseite war
+              damit auf jedem Telefon unvollstaendig.
+              Silbentrennung statt kleinerer Schrift: `<html lang="de">` steht, der
+              Browser trennt „Unfall-instandsetzung" korrekt, und die Schriftgroesse
+              bleibt die gestalterisch gewollte. `break-words` faengt zusaetzlich den
+              Fall ab, dass ein Browser keine Trennmuster fuer Deutsch mitbringt. */}
           <h1
             id="home-heading"
-            className="max-w-4xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
+            className="max-w-4xl hyphens-auto break-words text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Unfallinstandsetzung, Karosserie und Lack in Leipzig.
           </h1>

@@ -10,8 +10,12 @@
 //  2. Sie misst je Route nur die eingestellten Scrollpositionen, nicht die ganze Seite.
 //  3. Sie prueft Text gegen Hintergrund. Nicht-Text-Kontrast (Rahmen, Icons,
 //     Fokusringe — WCAG 1.4.11) bleibt aussen vor.
-//  4. Ein Element, das der Trefferprobe entgeht (z. B. `pointer-events: none` darueber),
-//     kann faelschlich gemessen ODER faelschlich uebersprungen werden.
+//  4. Sie erkennt Ueberdeckung nur durch FIXIERTE Leisten mit eigener Flaeche. Ein
+//     absolut gesetztes Panel ueber Text faellt weiter durch.
+//  5. Sie nimmt inaktive Bedienelemente aus (WCAG 1.4.3 tut das ausdruecklich). Ein
+//     Knopf, der faelschlich als `disabled` markiert ist, wird damit nie geprueft.
+//  6. `text-shadow` und `drop-shadow` verbessern die Lesbarkeit real, kommen in der
+//     Kontrastformel aber nicht vor. Wo damit gearbeitet wird, misst sie ZU STRENG.
 //
 // DIE SECHS FALLEN, in die der erste Aufbau getappt ist (Spezifikation:
 // docs/paket-c-serviceseiten/tasks/2026-09-03-paket-c-tasks.md, Abschnitt 7.2):
@@ -63,6 +67,38 @@ const schwelleFuer = (px, gewicht) =>
 // ------------------------------------------------ Textstellen einsammeln -----
 const SAMMLE = `(() => {
   const raus = [];
+
+  /* Falle 7 (2026-09-07): FIXIERTE LEISTEN MALEN UEBER TEXT, SIND FUER DIE
+     TREFFERPROBE ABER UNSICHTBAR. Die mobile Aktionsleiste (fixed bottom-0, z 40)
+     traegt pointer-events: none — elementFromPoint liefert deshalb den Text darunter,
+     obwohl der Verlauf der Leiste darueber liegt. Gemessen wurde dann Text gegen
+     Leistenfarbe: rgb(72 94 122) statt Weiss, 2.09:1 statt einwandfrei. Fuenf der
+     siebzehn Befunde vom 2026-09-06 waren dieses Artefakt.
+
+     NUR Elemente mit EIGENER FLAECHE zaehlen (Hintergrundfarbe oder -bild). Sonst
+     wuerden der dekorative Rahmen (solidroad-shell-frame-container, z 50) und die
+     Analyse-Ebene (z 2147483647) — beide bildschirmfuellend und voellig durchsichtig —
+     jede einzelne Textstelle verschlucken. Der Foto-Hintergrund liegt auf z -10 und
+     faellt durch die z-Bedingung ohnehin heraus. */
+  const DECKER = [];
+  for (const kandidat of document.querySelectorAll('*')) {
+    const ks = getComputedStyle(kandidat);
+    if (ks.position !== 'fixed') continue;
+    const z = parseInt(ks.zIndex, 10);
+    if (!Number.isFinite(z) || z < 1) continue;
+    if (!kandidat.checkVisibility?.({ opacityProperty: true, visibilityProperty: true })) continue;
+    for (const teil of [kandidat, ...kandidat.querySelectorAll('*')]) {
+      const ts = getComputedStyle(teil);
+      const malt = ts.backgroundImage !== 'none'
+        || !(ts.backgroundColor === 'rgba(0, 0, 0, 0)' || ts.backgroundColor === 'transparent');
+      if (!malt) continue;
+      const tr = teil.getBoundingClientRect();
+      if (tr.width > 0 && tr.height > 0) DECKER.push({ wurzel: kandidat, r: tr });
+    }
+  }
+  const ueberdeckt = (el, r) => DECKER.some((d) =>
+    !d.wurzel.contains(el) &&
+    r.left < d.r.right && r.right > d.r.left && r.top < d.r.bottom && r.bottom > d.r.top);
   const gehe = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let k = 0;
   while (gehe.nextNode()) {
@@ -74,6 +110,13 @@ const SAMMLE = `(() => {
 
     // Falle 5a: Blenden am Vorfahren (display/visibility/opacity 0).
     if (!el.checkVisibility?.({ opacityProperty: true, visibilityProperty: true, contentVisibilityAuto: true })) continue;
+
+    /* WCAG 1.4.3 nimmt Text INAKTIVER Bedienelemente ausdruecklich vom Kontrastgebot
+       aus. Der Absendeknopf der Formulare ist gesperrt, solange die Zugangsdaten
+       fehlen (Backlog R10), und traegt dabei opacity-50 — darunter scheint das Foto
+       durch. Vier der siebzehn Befunde vom 2026-09-06 waren genau das. Sobald R10
+       erledigt ist, ist der Knopf aktiv, deckend und wird wieder mitgemessen. */
+    if (el.closest('button:disabled, [aria-disabled="true"], fieldset:disabled')) continue;
 
     const cs = getComputedStyle(el);
     const bereich = document.createRange();
@@ -87,6 +130,9 @@ const SAMMLE = `(() => {
       const my = Math.min(Math.max(r.top + r.height / 2, 1), innerHeight - 2);
       const oben = document.elementFromPoint(mx, my);
       if (!oben || !(oben === el || el.contains(oben) || oben.contains(el))) continue;
+
+      // Falle 7: von einer fixierten Leiste ueberdeckt.
+      if (ueberdeckt(el, r)) continue;
 
       raus.push({
         id: 'k' + (k++),
@@ -122,6 +168,20 @@ if (!fs.existsSync(path.join(wurzel, 'dist', 'index.html'))) {
 
 const routen = (nurRoute ? [nurRoute] : getRoutes().map((r) => r.path ?? r)).filter(Boolean);
 const { basis, stopp } = await startePreview();
+/*
+ * BEWUSST OHNE `--force-prefers-no-reduced-motion`, anders als `shots.mjs` und
+ * `check-navigation.mjs`.
+ *
+ * Headless Chrome meldet `prefers-reduced-motion: reduce` von sich aus (gemessen am
+ * 2026-09-07). Diese Pruefung misst dadurch die REDUZIERTE Fassung — auf `/ueber-uns`
+ * also das Standbild statt des laufenden Videos. Das ist hier ein VORTEIL: Ein
+ * bewegter Hintergrund liefert je Einzelbild einen anderen Messwert, und ein
+ * Build-Waechter, der bei jedem Lauf etwas anderes sagt, ist wertlos.
+ *
+ * ⚠️ Der Preis: Die bewegte Fassung wird NICHT geprueft. Wer ein Video hinterlegt,
+ * dessen helle Stellen vom Standbild abweichen, faellt hier nicht auf. Deshalb ist
+ * `--strikt` im Build bis auf Weiteres nicht gesetzt.
+ */
 const browser = await puppeteer.launch({ headless: 'new' });
 const befunde = [];
 let gemessen = 0;

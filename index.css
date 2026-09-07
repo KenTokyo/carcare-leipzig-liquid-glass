@@ -239,11 +239,26 @@ body {
    `circle` bleibt bewusst — eine `ellipse` wuerde die Stop-Positionen zusaetzlich vom
    Seitenverhaeltnis abhaengig machen. Schwarz = --cc-carbon-rgb (#080b10). Herleitung der
    Vorgaenger-Fassung: docs/hero-bild-verlauf/tasks/2026-07-20-hero-desktop-bild-radialverlauf-tasks.md */
+/* Der mittlere Stopp sass bis 2026-09-07 bei 40 %. Genau dort, im Band zwischen dem
+   starken Schleier oben und dem Fuss-Scrim unten (`h-[36%]`), steht die Subline — und
+   genau dort war ein Loch: gemessen 0.36 Deckung, Ergebnis rgb(130 130 131) auf dem
+   hellen Garagenhintergrund, 3.09:1 statt 4.5:1. Mit dem Auge gegengeprueft (mobil,
+   390 px): Die Zeile „und Fahrzeugaufbereitung — alles aus" lief ueber das rote Auto
+   und war dort schlecht zu lesen. Der Befund war also echt, nicht bloss streng gemessen.
+
+   WARUM DER STOPP WANDERT UND NICHT DER WERT STEIGT: `0.4` auf `0.55` anzuheben haette
+   die Deckung ueber die GANZE Flaeche erhoeht und das Motiv insgesamt abgedunkelt —
+   genau das, was der Fuss-Scrim laut seinem eigenen Kommentar vermeiden soll. Der Stopp
+   von 40 % auf 55 % zu schieben, verdichtet den Verlauf dort, wo die Schrift steht, und
+   laesst den Rand fast unveraendert.
+
+   Farbe allein haette es nicht getan: Auf rgb(130 130 131) erreicht selbst reines Weiss
+   nur 3.84:1 — der Grund MUSS dunkler werden, rund 20 %. */
 .hero-radial-veil {
   background: radial-gradient(
     circle farthest-corner at 50% 0%,
     rgb(var(--cc-carbon-rgb) / 0.94) 0%,
-    rgb(var(--cc-carbon-rgb) / 0.4) 40%,
+    rgb(var(--cc-carbon-rgb) / 0.4) 55%,
     rgb(var(--cc-carbon-rgb) / 0) 100%
   );
 }
