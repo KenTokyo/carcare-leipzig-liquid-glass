@@ -93,7 +93,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.18 | Nicht nur Benefits zeigen, sondern den Betrieb (Drohnen-/Rundgangvideo zentral) | Oalab | 🟦 **Platz steht** | *Sektion „Ihr künftiger Arbeitsplatz" auf `/karriere`, direkt nach dem Arbeitgeberversprechen. Zeigt bis zur Lieferung einen markierten Platzhalter. Einhängen = `quelle` in `data/videos.ts` setzen. 2026-09-06* |
+| 3.18 | Nicht nur Benefits zeigen, sondern den Betrieb (Drohnen-/Rundgangvideo) | Oalab | ✅ **erledigt** | *Ausschnitt 46,3–75,9 s aus derselben Quelle: Lackierkabine, Teilevorbereitung, Politur, Hebebühne, Reifenraum. 3,35 MiB. Standbild von 71,1 s — zwei Kollegen am Fahrzeug; auf einer Karriereseite zählen Menschen bei der Arbeit. Die Überschneidung mit 3.21 ist gewollt, `data/videos.ts` verlangt ausdrücklich „denselben Rundgang, auf den Arbeitsplatz hin geschnitten".*|
 | 3.19 | Mitarbeiterstimmen anonymisiert – nur Berufsbezeichnung + kurzer Kommentar, keine Namen | Oalab | 🟦 **Struktur steht** | **Präzisiert 1.26.** *Sektion „Aus dem Team" steht seit 2026-09-06 auf `/karriere` mit drei Platzhaltern. **Anonym per Bauart:** `components/Stimmen.tsx` kennt kein Namensfeld — die Vorgabe ist damit eine Eigenschaft des Codes, keine Bitte. Fehlen nur noch die echten Aussagen (1.26).* |
 
 ---
@@ -102,8 +102,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | 🟦 **Mechanik steht** | *`BackdropLayout`/`PhotoBackdrop` nehmen jetzt eine Videoquelle; die Fläche steht ohnehin `sticky`, das Video läuft beim Scrollen also von selbst weiter. Solange keine Quelle da ist, bleibt es beim Foto — das ist dann automatisch das Standbild. **Kein sichtbarer Platzhalter nötig.** 2026-09-06* |
-| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche im aktiven Betrieb – kein Mitarbeiterporträt | Oalab / André | 🟦 **Platz steht, Material folgt** | *Sektion „Ein Rundgang durch die Hallen" auf `/ueber-uns`, vor der Zeitleiste. **Der Kunde schneidet das Material selbst** und liefert nach. Bis dahin markierter Platzhalter, der die Liefervorgabe sichtbar nennt. 2026-09-06* |
+| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | ✅ **erledigt** | *Material am 2026-09-07 geliefert und eingehängt. Ausschnitt 9,0–21,2 s aus `2. Video/CarCare .mov` — die längste schnittfreie Einstellung des Films; die beiden Luftaufnahmen tragen das Firmenlogo im Bild und schieden dadurch aus. Stumm, 1280 breit, **2,12 MiB statt 115,6 MiB**. Standbild aus dem ersten Bild der Schleife, damit beim Anlaufen nichts umspringt. Bei reduzierter Bewegung bleibt es beim Standbild (WCAG 2.2.2). Pipeline: `npm run video`. Doku: `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.*|
+| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche | Oalab / André | ✅ **erledigt** | *Material am 2026-09-07 geliefert. Ausschnitt 21,5–52,2 s aus `2. Video/CarCare .mov`: Waschplatz, Schadenaufnahme, Werkstatthalle, Karosseriearbeit, Lackierkabine. Stumm (`autoplay` erlaubt nur stumm), 1280 breit, 3,38 MiB. Standbild von 31,1 s — bei reduzierter Bewegung ist das Standbild alles, was zu sehen ist. **Die Luftaufnahmen des Films tragen das Firmenlogo im Bild** und schieden dadurch aus; der geforderte Anflug steckt damit nicht drin.*|
 
 ---
 

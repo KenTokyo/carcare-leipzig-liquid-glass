@@ -1,6 +1,6 @@
 # Offene Punkte, konsolidiert
 
-**Stand:** 2026-09-06
+**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**
 **Quellen:** `docs/backlog/schleife-1.md`, `schleife-2.md`, `schleife-3.md`,
 `nicht-relevant.md`, alle Optimierungspläne aus Paket A–E, die
 Task-Dateien mit offenen Kästchen, sowie die während Schleife 1 entstandenen Befunde.
@@ -117,10 +117,13 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 |---|---|---|---|---|---|
 | **R9** | Formulare | **Anhänge mitsenden.** Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | OALAB | **R10** — erst wenn der Versand läuft, ist absehbar, welcher Weg sich lohnt | offen |
 | **R11** | Technik | **Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen.** Beim Schadenformular ist Streichen seit R8 ein Dateneintrag, bei den anderen dreien nicht | OALAB | — | offen |
-| *(ohne Nr.)* | SEO | **19 von 27 Meta-Descriptions außerhalb 140–160 Zeichen** (12 zu lang, 7 zu kurz). Gemessen am ausgelieferten HTML | OALAB | — | offen |
-| *(ohne Nr.)* | SEO | **Titles im selben Durchgang** gegen 50–60 Zeichen prüfen | OALAB | — | offen |
-| *(ohne Nr.)* | Technik | **Fünf verwaiste Komponenten** — `About`, `AccidentFocus`, `Hero`, `Jobs`, `TargetGroups`, alle **0 Importe** | OALAB | `Hero.tsx` bleibt unangetastet (Vorgabe); `About.tsx` enthält echten Kundentext | offen |
-| *(ohne Nr.)* | Technik | **`npm run shots` und `npm run kontrast`** ins Repository. Der Kontrastmesser hat gefunden, was drei Sichtprüfungen nicht fanden. Bestätigt: beide fehlen in `package.json` | OALAB | — | offen |
+| *(ohne Nr.)* | SEO | **19 von 27 Meta-Descriptions außerhalb 140–160 Zeichen** (12 zu lang, 7 zu kurz). Gemessen am ausgelieferten HTML | OALAB | — | ✅ **erledigt** (Paket G, Phase 3). Nachgemessen 2026-09-07 gegen einen frischen Build: **0 von 29** außerhalb |
+| *(ohne Nr.)* | SEO | **Titles im selben Durchgang** gegen 50–60 Zeichen prüfen | OALAB | — | ✅ **erledigt**. Nachgemessen 2026-09-07: **0 von 29** außerhalb. ⚠️ Die Messung ist nur so frisch wie `dist/` — der Stand vom 05.09. meldete noch 12/19, weil er älter war als die Korrektur |
+| *(ohne Nr.)* | Technik | **Fünf verwaiste Komponenten** — `About`, `AccidentFocus`, `Hero`, `Jobs`, `TargetGroups`, alle **0 Importe** | OALAB | `Hero.tsx` bleibt unangetastet (Vorgabe); `About.tsx` enthält echten Kundentext | ✅ **erledigt** (Paket G, Phase 11). Nachgezählt 2026-09-07: `About`, `AccidentFocus`, `TargetGroups` gelöscht; `Hero.tsx` und `Jobs.tsx` stehen bewusst weiter ohne Import |
+| *(ohne Nr.)* | Technik | **`npm run shots` und `npm run kontrast`** ins Repository. Der Kontrastmesser hat gefunden, was drei Sichtprüfungen nicht fanden | OALAB | — | ✅ **erledigt** (Paket G, Phase 2) — aber erst seit 2026-09-07 lauffähig. **Korrektur der eigenen Prüfung von heute Vormittag:** Ich hatte abgehakt, weil beide in `package.json` stehen. Ausgeführt hat sie niemand — `scripts/lib/preview-server.mjs` rief `spawn('npx', …)` auf, und `npx` gibt es unter Windows nicht als ausführbare Datei. Beide brachen mit `ENOENT` ab. Behoben (Aufruf über `process.execPath` + Projekt-Binärdatei), danach nachweislich durchgelaufen |
+| *(ohne Nr.)* | A11y | **Kontrastbefunde aus dem Gesamtlauf** | OALAB | — | ✅ **erledigt 2026-09-07.** 17 Befunde → **0**. 16 davon waren Messartefakte: fünf von der fixierten Aktionsleiste überdeckt, vier gesperrte Knöpfe (WCAG 1.4.3 nimmt inaktive Bedienelemente aus), sieben weitere ebenfalls überdeckt. **Der Wächter wurde geschaerft, nicht das Design verändert** — der Fotoschutz aus Paket C blieb unangetastet. Ein Befund war echt (Hero-Subline) und ist behoben |
+| *(ohne Nr.)* | Video | **Alle drei Videoplätze** (3.20, 3.21, 3.18) | OALAB | — | ✅ **erledigt 2026-09-07.** Kurze stumme Schnitte aus dem gelieferten Film, zusammen 8,85 MiB statt 115,6 MiB. Der Kunde hat Weg (a) gewählt; der Film **mit Ton** bleibt damit ungenutzt — wer ihn zeigen will, braucht den Umbau von `BetriebsVideo` auf Klick-Wiedergabe |
+| *(ohne Nr.)* | Bild | **12 Drohnenclips und 16 Rohclips** aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte **3.23–3.29** vermutlich teilweise ab — Einzelbilder daraus wären besser als gar kein Motiv | OALAB | — | offen, zu prüfen |
 | **T4** | Verlinkung | **Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich** | OALAB | — | offen |
 | *(ohne Nr.)* | Paket B | **`ITEMS` gegen `serviceCatalog` prüfen**, ableiten oder bewusst trennen; Wächter erwägen | OALAB | — | offen |
 | *(ohne Nr.)* | Design | **Footer-Icons stehen bei Kontrast 1,00:1** auf dunklem Grund | André *(Gestaltungsfrage)* | — | offen |
@@ -149,11 +152,24 @@ sie erneut als offen — genau das ist mir heute passiert.
 
 ## Zusammenfassung
 
+> **Nachtrag 2026-09-07.** Vier Punkte aus Abschnitt 3 waren beim Schreiben dieser
+> Übersicht bereits erledigt oder wurden es am selben Tag durch Paket G: die beiden
+> Messwerkzeuge, die verwaisten Komponenten, Descriptions und Titles. Alle vier sind
+> oben gegen den Code bzw. gegen einen frischen Build nachgeprüft und mit Beleg
+> abgehakt. **Lehre — dieselbe wie in Abschnitt 4:** Eine Statusspalte altert schneller
+> als der Code. Wer sie liest, misst nach.
+>
+> **Nachtrag am selben Tag, zweite Lehre.** Bei den Messwerkzeugen habe ich genau den
+> Fehler gemacht, vor dem `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`
+> warnt: Ich habe geprüft, ob der Eintrag in `package.json` steht — nicht, ob der Befehl
+> läuft. Er lief nicht, auf keiner Windows-Maschine, seit dem Tag seiner Auslieferung.
+> **Ein Werkzeug gilt erst als vorhanden, wenn es einmal durchgelaufen ist.**
+
 | | Anzahl |
 |---|---|
 | Blockiert den Livegang | **3** |
 | Wartet auf André | **9** |
-| Ohne Zulieferung umsetzbar | **10** |
-| **Summe echt offen** | **22** |
+| Ohne Zulieferung umsetzbar | **~~10~~ 6** |
+| **Summe echt offen** | **~~22~~ 18** |
 | In den Dokumenten offen, tatsächlich erledigt oder überholt | 10 Kästchen |
 | Außerhalb des Projekts (Parallax-Kit) | 11 Kästchen |
