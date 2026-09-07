@@ -49,3 +49,10 @@ output/preloader-verify/
 # Werden bei jedem Lauf neu erzeugt, mehrere MB je Durchgang — nichts davon gehoert in
 # die Versionierung. Der Befund gehoert in die Task-Datei, nicht das Bild ins Repo.
 output/
+
+# Generated Node mail dependencies. Sources stay in TypeScript/TSX.
+data/anfrageSchema.js
+data/schadenFelder.js
+data/leistungsauswahl.js
+data/zusatzleistungen.js
+emails/AnfrageEmail.js
