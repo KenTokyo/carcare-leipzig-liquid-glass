@@ -15,6 +15,13 @@ kursiv in der Spalte „Stand im Projekt" und sind als solche erkennbar.
 
 Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert`.
 
+> **Fotos (2026-09-10):** Eine Fotolieferung ist bei Oalab eingegangen und wird gesichtet. Die Bildpunkte
+> dieser Schleife (2.14, 2.15, 2.16, 2.20, 2.21) warten ab jetzt auf die **Zuordnung nach der Sichtung**;
+> welche davon die Lieferung abdeckt, wird danach hier eingetragen.
+>
+> **Schleife 4 (2026-09-10)** beantwortet hier nichts direkt, gibt aber die Richtung für 2.11 vor —
+> Zuordnung: `schleife-4.md`, Abschnitt „Was Schleife 4 an offenen Punkten beantwortet".
+
 ---
 
 ## Global (2.1 – 2.3)
@@ -22,7 +29,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 2.1 | Karten-Styling: transparent statt weiß, Transparenz so justieren dass Lesbarkeit erhalten bleibt – einheitlich über gesamte Seite | Oalab | offen | *Berührt den A11y-Befund aus Paket C: Transparenz über Foto hat dort den AA-Kontrast gerissen. Vor Umsetzung `npm run kontrast` verfügbar machen.* |
-| 2.2 | Blaue Platzhalter-Füllung ersetzen | Oalab | ⏸️ **zurückgestellt** | *Geklärt am 2026-09-06: Die blauen Flächen stehen **auf der Aufbereitungs-Subseite** und werden **mit Bildern gefüllt**. Damit ist es kein Farb-, sondern ein Bildthema und gehört zur offenen Fotolieferung (2.13–2.16, 3.23–3.29). **Bis zur Bildlieferung nichts tun.*** |
+| 2.2 | Blaue Platzhalter-Füllung ersetzen | Oalab | ⏸️ **zurückgestellt** | *Geklärt am 2026-09-06: Die blauen Flächen stehen **auf der Aufbereitungs-Subseite** und werden **mit Bildern gefüllt**. Damit ist es kein Farb-, sondern ein Bildthema und gehört zur offenen Fotolieferung (2.13–2.16, 3.23–3.29). **Bis zur Bildlieferung nichts tun.*** *Gegengeprüft 2026-09-10: gemeint ist die Parallax-Galerie der Aufbereitungsseite (`components/DetailingGallery.tsx`, blaue Verlaufskacheln mit Symbol). Dieselbe Fläche wie **3.6** — gefüllt wird sie mit dem Fotopaket **3.23** (ggf. Einzelbilder aus den ungenutzten Drohnen-/Rohclips vom 2026-09-07).* |
 | 2.3 | Alle Zeitstrahl- und Prozessdarstellungen einheitlich im Stil „Ablauf in fünf Schritten zum Ziel" (kfz-lindner.de) animieren | Oalab | offen | *Teilweise: `components/Timeline.tsx` existiert seit 2026-09-04 (Zeitstrahl `/ueber-uns`). Die Ablauf-Sektionen der Serviceseiten folgen dem Muster noch nicht.* |
 
 ---
@@ -45,10 +52,10 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 |---|---|---|---|---|
 | 2.9 | Klarstellen: Paket „Exklusiv" betrifft auch den Innenraum, nicht nur außen | Oalab | ✅ **erledigt** | *`data/detailing.ts`: „Aufbereitung von außen und innen …" plus Schlusssatz „Der Innenraum wird dabei ebenso behandelt wie der Lack." **Auch die maschinenlesbare Fassung** (`priceOffers` → `Offer`-Schema) nachgezogen, sonst widerspräche das Schema dem sichtbaren Text. 2026-09-06* |
 | 2.10 | Textlich klarstellen: Brillant-Außenpflege ist Basis/Voraussetzung für Keramikversiegelung – Versiegelung selbst nicht enthalten, kommt hinzu | Oalab | ✅ **erledigt** | *`data/detailing.ts`: zwei Sätze ergänzt, die **Lackversiegelung** (im Paket enthalten) und **Keramikversiegelung** (kommt hinzu) auseinanderhalten — die Verwechslung war im alten Text angelegt. 2026-09-06* |
-| 2.11 | Zusatzleistungen als optionale, wählbare Zusatzleistungen auf der Subseite aufführen (Fußnote/Hinweis) | Oalab | offen | *Hängt an 2.26 — die Liste fehlt. Struktur steht in `data/zusatzleistungen.ts`.* |
+| 2.11 | Zusatzleistungen als optionale, wählbare Zusatzleistungen auf der Subseite aufführen (Fußnote/Hinweis) | Oalab | offen | *Hängt an 2.26 — die Liste fehlt. Struktur steht in `data/zusatzleistungen.ts`. Richtung aus Schleife 4: variable Leistungen „nach Absprache/Aufwand" (4.4, 4.9), Aufpreise noch offen (4.7) — für die Preisfrage siehe 3.35.* |
 | 2.12 | Prüfen, ob die erklärende Darstellung (Innen-/Außen-/Lackaufbereitung) auch für die Pakete oben übernommen wird | Oalab | ✅ **beantwortet und umgesetzt** | *Geprüft: Die Darstellung besteht aus Foto + Erklärung + Link auf eine eigene Subseite. **Das Foto ist durch 2.13 bereits ausgeschlossen** (Premium/Exklusiv fotografisch nicht trennbar), und eigene Paket-Subseiten wären Thin Content. Übertragbar war der **Textteil** — die Orientierungshilfe „welches Paket passt" steht jetzt über den Preisen, Wortlaut aus der bereits abgenommenen FAQ. 2026-09-06* |
-| 2.13 | Premium vs. Exklusiv fotografisch schwer trennbar → vorerst ohne Foto, ggf. über Textbausteine lösen | Oalab | offen | — |
-| 2.14 | Leasingrückgabe braucht ein eigenes Bild | André | offen | **Dopplung:** *entspricht dem repo-lokal vergebenen „1.28". Als ein Punkt führen.* |
+| 2.13 | Premium vs. Exklusiv fotografisch schwer trennbar → vorerst ohne Foto, ggf. über Textbausteine lösen | Oalab | ✅ **erfüllt (geprüft)** | *Gegengeprüft 2026-09-10, keine Codeänderung nötig: Die vier Pakete stehen ohne Foto. Getrennt werden sie über den Text — Premiumpflege = Brillant + Intensiv inkl. Motorreinigung und Versiegelung, „exklusiv" = Handarbeit außen und innen mit SWIZÖL-Wachsen (seit 2.9); die Orientierung „welches Paket passt" steht seit 2.12 über den Preisen. Im nächsten Review zur Abnahme zeigen. Schleife 4 ändert das Paket „exklusiv" weiter: künftig ohne Festpreis (4.4, 4.10).* |
+| 2.14 | Leasingrückgabe braucht ein eigenes Bild | André | offen | **Dopplung:** *entspricht dem repo-lokal vergebenen „1.28" (heute **R2**). Als ein Punkt führen.* |
 | 2.15 | Innenaufbereitung: KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug | Oalab | offen | *Deckt sich mit 3.29 (Bringschuld André). Zusammen anfordern.* |
 
 ---
@@ -86,7 +93,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 |---|---|---|---|---|
 | 2.22 | Terminanfrage-Button analog kfz-lindner.de: Klick → Pop-up mit Auswahl aus zwei Servicebereichen | Oalab | ✅ **erledigt** | **Erledigt durch 1.20.** *`components/AnfrageDialog.tsx`, eingehängt über `ANFRAGE_ZIELE`. Deckt inzwischen drei Anfragearten statt zwei.* |
 | 2.23 | Unfallinstandsetzung → Weiterleitung zu PDR Cloud / reparatur.info-Link (kein eigenes Formular) | Oalab | **zurückgestellt** | ✅ **Entschieden — bleibt vorerst so.** *Gebaut wurde bewusst ein eigenes Schadenformular statt der Weiterleitung; reparatur.info bleibt „spätere Option". Die Abweichung ist eine Entscheidung von Oalab, kein Versehen, und wird **im Nachgang** angepasst. **Nicht "aufräumen".** Hängt zusätzlich an 3.34 (wird reparatur.info überhaupt genutzt?).* |
-| 2.24 | Geschäftskunden-Anfragen an André's persönliche Mailadresse, nicht an Info-Adresse | Oalab | ✅ **gebaut** | *`ANFRAGE_EMPFAENGER_BUSINESS` in `api/anfrage.ts`. **Optional mit Rückfall:** Fehlt die Variable, geht alles wie bisher an `ANFRAGE_EMPFAENGER` — ein fehlender Eintrag darf nicht dazu führen, dass gar nichts ankommt. Adresse eintragen zusammen mit R10. 2026-09-06* |
+| 2.24 | Geschäftskunden-Anfragen an André's persönliche Mailadresse, nicht an Info-Adresse | Oalab | ✅ **eingerichtet**, Live-Test offen | *`ANFRAGE_EMPFAENGER_BUSINESS` in `api/anfrage.ts`. ~~Optional mit Rückfall~~ — **seit 2026-09-08 umgekehrt:** Geschäftskundenanfragen fallen **nie** auf die Info-Adresse zurück; fehlt die Variable, meldet der Versand „nicht bereit" (Kommentar „No silent fallback" im Code). Weg: `carcare.center.business@oalab.de` → `abosse@carcare-center.de` (Netcup, R10). Offen bleibt der Empfangsnachweis (`docs/netcup-email/tasks/2026-09-08-netcup-email-tasks.md`).* |
 | 2.25 | Geschäftskunden-Formular reduzieren auf: Autohaus, Fuhrpark, Versicherung, Rahmenvertrag, Sonstiges – „laufende Zusammenarbeit" streichen | Oalab | ✅ **erledigt** | *Die fünf Optionen stimmen. Option 4 heißt `Rahmenvertrag / laufende Zusammenarbeit` — **das Zusammenführen ist am 2026-09-06 von Oalab ausdrücklich bestätigt worden.** Der Begriff sollte nicht als eigene Option stehen, aber als Bestandteil der Rahmenvertrags-Option erhalten bleiben. **Nicht „aufräumen".** Keine Codeänderung nötig.* |
 
 ---
@@ -95,7 +102,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.26 | Liste aller Sonder-/Zusatzleistungen Aufbereitung (Keramikversiegelung, Nanoversiegelung, leichte Kratzerentfernung, Steinschläge auslegen, Türkanten verfüllen) per Mail | André | offen | **Blockiert 1.18 und 2.11.** *Zwei anerkannte Platzhalter stehen in `data/zusatzleistungen.ts` und brechen den Build, sobald ihre Anerkennung verrottet.* |
+| 2.26 | Liste aller Sonder-/Zusatzleistungen Aufbereitung (Keramikversiegelung, Nanoversiegelung, leichte Kratzerentfernung, Steinschläge auslegen, Türkanten verfüllen) per Mail | André | offen | **Blockiert 1.18 und 2.11.** *Zwei anerkannte Platzhalter stehen in `data/zusatzleistungen.ts` und brechen den Build, sobald ihre Anerkennung verrottet. Teilklärung 2026-09-10 (4.21): Die Formularauswahl „Gewünschte Leistung" sind künftig die Pakete — damit ist die Frage „was ist Paket, was Zusatz" von der Formularseite her beantwortet. Die Liste selbst fehlt weiter.* |
 | 2.27 | Liste lokaler Jobbörsen / Arbeitsamt / Recruiting-Portale notieren – für spätere Weiterleitung auf die offizielle Karriereseite | André | offen | *Kein Blocker, reine Zulieferung.* |
 
 ---
@@ -104,22 +111,24 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Befund |
 |---|---|
-| **2.22** | vollständig erledigt (Anfrage-Dialog, 1.20) |
-| **2.3** | teilweise — Zeitstrahl steht, Ablauf-Sektionen folgen dem Muster noch nicht |
-| **2.5** | teilweise — Kachelrochade aus Paket B, Ziele einzeln prüfen |
-| **2.25** | strittig — Optionen stimmen, Wortlaut nicht |
-| **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
 | **2.22** | vollständig erledigt (Anfrage-Dialog, 1.20) — Statusspalte am 2026-09-06 nachgezogen |
-| **2.5** | erledigt, am 2026-09-06 gegen `data/services.ts` gegengeprüft |
-| **2.25** | war strittig, am 2026-09-06 entschieden: Zusammenführen ist gewollt |
+| **2.3** | teilweise — Zeitstrahl steht, Ablauf-Sektionen folgen dem Muster noch nicht |
+| **2.5** | erledigt (Kachelrochade aus Paket B), am 2026-09-06 gegen `data/services.ts` gegengeprüft |
+| **2.25** | war strittig (Optionen stimmen, Wortlaut nicht), am 2026-09-06 entschieden: Zusammenführen ist gewollt |
+| **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
+| **2.14** | Dopplung mit dem repo-lokalen „1.28" (heute **R2**) |
 
 ## Am 2026-09-06 erledigt
 
 **2.4** · **2.5** · **2.6** · **2.9** · **2.10** · **2.12** · **2.17** · **2.19** · **2.22** · **2.24** · **2.25** — elf Punkte.
+Am 2026-09-08 scharf geschaltet: **2.24** (Netcup, R10). Am 2026-09-10 gegengeprüft und als
+erfüllt markiert: **2.13** (keine Codeänderung).
 
-Verbleibend ohne Zulieferung machbar: **2.4** (Hero-Text kürzen — gemessen H1 75 Z.,
-Absatz 165 Z., eher ein Blick-Urteil), **2.12** (Prüfauftrag),
-**2.24** (zweite Empfängeradresse, scharf erst mit R10).
+~~Verbleibend ohne Zulieferung machbar: 2.4, 2.12, 2.24~~ — alle drei am 2026-09-06 erledigt.
+**Ohne Zulieferung noch machbar (Stand 2026-09-10):** **2.1** und **2.18** (Transparenz,
+gebündelt; `npm run kontrast` misst seit 2026-09-07 **0 Stellen unter AA** — jede
+Transparenzänderung muss dagegen nachgemessen werden) · **2.3** (Ablauf-Sektionen der
+Serviceseiten im Stil des Zeitstrahls animieren).
 
 ### Nachgezogen aus 2.6: Der Dialog fragt jetzt zuerst nach dem Anliegen
 
@@ -138,7 +147,6 @@ greift weiterhin (von `/innenaufbereitung-leipzig` aus steht „Innenaufbereitun
 Formular), und die Seitenzuordnung aus **R8** ebenso (von
 `/dellenentfernung-leipzig` ist „Schaden melden" vorgeschlagen und die Schadenart
 „Delle / Beule" vorbelegt).
-| **2.14** | Dopplung mit dem repo-lokalen „1.28" |
 
 ## Unauflösbare Fremdverweise
 

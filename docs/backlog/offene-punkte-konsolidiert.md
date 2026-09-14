@@ -1,6 +1,13 @@
 # Offene Punkte, konsolidiert
 
-**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**
+**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**; Abschnitt 1 und 3 am
+**2026-09-10** (Netcup-Versand, Videos — `docs/backlog/tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`);
+Abschnitt 1 und 2 am **2026-09-10** mit den Antworten aus **Schleife 4** (`schleife-4.md`, 4.1–4.21)
+
+> **Neu: Schleife 4** (Feedbackliste von André, 2026-09-10) — 21 Punkte mit **originaler** Nummerierung in
+> `docs/backlog/schleife-4.md`. Sie werden dort geführt, nicht hier. Diese Übersicht übernimmt nur, was
+> Schleife 4 an Punkten dieser Datei **beantwortet**: R1 (fast vollständig), R4, R5, 1.18/2.26 (teilweise),
+> dazu der neue Repo-Befund **R13**.
 **Quellen:** `docs/backlog/schleife-1.md`, `schleife-2.md`, `schleife-3.md`,
 `nicht-relevant.md`, alle Optimierungspläne aus Paket A–E, die
 Task-Dateien mit offenen Kästchen, sowie die während Schleife 1 entstandenen Befunde.
@@ -87,21 +94,26 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **R5** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen |
-| **R6** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit | André + Datenschutz&shy;beauftragter | muss **zwei** Auftragsverarbeiter nennen: Vercel und Resend, beide USA | offen |
-| **R10** | Technik / Recht | **Zugangsdaten für den Formularversand** in Vercel hinterlegen (3 Variablen, Vorlage `.env.example`) | André | **hängt an R6** — vorher verarbeitet die Seite Daten über einen Dienstleister, der nirgends steht | offen |
+| **R5** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen · **Berufsbezeichnung geliefert** (4.11: „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk"), Rest fehlt; siehe R13 |
+| **R6** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nachtrag vom 2026-09-08 | André + Datenschutz&shy;beauftragter | muss den **laufenden** Datenfluss nennen: Vercel (USA) und Netcup-SMTP über ein Postfach auf `oalab.de` mit Weiterleitung an `carcare-center.de` — ~~Resend~~ ist seit 2026-09-08 nicht mehr im Spiel. **Dringlicher geworden:** Der Versand ist scharf, die Erklärung fehlt | offen |
+| **R10** | Technik / Recht | **Zugangsdaten für den Formularversand** in Vercel hinterlegen | ~~André~~ OALAB | ~~hängt an R6~~ — **Reihenfolge gekippt:** Freischaltung erfolgte vor R6 | ✅ **hinterlegt 2026-09-08** (Netcup-SMTP statt Resend, 7 Secrets, nur Production; am 2026-09-10 geprüft: `/api/anfrage` → `bereit: true`). **Offen:** Live-Test aller vier Formulararten + Empfangsnachweis der Weiterleitungen (`docs/netcup-email/tasks/2026-09-08-netcup-email-tasks.md`, Phase 3) |
 
 ---
 
-## 2. 🟠 Wartet auf Zulieferung von André (9)
+## 2. 🟠 Wartet auf Zulieferung von André (10)
+
+> **Fotos (2026-09-10):** Eine Fotolieferung ist bei Oalab eingegangen und wird gesichtet. Für R2 und R7
+> (und die Fotopunkte der Schleifen) wartet es damit auf die **Zuordnung nach der Sichtung**, nicht mehr
+> zwingend auf André — was die Lieferung abdeckt, steht erst danach fest.
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
 | **R12** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | offen |
 | **R3** | Inhalt | **Erklärtexte für sieben Leistungsseiten**, je 2–3 Absätze „Was ist X?" | André | blockiert **1.15** — die Sektion steht auf sieben Seiten und ist leer | offen |
-| **R1** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | drei Platzhalter stehen sichtbar auf `/ueber-uns` | offen |
-| **1.18** = **2.26** | Inhalt | **Liste der Zusatzleistungen** fürs Aufbereitungsformular. Dabei klären: Was ist Paket, was Zusatz | André | zwei Platzhalter im Formular | Struktur steht |
-| **R4** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen |
+| **R1** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | drei Platzhalter stehen sichtbar auf `/ueber-uns` | ✅ **geliefert 2026-09-10** (4.16–4.20: 1998, 2000, 2013, ohne Jahr, 2026). Offen nur das **Jahr für Meilenstein 3** (4.19); **1998, 2000, 2026 eingebaut 2026-09-11**, Meilenstein 2 wartet auf 4.2 (Fläche) |
+| **1.18** = **2.26** | Inhalt | **Liste der Zusatzleistungen** fürs Aufbereitungsformular. Dabei klären: Was ist Paket, was Zusatz | André | zwei Platzhalter im Formular | Struktur steht · **Paket-Frage beantwortet** (4.21: Formularauswahl = Pakete), die Liste selbst fehlt |
+| **R4** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen · **Richtung „ja"** (4.19: „Ausbildungsbetrieb im Lackier- und Karosseriebauhandwerk"); offen: kommender Jahrgang, Industriekaufmann/-frau, Eckdaten |
+| **R13** | Inhalt / Recht | **Seit wann ist der Betrieb Meisterbetrieb?** Die Seite sagt an 12 Stellen (seit 4.11 am 2026-09-11 noch 11) „Meisterbetrieb seit 1998"; laut Chronik aus Schleife 4 begann der Betrieb 1998 als Aufbereitungsbetrieb (4.16), Lackierung und Karosserie kamen 2013 (4.18). Stimmt „seit 1998" für die Meisterqualifikation nicht, ist die Aussage irreführend. Nichts entfernt | André | — | offen, neu 2026-09-10 |
 | **1.26** | Inhalt | **Benefits + Mitarbeiterstimmen** für die Karriereseite | André | bündeln mit R4 | offen |
 | **R7** | Bild | **Echtes Vorschaubild statt Unsplash-Stockfoto** (`og:image`, JSON-LD). *Deckungsgleich mit dem offenen OG-Bild-Punkt im Preloader-Plan* | André | — | offen |
 | **R2** | Bild | **Eigene Motive** für Leasingrückgabe und Außenaufbereitung | André | beide teilen sich ein Bild mit anderen Kacheln | offen |
@@ -123,6 +135,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 | *(ohne Nr.)* | Technik | **`npm run shots` und `npm run kontrast`** ins Repository. Der Kontrastmesser hat gefunden, was drei Sichtprüfungen nicht fanden | OALAB | — | ✅ **erledigt** (Paket G, Phase 2) — aber erst seit 2026-09-07 lauffähig. **Korrektur der eigenen Prüfung von heute Vormittag:** Ich hatte abgehakt, weil beide in `package.json` stehen. Ausgeführt hat sie niemand — `scripts/lib/preview-server.mjs` rief `spawn('npx', …)` auf, und `npx` gibt es unter Windows nicht als ausführbare Datei. Beide brachen mit `ENOENT` ab. Behoben (Aufruf über `process.execPath` + Projekt-Binärdatei), danach nachweislich durchgelaufen |
 | *(ohne Nr.)* | A11y | **Kontrastbefunde aus dem Gesamtlauf** | OALAB | — | ✅ **erledigt 2026-09-07.** 17 Befunde → **0**. 16 davon waren Messartefakte: fünf von der fixierten Aktionsleiste überdeckt, vier gesperrte Knöpfe (WCAG 1.4.3 nimmt inaktive Bedienelemente aus), sieben weitere ebenfalls überdeckt. **Der Wächter wurde geschaerft, nicht das Design verändert** — der Fotoschutz aus Paket C blieb unangetastet. Ein Befund war echt (Hero-Subline) und ist behoben |
 | *(ohne Nr.)* | Video | **Alle drei Videoplätze** (3.20, 3.21, 3.18) | OALAB | — | ✅ **erledigt 2026-09-07.** Kurze stumme Schnitte aus dem gelieferten Film, zusammen 8,85 MiB statt 115,6 MiB. Der Kunde hat Weg (a) gewählt; der Film **mit Ton** bleibt damit ungenutzt — wer ihn zeigen will, braucht den Umbau von `BetriebsVideo` auf Klick-Wiedergabe |
+| *(ohne Nr.)* | A11y | **Anhalte-Möglichkeit für die drei automatisch laufenden Videos** (WCAG 2.2.2: Bewegung über 5 s braucht Pause/Stopp). Seit der Korrektur vom 2026-09-07 laufen sie auch bei gemeldeter reduzierter Bewegung — dieses Flag war bisher die einzige Anhalte-Möglichkeit | OALAB | — | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`, Phase 6) |
 | *(ohne Nr.)* | Bild | **12 Drohnenclips und 16 Rohclips** aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte **3.23–3.29** vermutlich teilweise ab — Einzelbilder daraus wären besser als gar kein Motiv | OALAB | — | offen, zu prüfen |
 | **T4** | Verlinkung | **Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich** | OALAB | — | offen |
 | *(ohne Nr.)* | Paket B | **`ITEMS` gegen `serviceCatalog` prüfen**, ableiten oder bewusst trennen; Wächter erwägen | OALAB | — | offen |
@@ -167,9 +180,9 @@ sie erneut als offen — genau das ist mir heute passiert.
 
 | | Anzahl |
 |---|---|
-| Blockiert den Livegang | **3** |
-| Wartet auf André | **9** |
-| Ohne Zulieferung umsetzbar | **~~10~~ 6** |
-| **Summe echt offen** | **~~22~~ 18** |
+| Blockiert den Livegang | **3** *(davon R10 seit 2026-09-08 nur noch Live-Test)* |
+| Wartet auf André | **~~9~~ 10** *(2026-09-10: + R13; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung)* |
+| Ohne Zulieferung umsetzbar | **~~10~~ ~~6~~ 8** *(nachgezählt 2026-09-10: 7 offene Zeilen — die Drohnenclip-Zeile war in der 6 nicht mitgezählt — plus WCAG 2.2.2)* |
+| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ 21** *(ohne Schleife 4 — die führt ihre 21 Punkte selbst)* |
 | In den Dokumenten offen, tatsächlich erledigt oder überholt | 10 Kästchen |
 | Außerhalb des Projekts (Parallax-Kit) | 11 Kästchen |

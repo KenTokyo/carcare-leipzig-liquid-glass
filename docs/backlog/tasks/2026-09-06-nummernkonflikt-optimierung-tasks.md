@@ -121,7 +121,7 @@ unbemerkt liegen bleiben konnte.
       deshalb verschont.
 * [x] **Ursache abgestellt:** Der Wächter aus Phase 4 übersprang die Schleifendateien
       — aber nur auf Linux. `path.join('docs/backlog', name)` liefert auf Windows
-      `docsacklog...` und traf das Set mit Schrägstrichen nie. **Auf Vercel wäre der
+      `docs\backlog...` und traf das Set mit Schrägstrichen nie. **Auf Vercel wäre der
       Build grün geblieben.** Der Skip ist entfernt: Eine Schleifendatei kann ihren
       eigenen Raum nicht verletzen — die Grenze wird aus ihr abgeleitet — einen fremden
       sehr wohl.

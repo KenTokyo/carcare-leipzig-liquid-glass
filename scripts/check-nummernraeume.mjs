@@ -37,11 +37,16 @@ import { fileURLToPath } from 'node:url';
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lies = (p) => fs.readFileSync(path.join(wurzel, p), 'utf8');
 
-/** Die Schleifendateien sind die Quelle der Wahrheit fuer den erlaubten Raum. */
+/**
+ * Die Schleifendateien sind die Quelle der Wahrheit fuer den erlaubten Raum.
+ * Schleife 4 (seit 2026-09-10) traegt als erste ORIGINALE Kundennummern (Spalte „Nr." der
+ * xlsx); 1-3 sind aus der Sortierung einer CSV rekonstruiert. Fuer den Waechter gleich.
+ */
 const QUELLEN = [
   { datei: 'docs/backlog/schleife-1.md', praefix: '1' },
   { datei: 'docs/backlog/schleife-2.md', praefix: '2' },
   { datei: 'docs/backlog/schleife-3.md', praefix: '3' },
+  { datei: 'docs/backlog/schleife-4.md', praefix: '4' },
 ];
 
 const grenzen = {};
@@ -62,7 +67,7 @@ for (const q of QUELLEN) {
  *
  * DIE SCHLEIFENDATEIEN WERDEN MITGEPRUEFT. Bis 2026-09-07 sollten sie uebersprungen
  * werden, doch der Vergleich lief gegen `path.join(...)`: Das liefert auf Windows
- * `docsacklog...` und passte nie zum Set mit Schraegstrichen. Der Skip griff also
+ * `docs\backlog...` und passte nie zum Set mit Schraegstrichen. Der Skip griff also
  * NUR auf Linux — und genau dort, auf Vercel, waere der Build gruen geblieben, waehrend
  * `schleife-1.md` neun Repo-Befunde unter Kundennummern (3.32-3.40) fuehrte. Gefunden
  * wurde es nur, weil lokal unter Windows gebaut wurde.
@@ -71,20 +76,41 @@ for (const q of QUELLEN) {
  * ihren EIGENEN Raum nicht verletzen — die Obergrenze wird aus ihr abgeleitet. Sie kann
  * aber einen FREMDEN Raum verletzen, und hat es getan. Mitpruefen kostet nichts und
  * faengt genau den Fall, der eingetreten ist.
+ *
+ * SEIT 2026-09-10 STRENGER, weil der Ueberlauf allein nur ein Drittel davon faengt: Von
+ * den neun Zeilen lagen 3.38-3.40 ausserhalb des Kundenraums, 3.32-3.37 aber INNERHALB
+ * von 3.1-3.37 — darunter „3.33 Impressum" und „3.34 Datenschutz", beim Kunden
+ * „Bilder-Upload" und „reparatur.info". Genau die beiden Livegang-Blocker waeren
+ * durchgegangen. Deshalb: In einer Schleifendatei ist ein FREMDER Praefix in der ersten
+ * Zelle immer ein Befund, egal wo im fremden Raum er liegt. Gegenprobe gegen die alte
+ * `schleife-1.md`: 9 von 9 gemeldet, mit der reinen Ueberlaufregel 3 von 9.
+ * Weiterhin durch kommt eine Repo-Nummer mit EIGENEM Praefix in der eigenen Datei
+ * (Luecke 3) — dagegen hilft nur, die Grenzen aus der Kunden-CSV abzuleiten.
  */
 const ORDNER = path.join(wurzel, 'docs/backlog');
-const ZELLE = /^\|\s*\**~*([123])\.(\d{1,2})~*\**\s*\|/;
+// Schluessel mit Schraegstrich wie `rel` unten — kein path.join, siehe oben.
+const EIGENER_PRAEFIX = new Map(QUELLEN.map((q) => [q.datei, q.praefix]));
+// Praefixe aus QUELLEN abgeleitet: Eine fuenfte Schleife ist dann ein Eintrag oben, kein
+// zweiter Ort, an dem man die Regex vergisst.
+const ZELLE = new RegExp(`^\\|\\s*\\**~*([${QUELLEN.map((q) => q.praefix).join('')}])\\.(\\d{1,2})~*\\**\\s*\\|`);
 
 const befunde = [];
 for (const name of fs.readdirSync(ORDNER)) {
   if (!name.endsWith('.md')) continue;
   const rel = `docs/backlog/${name}`;
+  const eigener = EIGENER_PRAEFIX.get(rel);
   fs.readFileSync(path.join(ORDNER, name), 'utf8').split('\n').forEach((zeile, i) => {
     const m = ZELLE.exec(zeile);
     if (!m) return;
     const [, praefix, n] = m;
-    if (Number(n) <= grenzen[praefix]) return;
-    befunde.push({ datei: rel, zeile: i + 1, nummer: `${praefix}.${n}`, text: zeile.trim().slice(0, 90) });
+    if (eigener ? praefix === eigener : Number(n) <= grenzen[praefix]) return;
+    befunde.push({
+      datei: rel,
+      zeile: i + 1,
+      nummer: `${praefix}.${n}`,
+      grund: eigener ? `fremder Raum in Schleife ${eigener}` : 'Ueberlauf',
+      text: zeile.trim().slice(0, 90),
+    });
   });
 }
 
@@ -95,7 +121,7 @@ console.log(
 
 if (befunde.length) {
   console.error('\n[check-nummernraeume] BUILD ABGEBROCHEN — Nummern ausserhalb des Kundenraums:\n');
-  for (const b of befunde) console.error(`  - ${b.datei}:${b.zeile}  „${b.nummer}"  ${b.text}`);
+  for (const b of befunde) console.error(`  - ${b.datei}:${b.zeile}  „${b.nummer}" [${b.grund}]  ${b.text}`);
   console.error('\n  Eigene Befunde bekommen ein R-Kuerzel (R1, R2, ...), keine freie x.y-Nummer.');
   console.error('  Begruendung: docs/backlog/offene-punkte-konsolidiert.md\n');
   process.exit(1);

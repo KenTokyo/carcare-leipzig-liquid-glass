@@ -10,10 +10,10 @@ Quelle: Kundenreview mit André Bosse, geliefert als Gesamtliste am 2026-09-06
 > Die Ableitungsregel ist in
 > `docs/backlog/tasks/2026-09-06-schleifen-2-3-import-tasks.md` belegt.
 
-> ⚠️ **Nummernkollision.** Die Nummern **3.32 bis 3.40** wurden im Repository ein
-> zweites Mal vergeben, für eigene Befunde. **3.33 und 3.34 bedeuten dort etwas
-> völlig anderes als hier** — und ausgerechnet unter diesen beiden Nummern sind die
-> Livegang-Blocker an André kommuniziert worden. Gegenüberstellung und Auflösung:
+> ✅ **Nummernkollision aufgelöst (2026-09-06/07).** Die Nummern **3.32 bis 3.40** waren im
+> Repository ein zweites Mal vergeben worden, für eigene Befunde — ausgerechnet unter
+> 3.33 und 3.34 waren die Livegang-Blocker an André kommuniziert. Die Repo-Befunde heißen
+> seitdem **R4–R12**; in dieser Datei stehen ausschließlich Kundennummern. Zuordnung:
 > `docs/backlog/offene-punkte-konsolidiert.md`
 
 **Aufgabentext ist unverändert aus der Quelle übernommen.** Ergänzungen von uns stehen
@@ -46,7 +46,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.6 | Parallax-Bereich: keine „dreckig/sauber"-Vergleiche, sondern Endbilder bzw. Bilder kurz vor Fertigstellung / während der Arbeit | Oalab | offen | *Passt zur Fotogrundregel im Block „ohne Schleifenzuordnung": Handyfotos während der Bearbeitung, keine reinen Ergebnisbilder.* |
+| 3.6 | Parallax-Bereich: keine „dreckig/sauber"-Vergleiche, sondern Endbilder bzw. Bilder kurz vor Fertigstellung / während der Arbeit | Oalab | offen | *Passt zur Fotogrundregel im Block „ohne Schleifenzuordnung": Handyfotos während der Bearbeitung, keine reinen Ergebnisbilder.* *Gegengeprüft 2026-09-10: Die Parallax-Galerie (`components/DetailingGallery.tsx`) zeigt derzeit Platzhalterkacheln, keine Vorher-/Nachher-Bilder — zu entfernen gibt es nichts. Dieselbe Fläche wie **2.2**; gefüllt wird sie mit dem Fotopaket **3.23**.* |
 
 ---
 
@@ -56,7 +56,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 |---|---|---|---|---|
 | 3.7 | Text „Alle Marken" ändern in: „Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen." | Oalab | ✅ **erledigt** | *`pages/AccidentRepairPage.tsx`, Karte im Block „Schadenfall". Wortlaut **wörtlich** übernommen und im Code als kundenfreigegeben markiert, damit ihn niemand „schöner" macht. 2026-09-06* |
 | 3.8 | Sektion „Schadenaufnahme": Hintergrundbild ändern, ruhigeres Motiv im Stil der Aufbereitungsseite | Oalab | offen | *Zusammen mit 2.18 (gleiche Sektion, Transparenz).* |
-| 3.9 | Prüfen, ob der obere Block auf jeder Serviceseite wiederholt werden muss oder einmal auf der Subseite reicht | Oalab | ✅ **beantwortet** | *Gemessen, siehe „Befund zu 3.9" unten. Kurz: Der wiederholte Block ist die USP-Sektion „Warum CarCare Center Leipzig". **Empfehlung: behalten, aber je Seite unterschiedlich formulieren.** Entscheidung liegt beim Kunden. 2026-09-06* |
+| 3.9 | Prüfen, ob der obere Block auf jeder Serviceseite wiederholt werden muss oder einmal auf der Subseite reicht | Oalab | ✅ **beantwortet und umgesetzt** | *Gemessen, siehe „Befund zu 3.9" unten. Kurz: Der wiederholte Block ist die USP-Sektion „Warum CarCare Center Leipzig". **Empfehlung: behalten, aber je Seite unterschiedlich formulieren.** **Umgesetzt in Paket G (2026-09-06):** Die wortgleichen Karten sind je Seite eigenständig formuliert, Titel und Kernaussagen (Meisterbetrieb, 1998, 3.000 m²) blieben. Im nächsten Review zur Abnahme zeigen.* |
 
 ---
 
@@ -66,7 +66,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 |---|---|---|---|---|
 | 3.10 | Smart-Repair-Foto ersetzen – zeigt Kratzerentfernung/Aufbereitung, nicht Smart Repair | Oalab | offen | *Motiv kommt über 3.25.* |
 | 3.11 | Dellenentfernung: sauberes Bild hinterlegen | Oalab | offen | *Motiv kommt über 3.24.* |
-| 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | 🟨 **Hinweis steht, Logo offen** | *Der Hinweissatz steht seit 2026-09-06 über den Leistungen. **Offen bleibt das Logo:** Es braucht eine Datei vom Kunden plus dieselbe Freigabefrage wie die Partnerlogos (3.31). Die Langform des Verbandsnamens ist im Projekt nirgends belegt und wurde deshalb nicht ausgeschrieben.* |
+| 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | 🟨 **Hinweis steht, Logo offen** | *Der Hinweissatz steht seit 2026-09-06 über den Leistungen. **Offen bleibt das Logo:** Es braucht eine Datei vom Kunden plus dieselbe Freigabefrage wie die Partnerlogos (3.31). Die Langform des Verbandsnamens ist im Projekt nirgends belegt und wurde deshalb nicht ausgeschrieben. **Nachtrag 2026-09-10 (4.13):** Der Kunde nennt die Langform „Bundesverband Autoreparatur-Technik" — **die stimmt nicht.** Laut Verbandsseite heißt BVAT „Bundesverband für Ausbeultechnik und Hagelinstandsetzung e.V." (bvat.de, geprüft 2026-09-10); das passt auch fachlich zur Hagelseite. Vor dem Ausschreiben bestätigen lassen. Der Verband stellt Mitgliedern sein Logo als Qualitätssiegel bereit — die Datei muss trotzdem vom Kunden kommen.* |
 | 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | offen | *Hängt mit 3.30 zusammen (Vintech-Klärung).* |
 | 3.14 | Caravan-Segment nicht bewerben (nur vereinzelt für Bestandskunden) | – | erledigt | *Entscheidung, keine Aufgabe.* |
 | 3.15 | Leasingrückgabe: Text bleibt; Seite wird von Fuhrpark/Autohaus und Privat angesteuert | – | erledigt | *Bestätigt die Sonderrolle der Seite: sie ist bewusst nicht auf `ServiceLayout` migriert.* |
@@ -102,8 +102,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | ✅ **erledigt** | *Material am 2026-09-07 geliefert und eingehängt. Ausschnitt 9,0–21,2 s aus `2. Video/CarCare .mov` — die längste schnittfreie Einstellung des Films; die beiden Luftaufnahmen tragen das Firmenlogo im Bild und schieden dadurch aus. Stumm, 1280 breit, **2,12 MiB statt 115,6 MiB**. Standbild aus dem ersten Bild der Schleife, damit beim Anlaufen nichts umspringt. Bei reduzierter Bewegung bleibt es beim Standbild (WCAG 2.2.2). Pipeline: `npm run video`. Doku: `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.*|
-| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche | Oalab / André | ✅ **erledigt** | *Material am 2026-09-07 geliefert. Ausschnitt 21,5–52,2 s aus `2. Video/CarCare .mov`: Waschplatz, Schadenaufnahme, Werkstatthalle, Karosseriearbeit, Lackierkabine. Stumm (`autoplay` erlaubt nur stumm), 1280 breit, 3,38 MiB. Standbild von 31,1 s — bei reduzierter Bewegung ist das Standbild alles, was zu sehen ist. **Die Luftaufnahmen des Films tragen das Firmenlogo im Bild** und schieden dadurch aus; der geforderte Anflug steckt damit nicht drin.*|
+| 3.20 | Statisches Hero-Foto durch Video ersetzen, das beim Scrollen im Hintergrund weiterläuft | Oalab | ✅ **erledigt** | *Material am 2026-09-07 geliefert und eingehängt. Ausschnitt 9,0–21,2 s aus `2. Video/CarCare .mov` — die längste schnittfreie Einstellung des Films; die beiden Luftaufnahmen tragen das Firmenlogo im Bild und schieden dadurch aus. Stumm, 1280 breit, **2,12 MiB statt 115,6 MiB**. Standbild aus dem ersten Bild der Schleife, damit beim Anlaufen nichts umspringt. ~~Bei reduzierter Bewegung bleibt es beim Standbild (WCAG 2.2.2).~~ **Am 2026-09-07 nach Kundenrückmeldung zurückgenommen:** Das Video läuft immer, auch bei gemeldeter reduzierter Bewegung (kein `motion-reduce:hidden` mehr, `components/PhotoBackdrop.tsx`). **Offen:** eine Anhalte-Möglichkeit nach WCAG 2.2.2 — siehe Betriebsvideo-Plan, Phase 6. Pipeline: `npm run video`. Doku: `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.*|
+| 3.21 | Drohnen-/Betriebsvideo: Anflug, Vogelperspektive, langsamer Durchflug durch alle Bereiche | Oalab / André | ✅ **erledigt** | *Material am 2026-09-07 geliefert. Ausschnitt 21,5–52,2 s aus `2. Video/CarCare .mov`: Waschplatz, Schadenaufnahme, Werkstatthalle, Karosseriearbeit, Lackierkabine. Stumm (`autoplay` erlaubt nur stumm), 1280 breit, 3,38 MiB. Standbild von 31,1 s ~~— bei reduzierter Bewegung ist das Standbild alles, was zu sehen ist~~ *(seit 2026-09-07 überholt: Das Video läuft auch bei reduzierter Bewegung; Anhalten nach WCAG 2.2.2 offen)*. **Die Luftaufnahmen des Films tragen das Firmenlogo im Bild** und schieden dadurch aus; der geforderte Anflug steckt damit nicht drin. **Folgepunkt 4.14 (2026-09-10):** Dem Kunden fehlt der Schwenk durch die Karosserieabteilung; er wünscht das vollständige Video.*|
 
 ---
 
@@ -111,13 +111,17 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.22 | Wissensdatenbank-Seite bleibt vorerst Platzhalter, wird komplett neu gestaltet | Oalab | offen | *Zusammen mit 3.3 zu lesen: kein Livegang-Blocker.* |
+| 3.22 | Wissensdatenbank-Seite bleibt vorerst Platzhalter, wird komplett neu gestaltet | Oalab | offen | *Zusammen mit 3.3 zu lesen: kein Livegang-Blocker. Laut Auftrag zu Paket G erst nach dem offiziellen Deployment.* |
 
 ---
 
 ## Bringschuld André – Fotos und Freigaben (3.23 – 3.31)
 
 Neun Zulieferungen. **Als ein Paket anfordern**, nicht einzeln.
+
+> **Stand 2026-09-10:** Eine Fotolieferung ist bei Oalab eingegangen und wird gesichtet. Welche der Punkte
+> 3.23–3.29 sie abdeckt, wird nach der Sichtung hier eingetragen — bis dahin nicht als erledigt führen.
+> Zusätzlich liegen seit 2026-09-07 12 Drohnen- und 16 Rohclips vor, aus denen sich Standbilder ziehen ließen.
 
 | Nr. | Aufgabe | Verantw. | Status |
 |---|---|---|---|
@@ -143,10 +147,10 @@ Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
 
 | Nr. | Frage | Verantw. | Status | Was daran hängt |
 |---|---|---|---|---|
-| 3.32 | Ausbildungsstellen: widersprüchlich – erst „nein", dann „haben wir aktuell auch schon". Vor Umsetzung der Karrierekarten klären | André | Klärung | *Die drei Ausbildungsberufe stehen auf `/karriere` mit Schleier und Initiativ-Aufruf. Nach einer Zusage ist es ein Wort in `data/jobs.ts`.* |
+| 3.32 | Ausbildungsstellen: widersprüchlich – erst „nein", dann „haben wir aktuell auch schon". Vor Umsetzung der Karrierekarten klären | André | Klärung | *Die drei Ausbildungsberufe stehen auf `/karriere` mit Schleier und Initiativ-Aufruf. Nach einer Zusage ist es ein Wort in `data/jobs.ts`. **Teilantwort 2026-09-10 (4.19):** „Ausbildungsbetrieb im Lackierhandwerk und Karosseriebauhandwerk" — die Richtung ist also „ja". Offen: Werden im kommenden Jahrgang Plätze besetzt, und bleibt Industriekaufmann/-frau (in 4.19 nicht genannt)?* |
 | 3.33 | Bilder-Upload im Formular: Entscheidung „raus" steht, André sieht aber Nutzen zur Ersteinschätzung → finales Go, alternativ über reparatur.info kommunizieren | André | Klärung | *Die Upload-Felder sind am 2026-09-05 entfernt worden; an ihre Stelle trat eine Vorgangsnummer mit vorbereitetem E-Mail-Weg. **Diese Frage entscheidet, ob das so bleibt.*** |
 | 3.34 | reparatur.info / PDR Cloud: Wird aktiv genutzt? Falls nein, kippt die Logik aus „Nr. 66 und 103" | André | Klärung | ⚠️ *„Nr. 66/103" nicht rekonstruierbar. Inhaltlich hängen daran sicher **2.23** (Weiterleitung statt eigenem Formular) und **3.33**. Als Lesart gekennzeichnet.* |
-| 3.35 | Preisdarstellung Zusatzleistungen: „nicht bepreisen" vs. „Ab-Preise wären aus Kundensicht wünschenswert" – final entscheiden | André | Klärung | *Betrifft 2.26 und 2.11 — die Liste kommt mit oder ohne Preise.* |
+| 3.35 | Preisdarstellung Zusatzleistungen: „nicht bepreisen" vs. „Ab-Preise wären aus Kundensicht wünschenswert" – final entscheiden | André | Klärung | *Betrifft 2.26 und 2.11 — die Liste kommt mit oder ohne Preise. Richtung aus Schleife 4 (2026-09-10): „exklusiv" und Lackaufbereitung künftig „nach Absprache/Aufwand" (4.4, 4.9), Aufpreise für Geländewagen/Transporter noch offen (4.7). Für die Zusatzleistungen selbst ist das **noch keine Entscheidung**.* |
 | 3.36 | Slogan-Wortlaut: Richtung klar, exakte Formulierung noch offen | Oalab / André | Klärung | **Blockiert 2.7 und 2.8.** |
 | 3.37 | „Bildtechnisch noch was ändern" (Teil 1) – unklar, ob Bildgrößen/-formate oder Darstellung gemeint waren | André | Klärung | *Rückfrage nötig — der Satz ist im Protokoll unvollständig.* |
 
@@ -157,7 +161,7 @@ Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
 | Nr. | Befund |
 |---|---|
 | **3.2** | als Prinzip in `CLAUDE.md` verankert |
-| **3.5** | halb — Popup schaltbar, Banner nicht |
+| **3.5** | halb — Popup schaltbar, Banner nicht · *am 2026-09-06 vervollständigt: Banner ebenfalls schaltbar* |
 | **3.15** | bestätigt: Leasingrückgabe bleibt außerhalb von `ServiceLayout` |
 | **3.17** | bewusst abgewichen — Formulare wurden vorgezogen |
 | **3.31** | im konsolidierten Backlog bereits als Punkt „Partnerlogos" geführt |
@@ -199,15 +203,21 @@ Er hebt das Ranking der **Subseite**, und genau darauf zielt jede Leistungsseite
 ihr Vertrauenssignal, um Text zu sparen, der Besucher nicht stört.
 
 **Aber:** Drei nahezu wortgleiche Karten auf sieben Seiten sind aus SEO-Sicht das, was
-1.15/1.29 vermeiden sollen — austauschbarer Text. Der billige Weg ist nicht Löschen,
+1.15/R3 vermeiden sollen — austauschbarer Text. Der billige Weg ist nicht Löschen,
 sondern **Zuschneiden**: „Meisterbetrieb seit 1998" kann auf der Felgenseite die
 Felgenkompetenz belegen und auf der Lackseite die Lackkompetenz. Gleiches Signal,
 anderer Satz, kein Verlust.
 
-**Aufwand:** rund 20 Kartentexte. Sinnvoll **gemeinsam mit 1.29** zu machen, wenn die
+**Aufwand:** rund 20 Kartentexte. Sinnvoll **gemeinsam mit R3** zu machen, wenn die
 Erklärtexte kommen — dann wird jede Seite in einem Durchgang eigenständig statt in zwei.
 
 **Entscheidung liegt beim Kunden.** Ohne Freigabe wird hier nichts umgebaut.
+
+**Nachtrag 2026-09-06 (Paket G): umgesetzt.** Nach Auszählung waren es nicht rund 20,
+sondern **4 wortgleiche Karten auf 11 Seiten-Instanzen**; die übrigen waren bereits
+differenziert. Alle sind jetzt je Seite eigenständig formuliert, „Meisterbetrieb" und
+„1998" überall erhalten (Textregel 5). Die Abnahme durch den Kunden steht noch aus.
+Beleg: `docs/paket-g-aufraeumen/tasks/2026-09-06-paket-g-tasks.md`, Phase 10.
 
 ---
 

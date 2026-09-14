@@ -4,7 +4,8 @@
 Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26?"),
 findet sie über die Tabelle unten.
 
-**Stand:** 2026-09-06 · **Website:** `carcare-center.vercel.app`
+**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10 · **Website:** `carcare-center.vercel.app`
+**Letzter Abgleich:** [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md)
 
 > **Alles, was hier deployt wird, geht nur in diese Preview-Umgebung** — sie dient der
 > Abstimmung mit dem Kunden. Live unter `www.carcare-center.de` läuft weiterhin der alte
@@ -13,15 +14,16 @@ findet sie über die Tabelle unten.
 
 ---
 
-## Die vier Listen
+## Die fünf Listen
 
 | Datei | Inhalt | Punkte | Nummernraum |
 |---|---|---|---|
 | [`schleife-1.md`](schleife-1.md) | Erste Review-Runde, **abgeschlossen** (25 von 29 umgesetzt) | 26 | **1.1 – 1.26** |
 | [`schleife-2.md`](schleife-2.md) | Zweite Review-Runde | 27 | **2.1 – 2.27** |
-| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde, enthält 6 offene Entscheidungen | 37 | **3.1 – R9** |
+| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde, enthält 6 offene Entscheidungen | 37 | **3.1 – 3.37** |
+| [`schleife-4.md`](schleife-4.md) | Vierte Runde: Feedbackliste von André (2026-09-10), **Originalnummern**, 10 Rückfragen | 21 | **4.1 – 4.21** |
 | [`nicht-relevant.md`](nicht-relevant.md) | Ohne Schleifenzuordnung — 8 abgenommene Entscheidungen, 5 offene Punkte | 13 | *ohne Nummer* |
-| | **Summe** | **103** | |
+| | **Summe** | **124** | |
 
 ## Auswertungen
 
@@ -36,11 +38,18 @@ findet sie über die Tabelle unten.
 die vom Kunden gelieferte Gesamtliste, **unverändert**. Alle drei Schleifen in einer
 Datei, 103 Zeilen.
 
+[`quelle/2026-09-10-schleife-4.csv`](quelle/2026-09-10-schleife-4.csv) — Andrés Feedbackliste
+„Schleife 4", Werte **unverändert** aus der xlsx exportiert (Rückleseprobe: identisch), ohne die
+SharePoint-Metadaten der Datei. Original: OneDrive, Kunden/CarCare-Center,
+`car-Care-Center_Website_Feedback Schleife 4.xlsx`. 21 Zeilen.
+
 ---
 
 ## ⚠️ Zwei Dinge, die man wissen muss
 
-### 1. Die Nummern sind rekonstruiert, nicht original
+### 1. Die Nummern von Schleife 1–3 sind rekonstruiert, nicht original
+
+> **Ausnahme Schleife 4:** Andrés Liste trägt eine eigene Spalte „Nr." — 4.1–4.21 sind seine Nummern.
 
 Die Quell-CSV trägt **keine Nummern**. Die Zuordnung 1.x/2.x/3.x ist aus der Sortierung
 abgeleitet:
@@ -66,11 +75,16 @@ Umbenennungsplan: [`tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`](task
 
 ## Schnellzugriff: Was blockiert den Livegang?
 
-Drei Punkte, alle bei André, alle rechtlich:
+Zwei Punkte bei André, beide rechtlich — dazu ein technischer Nachweis bei uns
+*(Stand 2026-09-10)*:
 
 1. **Impressumsangaben vervollständigen** — Handwerkskammer, Berufsbezeichnung,
    Verbraucherstreitbeilegung, Telefonnummer *(repo-lokal „R5")*
-2. **Datenschutzerklärung schreiben** — Faktenblatt liegt bereit *(repo-lokal „R6")*
-3. **Zugangsdaten für den Formularversand** — hängt an Punkt 2 *(repo-lokal „R10")*
+2. **Datenschutzerklärung schreiben** — Faktenblatt liegt bereit, mit Nachtrag zum
+   Netcup-Versand *(repo-lokal „R6")*. **Dringlicher geworden:** Seit 2026-09-08 sendet
+   die Vorschau Formulare tatsächlich.
+3. ~~**Zugangsdaten für den Formularversand**~~ — **am 2026-09-08 hinterlegt** (Netcup-SMTP
+   statt Resend). Offen ist nur noch der Live-Test aller vier Formulare mit
+   Empfangsnachweis *(repo-lokal „R10")*
 
 Details und Wortlaut in [`offene-punkte-konsolidiert.md`](offene-punkte-konsolidiert.md).

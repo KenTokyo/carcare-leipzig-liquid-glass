@@ -63,6 +63,9 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    Entschieden am 2026-09-02, nicht neu aufmachen.
 3. **Gründungsjahr:** „seit 1998". Nicht 1993, nicht 1996.
 4. **Betriebsfläche:** „über 3.000 m²" bzw. „über 3.000 Quadratmeter".
+   ⚠️ **Offen seit 2026-09-10:** André nennt in Schleife 4 (4.2, 4.18) „über 3.500 m²". Bis
+   zur Bestätigung gilt 3.000 — und dann **überall zugleich** ändern (30 Fundstellen), nie
+   einzeln, sonst widerspricht sich die Seite.
 5. **Meisterbetrieb:** Der Begriff bleibt auch im Aufbereitungsbereich erhalten
    (SEO-relevant), obwohl Aufbereitung kein Meisterhandwerk ist.
 
@@ -112,14 +115,15 @@ wer daran etwas ändert, liest sie zuerst.
 
 **Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`
 
-Dort liegen alle drei Review-Schleifen mit 103 Aufgaben, die Auswertung „was ist
-wirklich offen", und die vom Kunden gelieferte Quell-CSV.
+Dort liegen alle vier Review-Schleifen mit 124 Aufgaben, die Auswertung „was ist
+wirklich offen", und die vom Kunden gelieferten Quelllisten.
 
 | Datei | Nummernraum |
 |---|---|
 | `docs/backlog/schleife-1.md` | 1.1 – 1.26 (abgeschlossen) |
 | `docs/backlog/schleife-2.md` | 2.1 – 2.27 |
-| `docs/backlog/schleife-3.md` | 3.1 – R9 |
+| `docs/backlog/schleife-3.md` | 3.1 – 3.37 |
+| `docs/backlog/schleife-4.md` | 4.1 – 4.21 (Originalnummern aus Andrés Liste) |
 | `docs/backlog/nicht-relevant.md` | ohne Nummer |
 | `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |
 
