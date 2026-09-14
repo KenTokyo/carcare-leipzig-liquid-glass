@@ -19,9 +19,14 @@ const PARALLAX_REISE_PROZENT = 6.67;
  * `TrustBar`-Sektion, die dafuer am 2026-07-22 aufgeloest wurde (User-Vorgabe, Referenz-Layout:
  * Logo-Leiste am Fuss des Heros). Ausschliesslich harte Fakten (SEO-GEO §4.3), Wortlaut aus den
  * Projekt-USP-Bausteinen. Nach dem Hero startet die Seite direkt mit der Leistungsuebersicht.
+ *
+ * Backlog 4.11 (2026-09-11): Bezeichnung „Kfz-Lackier- und Karosseriebauhandwerk". Das
+ * „seit 1998" steht hier nicht mehr — es haette jetzt den Karosseriebau-Meister seit 1998
+ * behauptet, der laut Chronik des Kunden erst 2013 dazukam (4.18, offene Frage R13). Das
+ * Jahr steht weiterhin in der Subline direkt darueber und geht dem Hero nicht verloren.
  */
 const trustFacts = [
-  { icon: <Award size={18} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackierhandwerk, seit 1998' },
+  { icon: <Award size={18} />, label: 'Meisterbetrieb', sub: 'Kfz-Lackier- und Karosseriebauhandwerk' },
   { icon: <PaintBucket size={18} />, label: 'Glasurit-Lackpartner', sub: 'farbtongenaue Reparaturlackierung' },
   { icon: <Users size={18} />, label: 'Über 50 Mitarbeiter', sub: 'eingespielte Teams, klare Abläufe' },
   { icon: <MapPin size={18} />, label: 'Standort Leipzig', sub: 'An den Tierkliniken 42' },

@@ -45,7 +45,8 @@ const advantages = [
   },
   {
     title: 'Markenunabhängig und erfahren',
-    description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998, über 50 Mitarbeiter, alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
+    // Backlog 4.11 + R13: neue Bezeichnung; „seit 1998 am Markt" haengt am Betrieb, nicht am Meistertitel.
+    description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt, über 50 Mitarbeiter, alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
   },
 ];
 

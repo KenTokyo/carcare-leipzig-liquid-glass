@@ -46,13 +46,13 @@ const groups: TargetGroup[] = [
      * Werkstatt". Ersetzt den frueheren allgemeinen Einzeiler.
      *
      * Alle Aussagen sind durch Bestehendes gedeckt (CLAUDE.md / SEO-GEO-STANDARDS.md):
-     * „instand setzen statt tauschen" durch das eigene Leistungsspektrum (Smart Repair,
+     * „Instandsetzung statt Tauschen" (Wortlaut seit Backlog 4.12) durch das eigene Leistungsspektrum (Smart Repair,
      * Dellenentfernung, Felgenreparatur), Glasurit-Lackpartnerschaft, Werkstatt-
      * ersatzfahrzeug und strukturierte Ablaeufe. Bewusst keine Zahlen zu Steuerungs-
      * quoten oder Durchlaufzeiten — die liegen hier nicht belegt vor.
      */
     description:
-      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand — instand setzen statt tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
+      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand — Instandsetzung statt Tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
     cta: 'Schadenpartner kennenlernen',
     iconName: 'ShieldCheck',
     // Zeigte bis 2026-08-09 auf `/unfallinstandsetzung-leipzig`. Auf Wunsch des Users

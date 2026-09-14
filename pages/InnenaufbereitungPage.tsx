@@ -16,7 +16,8 @@ import { aufbereitungKacheln, disinfectionServices } from '../data/detailing';
  */
 
 const innenLeistungen = [
-  { title: 'Innenraum komplett', description: 'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit und Oberflächen.' },
+  // Backlog 4.6: Teppichreinigung ergaenzt — in dieser Karte statt als sechste, damit das Raster bleibt.
+  { title: 'Innenraum komplett', description: 'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit, Oberflächen und Teppichen.' },
   { title: 'Polster oder Leder', description: 'Polstershampoonierung – alternativ materialgerechte Lederpflege.' },
   { title: 'Scheiben', description: 'Scheibenreinigung innen und außen.' },
   { title: 'Geruch und Luft', description: 'Geruchsentfernung und Behandlung belasteter Innenraumluft.' },

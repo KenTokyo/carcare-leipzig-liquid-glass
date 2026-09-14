@@ -20,7 +20,7 @@ const scope = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb des Kfz-Lackierhandwerks seit 1998 – der Felgenlack entsteht im eigenen Haus.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt – der Felgenlack entsteht im eigenen Haus.' },
   { title: 'Full-Service auf über 3.000 m²', description: 'Felgen, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackierung der Felgen für ein Ergebnis optisch wie neu.' },
 ];

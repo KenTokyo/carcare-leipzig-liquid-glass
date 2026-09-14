@@ -17,15 +17,19 @@ export const carePackages: PriceItem[] = [
     // Backlog 2.10: Der zweite Satz trennt zwei Dinge, die sonst verwechselt werden —
     // die im Paket enthaltene Lackversiegelung und die separat buchbare
     // Keramikversiegelung. Das Paket ist deren Voraussetzung, nicht deren Ersatz.
+    // Backlog 4.5: „schonende Handoberwäsche" statt „Oberwäsche inkl. Abledern" — Wortlaut des Kunden.
     description:
-      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche inkl. Abledern, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
+      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
   },
   {
     id: 'p2',
     title: 'Intensiv Innenreinigung',
     price: '199,00 €',
+    // Backlog 4.6: Teppichreinigung ergaenzt, „Schonende Oberwaesche" statt „inkl. Abledern".
+    // Die Polstershampoonierung stand schon drin — als Alternative zur Lederpflege, und
+    // so bleibt sie: Stoff wird shampooniert, Leder gepflegt. Die Teppiche gelten fuer beide.
     description:
-      'Oberwäsche inkl. Abledern, intensive Reinigung des gesamten Innenraumes, Polstershampoonierung – alternativ Lederpflege – sowie Scheibenreinigung innen und außen.',
+      'Schonende Oberwäsche, intensive Reinigung des gesamten Innenraumes, Polstershampoonierung – alternativ Lederpflege –, Teppichreinigung sowie Scheibenreinigung innen und außen.',
   },
   {
     id: 'p3',
@@ -70,7 +74,7 @@ export const disinfectionServices: PriceItem[] = [
  */
 export const priceOffers = [
   { name: 'Brillant Außenpflege', price: '169.00', description: 'Außenaufbereitung mit Lackreinigung, Hochglanzpolitur und Lackversiegelung.' },
-  { name: 'Intensiv Innenreinigung', price: '199.00', description: 'Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege.' },
+  { name: 'Intensiv Innenreinigung', price: '199.00', description: 'Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege sowie Teppichreinigung.' },
   { name: 'Premiumpflege', price: '299.00', description: 'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung.' },
   { name: 'Premiumpflege „exklusiv“', price: '348.00', from: true, description: 'Aufbereitung außen und innen in Handarbeit, mit SWIZÖL-Wachsen, Carnaubaanteil 30 bis 60 %.' }, // Backlog 2.9
   { name: 'Ozonbehandlung', price: '45.00', description: 'Innenraum-Desinfektion mit Ozon, ca. 30 Minuten Einwirkzeit.' },

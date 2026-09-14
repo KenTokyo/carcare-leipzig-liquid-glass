@@ -33,11 +33,12 @@ const facts = [
   { title: 'Seit 1998 am Markt', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998 — gewachsen mit den Fahrzeugen, Materialien und Reparaturverfahren, die heute Standard sind.' },
   { title: 'Über 3.000 m² Betriebsfläche', description: 'Lackierung, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen unter einem Dach. Fahrzeuge werden zwischen den Arbeitsschritten nicht an Fremdbetriebe weitergereicht.' },
   { title: 'Über 50 Mitarbeiter', description: 'Eingespielte Teams mit klaren Abläufen. Die Betriebsgröße erlaubt es, mehrere Fahrzeuge parallel zu bearbeiten — auch bei größeren Aufträgen aus Fuhrparks und Autohäusern.' },
-  { title: 'Alle Fabrikate', description: 'Markenunabhängiger Meisterbetrieb des Kfz-Lackierhandwerks — vom Kleinwagen bis zum Premiumfahrzeug, ohne Bindung an eine Vertragswerkstatt.' },
+  { title: 'Alle Fabrikate', description: 'Markenunabhängiger Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk — vom Kleinwagen bis zum Premiumfahrzeug, ohne Bindung an eine Vertragswerkstatt.' },
 ];
 
+// Backlog 4.11: Bezeichnung „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk" (Kundenwortlaut).
 const qualifications = [
-  { title: 'Meisterbetrieb des Kfz-Lackierhandwerks', description: 'Handwerkliche Qualifikation als Grundlage jeder Reparatur — mit Ausbildung im eigenen Betrieb und fachlicher Verantwortung für das Ergebnis.' },
+  { title: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk', description: 'Handwerkliche Qualifikation als Grundlage jeder Reparatur — mit Ausbildung im eigenen Betrieb und fachlicher Verantwortung für das Ergebnis.' },
   { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind — mit umweltschonenden Wasserbasislacken.' },
   { title: 'WINTEC-Partner für Autoglas', description: 'Scheibentausch und Steinschlagreparatur nach ISO 9001, TÜV-zertifiziert, mit 30 Jahren Garantie auf die Verglasung.' },
   { title: 'TÜV-zertifizierte Felgenreparatur', description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe werden im geprüften Verfahren instand gesetzt — auch an glanzgedrehten Felgen.' },
@@ -55,7 +56,7 @@ const qualifications = [
 const spectrum = [
   { title: 'Karosserie & Unfallinstandsetzung', description: 'Instandsetzung nach Unfallschäden, von der Schadenaufnahme bis zur fertigen Übergabe.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Neu- und Reparaturlackierung', description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, mit dem Ziel der unsichtbaren Reparatur.', href: '/autolackierung-leipzig' },
-  { title: 'Smart Repair & Dellenentfernung', description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — instand setzen statt tauschen.', href: '/smart-repair-leipzig' },
+  { title: 'Smart Repair & Dellenentfernung', description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — Instandsetzung statt Tauschen.', href: '/smart-repair-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgen & Autoglas', description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.', href: '/felgenreparatur-leipzig' },
   { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege mit SWIZÖL-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
@@ -64,7 +65,7 @@ const spectrum = [
 const customers = [
   { title: 'Werksniederlassungen und Autohäuser', description: 'Wir betreuen Werksniederlassungen deutscher Premiumhersteller sowie Autohäuser — mit planbaren Abläufen für Präsentation, Übergabe und Fahrzeugbestand.', href: '/geschaeftskunden' },
   { title: 'Firmenfuhrparks', description: 'Wiederkehrende Pflege, Instandsetzung und Werterhaltung für gewerbliche Flotten, mit festem Ansprechpartner statt wechselnder Zuständigkeiten.', href: '/fuhrparkservice-leipzig' },
-  { title: 'Versicherungen und Agenturen', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — instand setzen statt tauschen, wo es fachlich vertretbar ist.', href: '/unfallinstandsetzung-leipzig' },
+  { title: 'Versicherungen und Agenturen', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — Instandsetzung statt Tauschen, wo es fachlich vertretbar ist.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Anspruchsvolle Privatkunden', description: 'Vom Parkplatzrempler bis zur Premiumpflege: ein Ansprechpartner für Pflege, Reparatur und Lackierung.', href: '/privatkunden' },
 ];
 
@@ -95,7 +96,7 @@ const UeberUnsPage: React.FC = () => (
     <PageHero
       eyebrow="Über uns"
       title="Einer der größten Karosserie- und Lackierbetriebe in Leipzig."
-      description="Seit 1998 sind wir Meisterbetrieb des Kfz-Lackierhandwerks. Auf über 3.000 m² bearbeiten über 50 Mitarbeiter Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung — für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
+      description="Wir sind Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Auf über 3.000 m² bearbeiten über 50 Mitarbeiter Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung — für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
       primaryCta={{ label: 'Kontakt aufnehmen', href: '/kontakt' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Karosseriebetrieb Leipzig', 'Lackiererei Leipzig', 'Meisterbetrieb Leipzig', 'Glasurit-Lackpartner']}
@@ -159,7 +160,7 @@ const UeberUnsPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Entwicklung"
-          title="Von der Lackiererei zum Full-Service-Betrieb."
+          title="Von der Fahrzeugaufbereitung zum Full-Service-Betrieb."
           description="Entwicklung seit 1998 — jeder Schritt kam dazu, weil Kunden ihn gebraucht haben."
         />
         <Timeline stations={historie} />

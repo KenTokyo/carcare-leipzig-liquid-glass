@@ -63,7 +63,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Oberwäsche, Lackreinigung, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Lackreinigung, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
   ],
   '/innenaufbereitung-leipzig': [
@@ -72,7 +72,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Innenaufbereitung Leipzig', path: '/innenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Scheibenreinigung und Geruchsentfernung — Intensiv Innenreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
+    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung — Intensiv Innenreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
     faqSchema(faqsByRoute['/innenaufbereitung-leipzig']),
   ],
   '/leasingrueckgabe-leipzig': [
@@ -127,7 +127,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/ueber-uns': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Über uns', path: '/ueber-uns' }]),
-    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist seit 1998 Meisterbetrieb des Kfz-Lackierhandwerks in Leipzig. Über 50 Mitarbeiter bearbeiten auf über 3.000 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
+    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk in Leipzig und seit 1998 am Markt. Über 50 Mitarbeiter bearbeiten auf über 3.000 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
     faqSchema(faqsByRoute['/ueber-uns']),
   ],
   /**

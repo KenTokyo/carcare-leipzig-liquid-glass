@@ -22,7 +22,7 @@ import { dealerPartners, insurancePartners } from '../data/partners';
 const audiences = [
   { title: 'Autohäuser', description: 'Aufbereitung für Bestand und Präsentation, Instandsetzung vor Übergabe und verlässliche Rückmeldung zum Fahrzeugstatus.' },
   { title: 'Fuhrparks & Flotten', description: 'Wiederkehrende Pflege, Reparatur und Werterhalt für gewerbliche Fahrzeuge — mit planbaren Abläufen statt Einzelfallorganisation.' },
-  { title: 'Versicherungen & Schadensteuerer', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — instand setzen statt tauschen, wo es fachlich vertretbar ist.' },
+  { title: 'Versicherungen & Schadensteuerer', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — Instandsetzung statt Tauschen, wo es fachlich vertretbar ist.' },
   { title: 'Versicherungsagenturen', description: 'Persönliche Zusammenarbeit bei Schadenaufnahme und Kundenkommunikation, mit festem Ansprechpartner vor Ort.' },
 ];
 
@@ -66,7 +66,8 @@ const offerings = [
 const collaboration = [
   { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte — Sie wissen, mit wem Sie sprechen.' },
   { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.000 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
-  { title: 'Instand setzen statt tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
+  // Backlog 4.12: Kundenwortlaut „Instandsetzung statt Tauschen" — an allen sechs Stellen gleich.
+  { title: 'Instandsetzung statt Tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
   // Backlog 1.16: Programmname vom Kunden bestaetigt — "Data Motive", nicht "Beta Motive".
   { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive — ohne Medienbruch zwischen den Schritten.' },

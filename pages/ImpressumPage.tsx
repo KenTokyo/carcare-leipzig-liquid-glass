@@ -55,6 +55,13 @@ const ImpressumPage: React.FC = () => (
         <Abschnitt title="Anbieter">
           <dl>
             <Angabe label="Firma">BS CarCare GmbH</Angabe>
+            {/*
+              Backlog 4.11 (2026-09-10): Bezeichnung laut Kunde. Das ist die BETRIEBS-
+              bezeichnung, nicht die gesetzliche Berufsbezeichnung nach § 5 Abs. 1 Nr. 5 DDG —
+              die fehlt weiterhin, siehe TODO unten. Deshalb bewusst nicht „Berufsbezeichnung"
+              beschriftet: Das saehe nach erfuellter Pflichtangabe aus.
+            */}
+            <Angabe label="Betrieb">Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk</Angabe>
             <Angabe label="Anschrift">
               An den Tierkliniken 42
               <br />
@@ -108,6 +115,11 @@ const ImpressumPage: React.FC = () => (
           zu Leipzig, Berufsbezeichnung (Kfz-Techniker- bzw. Maler- und
           Lackiererhandwerk), verliehen in Deutschland, Handwerksordnung (HwO).
           ERWARTBAR IST NICHT BELEGT — deshalb steht hier nichts.
+
+          Stand 2026-09-10 (Backlog 4.11): Andre nennt „Meisterbetrieb im Kfz-Lackier- und
+          Karosseriebauhandwerk" — oben als Betriebsbezeichnung eingetragen. Das grenzt die
+          Gewerke ein (Lackier- und Karosseriebau statt Kfz-Technik), ersetzt aber nicht
+          Kammer, Meistertitel, Verleihungsstaat und Regelung. Offene Frage R13: seit wann.
         */}
 
         {/*

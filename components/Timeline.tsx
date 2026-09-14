@@ -39,9 +39,22 @@ import { motion, type Variants } from 'framer-motion';
  * Zwischenfassung ohne Flaeche war ueber den dunklen Fahrzeugen praktisch unlesbar —
  * gemessen 2026-09-04.
  *
- * ZWEI RICHTUNGEN, EIN MARKUP: waagerechte Achse ab `lg`, darunter senkrecht mit den
+ * ZWEI RICHTUNGEN, EIN MARKUP: waagerechte Achse ab `xl`, darunter senkrecht mit den
  * Karten rechts daneben. Abwechselnd oben/unten funktioniert auf 390px nicht. Bewusst
  * KEIN zweiter Markup-Block — sonst stuende derselbe Text zweimal im HTML.
+ *
+ * ⚠️ DIE HOEHE KOMMT AUS DEM INHALT, NICHT AUS EINER ZAHL (2026-09-11). Bis dahin hatte
+ * jede Station feste `26rem`, die Karten hingen absolut darueber/darunter. Mit den
+ * gelieferten Texten aus Schleife 4 und sechs statt fuenf Stationen gemessen: bei 1280px
+ * ragte die 1998-Karte 133px nach oben in die Ueberschrift, „Heute" 139px nach unten in
+ * die naechste Sektion — bei 1024px je ueber 220px. Kein Build und kein Waechter sieht
+ * das. Jetzt ist jede Station ein Raster `1fr | 0 | 1fr` ohne Zeilenabstand: Beide
+ * Haelften werden so hoch wie die hoechste Karte der ganzen Zeile, die Nullzeile IST die
+ * Achse, der Punkt sitzt absolut darauf — bei jeder Textmenge, und nichts ragt heraus.
+ * Karte zu Achse bleibt `mb-9`/`mt-9` wie zuvor, die Stichleitung (`h-9`) trifft also
+ * weiter genau die Achse. `min-h` haelt die bisherige Mindesthoehe von 26rem.
+ * Ab `xl` statt `lg`: Bei sechs Stationen waere eine Karte bei 1024px innen nur 106px
+ * breit — darunter traegt die senkrechte Darstellung, begrenzt auf `max-w-3xl`.
  */
 
 export interface TimelineStation {
@@ -71,14 +84,14 @@ const ACHSE_DAUER = 1.1;
  * Spaltenzahl als AUSGESCHRIEBENE Klassen.
  *
  * Tailwind liest den Quelltext als Text — eine zusammengesetzte Klasse wie
- * `lg:grid-cols-${n}` steht dort nie und wird nicht erzeugt. Das Raster fiele stumm auf
+ * `xl:grid-cols-${n}` steht dort nie und wird nicht erzeugt. Das Raster fiele stumm auf
  * eine Spalte zurueck.
  */
 const SPALTEN: Record<number, string> = {
-  3: 'lg:grid-cols-3',
-  4: 'lg:grid-cols-4',
-  5: 'lg:grid-cols-5',
-  6: 'lg:grid-cols-6',
+  3: 'xl:grid-cols-3',
+  4: 'xl:grid-cols-4',
+  5: 'xl:grid-cols-5',
+  6: 'xl:grid-cols-6',
 };
 
 /** Der Punkt erscheint, wenn die Linie ihn erreicht. */
@@ -105,9 +118,9 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
   const anzahl = stations.length;
 
   return (
-    <div className="relative">
+    <div className="relative max-w-3xl xl:max-w-none">
       {/* ---------------------------------------------------------- Die Achse ---
-          Senkrecht auf schmalen Schirmen (links neben den Karten), ab `lg` waagerecht
+          Senkrecht auf schmalen Schirmen (links neben den Karten), ab `xl` waagerecht
           auf halber Hoehe. `aria-hidden`: Die Abfolge steckt in der <ol>.
           Der beobachtete Traeger behaelt seine Flaeche; nur die Kinder skalieren. */}
       <motion.div
@@ -115,22 +128,22 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
         initial="ruhe"
         whileInView="an"
         viewport={{ once: true, margin: '-60px' }}
-        className="pointer-events-none absolute left-[1.375rem] top-0 h-full w-px lg:left-0 lg:top-1/2 lg:h-px lg:w-full"
+        className="pointer-events-none absolute left-[1.375rem] top-0 h-full w-px xl:left-0 xl:top-1/2 xl:h-px xl:w-full"
       >
         <div className="h-full w-full bg-gray-200" />
         <motion.div
           variants={ACHSE}
           transition={{ duration: ACHSE_DAUER, ease: [0.25, 0.6, 0.3, 1] }}
-          className="absolute inset-0 origin-top bg-blue-600/40 lg:hidden"
+          className="absolute inset-0 origin-top bg-blue-600/40 xl:hidden"
         />
         <motion.div
           variants={ACHSE}
           transition={{ duration: ACHSE_DAUER, ease: [0.25, 0.6, 0.3, 1] }}
-          className="absolute inset-0 hidden origin-left bg-blue-600/40 lg:block"
+          className="absolute inset-0 hidden origin-left bg-blue-600/40 xl:block"
         />
       </motion.div>
 
-      <ol className={`relative grid grid-cols-1 gap-6 lg:gap-4 ${SPALTEN[anzahl] ?? 'lg:grid-cols-5'}`}>
+      <ol className={`relative grid grid-cols-1 gap-6 xl:gap-4 ${SPALTEN[anzahl] ?? 'xl:grid-cols-5'}`}>
         {stations.map((station, idx) => {
           const oben = idx % 2 === 0;
           const istAktiv = aktiv === idx;
@@ -144,7 +157,7 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
               initial="ruhe"
               whileInView="an"
               viewport={{ once: true, margin: '-60px' }}
-              className="relative flex items-start gap-4 lg:block lg:h-[26rem]"
+              className="relative flex items-start gap-4 xl:grid xl:min-h-[26rem] xl:grid-rows-[1fr_0_1fr] xl:gap-0"
               onMouseEnter={() => setAktiv(idx)}
               onMouseLeave={() => setAktiv((jetzt) => (jetzt === idx ? null : jetzt))}
             >
@@ -169,7 +182,7 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
                   gerechnet wurde (224 statt 201,6 bei 243,19px Spaltenbreite).
                   1,375rem ist die halbe Knopfgroesse (h-11 = 2,75rem).
                 */
-                className={`relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors lg:absolute lg:left-1/2 lg:top-1/2 lg:-ml-[1.375rem] lg:-mt-[1.375rem] ${
+                className={`relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors xl:absolute xl:left-1/2 xl:top-1/2 xl:-ml-[1.375rem] xl:-mt-[1.375rem] ${
                   istAktiv
                     ? 'bg-blue-600 text-white ring-4 ring-blue-600/15'
                     : station.istPlatzhalter
@@ -189,20 +202,26 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
                 id={kartenId}
                 variants={KARTE}
                 transition={{ delay: verzoegerung + 0.16, duration: 0.45 }}
-                className={`min-w-0 flex-1 lg:absolute lg:inset-x-0 ${
-                  oben ? 'lg:bottom-1/2 lg:mb-9' : 'lg:top-1/2 lg:mt-9'
+                // Im Fluss statt absolut: Zeile 1 (ueber der Achse) oder 3 (darunter), an die
+                // Achse geschmiegt. `relative` traegt die Stichleitung.
+                className={`relative min-w-0 flex-1 ${
+                  oben ? 'xl:row-start-1 xl:mb-9 xl:self-end' : 'xl:row-start-3 xl:mt-9 xl:self-start'
                 }`}
               >
                 {/* Stichleitung vom Punkt zur Karte — macht die Zuordnung eindeutig,
                     wenn Karten ueber und unter der Achse haengen. */}
                 <span
                   aria-hidden="true"
-                  className={`absolute left-1/2 hidden w-px bg-gray-200 lg:block ${
+                  className={`absolute left-1/2 hidden w-px bg-gray-200 xl:block ${
                     oben ? 'top-full h-9' : 'bottom-full h-9'
                   }`}
                 />
+                {/* `hyphens-auto break-words` (2026-09-11): Seit sechs Stationen ist eine Spalte
+                    bei 1024px nur 146px breit, innen 106px. „Kfz-Aufbereitungsbetrieb" oder
+                    „Werksniederlassungen" ragten gemessen bis 27px in die Nachbarkarte. Deutsche
+                    Silbentrennung greift ueber <html lang="de">; Vorbild: Hero-H1. */}
                 <div
-                  className={`rounded-2xl border bg-gray-50/70 p-5 transition-shadow ${
+                  className={`hyphens-auto break-words rounded-2xl border bg-gray-50/70 p-5 transition-shadow ${
                     istAktiv ? 'border-blue-200 shadow-lg shadow-gray-300/40' : 'border-gray-100'
                   }`}
                 >

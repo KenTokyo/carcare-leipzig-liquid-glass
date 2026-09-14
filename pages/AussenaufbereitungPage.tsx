@@ -18,7 +18,8 @@ import { aufbereitungKacheln } from '../data/detailing';
 const aussenLeistungen = [
   { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung und Felgenreinigung.' },
   { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
-  { title: 'Schonende Oberwäsche', description: 'Schonende Oberwäsche inklusive Abledern.' },
+  // Backlog 4.5: Wortlaut „Schonende Handoberwäsche" wie im Paket Brillant Außenpflege.
+  { title: 'Schonende Handoberwäsche', description: 'Schonende Oberwäsche von Hand.' },
   { title: 'Lackreinigung', description: 'Lackreinigung als Grundlage für die weitere Bearbeitung.' },
   { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Teil der Außenpflege.' },
 ];

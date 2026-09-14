@@ -140,7 +140,7 @@ const VERDAECHTIGE_TEXTE = [
 const ANERKANNT = [
   { text: 'Zusatzleistung 1', backlog: '1.18', seit: '2026-09-04' },
   { text: 'Zusatzleistung 2', backlog: '1.18', seit: '2026-09-04' },
-  { text: 'Meilenstein 1', backlog: 'R1', seit: '2026-09-04' },
+  // „Meilenstein 1" am 2026-09-11 entfallen: Station 2000 geliefert (Schleife 4, 4.17).
   { text: 'Meilenstein 2', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Meilenstein 3', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Jahr offen', backlog: 'R1', seit: '2026-09-04' },
