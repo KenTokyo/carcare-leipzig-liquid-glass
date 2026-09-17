@@ -5,7 +5,10 @@ import { AlertTriangle, ArrowLeft, Building2, CalendarClock, X } from 'lucide-re
 import RequestForm, { formularTitel } from './RequestForm';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { TERMIN_UEBERSCHREIBUNG, leistungFuerRoute } from '../data/leistungsauswahl';
+import { SCHADENMELDUNG_EXTERN, SCHADENMELDUNG_PORTAL, SCHADENMELDUNG_URL } from '../data/schadenmeldung';
 import { RequestFormKind } from '../types';
+import { ExternMarke, externAttribute } from './ExternerLink';
+import SchadenUebergabe from './SchadenUebergabe';
 
 /**
  * Anfrage-Dialog (Backlog 1.20) — ein Pop-up-Fenster mit dem Anfrageformular.
@@ -50,6 +53,12 @@ import { RequestFormKind } from '../types';
  * Seit 2026-09-05 alle drei Anfragearten (Backlog 1.20 vollstaendig). Vorher nur die
  * Terminanfrage — mit der Folge, dass zwei der drei Handlungsaufrufe weiterhin auf die
  * Kontaktseite sprangen und derselbe Knopf je nach Anliegen etwas anderes tat.
+ *
+ * `#contact-schaden` SEIT 2026-09-16: Die „Schaden melden"-Knoepfe zeigen direkt auf
+ * reparatur.info (`SCHADEN_ZIEL` in `data/schadenmeldung.ts`) und werden hier gar nicht mehr
+ * abgefangen — sie tragen `target="_blank"`. Der Eintrag bleibt fuer alte Links und fuer die
+ * Reparaturseiten (`TERMIN_UEBERSCHREIBUNG`): Der Dialog oeffnet, „Schaden melden" ist
+ * vorgeschlagen und fuehrt als Link hinaus.
  */
 export const ANFRAGE_ZIELE: Record<string, RequestFormKind> = {
   '#contact-termin': 'termin',
@@ -158,7 +167,10 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
       // gemeint ist — und wenn es ohnehin passt, dann nur fuer die Vorauswahl.
       // Ein `#contact-business`-Aufruf auf einer Reparaturseite behaelt seine Bedeutung.
       const abweichung = eintrag && (ziel === 'termin' || eintrag.art === ziel) ? eintrag : undefined;
-      oeffnen(abweichung?.art ?? ziel, abweichung?.vorauswahl);
+      // `data-leistung` am Link schlaegt die Seitenableitung (2026-09-16): Auf
+      // `/fahrzeugaufbereitung-leipzig` stehen fuenf Preiskarten — jede meint ihr eigenes Paket.
+      // `''` heisst ausdruecklich „keine Vorauswahl".
+      oeffnen(abweichung?.art ?? ziel, link.dataset.leistung ?? abweichung?.vorauswahl);
     };
     document.addEventListener('click', beiKlick);
     return () => document.removeEventListener('click', beiKlick);
@@ -284,23 +296,26 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                       <div className="mt-8 space-y-3">
                         {ANLIEGEN.map((a) => {
                           const hervor = vorgeschlagen === a.kind;
-                          return (
-                            <button
-                              key={a.kind}
-                              type="button"
-                              onClick={() => setArt(a.kind)}
-                              className={`flex w-full items-center gap-4 rounded-2xl border px-5 py-5 text-left transition-all ${
-                                hervor
-                                  ? 'border-blue-300 bg-blue-50/60 text-gray-950'
-                                  : 'border-gray-200 bg-white text-gray-950 hover:border-blue-200 hover:bg-gray-50'
-                              }`}
-                            >
+                          // Seit 2026-09-16 (Backlog 2.23): „Schaden melden" ist ein Link zur
+                          // Schadenseite auf reparatur.info, kein Schritt ins eigene Formular.
+                          // Ein Klick genuegt; der Dialog schliesst dabei, damit er nicht
+                          // offen wartet, wenn man aus dem neuen Tab zurueckkommt.
+                          const extern = a.kind === 'schaden' && SCHADENMELDUNG_EXTERN;
+                          const klassen = `flex w-full items-center gap-4 rounded-2xl border px-5 py-5 text-left transition-all ${
+                            hervor
+                              ? 'border-blue-300 bg-blue-50/60 text-gray-950'
+                              : 'border-gray-200 bg-white text-gray-950 hover:border-blue-200 hover:bg-gray-50'
+                          }`;
+                          const inhalt = (
+                            <>
                               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gray-100 bg-gray-50 text-blue-600">
                                 {a.icon}
                               </span>
                               <span className="min-w-0 flex-1">
                                 <span className="block text-sm font-bold leading-tight">{a.label}</span>
-                                <span className="mt-1 block text-xs text-gray-600">{a.beschreibung}</span>
+                                <span className="mt-1 block text-xs text-gray-600">
+                                  {extern ? `${a.beschreibung} — über ${SCHADENMELDUNG_PORTAL}` : a.beschreibung}
+                                </span>
                               </span>
                               {/* Auf schmalen Geraeten ausgeblendet: Gemessen bei 375 px
                                   draengt das Etikett die Beschreibung in einen Umbruch und
@@ -313,6 +328,26 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                                   Vorgeschlagen
                                 </span>
                               )}
+                              {extern && (
+                                <span className="shrink-0 text-blue-600">
+                                  <ExternMarke href={SCHADENMELDUNG_URL} groesse={16} />
+                                </span>
+                              )}
+                            </>
+                          );
+                          return extern ? (
+                            <a
+                              key={a.kind}
+                              href={SCHADENMELDUNG_URL}
+                              {...externAttribute(SCHADENMELDUNG_URL)}
+                              onClick={schliessen}
+                              className={klassen}
+                            >
+                              {inhalt}
+                            </a>
+                          ) : (
+                            <button key={a.kind} type="button" onClick={() => setArt(a.kind)} className={klassen}>
+                              {inhalt}
                             </button>
                           );
                         })}
@@ -333,7 +368,13 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                         <ArrowLeft size={14} />
                         Zurück
                       </button>
-                      <RequestForm kind={art} vorauswahl={vorauswahl} />
+                      {/* Absicherung: Kommt `schaden` doch als Auswahl an, steht die
+                          Uebergabe statt des abgeschalteten Formulars da. */}
+                      {art === 'schaden' && SCHADENMELDUNG_EXTERN ? (
+                        <SchadenUebergabe imDialog />
+                      ) : (
+                        <RequestForm kind={art} vorauswahl={vorauswahl} />
+                      )}
                     </>
                   )}
                 </motion.div>

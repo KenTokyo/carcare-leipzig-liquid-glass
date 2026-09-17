@@ -1,10 +1,12 @@
 import React from 'react';
 import ContactSection from '../components/ContactSection';
 import { FeatureGrid, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 const contactWays = [
-  { title: 'Schaden melden', description: 'Für Unfall, Hagel, Lack- oder Glasschäden mit Fahrzeugdaten, Schadenart und Bildern.', href: '#contact-schaden' },
-  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackpflege, Leasingrückgabe oder Verkaufsaufbereitung.', href: '#contact-termin' },
+  // Seit 2026-09-16 direkt zur Schadenseite auf reparatur.info (Backlog 2.23).
+  { title: 'Schaden melden', description: 'Für Unfall-, Hagel-, Lack- oder Glasschäden: Schadendaten und Fotos über unsere Schadenseite auf reparatur.info übermitteln.', href: SCHADEN_ZIEL },
+  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackaufbereitung, Leasingrückgabe oder Verkaufsaufbereitung.', href: '#contact-termin' },
   { title: 'Geschäftskundenanfrage', description: 'Für Autohäuser, Fuhrparks, Versicherungen und Versicherungsagenturen.', href: '#contact-business' },
 ];
 
@@ -15,7 +17,7 @@ const ContactPage: React.FC = () => (
       eyebrow="Kontakt"
       title="Kontakt zum CarCare Center Leipzig"
       description="Wählen Sie die passende Anfrageart: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. Wir melden uns persönlich zurück."
-      primaryCta={{ label: 'Schaden melden', href: '#contact-schaden' }}
+      primaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Schaden melden Leipzig', 'Aufbereitungstermin Leipzig', 'Geschäftskundenanfrage']}
     />

@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, ChevronRight, Menu, Phone, X } from 'lucide-react';
 import NavMegaMenu, { NAV_MEGA_PANEL_ID } from './NavMegaMenu';
 import { navSections } from '../data/navigation';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
@@ -99,6 +101,17 @@ const Navbar: React.FC = () => {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, closeAll = false) => {
     if (href.startsWith('tel:') || href.startsWith('mailto:')) return;
+
+    // Externe Ziele (reparatur.info, seit 2026-09-16): nichts abfangen — der Browser oeffnet
+    // den neuen Tab selbst. Die Menues schliessen trotzdem, sonst steht beim Zurueckkommen
+    // das mobile Menue noch offen.
+    if (istExtern(href)) {
+      if (closeAll) {
+        setActiveDropdown(null);
+        setIsMobileOpen(false);
+      }
+      return;
+    }
 
     if (href.startsWith('/')) {
       e.preventDefault();
@@ -229,9 +242,10 @@ const Navbar: React.FC = () => {
             style={{ right: 'calc(50% + 124px)' }}
           >
             <a
-              href="/kontakt#contact-schaden"
-              onClick={(e) => handleLinkClick(e, '/kontakt#contact-schaden', true)}
-              aria-label="Schaden melden"
+              href={SCHADEN_ZIEL}
+              {...externAttribute(SCHADEN_ZIEL)}
+              onClick={(e) => handleLinkClick(e, SCHADEN_ZIEL, true)}
+              aria-label={istExtern(SCHADEN_ZIEL) ? 'Schaden melden (öffnet in einem neuen Tab)' : 'Schaden melden'}
               className={navActionClass}
             >
               <span className={navActionIconClass}>
@@ -313,10 +327,12 @@ const Navbar: React.FC = () => {
                               <div key={card.id} className="flex flex-col">
                                 <a
                                   href={card.href}
+                                  {...externAttribute(card.href)}
                                   onClick={(e) => handleLinkClick(e, card.href, true)}
                                   className="text-xs font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors"
                                 >
                                   {card.label}
+                                  <ExternMarke href={card.href} pfeil={false} />
                                   <span className="normal-case font-medium text-[10px] text-[rgb(var(--cc-graphite-rgb)/0.72)] block mt-0.5">{card.description}</span>
                                 </a>
                                 {card.children.length > 0 && (
@@ -379,12 +395,14 @@ const Navbar: React.FC = () => {
                     Direkt anrufen
                   </a>
                   <a
-                    href="/kontakt#contact-schaden"
-                    onClick={(e) => handleLinkClick(e, '/kontakt#contact-schaden', true)}
+                    href={SCHADEN_ZIEL}
+                    {...externAttribute(SCHADEN_ZIEL)}
+                    onClick={(e) => handleLinkClick(e, SCHADEN_ZIEL, true)}
                     className="cc-gradient-button flex items-center justify-center gap-2 rounded-full border py-3 text-xs font-bold uppercase tracking-[0.1em] text-white"
                   >
                     <AlertTriangle size={14} />
                     Schaden melden
+                    <ExternMarke href={SCHADEN_ZIEL} pfeil={false} />
                   </a>
                 </div>
               </motion.div>

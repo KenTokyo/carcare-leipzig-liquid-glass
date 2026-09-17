@@ -38,16 +38,28 @@ export async function startePreview(port = 4183) {
   return { basis, stopp: () => kind.kill('SIGTERM') };
 }
 
-/** Haelt die Scrollposition gegen Lenis fest, bis die Aufnahme steht. */
+/**
+ * Haelt die Scrollposition gegen Lenis fest, bis die Aufnahme steht.
+ *
+ * JEDE HALTESCHLEIFE HAT EINE EIGENE KENNUNG (seit 2026-09-17). Vorher stoppten alle
+ * Schleifen ueber EIN gemeinsames Flag, und `__ccHalte` setzte es beim Start zurueck. Wer
+ * losliess und im selben Frame neu hielt, belebte damit die alte Schleife wieder: Zwei
+ * Schleifen zogen an zwei Positionen, die Aufnahme zeigte die falsche Stelle — und sah dabei
+ * aus wie eine richtige (2026-09-16 beim Bau der Sichtpruefungs-Aufnahmen passiert).
+ * Jetzt beendet jeder neue Aufruf die vorige Schleife, `__ccLoslassen` beendet alle.
+ */
 export const HALTE_SCROLL = `
-  window.__ccHalte = (y) => {
-    window.__ccStop = false;
-    const halten = () => {
-      if (window.__ccStop) return;
-      if (Math.abs(window.scrollY - y) > 0.5) window.scrollTo(0, y);
-      requestAnimationFrame(halten);
+  (() => {
+    let kennung = 0;
+    window.__ccHalte = (y) => {
+      const meine = ++kennung;
+      const halten = () => {
+        if (meine !== kennung) return;
+        if (Math.abs(window.scrollY - y) > 0.5) window.scrollTo(0, y);
+        requestAnimationFrame(halten);
+      };
+      halten();
     };
-    halten();
-  };
-  window.__ccLoslassen = () => { window.__ccStop = true; };
+    window.__ccLoslassen = () => { kennung++; };
+  })();
 `;

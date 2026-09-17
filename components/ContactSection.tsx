@@ -4,6 +4,8 @@ import { AlertTriangle, Building2, CalendarClock } from 'lucide-react';
 import { RequestFormConfig, RequestFormKind } from '../types';
 import RequestForm from './RequestForm';
 import KontaktDaten from './KontaktDaten';
+import SchadenUebergabe from './SchadenUebergabe';
+import { SCHADENMELDUNG_EXTERN } from '../data/schadenmeldung';
 
 const tabs: RequestFormConfig[] = [
   { kind: 'schaden', label: 'Schaden melden', description: 'Unfall, Hagel, Lack oder Glas', iconName: 'AlertTriangle' },
@@ -93,7 +95,10 @@ const ContactSection: React.FC = () => {
           </div>
 
           <div className="lg:col-span-8">
-            <RequestForm kind={active} />
+            {/* Seit 2026-09-16 fuehrt „Schaden melden" zur Schadenseite auf reparatur.info
+                (Backlog 2.23). Der Reiter bleibt — er zeigt die Uebergabe statt des Formulars,
+                damit auch alte Links auf `#contact-schaden` ein Ziel haben. */}
+            {active === 'schaden' && SCHADENMELDUNG_EXTERN ? <SchadenUebergabe /> : <RequestForm kind={active} />}
           </div>
         </div>
 

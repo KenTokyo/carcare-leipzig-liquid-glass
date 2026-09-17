@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import DetailingGallery from '../components/DetailingGallery';
-import { carePackages, detailingScopes, detailingSteps, disinfectionServices } from '../data/detailing';
+import { AUFPREIS_SATZ, carePackages, detailingScopes, detailingSteps, disinfectionServices } from '../data/detailing';
 
 /**
  * Hub-Seite des Aufbereitungs-Strangs.
@@ -38,12 +38,12 @@ const VehicleDetailingPage: React.FC = () => (
     <PageMeta
       canonical="/fahrzeugaufbereitung-leipzig"
       title="Fahrzeugaufbereitung Leipzig | ab 169 € | CarCare Center"
-      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenreinigung 199 €, Premiumpflege 299 €. Innen, außen und Leasingrückgabe."
+      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenraumreinigung ab 199 €, Premiumpflege ab 299 €. Innen, außen, Lack."
     />
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
       title="Professionelle Fahrzeugaufbereitung in Leipzig – mit festen Paketpreisen."
-      description="Innenraum, Außenpflege, Lackreinigung, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf über 3.500 m²."
+      description="Innenraum und Außenpflege, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf über 3.500 m²."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Autoaufbereitung Leipzig', 'Lackpolitur Leipzig', 'Innenreinigung Leipzig', 'Leasingrückgabe Leipzig']}
@@ -56,10 +56,13 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
-          description="Vier aufeinander aufbauende Pakete – von der Brillant-Außenpflege für 169,00 € bis zur exklusiven Handarbeit mit SWIZÖL-Carnaubawachs ab 348,00 €. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant-Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv-Innenreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege."
+          description="Vier aufeinander aufbauende Pakete – von der Brillant Außenpflege für 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv Innenraumreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege. Die Lackaufbereitung berechnen wir nach Aufwand."
         />
+        {/* Backlog 4.7: Aufpreise als Fussnote — Entscheidung des Kunden vom 2026-09-16.
+            Der Satz kommt aus `AUFPREIS_SATZ`, dieselbe Quelle wie die Preis-FAQ. */}
         <PricingGrid
           items={carePackages}
+          fussnote={AUFPREIS_SATZ}
           note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt."
         />
       </div>

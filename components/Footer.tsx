@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 /**
@@ -242,7 +244,7 @@ const Footer: React.FC = () => {
             <motion.div style={reveal(requests)} className="space-y-4 col-span-2 md:col-span-1">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Anfragen</h4>
               <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
-                <li><a href="/kontakt#contact-schaden" className="hover:text-white transition-colors">Schaden melden</a></li>
+                <li><a href={SCHADEN_ZIEL} {...externAttribute(SCHADEN_ZIEL)} className="inline-flex items-center gap-1 hover:text-white transition-colors">Schaden melden<ExternMarke href={SCHADEN_ZIEL} groesse={12} /></a></li>
                 <li><a href="/kontakt#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
                 <li><a href="/kontakt#contact-business" className="hover:text-white transition-colors">Geschäftskunden</a></li>
                 <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">B2B-Bereich</a></li>

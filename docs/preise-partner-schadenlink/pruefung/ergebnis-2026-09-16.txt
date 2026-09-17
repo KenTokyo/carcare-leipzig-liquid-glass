@@ -1,0 +1,46 @@
+== /fahrzeugaufbereitung-leipzig
+  ok   „Preis nach Absprache" sichtbar
+  ok   „Preis nach Aufwand" sichtbar
+  ok   Aufpreis-Fußnote sichtbar
+  ok   keine 348 mehr
+  ok   keine Lackreinigung
+  ok   kein SWIZÖL
+  ok   Swissvax genannt
+  ok   Paketname Intensiv Innenraumreinigung
+  ok   4.3-Wortlaut im Hero
+  ok   Schema: exklusiv ohne Preisfelder
+  ok   Schema: Lackaufbereitung vorhanden, ohne Preis
+  ok   Schema: Brillant 169.00 mit Aufpreis-Satz
+== Schaden melden → reparatur.info (alle Seiten)
+  info Links auf reparatur.info im HTML: 100
+  ok   reparatur.info verlinkt
+  ok   alle mit target=_blank + noopener noreferrer
+  ok   keine Links mehr auf #contact-schaden (gefunden: 0)
+== Partner
+  ok   /: riparo-Logo
+  ok   /: riparo-Link
+  ok   /: Porsche-Zentrum-Link
+  ok   /geschaeftskunden: riparo-Logo
+  ok   /geschaeftskunden: riparo-Link
+  ok   /geschaeftskunden: Porsche-Zentrum-Link
+  ok   kein Porsche-Logo eingebunden
+  ok   /geschaeftskunden: Zähler 31 + riparo
+== BVAT
+  ok   /hagelschadenreparatur-leipzig: BVAT-Siegel
+  ok   /hagelschadenreparatur-leipzig: offizieller Name
+  ok   /hagelschadenreparatur-leipzig: kein falscher Name
+  ok   /hagelschadenreparatur-leipzig: Link bvat.de
+  ok   /ueber-uns: BVAT-Siegel
+  ok   /ueber-uns: offizieller Name
+  ok   /ueber-uns: kein falscher Name
+  ok   /ueber-uns: Link bvat.de
+  ok   /ueber-uns: Audatex- und DAT-Kalkulation
+== FAQ /geschaeftskunden (vormals doppelte id)
+  ok   Frage „digitale Schadenübermittlung" genau einmal sichtbar + einmal im Schema
+  ok   Frage „Abwicklung digital" genau einmal sichtbar + einmal im Schema
+  ok   neue Antwort ausgeliefert
+  ok   alte, widersprüchliche Antwort weg
+== Lackreinigung sitewide (ohne Wissensartikel)
+  ok   keine Lackreinigung außerhalb der Wissensartikel ([])
+
+ALLES OK

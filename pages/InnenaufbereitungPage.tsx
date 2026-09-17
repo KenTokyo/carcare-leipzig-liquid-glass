@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { aufbereitungKacheln, disinfectionServices } from '../data/detailing';
+import { AUFPREIS_SATZ, aufbereitungKacheln, disinfectionServices } from '../data/detailing';
 
 /**
  * Innenaufbereitung als eigene Leistungsseite (Backlog 1.9).
@@ -38,7 +38,7 @@ const InnenaufbereitungPage: React.FC = () => (
     <PageMeta
       canonical="/innenaufbereitung-leipzig"
       title="Innenaufbereitung Leipzig | Polster & Leder | CarCare Center"
-      description="Innenaufbereitung Leipzig: Cockpit, Polsterreinigung oder Lederpflege, Scheiben und Geruchsentfernung. Intensiv Innenreinigung ab 199,00 € im Meisterbetrieb."
+      description="Innenaufbereitung Leipzig: Cockpit, Polster oder Leder, Scheiben und Geruchsentfernung. Intensiv Innenraumreinigung ab 199,00 € im Meisterbetrieb."
     />
     <PageHero
       eyebrow="Innenaufbereitung Leipzig"
@@ -54,7 +54,7 @@ const InnenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Innenaufbereitung"
           title="Was zur Innenaufbereitung gehört."
-          description="Die Intensiv Innenreinigung kostet 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte."
+          description={`Die Intensiv Innenraumreinigung kostet 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={innenLeistungen} />
       </div>
@@ -136,7 +136,7 @@ const InnenaufbereitungPage: React.FC = () => (
 
     <PageCTA
       title="Innenraum stark genutzt, verschmutzt oder riecht?"
-      description="Beschreiben Sie uns den Zustand — wir sagen Ihnen, ob die Intensiv Innenreinigung reicht oder ob eine Geruchsbehandlung sinnvoll dazukommt."
+      description="Beschreiben Sie uns den Zustand — wir sagen Ihnen, ob die Intensiv Innenraumreinigung reicht oder ob eine Geruchsbehandlung sinnvoll dazukommt."
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"
     />

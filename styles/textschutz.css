@@ -3,11 +3,13 @@
    das 700-Zeilen-Limit aus `CLAUDE.md`. Ausgelagert wurde dieser Block, weil er die
    einzige in sich geschlossene Einheit ist — er gehoert allein zu `PhotoBackdrop`.
 
-   ⚠️ REIHENFOLGE IST HIER FUNKTION, NICHT GESCHMACK. Die Datei wird in `index.css`
-   NACH `@tailwind base/components` und VOR `@tailwind utilities` eingebunden —
-   genauso, wie der Block vorher dort stand. Weiter nach oben geschoben, ueberschriebe
-   Tailwinds Base-Reset den Schutz; weiter nach unten, ueberschriebe der Schutz die
-   Utilities. Beides senkt den Hero-Kontrast unter AA, ohne dass ein Build meckert.
+   ⚠️ REIHENFOLGE IST HIER FUNKTION, NICHT GESCHMACK. Eingebunden wird die Datei per
+   `@import` als ERSTE Anweisung von `index.css` — also VOR `@tailwind base`. Anders geht
+   es nicht: Ein `@import` weiter unten liess postcss still fallen (siehe Kopf von
+   `index.css`). Das ist unkritisch, solange hier nur Klassen-Selektoren stehen: Tailwinds
+   Base-Reset setzt Element-Selektoren (Spezifitaet 0,0,1) und verliert gegen sie; die
+   Utilities kommen weiterhin zuletzt und schlagen gleich spezifische Regeln.
+   (Korrigiert 2026-09-17 — bis dahin stand hier „nach @tailwind base/components".)
    Gegenprobe nach jeder Aenderung an der Einbindung: `npm run kontrast`. */
 /* ---------------------------------------------------------------------------
    Weisser Textschutz ueber dem Foto (`PhotoBackdrop`, Ebene 2 von 3)

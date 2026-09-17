@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
+import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 
 /**
  * Gemeinsame Mechanik der scroll-gepinnten Prozess-Sektionen.
@@ -133,11 +134,12 @@ const ProcessCard: React.FC<{
         {step.cta && (
           <a
             href={step.cta.href}
+            {...externAttribute(step.cta.href)}
             tabIndex={isActive ? 0 : -1}
             className="cc-gradient-button mt-4 inline-flex items-center gap-2 rounded-full border px-5 py-3 text-xs font-bold text-white"
           >
             {step.cta.label}
-            <ArrowRight size={15} />
+            {istExtern(step.cta.href) ? <ExternMarke href={step.cta.href} groesse={15} /> : <ArrowRight size={15} />}
           </a>
         )}
       </div>
@@ -293,11 +295,12 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
                   <a
                     key={cta.href}
                     href={cta.href}
+                    {...externAttribute(cta.href)}
                     className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
                   >
                     {cta.icon}
                     {cta.label}
-                    {!cta.icon && <ArrowRight size={16} />}
+                    {istExtern(cta.href) ? <ExternMarke href={cta.href} groesse={16} /> : !cta.icon && <ArrowRight size={16} />}
                   </a>
                 ))}
               </div>

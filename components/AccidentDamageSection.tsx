@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, Phone } from 'lucide-react';
 import ScrollPinnedProcess, { type ProcessStepCard } from './ScrollPinnedProcess';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 /**
  * Schadenreise „Unfall & Schaden Leipzig".
@@ -22,11 +23,12 @@ const steps: ProcessStepCard[] = [
     n: '01',
     title: 'Schaden melden',
     description:
-      'Melden Sie Ihren Unfallschaden online über unser Formular – mit Fahrzeugdaten, Schadenart, Fotos und Angaben zur Versicherung. Telefonisch geht es genauso.',
+      'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info – mit Schadendaten und Fotos. Telefonisch geht es genauso.',
     image: kachel('schaden-melden-leipzig-carcare'),
     imageAlt:
-      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über das Online-Schadenformular des CarCare Center Leipzig – im Hintergrund das beschädigte Fahrzeug.',
-    cta: { label: 'Schaden melden', href: '/kontakt#contact-schaden' },
+      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über die Online-Schadenseite des CarCare Center Leipzig – im Hintergrund das beschädigte Fahrzeug.',
+    // Seit 2026-09-16: Schadenseite auf reparatur.info (Backlog 2.23), Ziel aus EINER Quelle.
+    cta: { label: 'Schaden melden', href: SCHADEN_ZIEL },
   },
   {
     n: '02',
@@ -76,7 +78,7 @@ const AccidentDamageSection: React.FC = () => (
     intro="Von der Schadenmeldung bis zum Ersatzwagen – in fünf klaren Schritten, aus einer Hand."
     steps={steps}
     ctas={[
-      { label: 'Schaden jetzt melden', href: '/kontakt#contact-schaden' },
+      { label: 'Schaden jetzt melden', href: SCHADEN_ZIEL },
       { label: 'Direkt anrufen', href: 'tel:+493412617790', icon: <Phone size={16} /> },
     ]}
   />

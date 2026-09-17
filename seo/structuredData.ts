@@ -123,11 +123,16 @@ export const serviceSchema = (name: string, description: string, path: string) =
  * `price` erwartet einen reinen Zahlenwert als String ("169.00"). Pakete mit „ab"-Preis
  * werden ueber `minPrice` als `PriceSpecification` ausgezeichnet, nicht als Fixpreis —
  * sonst behauptet das Markup einen Endpreis, den es nicht gibt.
+ *
+ * OHNE `price` (seit 2026-09-16, Backlog 4.4 und 4.9): Leistungen „nach Absprache" oder
+ * „nach Aufwand" bekommen KEINE Preisfelder, auch keine Waehrung. Eine erfundene Zahl
+ * waere Markup ueber etwas, das die Seite nicht zeigt (§5); die Beschreibung sagt, wie
+ * der Preis entsteht.
  */
 export const offerCatalogSchema = (
   name: string,
   path: string,
-  offers: Array<{ description: string; from?: boolean; name: string; price: string }>
+  offers: Array<{ description: string; from?: boolean; name: string; price?: string }>
 ) => ({
   '@context': 'https://schema.org',
   '@type': 'OfferCatalog',
@@ -138,10 +143,11 @@ export const offerCatalogSchema = (
     position: index + 1,
     name: offer.name,
     description: offer.description,
-    priceCurrency: 'EUR',
-    ...(offer.from
-      ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: offer.price, priceCurrency: 'EUR', valueAddedTaxIncluded: true } }
-      : { price: offer.price }),
+    ...(offer.price === undefined
+      ? {}
+      : offer.from
+        ? { priceCurrency: 'EUR', priceSpecification: { '@type': 'PriceSpecification', minPrice: offer.price, priceCurrency: 'EUR', valueAddedTaxIncluded: true } }
+        : { priceCurrency: 'EUR', price: offer.price }),
     availability: 'https://schema.org/InStock',
     seller: { '@type': 'AutoRepair', name: 'CarCare Center Leipzig', url: siteUrl },
     areaServed: { '@type': 'City', name: 'Leipzig' },

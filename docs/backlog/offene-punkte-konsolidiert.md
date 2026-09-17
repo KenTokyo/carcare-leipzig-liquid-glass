@@ -1,6 +1,6 @@
 # Offene Punkte, konsolidiert
 
-**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**; **2026-09-14** (2.1, 2.3, 4.2, 4.18 erledigt — `docs/schleife-2-4-karten-ablauf-flaeche/`); Abschnitt 1 und 3 am
+**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**; **2026-09-14** (2.1, 2.3, 4.2, 4.18 erledigt — `docs/schleife-2-4-karten-ablauf-flaeche/`); **2026-09-16** (Kundenentscheidungen: R13 erledigt, R12 ruht, R9 für Schäden gelöst, Partnerlogos teilweise — `docs/preise-partner-schadenlink/`); **2026-09-17** (R14 erledigt — `docs/zielgruppen-partner-sichtbarkeit/`); Abschnitt 1 und 3 am
 **2026-09-10** (Netcup-Versand, Videos — `docs/backlog/tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`);
 Abschnitt 1 und 2 am **2026-09-10** mit den Antworten aus **Schleife 4** (`schleife-4.md`, 4.1–4.21)
 
@@ -94,8 +94,8 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **R5** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen · **Berufsbezeichnung geliefert** (4.11: „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk"), Rest fehlt; siehe R13 |
-| **R6** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nachtrag vom 2026-09-08 | André + Datenschutz&shy;beauftragter | muss den **laufenden** Datenfluss nennen: Vercel (USA) und Netcup-SMTP über ein Postfach auf `oalab.de` mit Weiterleitung an `carcare-center.de` — ~~Resend~~ ist seit 2026-09-08 nicht mehr im Spiel. **Dringlicher geworden:** Der Versand ist scharf, die Erklärung fehlt | offen |
+| **R5** | Recht | **Impressumsangaben vervollständigen.** Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer, gesetzliche Berufsbezeichnung samt Verleihungsstaat, Erklärung zur Verbraucherstreitbeilegung | André | § 5 DDG; Kammer-Angaben fehlen **auch auf der Altseite** | offen · **Berufsbezeichnung geliefert** (4.11: „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk"), Rest fehlt; siehe R13 · **Zeitpunkt: zum Schluss** (Entscheidung User 2026-09-16) |
+| **R6** | Recht | **Datenschutzerklärung schreiben.** `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nachtrag vom 2026-09-08 | André + Datenschutz&shy;beauftragter | muss den **laufenden** Datenfluss nennen: Vercel (USA) und Netcup-SMTP über ein Postfach auf `oalab.de` mit Weiterleitung an `carcare-center.de` — ~~Resend~~ ist seit 2026-09-08 nicht mehr im Spiel. **Dringlicher geworden:** Der Versand ist scharf, die Erklärung fehlt | offen · **Zeitpunkt: zum Schluss** (User 2026-09-16) · **neues Pflichtthema:** Schadenmeldung über reparatur.info — Verarbeitung im Auftrag, Faktenblatt Abschnitt 3a. Reine Partnerlinks brauchen **keinen** Abschnitt (geprüft 2026-09-16) |
 | **R10** | Technik / Recht | **Zugangsdaten für den Formularversand** in Vercel hinterlegen | ~~André~~ OALAB | ~~hängt an R6~~ — **Reihenfolge gekippt:** Freischaltung erfolgte vor R6 | ✅ **hinterlegt 2026-09-08** (Netcup-SMTP statt Resend, 7 Secrets, nur Production; am 2026-09-10 geprüft: `/api/anfrage` → `bereit: true`). **Offen:** Live-Test aller vier Formulararten + Empfangsnachweis der Weiterleitungen (`docs/netcup-email/tasks/2026-09-08-netcup-email-tasks.md`, Phase 3) |
 
 ---
@@ -108,16 +108,16 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **R12** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | offen |
+| **R12** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | ⏸️ **ruht** — das eigene Schadenformular ist seit 2026-09-16 abgeschaltet („Schaden melden" → reparatur.info, 2.23). Nur relevant, falls zurückgeschaltet |
 | **R3** | Inhalt | **Erklärtexte für sieben Leistungsseiten**, je 2–3 Absätze „Was ist X?" | André | blockiert **1.15** — die Sektion steht auf sieben Seiten und ist leer | offen |
 | **R1** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | ~~drei Platzhalter~~ noch **einer** auf `/ueber-uns` | ✅ **geliefert 2026-09-10** (4.16–4.20). Eingebaut: 1998, 2000, 2026 am 2026-09-11; **2013 am 2026-09-14**, entsperrt durch die Flächenentscheidung 4.2. **5 von 6 Stationen stehen.** Offen nur noch das **Jahr für Meilenstein 3** (4.19) |
 | **1.18** = **2.26** | Inhalt | **Liste der Zusatzleistungen** fürs Aufbereitungsformular. Dabei klären: Was ist Paket, was Zusatz | André | zwei Platzhalter im Formular | Struktur steht · **Paket-Frage beantwortet** (4.21: Formularauswahl = Pakete), die Liste selbst fehlt |
 | **R4** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen · **Richtung „ja"** (4.19: „Ausbildungsbetrieb im Lackier- und Karosseriebauhandwerk"); offen: kommender Jahrgang, Industriekaufmann/-frau, Eckdaten |
-| **R13** | Inhalt / Recht | **Seit wann ist der Betrieb Meisterbetrieb?** Die Seite sagt an 12 Stellen (seit 4.11 am 2026-09-11 noch 11) „Meisterbetrieb seit 1998"; laut Chronik aus Schleife 4 begann der Betrieb 1998 als Aufbereitungsbetrieb (4.16), Lackierung und Karosserie kamen 2013 (4.18). Stimmt „seit 1998" für die Meisterqualifikation nicht, ist die Aussage irreführend. Nichts entfernt | André | — | offen, neu 2026-09-10 |
+| **R13** | Inhalt / Recht | **Seit wann ist der Betrieb Meisterbetrieb?** Die Seite sagt an 12 Stellen (seit 4.11 am 2026-09-11 noch 11) „Meisterbetrieb seit 1998"; laut Chronik aus Schleife 4 begann der Betrieb 1998 als Aufbereitungsbetrieb (4.16), Lackierung und Karosserie kamen 2013 (4.18). Stimmt „seit 1998" für die Meisterqualifikation nicht, ist die Aussage irreführend. Nichts entfernt | André | — | ✅ **erledigt 2026-09-16** — Entscheidung User: 4.18 beschreibt einen Meilenstein, nicht den Beginn des Meisterbetriebs. „Seit 1998" bleibt |
 | **1.26** | Inhalt | **Benefits + Mitarbeiterstimmen** für die Karriereseite | André | bündeln mit R4 | offen |
 | **R7** | Bild | **Echtes Vorschaubild statt Unsplash-Stockfoto** (`og:image`, JSON-LD). *Deckungsgleich mit dem offenen OG-Bild-Punkt im Preloader-Plan* | André | — | offen |
 | **R2** | Bild | **Eigene Motive** für Leasingrückgabe und Außenaufbereitung | André | beide teilen sich ein Bild mit anderen Kacheln | offen |
-| *(ohne Nr.)* | Bild / Recht | **Partnerlogos:** schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schutzraum | André | ohne Freigabe dürfen die Logos nicht stehen | offen |
+| *(ohne Nr.)* | Bild / Recht | **Partnerlogos:** schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schutzraum | André | ohne Freigabe dürfen die Logos nicht stehen | 🟨 **teilweise** — riparo (Logo + Link), Porsche Zentrum Leipzig (nur Link — die Wortmarke gehört der Porsche AG), BVAT-Siegel; 2026-09-16. Weitere Freigaben nach `docs/partnerlogos/README.md` |
 
 **Bündelvorschlag:** Karriere (1.26 + R4) · Leistungstexte (R3) · Bilder (R7 + R2 + Partnerlogos) · Formularfelder (R12 + 1.18).
 
@@ -127,7 +127,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 
 | Nr. | Bereich | Aufgabe | Verantwortlich | Blocker | Status |
 |---|---|---|---|---|---|
-| **R9** | Formulare | **Anhänge mitsenden.** Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | OALAB | **R10** — erst wenn der Versand läuft, ist absehbar, welcher Weg sich lohnt | offen |
+| **R9** | Formulare | **Anhänge mitsenden.** Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | OALAB | **R10** — erst wenn der Versand läuft, ist absehbar, welcher Weg sich lohnt | 🟨 **für Schäden gelöst** — Fotos gehen seit 2026-09-16 über reparatur.info („Daten hochladen"). Offen nur noch für Termin-, Geschäftskunden- und Bewerbungsanfragen |
 | **R11** | Technik | **Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen.** Beim Schadenformular ist Streichen seit R8 ein Dateneintrag, bei den anderen dreien nicht | OALAB | — | offen |
 | *(ohne Nr.)* | SEO | **19 von 27 Meta-Descriptions außerhalb 140–160 Zeichen** (12 zu lang, 7 zu kurz). Gemessen am ausgelieferten HTML | OALAB | — | ✅ **erledigt** (Paket G, Phase 3). Nachgemessen 2026-09-07 gegen einen frischen Build: **0 von 29** außerhalb |
 | *(ohne Nr.)* | SEO | **Titles im selben Durchgang** gegen 50–60 Zeichen prüfen | OALAB | — | ✅ **erledigt**. Nachgemessen 2026-09-07: **0 von 29** außerhalb. ⚠️ Die Messung ist nur so frisch wie `dist/` — der Stand vom 05.09. meldete noch 12/19, weil er älter war als die Korrektur |
@@ -137,6 +137,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 | *(ohne Nr.)* | Video | **Alle drei Videoplätze** (3.20, 3.21, 3.18) | OALAB | — | ✅ **erledigt 2026-09-07.** Kurze stumme Schnitte aus dem gelieferten Film, zusammen 8,85 MiB statt 115,6 MiB. Der Kunde hat Weg (a) gewählt; der Film **mit Ton** bleibt damit ungenutzt — wer ihn zeigen will, braucht den Umbau von `BetriebsVideo` auf Klick-Wiedergabe |
 | *(ohne Nr.)* | A11y | **Anhalte-Möglichkeit für die drei automatisch laufenden Videos** (WCAG 2.2.2: Bewegung über 5 s braucht Pause/Stopp). Seit der Korrektur vom 2026-09-07 laufen sie auch bei gemeldeter reduzierter Bewegung — dieses Flag war bisher die einzige Anhalte-Möglichkeit | OALAB | — | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`, Phase 6) |
 | *(ohne Nr.)* | Bild | **12 Drohnenclips und 16 Rohclips** aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte **3.23–3.29** vermutlich teilweise ab — Einzelbilder daraus wären besser als gar kein Motiv | OALAB | — | offen, zu prüfen |
+| **R14** | Darstellung | **Partner in den Zielgruppenkarten auf Full HD unsichtbar** (Sichtprüfung User 2026-09-17). Ab 1024 px Breite blendete eine Höhen-Query die Listen unter 860 px Fensterhöhe aus — ein maximierter Full-HD-Browser mit Zoom liegt darunter. Dazu: Mausrad erreichte innere Scrollbereiche nicht (Lenis) | OALAB | — | ✅ **erledigt 2026-09-17.** Liste nimmt den Restplatz und scrollt, drei Höhenstufen, breitere Karte, Verweilstrecke; `allowNestedScroll` behebt nebenbei die Karriere-Karten und den Dialog in niedrigen Fenstern. Gemessen über 15 Fenster: `npm run zielgruppen` |
 | **T4** | Verlinkung | **Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich** | OALAB | — | offen |
 | *(ohne Nr.)* | Paket B | **`ITEMS` gegen `serviceCatalog` prüfen**, ableiten oder bewusst trennen; Wächter erwägen | OALAB | — | offen |
 | *(ohne Nr.)* | Design | **Footer-Icons stehen bei Kontrast 1,00:1** auf dunklem Grund | André *(Gestaltungsfrage)* | — | offen |
@@ -181,8 +182,8 @@ sie erneut als offen — genau das ist mir heute passiert.
 | | Anzahl |
 |---|---|
 | Blockiert den Livegang | **3** *(davon R10 seit 2026-09-08 nur noch Live-Test)* |
-| Wartet auf André | **~~9~~ 10** *(2026-09-10: + R13; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung)* |
+| Wartet auf André | **~~9~~ ~~10~~ 8** *(2026-09-16: R13 erledigt, R12 ruht mit abgeschaltetem Schadenformular; Partnerlogos teilweise; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung)* |
 | Ohne Zulieferung umsetzbar | **~~10~~ ~~6~~ 8** *(nachgezählt 2026-09-10: 7 offene Zeilen — die Drohnenclip-Zeile war in der 6 nicht mitgezählt — plus WCAG 2.2.2)* |
-| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ 21** *(ohne Schleife 4 — die führt ihre 21 Punkte selbst)* |
+| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ ~~21~~ 19** *(ohne Schleife 4 — die führt ihre 21 Punkte selbst)* |
 | In den Dokumenten offen, tatsächlich erledigt oder überholt | 10 Kästchen |
 | Außerhalb des Projekts (Parallax-Kit) | 11 Kästchen |

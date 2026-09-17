@@ -32,6 +32,10 @@ const THEMEN = [
   'Verantwortliche Stelle und Kontakt zum Datenschutzbeauftragten',
   'Hosting und Server-Logdateien',
   'Kontakt- und Anfrageformulare',
+  // Seit 2026-09-16 (Backlog 2.23): Schadenmeldung auf reparatur.info — Verarbeitung im
+  // Auftrag, gehoert deshalb in die Erklaerung (Faktenblatt, Abschnitt 3a). Reine Links zu
+  // Partnern dagegen NICHT: Sie verarbeiten nichts und senden keinen Referer.
+  'Schadenmeldung über reparatur.info (PDR.cloud)',
   'Bewerbungen und übermittelte Unterlagen',
   'Funktionale Speicherung im Browser',
   'Ihre Rechte und die zuständige Aufsichtsbehörde',

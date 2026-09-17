@@ -1,0 +1,144 @@
+/* Zielgruppen-Kartenstapel der Startseite (`components/TargetGroupCards.tsx`).
+   Ausgelagert aus `index.css` am 2026-09-17: Die Datei stand bei 688 von 700 Zeilen
+   (Limit aus `CLAUDE.md`), und die Stapel-Variablen brauchen jetzt drei Hoehenstufen.
+
+   EINBINDUNG: als `@import` ganz oben in `index.css`, also VOR `@tailwind base`. Das ist
+   hier unkritisch: Tailwinds Base-Reset setzt nur Element-Selektoren (Spezifitaet 0,0,1),
+   diese Regeln haben Klassen-Selektoren. Utilities kommen weiterhin zuletzt und schlagen
+   gleich spezifische Regeln — deshalb stehen die Stapel-Variablen NUR hier und nicht
+   zusaetzlich als `[--bar:…]`-Klassen am Element. */
+
+/* ---------------------------------------------------------------------------
+   Stellschrauben des Stapels
+   ---------------------------------------------------------------------------
+   `--gap`  Einzug der weissen Karte im Bild, ringsum gleich. Radius-Regel: Bildkarte
+            36 px minus `--gap` = 16 px (`rounded-2xl`) der weissen Karte — wer `--gap`
+            aendert, zieht den Radius in TargetGroupCards nach. Deshalb in allen Stufen gleich.
+   `--bar`  Stapelschritt: So viel bleibt von einer geparkten Karte oben stehen. Karte i parkt
+            bei `--nav + i x --bar` und ist `100svh - --nav - --fuss - i x --bar` hoch.
+   `--kopf` Hoehe der Titelzeile in der weissen Karte. Normal `--bar - --gap`, damit die
+            stehende Leiste genau den Titel zeigt.
+   `--fuss` Freiraum unter der Karte (Bildrand unten sichtbar). Unter `lg` gross genug fuer
+            die fixierte MobileStickyCTA (83 px).
+   `--nav`  Freiraum fuer die fixierte Navbar, gespiegelt von `.solidroad-nav-shell`
+            (gemessen 78 / 100 px) plus 0.5rem Luft. Aendert sich die Navbar, hier nachziehen.
+   `--verweil` Scrollweg, den eine Karte vollstaendig stehen bleibt, bevor die naechste
+            aufzieht (Abstandshalter zwischen den Karten). Ohne ihn war die Partnerliste der
+            Versicherungskarte auf 1920 x 945 nur 150 px Scrollweg frei — sie sitzt im unteren
+            Kartenteil, den die naechste Karte zuerst verdeckt. Die letzte Karte hat dafuer
+            den Nachlauf am Stapelende.
+   `--karte-b` Breite der weissen Karte ab `lg`. Bis 2026-09-17 feste 30 %: Auf 1366 px
+            blieben 354 px Text, beide CTAs brachen um und die Titel zweizeilig.
+   `--liste-min` Mindesthoehe des Partnerblocks: Titel + zwei Zeilen.
+
+   DREI HOEHENSTUFEN ab `lg` — der Engpass ist die Fensterhoehe, nicht die Breite.
+   Frueher wich stattdessen ab 860 px abwaerts die Partnerliste komplett; auf einem
+   Full-HD-Bildschirm mit Lesezeichenleiste und 110 % Zoom (1745 x 830) war sie damit weg.
+     normal   ab 860 px   Titel zweizeilig moeglich (30 px Schrift)
+     kompakt  bis 859 px  Schritt 5rem, Titel einzeilig (24 px, `--karte-b` reicht dafuer)
+     flach    bis 679 px  kein sichtbarer Stapelschritt: Jede Karte deckt die vorige ganz.
+                          Bei drei Karten kosteten die Leisten sonst 160 px — auf 1366 x 657
+                          blieben fuer die dritte Karte 361 px, zu wenig fuer Text, CTAs und
+                          Liste. Messung: `npm run zielgruppen`. */
+.zielgruppen-stapel {
+  --gap: 1.25rem;
+  --bar: 6rem;
+  --kopf: calc(var(--bar) - var(--gap));
+  --fuss: 6.5rem;
+  --nav: 5.35rem;
+  --verweil: 12svh;
+}
+
+@media (min-width: 768px) {
+  .zielgruppen-stapel {
+    --nav: 6.75rem;
+    /* Tablet und halb angedocktes Fenster: Die Versicherer-Liste steht dort unten in der
+       Karte und war nach 160 px Seitenscroll angeschnitten (gemessen 960 x 945). */
+    --verweil: 20svh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .zielgruppen-stapel {
+    --bar: 7rem;
+    --fuss: 1.75rem;
+    --verweil: 25svh;
+    --karte-b: clamp(25rem, 35vw, 38rem);
+    --liste-min: 5.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 859px) {
+  .zielgruppen-stapel {
+    --bar: 5rem;
+    --fuss: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 679px) {
+  .zielgruppen-stapel {
+    --bar: 0rem;
+    --kopf: 3.75rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Ueberschrift des Stapels (aus index.css hierher verschoben, Inhalt unveraendert)
+   ---------------------------------------------------------------------------
+   Wandert pro geparkter Karte eine Leistenhoehe nach unten und loest zeitgleich mit der
+   letzten Karte.
+
+   `top`: `--aktiv` (0/1/2) setzt der Effekt in TargetGroupCards. `var(--aktiv, 0)` haelt
+   die Regel gueltig, bevor JS gelaufen ist (Prerender/erste Frames) — dann steht sie wie
+   frueher auf Stufe 0. In der flachen Stufe ist `--bar` 0, die Ueberschrift bleibt stehen.
+
+   `height` ist der eigentliche Trick gegen das Ueberhaengen: Ein Sticky-Element loest erst,
+   wenn die Container-Unterkante `top + Elementhoehe` erreicht. Mit `h-0` war das ganz am
+   Ende des Containers — die Ueberschrift hing rund einen Bildschirm laenger als die Karten
+   und wanderte sichtbar in den naechsten Abschnitt. Gesucht ist die Hoehe, bei der sie exakt
+   mit der letzten Karte loslaesst, deren Unterkante bei `100svh - --fuss` liegt:
+       top(Stufe 2) + Hoehe = 100svh - --fuss
+   Daraus folgt die Formel unten. Die Abstandshalter (`--verweil`) aendern daran nichts:
+   Ueberschrift und letzte Karte loesen beide am Containerende.
+   Wird `--fuss`, `--bar`, `--nav` oder der 1.5rem-Versatz geaendert, gilt die Formel weiter —
+   sie ist bewusst aus denselben Variablen gebaut.
+
+   Abstand bewusst HIER und nicht per Tailwind-Utility: Utilities kommen zuletzt und schlagen
+   Custom-Klassen gleicher Spezifitaet. Ein `lg:mb-0` am Element setzte den unten noetigen
+   negativen Rand still auf 0 — Karte 1 rutschte dadurch um die volle Ueberschriftshoehe nach
+   unten und die Ueberschrift erschien allein auf Weiss, bevor das Kartenmotiv ueberhaupt kam.
+   Beide Werte gehoeren deshalb in diese Regel. */
+.zielgruppen-titel {
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .zielgruppen-titel {
+    /* Hoehe = exakt die Hoehe der LETZTEN Karte. Ein Sticky-Element loest, sobald die
+       Container-Unterkante `top + Hoehe` erreicht; mit diesem Wert trifft das denselben
+       Punkt wie bei Karte 3 (`top` 2 Stufen + deren Hoehe) — beide gehen also gemeinsam.
+       ⚠️ Der Ausgleich im Fluss darf NICHT ueber `margin-bottom: -Hoehe` an diesem Element
+       laufen: Sticky begrenzt ueber die MARGIN-Box, ein negativer Unterrand macht die Hoehe
+       fuer die Begrenzung wieder zunichte und die Ueberschrift haengt bis zum Container-Ende
+       nach (gemessen: Karte 3 loest ~500 px frueher). Der Ausgleich sitzt deshalb als
+       `margin-top` an der ersten Karte, siehe Regel darunter. */
+    height: calc(100svh - var(--fuss) - var(--nav) - 2 * var(--bar));
+    margin-bottom: 0;
+    /* Der Textabstand zur Kartenoberkante kommt als PADDING, nicht ueber `top`. Dadurch gilt
+       er auch waehrend die Sektion einscrollt — vorher sass die Schrift bis zum Einrasten
+       buendig auf der Kartenkante und ruckte erst beim Andocken auf Abstand. */
+    padding-top: 1.5rem;
+    top: calc(var(--nav) + var(--bar) * var(--aktiv, 0));
+    /* Weicher Uebergang zwischen den Stufen — ohne ihn springt die Ueberschrift hart.
+       Nur `top`, damit nichts anderes mitanimiert. */
+    transition: top 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Hebt die Hoehe der Ueberschrift im Fluss auf, damit die erste Karte buendig am
+     Stapelanfang beginnt. Bewusst hier statt als negativer Unterrand an der Ueberschrift
+     (siehe Warnung oben). Der Nachbarschafts-Selektor schlaegt Tailwind-Utilities
+     (Spezifitaet 0,1,1 gegen 0,1,0) — hier unkritisch, die Karte traegt kein `mt-*`. */
+  .zielgruppen-titel + article {
+    margin-top: calc(-1 * (100svh - var(--fuss) - var(--nav) - 2 * var(--bar)));
+  }
+}

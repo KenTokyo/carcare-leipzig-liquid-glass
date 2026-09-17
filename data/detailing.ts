@@ -1,4 +1,4 @@
-import { PriceItem } from '../components/PageBlocks';
+import type { PriceItem } from '../components/PageBlocks';
 
 /**
  * Inhalte des Aufbereitungs-Strangs (`/fahrzeugaufbereitung-leipzig`).
@@ -8,23 +8,40 @@ import { PriceItem } from '../components/PageBlocks';
  * uebernommen und zusaetzlich als `Offer`-Schema ausgezeichnet (siehe `seo/pageSchemas.ts`).
  */
 
+/**
+ * Aufpreise nach Fahrzeugklasse (Backlog 4.7, Entscheidung 2026-09-16: als Fussnote).
+ *
+ * EINE QUELLE fuer alle Stellen, die einen Paketpreis nennen: Fussnote unter den Paketen,
+ * Preis-FAQ, Schema-Beschreibung und die Preisangaben auf Innen- und Aussenseite. Wer die
+ * Prozentsaetze aendert, aendert sie hier. Die Stellen, die den Satz als Fliesstext
+ * einbauen, lesen ihn von hier — keine zweite Schreibweise.
+ */
+export const AUFPREIS_SATZ =
+  'Für Geländewagen und Großraumlimousinen kommt ein Aufpreis von 20 % hinzu, für Transporter von 50 %.';
+
 /** Pflegepakete inkl. Preis. Reihenfolge = aufsteigender Leistungsumfang. */
 export const carePackages: PriceItem[] = [
   {
     id: 'p1',
     title: 'Brillant Außenpflege',
     price: '169,00 €',
+    fussnote: true,
+    leistung: 'aussen',
     // Backlog 2.10: Der zweite Satz trennt zwei Dinge, die sonst verwechselt werden —
     // die im Paket enthaltene Lackversiegelung und die separat buchbare
     // Keramikversiegelung. Das Paket ist deren Voraussetzung, nicht deren Ersatz.
     // Backlog 4.5: „schonende Handoberwäsche" statt „Oberwäsche inkl. Abledern" — Wortlaut des Kunden.
+    // Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt, Entscheidung des Kunden.
     description:
-      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Lackreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
+      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
   },
   {
     id: 'p2',
-    title: 'Intensiv Innenreinigung',
+    // Backlog 4.21: Programmname des Kunden. Bis 2026-09-16 stand hier „Intensiv Innenreinigung".
+    title: 'Intensiv Innenraumreinigung',
     price: '199,00 €',
+    fussnote: true,
+    leistung: 'innen',
     // Backlog 4.6: Teppichreinigung ergaenzt, „Schonende Oberwaesche" statt „inkl. Abledern".
     // Die Polstershampoonierung stand schon drin — als Alternative zur Lederpflege, und
     // so bleibt sie: Stoff wird shampooniert, Leder gepflegt. Die Teppiche gelten fuer beide.
@@ -35,18 +52,36 @@ export const carePackages: PriceItem[] = [
     id: 'p3',
     title: 'Premiumpflege',
     price: '299,00 €',
+    fussnote: true,
+    leistung: 'komplett',
     description:
-      'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.',
+      'Brillant Außenpflege und Intensiv Innenraumreinigung kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.',
   },
   {
     id: 'p4',
     title: 'Premiumpflege „exklusiv“',
-    price: 'ab 348,00 €',
+    // Backlog 4.4 + 4.10 (2026-09-16): kein Festpreis mehr. Bis dahin „ab 348,00 €" — an fuenf
+    // Stellen gemeinsam umgestellt: hier, `priceOffers`, Preis-Einleitung, zwei FAQ.
+    price: 'Preis nach Absprache',
+    leistung: 'exklusiv',
     // Backlog 2.9: Der Zusatz „Aussen UND Innen" ist ausdruecklich ergaenzt. Ohne ihn
     // las sich das Paket wie eine reine Lackbehandlung — die Nennung von Wachs,
     // Carnauba und Glanzgrad zieht den Blick nach aussen. Es umfasst beides.
     description:
-      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von SWIZÖL mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack.',
+      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
+  },
+  {
+    // Backlog 4.9 (2026-09-16): Die Lackaufbereitung steht jetzt BEI den Paketen, mit
+    // „Preis nach Aufwand" — ausdruecklich ohne Stundenverrechnungssatz (Kunde). Sie ist
+    // kein fuenftes Paket in der aufbauenden Reihe, deshalb ueber die volle Breite.
+    id: 'p5',
+    title: 'Lackaufbereitung',
+    price: 'Preis nach Aufwand',
+    breit: true,
+    leistung: 'lack',
+    anfrageLabel: 'Lackaufbereitung anfragen',
+    description:
+      'Hochglanzpolitur und Lackversiegelung, abgestimmt auf den Zustand Ihres Lackes — auf Wunsch mit Swissvax-Wachsen. Wie viel Arbeit nötig ist, zeigt erst die Begutachtung; danach nennen wir Ihnen den Preis.',
   },
 ];
 
@@ -56,6 +91,8 @@ export const disinfectionServices: PriceItem[] = [
     id: 'd1',
     title: 'Ozonbehandlung',
     price: '45,00 €',
+    // Keine passende Formularoption — bewusst KEINE Vorauswahl statt einer falschen.
+    leistung: '',
     description:
       'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.',
   },
@@ -63,6 +100,7 @@ export const disinfectionServices: PriceItem[] = [
     id: 'd2',
     title: 'Heißvernebelung (KC-Refresher)',
     price: '59,00 €',
+    leistung: '',
     description:
       'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.',
   },
@@ -73,10 +111,13 @@ export const disinfectionServices: PriceItem[] = [
  * `from: true` = „ab"-Preis, wird als `PriceSpecification.minPrice` ausgezeichnet.
  */
 export const priceOffers = [
-  { name: 'Brillant Außenpflege', price: '169.00', description: 'Außenaufbereitung mit Lackreinigung, Hochglanzpolitur und Lackversiegelung.' },
-  { name: 'Intensiv Innenreinigung', price: '199.00', description: 'Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege sowie Teppichreinigung.' },
-  { name: 'Premiumpflege', price: '299.00', description: 'Brillant- und Intensivpflege kombiniert, inklusive Motorreinigung und Versiegelung.' },
-  { name: 'Premiumpflege „exklusiv“', price: '348.00', from: true, description: 'Aufbereitung außen und innen in Handarbeit, mit SWIZÖL-Wachsen, Carnaubaanteil 30 bis 60 %.' }, // Backlog 2.9
+  { name: 'Brillant Außenpflege', price: '169.00', description: `Außenaufbereitung mit Handoberwäsche, Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}` },
+  { name: 'Intensiv Innenraumreinigung', price: '199.00', description: `Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege sowie Teppichreinigung. ${AUFPREIS_SATZ}` },
+  { name: 'Premiumpflege', price: '299.00', description: `Brillant Außenpflege und Intensiv Innenraumreinigung kombiniert, inklusive Motorreinigung und Versiegelung. ${AUFPREIS_SATZ}` },
+  // Backlog 2.9 / 4.4: ohne `price` — Preis nach Absprache, im Schema daher keine Preisfelder.
+  { name: 'Premiumpflege „exklusiv“', description: 'Aufbereitung außen und innen in Handarbeit, mit Swissvax-Wachsen, Carnaubaanteil 30 bis 60 %. Preis nach Absprache.' },
+  // Backlog 4.9: sichtbar bei den Paketen, deshalb auch hier — ebenfalls ohne Preis.
+  { name: 'Lackaufbereitung', description: 'Hochglanzpolitur und Lackversiegelung nach Zustand des Lackes. Preis nach Aufwand.' },
   { name: 'Ozonbehandlung', price: '45.00', description: 'Innenraum-Desinfektion mit Ozon, ca. 30 Minuten Einwirkzeit.' },
   { name: 'Heißvernebelung (KC-Refresher)', price: '59.00', description: 'Lang anhaltende Innenraum-Desinfektion gegen Bakterien, behüllte Viren und Schimmelpilze.' },
 ];
@@ -166,7 +207,7 @@ export const detailingScopes: DetailingScope[] = [
     imageHeight: 1045,
     title: 'Außenaufbereitung',
     intro:
-      'Was die Waschanlage stehen lässt, wird hier gelöst: Rückstände an den Felgen, Insektenrückstände und Anhaftungen im Lack. Damit ist die Oberfläche für Politur und Versiegelung vorbereitet.',
+      'Was die Waschanlage stehen lässt, wird hier gelöst: Rückstände an den Felgen und Insektenrückstände, dazu eine schonende Handoberwäsche. Damit ist die Oberfläche für Politur und Versiegelung vorbereitet.',
     href: '/aussenaufbereitung-leipzig',
     hrefLabel: 'Zur Außenaufbereitung',
   },

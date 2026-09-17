@@ -8,6 +8,13 @@
 > Fotopunkte auf einen Blick, nicht verteilt über vier Dateien. Hier stehen dieselben
 > Punkte nach **Art der Zulieferung** geschnitten.
 >
+> **✅ Entscheidungen des Kunden vom 2026-09-16 — umgesetzt** (`docs/preise-partner-schadenlink/`):
+> **Pricing komplett entschieden** (4.4/4.10 nach Absprache, 4.7 Fußnote, 4.9 nach Aufwand,
+> 3.35 bepreist bzw. nach Absprache; 2.26/2.11 später) · **Brillant** · **Lackreinigung
+> entfällt** · **R13 erledigt** · **R5/R6 zum Schluss** · **Logos:** riparo mit Logo + Link,
+> Porsche Zentrum Leipzig nur Link, BVAT-Siegel · **Schaden melden → reparatur.info**.
+> Die Zeilen unten zeigen den Stand **vor** diesen Entscheidungen; maßgeblich ist der Backlog.
+>
 > **Keine neuen Nummern.** Jede Zeile trägt ihre Backlog-Nummer. Dopplungen sind
 > zusammengezogen und als solche gekennzeichnet — sonst wird dieselbe Lieferung zweimal
 > angefragt.
@@ -116,7 +123,7 @@ fremdes Logo stehen.**
 | **3.31** | 3 | **Freigaben Partner-Logos** — Autohäuser, Versicherungen, Agenturen | 🔴 **Blockiert 3.16.** Betrifft 5 Autohäuser + 31 Versicherer aus `data/partners.ts` |
 | *(o. Nr.)* | – | Je Partner: **schriftliche Referenzfreigabe**, monochrome Dateien, Vorgaben zu Mindestgröße und Schutzraum | 🔴 Gehört zu 3.31, hier ausdrücklich, weil die Freigabe allein nicht reicht |
 | **3.16** | 3 | Partner nach Freigabe **direkt verlinken** („geschenkte Leads") | 🟠 Wartet auf 3.31 |
-| **3.12** + **4.13** | 3 + 4 | **BVAT-Logo** einbinden + Mitgliedschaft nennen | 🟨 Hinweissatz steht seit 2026-09-06. **Offen: (a)** Logodatei vom Verband, **(b)** dieselbe Freigabefrage wie oben, **(c)** ⚠️ **die Langform aus 4.13 stimmt nicht** — laut bvat.de heißt der Verband „Bundesverband für **Ausbeultechnik und Hagelinstandsetzung** e.V.", nicht „Bundesverband Autoreparatur-Technik". Vor dem Ausschreiben bestätigen lassen |
+| **3.12** + **4.13** | 3 + 4 | **BVAT-Logo** einbinden + Mitgliedschaft nennen | 🟨 Hinweissatz steht seit 2026-09-06. **Offen: (a)** Logodatei vom Verband, **(b)** dieselbe Freigabefrage wie oben, **(c)** ⚠️ **die Langform aus 4.13 stimmt nicht** — laut Impressum auf bvat.de heißt der Verband „Bundesverband **Ausbeultechnik und Hagelinstandsetzung** e.V." (ohne „für"; am 2026-09-16 korrigiert), nicht „Bundesverband Autoreparatur-Technik". ✅ Seit 2026-09-16 mit Siegel eingebaut |
 
 ---
 

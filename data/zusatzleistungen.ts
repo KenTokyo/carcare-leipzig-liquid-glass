@@ -16,10 +16,18 @@
  * ihrer Natur nach mehrere. Ein `<select>` erzwaenge eine Entscheidung, die es nicht
  * gibt, und ein Mehrfach-`<select>` bedient sich auf Beruehrgeraeten schlecht.
  *
+ * ✅ PREISE ENTSCHIEDEN (Backlog 3.35, 2026-09-16): Zusatzleistungen WERDEN bepreist —
+ * mit Festpreis, wo es einen gibt, sonst mit „Preis nach Absprache". Beim Einpflegen der
+ * Liste (2.26) und bei der Ausweisung auf der Seite (2.11) also je Eintrag einen Preis
+ * oder diesen Wortlaut vorsehen. Schema wie bei den Paketen: ohne Festpreis KEINE
+ * Preisfelder (`offerCatalogSchema` in `seo/structuredData.ts`).
+ *
  * ⚠️ BEIM EINPFLEGEN DER ECHTEN LISTE ZU KLAEREN: Das Formular hat bereits ein Feld
- * „Gewuenschte Leistung" (Innen-, Aussen-, Komplettaufbereitung, Lackpflege,
- * Leasingrueckgabe, Verkaufsaufbereitung). Was davon Paket ist und was Zusatz, muss
- * sauber getrennt werden — sonst steht dieselbe Leistung zweimal zur Auswahl.
+ * „Gewuenschte Leistung" — seit 2026-09-16 mit den Paketnamen (Backlog 4.21):
+ * Intensiv Innenraumreinigung, Brillant Aussenpflege, Premiumpflege, Premiumpflege
+ * „exklusiv", Lackaufbereitung, Leasingrueckgabe, Verkaufsaufbereitung. Was davon Paket
+ * ist und was Zusatz, muss sauber getrennt werden — sonst steht dieselbe Leistung zweimal
+ * zur Auswahl.
  */
 
 export interface Zusatzleistung {

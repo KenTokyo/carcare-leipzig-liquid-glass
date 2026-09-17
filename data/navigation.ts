@@ -10,6 +10,7 @@ import {
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
+import { SCHADEN_ZIEL } from './schadenmeldung';
 import { serviceGroups, servicesByGroup } from './services';
 
 /**
@@ -115,8 +116,9 @@ const kontaktKarten: NavCard[] = [
     id: 'kontakt-schaden',
     icon: AlertTriangle,
     label: 'Schaden melden',
-    description: 'Online-Schadenformular ausfüllen',
-    href: '/kontakt#contact-schaden',
+    // Seit 2026-09-16 die Schadenseite auf reparatur.info (Backlog 2.23), Ziel aus EINER Quelle.
+    description: 'Schadendaten und Fotos online übermitteln',
+    href: SCHADEN_ZIEL,
     children: [],
   },
   {

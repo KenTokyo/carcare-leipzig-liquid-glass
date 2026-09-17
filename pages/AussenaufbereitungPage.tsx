@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { aufbereitungKacheln } from '../data/detailing';
+import { AUFPREIS_SATZ, aufbereitungKacheln } from '../data/detailing';
 
 /**
  * Aussenaufbereitung als eigene Leistungsseite (Backlog 1.8).
@@ -15,20 +15,21 @@ import { aufbereitungKacheln } from '../data/detailing';
  * (Dublettenvermeidung, SEO-GEO-STANDARDS.md §4.5).
  */
 
+// Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt — aus beiden Listen entfernt.
+// Damit trennen sich die Bereiche sauber (4.8): aussen = reinigen, Lack = Politur, Versiegelung, Wachs.
 const aussenLeistungen = [
   { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung und Felgenreinigung.' },
   { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
   // Backlog 4.5: Wortlaut „Schonende Handoberwäsche" wie im Paket Brillant Außenpflege.
   { title: 'Schonende Handoberwäsche', description: 'Schonende Oberwäsche von Hand.' },
-  { title: 'Lackreinigung', description: 'Lackreinigung als Grundlage für die weitere Bearbeitung.' },
   { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Teil der Außenpflege.' },
 ];
 
 const lackLeistungen = [
-  { title: 'Lackreinigung', description: 'Lackreinigung und Entfernung typischer Anhaftungen.' },
   { title: 'Hochglanzpolitur', description: 'Hochglanzpolitur für glattere Oberflächen und sichtbaren Glanz.' },
   { title: 'Lackversiegelung', description: 'Lackversiegelung für Schutz und Werterhalt.' },
-  { title: 'SWIZÖL-Wachse', description: 'Auf Wunsch Wachse von SWIZÖL mit 30 bis 60 % Carnaubaanteil.' },
+  // Backlog 4.4: Swissvax ist der heutige Name der Marke, die im DACH-Raum frueher Swizoel hiess.
+  { title: 'Swissvax-Wachse', description: 'Auf Wunsch Wachse von Swissvax mit 30 bis 60 % Carnaubaanteil.' },
 ];
 
 const usp = [
@@ -47,7 +48,7 @@ const AussenaufbereitungPage: React.FC = () => (
     <PageMeta
       canonical="/aussenaufbereitung-leipzig"
       title="Außenaufbereitung Leipzig | Politur & Lack | CarCare Center"
-      description="Außenaufbereitung in Leipzig: Vorreinigung, Oberwäsche, Lackreinigung, Hochglanzpolitur und Versiegelung. Brillant Außenpflege ab 169,00 € im Meisterbetrieb."
+      description="Außenaufbereitung in Leipzig: Vorreinigung, Handoberwäsche, Felgen, Hochglanzpolitur und Versiegelung. Brillant Außenpflege ab 169,00 € im Meisterbetrieb."
     />
     <PageHero
       eyebrow="Außenaufbereitung Leipzig"
@@ -63,7 +64,7 @@ const AussenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Außenaufbereitung"
           title="Was zur Außenaufbereitung gehört."
-          description="Die Brillant Außenpflege kostet 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte."
+          description={`Die Brillant Außenpflege kostet 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte, dazu Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={aussenLeistungen} />
       </div>

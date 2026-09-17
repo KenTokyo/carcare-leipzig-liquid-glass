@@ -28,6 +28,19 @@ import Lenis from 'lenis';
  * - BEWUSST kein `prefers-reduced-motion`-Gate: Windows meldet reduced-motion systemweit
  *   (siehe HeroSection / mobile-accordion-animation-tasks.md, Phase 5) — ein Gate wuerde die
  *   Fluessigkeit genau bei dem Nutzer abschalten, der sie angefordert hat.
+ * - `allowNestedScroll: true` (seit 2026-09-17): Lenis faengt das Mausrad seitenweit ab.
+ *   Ohne diese Option scrollte KEIN innerer Bereich per Rad. Vorher/nachher gemessen:
+ *     · Karten-Texte auf /karriere (`ExpandingCardAccordion`, 7 Karten mit 73–163 px
+ *       verdecktem Text): Rad lief am Text vorbei auf die Seite → jetzt scrollt erst der Text.
+ *     · Anfragedialog in Fenstern unter 536 px Hoehe (Lenis ist dort gestoppt): 0 px →
+ *       jetzt scrollt der Dialog.
+ *     · Zielgruppenkarten: Kartentext im halb angedockten Fenster (960 px) → jetzt erreichbar.
+ *   Mit der Option prueft Lenis je Ereignis, ob ein Bereich unter dem Zeiger in Drehrichtung
+ *   noch scrollen kann: Solange ja, scrollt er nativ; an seinem Ende uebernimmt wieder Lenis
+ *   und die Seite gleitet weiter. Das ersetzt `data-lenis-prevent`, das die Seite auch am
+ *   Listenende nur ruckartig (nativ) weitergab. Geprueft von `npm run zielgruppen` (echtes
+ *   Mausrad). ⚠️ Nicht mit `overscroll-behavior: contain` kombinieren: Dann haelt Lenis den
+ *   Bereich auch an dessen Ende fest (siehe `hasNestedScroll` in lenis.mjs).
  */
 
 let instance: Lenis | null = null;
@@ -46,6 +59,7 @@ export const useSmoothScroll = (): void => {
     const lenis = new Lenis({
       lerp: 0.1, // Referenz-Wert (Lenis-Default), aus deren Ausrollkurve verifiziert
       anchors: true, // Offset kommt aus `scroll-mt-32` der Ziele — hier keinen zweiten setzen
+      allowNestedScroll: true, // innere Scrollbereiche per Mausrad erreichbar — siehe oben
     });
     instance = lenis;
 

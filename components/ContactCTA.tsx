@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Building2, CalendarClock, Clock, MapPin, Phone } from 'lucide-react';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 const ContactCTA: React.FC = () => {
   return (
@@ -22,9 +24,10 @@ const ContactCTA: React.FC = () => {
                 Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenkontakt starten. Wir melden uns persönlich zurück.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <a href="/kontakt#contact-schaden" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
+                <a href={SCHADEN_ZIEL} {...externAttribute(SCHADEN_ZIEL)} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   <AlertTriangle size={17} />
                   Schaden melden
+                  <ExternMarke href={SCHADEN_ZIEL} groesse={16} />
                 </a>
                 <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
                   <CalendarClock size={17} />

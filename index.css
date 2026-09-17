@@ -6,6 +6,9 @@
    Genau dieser Block haelt den Hero-Text auf sechs Seiten mit stehendem Foto ueber
    WCAG AA (Werte in der Datei). Wer ihn verschiebt, prueft mit `npm run kontrast`. */
 @import './styles/textschutz.css';
+/* Zielgruppen-Kartenstapel und Scroll-Verlauf (2026-09-17) — gleiche Regel: nur hier oben. */
+@import './styles/zielgruppen.css';
+@import './styles/scrollverlauf.css';
 
 @tailwind base;
 @tailwind components;
@@ -277,62 +280,8 @@ body {
   );
 }
 
-/* Ueberschrift des Zielgruppen-Stapels: wandert pro geparkter Karte eine Leistenhoehe
-   nach unten und loest zeitgleich mit der letzten Karte.
-
-   `top`: `--aktiv` (0/1/2) setzt der Effekt in TargetGroupCards. `var(--aktiv, 0)` haelt
-   die Regel gueltig, bevor JS gelaufen ist (Prerender/erste Frames) — dann steht sie wie
-   frueher auf Stufe 0.
-
-   `height` ist der eigentliche Trick gegen das Ueberhaengen: Ein Sticky-Element loest erst,
-   wenn die Container-Unterkante `top + Elementhoehe` erreicht. Mit `h-0` war das ganz am
-   Ende des Containers — die Ueberschrift hing rund einen Bildschirm laenger als die Karten
-   und wanderte sichtbar in den naechsten Abschnitt. Gesucht ist die Hoehe, bei der sie exakt
-   mit der letzten Karte loslaesst, deren Unterkante bei `100svh - --fuss` liegt:
-       top(Stufe 2) + Hoehe = 100svh - --fuss
-   Daraus folgt die Formel unten. `margin-bottom` hebt die Hoehe im Fluss wieder auf, damit
-   die Karten nicht nach unten geschoben werden.
-   Wird `--fuss`, `--bar`, `--nav` oder der 1.5rem-Versatz geaendert, gilt die Formel weiter —
-   sie ist bewusst aus denselben Variablen gebaut. */
-/* Abstand bewusst HIER und nicht per Tailwind-Utility: `@tailwind utilities` steht in dieser
-   Datei absichtlich ganz unten und schlaegt Custom-Klassen gleicher Spezifitaet. Ein `lg:mb-0`
-   am Element setzte den unten noetigen negativen Rand still auf 0 — Karte 1 rutschte dadurch um
-   die volle Ueberschriftshoehe nach unten und die Ueberschrift erschien allein auf Weiss, bevor
-   das Kartenmotiv ueberhaupt kam. Beide Werte gehoeren deshalb in diese Regel. */
-.zielgruppen-titel {
-  margin-bottom: 2.5rem;
-}
-
-@media (min-width: 1024px) {
-  .zielgruppen-titel {
-    /* Hoehe = exakt die Hoehe der LETZTEN Karte. Ein Sticky-Element loest, sobald die
-       Container-Unterkante `top + Hoehe` erreicht; mit diesem Wert trifft das denselben
-       Punkt wie bei Karte 3 (`top` 2 Stufen + deren Hoehe) — beide gehen also gemeinsam.
-       ⚠️ Der Ausgleich im Fluss darf NICHT ueber `margin-bottom: -Hoehe` an diesem Element
-       laufen: Sticky begrenzt ueber die MARGIN-Box, ein negativer Unterrand macht die Hoehe
-       fuer die Begrenzung wieder zunichte und die Ueberschrift haengt bis zum Container-Ende
-       nach (gemessen: Karte 3 loest ~500 px frueher). Der Ausgleich sitzt deshalb als
-       `margin-top` an der ersten Karte, siehe Regel darunter. */
-    height: calc(100svh - var(--fuss) - var(--nav) - 2 * var(--bar));
-    margin-bottom: 0;
-    /* Der Textabstand zur Kartenoberkante kommt als PADDING, nicht ueber `top`. Dadurch gilt
-       er auch waehrend die Sektion einscrollt — vorher sass die Schrift bis zum Einrasten
-       buendig auf der Kartenkante und ruckte erst beim Andocken auf Abstand. */
-    padding-top: 1.5rem;
-    top: calc(var(--nav) + var(--bar) * var(--aktiv, 0));
-    /* Weicher Uebergang zwischen den Stufen — ohne ihn springt die Ueberschrift hart.
-       Nur `top`, damit nichts anderes mitanimiert. */
-    transition: top 320ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* Hebt die Hoehe der Ueberschrift im Fluss auf, damit die erste Karte buendig am
-     Stapelanfang beginnt. Bewusst hier statt als negativer Unterrand an der Ueberschrift
-     (siehe Warnung oben). Der Nachbarschafts-Selektor schlaegt Tailwind-Utilities
-     (Spezifitaet 0,1,1 gegen 0,1,0) — hier unkritisch, die Karte traegt kein `mt-*`. */
-  .zielgruppen-titel + article {
-    margin-top: calc(-1 * (100svh - var(--fuss) - var(--nav) - 2 * var(--bar)));
-  }
-}
+/* Ueberschrift und Variablen des Zielgruppen-Stapels: `styles/zielgruppen.css`
+   (hierher verschoben am 2026-09-17, eingebunden oben per @import). */
 
 /* Schwarzblaue Variante desselben Verlaufs (Zielgruppen-Kartenstapel): identische
    Geometrie wie oben, aber BEWUSST konzentriert (User-Wunsch 2026-07-22): stark nur in der

@@ -69,7 +69,7 @@ const repairs = [
   },
   {
     title: 'Aufbereitung innen und außen',
-    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenreinigung kostet 199,00 €, die Premiumpflege mit Außenaufbereitung 299,00 € — inklusive gesetzlicher Mehrwertsteuer.',
+    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenraumreinigung kostet ab 199,00 €, die Premiumpflege mit Außenaufbereitung ab 299,00 € — inklusive gesetzlicher Mehrwertsteuer, Aufpreis je nach Fahrzeugklasse.',
     href: '/fahrzeugaufbereitung-leipzig#preise',
   },
 ];

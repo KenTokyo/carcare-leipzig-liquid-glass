@@ -13,6 +13,12 @@
  * als keine: Sie sieht aus wie eine Entscheidung des Nutzers und wird deshalb nicht
  * korrigiert.
  *
+ * PROGRAMMNAMEN (Backlog 4.21, 2026-09-16): Die Beschriftungen sind die Paketnamen des
+ * Kunden — „Intensiv Innenraumreinigung", „Brillant Außenpflege", „Premiumpflege" —, nicht
+ * mehr die Bereichsnamen. Die Seiten `/innenaufbereitung-leipzig` und
+ * `/aussenaufbereitung-leipzig` behalten ihre Namen: Sie tragen die Suchbegriffe und meinen
+ * den Bereich, nicht das Paket. Die `id`s bleiben unveraendert (Versand, Vorauswahl).
+ *
  * REPARATURSEITEN STEHEN NICHT IN DIESER LISTE, sondern in `TERMIN_UEBERSCHREIBUNG`
  * weiter unten: Ihr Handlungsaufruf zeigt zwar auf `#contact-termin`, gemeint ist aber
  * eine Schadenmeldung. Behoben mit R8 am 2026-09-05.
@@ -32,22 +38,29 @@ export interface Leistungsoption {
 export const terminLeistungen: Leistungsoption[] = [
   {
     id: 'innen',
-    label: 'Innenaufbereitung',
+    label: 'Intensiv Innenraumreinigung',
     routen: ['/innenaufbereitung-leipzig', '/autoaufbereitung-wissen/innenaufbereitung'],
   },
   {
     id: 'aussen',
-    label: 'Außenaufbereitung',
+    label: 'Brillant Außenpflege',
     routen: ['/aussenaufbereitung-leipzig'],
   },
   {
     id: 'komplett',
-    label: 'Komplettaufbereitung',
-    routen: ['/fahrzeugaufbereitung-leipzig', '/autoaufbereitung-wissen/was-ist-autoaufbereitung'],
+    label: 'Premiumpflege',
+    // Bis 2026-09-16 von der Hub-Seite und dem Grundlagenartikel vorausgewaehlt — damals hiess
+    // die Option „Komplettaufbereitung" und passte zu beiden. Als „Premiumpflege" ist sie ein
+    // bestimmtes Paket; wer die Uebersicht liest, hat sich noch nicht entschieden. Die
+    // Preiskarten waehlen ihr Paket seither selbst vor (`data-leistung`).
+    routen: [],
   },
+  // Neu 2026-09-16: das vierte Paket. Ohne eigene Option landete es bei „Sonstiges".
+  { id: 'exklusiv', label: 'Premiumpflege „exklusiv“' },
   {
     id: 'lack',
-    label: 'Lackpflege / Politur',
+    // Wie die Karte bei den Paketen (Backlog 4.9) — vorher „Lackpflege / Politur".
+    label: 'Lackaufbereitung',
     routen: ['/autoaufbereitung-wissen/lackaufbereitung'],
   },
   {

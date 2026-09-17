@@ -1,6 +1,7 @@
 import React from 'react';
 import { FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import { serviceGroups, servicesByGroup } from '../data/services';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 /**
  * Vollstaendige Leistungsuebersicht. Die Leistungen kommen aus `data/services.ts` —
@@ -20,7 +21,7 @@ const ServicesPage: React.FC = () => (
       title="Alle Leistungen vom CarCare Center Leipzig im Überblick."
       description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas — auf über 3.500 m² aus einer Hand, als Meisterbetrieb und Glasurit-Lackpartner seit 1998."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
-      secondaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
+      secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Fahrzeugaufbereitung Leipzig', 'Unfallinstandsetzung Leipzig', 'Autolackierung Leipzig', 'Smart Repair Leipzig']}
     />
 

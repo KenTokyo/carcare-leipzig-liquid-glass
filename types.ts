@@ -15,16 +15,29 @@ export interface TargetGroupPartner {
   /** Firmierung wie vom Partner selbst verwendet. */
   name: string;
   /**
-   * Monochromes Logo mit transparentem Hintergrund (SVG bevorzugt, sonst WebP/PNG),
-   * abgelegt unter `/public/assets/partner/`.
+   * Monochromes Logo mit transparentem Hintergrund, abgelegt unter
+   * `/public/assets/partner/`, erzeugt mit `npm run partnerlogos`.
    *
-   * OPTIONAL und aktuell bei allen Partnern LEER: Herstellerlogos sind geschuetzte
-   * Marken und duerfen nur mit schriftlicher Freigabe des jeweiligen Partners
-   * eingebunden werden (siehe Kommentar an der Partnerliste in TargetGroupCards).
-   * Ohne Datei zeigt die Kachel nur den Namen — das Raster bleibt identisch, die
-   * Logos lassen sich also spaeter ohne Layout-Aenderung nachruesten.
+   * NUR MIT SCHRIFTLICHER FREIGABE des Partners — und nur, wenn der Partner die Rechte an
+   * der Marke hat. Beispiel Porsche Zentrum Leipzig (2026-09-16): Das Autohaus hat
+   * freigegeben, die Wortmarke gehoert aber der Porsche AG, deren Lizenz die Nutzung
+   * ausserhalb von Porsche-Anwendungen ausschliesst. Dort steht deshalb nur der Link.
+   * Vorgehen: `docs/partnerlogos/README.md`. Ohne Datei zeigt die Liste nur den Namen.
    */
   logo?: string;
+  /** Pixelmasse der Logodatei — gegen Layout-Verschiebung (SEO-GEO §2.2). Pflicht mit `logo`. */
+  logoBreite?: number;
+  logoHoehe?: number;
+  /**
+   * Das Logo ist eine reine Wortmarke (z. B. „riparo"). Dann steht der Name nur fuer
+   * Vorlesegeraete daneben — sichtbar stuende er sonst doppelt da.
+   */
+  logoIstName?: boolean;
+  /**
+   * Offizielle Website des Partners. Gesetzt nur bei freigegebenen Partnern — der Link
+   * oeffnet in einem neuen Tab, ohne Referer (`components/ExternerLink.tsx`).
+   */
+  url?: string;
 }
 
 export interface TargetGroup {
@@ -40,24 +53,18 @@ export interface TargetGroup {
   /** Zweiter CTA neben `cta`/`href`, im blauen CI-Verlauf gesetzt. */
   secondaryCta?: { label: string; href: string };
   /**
-   * Referenzpartner, die auf der Kachel namentlich genannt werden.
+   * Referenzpartner, die auf der Kachel namentlich genannt werden — egal wie viele, immer
+   * im selben Raster (`components/ZielgruppenPartner.tsx`). Die Liste nimmt den Platz, der
+   * in der Kachel frei bleibt, und scrollt darin.
    *
-   * Darstellung richtet sich nach der Anzahl (siehe TargetGroupCards):
-   * bis 8 Partner als Raster mit Logo-Slot, darueber als kompakter Fliesstext —
-   * 31 Versicherer im Raster waeren rund 350 px hoch und wuerden die Kachel sprengen.
+   * Bis 2026-09-17 gab es hier `partnersHideBelow`: Unter 860 px Fensterhoehe verschwand die
+   * Liste auf Desktop ganz — auf einem Full-HD-Bildschirm mit Browserleisten und Zoom also
+   * genau dann, wenn der Kunde hinsah. Entfernt, siehe
+   * `docs/zielgruppen-partner-sichtbarkeit/tasks/`.
    */
   partners?: TargetGroupPartner[];
   /** Ueberschrift ueber der Partnerliste. Default: „Partnerbetriebe". */
   partnersLabel?: string;
-  /**
-   * Viewporthoehe, unter der die Partnerliste auf Desktop weicht.
-   *
-   * Pro Kachel unterschiedlich, weil die Kachelhoehe mit dem Stapelindex abnimmt
-   * (`100svh - i x --bar`): Die Versicherungs-Kachel hat ~112 px mehr Inhalt als die
-   * Gewerbe-Kachel und vertraegt die Liste deshalb bis zu einer niedrigeren Schwelle.
-   * Nur diese beiden Werte, damit die Klassen fuer Tailwind statisch bleiben.
-   */
-  partnersHideBelow?: 760 | 860;
 }
 
 export interface OverviewService {

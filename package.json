@@ -28,7 +28,9 @@
     "nummern": "node scripts/check-nummernraeume.mjs",
     "meta": "node scripts/check-meta.mjs",
     "nav": "node scripts/check-navigation.mjs",
-    "video": "node scripts/build-video.mjs"
+    "zielgruppen": "node scripts/check-zielgruppen.mjs",
+    "video": "node scripts/build-video.mjs",
+    "partnerlogos": "node scripts/build-partner-logos.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.29.2",

@@ -64,7 +64,7 @@ export const jobPositions: JobPosition[] = [
     art: 'beruf',
     title: 'Kfz-Aufbereiter',
     description:
-      'Fahrzeugpflege innen und außen, Lackreinigung, Politur und Versiegelung — Arbeit, deren Ergebnis man sofort sieht.',
+      'Fahrzeugpflege innen und außen, Politur und Versiegelung — Arbeit, deren Ergebnis man sofort sieht.',
     anforderungen: [
       'Sorgfalt im Umgang mit hochwertigen Fahrzeugen',
       'Auge für Details, auch an schwer zugänglichen Stellen',

@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { faqsByRoute } from '../data/faqs';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
+import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
 export interface PageHeroProps {
@@ -52,6 +53,8 @@ export interface FeatureItem {
   title: string;
   description: string;
   href?: string;
+  /** Beschriftung des Links. Ohne Angabe „Mehr erfahren" (intern) bzw. „Weiter" (extern). */
+  linkLabel?: string;
 }
 
 export interface ProcessItem {
@@ -88,15 +91,26 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
           <p className="mt-6 max-w-3xl text-base leading-relaxed text-gray-700 md:text-xl">{description}</p>
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {/* Externe Ziele (z. B. „Schaden melden" → reparatur.info) oeffnen in einem
+                  neuen Tab und tragen den Pfeil nach rechts oben statt nach rechts. */}
               {primaryCta && (
-                <a href={primaryCta.href} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
+                <a
+                  href={primaryCta.href}
+                  {...externAttribute(primaryCta.href)}
+                  className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+                >
                   {primaryCta.label}
-                  <ArrowRight size={16} />
+                  {istExtern(primaryCta.href) ? <ExternMarke href={primaryCta.href} groesse={16} /> : <ArrowRight size={16} />}
                 </a>
               )}
               {secondaryCta && (
-                <a href={secondaryCta.href} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
+                <a
+                  href={secondaryCta.href}
+                  {...externAttribute(secondaryCta.href)}
+                  className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+                >
                   {secondaryCta.label}
+                  <ExternMarke href={secondaryCta.href} groesse={16} />
                 </a>
               )}
             </div>
@@ -149,12 +163,17 @@ export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | '
             </div>
             <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
-            {item.href && <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">Mehr erfahren <ArrowRight size={14} /></span>}
+            {item.href && (
+              <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
+                {item.linkLabel ?? (istExtern(item.href) ? 'Weiter' : 'Mehr erfahren')}
+                {istExtern(item.href) ? <ExternMarke href={item.href} /> : <ArrowRight size={14} />}
+              </span>
+            )}
           </>
         );
         const className = `group rounded-2xl border border-gray-100 ${kartenTon} p-6 transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60`;
         return item.href ? (
-          <motion.a key={item.title} href={item.href} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.4, delay: idx * 0.04 }} className={className}>
+          <motion.a key={item.title} href={item.href} {...externAttribute(item.href)} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.4, delay: idx * 0.04 }} className={className}>
             {content}
           </motion.a>
         ) : (
@@ -276,9 +295,28 @@ export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => {
 export interface PriceItem {
   id: string;
   title: string;
-  /** Anzeigepreis inkl. Waehrung, z. B. "169,00 €" oder "ab 348,00 €". */
+  /**
+   * Anzeigepreis inkl. Waehrung, z. B. "169,00 €" — oder ein Wortlaut, wo es keinen
+   * Festpreis gibt: „Preis nach Absprache" (Backlog 4.4), „Preis nach Aufwand" (4.9).
+   */
   price: string;
   description: string;
+  /**
+   * Der Preis traegt die Fussnote des Rasters (Backlog 4.7: Aufpreise nach Fahrzeugklasse).
+   * NUR bei Festpreisen — ein Preis „nach Absprache" hat keinen Grundpreis, auf den ein
+   * Aufpreis kaeme, und ein Sternchen dort wuerde genau das behaupten.
+   */
+  fussnote?: boolean;
+  /** Ueber beide Spalten — fuer eine Leistung, die NEBEN den Paketen steht (4.9). */
+  breit?: boolean;
+  /** Beschriftung des Anfrage-Links, wo „Paket anfragen" nicht passt. */
+  anfrageLabel?: string;
+  /**
+   * Vorauswahl im Terminformular — `id` aus `data/leistungsauswahl.ts`. `''` = bewusst keine.
+   * Ohne Angabe leitet der Dialog sie aus der SEITE ab, und dann waehlte jede Karte dasselbe
+   * Paket vor (2026-09-16 gefunden, siehe `AnfrageDialog`).
+   */
+  leistung?: string;
 }
 
 /**
@@ -287,13 +325,19 @@ export interface PriceItem {
  * Ersetzt zwei markup-identische Inline-Raster, die bis 2026-08-03 in
  * `pages/VehicleDetailingPage.tsx` nebeneinander standen (Pflegepakete + Desinfektion).
  * `note` nimmt den Pflichthinweis zur Mehrwertsteuer auf.
+ *
+ * `fussnote` (Backlog 4.7): Der Kunde hat sich am 2026-09-16 fuer die Fussnote entschieden
+ * und gegen „Preis nach Absprache" fuer alle — so bleiben die konkreten Preise sichtbar,
+ * die Suchende und KI-Antworten zitieren. Das Sternchen steht nur an Karten mit
+ * `fussnote: true`; der Text steht einmal unter dem Raster.
  */
 export const PricingGrid: React.FC<{
   ctaHref?: string;
   ctaLabel?: string;
   items: PriceItem[];
   note?: string;
-}> = ({ ctaHref = '/kontakt#contact-termin', ctaLabel = 'Paket anfragen', items, note }) => (
+  fussnote?: string;
+}> = ({ ctaHref = '/kontakt#contact-termin', ctaLabel = 'Paket anfragen', items, note, fussnote }) => (
   <>
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {items.map((item, idx) => (
@@ -303,20 +347,40 @@ export const PricingGrid: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.4, delay: idx * 0.05 }}
-          className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
+          className={`cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60 ${
+            item.breit ? 'sm:col-span-2' : ''
+          }`}
         >
           <div className="flex items-start justify-between gap-4">
             <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
-            <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">{item.price}</span>
+            <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">
+              {item.price}
+              {item.fussnote && fussnote && (
+                <>
+                  <span aria-hidden="true">*</span>
+                  <span className="sr-only"> (Aufpreise siehe Hinweis unter den Paketen)</span>
+                </>
+              )}
+            </span>
           </div>
           <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{item.description}</p>
-          <a href={ctaHref} className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
-            {ctaLabel} <ArrowRight size={14} />
+          <a
+            href={ctaHref}
+            data-leistung={item.leistung}
+            className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
+          >
+            {item.anfrageLabel ?? ctaLabel} <ArrowRight size={14} />
           </a>
         </motion.article>
       ))}
     </div>
-    {note && <p className="mt-6 text-xs leading-relaxed text-gray-600">{note}</p>}
+    {fussnote && (
+      <p className="mt-6 text-sm font-semibold leading-relaxed text-gray-700">
+        <span aria-hidden="true">* </span>
+        {fussnote}
+      </p>
+    )}
+    {note && <p className={`${fussnote ? 'mt-2' : 'mt-6'} text-xs leading-relaxed text-gray-600`}>{note}</p>}
   </>
 );
 
@@ -352,9 +416,13 @@ export const PageCTA: React.FC<{ title: string; description: string; primaryLabe
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">{description}</p>
           </div>
           <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
-            <a href={primaryHref} className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
+            <a
+              href={primaryHref}
+              {...externAttribute(primaryHref)}
+              className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
+            >
               {primaryLabel}
-              <ArrowRight size={16} />
+              {istExtern(primaryHref) ? <ExternMarke href={primaryHref} groesse={16} /> : <ArrowRight size={16} />}
             </a>
             <a href="tel:+493412617790" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">
               <Phone size={16} />

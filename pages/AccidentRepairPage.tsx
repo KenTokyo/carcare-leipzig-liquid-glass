@@ -1,6 +1,7 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 /**
  * Hub-Seite des Reparatur-Strangs (Unfall, Karosserie, Lack, Rad und Glas).
@@ -74,7 +75,7 @@ const caseHandling = [
  * (`components/AccidentDamageSection.tsx`, mit der Geschaeftsfuehrung abgestimmt).
  */
 const steps = [
-  { title: 'Schaden melden', description: 'Melden Sie Ihren Unfallschaden online über unser Formular – mit Fahrzeugdaten, Schadenart, Fotos und Angaben zur Versicherung. Telefonisch geht es genauso.' },
+  { title: 'Schaden melden', description: 'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info – mit Schadendaten und Fotos. Telefonisch geht es genauso.' },
   { title: 'Schadenaufnahme', description: 'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.' },
   { title: 'Gutachten & Kalkulation', description: 'Auf Wunsch stimmen wir uns mit einem Gutachter ab und erstellen eine nachvollziehbare Kostenkalkulation für die Reparatur.' },
   { title: 'Versicherungsabwicklung', description: 'Wir übernehmen die Kommunikation mit Ihrer Versicherung und kümmern uns um den Schriftverkehr rund um den Schadenfall.' },
@@ -99,7 +100,7 @@ const AccidentRepairPage: React.FC = () => (
       eyebrow="Unfallinstandsetzung Leipzig"
       title="Unfallschaden in Leipzig? Wir reparieren und begleiten Ihren Schadenfall."
       description="Vom ersten Kontakt bis zur Fahrzeugübergabe: Schadenaufnahme, Kalkulation, Karosseriearbeiten und Reparaturlackierung im eigenen Haus — als Meisterbetrieb und Glasurit-Lackpartner, auf Wunsch inklusive kompletter Versicherungsabwicklung."
-      primaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
+      primaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Unfallschaden Leipzig', 'Karosseriebau Leipzig', 'Autolackierung Leipzig', 'Schadenabwicklung Leipzig']}
     />
@@ -157,7 +158,7 @@ const AccidentRepairPage: React.FC = () => (
       title="Unfallschaden in Leipzig? Wir nehmen den Fall auf."
       description="Senden Sie die wichtigsten Informationen direkt an uns oder rufen Sie an, wenn es schnell gehen muss."
       primaryLabel="Schaden jetzt melden"
-      primaryHref="/kontakt#contact-schaden"
+      primaryHref={SCHADEN_ZIEL}
     />
   </BackdropLayout>
 );

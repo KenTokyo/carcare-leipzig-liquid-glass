@@ -2,7 +2,9 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
-import { dealerPartners, insurancePartners } from '../data/partners';
+import { claimsPartners, dealerPartners, insurancePartners } from '../data/partners';
+import PartnerEintrag from '../components/PartnerEintrag';
+import type { TargetGroupPartner } from '../types';
 
 /**
  * Zielgruppenseite Geschaeftskunden.
@@ -85,11 +87,13 @@ const steps = [
 ];
 
 /** Namensliste als kompakter Block — bewusst ohne Logos, Begruendung in `data/partners.ts`. */
-const PartnerNames: React.FC<{ names: string[] }> = ({ names }) => (
+// Seit 2026-09-16 mit Logo und Link bei freigegebenen Partnern — Darstellung aus
+// `PartnerEintrag`, dieselbe Quelle wie die Zielgruppenkarten der Startseite.
+const PartnerNames: React.FC<{ partners: TargetGroupPartner[] }> = ({ partners }) => (
   <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
-    {names.map((name) => (
-      <li key={name} className="rounded-full border border-gray-100 bg-white px-3.5 py-1.5 text-xs font-semibold text-gray-600 shadow-sm [hyphens:none]">
-        {name}
+    {partners.map((partner) => (
+      <li key={partner.name}>
+        <PartnerEintrag partner={partner} darstellung="pille" />
       </li>
     ))}
   </ul>
@@ -185,15 +189,18 @@ const BusinessCustomersPage: React.FC = () => (
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               Leipziger Autohäuser und Werke, für die wir Aufbereitung, Instandsetzung und Lackarbeiten übernehmen.
             </p>
-            <PartnerNames names={dealerPartners.map((partner) => partner.name)} />
+            <PartnerNames partners={dealerPartners} />
           </div>
           <div className="lg:col-span-7">
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Versicherer & Schadensteuerer</h3>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
-              Mit diesen {insurancePartners.length} Versicherern wickeln wir Schadenfälle ab — von der Schadenaufnahme über die
-              Audatex-Kalkulation bis zur Freigabe.
+              Mit diesen {insurancePartners.length} Versicherern und{' '}
+              {claimsPartners.length === 1
+                ? `dem Schadensteuerer ${claimsPartners[0].name}`
+                : `${claimsPartners.length} Schadensteuerern`}{' '}
+              wickeln wir Schadenfälle ab — von der Schadenaufnahme über die Audatex-Kalkulation bis zur Freigabe.
             </p>
-            <PartnerNames names={insurancePartners.map((partner) => partner.name)} />
+            <PartnerNames partners={[...claimsPartners, ...insurancePartners]} />
           </div>
         </div>
       </div>

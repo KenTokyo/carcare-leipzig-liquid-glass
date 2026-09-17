@@ -7,6 +7,8 @@
 
 **Technischer Nachtrag 2026-09-08:** Der aktuelle Formularversand verwendet Node.js bei Vercel und Netcup-SMTP (TLS, Port 465), nicht mehr Resend. Geschäftskunden werden über `carcare.center.business@oalab.de` an `abosse@carcare-center.de`, alle anderen Anfragen über `carcare.center.info@oalab.de` an `info@carcare-center.de` weitergeleitet. Die folgenden Resend-Angaben dokumentieren den früheren Entwurf; aktuelle Datenflüsse, Postfachkopien und Prüfstatus stehen in [Netcup-Versand](../netcup-email/tasks/2026-09-08-netcup-email-tasks.md). Dies ersetzt keine rechtliche Abnahme.
 
+**Technischer Nachtrag 2026-09-16:** „Schaden melden" führt jetzt auf die Schadenseite des Betriebs bei **reparatur.info** (Anwendung der PDR.cloud GmbH) — neuer Abschnitt **3a**. Das eigene Schadenformular der Website ist abgeschaltet. Dazu kommen **ausgehende Links** zu Partnern und zum BVAT — Abschnitt 2, Sonderfall 3.
+
 ---
 
 ## Wozu dieses Blatt
@@ -78,6 +80,12 @@ Gemessen am ausgelieferten HTML aller Seiten:
 2. **Karten-Links.** Auf Mobilgeräten gibt es Schaltflächen „Google Maps" und „Apple
    Karten". Das sind **ausgehende Links**, keine Einbettungen. Es fließt erst etwas ab,
    wenn der Besucher sie bewusst antippt.
+3. **Partner- und Verbandslinks (seit 2026-09-16).** riparo (`riparo.de`), Porsche Zentrum
+   Leipzig (`porsche-leipzig.de`) und der BVAT (`bvat.de`) sind verlinkt. Wie bei den
+   Karten-Links: **ausgehende Links, keine Einbettung.** Die Logos liegen **auf dem eigenen
+   Host** (`/assets/partner/`) — beim Seitenaufruf geht keine Anfrage an einen Partner.
+   Alle externen Links tragen `rel="noopener noreferrer"`: Der Browser sendet dem Ziel
+   **keinen Referer**, der Partner erfährt also nicht, von welcher Unterseite jemand kommt.
 
 ---
 
@@ -189,6 +197,32 @@ erneut — insbesondere für Bewerbungsunterlagen.
 
 ---
 
+## 3a. Schadenmeldung über reparatur.info (seit 2026-09-16)
+
+Alle Schaltflächen „Schaden melden" führen auf **`https://reparatur.info/bs-carcare-gmbh`**
+(neuer Tab, ohne Referer). Die Website selbst überträgt dabei **nichts** — die Daten gibt der
+Besucher erst auf der Zielseite ein.
+
+**Was die Zielseite ist** (am 2026-09-16 aufgerufen, nichts abgesendet):
+
+| Frage | Befund |
+|---|---|
+| Anbieter | Anwendung der **PDR.cloud GmbH**, Attilastraße 16, 12529 Schönefeld, AG Cottbus HRB 18136 CB („Powered by PDR.cloud") |
+| Wessen Seite | **Die Schadenseite von BS CarCare** — Seitentitel „BS CarCare GmbH", Text „Übermitteln Sie … die Schadensdaten **an uns**" |
+| Angebotene Wege | „Schadeninformation übermitteln — Daten hochladen" und „Besichtigungstermin vereinbaren" |
+| Datenarten | nach Produktbeschreibung von PDR.cloud: Schadendaten und Fotos; die genaue Feldliste zeigt sich erst im Upload-Schritt (nicht ausgefüllt) |
+| Server | Die App ruft eine Cloud-Funktion in **`europe-west3`** auf (Google Cloud, Frankfurt) — beobachtet, **nicht** vom Anbieter bestätigt |
+| Datenschutz-/Impressumslink | Die App lädt **je Betrieb eine eigene** Datenschutz- und Impressums-Adresse (`datenschutz_url`, `impressum_url`). Auf der Startansicht der Seite von BS CarCare war **keiner** der beiden Links sichtbar |
+
+**Technische Einordnung, zur Prüfung durch Sie:** Die Seite tritt als Seite von BS CarCare auf
+und nimmt Daten „an uns" entgegen; PDR.cloud stellt die Anwendung. Das spricht für eine
+**Verarbeitung im Auftrag** von BS CarCare — dann gehören Anbieter, Zweck, Datenarten und
+Speicherort in die Datenschutzerklärung, und ein Vertrag nach Art. 28 DSGVO muss vorliegen.
+Das eigene Schadenformular der Website (Abschnitt 3) ist abgeschaltet, bleibt aber im Code;
+die Angaben dort gelten wieder, falls es zurückgeschaltet wird.
+
+---
+
 ## 4. Speicherung im Browser des Besuchers
 
 Es werden **keine Cookies** gesetzt. Es gibt zwei Einträge im `sessionStorage` — sie
@@ -235,6 +269,11 @@ Vier Punkte, die über die technische Bestandsaufnahme hinausgehen:
 
 - Umfang, Speicherdauer und Zugriff auf die Server-Logdateien bei Vercel
 - Auftragsverarbeitungsvertrag und Unterauftragsverarbeiter — **bei Vercel und bei Resend**
+  *(Resend seit 2026-09-08 nicht mehr im Einsatz, stattdessen Netcup)*
+- **Seit 2026-09-16:** Auftragsverarbeitungsvertrag mit der **PDR.cloud GmbH** (reparatur.info),
+  Speicherort und Löschfristen der dort hochgeladenen Schadendaten und Fotos
+- **Seit 2026-09-16:** Sind in PDR.cloud die Datenschutz- und Impressums-Adresse von BS CarCare
+  hinterlegt? Auf der Startansicht der Schadenseite war keine zu sehen
 - Wie lange Resend zugestellte Nachrichten vorhält
 - Aufbewahrungsfristen für Anfragen und Bewerbungsunterlagen im Postfach
 - Zuständige Aufsichtsbehörde in der heute korrekten Bezeichnung — im Seitenfuß stand

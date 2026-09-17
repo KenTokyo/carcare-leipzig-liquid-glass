@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, AlertTriangle, CalendarClock, Navigation } from 'lucide-react';
 import { useAnfrageDialog } from './AnfrageDialog';
+import { SCHADENMELDUNG_EXTERN, SCHADENMELDUNG_URL } from '../data/schadenmeldung';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 /**
  * Navigationsziel. Wortlaut EXAKT wie NAP_ADRESSE in CLAUDE.md / Impressum / Footer —
@@ -126,10 +128,21 @@ const MobileStickyCTA: React.FC = () => {
           <Phone size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
         </a>
-        <button type="button" onClick={() => oeffnen('schaden')} className={buttonKlassen}>
-          <AlertTriangle size={18} />
-          <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
-        </button>
+        {/* Seit 2026-09-16 ein Link zur Schadenseite auf reparatur.info (Backlog 2.23) —
+            ohne Umweg ueber den Dialog. Mit dem Schalter in `data/schadenmeldung.ts` wieder
+            der Knopf ins eigene Formular. */}
+        {SCHADENMELDUNG_EXTERN ? (
+          <a href={SCHADENMELDUNG_URL} {...externAttribute(SCHADENMELDUNG_URL)} className={buttonKlassen}>
+            <AlertTriangle size={18} />
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
+            <ExternMarke href={SCHADENMELDUNG_URL} pfeil={false} />
+          </a>
+        ) : (
+          <button type="button" onClick={() => oeffnen('schaden')} className={buttonKlassen}>
+            <AlertTriangle size={18} />
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
+          </button>
+        )}
         {/* Termin oeffnet den Dialog statt zu scrollen — sonst haetten Mobil- und
             Desktopnutzer zwei verschiedene Wege zum selben Formular. Ueber den Hook
             statt ueber das Link-Abfangen, weil das hier ein <button> ist. */}

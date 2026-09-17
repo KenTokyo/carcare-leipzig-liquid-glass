@@ -87,6 +87,10 @@ Mojibake ✅, nicht committet ✅.
 2. 🟠 **Hoch, abgefangen: Die BVAT-Langform in Andrés Liste ist falsch.** „Bundesverband Autoreparatur-
    Technik" — laut bvat.de „Bundesverband für Ausbeultechnik und Hagelinstandsetzung e.V.". Wörtlich
    umgesetzt, stünde ein falscher Verbandsname auf der Seite. Als Rückfrage markiert.
+   ⚠️ **Korrektur 2026-09-16:** Auch diese Fassung war falsch. Laut Impressum des Verbands lautet der
+   Name „Bundesverband Ausbeultechnik und Hagelinstandsetzung e.V." — **ohne „für"**. Die Angabe oben
+   stammte aus einer Suchzusammenfassung, nicht aus dem Impressum. Umgesetzt in
+   `docs/preise-partner-schadenlink/`.
 3. 🟠 **Hoch, offen: 3.500 m² widerspricht der verbindlichen Textregel 4 und dem abgenommenen 1.2.**
    30 Fundstellen. Hinweis in `CLAUDE.md` gesetzt, damit niemand einzelne Stellen ändert.
 4. 🟠 **Hoch, offen: 4.21 „auf der gesamten Seite" würde wörtlich zwei SEO-Landingpages umbenennen**

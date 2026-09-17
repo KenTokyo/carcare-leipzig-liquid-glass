@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { TargetGroup } from '../types';
-import { dealerPartners, insurancePartners } from '../data/partners';
+import { claimsPartners, dealerPartners, insurancePartners } from '../data/partners';
+import ZielgruppenPartner from './ZielgruppenPartner';
 
 /**
  * Standard-Hintergrundbild der Kacheln.
@@ -13,16 +14,6 @@ const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.webp';
 
 /** Animierte CarCare-Marke fuer das Logo-Badge. */
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
-
-/**
- * Ausblend-Klassen der Partnerliste, statisch hinterlegt: Tailwind scannt den Quelltext
- * nach vollstaendigen Klassennamen, ein zusammengesetzter String wuerde nicht erzeugt.
- * Greift nur ab `lg` — mobil ist der Kartentext scrollbar, dort muss nichts weichen.
- */
-const PARTNER_HIDE_CLASS: Record<760 | 860, string> = {
-  760: '[@media(min-width:1024px)_and_(max-height:760px)]:hidden',
-  860: '[@media(min-width:1024px)_and_(max-height:860px)]:hidden',
-};
 
 /** Reihenfolge im Array = Stapel-Reihenfolge (Index 0 liegt zuunterst). */
 const groups: TargetGroup[] = [
@@ -62,25 +53,18 @@ const groups: TargetGroup[] = [
     href: '/ueber-uns',
     backgroundImage: '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp',
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
-    partnersLabel: 'Versicherungspartner',
+    // Seit 2026-09-16 mit dem Schadensteuerer riparo — daher nicht mehr „Versicherungspartner".
+    partnersLabel: 'Versicherer & Schadensteuerer',
     /**
-     * 31 Namen — deshalb greift die Fliesstext-Darstellung (> 8 Partner). Im Raster
-     * waeren das ~16 Zeilen und damit rund 350 px, die Kachel bietet auf 1366x768 aber
-     * nur 388 px fuer den GESAMTEN Inhalt.
+     * 31 Versicherer plus Schadensteuerer. Die Liste nimmt den Platz, der in der Kachel frei
+     * bleibt, und scrollt darin (`ZielgruppenPartner`) — auf Full HD stehen alle 32 ohne
+     * Scrollen in drei Spalten.
      *
-     * Bewusst OHNE Logos: Versicherer-Logos sind geschuetzte Marken, und 31 fremde
-     * Wort-Bild-Marken auf einer Werkstattseite waeren weder rechtlich sauber noch
-     * gestalterisch beherrschbar. Namensnennung als Referenz ist davon zu unterscheiden.
+     * Logos NUR mit Freigabe (2026-09-16: riparo). Versicherer-Logos sind geschuetzte Marken;
+     * ohne Freigabe bleibt es bei der Namensnennung als Referenz. Freigegebene Partner stehen
+     * vorn, damit die Logos nicht zwischen 31 Namen verschwinden.
      */
-    /**
-     * 860. Ein Versuch mit 760 (die Kachel hat ~112 px mehr Inhalt als die Gewerbe-
-     * Kachel) wurde nachgemessen und wieder verworfen: Auf 1366x768 blieben 55 px im
-     * Kartenscroll, die auf DESKTOP nicht erreichbar sind — Lenis faengt das Mausrad
-     * global ab. Mobil greift die Schwelle ohnehin nicht, dort ist die Liste vollstaendig
-     * sichtbar und der Kartentext scrollt.
-     */
-    partnersHideBelow: 860,
-    partners: insurancePartners,
+    partners: [...claimsPartners, ...insurancePartners],
   },
   {
     id: 'gewerbe',
@@ -90,10 +74,9 @@ const groups: TargetGroup[] = [
      * („Professionelle Fahrzeugdienstleistungen mit festen Ansprechpartnern …").
      *
      * BEWUSST EIN Absatz statt Beschreibung + Zusatztext: Die Kachelhoehe haengt am
-     * Viewport (`100svh - i x --bar`). Auf 1366x768 bleiben inkl. Titelleiste nur
-     * ~276 px fuer den GESAMTEN Kartentext — zwei Absaetze plus Partnerliste plus
-     * zwei CTAs passen dort nicht, das `overflow-hidden` der Bildkarte wuerde den
-     * Rest hart abschneiden.
+     * Viewport (`100svh - i x --bar`). Auf einem Laptop (1366 x 657 Fensterinhalt) bleibt
+     * fuer Text, zwei CTAs und Partnerliste zusammen nur rund ein halber Bildschirm —
+     * ein zweiter Absatz ginge von der Partnerliste ab. Nachmessen: `npm run zielgruppen`.
      *
      * Inhaltlich konkret statt werblich (SEO-GEO-STANDARDS.md 4.3/4.5): Flaeche,
      * Leistungsumfang, Lackpartnerschaft, Unfallabwicklung — pruefbare Angaben,
@@ -105,7 +88,6 @@ const groups: TargetGroup[] = [
     iconName: 'Building2',
     href: '/geschaeftskunden',
     backgroundImage: '/assets/kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp',
-    partnersHideBelow: 860,
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
     partners: dealerPartners,
   },
@@ -197,28 +179,12 @@ const TargetGroupCards: React.FC = () => {
     <section id="zielgruppen" aria-labelledby="target-groups-heading" className="bg-white py-20 md:py-28">
       {/* Stapel bewusst OHNE `container mx-auto px-6` — nur so laeuft er randlos bis an die
           Shell-Kante (gemessen: 14 px Rand bei 1440, identisch zur Hero-Sektion).
-          Vier Stellschrauben steuern `top`, Kartenhoehe, Einzug und Titelzeile zugleich:
-          `--gap`  = Einzug der weissen Karte im Bild (ringsum gleich).
-          `--fuss` = Freiraum UNTER der Karte. Ohne ihn endete die Karte exakt bei `100svh`,
-                     also buendig mit der Bildschirmunterkante: Der Bildrand unter der weissen
-                     Flaeche lag im letzten Pixelstreifen und war unsichtbar, waehrend er oben
-                     und rechts klar zu sehen war — die Kachel wirkte dadurch unten „zu lang".
-                     Unterhalb `lg` zusaetzlich gross genug fuer die fixierte MobileStickyCTA
-                     (83 px, `lg:hidden`), die sonst den Kartenfuss verdeckt.
-          `--bar` = Hoehe der stehenbleibenden Leiste. Enthaelt den Einzug MIT: sichtbar bleibt
-                    oben `--gap` Bildrand plus die Titelzeile der weissen Karte. Die Titelzeile
-                    ist deshalb `--bar` minus `--gap` hoch. Auf ZWEI Titelzeilen ausgelegt
-                    (24 px bzw. 30 px Schrift x 1.25 Zeilenhoehe + Innenabstand), weil der
-                    laengste Titel in der schmalen 30-%-Spalte zwangslaeufig umbricht.
-          `--nav` = Freiraum fuer die fixierte Navbar. MUSS ihrer Hoehe folgen, sonst parken
-                    die Leisten UNTER der Navbar und der Titel ist unsichtbar — genau das
-                    passierte mit `top: 0`. Werte gespiegelt von `.solidroad-nav-shell`
-                    (`h-[4.85rem] md:h-[6.25rem]`, gemessen 78 px / 100 px) plus 0.5rem Luft.
-                    Aendert sich die Navbar-Hoehe, hier nachziehen. */}
-      <div
-        ref={stapelRef}
-        className="[--bar:6rem] [--fuss:6.5rem] [--gap:1.25rem] [--nav:5.35rem] md:[--nav:6.75rem] lg:[--bar:7rem] lg:[--fuss:1.75rem]"
-      >
+          Die Stellschrauben (`--gap`, `--bar`, `--kopf`, `--fuss`, `--nav`, `--verweil`,
+          `--karte-b`, `--liste-min`) und ihre drei Hoehenstufen stehen in
+          `styles/zielgruppen.css` an `.zielgruppen-stapel` — mit Begruendung je Wert.
+          ⚠️ Nicht zusaetzlich als `[--bar:…]`-Klassen hier setzen: Utilities kommen zuletzt
+          und wuerden die Hoehenstufen still ueberschreiben. */}
+      <div ref={stapelRef} className="zielgruppen-stapel">
         {/* Ueberschrift. Ab `lg` ein Sticky-OVERLAY links oben auf dem Bild (`z-20` ueber allen
             Karten). Position, Hoehe und Stufen-Uebergang stehen in `.zielgruppen-titel`
             (index.css) — sie brauchen `--aktiv` und eine Media-Query, beides geht nicht als
@@ -233,9 +199,11 @@ const TargetGroupCards: React.FC = () => {
         <div className="zielgruppen-titel px-6 md:px-10 lg:pointer-events-none lg:sticky lg:z-20">
           {/* Breiter als zuvor (`min(42vw,30rem)` = 480 px bei 1440): Die Ueberschrift ist mit
               48 px zwar exakt so gross wie die der Unfall-Sektion, wirkte aber kleiner, weil sie
-              im engen Kasten dreizeilig umbrach. Die Bildseite ist jetzt 70 % breit, also ist
-              Platz da. */}
-          <div className="max-w-3xl lg:max-w-[min(54vw,40rem)]">
+              im engen Kasten dreizeilig umbrach.
+              Dritte Grenze seit 2026-09-17: Fensterbreite minus weisse Karte minus 8rem Luft.
+              Die Karte ist jetzt breiter (`--karte-b`); auf 1024 px laege die Ueberschrift
+              sonst ueber ihr — und als `pointer-events-none` saehe das kein Treffertest. */}
+          <div className="max-w-3xl lg:max-w-[min(54vw,40rem,calc(100vw_-_var(--karte-b)_-_8rem))]">
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600 lg:text-blue-200">
               Für wen wir arbeiten
             </span>
@@ -261,8 +229,8 @@ const TargetGroupCards: React.FC = () => {
           </div>
         </div>
           {groups.map((group, idx) => (
+            <Fragment key={group.id}>
             <article
-              key={group.id}
               aria-labelledby={`zielgruppe-${group.id}`}
               className="sticky"
               style={{
@@ -304,7 +272,8 @@ const TargetGroupCards: React.FC = () => {
                     Durch den Einzug `--gap` bleiben die abgerundeten Ecken sichtbar und es
                     entsteht ringsum ein schmaler Bildrand.
                     Mobil: oben ueber die volle Breite, Hoehe nach Inhalt (kein `bottom`).
-                    Ab `lg`: rechte Spalte, 30 % breit (70 % Bild).
+                    Ab `lg`: rechte Spalte, `--karte-b` breit (35vw, 25–38rem). Bis 2026-09-17
+                    feste 30 % — auf 1366 px brachen darin beide CTAs und die Titel um.
 
                     `bottom` (= Karte auf volle Kartenhoehe strecken) haengt BEWUSST an einer
                     kombinierten Query aus Breite UND Hoehe. Die Kachelhoehe ist
@@ -325,23 +294,25 @@ const TargetGroupCards: React.FC = () => {
                   `.site-main-shell` ist das eine bekannte Ursache fuer Flimmern und
                   Schlieren beim Scrollen. Wer den Blur zurueckholt, holt das Risiko mit.
                 */}
-                <div className="absolute left-[var(--gap)] right-[var(--gap)] top-[var(--gap)] z-10 flex max-h-[calc(100%_-_2*var(--gap))] flex-col overflow-hidden rounded-2xl bg-[rgb(255_255_255/0.94)] shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] [hyphens:auto] [@media(min-width:1024px)_and_(min-height:740px)]:bottom-[var(--gap)] lg:left-auto lg:w-[30%]">
+                <div data-karte="weiss" className="absolute left-[var(--gap)] right-[var(--gap)] top-[var(--gap)] z-10 flex max-h-[calc(100%_-_2*var(--gap))] flex-col overflow-hidden rounded-2xl bg-[rgb(255_255_255/0.94)] shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] [hyphens:auto] [@media(min-width:1024px)_and_(min-height:740px)]:bottom-[var(--gap)] lg:left-auto lg:w-[var(--karte-b)]">
                   {/* Diese Zeile bildet zusammen mit dem oberen Einzug die Leiste:
-                      `--bar` = `--gap` + Zeilenhoehe. Deshalb ist die Hoehe hier exakt
-                      `--bar` minus `--gap` — sonst waeren Parkposition und sichtbarer
-                      Streifen gegeneinander verschoben.
+                      `--bar` = `--gap` + Zeilenhoehe. Deshalb ist die Hoehe hier `--kopf`
+                      (= `--bar` minus `--gap`) — sonst waeren Parkposition und sichtbarer
+                      Streifen gegeneinander verschoben. In der flachen Hoehenstufe ist `--bar`
+                      0, `--kopf` dann ein eigener Wert (styles/zielgruppen.css).
 
                       Groesse = `text-2xl md:text-3xl`, exakt wie die h3 der Unfall-Sektion
-                      (gemessen 24 px / 30 px). In der 30 %-Spalte passt das NICHT mehr auf
-                      eine Zeile ("Versicherungen & Agenturen" braucht dort ~394 px, verfuegbar
-                      sind ~235–355 px). Deshalb `line-clamp-2` statt `truncate`: der Titel darf
-                      zweizeilig umbrechen, wird aber nie laenger — und `--bar` ist auf zwei
-                      Zeilen ausgelegt, damit die Leiste ihn immer vollstaendig zeigt.
+                      (gemessen 24 px / 30 px). 30 px passen nicht in jede Spaltenbreite
+                      ("Versicherungen & Agenturen" braucht ~394 px). Deshalb `line-clamp-2`
+                      statt `truncate`: der Titel darf zweizeilig umbrechen, wird aber nie
+                      laenger — die normale Stufe ist auf zwei Zeilen ausgelegt. Unter 860 px
+                      Fensterhoehe ist die Zeile nur 60 px hoch: dort 24 px, das passt ab 1024 px
+                      Breite einzeilig (`--karte-b` mindestens 25rem).
                       Kurze Titel ("Privatkunden") bleiben einzeilig und sitzen mittig. */}
-                  <div className="flex h-[calc(var(--bar)-var(--gap))] shrink-0 items-center border-b border-gray-100 px-5 md:px-6">
+                  <div className="flex h-[var(--kopf)] shrink-0 items-center border-b border-gray-100 px-5 md:px-6">
                     <h3
                       id={`zielgruppe-${group.id}`}
-                      className="line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-gray-950 [hyphens:none] md:text-3xl"
+                      className="line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-gray-950 [hyphens:none] md:text-3xl [@media(min-width:1024px)_and_(max-height:859px)]:text-2xl [@media(min-width:1024px)_and_(max-height:859px)]:leading-tight"
                     >
                       {group.title}
                       {/* Blauer Akzentpunkt — seitenweites Motiv, steht so auch an den Titeln der
@@ -361,11 +332,14 @@ const TargetGroupCards: React.FC = () => {
                       entsteht so mobil eine Scrollleiste, statt dass das `overflow-hidden`
                       der Bildkarte den Rest abschneidet.
 
-                      Auf Desktop passt der Inhalt in die Kachel, dort erscheint die Leiste
-                      also gar nicht. Lenis kollidiert hier nicht: Es laeuft mit
-                      `syncTouch: false`, auf Touch-Geraeten scrollt also nativ der innere
-                      Container und kettet am Ende normal an die Seite weiter. */}
-                  <div className="cc-card-scroll flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-5 [@media(max-height:900px)]:py-3.5 md:px-6 md:py-6">
+                      Auf Desktop passt der Inhalt normalerweise in die Kachel — die
+                      Partnerliste nimmt nur den Rest und scrollt selbst. Reicht selbst ihre
+                      Mindesthoehe nicht, scrollt dieser Bereich: per Touch nativ, per Mausrad
+                      dank `allowNestedScroll` (hooks/useSmoothScroll.ts). Vorher fing Lenis das
+                      Rad hier ab — im halb angedockten Fenster (960 px, Maus) waren 8 der 32
+                      Versicherer dadurch unerreichbar. `.cc-scroll-verlauf` blendet die
+                      Unterkante aus, solange unten noch etwas folgt. */}
+                  <div data-karte="inhalt" className="cc-card-scroll cc-scroll-verlauf flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-5 [@media(max-height:900px)]:py-3.5 md:px-6 md:py-6">
                     {/* Auf sehr niedrigen Viewports schrumpft der Text mit, statt abgeschnitten
                         zu werden: `text-xs` bringt mehr Zeichen pro Zeile und spart damit Zeilen.
                         Bewusst KEIN `line-clamp` — das wuerde Inhalt unterschlagen; kleiner
@@ -382,7 +356,11 @@ const TargetGroupCards: React.FC = () => {
                     {/* Beide CTAs in EINEM Wrap-Container: Auf breiten Kacheln stehen sie
                         nebeneinander, sonst untereinander — ohne feste Umbruchpunkte, die
                         bei der viewportabhaengigen Kachelbreite ohnehin nicht stimmen. */}
-                    <div className="mt-6 flex flex-wrap items-center gap-2 [@media(max-height:700px)]:mt-2.5 [@media(max-height:900px)]:mt-4">
+                    {/* Hoehenbereiche UEBERSCHNEIDUNGSFREI (seit 2026-09-17): Vorher standen
+                        `max-height:700px` und `max-height:900px` nebeneinander. Tailwind gibt die
+                        900er-Regel im CSS spaeter aus — unter 700 px gewann sie, `mt-2.5` war nie
+                        wirksam. */}
+                    <div data-karte="ctas" className="mt-6 flex flex-wrap items-center gap-2 [@media(max-height:700px)]:mt-2.5 [@media(min-height:701px)_and_(max-height:900px)]:mt-4">
                       <a
                         href={group.href}
                         className="group inline-flex items-center justify-between gap-3 rounded-full border border-gray-200 bg-white py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[0.16em] text-gray-900 shadow-sm [@media(max-height:700px)]:py-1 [@media(max-height:700px)]:pl-4 transition-colors hover:border-gray-300 hover:bg-gray-50"
@@ -410,69 +388,12 @@ const TargetGroupCards: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Referenzpartner. Raster ist logo-fertig: Sobald ein Partner ein `logo`
-                        traegt, erscheint es monochrom UEBER dem Namen; ohne Datei steht nur der
-                        Name — gleiches Raster, spaeter also ohne Layout-Aenderung nachruestbar.
-                        `grayscale` haelt fremde Markenfarben ruhig. Warum die Logos derzeit
-                        fehlen: siehe Kommentar an der Partnerliste oben. */}
-                    {/* HOEHEN-QUERY, gemessen begruendet: Auf 1366x768 ist die Bildkarte 408 px
-                        hoch, davon bleiben nach Einzug und Titelleiste 276 px fuer den Inhalt —
-                        Text und zwei CTAs brauchen dort bereits 260 px. Die Partnerliste passt
-                        schlicht nicht mehr rein und wuerde vom `overflow-hidden` der Bildkarte
-                        angeschnitten (belegt: 94 px Ueberstand). Sie weicht deshalb unter 860 px
-                        Viewporthoehe — nach dem dekorativen Badge das naechste entbehrliche
-                        Element, waehrend Text und CTAs immer stehen bleiben.
-                        Wer die Liste ueberall sehen will, muss Text ODER einen CTA kuerzen —
-                        siehe docs/zielgruppen-partner/tasks/. */}
+                    {/* Referenzpartner — Platz, Scrollen und Spalten: `ZielgruppenPartner`.
+                        Bis 2026-09-17 wich die Liste unter 860 px Fensterhoehe ganz; auf einem
+                        Full-HD-Bildschirm mit Lesezeichenleiste und Zoom war sie damit weg.
+                        Jetzt steht sie auf jeder Hoehe (Messung: `npm run zielgruppen`). */}
                     {group.partners && group.partners.length > 0 && (
-                      <div
-                        className={`mt-5 border-t border-gray-100 pt-4 ${PARTNER_HIDE_CLASS[group.partnersHideBelow ?? 860]}`}
-                      >
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-600">
-                          {group.partnersLabel ?? 'Partnerbetriebe'}
-                        </p>
-                        {/* EIN Raster fuer alle Kacheln — gleiche Spalten, Abstaende und
-                            Schrift, egal ob 5 oder 31 Partner. Ein frueherer Versuch, viele
-                            Namen als Fliesstext zu setzen, war deutlich schlechter lesbar.
-
-                            Das Platzproblem loest stattdessen ein eigener Scrollbereich:
-                            Ab `lg` bekommt die Liste eine Maximalhoehe und scrollt in sich —
-                            so bleiben Text und CTAs darueber immer sichtbar, waehrend die
-                            Liste beliebig lang sein darf.
-
-                            `data-lenis-prevent`: Lenis faengt Wheel-Events global ab, ein
-                            innerer Container wuerde sonst am Desktop gar nicht scrollen. Das
-                            Attribut gilt bewusst NUR fuer dieses kleine Listenfeld — auf dem
-                            gesamten Kartentext haette es das Weiterscrollen der Seite geblockt.
-
-                            Mobil KEINE Maximalhoehe: Dort scrollt bereits der ganze Kartentext,
-                            zwei ineinander liegende Scrollbereiche waeren unbedienbar.
-
-                            Logo-Slot bleibt: Sobald ein Partner ein `logo` traegt, erscheint es
-                            monochrom UEBER dem Namen; ohne Datei steht nur der Name. */}
-                        <ul
-                          data-lenis-prevent
-                          className="cc-card-scroll mt-2.5 grid grid-cols-2 gap-x-4 gap-y-2 lg:max-h-24 lg:overflow-y-auto lg:pr-2 [@media(min-width:1024px)_and_(min-height:860px)]:max-h-40 [@media(min-width:1024px)_and_(min-height:960px)]:max-h-56"
-                        >
-                          {group.partners.map((partner) => (
-                            <li key={partner.name} className="flex flex-col gap-1">
-                              {partner.logo && (
-                                <img
-                                  src={partner.logo}
-                                  alt=""
-                                  aria-hidden="true"
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="h-6 w-auto self-start object-contain opacity-60 grayscale"
-                                />
-                              )}
-                              <span className="text-[11px] font-semibold leading-snug text-gray-600 [hyphens:none]">
-                                {partner.name}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <ZielgruppenPartner partner={group.partners} titel={group.partnersLabel ?? 'Partnerbetriebe'} />
                     )}
 
                     {/* CarCare-Marke unten RECHTS auf der weissen Karte. Bewusst im Fluss
@@ -483,14 +404,12 @@ const TargetGroupCards: React.FC = () => {
                         darunter. Schatten dezenter als zuvor, weil es jetzt auf Weiss statt
                         auf dem Bild sitzt.
 
-                        HOEHEN-QUERY: Die Kachelhoehe haengt am Viewport (`100svh - i x --bar`),
-                        auf 1366x768 bleiben nur ~276 px fuer den gesamten Kartentext. Das Badge
-                        ist rein dekorativ — es weicht deshalb als Erstes, statt echten Inhalt
-                        (Text, CTAs, Partnerliste) vom `overflow-hidden` der Bildkarte
-                        abschneiden zu lassen. Bewusst eine HOEHEN-Query und kein Breiten-
+                        HOEHEN-QUERY: Die Kachelhoehe haengt am Viewport (`100svh - i x --bar`).
+                        Das Badge ist rein dekorativ — es weicht unter 1000 px Fensterhoehe,
+                        damit der Platz der Partnerliste zugutekommt. Bewusst eine HOEHEN-Query und kein Breiten-
                         Breakpoint: Der Engpass ist die Viewporthoehe, nicht die Breite.
-                        Schwelle 1000 px, weil die Gewerbe-Kachel mit Partnerliste und zwei
-                        CTAs die dichteste ist — darunter braucht sie jeden Pixel. */}
+                        Schwelle 1000 px, weil die Versicherungs-Kachel mit 32 Partnern darunter
+                        jeden Pixel fuer die Liste braucht. */}
                     <span className="mt-auto flex h-11 w-11 shrink-0 items-center justify-center self-end overflow-hidden rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-gray-200 [@media(min-width:1024px)_and_(max-height:1000px)]:hidden lg:h-14 lg:w-14">
                       <video
                         src={logoMarkVideoSrc}
@@ -507,6 +426,13 @@ const TargetGroupCards: React.FC = () => {
                 </div>
               </div>
             </article>
+            {/* Verweilstrecke: Die Karte bleibt `--verweil` lang vollstaendig stehen, bevor die
+                naechste aufzieht. Als eigenes Element und NICHT als `margin-bottom` der Karte:
+                Sticky begrenzt ueber die Margin-Box — die Karte loeste sonst um diesen Betrag
+                frueher als die letzte, und die Leisten fielen am Stapelende auseinander.
+                Unsichtbar: Er liegt hinter der geparkten Karte. */}
+            {idx < groups.length - 1 && <div aria-hidden="true" className="h-[var(--verweil)]" />}
+            </Fragment>
           ))}
 
           {/* Nachlauf: Ohne ihn loest die letzte Karte sofort wieder, sobald sie parkt —

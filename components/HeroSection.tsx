@@ -3,6 +3,8 @@ import { motion, useTransform } from 'framer-motion';
 import { AlertTriangle, Award, CalendarClock, MapPin, PaintBucket, Users } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 /**
  * Parallax-Reise in % der EBENENHOEHE. Herleitung (Ebene 120 %, `-top` -10 %):
@@ -191,11 +193,13 @@ const HeroSection: React.FC = () => {
               (SEO-GEO §4.4 interne Verlinkung), die Sticky-Bar nutzt dagegen JS-`<button>`. */}
           <div className="mt-9 hidden flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex lg:justify-center">
             <a
-              href="/kontakt#contact-schaden"
+              href={SCHADEN_ZIEL}
+              {...externAttribute(SCHADEN_ZIEL)}
               className="cc-glass-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <AlertTriangle size={18} />
               Schaden melden
+              <ExternMarke href={SCHADEN_ZIEL} groesse={16} />
             </a>
             <a
               href="/kontakt#contact-termin"

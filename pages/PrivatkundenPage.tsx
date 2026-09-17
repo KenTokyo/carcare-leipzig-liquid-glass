@@ -1,6 +1,7 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 /**
  * Zielgruppenseite Privatkunden — Gegenstueck zu `BusinessCustomersPage`.
@@ -21,7 +22,7 @@ const advantages = [
   },
   {
     title: 'Feste Preise bei der Aufbereitung',
-    description: 'Die Pflegepakete haben feste Preise: 169,00 € für die Außenpflege, 199,00 € für die Innenreinigung, 299,00 € für beides kombiniert. Sie wissen vorher, was es kostet.',
+    description: 'Die Pflegepakete haben feste Preise: 169,00 € für die Brillant Außenpflege, 199,00 € für die Intensiv Innenraumreinigung, 299,00 € für beides als Premiumpflege — für Geländewagen, Großraumlimousinen und Transporter mit festem Aufpreis. Sie wissen vorher, was es kostet.',
   },
   {
     title: 'Wir empfehlen die kleinere Lösung zuerst',
@@ -53,7 +54,7 @@ const advantages = [
 const services = [
   {
     title: 'Fahrzeugaufbereitung',
-    description: 'Innen- und Außenaufbereitung, Lackreinigung, Politur und Versiegelung — mit festen Paketpreisen ab 169,00 €.',
+    description: 'Innen- und Außenaufbereitung, Politur und Versiegelung — mit festen Paketpreisen ab 169,00 €.',
     href: '/fahrzeugaufbereitung-leipzig',
   },
   {
@@ -94,14 +95,14 @@ const services = [
 ];
 
 const situations = [
-  { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege für 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
+  { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege ab 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
   { title: 'Vor der Leasingrückgabe', description: 'Der Rückgabegutachter bewertet Dellen, Lackschäden, Felgen und Innenraum nach den Sätzen des Leasinggebers. Vorher instand gesetzt, ist vieles davon günstiger.', href: '/leasingrueckgabe-leipzig' },
   { title: 'Nach einem Unfall', description: 'Wir nehmen den Schaden auf, kalkulieren nachvollziehbar und übernehmen auf Wunsch die komplette Abstimmung mit der Versicherung.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Nach dem Parkplatzrempler', description: 'Kleine Dellen und Kratzer müssen kein Fall für die Komplettlackierung sein — wir prüfen zuerst die lackfreie Variante und Spot-Repair.', href: '/dellenentfernung-leipzig' },
 ];
 
 const steps = [
-  { title: 'Melden', description: 'Rufen Sie an oder schildern Sie Ihr Anliegen über das Formular. Fotos des Schadens helfen uns bei der ersten Einschätzung.' },
+  { title: 'Melden', description: 'Rufen Sie an oder schildern Sie Ihr Anliegen online. Einen Schaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info — das hilft uns bei der ersten Einschätzung.' },
   { title: 'Fahrzeug ansehen', description: 'Wir begutachten das Fahrzeug vor Ort in Leipzig und besprechen, welcher Weg fachlich und wirtschaftlich sinnvoll ist.' },
   { title: 'Preis klären', description: 'Bei der Aufbereitung gelten die festen Paketpreise. Bei Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
   { title: 'Reparatur & Übergabe', description: 'Wir arbeiten das Fahrzeug ab und übergeben es gereinigt zurück — mit Erklärung, was gemacht wurde.' },
@@ -120,7 +121,7 @@ const PrivatkundenPage: React.FC = () => (
       title="Ihr Auto in Leipzig – gepflegt, repariert und wieder wie neu."
       description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
-      secondaryCta={{ label: 'Schaden melden', href: '/kontakt#contact-schaden' }}
+      secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Autoaufbereitung Leipzig', 'Autoreparatur Leipzig', 'Smart Repair Leipzig', 'Leasingrückgabe Leipzig']}
     />
 

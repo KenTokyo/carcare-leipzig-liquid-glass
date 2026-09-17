@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import type { NavSection } from '../data/navigation';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 /**
  * Feste Id des Panels.
@@ -175,6 +176,7 @@ const NavMegaMenu: React.FC<NavMegaMenuProps> = ({
                 >
                   <a
                     href={card.href}
+                    {...externAttribute(card.href)}
                     onClick={(e) => onNavigate(e, card.href, true)}
                     onKeyDown={index === 0 ? handleErsteKarteKeyDown : undefined}
                     aria-haspopup={hasChildren ? 'true' : undefined}
@@ -206,8 +208,9 @@ const NavMegaMenu: React.FC<NavMegaMenuProps> = ({
                         </motion.span>
                       )}
                     </span>
-                    <span className="mt-auto pt-6 text-[15px] font-bold leading-tight tracking-tight text-[var(--cc-carbon)]">
+                    <span className="mt-auto inline-flex items-center gap-1 pt-6 text-[15px] font-bold leading-tight tracking-tight text-[var(--cc-carbon)]">
                       {card.label}
+                      <ExternMarke href={card.href} groesse={13} />
                     </span>
                     <span className="mt-1 text-[12.5px] leading-snug text-[rgb(var(--cc-graphite-rgb)/0.6)]">
                       {card.description}

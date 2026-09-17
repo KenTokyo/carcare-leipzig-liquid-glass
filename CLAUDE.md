@@ -108,10 +108,16 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run kontrast` | WCAG-AA-Kontrast im ausgelieferten HTML, je Route/Breite/Textstelle | nach jeder Farb-, Verlaufs- oder Transparenzänderung |
 | `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
+| `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 
 Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
 selbst — **niemals** `npm run dev` dafür starten.
+
+**„Full HD" heißt nicht 1080 px Seitenhöhe.** Ein maximierter Browser auf 1920 × 1080 gibt der
+Seite etwa 913–945 px, mit 110 % Zoom 830 px. An genau dieser Lücke waren die Partnerlisten
+2026-09-17 unsichtbar (Ausblendung unter 860 px). Höhenabhängige Layouts an den Fenstern aus
+`scripts/check-zielgruppen.mjs` messen, nicht an der Bildschirmauflösung.
 
 **Der Kontrastmesser hat 2026-09-03 gefunden, was drei Sichtprüfungen nicht fanden.**
 Die sechs Fallen seines Aufbaus stehen im Kopf von `scripts/check-kontrast.mjs`;

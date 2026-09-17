@@ -88,6 +88,12 @@ export interface ServiceLayoutProps {
     items: FeatureItem[];
     /** Nur setzen, wenn die Ableitung aus der Kartenzahl nicht passt. */
     columns?: 'three' | 'four';
+    /**
+     * Zwischen Einleitung und Karten — etwa ein Verbandssiegel, das zum Satz der Einleitung
+     * gehoert (Backlog 3.12, Hagelseite). Bewusst ein freier Knoten statt eines Siegel-Felds:
+     * Die Komponente muss nicht wissen, was dort steht.
+     */
+    zusatz?: React.ReactNode;
   };
   /** Vertrauenssektion. Eyebrow ist fest, nur die Ueberschrift ist seitenspezifisch. */
   usp: { title: string; items: FeatureItem[] };
@@ -163,6 +169,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
       <section className={SEKTION}>
         <div className="container mx-auto">
           <SectionIntro eyebrow={leistung.eyebrow} title={leistung.title} description={leistung.description} />
+          {leistung.zusatz && <div className="mb-10 max-w-3xl md:mb-14">{leistung.zusatz}</div>}
           <FeatureGrid
             items={leistung.items}
             columns={leistung.columns ?? spaltenFuer(leistung.items.length)}

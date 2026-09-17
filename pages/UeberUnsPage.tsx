@@ -3,6 +3,8 @@ import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, Sect
 import Timeline from '../components/Timeline';
 import BetriebsVideo from '../components/BetriebsVideo';
 import LeistungsKarten from '../components/LeistungsKarten';
+import Mitgliedssiegel from '../components/Mitgliedssiegel';
+import { bvat } from '../data/mitgliedschaften';
 import { historie } from '../data/historie';
 import { videoPlatz } from '../data/videos';
 
@@ -42,7 +44,9 @@ const qualifications = [
   { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind — mit umweltschonenden Wasserbasislacken.' },
   { title: 'WINTEC-Partner für Autoglas', description: 'Scheibentausch und Steinschlagreparatur nach ISO 9001, TÜV-zertifiziert, mit 30 Jahren Garantie auf die Verglasung.' },
   { title: 'TÜV-zertifizierte Felgenreparatur', description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe werden im geprüften Verfahren instand gesetzt — auch an glanzgedrehten Felgen.' },
-  { title: 'Audatex-Kalkulation', description: 'Schadenkalkulation mit dem von Versicherern und Gutachtern anerkannten System. Das macht Aufwand und Kosten für alle Beteiligten nachvollziehbar.' },
+  // Backlog 4.13: „Autotex/DAT-Kalkulationen" — „Autotex" ist Audatex (ein Kalkulationssystem
+  // dieses Namens gibt es nicht; marktueblich sind Audatex, DAT und GT Motive). DAT neu.
+  { title: 'Audatex- und DAT-Kalkulation', description: 'Schadenkalkulation mit den von Versicherern und Gutachtern anerkannten Systemen Audatex und DAT. Das macht Aufwand und Kosten für alle Beteiligten nachvollziehbar.' },
   { title: 'Komplette Unfall- und Versicherungsabwicklung', description: 'Von der Schadenaufnahme über Kostenvoranschlag und Abstimmung mit Versicherern und Gutachtern bis zur Freigabe — auf Wunsch inklusive Werkstattersatzfahrzeug.' },
 ];
 
@@ -59,7 +63,7 @@ const spectrum = [
   { title: 'Smart Repair & Dellenentfernung', description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — Instandsetzung statt Tauschen.', href: '/smart-repair-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgen & Autoglas', description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.', href: '/felgenreparatur-leipzig' },
-  { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege mit SWIZÖL-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
+  { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege „exklusiv“ mit Swissvax-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
 
 const customers = [
@@ -135,9 +139,13 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Qualifikation & Partnerschaften"
           title="Woran sich die Arbeitsqualität festmachen lässt."
-          description="Zertifizierungen und Herstellerpartnerschaften sind überprüfbar — anders als Qualitätsversprechen. Diese sechs stehen hinter jeder Reparatur."
+          description="Zertifizierungen, Partnerschaften und Mitgliedschaften sind überprüfbar — anders als Qualitätsversprechen. Diese stehen hinter jeder Reparatur."
         />
         <FeatureGrid items={qualifications} columns="three" />
+        {/* Backlog 4.13: „Mitglied im BVAT" — als Siegel unter den sechs Karten statt als
+            siebte Karte, die allein in einer Reihe stuende. Dieselbe Komponente wie auf der
+            Hagelseite (3.12). */}
+        <Mitgliedssiegel verband={bvat} className="mt-4" />
       </div>
     </section>
 

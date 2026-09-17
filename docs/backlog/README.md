@@ -4,9 +4,10 @@
 Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26?"),
 findet sie über die Tabelle unten.
 
-**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10, zuletzt fortgeschrieben am **2026-09-14** · **Website:** `carcare-center.vercel.app`
+**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10, zuletzt fortgeschrieben am **2026-09-16** · **Website:** `carcare-center.vercel.app`
 **Letzter Abgleich:** [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md)
-**Zuletzt erledigt (2026-09-14):** 2.1 (Kartenflächen), 2.3 (Ablauf-Animation), 4.2 + 4.18 (Betriebsfläche 3.500 m²) — `docs/schleife-2-4-karten-ablauf-flaeche/`
+**Zuletzt erledigt (2026-09-16):** Kundenentscheidungen zu Preisen (4.4, 4.7, 4.9, 4.10, 3.35), Texten (4.3, 4.8, 4.21), BVAT (3.12, 4.13), Partnerlogos (riparo, Porsche Zentrum — 3.16/3.31 teilweise) und „Schaden melden" → reparatur.info (2.23, 3.33, 3.34); R13 erledigt — `docs/preise-partner-schadenlink/`
+**Davor (2026-09-14):** 2.1 (Kartenflächen), 2.3 (Ablauf-Animation), 4.2 + 4.18 (Betriebsfläche 3.500 m²) — `docs/schleife-2-4-karten-ablauf-flaeche/`
 **Nach Art der Zulieferung sortiert** (Fotos · Texte · Logos · Pricing): [`../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md`](../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md)
 
 > **Alles, was hier deployt wird, geht nur in diese Preview-Umgebung** — sie dient der
@@ -78,7 +79,7 @@ Umbenennungsplan: [`tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`](task
 ## Schnellzugriff: Was blockiert den Livegang?
 
 Zwei Punkte bei André, beide rechtlich — dazu ein technischer Nachweis bei uns
-*(Stand 2026-09-10)*:
+*(Stand 2026-09-10; **Zeitpunkt für 1 und 2 laut User: zum Schluss**, 2026-09-16)*:
 
 1. **Impressumsangaben vervollständigen** — Handwerkskammer, Berufsbezeichnung,
    Verbraucherstreitbeilegung, Telefonnummer *(repo-lokal „R5")*

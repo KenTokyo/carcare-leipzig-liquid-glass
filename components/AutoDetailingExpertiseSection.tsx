@@ -36,7 +36,8 @@ const expertiseCards: ExpandingCardItem[] = [
   {
     id: 'aussen',
     title: 'Außenaufbereitung',
-    description: 'Schonende Außenreinigung, Lackreinigung und ein durchgehend gepflegtes Erscheinungsbild.',
+    // Backlog 4.3: „Lackreinigung" entfaellt (2026-09-16).
+    description: 'Schonende Außenreinigung, Politur und Versiegelung für ein durchgehend gepflegtes Erscheinungsbild.',
     href: '/aussenaufbereitung-leipzig',
     cta: 'Zur Außenaufbereitung',
     backgroundImage: aufbereitungKacheln.aussen,

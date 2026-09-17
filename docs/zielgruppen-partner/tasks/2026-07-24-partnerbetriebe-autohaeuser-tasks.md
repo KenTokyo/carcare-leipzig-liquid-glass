@@ -1,5 +1,13 @@
 # Partnerbetriebe auf der Kachel „Autohäuser & Fuhrparks"
 
+> **Nachtrag 2026-09-17 — Ausblendung zurückgenommen.** Die unten beschriebene Höhen-Query
+> (Liste weicht unter 860 px Fensterhöhe) traf einen Full-HD-Bildschirm mit Browserleisten und
+> Zoom: Der User sah auf 1920 × 1080 keine Partner. Die Liste steht jetzt auf jeder Höhe,
+> nimmt den Restplatz der Karte und scrollt darin; die festen Höhen (96/160/224 px),
+> `partnersHideBelow` und `data-lenis-prevent` sind entfernt. Neu:
+> `docs/zielgruppen-partner-sichtbarkeit/tasks/2026-09-17-zielgruppen-partner-sichtbarkeit-tasks.md`.
+> Die Messtabellen unten beschreiben den damaligen Stand.
+
 **Erstellt:** 2026-07-24
 **Ziel:** Die Autohäuser, mit denen der Betrieb zusammenarbeitet, in der Sektion
 „Für wen wir arbeiten" nennen.

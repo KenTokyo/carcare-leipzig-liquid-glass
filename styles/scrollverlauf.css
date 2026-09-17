@@ -1,0 +1,84 @@
+/* Verlauf an der Kante eines inneren Scrollbereichs — zeigt „hier geht es weiter".
+   Angelegt 2026-09-17 fuer die Zielgruppenkarten (Partnerliste, Kartentext mobil),
+   bewusst allgemein benannt: Jeder Bereich mit eigenem Scroll kann `.cc-scroll-verlauf`
+   tragen. Eingebunden als `@import` oben in `index.css`.
+
+   OHNE JAVASCRIPT: Eine scroll-gesteuerte Animation (`animation-timeline: scroll(self)`)
+   schiebt zwei Laengen, die die Maske formen.
+     - Kann der Bereich nicht scrollen, ist die Zeitleiste inaktiv. Die Animation wirkt dann
+       gar nicht, beide Laengen bleiben 0 — keine Maske, kein Verlauf. Kein Messen, kein
+       ResizeObserver, kein Zustand.
+     - Oben bleibt er aus, solange nichts nach oben weggescrollt ist; unten verschwindet er,
+       sobald das Ende erreicht ist.
+
+   WARUM MASKE STATT UEBERLAGERTEM VERLAUF: Die Karte ist zu 94 % weiss und liegt auf einem
+   Foto. Ein weisser Verlauf daruber waere heller als die Karte und als Band sichtbar; die
+   Maske blendet den INHALT aus und laesst den Kartengrund unberuehrt.
+
+   UNTERSTUETZUNG: Chrome/Edge ab 115, Safari ab 26. Ohne Unterstuetzung (Firefox, Stand
+   2026) bleibt der Bereich ohne Verlauf — die schmale Scrollleiste (`.cc-card-scroll`) zeigt
+   das Weitergehen trotzdem an. Die Registrierung per `@property` ist noetig, sonst laesst
+   sich eine Laenge in einer Custom Property nicht interpolieren. */
+@property --cc-verlauf-oben {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --cc-verlauf-unten {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* Zwei Animationen mit EIGENEM Scrollbereich statt einer ueber den ganzen Weg:
+     oben  — laeuft ueber die ersten 1.25rem Scrollweg: Verlaufslaenge = min(scrollTop, 1.25rem)
+     unten — laeuft ueber die letzten 2.25rem: Verlaufslaenge = min(Restweg, 2.25rem)
+   Mit einer gemeinsamen Animation (erste Fassung) stand unten der volle Verlauf, sobald
+   ueberhaupt etwas scrollte — auf 1920 x 945 lief die Versicherer-Liste 1 px ueber, und die
+   letzte, voll sichtbare Zeile wirkte trotzdem ausgeblendet. Bei kleinem Ueberlauf beginnt
+   der untere Bereich vor 0 (`100% - 2.25rem` ist dann negativ); der Verlauf ist dadurch von
+   Anfang an nur so lang wie der Rest. */
+@keyframes cc-verlauf-oben {
+  from {
+    --cc-verlauf-oben: 0px;
+  }
+  to {
+    --cc-verlauf-oben: 1.25rem;
+  }
+}
+
+@keyframes cc-verlauf-unten {
+  from {
+    --cc-verlauf-unten: 2.25rem;
+  }
+  to {
+    --cc-verlauf-unten: 0px;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .cc-scroll-verlauf {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--cc-verlauf-oben),
+      #000 calc(100% - var(--cc-verlauf-unten)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--cc-verlauf-oben),
+      #000 calc(100% - var(--cc-verlauf-unten)),
+      transparent 100%
+    );
+    animation:
+      cc-verlauf-oben linear both,
+      cc-verlauf-unten linear both;
+    animation-timeline: scroll(self), scroll(self);
+    animation-range:
+      0 1.25rem,
+      calc(100% - 2.25rem) 100%;
+  }
+}

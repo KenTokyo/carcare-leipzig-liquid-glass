@@ -1,5 +1,8 @@
 import React from 'react';
 import ServiceLayout from '../components/ServiceLayout';
+import Mitgliedssiegel from '../components/Mitgliedssiegel';
+import { bvat } from '../data/mitgliedschaften';
+import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 const leistungen = [
   { title: 'Kalkulation mit Audatex', description: 'Kalkulation des Schadens mit dem durch Versicherer und Gutachter anerkannten System Audatex.' },
@@ -27,7 +30,7 @@ const HagelschadenreparaturPage: React.FC = () => (
       title: 'Hagelschadenreparatur in Leipzig.',
       description:
         'Sie sind mit Ihrem Fahrzeug in einen Hagelschauer gekommen? Kein Problem! Wir helfen Ihnen dabei, dass Ihr Fahrzeug wieder in den Originalzustand versetzt wird – inklusive Kalkulation und Abwicklung mit Ihrer Versicherung.',
-      primaryCta: { label: 'Hagelschaden melden', href: '/kontakt#contact-schaden' },
+      primaryCta: { label: 'Hagelschaden melden', href: SCHADEN_ZIEL },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Hagelschadenreparatur Leipzig', 'Hagelschaden Auto Leipzig', 'Hageldellen entfernen Leipzig'],
     }}
@@ -48,14 +51,11 @@ const HagelschadenreparaturPage: React.FC = () => (
     leistung={{
       eyebrow: 'Unsere Leistungen für Sie',
       title: 'Von der Kalkulation bis zur Versicherungsabwicklung.',
-      // Backlog 3.12: Hinweis auf die BVAT-Mitgliedschaft. Bewusst NUR als Satz und
-      // ohne Ausschreibung des Verbandsnamens — die Langform ist im Projekt nirgends
-      // belegt, und ein falsch ausgeschriebener Verbandsname waere schlechter als die
-      // Abkuerzung. Das LOGO fehlt noch: Es braucht eine Datei vom Kunden plus die
-      // uebliche Freigabefrage (vgl. 3.31, Partnerlogos). Bis dahin steht der Hinweis
-      // allein — er traegt die Aussage auch ohne Bild.
-      description:
-        'Wir sind Mitglied im BVAT und arbeiten bei Hagelschäden nach dessen fachlichen Maßstäben.',
+      // Backlog 3.12 + 4.13 (2026-09-16): Mitgliedschaft mit OFFIZIELLEM Verbandsnamen und
+      // Siegel. Der Name ist am Impressum des Verbands geprueft (`data/mitgliedschaften.ts`) —
+      // bis dahin stand hier bewusst nur die Abkuerzung, weil die Langform nirgends belegt war.
+      description: `Wir sind Mitglied im ${bvat.kurz}, dem ${bvat.name}, und arbeiten bei Hagelschäden nach dessen fachlichen Maßstäben.`,
+      zusatz: <Mitgliedssiegel verband={bvat} />,
       items: leistungen,
     }}
     usp={{ title: 'Meisterbetrieb mit kompletter Versicherungsabwicklung.', items: usp }}
@@ -65,7 +65,7 @@ const HagelschadenreparaturPage: React.FC = () => (
       description:
         'Melden Sie den Schaden mit den wichtigsten Informationen – wir kalkulieren mit Audatex und rechnen direkt mit Ihrer Versicherung ab.',
       primaryLabel: 'Hagelschaden jetzt melden',
-      primaryHref: '/kontakt#contact-schaden',
+      primaryHref: SCHADEN_ZIEL,
     }}
   />
 );
