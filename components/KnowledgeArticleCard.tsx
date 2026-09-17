@@ -15,7 +15,7 @@ const KnowledgeArticleCard: React.FC<KnowledgeArticleCardProps> = ({ article, fe
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-40px' }}
     transition={{ duration: 0.45 }}
-    className={`group flex h-full flex-col rounded-2xl border bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60 ${
+    className={`cc-karte group flex h-full flex-col rounded-2xl border p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60 ${
       featured ? 'border-blue-100 md:p-8' : 'border-gray-100'
     }`}
   >

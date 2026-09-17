@@ -20,7 +20,7 @@ const ArticleContentSection: React.FC<ArticleSection> = ({ id, title, items, ord
   const ListTag = ordered ? 'ol' : 'ul';
 
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-28 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
+    <section id={id} aria-labelledby={`${id}-heading`} className="cc-karte scroll-mt-28 rounded-2xl border border-gray-100 p-6 shadow-sm md:p-8">
       <h2 id={`${id}-heading`} className="text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-3xl">
         {title}
       </h2>
@@ -117,7 +117,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
             </section>
           </div>
 
-          <aside className="h-fit rounded-2xl border border-gray-100 bg-white p-5 shadow-sm lg:sticky lg:top-28">
+          <aside className="cc-karte h-fit rounded-2xl border border-gray-100 p-5 shadow-sm lg:sticky lg:top-28">
             <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-gray-600">Im Artikel</h2>
             <nav aria-label="Artikelabschnitte" className="mt-4 space-y-2">
               {sections.map((section) => (

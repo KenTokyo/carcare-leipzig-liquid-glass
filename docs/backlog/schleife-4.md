@@ -10,6 +10,8 @@ Quelle: Feedbackliste von André Bosse, `car-Care-Center_Website_Feedback Schlei
 **Aufgabentext und Anmerkungen sind unverändert aus der Quelle übernommen** (Spalten „Mangel / gewünschte
 Änderung" und „Anmerkung / offene Frage"). Ergänzungen von uns stehen kursiv in „Stand im Projekt".
 
+**Stand 2026-09-14:** 10 von 21 Punkten umgesetzt — das Sofortpaket vom 2026-09-11 (4.5, 4.6, 4.11, 4.12, 4.15, 4.16, 4.17, 4.20) und die Flächenentscheidung 4.2 mit dem davon entsperrten 4.18.
+
 **Priorität laut Kunde:** 1–3, die Richtung steht nicht in der Liste. Wahrscheinlich ist **1 = hoch**: Die
 kurzen Textkorrekturen tragen fast alle 1, die aufwendigen Punkte (Bildretusche, Video, Preisentscheidung)
 tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
@@ -26,7 +28,7 @@ tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
 
 | Nr. | Bereich / Seite | Aufgabe | Anmerkung Kunde | Prio | Status | Stand im Projekt |
 |---|---|---|---|---|---|---|
-| 4.2 | Reiter "Fahrzeug" – Überschrift | Quadratmeterzahl in "Professionelle Fahrzeugaufbereitung in Leipzig" auf über 3.500 m² anpassen. | — | 1 | offen | *Steht im Einleitungstext unter der H1 von `/fahrzeugaufbereitung-leipzig` („… ausgeführt im Meisterbetrieb auf über 3.000 m²"). ⚠️ **Widerspricht Textregel 4 in `CLAUDE.md` („über 3.000 m²") und dem abgenommenen 1.2** („überall auf über 3.000 m² vereinheitlichen"). 4.18 nennt 3.500 m² ebenfalls — es ist also eine neue Angabe, kein Tippfehler. Gezählt: **30 Fundstellen in 20 Dateien** (Leistungskarten, Meta-Texte, FAQ, strukturierte Daten). Nur hier zu ändern, erzeugte einen Widerspruch auf der eigenen Seite. **Rückfrage: überall auf 3.500 m²?** Dann Textregel 4 und `SEO-GEO-STANDARDS.md` (USP-Bausteine) mitziehen.* |
+| 4.2 | Reiter "Fahrzeug" – Überschrift | Quadratmeterzahl in "Professionelle Fahrzeugaufbereitung in Leipzig" auf über 3.500 m² anpassen. | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-14 vom User entschieden: **überall 3.500 m².** Gemessen nach der Umstellung: **33 Fundstellen in 20 Dateien** unter `components/`, `pages/`, `data/`, `seo/` — sichtbarer Text, FAQ und strukturierte Daten — dazu **Textregel 4 in `CLAUDE.md`** und die USP-Bausteine in `SEO-GEO-STANDARDS.md`. Alle zugleich, nie einzeln. ⚠️ **Falle:** `pages/DatenschutzPage.tsx` nennt „rund 23.000 Zeichen" — eine Textlänge, keine Fläche; ein globales Ersetzen hätte genau dort danebengegriffen. Nur „3.000 m²" und „3.000 Quadratmeter" treffen. `npm run meta` danach: 0 Descriptions außerhalb 140–160 (die Zahl ist zeichengleich, das musste aber gemessen werden). **Entsperrt 4.18.*** |
 | 4.3 | Reiter "Fahrzeug" – Leistungsaufzählung | Statt "Innenraum, Außenpflege, Lackreinigung" neu: "Innenraum und Außenpflege, Politur, Versiegelung, Geruchsentfernung". | Offen: entfällt "Lackreinigung" komplett oder geht sie in "Politur/Versiegelung" auf? | 2 | offen | *Einleitungstext `/fahrzeugaufbereitung-leipzig` (`pages/VehicleDetailingPage.tsx`). Die Rückfrage stellt der Kunde selbst. Zu beachten: „Lackreinigung" steht heute auch im Paketinhalt der Brillant-Außenpflege (`data/detailing.ts`) — entfällt sie, ist dort mitzuändern.* |
 | 4.4 | Sektion "Was kostet eine Autoaufbereitung in Leipzig" | Swissvax / Premiumpflege exklusiv nicht mehr mit Festpreis, sondern "Preis nach Absprache" (je nach Aufwand). | — | 2 | offen | *Heute „ab 348,00 €" — in `data/detailing.ts` (Karte und `Offer`-Schema), im Einleitungstext der Preissektion und in zwei FAQ-Antworten (`data/faqs.ts`). **Alle Stellen gemeinsam ändern**, sonst widerspricht das Schema dem sichtbaren Text (SEO-Standard 5: nur Sichtbares auszeichnen). Die Seite schreibt die Wachsmarke „SWIZÖL", der Kunde „Swissvax" — Schreibweise festlegen. Deckt sich mit 4.10.* |
 | 4.5 | Paket "Brilliant Außenpflege" | "Schonende Oberwäsche inkl. Abledern" ändern in "Schonende Handoberwäsche". | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-11: Paketinhalt, Leistungskarte (Titel „Schonende Handoberwäsche"), FAQ, Leistungskatalog und Service-Schema — sichtbarer Text und strukturierte Daten gleich.* *Vorher: Drei Fundstellen: Paketinhalt (`data/detailing.ts`), Leistungskarte auf `/aussenaufbereitung-leipzig` („Schonende Oberwäsche inklusive Abledern") und FAQ „Was gehört zur Außenaufbereitung?". Schreibweise: Kunde „Brilliant", Seite „Brillant" — siehe 4.21.* |
@@ -57,7 +59,7 @@ tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
 | 4.15 | Sektion "Entwicklung" – Überschrift | Überschrift ändern in "Von der Fahrzeugaufbereitung zum Full-Service-Betrieb" (nicht "von der Lackiererei..."). | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-11.* *Vorher: `pages/UeberUnsPage.tsx`: „Von der Lackiererei zum Full-Service-Betrieb." Reine Textänderung.* |
 | 4.16 | Sektion "Entwicklung" – 1998 | 1998: Gründung in Leipzig, Start als Kfz-Aufbereitungsbetrieb und Anbieter/Dienstleister für Premiumhersteller in Leipzig und im gesamten Bundesgebiet – von Anfang an fachliche Grundlage. | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-11: Station 1998 im Wortlaut des Kunden. Sie ersetzt „Start als Betrieb des Kfz-Lackierhandwerks. Der Meisterbrief ist von Anfang an die fachliche Grundlage." — den Meisterbrief hat der Kunde bei 1998 selbst gestrichen (stützt R13). **Beantwortet R1** zusammen mit 4.17–4.20.* |
 | 4.17 | Sektion "Entwicklung" – Meilenstein 1 (2000) | Erweiterung um das Geschäftsfeld Spot- und Smart-Repair. | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-11: Station 2000, Titel „Spot- und Smart-Repair". Beantwortet R1 (Jahr + Satz).* |
-| 4.18 | Sektion "Entwicklung" – Meilenstein 2 (2013) | Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des gesamten Dienstleistungsportfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie Schaffung komplett neuer Arbeitsbereiche. | — | 1 | offen | *Beantwortet R1. Nennt 3.500 m² — mit 4.2 zusammen entscheiden, sonst steht im Zeitstrahl eine andere Fläche als im Rest der Seite.* |
+| 4.18 | Sektion "Entwicklung" – Meilenstein 2 (2013) | Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des gesamten Dienstleistungsportfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie Schaffung komplett neuer Arbeitsbereiche. | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-14: Station 2013 im Wortlaut des Kunden. Sie war **ausschließlich** durch die Flächenfrage blockiert — ihr Text nennt 3.500 m², die Seite sagte 3.000. Mit der Entscheidung zu 4.2 ist der Widerspruch weg. `istPlatzhalter` entfernt und der Eintrag aus der `ANERKANNT`-Liste von `scripts/check-dummies.mjs` genommen, sonst hätte der Wächter den Build gebrochen. Der Zeitstrahl trägt damit **5 von 6** Stationen; offen bleibt nur **4.19** (Jahr fehlt). Beantwortet **R1** bis auf dieses Jahr.* |
 | 4.19 | Sektion "Entwicklung" – Meilenstein 3 | Beginn/Ausweitung der Zusammenarbeit im Schadens- und Versicherungsbereich durch großflächige Partnerschaften mit der Versicherungswirtschaft; Ausbildungsbetrieb im Lackierhandwerk und Karosseriebauhandwerk. | — | 1 | offen | *Beantwortet R1 — **aber ohne Jahreszahl.** Die fehlt noch; eine geratene Zahl sähe aus wie eine geprüfte. „Ausbildungsbetrieb im Lackier- und Karosseriebauhandwerk" **beantwortet 3.32 teilweise**.* |
 | 4.20 | Sektion "Entwicklung" – Meilenstein 4 (2026) | Vollständige Digitalisierung aller Geschäftsprozesse. | — | 1 | ✅ **umgesetzt** | *✅ 2026-09-11: Station 2026 „Vollständig digital" vor „Heute" eingefügt; „Heute" bleibt. Mit sechs Stationen wurden die Karten zu schmal und ragten gemessen bis 230px aus dem Zeitstrahl — die Komponente ist dafür umgebaut (Höhe aus dem Inhalt, waagerecht ab 1280px), siehe `docs/backlog/tasks/2026-09-11-schleife-4-sofortpaket-tasks.md`.* *Vorher: Beantwortet R1. Der Zeitstrahl hatte fünf Stationen (1998, drei Platzhalter, „Heute"); mit vier Meilensteinen werden es sechs, oder 2026 ersetzt „Heute". Beim Umsetzen entscheiden. Passt zu 1.16 (volldigitale Abwicklung, Data Motive).* |
 
@@ -73,7 +75,7 @@ tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
 
 | Offener Punkt | Antwort aus | Was danach noch fehlt |
 |---|---|---|
-| **R1** Meilensteine Zeitstrahl | 4.16–4.20 | nur das **Jahr für Meilenstein 3** (4.19) |
+| **R1** Meilensteine Zeitstrahl | 4.16–4.20 | nur das **Jahr für Meilenstein 3** (4.19). *Stand 2026-09-14: 5 von 6 Stationen stehen, 2013 ist mit 4.2 entsperrt worden.* |
 | **3.32** / **R4** Ausbildung | 4.19: „Ausbildungsbetrieb im Lackierhandwerk und Karosseriebauhandwerk" | Werden im kommenden Jahrgang Plätze besetzt? Bleibt **Industriekaufmann/-frau** auf `/karriere` (in 4.19 nicht genannt)? Eckdaten je Beruf (R4) |
 | **R5** Impressum | 4.11: Berufsbezeichnung | Handwerkskammer, Verleihungsstaat, berufsrechtliche Regelung, Telefonnummer, Verbraucherstreitbeilegung |
 | **3.12** BVAT | 4.13: Mitgliedschaft + Langform | Langform aus der Liste ist falsch → offizielle Form bestätigen lassen; Logodatei + Freigabe |
@@ -83,7 +85,7 @@ tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
 
 ## Rückfragen an André (gebündelt)
 
-1. **4.2 / 4.18** — 3.500 m² **überall** statt 3.000 m²? (30 Fundstellen, verbindliche Textregel)
+1. ~~**4.2 / 4.18** — 3.500 m² **überall** statt 3.000 m²?~~ ✅ **Am 2026-09-14 vom User bejaht und umgesetzt** (33 Fundstellen in 20 Dateien, Textregel 4 mitgezogen).
 2. **R13** — Seit wann ist der Betrieb Meisterbetrieb? (siehe unten)
 3. **4.13** — BVAT-Langform: die offizielle lautet „Bundesverband für Ausbeultechnik und Hagelinstandsetzung e.V." — ist dieser Verband gemeint? Und „Autotex" = Audatex?
 4. **4.19** — Jahr für Meilenstein 3
@@ -105,7 +107,8 @@ tragen 3. *Beim Kunden bestätigen.* **Status laut Kunde:** alle 21 `offen`.
 | Paket | Punkte | Voraussetzung |
 |---|---|---|
 | ~~**Sofort** — reine Textkorrekturen mit eindeutigem Wortlaut~~ | 4.5, 4.6 (Teppichreinigung, Oberwäsche), 4.11, 4.12, 4.15, 4.16, 4.17, 4.20 | ✅ **umgesetzt 2026-09-11**, Branch `2026-09-10-schleife-4-sofortpaket` |
-| **Nach Antwort** — Entscheidung oder Rückfrage nötig | 4.2 + 4.18, 4.3, 4.4 + 4.10, 4.7, 4.8, 4.9, 4.13, 4.19, 4.21 | Rückfragen oben |
+| ~~**Nach Antwort** — Flächenfrage~~ | ~~4.2 + 4.18~~ | ✅ **entschieden und umgesetzt 2026-09-14**, Branch `2026-09-14-karten-ablauf-flaeche` |
+| **Nach Antwort** — Entscheidung oder Rückfrage nötig | 4.3, 4.4 + 4.10, 4.7, 4.8, 4.9, 4.13, 4.19, 4.21 | Rückfragen oben |
 | **Bild und Video** | 4.1 (Retusche), 4.14 (ganzer Film als Klick-Video, zugleich WCAG 2.2.2) | Fotosichtung läuft |
 
 ---

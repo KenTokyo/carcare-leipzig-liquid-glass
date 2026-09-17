@@ -1,6 +1,6 @@
 # Offene Punkte, konsolidiert
 
-**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**; Abschnitt 1 und 3 am
+**Stand:** 2026-09-06, gegen den Code nachgezogen am **2026-09-07**; **2026-09-14** (2.1, 2.3, 4.2, 4.18 erledigt — `docs/schleife-2-4-karten-ablauf-flaeche/`); Abschnitt 1 und 3 am
 **2026-09-10** (Netcup-Versand, Videos — `docs/backlog/tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`);
 Abschnitt 1 und 2 am **2026-09-10** mit den Antworten aus **Schleife 4** (`schleife-4.md`, 4.1–4.21)
 
@@ -110,7 +110,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 |---|---|---|---|---|---|
 | **R12** | Formulare | **Feldliste der Schadenmeldung durchgehen.** 12 sichtbare Felder + 4 bei Versicherungsfällen. Vorlage zum Streichen liegt bereit, mit vier Rückfragen | André | — | offen |
 | **R3** | Inhalt | **Erklärtexte für sieben Leistungsseiten**, je 2–3 Absätze „Was ist X?" | André | blockiert **1.15** — die Sektion steht auf sieben Seiten und ist leer | offen |
-| **R1** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | drei Platzhalter stehen sichtbar auf `/ueber-uns` | ✅ **geliefert 2026-09-10** (4.16–4.20: 1998, 2000, 2013, ohne Jahr, 2026). Offen nur das **Jahr für Meilenstein 3** (4.19); **1998, 2000, 2026 eingebaut 2026-09-11**, Meilenstein 2 wartet auf 4.2 (Fläche) |
+| **R1** | Inhalt | **Meilensteine für den Zeitstrahl:** Jahr + ein Satz je Station | André | ~~drei Platzhalter~~ noch **einer** auf `/ueber-uns` | ✅ **geliefert 2026-09-10** (4.16–4.20). Eingebaut: 1998, 2000, 2026 am 2026-09-11; **2013 am 2026-09-14**, entsperrt durch die Flächenentscheidung 4.2. **5 von 6 Stationen stehen.** Offen nur noch das **Jahr für Meilenstein 3** (4.19) |
 | **1.18** = **2.26** | Inhalt | **Liste der Zusatzleistungen** fürs Aufbereitungsformular. Dabei klären: Was ist Paket, was Zusatz | André | zwei Platzhalter im Formular | Struktur steht · **Paket-Frage beantwortet** (4.21: Formularauswahl = Pakete), die Liste selbst fehlt |
 | **R4** | Inhalt | **Ausbildung bestätigen** (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen, Übernahmechancen | André | — | offen · **Richtung „ja"** (4.19: „Ausbildungsbetrieb im Lackier- und Karosseriebauhandwerk"); offen: kommender Jahrgang, Industriekaufmann/-frau, Eckdaten |
 | **R13** | Inhalt / Recht | **Seit wann ist der Betrieb Meisterbetrieb?** Die Seite sagt an 12 Stellen (seit 4.11 am 2026-09-11 noch 11) „Meisterbetrieb seit 1998"; laut Chronik aus Schleife 4 begann der Betrieb 1998 als Aufbereitungsbetrieb (4.16), Lackierung und Karosserie kamen 2013 (4.18). Stimmt „seit 1998" für die Meisterqualifikation nicht, ist die Aussage irreführend. Nichts entfernt | André | — | offen, neu 2026-09-10 |

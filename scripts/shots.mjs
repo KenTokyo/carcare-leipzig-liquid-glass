@@ -15,9 +15,23 @@
 //     SEKTIONSGRENZEN — dort geht Foto in Weiss ueber, dort sitzt der Kontrastfehler.
 //     Deshalb werden die Grenzen aus dem DOM gelesen und angefahren.
 //
+//  4. DIE AUFNAHME DARF NICHT IN DIE ANIMATION FALLEN. Bis 2026-09-14 wurden nach dem
+//     Scrollen 550 ms gewartet. Die Zeitstrahl- und Ablauf-Animation laeuft aber laenger:
+//     Achse 1,1 s, der letzte Punkt startet bei 1,22 s, seine Karte bei 1,38 s und
+//     braucht 0,45 s — Ende also bei rund 1,83 s. Die Aufnahme der Ablauf-Sektion auf
+//     /privatkunden zeigte deshalb Karte 1 fertig, Punkt 2 halb und die Karten 3 und 4
+//     GAR NICHT. Das sah aus wie ein Layoutfehler und war ein Aufnahmefehler — genau die
+//     Sorte Befund, an der die naechste Sitzung etwas repariert, das nicht kaputt ist.
+//     `BERUHIGUNG` liegt deshalb ueber der laengsten Animation, mit Reserve.
+//
 // ⚠️ Was diese Pruefung besteht, ohne dass die Sache in Ordnung ist: Sie macht Bilder,
 // sie bewertet nichts. Ein schiefes Layout faellt nur auf, wenn jemand hinsieht.
 // Fuer die messbare Aussage ist `npm run kontrast` zustaendig.
+//
+// ⚠️ ROUTENFILTER UNTER GIT BASH: `npm run shots -- /ueber-uns` kommt dort als
+// `C:/Program Files/Git/ueber-uns` an — MSYS wandelt fuehrende Schraegstriche in
+// Windows-Pfade um, der Filter greift nicht und es laufen ALLE Routen. Mit
+// `MSYS_NO_PATHCONV=1` davor gestellt funktioniert er. In PowerShell und cmd nicht noetig.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,6 +42,15 @@ import { startePreview, HALTE_SCROLL } from './lib/preview-server.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const AUSGABE = path.join(wurzel, 'output', 'shots');
+
+/**
+ * Wartezeit zwischen Scrollen und Ausloesen, in Millisekunden.
+ *
+ * Muss ueber der laengsten Einblend-Animation liegen (gemessen 1,83 s, siehe Punkt 4 im
+ * Kopf). Wer die Werte in `components/ablaufAnimation.ts` erhoeht, erhoeht auch diese
+ * Zahl — sonst nehmen die Review-Bilder wieder halbe Sektionen auf.
+ */
+const BERUHIGUNG = 2100;
 
 const args = process.argv.slice(2);
 const nurRoute = args.find((a) => a.startsWith('/'));
@@ -91,7 +114,7 @@ try {
       for (let i = 0; i < grenzen.length; i++) {
         const y = grenzen[i];
         await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
-        await new Promise((r) => setTimeout(r, 550));
+        await new Promise((r) => setTimeout(r, BERUHIGUNG));
         const datei = path.join(ordner, `${b.name}-${String(i).padStart(2, '0')}-y${y}.png`);
         await seite.screenshot({ path: datei });
         await seite.evaluate(() => window.__ccLoslassen());

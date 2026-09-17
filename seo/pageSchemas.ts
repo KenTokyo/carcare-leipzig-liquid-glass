@@ -127,7 +127,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/ueber-uns': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Über uns', path: '/ueber-uns' }]),
-    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk in Leipzig und seit 1998 am Markt. Über 50 Mitarbeiter bearbeiten auf über 3.000 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
+    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk in Leipzig und seit 1998 am Markt. Über 50 Mitarbeiter bearbeiten auf über 3.500 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
     faqSchema(faqsByRoute['/ueber-uns']),
   ],
   /**

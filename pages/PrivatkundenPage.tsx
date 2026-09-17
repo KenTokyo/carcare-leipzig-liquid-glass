@@ -17,7 +17,7 @@ import LeistungsKarten from '../components/LeistungsKarten';
 const advantages = [
   {
     title: 'Ein Betrieb statt drei Werkstätten',
-    description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.000 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
+    description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
   },
   {
     title: 'Feste Preise bei der Aufbereitung',

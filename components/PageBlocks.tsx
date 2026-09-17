@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { faqsByRoute } from '../data/faqs';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
+import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
 export interface PageHeroProps {
   eyebrow: string;
@@ -124,15 +125,20 @@ export const SectionIntro: React.FC<{ eyebrow: string; title: string; descriptio
 );
 
 /**
- * `tone`:
- *  - `solid` (Standard) — weisse Karten. Richtig auf Seiten OHNE Foto-Hintergrund.
- *  - `translucent` — halbtransparente Karten wie in der Ablauf-Sektion auf
- *    `/fahrzeugaufbereitung-leipzig`. Auf Seiten MIT `BackdropLayout` scheint das
- *    stehende Foto durch; weisse Karten wuerden es zudecken (User-Vorgabe 2026-09-02).
+ * ⚠️ `tone` IST AM 2026-09-14 ENTFALLEN (Backlog 2.1).
+ *
+ * Die Stuetze hatte zwei Werte: `solid` (weiss) und `translucent`. Damit hing es am
+ * Aufrufer, ob eine Karte weiss oder durchscheinend war — und genau daraus entstand die
+ * Uneinheitlichkeit, die der Kunde in 2.1 beschreibt: Dieselbe Karte sah auf zwei Seiten
+ * verschieden aus, je nachdem, ob jemand die Stuetze gesetzt hatte.
+ *
+ * Jetzt traegt `.cc-karte` die Flaeche, definiert an einer Stelle in `index.css`. Wer die
+ * Transparenz aendern will, aendert dort `--cc-karte-alpha` — nicht hier und nicht an
+ * fuenf Aufrufstellen.
  */
-export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | 'four'; tone?: 'solid' | 'translucent' }> = ({ items, columns = 'three', tone = 'solid' }) => {
+export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | 'four' }> = ({ items, columns = 'three' }) => {
   const gridClass = columns === 'four' ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
-  const kartenTon = tone === 'translucent' ? 'bg-gray-50/70' : 'bg-white shadow-sm';
+  const kartenTon = 'cc-karte';
   return (
     <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${gridClass}`}>
       {items.map((item, idx) => {
@@ -161,19 +167,111 @@ export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | '
   );
 };
 
-export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => (
-  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-    {steps.map((step, idx) => (
-      <article key={step.title} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6">
-        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-base font-bold text-blue-600 shadow-sm ring-1 ring-gray-100">
-          {idx + 1}
-        </div>
-        <h3 className="text-lg font-bold text-gray-950">{step.title}</h3>
-        <p className="mt-3 text-sm leading-relaxed text-gray-600">{step.description}</p>
-      </article>
-    ))}
-  </div>
-);
+/**
+ * Ablauf-Sektionen der Serviceseiten (Backlog 2.3).
+ *
+ * VORHER EIN STILLES RASTER: `grid-cols-1 md:grid-cols-2 xl:grid-cols-3` mit nummerierten
+ * Kaesten, ohne jede Bewegung und ohne sichtbare Verbindung. Bei fuenf Schritten auf drei
+ * Spalten brach die Reihenfolge sogar optisch um — Schritt 4 stand unter Schritt 1. Der
+ * Kunde verlangt in 2.3 denselben Stil wie auf `/ueber-uns`: eine Achse, die sich
+ * zeichnet, und Punkte, die der Linie folgen.
+ *
+ * GEOMETRIE, ZWEI RICHTUNGEN, EIN MARKUP — wie im Zeitstrahl:
+ *   unter `xl`  senkrechte Achse links, Punkt davor, Karte rechts daneben
+ *   ab   `xl`   waagerechte Achse oben, Punkte darauf, Karten darunter
+ * Kein zweiter Markup-Block, sonst stuende derselbe Text zweimal im HTML.
+ *
+ * WARUM ALLE KARTEN AUF DIESELBE SEITE und nicht abwechselnd wie im Zeitstrahl:
+ * Schritte sind gleichrangig. Ein Wechsel oben/unten behauptet eine Gewichtung, die es
+ * bei einem Ablauf nicht gibt — beim Zeitstrahl ist er noetig, weil Meilensteintexte
+ * ungleich lang sind.
+ *
+ * RECHNUNG HINTER DEN ZAHLEN (damit niemand daran „aufraeumt"):
+ * Der Punkt ist `h-11` = 2,75rem, seine halbe Hoehe 1,375rem. Ab `xl` sitzt er oben im
+ * `<li>`, die Achse liegt deshalb auf `top-[1.375rem]` — genau durch die Punktmitte.
+ * Die Karte haengt `mt-9` (2,25rem) darunter, ihre Stichleitung ist `h-9` und trifft
+ * damit exakt die Punktunterkante. Unter `xl` steht der Punkt links im Fluss, seine
+ * Mitte liegt 1,375rem vom Rand — dort laeuft die senkrechte Achse.
+ *
+ * `<ol>` STATT `<div>`: Ein Ablauf IST eine geordnete Liste. Vorlesegeraete zaehlen sie
+ * dadurch von selbst; die sichtbare Ziffer ist danach eine Dopplung und deshalb
+ * `aria-hidden`. Anders als im Zeitstrahl ist der Punkt KEIN Knopf — es gibt nichts
+ * hervorzuheben, und sieben Sektionen mal fuenf Knoepfe waeren nur Tab-Stopps ohne Ziel.
+ */
+export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => {
+  const anzahl = steps.length;
+
+  return (
+    <div className="relative max-w-3xl xl:max-w-none">
+      {/* ------------------------------------------------------------ Achse ---
+          Der beobachtete Traeger behaelt seine Flaeche; nur die Kinder skalieren
+          (siehe die Falle in `ablaufAnimation.ts`). `aria-hidden`: Die Abfolge
+          steckt in der <ol>. */}
+      <motion.div
+        aria-hidden="true"
+        initial="ruhe"
+        whileInView="an"
+        viewport={SICHTFELD}
+        className="pointer-events-none absolute left-[1.375rem] top-0 h-full w-px xl:left-0 xl:top-[1.375rem] xl:h-px xl:w-full"
+      >
+        <div className="h-full w-full bg-gray-200" />
+        <motion.div
+          variants={ACHSE}
+          transition={{ duration: ACHSE_DAUER, ease: ACHSE_KURVE }}
+          className="absolute inset-0 origin-top bg-blue-600/40 xl:hidden"
+        />
+        <motion.div
+          variants={ACHSE}
+          transition={{ duration: ACHSE_DAUER, ease: ACHSE_KURVE }}
+          className="absolute inset-0 hidden origin-left bg-blue-600/40 xl:block"
+        />
+      </motion.div>
+
+      <ol className={`relative grid grid-cols-1 gap-6 xl:gap-4 ${SPALTEN[anzahl] ?? 'xl:grid-cols-5'}`}>
+        {steps.map((step, idx) => {
+          const verzoegerung = punktVerzoegerung(idx, anzahl);
+
+          return (
+            <motion.li
+              key={step.title}
+              // Beobachtet wird DIESES Element — es hat immer eine Flaeche.
+              initial="ruhe"
+              whileInView="an"
+              viewport={SICHTFELD}
+              className="relative flex items-start gap-4 xl:block"
+            >
+              <motion.div
+                aria-hidden="true"
+                variants={PUNKT}
+                transition={{ delay: verzoegerung, duration: 0.42, ease: [0.34, 1.4, 0.5, 1] }}
+                className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-blue-600 ring-1 ring-gray-200 xl:mx-auto"
+              >
+                {idx + 1}
+              </motion.div>
+
+              <motion.div
+                variants={KARTE}
+                transition={{ delay: verzoegerung + 0.16, duration: 0.45 }}
+                className="relative min-w-0 flex-1 xl:mt-9"
+              >
+                {/* Stichleitung vom Punkt zur Karte — ohne sie schwebt die Karte ab `xl`
+                    ohne sichtbaren Bezug unter der Achse. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-full left-1/2 hidden h-9 w-px bg-gray-200 xl:block"
+                />
+                <article className="cc-karte hyphens-auto break-words rounded-2xl border border-gray-100 p-6">
+                  <h3 className="text-lg font-bold leading-snug text-gray-950">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-600">{step.description}</p>
+                </article>
+              </motion.div>
+            </motion.li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+};
 
 export interface PriceItem {
   id: string;
@@ -205,7 +303,7 @@ export const PricingGrid: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.4, delay: idx * 0.05 }}
-          className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
+          className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-gray-200/60"
         >
           <div className="flex items-start justify-between gap-4">
             <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
@@ -231,7 +329,7 @@ export const PricingGrid: React.FC<{
 export const PageFAQ: React.FC<{ route: string }> = ({ route }) => (
   <div className="space-y-3">
     {(faqsByRoute[route] ?? []).map((faq) => (
-      <article key={faq.id} className="rounded-2xl border border-gray-100 bg-white p-6">
+      <article key={faq.id} className="cc-karte rounded-2xl border border-gray-100 p-6">
         <h3 className="text-lg font-bold leading-tight text-gray-950">{faq.question}</h3>
         <p className="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">{faq.answer}</p>
       </article>

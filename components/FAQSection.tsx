@@ -53,7 +53,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.4, delay: idx * 0.04 }}
-                  className={`overflow-hidden rounded-2xl border bg-white transition-colors ${isOpen ? 'border-blue-200' : 'border-gray-100'}`}
+                  className={`cc-karte overflow-hidden rounded-2xl border transition-colors ${isOpen ? 'border-blue-200' : 'border-gray-100'}`}
                 >
                   {/*
                     Die Frage sitzt in einer echten Ueberschrift, damit sie per

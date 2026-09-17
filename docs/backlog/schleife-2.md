@@ -28,9 +28,9 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.1 | Karten-Styling: transparent statt weiß, Transparenz so justieren dass Lesbarkeit erhalten bleibt – einheitlich über gesamte Seite | Oalab | offen | *Berührt den A11y-Befund aus Paket C: Transparenz über Foto hat dort den AA-Kontrast gerissen. Vor Umsetzung `npm run kontrast` verfügbar machen.* |
+| 2.1 | Karten-Styling: transparent statt weiß, Transparenz so justieren dass Lesbarkeit erhalten bleibt – einheitlich über gesamte Seite | Oalab | ✅ **erledigt** | *2026-09-14: Die Fläche aller Inhaltskarten kommt jetzt aus **einer** Quelle — `.cc-karte` in `index.css`, gesteuert über `--cc-karte-alpha` (0,72). **Die Ursache war eine Komponenten-Stütze:** `FeatureGrid` hatte `tone="solid" \| "translucent"`, womit der Aufrufer entschied, ob eine Karte weiß oder durchscheinend ist — dieselbe Karte sah auf zwei Seiten verschieden aus. Die Stütze ist entfernt. Umgestellt: Leistungs-, Wissens-, Kontakt-, FAQ-, Stimmen-, Artikel-, Preis-, Prozess- und Zeitstrahlkarten. **Zweite Stufe `.cc-karte-hell`** für Karten IN Karten (Kontaktkästen im Panel) — gleiche Farbe auf gleicher Farbe ergäbe keine Kante. **Gemessen:** `npm run kontrast`, 5148 Textstellen, **0 unter AA**. **Nicht umgestellt und Absicht:** Overlays (Dialog, Popup, Navigation, Mega-Menü), Bedienelemente und die scroll-gepinnte Karte (`ScrollPinnedProcess`, 0,92 + Blur direkt auf dem Foto).* |
 | 2.2 | Blaue Platzhalter-Füllung ersetzen | Oalab | ⏸️ **zurückgestellt** | *Geklärt am 2026-09-06: Die blauen Flächen stehen **auf der Aufbereitungs-Subseite** und werden **mit Bildern gefüllt**. Damit ist es kein Farb-, sondern ein Bildthema und gehört zur offenen Fotolieferung (2.13–2.16, 3.23–3.29). **Bis zur Bildlieferung nichts tun.*** *Gegengeprüft 2026-09-10: gemeint ist die Parallax-Galerie der Aufbereitungsseite (`components/DetailingGallery.tsx`, blaue Verlaufskacheln mit Symbol). Dieselbe Fläche wie **3.6** — gefüllt wird sie mit dem Fotopaket **3.23** (ggf. Einzelbilder aus den ungenutzten Drohnen-/Rohclips vom 2026-09-07).* |
-| 2.3 | Alle Zeitstrahl- und Prozessdarstellungen einheitlich im Stil „Ablauf in fünf Schritten zum Ziel" (kfz-lindner.de) animieren | Oalab | offen | *Teilweise: `components/Timeline.tsx` existiert seit 2026-09-04 (Zeitstrahl `/ueber-uns`). Die Ablauf-Sektionen der Serviceseiten folgen dem Muster noch nicht.* |
+| 2.3 | Alle Zeitstrahl- und Prozessdarstellungen einheitlich im Stil „Ablauf in fünf Schritten zum Ziel" (kfz-lindner.de) animieren | Oalab | ✅ **erledigt** | *2026-09-14: Timing und Varianten liegen in `components/ablaufAnimation.ts` und werden von **beiden** Darstellungen gelesen — zwei Kopien derselben Kurve wären der Weg, auf dem sie wieder auseinanderlaufen. `ProcessList` (7 Sektionen auf 6 Seiten) war ein **statisches Raster ohne jede Bewegung**; es hat jetzt dieselbe Achse wie der Zeitstrahl: senkrecht unter `xl`, waagerecht darüber, Punkte erscheinen, wenn die Linie sie erreicht. **Vereinheitlicht ist die Bewegung, nicht das Layout:** Der Zeitstrahl hängt Karten abwechselnd über/unter die Achse (Meilensteintexte sind ungleich lang), der Ablauf alle auf eine Seite (Schritte sind gleichrangig). Nebenbei behoben: Bei fünf Schritten auf drei Spalten stand Schritt 4 unter Schritt 1 — der Ablauf las nach rechts und dann wieder nach links. **Bewusst nicht umgestellt:** `ScrollPinnedProcess` — sein Verhalten ist mit **3.1** ausdrücklich abgenommen.* |
 
 ---
 
@@ -125,10 +125,18 @@ Am 2026-09-08 scharf geschaltet: **2.24** (Netcup, R10). Am 2026-09-10 gegengepr
 erfüllt markiert: **2.13** (keine Codeänderung).
 
 ~~Verbleibend ohne Zulieferung machbar: 2.4, 2.12, 2.24~~ — alle drei am 2026-09-06 erledigt.
-**Ohne Zulieferung noch machbar (Stand 2026-09-10):** **2.1** und **2.18** (Transparenz,
-gebündelt; `npm run kontrast` misst seit 2026-09-07 **0 Stellen unter AA** — jede
-Transparenzänderung muss dagegen nachgemessen werden) · **2.3** (Ablauf-Sektionen der
-Serviceseiten im Stil des Zeitstrahls animieren).
+~~**Ohne Zulieferung noch machbar (Stand 2026-09-10):** **2.1** und **2.18** · **2.3**~~
+
+**Am 2026-09-14 erledigt: 2.1 und 2.3.** Nachgemessen gegen einen frischen Build —
+`npm run kontrast` meldet 5148 Textstellen und **0 unter AA**, `npm run meta` 0 außerhalb
+des Korridors. Paket: `docs/schleife-2-4-karten-ablauf-flaeche/`.
+
+**Ohne Zulieferung noch machbar:** **2.18** — die Sektion „Schadenaufnahme" ist von 2.1
+**nicht** miterledigt. Sie liegt in `ScrollPinnedProcess`, das seine Kartenfläche bewusst
+behält (0,92 + Blur direkt auf dem Foto, ohne den Textschutz der Sektionen). 2.18 verlangt
+*weniger* Transparenz bei viel Text — das ist die Gegenrichtung zu 2.1 und braucht eine
+eigene Entscheidung, am besten zusammen mit **3.8** (ruhigeres Hintergrundmotiv derselben
+Sektion).
 
 ### Nachgezogen aus 2.6: Der Dialog fragt jetzt zuerst nach dem Anliegen
 

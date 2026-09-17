@@ -166,7 +166,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
           <FeatureGrid
             items={leistung.items}
             columns={leistung.columns ?? spaltenFuer(leistung.items.length)}
-            tone="translucent"
           />
         </div>
       </section>
@@ -174,10 +173,10 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
       <section className={SEKTION}>
         <div className="container mx-auto">
           <SectionIntro eyebrow="Warum CarCare Center Leipzig" title={usp.title} />
-          {/* `translucent`, weil weisse Karten das stehende Foto zudecken wuerden —
-              dieselbe Wahl wie auf /fahrzeugaufbereitung-leipzig. Die Komponente setzt
-              den Ton selbst, damit ihn niemand je Seite vergisst. */}
-          <FeatureGrid items={usp.items} tone="translucent" />
+          {/* Die Flaeche kommt seit 2026-09-14 aus `.cc-karte` (Backlog 2.1). Vorher stand
+              hier `tone="translucent"`, weil weisse Karten das stehende Foto zugedeckt
+              haetten — jetzt gibt es keine weisse Fassung mehr, die man vergessen koennte. */}
+          <FeatureGrid items={usp.items} />
         </div>
       </section>
 

@@ -15,7 +15,7 @@ const scope = [
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackinstandsetzung mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
   { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt – auch auf kleinsten Flächen.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Zeigt sich am Bauteil mehr als gedacht, übernehmen Karosserie und Lackierung direkt nebenan.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Zeigt sich am Bauteil mehr als gedacht, übernehmen Karosserie und Lackierung direkt nebenan.' },
 ];
 
 const SmartRepairPage: React.FC = () => (

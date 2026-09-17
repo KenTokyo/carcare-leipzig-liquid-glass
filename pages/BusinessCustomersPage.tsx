@@ -65,7 +65,7 @@ const offerings = [
 
 const collaboration = [
   { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte — Sie wissen, mit wem Sie sprechen.' },
-  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.000 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
+  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.500 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
   // Backlog 4.12: Kundenwortlaut „Instandsetzung statt Tauschen" — an allen sechs Stellen gleich.
   { title: 'Instandsetzung statt Tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
@@ -106,7 +106,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageHero
       eyebrow="Geschäftskunden"
       title="Fahrzeugdienstleistungen für Autohäuser, Flotten und Versicherer."
-      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.000 m² im eigenen Haus."
+      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.500 m² im eigenen Haus."
       primaryCta={{ label: 'Geschäftskundenanfrage stellen', href: '/kontakt#contact-business' }}
       secondaryCta={{ label: 'Leistungen ansehen', href: '/leistungen' }}
       keywords={['Fuhrparkservice Leipzig', 'Autohäuser Leipzig', 'Schadensteuerung Leipzig', 'Leasingrückgabe Leipzig']}

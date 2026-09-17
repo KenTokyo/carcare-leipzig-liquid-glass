@@ -22,8 +22,8 @@ const Stimmen: React.FC = () => (
     {stimmen.map((s) => (
       <figure
         key={s.id}
-        className={`flex flex-col rounded-[1.5rem] border p-6 ${
-          s.istPlatzhalter ? 'border-dashed border-gray-300 bg-gray-50/70' : 'border-gray-100 bg-white'
+        className={`cc-karte flex flex-col rounded-[1.5rem] border p-6 ${
+          s.istPlatzhalter ? 'border-dashed border-gray-300' : 'border-gray-100'
         }`}
       >
         <Quote aria-hidden="true" className="mb-4 h-6 w-6 shrink-0 text-gray-300" />

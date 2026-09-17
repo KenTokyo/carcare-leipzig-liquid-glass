@@ -4,8 +4,10 @@
 Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26?"),
 findet sie über die Tabelle unten.
 
-**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10 · **Website:** `carcare-center.vercel.app`
+**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10, zuletzt fortgeschrieben am **2026-09-14** · **Website:** `carcare-center.vercel.app`
 **Letzter Abgleich:** [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md)
+**Zuletzt erledigt (2026-09-14):** 2.1 (Kartenflächen), 2.3 (Ablauf-Animation), 4.2 + 4.18 (Betriebsfläche 3.500 m²) — `docs/schleife-2-4-karten-ablauf-flaeche/`
+**Nach Art der Zulieferung sortiert** (Fotos · Texte · Logos · Pricing): [`../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md`](../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md)
 
 > **Alles, was hier deployt wird, geht nur in diese Preview-Umgebung** — sie dient der
 > Abstimmung mit dem Kunden. Live unter `www.carcare-center.de` läuft weiterhin der alte

@@ -20,7 +20,7 @@ const vorteile = [
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Karosserie und Lack aus einer Hand.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Ist der Lack doch verletzt, geht es ohne Umweg in Karosserie und Lackierung im selben Haus.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Ist der Lack doch verletzt, geht es ohne Umweg in Karosserie und Lackierung im selben Haus.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Von der Parkdelle am Privatwagen bis zur Hagelserie im Firmenfuhrpark.' },
 ];
 

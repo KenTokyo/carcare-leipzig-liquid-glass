@@ -51,7 +51,7 @@ const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
   const bild = eintrag?.backgroundImage;
 
   return (
-    <article className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+    <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm">
       {bild && (
         <img
           src={bild}

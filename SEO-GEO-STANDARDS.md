@@ -18,11 +18,11 @@ BRANCHE:                "KFZ – Unfallinstandsetzung, Karosserie & Lack, Fahrze
 LEISTUNGEN:             ["Unfallinstandsetzung", "Autoreparatur", "Fahrzeugaufbereitung / Autoaufbereitung", "Autolackierung", "Smart Repair", "Dellenentfernung", "Hagelschadenreparatur", "Felgenreparatur", "Leasingrückgabe-Vorbereitung", "Fuhrparkservice"]
 UNTERNEHMENSNAME:       "CarCare Center Leipzig"                    # Marken-/Marketingname (Title-Marke, og:site_name); juristischer Name -> NAP_NAME
 USP:                    "Leipzigs Full-Service-Center für Lackierung, Karosserie & Fahrzeugaufbereitung – Glasurit-Lackpartner & Meisterbetrieb mit farbtongenauer, makelloser Reparatur und kompletter Versicherungsabwicklung."
-USP_ERWEITERT:          "Seit 1998 Ihr Premium-Partner in Leipzig für Fahrzeuglackierung, Karosserie-Instandsetzung und Aufbereitung. Als Glasurit-Lackpartner und Meisterbetrieb erzielen wir dank der weltweit präzisesten Farbtontechnologie makellose Reparaturen in Erstausrüster-Qualität – auf über 3.000 m², für alle Marken, inklusive kompletter Unfall- und Versicherungsabwicklung mit Ersatzfahrzeug."
+USP_ERWEITERT:          "Seit 1998 Ihr Premium-Partner in Leipzig für Fahrzeuglackierung, Karosserie-Instandsetzung und Aufbereitung. Als Glasurit-Lackpartner und Meisterbetrieb erzielen wir dank der weltweit präzisesten Farbtontechnologie makellose Reparaturen in Erstausrüster-Qualität – auf über 3.500 m², für alle Marken, inklusive kompletter Unfall- und Versicherungsabwicklung mit Ersatzfahrzeug."
 USP_BAUSTEINE:                                                     # Vertrauens-/Differenzierungssignale für E-E-A-T und GEO
   - "Glasurit-Lackpartner → farbtongenaue, makellose Reparaturen, langlebiges Premium-Finish, umweltschonende Wasserbasislacke"
   - "Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt"   # Wortlaut seit 2026-09-10 (Backlog 4.11)
-  - "Full-Service auf über 3.000 m²: Lackierung, Karosserie, Smart/Spot Repair, Felgen, Fahrzeugaufbereitung"
+  - "Full-Service auf über 3.500 m²: Lackierung, Karosserie, Smart/Spot Repair, Felgen, Fahrzeugaufbereitung"
   - "Komplette Unfall- & Versicherungsabwicklung inkl. Kostenvoranschlag und Werkstattersatzfahrzeug"
   - "Erfahrung mit Privat-, Geschäfts- und Flottenkunden (Autohäuser, Firmenfuhrparks)"
 

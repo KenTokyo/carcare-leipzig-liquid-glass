@@ -85,7 +85,7 @@ const privateBenefits = [
   },
   {
     title: 'Alles an einem Standort',
-    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.000 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
+    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
   },
   {
     title: 'Sie bleiben mobil',
@@ -96,7 +96,7 @@ const privateBenefits = [
 const businessBenefits = [
   {
     title: 'Mehrere Fahrzeuge parallel',
-    description: 'Auf über 3.000 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten — relevant, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
+    description: 'Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten — relevant, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
   },
   {
     title: 'Fester Ansprechpartner',

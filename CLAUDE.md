@@ -62,10 +62,16 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    konventionelle Form. Sichtbarer Seitentext fällt nicht darunter.
    Entschieden am 2026-09-02, nicht neu aufmachen.
 3. **Gründungsjahr:** „seit 1998". Nicht 1993, nicht 1996.
-4. **Betriebsfläche:** „über 3.000 m²" bzw. „über 3.000 Quadratmeter".
-   ⚠️ **Offen seit 2026-09-10:** André nennt in Schleife 4 (4.2, 4.18) „über 3.500 m²". Bis
-   zur Bestätigung gilt 3.000 — und dann **überall zugleich** ändern (30 Fundstellen), nie
-   einzeln, sonst widerspricht sich die Seite.
+4. **Betriebsfläche:** „über 3.500 m²" bzw. „über 3.500 Quadratmeter".
+   **Geändert am 2026-09-14** von 3.000 auf 3.500. André nennt die Zahl in Schleife 4
+   zweimal unabhängig (4.2 für die Aufbereitungsseite, 4.18 für den Zeitstrahl); der
+   User hat sie bestätigt. Gemessen nach der Umstellung: **33 Fundstellen in 20 Dateien**
+   unter `components/`, `pages/`, `data/`, `seo/` — sichtbarer Text, FAQ und strukturierte
+   Daten — dazu die USP-Bausteine in `SEO-GEO-STANDARDS.md`. Alle zugleich umgestellt.
+   Die frühere Angabe 3.000 gilt nicht mehr und ist auch nicht als Alternative zulässig.
+   ⚠️ **Falle beim Nachziehen:** Nicht global auf „3.000" ersetzen.
+   `pages/DatenschutzPage.tsx` nennt „23.000 Zeichen" — eine Textlänge, keine Fläche.
+   Nur die Muster „3.000 m²" und „3.000 Quadratmeter" treffen.
 5. **Meisterbetrieb:** Der Begriff bleibt auch im Aufbereitungsbereich erhalten
    (SEO-relevant), obwohl Aufbereitung kein Meisterhandwerk ist.
 

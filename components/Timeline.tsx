@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
 /**
  * Zeitstrahl fuer Unternehmensstationen (Backlog R1).
@@ -34,10 +35,11 @@ import { motion, type Variants } from 'framer-motion';
  * Zeigerkontakt wie bei Tastaturfokus. Der Punkt ist ein `<button>` mit
  * `aria-describedby` auf seine Karte.
  *
- * ⚠️ DIE KARTENFLAECHE IST PFLICHT, KEINE DEKORATION. Auf `/ueber-uns` liegt die
- * Sektion mit `bg-gray-50/70` ueber einem Werkstattfoto (`BackdropLayout`). Eine
- * Zwischenfassung ohne Flaeche war ueber den dunklen Fahrzeugen praktisch unlesbar —
- * gemessen 2026-09-04.
+ * ⚠️ DIE KARTENFLAECHE IST PFLICHT, KEINE DEKORATION. Auf `/ueber-uns` liegt die Sektion
+ * ueber einem Werkstattfoto (`BackdropLayout`). Eine Zwischenfassung ohne Flaeche war
+ * ueber den dunklen Fahrzeugen praktisch unlesbar — gemessen 2026-09-04. Die Flaeche
+ * kommt seit 2026-09-14 aus `.cc-karte` (Backlog 2.1), vorher stand sie hier als
+ * `bg-gray-50/70`.
  *
  * ZWEI RICHTUNGEN, EIN MARKUP: waagerechte Achse ab `xl`, darunter senkrecht mit den
  * Karten rechts daneben. Abwechselnd oben/unten funktioniert auf 390px nicht. Bewusst
@@ -77,41 +79,14 @@ export interface TimelineStation {
   istPlatzhalter?: boolean;
 }
 
-/** Wie lange die Achse braucht, um von links nach rechts durchzulaufen. */
-const ACHSE_DAUER = 1.1;
-
-/**
- * Spaltenzahl als AUSGESCHRIEBENE Klassen.
- *
- * Tailwind liest den Quelltext als Text — eine zusammengesetzte Klasse wie
- * `xl:grid-cols-${n}` steht dort nie und wird nicht erzeugt. Das Raster fiele stumm auf
- * eine Spalte zurueck.
+/*
+ * ⚠️ TIMING UND VARIANTEN LIEGEN SEIT 2026-09-14 IN `ablaufAnimation.ts` (Backlog 2.3).
+ * Sie standen vorher hier. Verschoben, weil die Ablauf-Sektionen der Serviceseiten
+ * dieselbe Bewegung bekommen sollten — der Kunde verlangt in 2.3 ausdruecklich EINEN
+ * Stil fuer „alle Zeitstrahl- und Prozessdarstellungen". Zwei Kopien derselben Kurve
+ * waeren genau der Weg, auf dem sie wieder auseinanderlaufen.
+ * Die Falle mit `whileInView` auf skalierten Elementen ist dort ebenfalls dokumentiert.
  */
-const SPALTEN: Record<number, string> = {
-  3: 'xl:grid-cols-3',
-  4: 'xl:grid-cols-4',
-  5: 'xl:grid-cols-5',
-  6: 'xl:grid-cols-6',
-};
-
-/** Der Punkt erscheint, wenn die Linie ihn erreicht. */
-const punktVerzoegerung = (idx: number, anzahl: number) =>
-  0.12 + (idx / Math.max(anzahl - 1, 1)) * ACHSE_DAUER;
-
-const ACHSE: Variants = {
-  ruhe: { scaleX: 0, scaleY: 0 },
-  an: { scaleX: 1, scaleY: 1 },
-};
-
-const PUNKT: Variants = {
-  ruhe: { scale: 0, opacity: 0 },
-  an: { scale: 1, opacity: 1 },
-};
-
-const KARTE: Variants = {
-  ruhe: { opacity: 0, y: 14 },
-  an: { opacity: 1, y: 0 },
-};
 
 const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
   const [aktiv, setAktiv] = useState<number | null>(null);
@@ -127,18 +102,18 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
         aria-hidden="true"
         initial="ruhe"
         whileInView="an"
-        viewport={{ once: true, margin: '-60px' }}
+        viewport={SICHTFELD}
         className="pointer-events-none absolute left-[1.375rem] top-0 h-full w-px xl:left-0 xl:top-1/2 xl:h-px xl:w-full"
       >
         <div className="h-full w-full bg-gray-200" />
         <motion.div
           variants={ACHSE}
-          transition={{ duration: ACHSE_DAUER, ease: [0.25, 0.6, 0.3, 1] }}
+          transition={{ duration: ACHSE_DAUER, ease: ACHSE_KURVE }}
           className="absolute inset-0 origin-top bg-blue-600/40 xl:hidden"
         />
         <motion.div
           variants={ACHSE}
-          transition={{ duration: ACHSE_DAUER, ease: [0.25, 0.6, 0.3, 1] }}
+          transition={{ duration: ACHSE_DAUER, ease: ACHSE_KURVE }}
           className="absolute inset-0 hidden origin-left bg-blue-600/40 xl:block"
         />
       </motion.div>
@@ -156,7 +131,7 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
               // Beobachtet wird DIESES Element — es hat immer eine Flaeche.
               initial="ruhe"
               whileInView="an"
-              viewport={{ once: true, margin: '-60px' }}
+              viewport={SICHTFELD}
               className="relative flex items-start gap-4 xl:grid xl:min-h-[26rem] xl:grid-rows-[1fr_0_1fr] xl:gap-0"
               onMouseEnter={() => setAktiv(idx)}
               onMouseLeave={() => setAktiv((jetzt) => (jetzt === idx ? null : jetzt))}
@@ -221,7 +196,7 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
                     „Werksniederlassungen" ragten gemessen bis 27px in die Nachbarkarte. Deutsche
                     Silbentrennung greift ueber <html lang="de">; Vorbild: Hero-H1. */}
                 <div
-                  className={`hyphens-auto break-words rounded-2xl border bg-gray-50/70 p-5 transition-shadow ${
+                  className={`cc-karte hyphens-auto break-words rounded-2xl border p-5 transition-shadow ${
                     istAktiv ? 'border-blue-200 shadow-lg shadow-gray-300/40' : 'border-gray-100'
                   }`}
                 >

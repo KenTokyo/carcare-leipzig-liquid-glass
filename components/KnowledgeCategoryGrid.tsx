@@ -28,7 +28,7 @@ const KnowledgeCategoryGrid: React.FC<KnowledgeCategoryGridProps> = ({ articles,
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.45, delay: idx * 0.05 }}
-          className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
+          className="cc-karte rounded-2xl border border-gray-100 p-6 shadow-sm"
         >
           <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
             {icons[category.id]}

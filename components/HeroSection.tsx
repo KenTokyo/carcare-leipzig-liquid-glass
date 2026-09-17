@@ -152,7 +152,7 @@ const HeroSection: React.FC = () => {
 
               WARUM DIE FRAGE WEG IST: „…? Wir kuemmern uns." kostete eine ganze Zeile
               fuer eine Aussage ohne Fakt. Die Subline traegt jetzt stattdessen die
-              belegbaren Zahlen (1998, 3.000 m²) und die eigentliche
+              belegbaren Zahlen (1998, 3.500 m²) und die eigentliche
               Kaufentscheidung — „alles aus einer Hand". Antwort-zuerst statt Aufhaenger.
 
               ⚠️ 2.7/2.8 (globaler Slogan) sind damit NICHT erledigt. Der endgueltige
@@ -176,7 +176,7 @@ const HeroSection: React.FC = () => {
           </h1>
 
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:text-xl">
-            Meisterbetrieb seit 1998. Auf über 3.000 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung — alles aus einer Hand.
+            Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung — alles aus einer Hand.
           </p>
 
           {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.

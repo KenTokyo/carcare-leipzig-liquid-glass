@@ -26,7 +26,7 @@ const innenLeistungen = [
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Aufbereitung, Karosserie und Lack aus einer Hand.' },
-  { title: 'Full-Service auf über 3.000 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart/Spot Repair und Felgen an einem Standort.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart/Spot Repair und Felgen an einem Standort.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Vom Privatfahrzeug bis zum vielgenutzten Poolwagen aus dem Firmenfuhrpark.' },
 ];
 
@@ -105,7 +105,7 @@ const InnenaufbereitungPage: React.FC = () => (
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Warum CarCare Center Leipzig" title="Aufbereitung im Meisterbetrieb, nicht in der Waschstraße." />
-        <FeatureGrid items={usp} tone="translucent" />
+        <FeatureGrid items={usp} />
       </div>
     </section>
 

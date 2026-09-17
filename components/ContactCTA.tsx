@@ -6,7 +6,7 @@ const ContactCTA: React.FC = () => {
   return (
     <section id="kontakt" aria-labelledby="contact-heading" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <div className="overflow-hidden rounded-[2rem] border border-gray-100 bg-gray-50/70 p-6 md:p-10 lg:p-12">
+        <div className="cc-karte overflow-hidden rounded-[2rem] border border-gray-100 p-6 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
@@ -44,21 +44,21 @@ const ContactCTA: React.FC = () => {
               transition={{ delay: 0.08 }}
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7"
             >
-              <div className="rounded-2xl border border-gray-100 bg-white p-6">
+              <div className="cc-karte-hell rounded-2xl border border-gray-100 p-6">
                 <div className="mb-3 flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><MapPin size={18} /></span>
                   <h3 className="text-sm font-bold text-gray-950">Adresse</h3>
                 </div>
                 <p className="text-sm leading-relaxed text-gray-600">An den Tierkliniken 42<br />04103 Leipzig</p>
               </div>
-              <div className="rounded-2xl border border-gray-100 bg-white p-6">
+              <div className="cc-karte-hell rounded-2xl border border-gray-100 p-6">
                 <div className="mb-3 flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Clock size={18} /></span>
                   <h3 className="text-sm font-bold text-gray-950">Öffnungszeiten</h3>
                 </div>
                 <p className="text-sm leading-relaxed text-gray-600">Mo - Fr: 07:00 - 18:00 Uhr<br />Sa: nach Vereinbarung</p>
               </div>
-              <div className="rounded-2xl border border-gray-100 bg-white p-6 sm:col-span-2">
+              <div className="cc-karte-hell rounded-2xl border border-gray-100 p-6 sm:col-span-2">
                 <div className="mb-3 flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Phone size={18} /></span>
                   <h3 className="text-sm font-bold text-gray-950">Telefonische Soforthilfe</h3>

@@ -25,7 +25,7 @@ const HomePage: React.FC = () => (
     <PageMeta
       canonical="/"
       title="Karosserie, Lack & Aufbereitung Leipzig | CarCare Center"
-      description="Unfallinstandsetzung, Karosserie, Lackierung, Smart Repair und Fahrzeugaufbereitung in Leipzig. Meisterbetrieb seit 1998, alles auf über 3.000 m²."
+      description="Unfallinstandsetzung, Karosserie, Lackierung, Smart Repair und Fahrzeugaufbereitung in Leipzig. Meisterbetrieb seit 1998, alles auf über 3.500 m²."
     />
     <HeroSection />
     <ServiceGrid />

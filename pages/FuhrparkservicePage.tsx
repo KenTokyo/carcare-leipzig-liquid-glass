@@ -9,7 +9,7 @@ const leistungen = [
 ];
 
 const usp = [
-  { title: 'Full-Service auf über 3.000 m²', description: 'Pflege, Lack, Karosserie und Aufbereitung für ganze Flotten an einem Standort statt bei vier Dienstleistern.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Pflege, Lack, Karosserie und Aufbereitung für ganze Flotten an einem Standort statt bei vier Dienstleistern.' },
   { title: 'Erfahrung mit Flottenkunden', description: 'Langjährige Erfahrung mit Autohäusern, Firmenfuhrparks und Geschäftskunden.' },
   { title: 'Komplette Versicherungsabwicklung', description: 'Im Schadensfall inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
 ];

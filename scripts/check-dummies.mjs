@@ -141,7 +141,9 @@ const ANERKANNT = [
   { text: 'Zusatzleistung 1', backlog: '1.18', seit: '2026-09-04' },
   { text: 'Zusatzleistung 2', backlog: '1.18', seit: '2026-09-04' },
   // „Meilenstein 1" am 2026-09-11 entfallen: Station 2000 geliefert (Schleife 4, 4.17).
-  { text: 'Meilenstein 2', backlog: 'R1', seit: '2026-09-04' },
+  // „Meilenstein 2" am 2026-09-14 entfallen: Station 2013 eingesetzt (Schleife 4, 4.18),
+  // entsperrt durch die Flaechenentscheidung 4.2. Eigenschaft 3 der Liste greift hier —
+  // der Eintrag haette den Build gebrochen, wenn er stehen geblieben waere.
   { text: 'Meilenstein 3', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Jahr offen', backlog: 'R1', seit: '2026-09-04' },
   { text: 'Platzhalter — wird durch', backlog: '1.18 / R1', seit: '2026-09-04' },
