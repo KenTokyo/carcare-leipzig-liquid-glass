@@ -45,7 +45,10 @@ Arbeitsbaum nie anfasst (der Dev-Server auf 3007 bedient ihn).
       temporären Worktree, damit der Arbeitsbaum des Dev-Servers nicht hin- und herspringt
 * [x] Kein `npm install` nötig: `node_modules` ist aktuell, Build und alle Messwerkzeuge liefen
       am 2026-09-17 auf genau diesem Stand (`docs/zielgruppen-partner-sichtbarkeit/`)
-* [ ] **Push** — nicht Teil des Befehls („mergen und committen"); wartet auf den User
+* [x] **Push** erledigt 2026-09-17 auf Befehl des Users („ja push alles"): `main` `efd549b` →
+      `0898fda`, dazu die beiden Paket-Branches neu auf GitHub. Vercel-Vorschau gebaut,
+      `npm run smoke -- --seit HEAD` 29/29, Bundle identisch mit dem lokalen Build.
+      Übersicht für die anderen Standorte: `docs/push-stand/README.md` (seit 2026-09-18)
 
 ### ⬜ 2 — Eigenes Schadenformular entfernen — erst nach Kundenbestätigung
 **Ziel:** Hinter `SCHADENMELDUNG_EXTERN = true` ist das eigene Formular unerreichbar, aber noch

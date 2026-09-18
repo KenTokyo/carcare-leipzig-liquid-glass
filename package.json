@@ -29,6 +29,7 @@
     "meta": "node scripts/check-meta.mjs",
     "nav": "node scripts/check-navigation.mjs",
     "zielgruppen": "node scripts/check-zielgruppen.mjs",
+    "push-stand": "node scripts/push-stand.mjs",
     "video": "node scripts/build-video.mjs",
     "partnerlogos": "node scripts/build-partner-logos.mjs"
   },

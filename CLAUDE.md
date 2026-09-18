@@ -123,6 +123,23 @@ Seite etwa 913–945 px, mit 110 % Zoom 830 px. An genau dieser Lücke waren die
 Die sechs Fallen seines Aufbaus stehen im Kopf von `scripts/check-kontrast.mjs`;
 wer daran etwas ändert, liest sie zuerst.
 
+## Push-Stand (vor JEDEM Push)
+
+Kollegen an anderen Standorten gleichen ihre Pulls mit `docs/push-stand/README.md` ab:
+Branches lokal ↔ GitHub, Commits des Pushs, was nach dem Pull zu tun ist (`npm install`?),
+was nur lokal liegt, was inhaltlich offen ist. Früheres steht in `docs/push-stand/verlauf.md`.
+**Wunsch des Users vom 2026-09-18: bei jedem Push, nicht nur einmal.**
+
+1. Commits fertig, Branches gemergt
+2. `npm run push-stand` — erzeugt beide Dateien aus git und dem Backlog, nichts von Hand
+3. `git add docs/push-stand && git commit -m "Docs: Push-Stand <Datum>"`
+4. pushen
+
+Ein Hook in `.claude/settings.json` sperrt `git push`, solange die **committete** Übersicht einen
+Commit nicht nennt, der mit dem Push auf GitHub käme. Pushes aus Terminal oder IDE prüft er nicht —
+dort gilt dieselbe Reihenfolge von Hand. Prüfen ohne Push: `npm run push-stand -- --pruefen`.
+Was die Sperre nicht abdeckt, steht im Kopf von `scripts/push-stand.mjs`.
+
 ## Backlog
 
 **Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`

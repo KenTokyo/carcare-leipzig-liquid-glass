@@ -56,7 +56,7 @@ Die Leistungskarten haben einen eigenen, absolut gelegten Verlauf, der immer sic
 auch wenn der Text nicht überläuft. `.cc-scroll-verlauf` zeigt ihn nur, solange unten noch
 etwas folgt. Vorher `npm run kontrast` und Sichtprüfung auf `/`, `/karriere`.
 
-### ⬜ 4 — Firefox: kein Verlauf (Hinweis, kein Handlungsbedarf)
+### ✅ 4 — Firefox: kein Verlauf (Hinweis, kein Handlungsbedarf — zur Kenntnis)
 Scroll-gesteuerte Animationen sind in Firefox (Stand 2026) nicht ohne Flag aktiv. Dort bleibt
 der Bereich ohne Verlauf; die schmale Scrollleiste zeigt das Weitergehen trotzdem. Die Anzahl
 im Titel gilt überall.

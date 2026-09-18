@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "eingabe=$(cat); case \"$eingabe\" in *push*) printf '%s' \"$eingabe\" | node \"$CLAUDE_PROJECT_DIR/scripts/push-stand.mjs\" --hook ;; esac",
+            "timeout": 30,
+            "statusMessage": "Push-Stand pruefen"
+          }
+        ]
+      }
+    ]
+  }
+}
