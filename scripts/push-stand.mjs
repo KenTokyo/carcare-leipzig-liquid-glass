@@ -383,16 +383,36 @@ function erzeuge(seit) {
   const neu = dokumentiert.filter((c) => !c.schonOben);
 
   const b = branchTabelle(dokumentiert);
-  const basis = dokumentiert.length ? gitOder(dokumentiert[0].hash, 'rev-parse', `${dokumentiert[0].hash}^`) : 'HEAD';
-  const ende = dokumentiert.length ? dokumentiert[dokumentiert.length - 1].hash : 'HEAD';
-  const abh = abhaengigkeiten(basis, ende);
-  const konfig = [...new Set(dokumentiert.flatMap((c) => c.konfig))];
+  // „Dieser Push" und „frueher gepusht" (nur mit --seit) getrennt auswerten: Wer den vorigen Stand
+  // schon hat, braucht nur die Hinweise zum neuen Teil — sonst stuende „npm install" bei jedem
+  // Push, sobald irgendwann im rueckwirkenden Bereich die Lockfile geaendert wurde.
+  const schonOben = dokumentiert.filter((c) => c.schonOben);
+  const bereich = (liste) =>
+    liste.length
+      ? {
+          abh: abhaengigkeiten(gitOder(liste[0].hash, 'rev-parse', `${liste[0].hash}^`), liste[liste.length - 1].hash),
+          konfig: [...new Set(liste.flatMap((c) => c.konfig))],
+        }
+      : { abh: { deps: [], lock: [], anzahlLock: 0, skripteNeu: [], skripteWeg: [] }, konfig: [] };
+  const diesmal = bereich(neu);
+  const frueher = bereich(schonOben);
+  const npmNoetig = (x) => x.abh.deps.length > 0 || x.abh.lock.length > 0;
+  const hinweise = (x) => {
+    const out = [];
+    if (npmNoetig(x)) {
+      const liste = [...x.abh.deps, ...x.abh.lock.slice(0, 10)].join(' · ');
+      out.push(['**`npm install`**', `${zelle(liste)}${x.abh.lock.length > 10 ? ' · …' : ''} — Lockfile: ${x.abh.anzahlLock} Paket(e) geändert`]);
+    }
+    const skripte = [...x.abh.skripteNeu.map((s) => `neu: \`npm run ${s}\``), ...x.abh.skripteWeg.map((s) => `entfernt: \`${s}\``)];
+    if (skripte.length) out.push(['npm-Skripte', skripte.join(', ')]);
+    if (x.konfig.length) out.push(['Konfiguration geändert', x.konfig.map((k) => `\`${k}\``).join(', ')]);
+    return out;
+  };
   const lokal = nurLokalDaten();
   const folge = folgepunkte(dokumentiert);
   const backlog = backlogOffen();
   const repo = gitOder('', 'remote', 'get-url', REMOTE).replace(/^.*github\.com[/:]/, '').replace(/\.git$/, '');
   const jetzt = zeit(new Date());
-  const npmNoetig = abh.deps.length > 0 || abh.lock.length > 0;
 
   const md = [];
   md.push('# Push-Stand', '');
@@ -426,15 +446,12 @@ function erzeuge(seit) {
 
   md.push('## 3. Nach dem Pull an anderen Standorten', '', '| Schritt | Warum |', '|---|---|');
   md.push(`| \`git fetch --prune\`, \`git checkout ${HAUPT}\`, \`git pull\` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |`);
-  md.push(
-    npmNoetig
-      ? `| **\`npm install\`** | ${zelle([...abh.deps, ...abh.lock.slice(0, 10)].join(' · '))}${abh.lock.length > 10 ? ' · …' : ''} — Lockfile: ${abh.anzahlLock} Paket(e) geändert |`
-      : '| kein `npm install` nötig | `package.json`-Abhängigkeiten und Lockfile unverändert |',
-  );
-  if (abh.skripteNeu.length || abh.skripteWeg.length) {
-    md.push(`| npm-Skripte | ${[...abh.skripteNeu.map((s) => `neu: \`npm run ${s}\``), ...abh.skripteWeg.map((s) => `entfernt: \`${s}\``)].join(', ')} |`);
+  if (!npmNoetig(diesmal)) md.push('| kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |');
+  for (const [schritt, warum] of hinweise(diesmal)) md.push(`| ${schritt} | ${warum} |`);
+  const frueherHinweise = hinweise(frueher);
+  if (schonOben.length && frueherHinweise.length) {
+    md.push(`| Nur wer noch vor \`${kurz(schonOben[0].hash)}\` steht (Commits „war schon oben") | ${frueherHinweise.map(([s, w]) => `${s}: ${w}`).join(' · ')} |`);
   }
-  if (konfig.length) md.push(`| Konfiguration geändert | ${konfig.map((k) => `\`${k}\``).join(', ')} |`);
   if (dokumentiert.length) {
     const erwartet = [...dokumentiert].reverse().slice(0, 8).map((c) => `\`${kurz(c.hash)}\``).join(', ');
     md.push(`| Kontrolle | \`git log --oneline -${Math.min(dokumentiert.length, 8) + 1} ${HAUPT}\`: oben „Docs: Push-Stand …", darunter ${erwartet} |`);
@@ -484,14 +501,20 @@ function erzeuge(seit) {
   const zeilenAlt = alt.slice(alt.findIndex((z) => z.startsWith('|---')) + 1).filter((z) => z.startsWith('|'));
   const neuHashes = neu.map((c) => `\`${kurz(c.hash)}\``).join(' ');
   const branchesPush = [...new Set(neu.flatMap((c) => c.branches))].map((n) => `\`${n}\``).join(', ') || '—';
-  const hinweise = [konfig.length && `Konfiguration: ${konfig.join(', ')}`, abh.skripteNeu.length && `neue Skripte: ${abh.skripteNeu.join(', ')}`].filter(Boolean).join('; ') || '—';
-  const zeileNeu = `| ${jetzt} | ${branchesPush} | ${neuHashes || 'nur Übersicht'} ${neu.length ? `(${neu.length})` : ''} | ${npmNoetig ? '**ja**' : 'nein'} | ${zelle(hinweise)} |`;
+  const verlaufHinweise =
+    [
+      diesmal.konfig.length && `Konfiguration: ${diesmal.konfig.join(', ')}`,
+      diesmal.abh.skripteNeu.length && `neue Skripte: ${diesmal.abh.skripteNeu.join(', ')}`,
+    ]
+      .filter(Boolean)
+      .join('; ') || '—';
+  const zeileNeu = `| ${jetzt} | ${branchesPush} | ${neuHashes || 'nur Übersicht'} ${neu.length ? `(${neu.length})` : ''} | ${npmNoetig(diesmal) ? '**ja**' : 'nein'} | ${zelle(verlaufHinweise)} |`;
   const gleicherStand = zeilenAlt[0] && neuHashes && zeilenAlt[0].includes(neuHashes);
   const zeilenNeu = [zeileNeu, ...(gleicherStand ? zeilenAlt.slice(1) : zeilenAlt)];
   fs.writeFileSync(verlaufPfad, [...kopf, ...zeilenNeu, ''].join('\n'), 'utf8');
 
   console.log(`[push-stand] ${DATEI} und ${VERLAUF} geschrieben.`);
-  console.log(`[push-stand] ${dokumentiert.length} Commit(s) dokumentiert, davon ${neu.length} neu auf GitHub; npm install nötig: ${npmNoetig ? 'ja' : 'nein'}.`);
+  console.log(`[push-stand] ${dokumentiert.length} Commit(s) dokumentiert, davon ${neu.length} neu auf GitHub; npm install für diesen Push nötig: ${npmNoetig(diesmal) ? 'ja' : 'nein'}.`);
   console.log(`[push-stand] Backlog: ${summe} offene Punkte. Remote-Stand: ${remoteStand}`);
   console.log('[push-stand] Jetzt: git add docs/push-stand && git commit -m "Docs: Push-Stand …" && git push …');
 }
