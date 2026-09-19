@@ -1,33 +1,25 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 18.09.2026, 15:33, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 19.09.2026, 23:05, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 18.09.2026, 15:33 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.09.2026, 23:05 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `5488446` | `0898fda` | 2 vor GitHub (kommt mit dem Push) |
-| `2026-09-10-schleife-4-sofortpaket` | `33b6f5d` | `33b6f5d` | gleich |
-| `2026-09-14-karten-ablauf-flaeche` | `ed3bd69` | `ed3bd69` | gleich |
-| `2026-09-16-preise-partner-schadenlink` | `0898fda` | `0898fda` | gleich |
-| `2026-09-18-push-stand` | `5488446` | — | neu, 2 Commit(s) noch nicht auf GitHub |
-| 8 weitere lokale Branches | – | – | gleich mit GitHub |
+| `main` | `6bc769a` | `83f0355` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-09-17-backlog-abgleich` | `6bc769a` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| 1 weitere lokale Branches | – | – | gleich mit GitHub |
+| 11 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `132d8f2` | 14.09.2026, 11:53 | oalabhypercode | Deps: Pakete aus dem Pull installiert, sharp und smol-toml abgesichert | 1 | package-lock.json | war schon oben |
-| `4a281da` | 14.09.2026, 11:54 | oalabhypercode | Backlog: Schleife 4 importiert, Abgleich gegen den Code, Waechter prueft fremde Raeume | 13 (5 neu) | — | war schon oben |
-| `33b6f5d` | 14.09.2026, 11:54 | oalabhypercode | Schleife 4: Sofortpaket umgesetzt, Zeitstrahl haelt lange Texte | 20 (1 neu) | — | war schon oben |
-| `ed3bd69` | 17.09.2026, 02:27 | oalabhypercode | Schleife 2/4: Kartenflaechen, Ablauf-Animation, Betriebsflaeche 3.500 m2 | 44 (5 neu) | — | war schon oben |
-| `0898fda` | 17.09.2026, 02:29 | oalabhypercode | Preise, Partner, Schadenlink nach Kundenentscheidung; Partner auf Full HD (R14) | 76 (23 neu) | package.json | war schon oben |
-| `bbbcfc7` | 18.09.2026, 15:30 | oalabhypercode | Push-Stand: Uebersicht fuer Pulls an anderen Standorten, bei jedem Push | 8 (4 neu) | package.json | **kommt mit diesem Push** |
-| `5488446` | 18.09.2026, 15:33 | oalabhypercode | Push-Stand: dieser Push getrennt von rueckwirkend dokumentierten Commits | 1 | — | **kommt mit diesem Push** |
+| `6bc769a` | 19.09.2026, 23:05 | oalabhypercode | Backlog: Abgleich 17.09. gegen den Code, Doku-Drift behoben | 12 (2 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -37,20 +29,17 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run push-stand` |
-| Konfiguration geändert | `.claude/settings.json` |
-| Nur wer noch vor `132d8f2` steht (Commits „war schon oben") | **`npm install`**: **sharp 0.35.3 → 0.35.4** · @emnapi/runtime 1.11.2 → 1.11.3 · @img/* (16 Pakete) 0.35.3 → 0.35.4 · @img/* (10 Pakete) 1.3.2 → 1.3.3 · smol-toml 1.6.1 → 1.8.0 — Lockfile: 29 Paket(e) geändert · npm-Skripte: neu: `npm run zielgruppen`, neu: `npm run partnerlogos` · Konfiguration geändert: `tsconfig.json` |
-| Kontrolle | `git log --oneline -8 main`: oben „Docs: Push-Stand …", darunter `5488446`, `bbbcfc7`, `0898fda`, `ed3bd69`, `33b6f5d`, `4a281da`, `132d8f2` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `6bc769a` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
-| Unversioniert | `parallax-scroll-kit/` |
+| Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 13, alle Commits schon auf GitHub: `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
-| Weitere Worktrees | 2 |
-| Stash-Einträge | 0 |
+| Lokale Branches ohne GitHub-Gegenstück | 1, alle Commits schon auf GitHub: `worktree-service-links-fix` |
+| Weitere Worktrees | 1 |
+| Stash-Einträge | 1 |
 
 ## 5. Inhaltlich offen
 
@@ -58,18 +47,14 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
+| 1 — WINTEC: 18 Nennungen hängen an einer offenen Kundenfrage (3.30, 3.13) | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
+| 2 — WCAG 2.2.2: fünf Videostellen statt drei | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
+| 3 — Zwei Übersichten, die auseinanderlaufen | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
+| 4 — Rückfragen an André in einem Zug | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
 | 2 — Eigenes Schadenformular entfernen — erst nach Kundenbestätigung | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
 | 4 — reparatur.info: Datenschutz- und Impressumslink, AV-Vertrag | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
 | 5 — Porsche-Logo: nur mit Datei und Nutzungsrecht | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
 | 6 — Im Review mit André bestätigen lassen | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
-| 1 — Pushes aus Terminal und IDE ebenfalls prüfen — Entscheidung User | `docs/push-stand/tasks/2026-09-18-push-stand-optimierung-tasks.md` |
-| 2 — Hook ohne Git Bash | `docs/push-stand/tasks/2026-09-18-push-stand-optimierung-tasks.md` |
-| 1 — Wächter für die Kartenfläche: geprüft und bewusst zurückgestellt | `docs/schleife-2-4-karten-ablauf-flaeche/tasks/2026-09-14-karten-ablauf-optimierung-tasks.md` |
-| 2 — Sektionshintergründe: zweite Fundstelle derselben Zahl | `docs/schleife-2-4-karten-ablauf-flaeche/tasks/2026-09-14-karten-ablauf-optimierung-tasks.md` |
-| 3 — `ScrollPinnedProcess` bleibt das dritte Muster | `docs/schleife-2-4-karten-ablauf-flaeche/tasks/2026-09-14-karten-ablauf-optimierung-tasks.md` |
-| 2 — `parallax-scroll-kit/`: `allowNestedScroll` nachziehen — Entscheidung User | `docs/zielgruppen-partner-sichtbarkeit/tasks/2026-09-17-zielgruppen-partner-sichtbarkeit-optimierung-tasks.md` |
-| 3 — `ExpandingCardAccordion` auf `.cc-scroll-verlauf` umstellen (klein, optional) | `docs/zielgruppen-partner-sichtbarkeit/tasks/2026-09-17-zielgruppen-partner-sichtbarkeit-optimierung-tasks.md` |
-| 5 — `npm run zielgruppen` im Review-Ablauf verankern | `docs/zielgruppen-partner-sichtbarkeit/tasks/2026-09-17-zielgruppen-partner-sichtbarkeit-optimierung-tasks.md` |
 
 ### Backlog gesamt: 54 offene Punkte
 
@@ -118,7 +103,7 @@ Quelle: `docs/backlog/schleife-2.md`
 | 3.27 | Foto: Hagelschaden (Archiv oder anstehendes Fahrzeug) | offen | André |
 | 3.28 | Foto: Felge in Reparatur / beim Lackieren (vorhanden nur beschädigte Felgen) | offen | André |
 | 3.29 | Bilder Innenaufbereitung: exklusives Fahrzeug, kein Transporter | offen | André |
-| 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | offen | André |
+| 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | offen · Abgleich 2026-09-17: „Vintech" ist sehr wahrscheinl… | André |
 | 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16)… | André |
 | 3.32 | Ausbildungsstellen: widersprüchlich – erst „nein", dann „haben wir aktuell auch schon". Vor Umsetzung der Kar… | Klärung | André |
 | 3.36 | Slogan-Wortlaut: Richtung klar, exakte Formulierung noch offen | Klärung | Oalab / André |
