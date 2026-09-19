@@ -100,7 +100,9 @@ Nicht raten, sondern auszählen.
       (Schleife 1 endet bei 1.26, Schleife 3 bei 3.37)
 * [x] Kollisionstabelle in `offene-punkte-konsolidiert.md` eingesetzt, der bisherige
       Abschnitt „Die Nummerierung ist auseinandergelaufen" ersetzt
-* [ ] **Umbenennung noch nicht ausgeführt** — bewusster Stopp-Punkt, siehe unten
+* [x] **Umbenennung noch nicht ausgeführt** — bewusster Stopp-Punkt, siehe unten.
+      *Ausgeführt am 2026-09-06: Die Repo-Befunde heißen R1–R12
+      (`docs/backlog/tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`)*
 
 **Referenzen:**
 `docs/backlog/offene-punkte-konsolidiert.md`

@@ -15,6 +15,9 @@
 > Porsche Zentrum Leipzig nur Link, BVAT-Siegel · **Schaden melden → reparatur.info**.
 > Die Zeilen unten zeigen den Stand **vor** diesen Entscheidungen; maßgeblich ist der Backlog.
 >
+> **Aktuelle Liste aller offenen Punkte (gegen den Code geprüft, 2026-09-17):**
+> [`../backlog/tasks/2026-09-17-abgleich-offene-punkte-tasks.md`](../backlog/tasks/2026-09-17-abgleich-offene-punkte-tasks.md), Phase 4.
+>
 > **Keine neuen Nummern.** Jede Zeile trägt ihre Backlog-Nummer. Dopplungen sind
 > zusammengezogen und als solche gekennzeichnet — sonst wird dieselbe Lieferung zweimal
 > angefragt.
@@ -91,7 +94,7 @@ zusammen neun weitere Punkte.
 |---|---|---|---|
 | **4.2** | 4 | Betriebsfläche **3.000 → 3.500 m²** | ✅ **entschieden und umgesetzt 2026-09-14** |
 | **4.18** | 4 | Zeitstrahl 2013: Umzug auf über 3.500 m², Komplettreparatur, Neuteillackierung, Karosserie | ✅ **mit 4.2 entsperrt und umgesetzt** |
-| ✅ 4.5 · 4.6 · 4.11 · 4.12 · 4.15 · 4.16 · 4.17 · 4.20 | 4 | Sofortpaket Schleife 4 | ✅ umgesetzt 2026-09-11 *(liegt auf der Schleife-4-Branch, noch nicht in `main`)* |
+| ✅ 4.5 · 4.6 · 4.11 · 4.12 · 4.15 · 4.16 · 4.17 · 4.20 | 4 | Sofortpaket Schleife 4 | ✅ umgesetzt 2026-09-11 *(seit 2026-09-17 in `main`)* |
 | **4.21** | 4 | Programmnamen vereinheitlichen: Innenaufbereitung → „Intensiv Innenraumreinigung" usw. | 🟠 **Abgrenzung klären:** Paketname ≠ Seitenname. `/innenaufbereitung-leipzig` trägt den Suchbegriff. Vorschlag: Paketnamen dort, wo Pakete gemeint sind; Bereichsnamen für Seiten und Navigation. Auch: „Brilliant" oder „Brillant"? |
 | **4.3** | 4 | Leistungsaufzählung neu: „Innenraum und Außenpflege, Politur, Versiegelung, Geruchsentfernung" | 🟠 **Der Kunde fragt selbst:** entfällt „Lackreinigung" oder geht sie in Politur/Versiegelung auf? |
 | **4.8** | 4 | Doppelung zwischen „Außenaufbereitung" und „Lackaufbereitung" auflösen | 🟠 Fachliche Aussage — braucht vom Kunden, was wohin gehört. Hängt an 4.3 |
@@ -164,13 +167,14 @@ Preis, gehen also nicht an André:
 
 | Nr. | Aufgabe | Bei wem |
 |---|---|---|
-| **2.1** + **2.18** | Kartenflächen / Transparenz | ✅ **umgesetzt 2026-09-14** |
+| **2.1** | Kartenflächen | ✅ **umgesetzt 2026-09-14** |
+| **2.18** + **3.8** | Sektion „Schadenaufnahme" (Startseite, scroll-gepinnt): weniger Transparenz, ruhigeres Motiv | OALAB — **offen**. *Korrigiert am 2026-09-17: Hier stand „2.1 + 2.18 umgesetzt". 2.1 hat diese Karte bewusst nicht erfasst (`schleife-2.md`), der Code ist unverändert* |
 | **2.3** | Ablauf-Sektionen animieren | ✅ **umgesetzt 2026-09-14** |
-| **R10** | Live-Test aller vier Formulare + Empfangsnachweis | OALAB |
+| **R10** | Live-Test der **drei** Formulare mit eigenem Versand + Empfangsnachweis *(Schaden läuft seit 2026-09-16 über reparatur.info)* | OALAB |
 | **R9** | Anhänge mitsenden | OALAB |
 | **R11** | Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben | OALAB |
-| **R12** | Feldliste Schadenmeldung mit André durchgehen | André *(Formularinhalt)* |
-| **3.33** · **3.34** | Bilder-Upload finales Go · reparatur.info genutzt? | André *(Prozessfrage)* |
+| **R12** | Feldliste Schadenmeldung mit André durchgehen | ⏸️ **ruht** — eigenes Schadenformular seit 2026-09-16 abgeschaltet |
+| **3.33** · **3.34** | Bilder-Upload finales Go · reparatur.info genutzt? | ✅ **beantwortet 2026-09-16** (Fotos und Meldung über reparatur.info) |
 | **T4** · `ITEMS` vs. `serviceCatalog` · Scrollytelling-Nachweis · Footer-Icons | Kleinkram | OALAB |
 
 ---

@@ -112,10 +112,10 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | Nr. | Befund |
 |---|---|
 | **2.22** | vollständig erledigt (Anfrage-Dialog, 1.20) — Statusspalte am 2026-09-06 nachgezogen |
-| **2.3** | teilweise — Zeitstrahl steht, Ablauf-Sektionen folgen dem Muster noch nicht |
+| **2.3** | teilweise — Zeitstrahl steht, Ablauf-Sektionen folgen dem Muster noch nicht · *✅ vollständig seit 2026-09-14* |
 | **2.5** | erledigt (Kachelrochade aus Paket B), am 2026-09-06 gegen `data/services.ts` gegengeprüft |
 | **2.25** | war strittig (Optionen stimmen, Wortlaut nicht), am 2026-09-06 entschieden: Zusammenführen ist gewollt |
-| **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst |
+| **2.23** | bewusst abgewichen — Entscheidung von Oalab, wird im Nachgang angepasst · *✅ am 2026-09-16 angepasst: „Schaden melden" führt auf reparatur.info* |
 | **2.14** | Dopplung mit dem repo-lokalen „1.28" (heute **R2**) |
 
 ## Am 2026-09-06 erledigt

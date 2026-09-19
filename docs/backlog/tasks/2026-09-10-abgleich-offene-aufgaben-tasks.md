@@ -76,9 +76,11 @@ Teil davon bereits enthielten — Phase 5 führt beides zusammen.
 * [x] Liste neu gezählt: **Schleife 1: 5 · Schleife 2: 13 · Schleife 3: 25 = 43 offen**
       (vorher 46; 1.17 und 1.22 fehlt nur noch der Live-Test)
 * [x] `npm run nummern` grün, Dev-Server läuft mit dem neuen Stand
-* [ ] `npm install` für die 5 neuen Pakete (nodemailer, react-email, @types/nodemailer, ffmpeg-static, tsx)
+* [x] `npm install` für die 5 neuen Pakete (nodemailer, react-email, @types/nodemailer, ffmpeg-static, tsx)
       — **nicht ausgeführt**, lädt u. a. eine ffmpeg-Binärdatei nach; Rückfrage an den User. Ohne sie bricht
-      `npm run build` im `prebuild` (`scripts/build-email.mjs`). Das Frontend braucht sie nicht
+      `npm run build` im `prebuild` (`scripts/build-email.mjs`). Das Frontend braucht sie nicht.
+      *Erledigt mit Commit `132d8f2` („Deps: Pakete aus dem Pull installiert"); am 2026-09-17 geprüft:
+      `nodemailer`, `tsx` und `ffmpeg-static` liegen in `node_modules`*
 **Referenzen:**
 `docs/backlog/offene-punkte-konsolidiert.md`
 `docs/netcup-email/tasks/2026-09-08-netcup-email-tasks.md`
@@ -114,7 +116,7 @@ Pakete ohne Rückfrage nachgeladen ✅, Steuerzeichen-Scan über alle gepullten 
    geschrieben. Unsichtbar im Editor, sichtbar als „docsacklog".
 6. 🟡 **Mittel, behoben: Doppelte Arbeit.** Meine Korrektur aus Phase 3 lag seit dem 07.09. bereits auf
    `origin/main`, nur nicht lokal. *Lehre: vor einem Abgleich zuerst `git fetch`.*
-7. 🔵 **Niedrig, offen: `npm install` ausstehend** (siehe Phase 6).
+7. 🔵 **Niedrig, ~~offen~~ erledigt (`132d8f2`): `npm install` ausstehend** (siehe Phase 6).
 8. 🔵 **Niedrig, offen → Optimierungsplan: Wächterlücke 3** (Grenzen aus der Kunden-CSV ableiten).
 
 **Optimierungsplan:** `docs/backlog/tasks/2026-09-10-abgleich-optimierung-tasks.md`

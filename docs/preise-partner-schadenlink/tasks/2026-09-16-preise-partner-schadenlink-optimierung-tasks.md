@@ -48,7 +48,10 @@ Arbeitsbaum nie anfasst (der Dev-Server auf 3007 bedient ihn).
 * [x] **Push** erledigt 2026-09-17 auf Befehl des Users („ja push alles"): `main` `efd549b` →
       `0898fda`, dazu die beiden Paket-Branches neu auf GitHub. Vercel-Vorschau gebaut,
       `npm run smoke -- --seit HEAD` 29/29, Bundle identisch mit dem lokalen Build.
-      Übersicht für die anderen Standorte: `docs/push-stand/README.md` (seit 2026-09-18)
+      Übersicht für die anderen Standorte: `docs/push-stand/README.md` (seit 2026-09-18).
+      Gegenprobe beim Pull am 2026-09-17: `origin/main` und
+      `origin/2026-09-16-preise-partner-schadenlink` standen auf `0898fda`
+      (`docs/backlog/tasks/2026-09-17-abgleich-offene-punkte-tasks.md`)
 
 ### ⬜ 2 — Eigenes Schadenformular entfernen — erst nach Kundenbestätigung
 **Ziel:** Hinter `SCHADENMELDUNG_EXTERN = true` ist das eigene Formular unerreichbar, aber noch

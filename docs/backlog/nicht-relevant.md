@@ -34,7 +34,7 @@ den `offene-punkte-konsolidiert.md` dokumentiert.
 |---|---|---|---|---|
 | Offene Frage | Programmname: „Beta Motive" vs. „Data Motive" – korrekte Schreibweise bestätigen | André | Klärung | ✅ *Überholt. `pages/BusinessCustomersPage.tsx:70` hält fest, dass „Data Motive" vom Kunden bestätigt wurde; so ist es ausgeliefert. Die CSV ist an dieser Stelle älter als die Bestätigung.* |
 | Bringschuld André | Fotogrundregel: Handyfotos, unbearbeitet, während der Bearbeitung oder kurz vor Ende – keine reinen Ergebnisbilder | André | Prinzip | **Gilt für alle Fotolieferungen** — 3.23–3.29, 2.14, 2.16, 2.20, R7. Bei der Anforderung mitschicken. |
-| Über uns | Videografen kontaktieren (Kontakt über Hariege, Leipzig/Dubai) – diese Woche | Oalab | offen | *Voraussetzung für 3.21 (Drohnenvideo) und damit für 3.18 und 3.20. Die längste Durchlaufzeit von allem Offenen.* |
+| Über uns | Videografen kontaktieren (Kontakt über Hariege, Leipzig/Dubai) – diese Woche | Oalab | offen → **vermutlich überholt** | *Voraussetzung für 3.21 (Drohnenvideo) und damit für 3.18 und 3.20. Die längste Durchlaufzeit von allem Offenen.* *Abgleich 2026-09-17: Der Film kam am 2026-09-07, 3.18/3.20/3.21 sind erledigt. Wieder relevant nur, falls 4.14 (ganzer Film, Karosserie-Schwenk) neue Aufnahmen braucht — beim User bestätigen.* |
 | Sonstiges | Instagram-Beispiele frei durch Deutschland fahrender Autoaufbereiter an André schicken | Oalab | offen | *Reine Zuarbeit, kein Website-Thema.* |
 | Sonstiges | Idee zur Prüfung: Aufbereiter mit Kamerabrille, komplette Aufbereitung filmen, 1-Minuten-Video für Social Media | André | Idee | *Idee, keine Aufgabe. Kein Website-Thema.* |
 
@@ -47,6 +47,9 @@ Videograf kein Drohnenvideo (3.21), ohne Drohnenvideo kein Hero-Video (3.20) und
 Betriebsdarstellung auf der Karriereseite (3.18). Das Kästchen sagt „diese Woche" und
 steht in der Liste ganz unten, weil es als „nicht relevant" einsortiert wurde — für die
 Terminplanung ist es das Gegenteil.
+
+**Nachtrag 2026-09-17:** Der Engpass hat sich aufgelöst — das Material kam am 2026-09-07,
+alle drei Videoplätze sind gefüllt. Offen ist nur noch 4.14 (ganzer Film).
 
 ---
 

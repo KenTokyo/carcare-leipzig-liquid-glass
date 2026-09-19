@@ -4,8 +4,9 @@
 Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26?"),
 findet sie über die Tabelle unten.
 
-**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10, zuletzt fortgeschrieben am **2026-09-16** · **Website:** `carcare-center.vercel.app`
-**Letzter Abgleich:** [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md)
+**Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10 und **2026-09-17**, zuletzt fortgeschrieben am **2026-09-17** · **Website:** `carcare-center.vercel.app`
+**Letzter Abgleich:** [`tasks/2026-09-17-abgleich-offene-punkte-tasks.md`](tasks/2026-09-17-abgleich-offene-punkte-tasks.md) — **aktuelle Liste aller offenen Punkte** in Phase 4:
+Schleife 1: **5** · Schleife 2: **13** · Schleife 3: **21** · Schleife 4: **3** (davor: [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md))
 **Zuletzt erledigt (2026-09-16):** Kundenentscheidungen zu Preisen (4.4, 4.7, 4.9, 4.10, 3.35), Texten (4.3, 4.8, 4.21), BVAT (3.12, 4.13), Partnerlogos (riparo, Porsche Zentrum — 3.16/3.31 teilweise) und „Schaden melden" → reparatur.info (2.23, 3.33, 3.34); R13 erledigt — `docs/preise-partner-schadenlink/`
 **Davor (2026-09-14):** 2.1 (Kartenflächen), 2.3 (Ablauf-Animation), 4.2 + 4.18 (Betriebsfläche 3.500 m²) — `docs/schleife-2-4-karten-ablauf-flaeche/`
 **Nach Art der Zulieferung sortiert** (Fotos · Texte · Logos · Pricing): [`../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md`](../schleife-2-4-karten-ablauf-flaeche/kategorien-fotos-texte-logos-pricing.md)
@@ -23,8 +24,8 @@ findet sie über die Tabelle unten.
 |---|---|---|---|
 | [`schleife-1.md`](schleife-1.md) | Erste Review-Runde, **abgeschlossen** (25 von 29 umgesetzt) | 26 | **1.1 – 1.26** |
 | [`schleife-2.md`](schleife-2.md) | Zweite Review-Runde | 27 | **2.1 – 2.27** |
-| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde, enthält 6 offene Entscheidungen | 37 | **3.1 – 3.37** |
-| [`schleife-4.md`](schleife-4.md) | Vierte Runde: Feedbackliste von André (2026-09-10), **Originalnummern**, 10 Rückfragen | 21 | **4.1 – 4.21** |
+| [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde; von 6 offenen Entscheidungen sind noch 3 offen (3.32, 3.36, 3.37) | 37 | **3.1 – 3.37** |
+| [`schleife-4.md`](schleife-4.md) | Vierte Runde: Feedbackliste von André (2026-09-10), **Originalnummern**, 18 von 21 umgesetzt, 2 von 10 Rückfragen offen (4.19, Priorität) | 21 | **4.1 – 4.21** |
 | [`nicht-relevant.md`](nicht-relevant.md) | Ohne Schleifenzuordnung — 8 abgenommene Entscheidungen, 5 offene Punkte | 13 | *ohne Nummer* |
 | | **Summe** | **124** | |
 
@@ -87,7 +88,7 @@ Zwei Punkte bei André, beide rechtlich — dazu ein technischer Nachweis bei un
    Netcup-Versand *(repo-lokal „R6")*. **Dringlicher geworden:** Seit 2026-09-08 sendet
    die Vorschau Formulare tatsächlich.
 3. ~~**Zugangsdaten für den Formularversand**~~ — **am 2026-09-08 hinterlegt** (Netcup-SMTP
-   statt Resend). Offen ist nur noch der Live-Test aller vier Formulare mit
-   Empfangsnachweis *(repo-lokal „R10")*
+   statt Resend). Offen ist nur noch der Live-Test der **drei** Formulare mit eigenem Versand
+   (Schaden läuft seit 2026-09-16 über reparatur.info) mit Empfangsnachweis *(repo-lokal „R10")*
 
 Details und Wortlaut in [`offene-punkte-konsolidiert.md`](offene-punkte-konsolidiert.md).

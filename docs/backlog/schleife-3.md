@@ -55,7 +55,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
 | 3.7 | Text „Alle Marken" ändern in: „Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen." | Oalab | ✅ **erledigt** | *`pages/AccidentRepairPage.tsx`, Karte im Block „Schadenfall". Wortlaut **wörtlich** übernommen und im Code als kundenfreigegeben markiert, damit ihn niemand „schöner" macht. 2026-09-06* |
-| 3.8 | Sektion „Schadenaufnahme": Hintergrundbild ändern, ruhigeres Motiv im Stil der Aufbereitungsseite | Oalab | offen | *Zusammen mit 2.18 (gleiche Sektion, Transparenz).* |
+| 3.8 | Sektion „Schadenaufnahme": Hintergrundbild ändern, ruhigeres Motiv im Stil der Aufbereitungsseite | Oalab | offen | *Zusammen mit 2.18 (gleiche Sektion, Transparenz).* *Abgleich 2026-09-17: Die Sektion ist Schritt 02 der scroll-gepinnten Schadenreise auf der Startseite (`AccidentDamageSection` → `ScrollPinnedProcess`), Motiv `schadenaufnahme-leipzig-carcare.webp` — unverändert. Von 2.1 bewusst nicht erfasst.* |
 | 3.9 | Prüfen, ob der obere Block auf jeder Serviceseite wiederholt werden muss oder einmal auf der Subseite reicht | Oalab | ✅ **beantwortet und umgesetzt** | *Gemessen, siehe „Befund zu 3.9" unten. Kurz: Der wiederholte Block ist die USP-Sektion „Warum CarCare Center Leipzig". **Empfehlung: behalten, aber je Seite unterschiedlich formulieren.** **Umgesetzt in Paket G (2026-09-06):** Die wortgleichen Karten sind je Seite eigenständig formuliert, Titel und Kernaussagen (Meisterbetrieb, 1998, 3.000 m²) blieben. Im nächsten Review zur Abnahme zeigen.* |
 
 ---
@@ -67,7 +67,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 | 3.10 | Smart-Repair-Foto ersetzen – zeigt Kratzerentfernung/Aufbereitung, nicht Smart Repair | Oalab | offen | *Motiv kommt über 3.25.* |
 | 3.11 | Dellenentfernung: sauberes Bild hinterlegen | Oalab | offen | *Motiv kommt über 3.24.* |
 | 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | ✅ **erledigt** | *✅ 2026-09-16: Offizieller Name **„Bundesverband Ausbeultechnik und Hagelinstandsetzung e.V."** — am Impressum des Verbands geprüft (bvat.de, AG Charlottenburg VR 29872 B), **ohne „für"**; die hier zuvor notierte Fassung mit „für" war falsch, die Langform aus 4.13 ebenso. Offizielles Siegel von bvat.de, **unverändert**, verlinkt, deckend hinterlegt. Hagelseite: Satz mit Namen + Siegel darunter; Über uns: Siegel (4.13). Daten `data/mitgliedschaften.ts`, Vorgehen `docs/partnerlogos/README.md`. Vorher: Hinweissatz ohne Langform, Logo offen.* |
-| 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | offen | *Hängt mit 3.30 zusammen (Vintech-Klärung).* |
+| 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | offen | *Hängt mit 3.30 zusammen (Vintech-Klärung).* *Abgleich 2026-09-17: „Neuverglasung für PKW, LKW und Bus" ist der Standard-Leistungstext des WINTEC-Autoglas-Netzes und stammt von der Altseite. Zu bestätigen: Bieten wir LKW und Bus selbst bzw. über den Partner an?* |
 | 3.14 | Caravan-Segment nicht bewerben (nur vereinzelt für Bestandskunden) | – | erledigt | *Entscheidung, keine Aufgabe.* |
 | 3.15 | Leasingrückgabe: Text bleibt; Seite wird von Fuhrpark/Autohaus und Privat angesteuert | – | erledigt | *Bestätigt die Sonderrolle der Seite: sie ist bewusst nicht auf `ServiceLayout` migriert.* |
 
@@ -132,7 +132,7 @@ Neun Zulieferungen. **Als ein Paket anfordern**, nicht einzeln.
 | 3.27 | Foto: Hagelschaden (Archiv oder anstehendes Fahrzeug) | André | offen |
 | 3.28 | Foto: Felge in Reparatur / beim Lackieren (vorhanden nur beschädigte Felgen) | André | offen |
 | 3.29 | Bilder Innenaufbereitung: exklusives Fahrzeug, kein Transporter | André | offen |
-| 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | André | offen |
+| 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | André | offen · *Abgleich 2026-09-17: „Vintech" ist sehr wahrscheinlich **WINTEC** (Autoglas-Partnernetz). Der Name steht bereits **18× in 9 Dateien** — auch in Title, Meta-Description und Schema von `/autoglas-leipzig`, übernommen von der Altseite. Sagt André „nicht nennen", sind alle 18 Stellen zugleich zu ändern.* |
 | 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | André | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16), siehe `docs/partnerlogos/README.md` |
 
 *Ergänzung: 3.23–3.29 bedienen direkt 3.10, 3.11, 2.15 und 2.16. Die Fotogrundregel
@@ -144,6 +144,7 @@ Schleifenzuordnung. **3.31 blockiert 3.16** — ohne Freigabe dürfen die Logos 
 ## Offene Fragen – blockieren Umsetzung (3.32 – 3.37)
 
 Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
+*Stand 2026-09-16: 3.33, 3.34 und 3.35 sind beantwortet — offen bleiben 3.32, 3.36 und 3.37.*
 
 | Nr. | Frage | Verantw. | Status | Was daran hängt |
 |---|---|---|---|---|
