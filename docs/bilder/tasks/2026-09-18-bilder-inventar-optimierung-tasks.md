@@ -18,6 +18,7 @@ Backlog-Nummern. Was André beantworten muss, steht zusätzlich als `R15`/`R16` 
 | O7 | 🟢 Info | **Starke Mehrfachnutzung:** `autolackierung` 11×, `fahrzeugaufbereitung` 10×, `smart-repair` 8×. Ein Tausch trifft alle Stellen. Soll nur eine Stelle ein anderes Motiv bekommen, braucht sie eine eigene Datei | User | Hinweis in der Liste |
 | O8 | 🟢 Info | **2.15 vielleicht schon erledigt:** „KI-Bild ersetzen – kein Transporter“. Das heutige Innenaufbereitungsmotiv ist ein Kundenmotiv mit Ferrari (Commit `de2069b`, 23.07.2026) | André | im Motiv-Eintrag vermerkt |
 | O9 | 🟢 Info | **`DESIGN.md` 5.1 beschreibt noch `Hero.tsx`** als Hero-Komponente. Tatsächlich rendert `HeroSection.tsx`. Verbindliche Datei, deshalb nicht eigenmächtig geändert | User | Hinweis |
+| O10 | 🟠 Hoch | **Der Push-Stand übersah diese Planung.** Beim Push am 20.09.2026 meldete `npm run push-stand` „keine offenen Folgepunkte", obwohl Phase O-C ein offenes Kästchen trägt: Der Generator erkannte nur `### ⬜`, nicht `### ⏸️`. Ein zurückgestellter Punkt wäre damit an anderen Standorten unsichtbar gewesen — der Wächter prüfte die Schreibweise der Überschrift, nicht den Stand der Arbeit (`CLAUDE.md`: „notwendig, aber nicht hinreichend") | OALAB | ✅ **fixed 2026-09-20** — `scripts/push-stand.mjs` zählt `⏸️` mit und kennzeichnet es in der Tabelle; gegengeprüft: O-C erscheint jetzt |
 
 ---
 

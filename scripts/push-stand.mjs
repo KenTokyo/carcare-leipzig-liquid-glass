@@ -345,7 +345,15 @@ function backlogOffen() {
   return gruppen;
 }
 
-/** Offene Folgepunkte (`### ⬜ …`) aus Planungsdateien, die die dokumentierten Commits beruehren. */
+/**
+ * Offene Folgepunkte (`### ⬜ …` und `### ⏸️ …`) aus Planungsdateien, die die
+ * dokumentierten Commits beruehren.
+ *
+ * ⏸️ zaehlt mit: Zurueckgestellt heisst nicht erledigt. Am 20.09.2026 meldete diese
+ * Uebersicht "keine offenen Folgepunkte", waehrend Phase O-C des Bildinventars ein
+ * offenes Kaestchen trug (Weichzeichnung des Kennzeichens, wartet auf Andres Antwort).
+ * Wer nur ⬜ zaehlt, prueft die Schreibweise der Ueberschrift, nicht den Stand der Arbeit.
+ */
 function folgepunkte(dokumentiert) {
   const dateien = new Set(dokumentiert.flatMap((c) => c.dateien.map((d) => d.pfad)).filter((p) => /^docs\/.*\/tasks\/.*\.md$/.test(p)));
   const out = [];
@@ -353,8 +361,8 @@ function folgepunkte(dokumentiert) {
     const pfad = path.join(wurzel, datei);
     if (!fs.existsSync(pfad)) continue;
     for (const z of fs.readFileSync(pfad, 'utf8').split(/\r?\n/)) {
-      const m = z.match(/^###\s+⬜\s*(.+)$/);
-      if (m) out.push({ punkt: kuerzen(sauber(m[1]), 110), datei });
+      const m = z.match(/^###\s+(⬜|⏸️)\s*(.+)$/);
+      if (m) out.push({ punkt: kuerzen(sauber(m[2]), 110), datei, ruht: m[1] === '⏸️' });
     }
   }
   return out;
@@ -469,7 +477,7 @@ function erzeuge(seit) {
   if (!folge.length) md.push('Keine offenen Folgepunkte in den berührten Planungsdateien.', '');
   else {
     md.push('| Punkt | Planung |', '|---|---|');
-    for (const f of folge) md.push(`| ${zelle(f.punkt)} | \`${f.datei}\` |`);
+    for (const f of folge) md.push(`| ${f.ruht ? '⏸️ ' : ''}${zelle(f.punkt)} | \`${f.datei}\` |`);
     md.push('');
   }
   const summe = backlog.reduce((s, g) => s + g.eintraege.length, 0);
