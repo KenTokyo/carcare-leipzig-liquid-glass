@@ -110,6 +110,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
+| `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 
 Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
 selbst — **niemals** `npm run dev` dafür starten.
@@ -165,3 +166,10 @@ bekommen das Kürzel `R<n>` („Repo-Befund"), niemals eine freie `x.y`-Nummer. 
 R4–R12 wurden einmal repo-lokal vergeben und kollidieren seitdem mit fünf echten
 Kundenpunkten — darunter beide Livegang-Blocker. Auflösung:
 `docs/backlog/tasks/2026-09-06-nummernkonflikt-optimierung-tasks.md`
+
+**Bildnummern `B<n>`** (seit 2026-09-18) sind ebenfalls Absprachen: Der User nennt damit
+die Bildwünsche des Kunden („B14 und B27 tauschen“). Vergeben und gehalten werden sie
+ausschließlich von `npm run bilder` über `docs/bilder/nummern.json` — nie von Hand
+umnummerieren, entfallene Nummern nie neu vergeben. Wird ein Bild getauscht, bleibt die
+Nummer; eine Datei kann an vielen Stellen stehen (siehe „Nach Datei“ in
+`docs/bilder/README.md`), also vor jedem Tausch prüfen, ob nur **eine** Stelle gemeint ist.

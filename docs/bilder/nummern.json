@@ -1,0 +1,673 @@
+{
+  "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
+  "naechste": 112,
+  "stellen": {
+    "alle|ladebildschirm|||bild|desktop|": {
+      "nr": 1,
+      "ort": "Ladebildschirm beim ersten Aufruf der Startseite · Desktop",
+      "datei": "hero-leipzig-carcare-desktop.webp",
+      "rahmen": "alle|ladebildschirm|bild|desktop"
+    },
+    "alle|ladebildschirm|||bild|mobil|": {
+      "nr": 2,
+      "ort": "Ladebildschirm beim ersten Aufruf der Startseite · Smartphone",
+      "datei": "hero-leipzig-carcare-mobile.webp",
+      "rahmen": "alle|ladebildschirm|bild|mobil"
+    },
+    "alle|fusszeile|||bild||": {
+      "nr": 3,
+      "ort": "Fußzeile › Hintergrundbild",
+      "datei": "footer-leipzig-carcare.webp",
+      "rahmen": "alle|fusszeile|bild|"
+    },
+    "alle|teilen|||kopf||": {
+      "nr": 4,
+      "ort": "Vorschaubild beim Teilen (WhatsApp, Facebook, LinkedIn: og:image / twitter:image)",
+      "datei": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop",
+      "rahmen": "alle|teilen|kopf|"
+    },
+    "alle|jsonld-localbusiness-image|||kopf||": {
+      "nr": 5,
+      "ort": "Strukturierte Daten für Google (LocalBusiness.image), unsichtbar im Seitenquelltext",
+      "datei": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop",
+      "rahmen": "alle|jsonld-localbusiness-image|kopf|"
+    },
+    "alle|jsonld-autorepair-image|||kopf||": {
+      "nr": 6,
+      "ort": "Strukturierte Daten für Google (AutoRepair.image), unsichtbar im Seitenquelltext",
+      "datei": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop",
+      "rahmen": "alle|jsonld-autorepair-image|kopf|"
+    },
+    "/|home|||titelbild|desktop|": {
+      "nr": 7,
+      "ort": "Titelbild (Hero) · Desktop",
+      "datei": "hero-leipzig-carcare-desktop.webp",
+      "rahmen": "/|home|titelbild|desktop"
+    },
+    "/|home|||titelbild|mobil|": {
+      "nr": 8,
+      "ort": "Titelbild (Hero) · Smartphone",
+      "datei": "hero-leipzig-carcare-mobile.webp",
+      "rahmen": "/|home|titelbild|mobil"
+    },
+    "/|leistungen||Fahrzeugaufbereitung|bild||": {
+      "nr": 9,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Fahrzeugaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Unfallinstandsetzung|bild||": {
+      "nr": 10,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Unfallinstandsetzung“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Neu- und Reparaturlackierung|bild||": {
+      "nr": 11,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Neu- und Reparaturlackierung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Smart Repair|bild||": {
+      "nr": 12,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Smart Repair“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Dellenentfernung|bild||": {
+      "nr": 13,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Dellenentfernung“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Hagelschadenreparatur|bild||": {
+      "nr": 14,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Hagelschadenreparatur“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Felgenreparatur|bild||": {
+      "nr": 15,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Felgenreparatur“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Autoglas / Scheibenfolien|bild||": {
+      "nr": 16,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Autoglas / Scheibenfolien“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Leasingrückgabe|bild||": {
+      "nr": 17,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Leasingrückgabe“",
+      "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|leistungen||Fuhrparkservice|bild||": {
+      "nr": 18,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Fuhrparkservice“",
+      "datei": "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp",
+      "rahmen": "/|leistungen|bild|"
+    },
+    "/|unfall-schaden||Schaden melden|bild||": {
+      "nr": 19,
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Schaden melden“",
+      "datei": "kacheln/schaden-melden-leipzig-carcare.webp",
+      "rahmen": "/|unfall-schaden|bild|"
+    },
+    "/|unfall-schaden||Schadenaufnahme|bild||": {
+      "nr": 20,
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Schadenaufnahme“",
+      "datei": "kacheln/schadenaufnahme-leipzig-carcare.webp",
+      "rahmen": "/|unfall-schaden|bild|"
+    },
+    "/|unfall-schaden||Gutachten & Kalkulation|bild||": {
+      "nr": 21,
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Gutachten & Kalkulation“",
+      "datei": "kacheln/kalkulation-leipzig-carcare.webp",
+      "rahmen": "/|unfall-schaden|bild|"
+    },
+    "/|unfall-schaden||Versicherungsabwicklung|bild||": {
+      "nr": 22,
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Versicherungsabwicklung“",
+      "datei": "kacheln/versicherungsabwicklung-leipzig-carcare.webp",
+      "rahmen": "/|unfall-schaden|bild|"
+    },
+    "/|unfall-schaden||Ersatzwagen nach Verfügbarkeit|bild||": {
+      "nr": 23,
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Ersatzwagen nach Verfügbarkeit“",
+      "datei": "kacheln/ersatzwagen-leipzig-carcare.webp",
+      "rahmen": "/|unfall-schaden|bild|"
+    },
+    "/|zielgruppen||Privatkunden|bild||": {
+      "nr": 24,
+      "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Privatkunden“",
+      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "rahmen": "/|zielgruppen|bild|"
+    },
+    "/|zielgruppen||Versicherungen & Agenturen|bild||": {
+      "nr": 25,
+      "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Versicherungen & Agenturen“",
+      "datei": "kacheln/versicherungen-und-agenturen-leipzig-carcare.webp",
+      "rahmen": "/|zielgruppen|bild|"
+    },
+    "/|zielgruppen||Autohäuser & Fuhrparks|bild||": {
+      "nr": 26,
+      "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Autohäuser & Fuhrparks“",
+      "datei": "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp",
+      "rahmen": "/|zielgruppen|bild|"
+    },
+    "/|autoaufbereitung||Innenaufbereitung|bild||": {
+      "nr": 27,
+      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Innenaufbereitung“",
+      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung|bild|"
+    },
+    "/|autoaufbereitung||Außenaufbereitung|bild||": {
+      "nr": 28,
+      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Außenaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung|bild|"
+    },
+    "/|autoaufbereitung||Leasingrückgabe vorbereiten|bild||": {
+      "nr": 29,
+      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Leasingrückgabe vorbereiten“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung|bild|"
+    },
+    "/|autoaufbereitung||Mehr über Aufbereitung erfahren|bild||": {
+      "nr": 30,
+      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Mehr über Aufbereitung erfahren“",
+      "datei": "kacheln/wissensdatenbank-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung|bild|"
+    },
+    "/|autoaufbereitung-ablauf||Leistung auswählen|bild||": {
+      "nr": 31,
+      "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Leistung auswählen“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/|autoaufbereitung-ablauf||Termin anfragen|bild||": {
+      "nr": 32,
+      "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Termin anfragen“",
+      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/|autoaufbereitung-ablauf||Fahrzeug abgeben|bild||": {
+      "nr": 33,
+      "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Fahrzeug abgeben“",
+      "datei": "kacheln/ersatzwagen-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/|autoaufbereitung-ablauf||Professionelle Aufbereitung|bild||": {
+      "nr": 34,
+      "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Professionelle Aufbereitung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/|autoaufbereitung-ablauf||Gepflegt zurückerhalten|bild||": {
+      "nr": 35,
+      "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Gepflegt zurückerhalten“",
+      "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
+      "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|seite|||bild||": {
+      "nr": 36,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|seite|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Unfallinstandsetzung|bild||": {
+      "nr": 37,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Unfallinstandsetzung“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Neu- und Reparaturlackierung|bild||": {
+      "nr": 38,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Neu- und Reparaturlackierung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Smart Repair|bild||": {
+      "nr": 39,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Smart Repair“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Dellenentfernung|bild||": {
+      "nr": 40,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Dellenentfernung“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Hagelschadenreparatur|bild||": {
+      "nr": 41,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Hagelschadenreparatur“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Felgenreparatur|bild||": {
+      "nr": 42,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Felgenreparatur“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Autoglas & Scheibenfolien|bild||": {
+      "nr": 43,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Autoglas & Scheibenfolien“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+    },
+    "/fahrzeugaufbereitung-leipzig|seite|||bild||": {
+      "nr": 44,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|seite|bild|"
+    },
+    "/fahrzeugaufbereitung-leipzig|umfang||Innenaufbereitung|bild||": {
+      "nr": 45,
+      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Innenaufbereitung“",
+      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
+    },
+    "/fahrzeugaufbereitung-leipzig|umfang||Außenaufbereitung|bild||": {
+      "nr": 46,
+      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Außenaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
+    },
+    "/fahrzeugaufbereitung-leipzig|umfang||Lackaufbereitung|bild||": {
+      "nr": 47,
+      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Lackaufbereitung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Innenaufbereitung|platzhalter||": {
+      "nr": 48,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Innenaufbereitung“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Außenreinigung|platzhalter||": {
+      "nr": 49,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Außenreinigung“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Lackpolitur|platzhalter||": {
+      "nr": 50,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Lackpolitur“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Cockpit-Detail|platzhalter||": {
+      "nr": 51,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Cockpit-Detail“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Versiegelung|platzhalter||": {
+      "nr": 52,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Versiegelung“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Felgenreinigung|platzhalter||": {
+      "nr": 53,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Felgenreinigung“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Lederpflege|platzhalter||": {
+      "nr": 54,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Lederpflege“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Motorraumpflege|platzhalter||": {
+      "nr": 55,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Motorraumpflege“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Keramikschutz|platzhalter||": {
+      "nr": 56,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Keramikschutz“ (Foto fehlt)",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Politur-Finish|platzhalter||": {
+      "nr": 57,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Politur-Finish“ (Foto fehlt) · nur Desktop",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/fahrzeugaufbereitung-leipzig|einblicke||Endkontrolle|platzhalter||": {
+      "nr": 58,
+      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Endkontrolle“ (Foto fehlt) · nur Desktop",
+      "datei": "",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+    },
+    "/leasingrueckgabe-leipzig|seite|||bild||": {
+      "nr": 59,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|seite|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Dellen ohne Lackieren|bild||": {
+      "nr": 60,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Dellen ohne Lackieren“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Spot-Repair bei Lackschäden|bild||": {
+      "nr": 61,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Spot-Repair bei Lackschäden“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Felgen mit Bordsteinschäden|bild||": {
+      "nr": 62,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Felgen mit Bordsteinschäden“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Steinschlag und Scheibenschäden|bild||": {
+      "nr": 63,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Steinschlag und Scheibenschäden“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Größere Lack- und Karosserieschäden|bild||": {
+      "nr": 64,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Größere Lack- und Karosserieschäden“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Aufbereitung innen und außen|bild||": {
+      "nr": 65,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Aufbereitung innen und außen“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+    },
+    "/aussenaufbereitung-leipzig|seite|||bild||": {
+      "nr": 66,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/aussenaufbereitung-leipzig|seite|bild|"
+    },
+    "/innenaufbereitung-leipzig|seite|||bild||": {
+      "nr": 67,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/innenaufbereitung-leipzig|seite|bild|"
+    },
+    "/smart-repair-leipzig|seite|||bild||": {
+      "nr": 68,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/smart-repair-leipzig|seite|bild|"
+    },
+    "/autolackierung-leipzig|seite|||bild||": {
+      "nr": 69,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/autolackierung-leipzig|seite|bild|"
+    },
+    "/dellenentfernung-leipzig|seite|||bild||": {
+      "nr": 70,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/dellenentfernung-leipzig|seite|bild|"
+    },
+    "/hagelschadenreparatur-leipzig|seite|||bild||": {
+      "nr": 71,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/hagelschadenreparatur-leipzig|seite|bild|"
+    },
+    "/felgenreparatur-leipzig|seite|||bild||": {
+      "nr": 72,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/felgenreparatur-leipzig|seite|bild|"
+    },
+    "/fuhrparkservice-leipzig|seite|||bild||": {
+      "nr": 73,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp",
+      "rahmen": "/fuhrparkservice-leipzig|seite|bild|"
+    },
+    "/autoglas-leipzig|seite|||bild||": {
+      "nr": 74,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/autoglas-leipzig|seite|bild|"
+    },
+    "/privatkunden|seite|||bild||": {
+      "nr": 75,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|seite|bild|"
+    },
+    "/privatkunden|leistungen||Fahrzeugaufbereitung|bild||": {
+      "nr": 76,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Fahrzeugaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Unfallschaden & Reparatur|bild||": {
+      "nr": 77,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Unfallschaden & Reparatur“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Smart Repair|bild||": {
+      "nr": 78,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Smart Repair“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Dellen ohne Lackieren|bild||": {
+      "nr": 79,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Dellen ohne Lackieren“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Neu- und Reparaturlackierung|bild||": {
+      "nr": 80,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Neu- und Reparaturlackierung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Hagelschaden|bild||": {
+      "nr": 81,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Hagelschaden“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Felgenreparatur|bild||": {
+      "nr": 82,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Felgenreparatur“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/privatkunden|leistungen||Autoglas & Scheibenfolien|bild||": {
+      "nr": 83,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Autoglas & Scheibenfolien“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/privatkunden|leistungen|bild|"
+    },
+    "/geschaeftskunden|seite|||bild||": {
+      "nr": 84,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|seite|bild|"
+    },
+    "/geschaeftskunden|angebote||Unfallinstandsetzung|bild||": {
+      "nr": 85,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Unfallinstandsetzung“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Neu- und Reparaturlackierung|bild||": {
+      "nr": 86,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Neu- und Reparaturlackierung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Smart Repair|bild||": {
+      "nr": 87,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Smart Repair“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Dellenentfernung|bild||": {
+      "nr": 88,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Dellenentfernung“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Hagelschadenreparatur|bild||": {
+      "nr": 89,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Hagelschadenreparatur“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Felgenreparatur|bild||": {
+      "nr": 90,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Felgenreparatur“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Autoglas & Scheibenfolien|bild||": {
+      "nr": 91,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Autoglas & Scheibenfolien“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/geschaeftskunden|angebote||Fahrzeugaufbereitung|bild||": {
+      "nr": 92,
+      "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Fahrzeugaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/geschaeftskunden|angebote|bild|"
+    },
+    "/ueber-uns|seite|||standbild||": {
+      "nr": 93,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen) › Standbild des Videos",
+      "datei": "carcare-ueber-uns-hero-standbild.webp",
+      "rahmen": "/ueber-uns|seite|standbild|"
+    },
+    "/ueber-uns|seite|||video||": {
+      "nr": 94,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen) › Video",
+      "datei": "carcare-ueber-uns-hero.mp4",
+      "rahmen": "/ueber-uns|seite|video|"
+    },
+    "/ueber-uns|leistungsspektrum||Karosserie & Unfallinstandsetzung|bild||": {
+      "nr": 95,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Karosserie & Unfallinstandsetzung“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|leistungsspektrum||Neu- und Reparaturlackierung|bild||": {
+      "nr": 96,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Neu- und Reparaturlackierung“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|leistungsspektrum||Smart Repair & Dellenentfernung|bild||": {
+      "nr": 97,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Smart Repair & Dellenentfernung“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|leistungsspektrum||Hagelschadenreparatur|bild||": {
+      "nr": 98,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Hagelschadenreparatur“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|leistungsspektrum||Felgen & Autoglas|bild||": {
+      "nr": 99,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Felgen & Autoglas“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|leistungsspektrum||Fahrzeugaufbereitung|bild||": {
+      "nr": 100,
+      "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Fahrzeugaufbereitung“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+    },
+    "/ueber-uns|betriebsrundgang|||standbild||": {
+      "nr": 101,
+      "ort": "„Ein Rundgang durch die Hallen“ › Standbild des Videos",
+      "datei": "carcare-betriebsrundgang-standbild.webp",
+      "rahmen": "/ueber-uns|betriebsrundgang|standbild|"
+    },
+    "/ueber-uns|betriebsrundgang|||video||": {
+      "nr": 102,
+      "ort": "„Ein Rundgang durch die Hallen“ › Video",
+      "datei": "carcare-betriebsrundgang.mp4",
+      "rahmen": "/ueber-uns|betriebsrundgang|video|"
+    },
+    "/karriere|jobbereiche||Kfz-Aufbereiter|bild||": {
+      "nr": 103,
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Kfz-Aufbereiter“",
+      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche||Fahrzeuglackierer|bild||": {
+      "nr": 104,
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Fahrzeuglackierer“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche||Karosserie- und Fahrzeugbaumechaniker|bild||": {
+      "nr": 105,
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Karosserie- und Fahrzeugbaumechaniker“",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche||Serviceberater|bild||": {
+      "nr": 106,
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Serviceberater“",
+      "datei": "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Fahrzeuglackierer/in|bild||": {
+      "nr": 107,
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Fahrzeuglackierer/in“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Karosserie- und Fahrzeugbaumechaniker/in|bild||": {
+      "nr": 108,
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Karosserie- und Fahrzeugbaumechaniker/in“",
+      "datei": "kacheln/schadenaufnahme-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Industriekaufmann/-frau|bild||": {
+      "nr": 109,
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Industriekaufmann/-frau“",
+      "datei": "kacheln/kalkulation-leipzig-carcare.webp",
+      "rahmen": "/karriere|jobbereiche|bild|"
+    },
+    "/karriere|betrieb|||standbild||": {
+      "nr": 110,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Standbild des Videos",
+      "datei": "carcare-arbeitsplatz-standbild.webp",
+      "rahmen": "/karriere|betrieb|standbild|"
+    },
+    "/karriere|betrieb|||video||": {
+      "nr": 111,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Video",
+      "datei": "carcare-arbeitsplatz.mp4",
+      "rahmen": "/karriere|betrieb|video|"
+    }
+  },
+  "entfallen": {}
+}

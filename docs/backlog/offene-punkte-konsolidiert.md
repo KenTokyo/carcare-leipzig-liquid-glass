@@ -100,7 +100,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 
 ---
 
-## 2. 🟠 Wartet auf Zulieferung von André (10)
+## 2. 🟠 Wartet auf Zulieferung von André (12)
 
 > **Fotos (2026-09-10):** Eine Fotolieferung ist bei Oalab eingegangen und wird gesichtet. Für R2 und R7
 > (und die Fotopunkte der Schleifen) wartet es damit auf die **Zuordnung nach der Sichtung**, nicht mehr
@@ -117,6 +117,8 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 | **1.26** | Inhalt | **Benefits + Mitarbeiterstimmen** für die Karriereseite | André | bündeln mit R4 | offen |
 | **R7** | Bild | **Echtes Vorschaubild statt Unsplash-Stockfoto** (`og:image`, JSON-LD). *Deckungsgleich mit dem offenen OG-Bild-Punkt im Preloader-Plan* | André | — | offen |
 | **R2** | Bild | **Eigene Motive** für Leasingrückgabe und Außenaufbereitung | André | beide teilen sich ein Bild mit anderen Kacheln | offen |
+| **R15** | Bild / Recht | **Herkunft jedes Fotos bestätigen:** echtes Foto · KI-bearbeitet · KI-generiert. Seit 02.08.2026 gilt die Kennzeichnungspflicht aus Art. 50 KI-VO; dokumentiert ist die Herkunft für kein Foto (Backlog nennt selbst ein „KI-Bild“, 2.15). Liste mit festen Nummern und Motiven: `docs/bilder/README.md` | André *(und OALAB, falls selbst erzeugt)* | vor dem Livegang: je Bild ersetzen oder kennzeichnen | offen, aufgenommen 2026-09-18 (Bildinventar) |
+| **R16** | Bild / Recht | **Karriere-Video (B110/B111):** Das Kennzeichen eines Kundenfahrzeugs ist im Standbild und im Clip (etwa Sekunde 22–26) lesbar; unkenntlich machen in `npm run video`. Dazu zeigen das Karriere- und das Rundgang-Video (B101/B102) **erkennbar Mitarbeitende**: liegt deren schriftliche Einwilligung vor (§ 22 KUG)? Im Über-uns-Video sind Personen nur klein im Hintergrund. Geprüft an Einzelbildern im Abstand von 1,5–2,5 s, nicht Bild für Bild | OALAB *(Kennzeichen)* · André *(Einwilligungen)* | — | offen, aufgenommen 2026-09-18 |
 | *(ohne Nr.)* | Bild / Recht | **Partnerlogos:** schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schutzraum | André | ohne Freigabe dürfen die Logos nicht stehen | 🟨 **teilweise** — riparo (Logo + Link), Porsche Zentrum Leipzig (nur Link — die Wortmarke gehört der Porsche AG), BVAT-Siegel; 2026-09-16. Weitere Freigaben nach `docs/partnerlogos/README.md` |
 
 **Bündelvorschlag:** Karriere (1.26 + R4) · Leistungstexte (R3) · Bilder (R7 + R2 + Partnerlogos) · Formularfelder (R12 + 1.18).
@@ -182,8 +184,8 @@ sie erneut als offen — genau das ist mir heute passiert.
 | | Anzahl |
 |---|---|
 | Blockiert den Livegang | **3** *(davon R10 seit 2026-09-08 nur noch Live-Test)* |
-| Wartet auf André | **~~9~~ ~~10~~ 8** *(2026-09-16: R13 erledigt, R12 ruht mit abgeschaltetem Schadenformular; Partnerlogos teilweise; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung)* |
+| Wartet auf André | **~~9~~ ~~10~~ ~~8~~ 10** *(2026-09-16: R13 erledigt, R12 ruht mit abgeschaltetem Schadenformular; Partnerlogos teilweise; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung. 2026-09-18: + R15, R16 aus dem Bildinventar)* |
 | Ohne Zulieferung umsetzbar | **~~10~~ ~~6~~ 8** *(nachgezählt 2026-09-10: 7 offene Zeilen — die Drohnenclip-Zeile war in der 6 nicht mitgezählt — plus WCAG 2.2.2)* |
-| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ ~~21~~ 19** *(ohne Schleife 4 — die führt ihre 21 Punkte selbst)* |
+| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ ~~21~~ ~~19~~ 21** *(ohne Schleife 4 — die führt ihre 21 Punkte selbst; 2026-09-18: + R15, R16)* |
 | In den Dokumenten offen, tatsächlich erledigt oder überholt | 10 Kästchen |
 | Außerhalb des Projekts (Parallax-Kit) | 11 Kästchen |

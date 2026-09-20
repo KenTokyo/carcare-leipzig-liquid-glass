@@ -29,9 +29,11 @@
     "meta": "node scripts/check-meta.mjs",
     "nav": "node scripts/check-navigation.mjs",
     "zielgruppen": "node scripts/check-zielgruppen.mjs",
+    "bilder": "node scripts/bilder-inventar.mjs",
     "push-stand": "node scripts/push-stand.mjs",
     "video": "node scripts/build-video.mjs",
-    "partnerlogos": "node scripts/build-partner-logos.mjs"
+    "partnerlogos": "node scripts/build-partner-logos.mjs",
+    "favicons": "node scripts/build-favicons.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.29.2",

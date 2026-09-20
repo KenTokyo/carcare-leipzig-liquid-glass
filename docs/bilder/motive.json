@@ -1,0 +1,212 @@
+{
+  "_hinweis": "Von Hand gepflegt. Je Datei: was zu sehen ist (motiv), was das Repository ueber die Herkunft belegt (herkunft) und welche offenen Backlog-Punkte sie betreffen (offen). Schluessel = Pfad unter public/assets/ bzw. die volle URL bei externen Bildern. Nummern und Datum pflegt `npm run bilder` selbst (nummern.json, Git) - hier nicht eintragen. Herkunft NUR mit Beleg eintragen (Commit, Lieferung, Aussage des Kunden), nie nach Augenschein.",
+  "dateien": {
+    "hero-leipzig-carcare-desktop.webp": {
+      "motiv": "Zwei Porsche Taycan in heller Halle: vorn blau, dahinter rot mit demontierter Front (Querformat)",
+      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
+      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+    },
+    "hero-leipzig-carcare-mobile.webp": {
+      "motiv": "Dasselbe Motiv hochkant (Zuschnitt fürs Smartphone)",
+      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
+      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+    },
+    "footer-leipzig-carcare.webp": {
+      "motiv": "Die zwei Porsche Taycan aus dem Startbild, stark abgedunkelt mit Blauverlauf",
+      "herkunft": "Kundenmotiv (Commit 12b9f4b, 23.07.2026)",
+      "offen": ""
+    },
+    "carcare-hero-workshop.webp": {
+      "motiv": "Schwarzer BMW-SUV vorn, dahinter weitere Fahrzeuge in der Halle, Treppe links",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": ""
+    },
+    "carcare-ueber-uns-hero-standbild.webp": {
+      "motiv": "Weite Werkhalle mit vielen Fahrzeugen (Standbild bei 31,1 s)",
+      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": ""
+    },
+    "carcare-ueber-uns-hero.mp4": {
+      "motiv": "Video: Schwenk durch die Werkstatt (Ausschnitt 9,0–21,2 s)",
+      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": ""
+    },
+    "carcare-betriebsrundgang-standbild.webp": {
+      "motiv": "Werkhalle von oben: weißer VW Golf, mintfarbener Porsche Taycan, Audi mit offener Haube",
+      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": ""
+    },
+    "carcare-betriebsrundgang.mp4": {
+      "motiv": "Video: Rundgang vom Waschplatz bis zur Lackierkabine (Ausschnitt 21,5–52,2 s)",
+      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": "4.14 vollständiges Drohnenvideo, Schwenk durch die Karosserieabteilung fehlt · R16 zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    },
+    "carcare-arbeitsplatz-standbild.webp": {
+      "motiv": "Zwei Mitarbeiter an einem grauen Mercedes mit offener Tür (Standbild bei 71,1 s)",
+      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": "R16 Kennzeichen eines Kundenfahrzeugs lesbar; zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    },
+    "carcare-arbeitsplatz.mp4": {
+      "motiv": "Video: von der Lackierkabine bis zum Reifenraum (Ausschnitt 46,3–75,9 s)",
+      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+      "offen": "R16 Kennzeichen lesbar (etwa Sekunde 22–26); zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    },
+    "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp": {
+      "motiv": "Zwei Mitarbeiter setzen an einem roten Mercedes SLS (Flügeltüren) die Frontscheibe ein",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": ""
+    },
+    "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp": {
+      "motiv": "Grüner Bentley auf einem Abschleppwagen vor einem Autohaus, zwei Männer beim Handschlag",
+      "herkunft": "laut Commit acfcd0c „echte Fotos“ (22.07.2026)",
+      "offen": "2.20 Foto Fuhrpark-/Autohausservice (Hänger), laut Kategorienliste für die Geschäftskundenseite"
+    },
+    "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp": {
+      "motiv": "Mann mit Tablet vor einer Reihe Porsche (Cayenne, Panamera) in großer Halle",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": ""
+    },
+    "kacheln/autolackierung-leipzig-carcare.webp": {
+      "motiv": "Lackierer mit Atemschutz lackiert in der Kabine ein mit Folie abgedecktes Fahrzeug",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "3.26 Foto Neu-/Reparaturlackierung (Stoßstange beim Schleifen oder Lackierkabine)"
+    },
+    "kacheln/dellenentfernung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter mit Dellenlampe an der Tür eines weißen Audi RS 6 Avant",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "3.11 sauberes Bild hinterlegen, Motiv über 3.24 (Delle, während sie entfernt wird)"
+    },
+    "kacheln/ersatzwagen-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter übergibt einer Kundin den Schlüssel, silberner Kleinwagen vor der Halle",
+      "herkunft": "nicht dokumentiert (22.07.2026)",
+      "offen": "2.21 / 3.4 eigener Mietwagen statt Symbolbild"
+    },
+    "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp": {
+      "motiv": "Poliermaschine an der abgeklebten Tür eines silbergrauen Fahrzeugs (Nahaufnahme)",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "R2 eigenes Motiv für Außenaufbereitung (die Datei steht dort nur leihweise)"
+    },
+    "kacheln/felgenreparatur-leipzig-carcare.webp": {
+      "motiv": "Beschädigte Felge mit Bordsteinschaden in Nahaufnahme",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "3.28 Felge in Reparatur / beim Lackieren (vorhanden sind nur beschädigte Felgen)"
+    },
+    "kacheln/hagelschadenreparatur-leipzig.webp": {
+      "motiv": "Mitarbeiter drückt am Dach eines grauen Porsche Panamera Dellen aus, Leuchtschirm darüber",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "3.27 Foto Hagelschaden (Archiv oder anstehendes Fahrzeug)"
+    },
+    "kacheln/innenaufbereitung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter reinigt mit Pinsel den Innenraum eines gelben Ferrari (Cognac-Leder)",
+      "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
+      "offen": "2.15 / 3.29 „KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug“: Das heutige Motiv zeigt einen Ferrari. Ob der Punkt damit erledigt ist, mit André klären"
+    },
+    "kacheln/kalkulation-leipzig-carcare.webp": {
+      "motiv": "Kundin unterschreibt am Tresen, Berater mit Tablet, gelber Ferrari im Hintergrund",
+      "herkunft": "nicht dokumentiert (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/leasingrueckgabe-leipzig-carcare.webp": {
+      "motiv": "Grauer Audi Q8 e-tron mit allen Türen und Heckklappe offen in der Halle",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": ""
+    },
+    "kacheln/privatkunden-leipzig-carcare.webp": {
+      "motiv": "Empfangstresen mit CarCare-Center-Logo, Mitarbeiterin berät einen Kunden",
+      "herkunft": "laut Commit acfcd0c „echte Fotos“ (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/schaden-melden-leipzig-carcare.webp": {
+      "motiv": "Frau meldet per Smartphone einen Schaden, dahinter gelber Ferrari mit Seitenschaden",
+      "herkunft": "laut Commit 0d25f7b „echtes Kundenfoto“ (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/schadenaufnahme-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter und Kundin knien am gelben Ferrari mit eingedrückter Tür, Tablet",
+      "herkunft": "nicht dokumentiert (22.07.2026)",
+      "offen": "3.8 ruhigeres Hintergrundmotiv für die Sektion „Schadenaufnahme“ (Startseite, Unfall & Schaden), zusammen mit 2.18"
+    },
+    "kacheln/smart-repair-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter bearbeitet die Tür eines schwarzen Porsche Macan",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "3.10 zeigt Aufbereitung, nicht Smart Repair (Motiv über 3.25) · R2 steht auch leihweise für „Leasingrückgabe vorbereiten“ · Kennzeichen am rechten Bildrand teilweise lesbar"
+    },
+    "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter mit Tablet kniet hinter einem silbernen Porsche Taycan mit Heckschaden",
+      "herkunft": "nicht dokumentiert (16.07.2026)",
+      "offen": "2.16 Titelbild der Unfallseite wirkt wie Schadensaufnahme, nicht wie Instandsetzung"
+    },
+    "kacheln/versicherungen-und-agenturen-leipzig-carcare.webp": {
+      "motiv": "Große Werkhalle mit vielen Fahrzeugen, zwei Mitarbeitende mit Tablet in der Mitte",
+      "herkunft": "laut Commit acfcd0c „echte Fotos“ (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/versicherungsabwicklung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiterin telefoniert am Schreibtisch mit Tablet, gelber Ferrari im Hintergrund",
+      "herkunft": "nicht dokumentiert (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/wissensdatenbank-leipzig-carcare.webp": {
+      "motiv": "Roter Kotflügel eines Mercedes SLS in Nahaufnahme",
+      "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
+      "offen": ""
+    },
+    "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop": {
+      "motiv": "Externes Stockfoto von Unsplash, kein Bild des Betriebs",
+      "herkunft": "Stockfoto (Unsplash)",
+      "offen": "R7 echtes Vorschaubild statt Stockfoto (og:image und strukturierte Daten)"
+    },
+    "carcare-center-logo.webp": {
+      "motiv": "Vollständiges Logo: Siegel und Schriftzug (842 × 596, nicht quadratisch)",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-mark.webp": {
+      "motiv": "Siegel „C“, rund freigestellt",
+      "herkunft": "aus dem Logo erzeugt (scripts/build-preloader-assets.mjs)",
+      "offen": ""
+    },
+    "carcare-center-mark-animated.mp4": {
+      "motiv": "Animiertes Siegel auf weißem Grund",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-wordmark.png": {
+      "motiv": "Schriftzug „CarCare Center“, dunkel",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-wordmark-dark.webp": {
+      "motiv": "Schriftzug dunkel, verkleinert",
+      "herkunft": "aus dem Schriftzug erzeugt (scripts/build-preloader-assets.mjs)",
+      "offen": ""
+    },
+    "carcare-center-wordmark-weiss.png": {
+      "motiv": "Schriftzug „CarCare Center“, weiß",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "eu-emblem.svg": {
+      "motiv": "EU-Flagge für den Förderhinweis",
+      "herkunft": "offizielles Emblem, erzeugt von scripts/build-eu-emblem.mjs",
+      "offen": ""
+    },
+    "partner/bvat.webp": {
+      "motiv": "Siegel des Verbands BVAT",
+      "herkunft": "Freigabe laut docs/partnerlogos/README.md",
+      "offen": ""
+    },
+    "partner/riparo.webp": {
+      "motiv": "Logo riparo",
+      "herkunft": "Freigabe laut docs/partnerlogos/README.md",
+      "offen": ""
+    }
+  },
+  "platzhalter": {
+    "einblicke": "3.23 Fotopaket Aufbereitung (während der Arbeit) füllt diese Galerie, erledigt damit auch 2.2 und 3.6"
+  },
+  "bekannt": {
+    "carcare-hero-workshop.webp": "Ersatzbild: DEFAULT_CARD_BG in ExpandingCardAccordion und TargetGroupCards, Rückfall in UeberUnsPage. Greift nur, wenn einer Karte das Motiv fehlt, und ist deshalb derzeit nirgends sichtbar.",
+    "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop": "Steht nur im toten components/Hero.tsx, das laut Vorgabe ohne Import unangetastet bleibt (offene-punkte-konsolidiert.md, Paket G)."
+  }
+}

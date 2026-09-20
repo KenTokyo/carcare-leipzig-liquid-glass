@@ -111,6 +111,9 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
         />
       ) : (
         <div
+          // Markiert die Stelle fuer `npm run bilder` als „hier fehlt ein Foto“ (Backlog 3.23).
+          // Ein Verlauf ist fuer den Rundgang sonst nicht von Dekoration zu unterscheiden.
+          data-bild-platzhalter={item.label}
           className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
         >
           {/*
@@ -212,7 +215,7 @@ const DetailingGallery: React.FC = () => {
   const ys = [y0, y1, y2, y3];
 
   return (
-    <section className="bg-white px-6 py-20 md:py-28">
+    <section id="einblicke" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Einblicke"
