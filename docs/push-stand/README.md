@@ -1,25 +1,26 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 19.09.2026, 23:05, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 20.09.2026, 23:48, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.09.2026, 23:05 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 20.09.2026, 23:48 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `6bc769a` | `83f0355` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-09-17-backlog-abgleich` | `6bc769a` | — | neu, 1 Commit(s) noch nicht auf GitHub |
-| 1 weitere lokale Branches | – | – | gleich mit GitHub |
-| 11 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
+| `main` | `a81c6e8` | `21edd3b` | 2 vor GitHub (kommt mit dem Push) |
+| `2026-09-18-bilder-inventar` | `a81c6e8` | — | neu, 2 Commit(s) noch nicht auf GitHub |
+| 12 weitere lokale Branches | – | – | gleich mit GitHub |
+| 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `6bc769a` | 19.09.2026, 23:05 | oalabhypercode | Backlog: Abgleich 17.09. gegen den Code, Doku-Drift behoben | 12 (2 neu) | — | **kommt mit diesem Push** |
+| `9b23f5d` | 20.09.2026, 23:46 | oalabhypercode | Bildinventar: feste Nummern B1-B111 fuer jede Bildstelle, quadratische Favicons | 19 (12 neu) | package.json | **kommt mit diesem Push** |
+| `a81c6e8` | 20.09.2026, 23:48 | oalabhypercode | Push-Stand: zurueckgestellte Folgepunkte zaehlen mit (O10) | 2 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,17 +30,18 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `6bc769a` |
+| npm-Skripte | neu: `npm run bilder`, neu: `npm run favicons` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `a81c6e8`, `9b23f5d` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
-| Unversioniert | nichts |
+| Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 1, alle Commits schon auf GitHub: `worktree-service-links-fix` |
-| Weitere Worktrees | 1 |
-| Stash-Einträge | 1 |
+| Lokale Branches ohne GitHub-Gegenstück | 13, alle Commits schon auf GitHub: `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Weitere Worktrees | 2 |
+| Stash-Einträge | 0 |
 
 ## 5. Inhaltlich offen
 
@@ -47,16 +49,9 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| 1 — WINTEC: 18 Nennungen hängen an einer offenen Kundenfrage (3.30, 3.13) | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
-| 2 — WCAG 2.2.2: fünf Videostellen statt drei | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
-| 3 — Zwei Übersichten, die auseinanderlaufen | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
-| 4 — Rückfragen an André in einem Zug | `docs/backlog/tasks/2026-09-17-abgleich-optimierung-tasks.md` |
-| 2 — Eigenes Schadenformular entfernen — erst nach Kundenbestätigung | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
-| 4 — reparatur.info: Datenschutz- und Impressumslink, AV-Vertrag | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
-| 5 — Porsche-Logo: nur mit Datei und Nutzungsrecht | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
-| 6 — Im Review mit André bestätigen lassen | `docs/preise-partner-schadenlink/tasks/2026-09-16-preise-partner-schadenlink-optimierung-tasks.md` |
+| ⏸️ Phase O-C — Kennzeichen im Karriere-Video (O1, Teil OALAB) · bewusst zurückgestellt | `docs/bilder/tasks/2026-09-18-bilder-inventar-optimierung-tasks.md` |
 
-### Backlog gesamt: 54 offene Punkte
+### Backlog gesamt: 56 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -127,7 +122,7 @@ Quelle: `docs/backlog/schleife-4.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 18 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 20 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
@@ -140,6 +135,8 @@ Quelle: `docs/backlog/schleife-4.md`
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite | offen | André |
 | R7 | Echtes Vorschaubild statt Unsplash-Stockfoto (`og:image`, JSON-LD). Deckungsgleich mit dem offenen OG-Bild-Pu… | offen | André |
 | R2 | Eigene Motive für Leasingrückgabe und Außenaufbereitung | offen | André |
+| R15 | Herkunft jedes Fotos bestätigen: echtes Foto · KI-bearbeitet · KI-generiert. Seit 02.08.2026 gilt die Kennzei… | offen, aufgenommen 2026-09-18 (Bildinventar) | André (und OALAB, falls selbs… |
+| R16 | Karriere-Video (B110/B111): Das Kennzeichen eines Kundenfahrzeugs ist im Standbild und im Clip (etwa Sekunde… | offen, aufgenommen 2026-09-18 | OALAB (Kennzeichen) · André (… |
 | – | Partnerlogos: schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schu… | 🟨 teilweise — riparo (Logo + Link), Porsche Zentrum Leipzi… | André |
 | R9 | Anhänge mitsenden. Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | 🟨 für Schäden gelöst — Fotos gehen seit 2026-09-16 über re… | OALAB |
 | R11 | Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen. Beim Schadenformular ist Streichen seit… | offen | OALAB |
