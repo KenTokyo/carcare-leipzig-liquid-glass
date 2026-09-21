@@ -97,6 +97,68 @@ export const videoPlaetze: VideoPlatz[] = [
     istPlatzhalter: false,
     backlog: '3.18',
   },
+  {
+    id: 'startseite-lackierung',
+    titel: 'Videoplatz Lackierung Startseite',
+    beschreibung: 'Ein Kollege lackiert in der Lackierkabine eine Motorhaube.',
+    zweck:
+      'Kurze, ruhige Schleife aus der Lackierkabine für die Karte „Neu- und Reparaturlackierung“ der Startseite (Bildstelle B11).',
+    // Geliefert am 2026-09-21 („Video - Lackieren.mov“, iPhone, hochkant, 28 s, 51 MiB).
+    // Ausschnitt 2,0–15,0 s, quadratisch zugeschnitten, stumm, 720 × 720 — 0,9 MiB. Herleitung:
+    // `scripts/build-video.mjs`, Schnitt `startseite-lackierung`.
+    //
+    // NUR AUF DER STARTSEITE (Wunsch des Users: „damit wir nicht zu viel Datenvolumen mit der
+    // gesamten Seite fressen“). Alle anderen Stellen der Leistung zeigen das Foto aus
+    // `data/services.ts`. Auch hier laedt das Video erst, wenn die Karte aufgeklappt wird.
+    quelle: '/assets/carcare-autolackierung.mp4',
+    poster: '/assets/carcare-autolackierung-standbild.webp',
+    istPlatzhalter: false,
+    backlog: 'B11',
+  },
+
+  /*
+   * BEREICHSVIDEOS — Backlog R18, Wunsch des Users vom 2026-09-21: je ein Video fuer den
+   * Karosserie- und Mechanik-, den Lackier- und den Aufbereitungsbereich, auf `/ueber-uns` UND
+   * `/karriere`, drei in einer Reihe (`components/BereichsVideos.tsx`).
+   *
+   * EIN EINTRAG JE BEREICH, nicht je Seite: Beide Seiten zeigen denselben Film. Beim Nachliefern
+   * wird hier `quelle`/`poster` gesetzt und `istPlatzhalter` auf `false` — beide Seiten haben
+   * das Video dann zugleich. Die Kartentexte stehen je Seite in der Seitenkomponente, weil
+   * „Unser Lackierbereich" und „Ihr Arbeitsplatz" verschiedene Saetze sind.
+   *
+   * `zweck` ist die Liefervorgabe und steht im Platzhalter — bewusst ohne erfundene Details
+   * (keine Maschinennamen, keine Mitarbeiterzahlen je Bereich).
+   */
+  {
+    id: 'bereich-karosserie',
+    titel: 'Videoplatz Karosserie- und Mechanikbereich',
+    beschreibung: 'Der Karosserie- und Mechanikbereich im laufenden Betrieb.',
+    zweck: 'Kurzer Rundgang durch den Karosserie- und Mechanikbereich: Instandsetzung nach Unfallschäden, Richten, Schweißen und Montage — Menschen bei der Arbeit, kein Text im Bild.',
+    quelle: null,
+    poster: null,
+    istPlatzhalter: true,
+    backlog: 'R18',
+  },
+  {
+    id: 'bereich-lack',
+    titel: 'Videoplatz Lackierbereich',
+    beschreibung: 'Der Lackierbereich im laufenden Betrieb.',
+    zweck: 'Kurzer Rundgang durch den Lackierbereich: Vorbereitung, Farbtonbestimmung und Arbeit in der Lackierkabine — kein Text im Bild.',
+    quelle: null,
+    poster: null,
+    istPlatzhalter: true,
+    backlog: 'R18',
+  },
+  {
+    id: 'bereich-aufbereitung',
+    titel: 'Videoplatz Aufbereitungsbereich',
+    beschreibung: 'Der Aufbereitungsbereich im laufenden Betrieb.',
+    zweck: 'Kurzer Rundgang durch den Aufbereitungsbereich: Innen- und Außenaufbereitung, Politur und Versiegelung — kein Text im Bild.',
+    quelle: null,
+    poster: null,
+    istPlatzhalter: true,
+    backlog: 'R18',
+  },
 ];
 
 /**

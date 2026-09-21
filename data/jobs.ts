@@ -72,7 +72,8 @@ export const jobPositions: JobPosition[] = [
       'Bereitschaft, sich in Verfahren und Mittel einzuarbeiten',
     ],
     status: 'suchend',
-    backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
+    // B103, seit 2026-09-21: echtes Foto eines Kollegen bei der Arbeit (Einwilligung liegt vor).
+    backgroundImage: kachel('karriere-aufbereiter-leipzig-carcare'),
   },
   {
     id: 'lackierer',
@@ -87,7 +88,9 @@ export const jobPositions: JobPosition[] = [
       'Anspruch an ein Ergebnis, das man nicht sieht',
     ],
     status: 'suchend',
-    backgroundImage: kachel('autolackierung-leipzig-carcare'),
+    // B104 bleibt, wie es ist (Kunde, 2026-09-21). Nur der Dateiname ist neu: `autolackierung-…`
+    // traegt seit dem 2026-09-21 das echte Lackierfoto der Leistungsseiten.
+    backgroundImage: kachel('lackierkabine-leipzig-carcare'),
   },
   {
     id: 'karosserie',
@@ -102,7 +105,8 @@ export const jobPositions: JobPosition[] = [
       'Bereitschaft zur Abstimmung mit Lackierung und Service',
     ],
     status: 'suchend',
-    backgroundImage: kachel('versicherung-schadenabwicklung-leipzig-carcare'),
+    // B105, seit 2026-09-21: echtes Foto aus dem Karosseriebau (Einwilligung liegt vor).
+    backgroundImage: kachel('karriere-fahrzeugbau-leipzig-carcare'),
   },
   /**
    * NICHT SUCHEND, aber im Betrieb vorhanden — deshalb bleibt die Karte stehen.
@@ -154,7 +158,8 @@ export const jobPositions: JobPosition[] = [
       'Bereitschaft, im Team und nach Vorgaben zu arbeiten',
     ],
     status: 'nicht-suchend',
-    backgroundImage: kachel('autolackierung-leipzig-carcare'),
+    // B107 bleibt vorerst (Kunde, 2026-09-21: „erstmal stehen lassen“), Motiv wie B104.
+    backgroundImage: kachel('lackierkabine-leipzig-carcare'),
   },
   {
     id: 'ausbildung-karosserie',
@@ -168,7 +173,9 @@ export const jobPositions: JobPosition[] = [
       'Zuverlässigkeit im Umgang mit Werkzeug und Material',
     ],
     status: 'nicht-suchend',
-    backgroundImage: kachel('schadenaufnahme-leipzig-carcare'),
+    // B108, seit 2026-09-21: dasselbe Karosseriebau-Foto wie B105 (Rueckfrage beantwortet: nicht
+    // das Aufbereiter-Foto aus dem ersten Auftrag — die Karte ist die Karosserie-Ausbildung).
+    backgroundImage: kachel('karriere-fahrzeugbau-leipzig-carcare'),
   },
   {
     id: 'ausbildung-industriekaufmann',

@@ -139,12 +139,22 @@ export const priceOffers = [
  * Ein-Zweck-Assets, sie tragen auch die Kacheln „Fahrzeugaufbereitung" bzw.
  * „Smart Repair" in `data/services.ts`. Ein Umbenennen nach dem neuen Einsatzort
  * wuerde die Namen dort falsch machen. Deshalb hier dokumentiert statt umbenannt.
+ *
+ * LIEFERUNG VOM 2026-09-21 (echte Fotos, Bildliste `docs/bilder/README.md`):
+ *   innen   <- neues Foto unter demselben Namen (B27, B45, B67)
+ *   leasing <- eigenes Motiv `leasingrueckgabe-aufbereitung-…` (B29, Backlog 2.14/R2)
+ *   aussen  <- Lackaufbereitungsfoto (Mitarbeiterin mit Poliermaschine): B28, B46, B66.
+ *              Damit endet die Leihgabe von `fahrzeugaufbereitung-…` an dieser Stelle (R2).
+ *   lack    <- dasselbe Foto (B47). Auf Wunsch des Users vom 2026-09-21 — bewusst in Kauf
+ *              genommen: Auf `/fahrzeugaufbereitung-leipzig` stehen die Karten „Außen" und
+ *              „Lack" nebeneinander mit demselben Bild, bis ein zweites Politurmotiv kommt.
+ *   Die fruehere Lackierkabine (`lackierkabine-…`) steht nur noch auf der Karriereseite.
  */
 export const aufbereitungKacheln = {
   innen: '/assets/kacheln/innenaufbereitung-leipzig-carcare.webp',
-  aussen: '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp',
-  lack: '/assets/kacheln/autolackierung-leipzig-carcare.webp',
-  leasing: '/assets/kacheln/smart-repair-leipzig-carcare.webp',
+  aussen: '/assets/kacheln/lackaufbereitung-leipzig-carcare.webp',
+  lack: '/assets/kacheln/lackaufbereitung-leipzig-carcare.webp',
+  leasing: '/assets/kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp',
   wissen: '/assets/kacheln/wissensdatenbank-leipzig-carcare.webp',
 } as const;
 
@@ -190,9 +200,9 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'innenaufbereitung',
     image: aufbereitungKacheln.innen,
-    imageAlt: 'Gereinigter Fahrzeuginnenraum mit Cockpit und Polstern nach der Innenaufbereitung im CarCare Center Leipzig',
-    imageWidth: 2400,
-    imageHeight: 1340,
+    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens – Innenaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
     title: 'Innenaufbereitung',
     intro:
       'Sitze, Cockpit, Oberflächen und Scheiben werden gereinigt und gepflegt, nicht nur gesaugt. Auf Wunsch kommen Geruchsentfernung und die Behandlung belasteter Innenraumluft dazu.',
@@ -202,9 +212,9 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'aussenaufbereitung',
     image: aufbereitungKacheln.aussen,
-    imageAlt: 'Aufbereitete Fahrzeugoberfläche nach der Außenaufbereitung im CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV – Außen- und Lackaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
     title: 'Außenaufbereitung',
     intro:
       'Was die Waschanlage stehen lässt, wird hier gelöst: Rückstände an den Felgen und Insektenrückstände, dazu eine schonende Handoberwäsche. Damit ist die Oberfläche für Politur und Versiegelung vorbereitet.',
@@ -214,9 +224,11 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'lackaufbereitung',
     image: aufbereitungKacheln.lack,
-    imageAlt: 'Polierte und versiegelte Lackoberfläche nach der Lackaufbereitung im CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    // Beschreibt das gezeigte Motiv. (Bis 2026-09-21 stand hier die Lackierkabine mit einem Text,
+    // der eine polierte Lackoberflaeche versprach — die war auf dem Bild nicht zu sehen.)
+    imageAlt: 'Poliermaschine auf dem Lack eines dunkelblauen SUV, der Radlauf ist abgeklebt – Lackaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
     title: 'Lackaufbereitung',
     intro:
       'Politur und Versiegelung arbeiten den Lack selbst auf — für Glanz und einen Schutz, der die spätere Reinigung erleichtert. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',

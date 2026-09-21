@@ -6,6 +6,7 @@ import JobCards from '../components/JobCards';
 import JobPopup from '../components/JobPopup';
 import RequestForm from '../components/RequestForm';
 import BetriebsVideo from '../components/BetriebsVideo';
+import BereichsVideos, { type BereichsKarte } from '../components/BereichsVideos';
 import Stimmen from '../components/Stimmen';
 import { videoPlatz } from '../data/videos';
 
@@ -14,6 +15,29 @@ const benefits = [
   { title: 'Starkes Team', description: 'Kollegen, die saubere Arbeit und gegenseitige Unterstützung schätzen.' },
   { title: 'Abwechslungsreiche Aufgaben', description: 'Aufbereitung, Reparatur, Lack, Service und Kundenkontakt.' },
   { title: 'Qualitätsanspruch', description: 'Sichtbare Ergebnisse und Arbeit, auf die man stolz sein kann.' },
+];
+
+/**
+ * Bereichsvideos (Backlog R18, Wunsch des Users 2026-09-21) — dasselbe Medium wie auf
+ * `/ueber-uns` (`data/videos.ts`), hier aus Sicht der Bewerbenden beschrieben: Welcher Beruf
+ * arbeitet in welchem Bereich. Ohne Link — die Stellen stehen weiter oben auf derselben Seite.
+ */
+const bereiche: BereichsKarte[] = [
+  {
+    platz: videoPlatz('bereich-karosserie'),
+    titel: 'Karosserie- und Mechanikbereich',
+    text: 'Arbeitsplatz der Karosserie- und Fahrzeugbaumechaniker: Unfallschäden instand setzen, richten, schweißen und Bauteile montieren.',
+  },
+  {
+    platz: videoPlatz('bereich-lack'),
+    titel: 'Lackierbereich',
+    text: 'Arbeitsplatz der Fahrzeuglackierer: vom Untergrund über den Farbton bis zum Finish in der Lackierkabine.',
+  },
+  {
+    platz: videoPlatz('bereich-aufbereitung'),
+    titel: 'Aufbereitungsbereich',
+    text: 'Arbeitsplatz der Kfz-Aufbereiter: Fahrzeugpflege innen und außen, Politur und Versiegelung.',
+  },
 ];
 
 const process = [
@@ -55,6 +79,7 @@ const CareerPage: React.FC = () => (
         <div className="mt-12">
           <BetriebsVideo platz={videoPlatz('karriere-betrieb')} />
         </div>
+        <BereichsVideos kicker="Ihre Arbeitsplätze im Einzelnen" karten={bereiche} />
       </div>
     </section>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { serviceByHref } from '../data/services';
+import KiMarke from './KiMarke';
 
 /**
  * Leistungskarte mit Foto — das durchgaengige Kartenmuster des Projekts.
@@ -53,17 +54,22 @@ const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
   return (
     <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm">
       {bild && (
-        <img
-          src={bild}
-          alt={eintrag?.imageAlt ?? ''}
-          width={eintrag?.imageWidth}
-          height={eintrag?.imageHeight}
-          loading="lazy"
-          decoding="async"
-          /* `aspect-[16/10]` reserviert die Flaeche vor dem Laden — kein Layout-Sprung
-             trotz `loading="lazy"`. */
-          className="mb-5 aspect-[16/10] w-full rounded-xl object-cover"
-        />
+        /* Der Rahmen traegt den Abstand nach unten und den Bezugspunkt fuer die
+           KI-Plakette; das Bild selbst bleibt unveraendert. */
+        <div className="relative mb-5">
+          <img
+            src={bild}
+            alt={eintrag?.imageAlt ?? ''}
+            width={eintrag?.imageWidth}
+            height={eintrag?.imageHeight}
+            loading="lazy"
+            decoding="async"
+            /* `aspect-[16/10]` reserviert die Flaeche vor dem Laden — kein Layout-Sprung
+               trotz `loading="lazy"`. */
+            className="aspect-[16/10] w-full rounded-xl object-cover"
+          />
+          <KiMarke quelle={bild} className="bottom-2 right-2" />
+        </div>
       )}
       <h3 className="text-xl font-bold leading-tight text-gray-950">{karte.title}</h3>
       <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{karte.description}</p>

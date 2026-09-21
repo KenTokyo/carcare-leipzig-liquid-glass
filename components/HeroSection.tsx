@@ -5,6 +5,7 @@ import { useScrollProgress } from '../hooks/useScrollProgress';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { ExternMarke, externAttribute } from './ExternerLink';
+import KiMarke from './KiMarke';
 
 /**
  * Parallax-Reise in % der EBENENHOEHE. Herleitung (Ebene 120 %, `-top` -10 %):
@@ -119,6 +120,9 @@ const HeroSection: React.FC = () => {
           aria-hidden="true"
           className="absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.72)] via-[rgb(var(--cc-carbon-rgb)/0.3)] to-transparent"
         />
+        {/* Kennzeichnung des Startmotivs. Oben rechts, weil dort weder die Navigation
+            (endet bei ~88 px) noch die Ueberschrift oder die Vertrauensleiste liegen. */}
+        <KiMarke quelle="/assets/hero-leipzig-carcare-desktop.webp" className="right-5 top-24 md:right-8 md:top-28" />
       </div>
 
       {/* Zwei Zonen: Kopfblock (vertikal zentriert, `flex-1`) und Vertrauensleiste an der

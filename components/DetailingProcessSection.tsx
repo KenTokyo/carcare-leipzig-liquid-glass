@@ -16,10 +16,10 @@ import ScrollPinnedProcess, { type ProcessStepCard } from './ScrollPinnedProcess
 /** Kachel-Foto je Schritt — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
 const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
 
-// ⚠️ INTERIM-FOTOS: Bis die finalen Motive vom Kunden kommen, sind vorhandene CarCare-Kacheln
-// eingesetzt — bewusst FUENF UNTERSCHIEDLICHE, denn Karten- und Hintergrund-Crossfade leben vom
-// Bildwechsel. Beim Tausch bitte `image` UND `imageAlt` gemeinsam aktualisieren (der Alt-Text
-// beschreibt jeweils das tatsaechlich gezeigte Motiv, SEO §3.3).
+// ⚠️ TEILWEISE NOCH INTERIM-FOTOS: Schritt 04 zeigt seit 2026-09-21 ein echtes Foto (B34), die
+// uebrigen sind vorhandene CarCare-Kacheln — bewusst FUENF UNTERSCHIEDLICHE, denn Karten- und
+// Hintergrund-Crossfade leben vom Bildwechsel. Beim Tausch bitte `image` UND `imageAlt` gemeinsam
+// aktualisieren (der Alt-Text beschreibt jeweils das tatsaechlich gezeigte Motiv, SEO §3.3).
 const steps: ProcessStepCard[] = [
   {
     n: '01',
@@ -41,15 +41,18 @@ const steps: ProcessStepCard[] = [
     n: '03',
     title: 'Fahrzeug abgeben',
     description: 'Persönliche Übergabe mit kurzer Beratung vor Ort.',
-    image: kachel('ersatzwagen-leipzig-carcare'),
+    // Motiv unveraendert (vom Kunden als „in Ordnung" bestaetigt, B33). Die Datei hiess bis
+    // 2026-09-21 `ersatzwagen-…`; der Name gehoert jetzt dem Foto unserer Mietwagenflotte (B23).
+    image: kachel('fahrzeugabgabe-leipzig-carcare'),
     imageAlt: 'Fahrzeugschlüssel wird vor der Werkstatt des CarCare Center Leipzig persönlich übergeben.',
   },
   {
     n: '04',
     title: 'Professionelle Aufbereitung',
     description: 'Innen, außen, Lack und Details nach unserem Standard.',
-    image: kachel('autolackierung-leipzig-carcare'),
-    imageAlt: 'Lack- und Oberflächenbearbeitung in unserer Werkstatt in Leipzig.',
+    // Seit 2026-09-21 echtes Foto (B34, nur diese Stelle).
+    image: kachel('aufbereitung-aktiv-leipzig-carcare'),
+    imageAlt: 'Unser Mitarbeiter reinigt kniend die Scheibe der geöffneten Fahrertür eines kupferfarbenen SUV in unserer Aufbereitungshalle in Leipzig.',
   },
   {
     n: '05',

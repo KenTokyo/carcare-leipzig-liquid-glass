@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { TargetGroup } from '../types';
 import { claimsPartners, dealerPartners, insurancePartners } from '../data/partners';
 import ZielgruppenPartner from './ZielgruppenPartner';
+import KiMarke from './KiMarke';
 
 /**
  * Standard-Hintergrundbild der Kacheln.
@@ -265,6 +266,9 @@ const TargetGroupCards: React.FC = () => {
                     `.cc-radial-veil-graphite-right` (Zentrum 100% 50%). */}
                 <div aria-hidden="true" className="cc-radial-veil-graphite absolute inset-0" />
                 <div aria-hidden="true" className="cc-radial-veil-graphite-right absolute inset-0" />
+                {/* Kennzeichnung des Kartenmotivs. Unten links: Das Foto steht linksbuendig,
+                    die weisse Karte liegt rechts; oben links sitzt ab `lg` die Ueberschrift. */}
+                <KiMarke quelle={group.backgroundImage ?? DEFAULT_CARD_BG} className="bottom-4 left-4 hidden lg:block" />
 
                 {/* WEISSE KARTE — schwebt eingerueckt IM Bild, exakt nach dem Muster der
                     Leistungsuebersicht (`ExpandingCardAccordion`: `inset-y-3 left-3`,
@@ -309,7 +313,7 @@ const TargetGroupCards: React.FC = () => {
                       Fensterhoehe ist die Zeile nur 60 px hoch: dort 24 px, das passt ab 1024 px
                       Breite einzeilig (`--karte-b` mindestens 25rem).
                       Kurze Titel ("Privatkunden") bleiben einzeilig und sitzen mittig. */}
-                  <div className="flex h-[var(--kopf)] shrink-0 items-center border-b border-gray-100 px-5 md:px-6">
+                  <div className="flex h-[var(--kopf)] shrink-0 items-center gap-3 border-b border-gray-100 px-5 md:px-6">
                     <h3
                       id={`zielgruppe-${group.id}`}
                       className="line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-gray-950 [hyphens:none] md:text-3xl [@media(min-width:1024px)_and_(max-height:859px)]:text-2xl [@media(min-width:1024px)_and_(max-height:859px)]:leading-tight"
@@ -321,6 +325,11 @@ const TargetGroupCards: React.FC = () => {
                           zweizeiligen Titeln weit nach rechts weg und wirkte wie ein Fehler. */}
                       <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-blue-600 align-top" />
                     </h3>
+                    {/* Unterhalb `lg` deckt diese Karte das Foto bis auf einen 20-px-Rahmen ab —
+                        eine Plakette auf dem Bild laege dort auf der Partnerliste. Deshalb hier,
+                        in derselben Kachel, mit Vorsatz „Foto:“: Neben einer Ueberschrift waere
+                        „KI-generiert“ sonst auf die Leistung zu beziehen statt auf das Motiv. */}
+                    <KiMarke quelle={group.backgroundImage ?? DEFAULT_CARD_BG} statisch praefix="Foto: " className="ml-auto shrink-0 lg:hidden" />
                   </div>
 
                   {/* Innenabstand schrumpft auf niedrigen Viewports mit: Die Kachelhoehe

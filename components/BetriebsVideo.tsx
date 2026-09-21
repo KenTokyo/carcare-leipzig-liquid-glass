@@ -76,12 +76,14 @@ const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' })
     >
       <div className="max-w-xl">
         <Film aria-hidden="true" className="mx-auto mb-4 h-8 w-8 text-gray-400" />
-        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-500">
+        {/* `gray-600` statt `gray-500` (2026-09-21): gray-500 auf gray-50 misst 4,23:1 und
+            verfehlt AA bei 10–12 px — gefunden an den Bereichsvideos, die denselben Rahmen nutzen. */}
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-600">
           {platz.titel}
         </p>
         <p className="mt-3 text-base font-medium text-gray-800 md:text-lg">{platz.beschreibung}</p>
         <p className="mt-3 text-sm leading-relaxed text-gray-600">{platz.zweck}</p>
-        <p className="mt-5 text-xs text-gray-500">
+        <p className="mt-5 text-xs text-gray-600">
           Das Material wird nachgeliefert und an dieser Stelle eingesetzt.
         </p>
       </div>

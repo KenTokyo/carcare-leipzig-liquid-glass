@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import KiMarke from './KiMarke';
 
 /**
  * Ein Item des ExpandOnHover-Akkordeons. Bewusst minimal, damit sowohl
@@ -16,6 +17,16 @@ export interface ExpandingCardItem {
   cta?: string;
   /** Hintergrundbild der Karte (Pfad in /public/assets). Pro Karte austauschbar. */
   backgroundImage?: string;
+  /**
+   * Video statt Foto (Pfad in /public/assets). `backgroundImage` ist dann sein Standbild — es
+   * steht in der eingeklappten Karte und im Sektionshintergrund.
+   *
+   * SPARSAM MIT DATENVOLUMEN (Wunsch des Users 2026-09-21, Karte B11 der Startseite): Der
+   * Browser laedt zunaechst nur das Standbild. Das Video startet erst, wenn die Karte
+   * AUFGEKLAPPT ist und im Bild steht, und haelt an, sobald eine andere Karte aufgeht. Wer die
+   * Karte nie oeffnet, laedt das Video nie. Siehe `KartenVideo` unten.
+   */
+  backgroundVideo?: string;
   /**
    * Zusaetzliche Punkte unter der Beschreibung, z. B. Stellenanforderungen.
    * Sie wachsen der Karte ueber den Kopf — deshalb scrollt der Textbereich,
@@ -70,6 +81,66 @@ const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.webp';
  * ist leichtgewichtig, konsistent und zuverlaessig.
  */
 const logoMarkSrc = '/assets/carcare-center-logo.webp';
+
+/**
+ * Kartenvideo: laeuft nur, solange die Karte aufgeklappt ist UND im Bild steht.
+ *
+ * WARUM NICHT `autoPlay`: Damit startete (und laedt) das Video sofort — auch im eingeklappten,
+ * rund 82 px schmalen Streifen, in dem niemand etwas davon sieht, und auch dann, wenn die
+ * Sektion noch drei Bildschirme tiefer liegt. `preload="none"` plus Start per Code haelt die
+ * Seite so leicht wie mit dem Foto.
+ *
+ * WCAG 2.2.2 (Anhalten): Die Bewegung endet, sobald eine andere Karte aufgeht — am Desktop per
+ * Maus oder Tabulator, am Smartphone per Tipp. Ein eigener Pause-Knopf ginge hier nicht: Die
+ * ganze Karte ist ein Link, und Bedienelemente in einem Link sind unzulaessiges HTML.
+ * Ein `<video>` OHNE `controls` ist dagegen kein interaktives Element und darf darin stehen.
+ */
+const KartenVideo: React.FC<{ quelle: string; standbild: string; aktiv: boolean; className: string }> = ({
+  quelle,
+  standbild,
+  aktiv,
+  className,
+}) => {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [imBild, setImBild] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const beobachter = new IntersectionObserver(([eintrag]) => setImBild(eintrag.isIntersecting), { threshold: 0.25 });
+    beobachter.observe(el);
+    return () => beobachter.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (aktiv && imBild) {
+      // Als Eigenschaft setzen: React schreibt `muted` nicht zuverlaessig ins DOM, und Browser
+      // lassen ein Video nur stumm ohne Klick anlaufen.
+      el.muted = true;
+      el.play().catch(() => {
+        /* z. B. Energiesparmodus unter iOS: Dann bleibt das Standbild stehen — kein Fehlerfall. */
+      });
+    } else {
+      el.pause();
+    }
+  }, [aktiv, imBild]);
+
+  return (
+    <video
+      ref={ref}
+      src={quelle}
+      poster={standbild}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      className={className}
+    />
+  );
+};
 
 interface ExpandingCardAccordionProps {
   items: ExpandingCardItem[];
@@ -169,6 +240,8 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
         const isActive = active === idx;
         // Exakt das sichtbare Kartenbild — damit der Section-Hintergrund 1:1 dem Hover entspricht.
         const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
+        // Gilt fuer Foto und Video gleich: Zoom beim Aufklappen, Graustufen bei gedaempften Karten.
+        const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
         // Titel in „alles ausser letztem Wort" + „letztes Wort" zerlegen: Der blaue Akzentpunkt
         // wird unten mit dem letzten Wort in eine `whitespace-nowrap`-Klammer gesetzt. Ohne das
         // rutscht er bei mehrzeiligen Titeln allein in eine neue Zeile und wirkt wie ein Fehler
@@ -199,16 +272,17 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             transition={cardTransition}
             className="group relative min-w-0 overflow-hidden rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0"
           >
-            {/* Layer 1 – Hintergrundbild (pro Karte austauschbar) */}
-            <img
-              src={cardImage}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`}
-            />
+            {/* Layer 1 – Hintergrundbild (pro Karte austauschbar), wahlweise als Video */}
+            {item.backgroundVideo ? (
+              <KartenVideo quelle={item.backgroundVideo} standbild={cardImage} aktiv={isActive} className={bildKlasse} />
+            ) : (
+              <img src={cardImage} alt="" aria-hidden="true" loading="lazy" decoding="async" className={bildKlasse} />
+            )}
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.62)] via-[rgb(var(--cc-carbon-rgb)/0.14)] to-transparent" />
+            {/* Kennzeichnung des Kartenmotivs. Am Desktop NUR auf der aufgeklappten Karte:
+                Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
+                angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer. */}
+            {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className="right-3 top-3" />}
             {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
                 eingeklappten Titel (gleicher Stapel, spaeter im DOM) und hinter der
                 Textbox (z-10). Deshalb kein z-Index — die DOM-Reihenfolge genuegt. */}

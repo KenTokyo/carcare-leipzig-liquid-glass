@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } fr
 import { ArrowRight } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
+import KiMarke from './KiMarke';
 
 /**
  * Gemeinsame Mechanik der scroll-gepinnten Prozess-Sektionen.
@@ -320,6 +321,12 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
                 isActive={i === active}
               />
             ))}
+            {/* Kennzeichnung des gerade gezeigten Motivs — AN DER BUEHNE, nicht in der Karte.
+                Die Karten blenden beim Schrittwechsel ineinander; eine mitblendende Plakette
+                stand zeitweise bei 33 % Deckkraft und fiel damit unter den AA-Kontrast
+                (gemessen mit `npm run kontrast`, drei Befunde). An der Buehne steht sie ruhig,
+                folgt aber weiterhin dem aktiven Schritt. */}
+            <KiMarke quelle={steps[active].image} className="right-4 top-4" />
           </div>
         </div>
       </div>

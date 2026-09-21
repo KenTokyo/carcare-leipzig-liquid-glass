@@ -2,6 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { serviceByHref } from '../data/services';
 
 /**
  * Hub-Seite des Reparatur-Strangs (Unfall, Karosserie, Lack, Rad und Glas).
@@ -88,9 +89,21 @@ const audiences = [
   { title: 'Autohäuser & Fuhrparks', description: 'Planbare Abläufe, kurze Wege und transparente Reparaturkommunikation für Flotten.', href: '/geschaeftskunden' },
 ];
 
+/**
+ * Motiv der Kachel „Unfallinstandsetzung" aus der Leistungsuebersicht — seit 2026-09-21 aus dem
+ * Katalog gelesen statt als Pfad wiederholt. Beim Bildtausch (B10/B36) stand der Pfad hier ein
+ * zweites Mal; genau diese Doppelung laesst Kachel und Seitenhintergrund auseinanderlaufen.
+ * `pageImage` ist dasselbe Foto im Ausschnitt fuer den Seitenhintergrund (Schweisser rechts
+ * der Mitte, wo das Bildfenster liegt) — wie in `ServiceLayout`.
+ */
+const unfallEintrag = serviceByHref('/unfallinstandsetzung-leipzig');
+const hintergrund = unfallEintrag?.pageImage ?? unfallEintrag?.backgroundImage;
+// Wirft bewusst, statt still ohne Hintergrund zu rendern (gleiche Haltung wie `videoPlatz()`):
+// Ein fehlender Katalogeintrag ist ein Fehler im Katalog, und der Prerender faengt ihn laut ab.
+if (!hintergrund) throw new Error('AccidentRepairPage: Katalogeintrag /unfallinstandsetzung-leipzig ohne Motiv (data/services.ts).');
+
 const AccidentRepairPage: React.FC = () => (
-  // Motiv der Kachel „Unfallinstandsetzung" aus der Leistungsuebersicht.
-  <BackdropLayout image="/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp">
+  <BackdropLayout image={hintergrund}>
     <PageMeta
       canonical="/unfallinstandsetzung-leipzig"
       title="Unfallinstandsetzung Leipzig | Karosserie, Lack & Glas"

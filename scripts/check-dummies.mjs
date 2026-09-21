@@ -78,7 +78,7 @@ const QUELLEN = [
     flagge: 'istPlatzhalter',
     bezeichner: 'titel',
     was: 'Videoplatz auf /ueber-uns bzw. /karriere',
-    backlog: '3.18 / 3.21',
+    backlog: '3.18 / 3.21 / R18',
   },
   {
     datei: 'data/stimmen.ts',
@@ -154,6 +154,15 @@ const ANERKANNT = [
   { text: 'Mitarbeiterstimme 1', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 2', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 3', backlog: '3.19 / 1.26', seit: '2026-09-06' },
+  // Backlog R18: Bereichsvideos Karosserie/Mechanik, Lack, Aufbereitung auf /ueber-uns und
+  // /karriere — vom User am 2026-09-21 ausdruecklich als Platzhalter bestellt, das Material
+  // liefert André nach. Die beiden Wendungen stehen im Rahmen jedes Platzes (Netz 2), die drei
+  // Titel sind die Eintraege in data/videos.ts (Netz 1).
+  { text: 'Videoplatz Karosserie- und Mechanikbereich', backlog: 'R18', seit: '2026-09-21' },
+  { text: 'Videoplatz Lackierbereich', backlog: 'R18', seit: '2026-09-21' },
+  { text: 'Videoplatz Aufbereitungsbereich', backlog: 'R18', seit: '2026-09-21' },
+  { text: 'Videoplatz', backlog: 'R18', seit: '2026-09-21' },
+  { text: 'Das Material wird nachgeliefert', backlog: 'R18', seit: '2026-09-21' },
 ];
 
 const anerkanntFuer = (text) => ANERKANNT.find((a) => a.text === text);

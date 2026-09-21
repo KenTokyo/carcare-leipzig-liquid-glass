@@ -2,6 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import Timeline from '../components/Timeline';
 import BetriebsVideo from '../components/BetriebsVideo';
+import BereichsVideos, { type BereichsKarte } from '../components/BereichsVideos';
 import LeistungsKarten from '../components/LeistungsKarten';
 import Mitgliedssiegel from '../components/Mitgliedssiegel';
 import { bvat } from '../data/mitgliedschaften';
@@ -64,6 +65,36 @@ const spectrum = [
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgen & Autoglas', description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.', href: '/felgenreparatur-leipzig' },
   { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege „exklusiv“ mit Swissvax-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
+];
+
+/**
+ * Bereichsvideos (Backlog R18, Wunsch des Users 2026-09-21) unter dem Betriebsrundgang: erst
+ * der Durchgang durch alle Hallen, dann jeder Bereich fuer sich. Das Medium kommt aus
+ * `data/videos.ts` und ist mit `/karriere` geteilt; die Texte hier sprechen Kunden an und
+ * verlinken auf die Leistung des Bereichs.
+ */
+const bereiche: BereichsKarte[] = [
+  {
+    platz: videoPlatz('bereich-karosserie'),
+    titel: 'Karosserie- und Mechanikbereich',
+    text: 'Hier setzen wir Fahrzeuge nach Unfallschäden instand: Karosseriearbeiten, Richten, Schweißen und die Montage der Bauteile, bevor es in die Lackierung geht.',
+    href: '/unfallinstandsetzung-leipzig',
+    linkLabel: 'Zur Unfallinstandsetzung',
+  },
+  {
+    platz: videoPlatz('bereich-lack'),
+    titel: 'Lackierbereich',
+    text: 'Vom Untergrund über die Farbtonbestimmung bis zur Lackierkabine: Als Glasurit-Lackpartner lackieren wir mit Wasserbasislacken, farbtongenau zur Originallackierung.',
+    href: '/autolackierung-leipzig',
+    linkLabel: 'Zur Lackierung',
+  },
+  {
+    platz: videoPlatz('bereich-aufbereitung'),
+    titel: 'Aufbereitungsbereich',
+    text: 'Innen- und Außenaufbereitung, Politur und Versiegelung — hier bereiten wir Fahrzeuge für den Alltag, den Verkauf oder die Leasingrückgabe auf.',
+    href: '/fahrzeugaufbereitung-leipzig',
+    linkLabel: 'Zur Aufbereitung',
+  },
 ];
 
 const customers = [
@@ -161,6 +192,7 @@ const UeberUnsPage: React.FC = () => (
         <div className="mt-12">
           <BetriebsVideo platz={videoPlatz('ueber-uns-betrieb')} />
         </div>
+        <BereichsVideos kicker="Die Bereiche im Einzelnen" karten={bereiche} />
       </div>
     </section>
 

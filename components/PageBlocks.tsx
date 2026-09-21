@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { faqsByRoute } from '../data/faqs';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
+import KiMarke from './KiMarke';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
@@ -44,6 +45,12 @@ export const BackdropLayout: React.FC<{ children: React.ReactNode; image: string
           Flaeche `sticky` steht, laeuft ein Video hier beim Scrollen weiter — genau das
           war die Vorgabe. */}
       <PhotoBackdrop image={image} className="rounded-none" textGuard="wide" zoom={zoom} video={video} />
+      {/* Kennzeichnung des Seitenmotivs. Nicht IN `PhotoBackdrop`: Dessen Ebene ist
+          `aria-hidden`, die Plakette soll aber vorgelesen werden. Oben rechts, unterhalb der
+          Navigation — dort steht beim Seitenaufruf das Foto frei.
+          Traegt die Seite ein Video, ist `image` dessen Standbild und damit eine echte
+          Aufnahme; `KiMarke` rendert dann von selbst nichts. */}
+      <KiMarke quelle={image} className="right-4 top-24 md:right-6 md:top-28" />
     </div>
     <div className="cc-backdrop-content -mt-[100svh]">{children}</div>
   </div>

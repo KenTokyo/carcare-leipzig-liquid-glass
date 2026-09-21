@@ -151,7 +151,9 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   }
 
   return (
-    <BackdropLayout image={katalogEintrag.backgroundImage} zoom={zoom}>
+    // `pageImage`: eigener Ausschnitt fuer den Seitenhintergrund, wo das Kachelbild dort nicht
+    // traegt (Motiv im linken Drittel, unter dem Textschutz). Sonst dasselbe Bild wie die Kachel.
+    <BackdropLayout image={katalogEintrag.pageImage ?? katalogEintrag.backgroundImage} zoom={zoom}>
       <PageMeta canonical={route} title={meta.title} description={meta.description} />
       <PageHero {...hero} />
 

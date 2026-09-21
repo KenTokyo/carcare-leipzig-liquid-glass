@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { overviewServices } from '../data/services';
-import ExpandingCardAccordion from './ExpandingCardAccordion';
+import { videoPlatz } from '../data/videos';
+import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
 
 /**
@@ -12,6 +13,25 @@ import PhotoBackdrop from './PhotoBackdrop';
  * Karten optisch unterscheiden — mit einem gemeinsamen Default-Bild wirkt das Aufklappen flach.
  * Dateien liegen in /public/assets/kacheln (aus PNG konvertiert via `npm run images`).
  */
+
+/**
+ * Videos NUR fuer diese Kachelreihe der Startseite (Bildstelle B11, Wunsch des Users vom
+ * 2026-09-21: „nur für die Mainpage …, damit wir nicht zu viel Datenvolumen mit der gesamten
+ * Seite fressen"). Bewusst hier und nicht im Katalog: `data/services.ts` speist auch die
+ * Leistungskarten und Seitenhintergruende der anderen Seiten — dort bleibt das Foto.
+ * Das Standbild ersetzt das Kachelfoto, damit beim Anlaufen nichts umspringt.
+ */
+const STARTSEITEN_VIDEOS: Record<string, string> = {
+  lackierung: 'startseite-lackierung',
+};
+
+const karten: ExpandingCardItem[] = overviewServices.map((service) => {
+  const platzId = STARTSEITEN_VIDEOS[service.id];
+  if (!platzId) return service;
+  const platz = videoPlatz(platzId);
+  if (!platz.quelle || !platz.poster) return service;
+  return { ...service, backgroundImage: platz.poster, backgroundVideo: platz.quelle };
+});
 
 const ServiceGrid: React.FC = () => {
   // Full-Bleed-Section-Hintergrund: das ExpandingCardAccordion reicht via onActiveImageChange
@@ -50,7 +70,7 @@ const ServiceGrid: React.FC = () => {
           </a>
         </div>
 
-        <ExpandingCardAccordion items={overviewServices} onActiveImageChange={setActiveImage} />
+        <ExpandingCardAccordion items={karten} onActiveImageChange={setActiveImage} />
       </div>
     </section>
   );

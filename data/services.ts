@@ -60,6 +60,18 @@ export interface ServiceCatalogEntry extends OverviewService {
   imageAlt?: string;
   imageWidth?: number;
   imageHeight?: number;
+  /**
+   * Eigener Ausschnitt DESSELBEN Fotos fuer den Seitenhintergrund der Zielseite.
+   *
+   * WARUM ES DAS GIBT (2026-09-21): Der Seitenhintergrund zeigt das Foto nur rechts der Mitte,
+   * links liegt der weisse Textschutz. Steht das Motiv im linken Drittel, sieht man dort nur
+   * Nebensachen — bei Unfallinstandsetzung ein abgedecktes Auto statt des Schweissers, bei der
+   * Lackierung eine graue Flaeche statt der Pistole (gemessen an Bildschirmfotos 1440 × 900).
+   * Der Ausschnitt rueckt das Motiv nach rechts. Erzeugt von `npm run fotos` aus demselben
+   * Original — die Wiedererkennung zwischen Kachel und Zielseite bleibt. Ohne Angabe gilt
+   * `backgroundImage`.
+   */
+  pageImage?: string;
 }
 
 /**
@@ -94,10 +106,13 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Wrench',
     href: '/unfallinstandsetzung-leipzig',
     cta: 'Unfall melden',
-    backgroundImage: kachel('versicherung-schadenabwicklung-leipzig-carcare'),
-    imageAlt: 'Schadenaufnahme und Abwicklung eines Unfallschadens im CarCare Center Leipzig',
-    imageWidth: 1200,
-    imageHeight: 896,
+    // Seit 2026-09-21 echtes Foto (Backlog 2.16: das alte Motiv wirkte wie Schadenaufnahme,
+    // nicht wie Instandsetzung). Das alte Bild bleibt als Datei im Bestand, siehe motive.json.
+    backgroundImage: kachel('unfallinstandsetzung-leipzig-carcare'),
+    imageAlt: 'Karosseriebauer schweißt an der Dachsäule eines abgeklebten Unfallfahrzeugs – Unfallinstandsetzung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
+    pageImage: kachel('unfallinstandsetzung-hintergrund-leipzig-carcare'),
   },
   {
     id: 'lackierung',
@@ -109,10 +124,13 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'PaintBucket',
     href: '/autolackierung-leipzig',
     cta: 'Zur Lackierung',
+    // Seit 2026-09-21 echtes Foto (Backlog 3.26). Die Startseitenkarte zeigt statt des Fotos
+    // ein Video — nur dort, siehe `components/ServiceGrid.tsx`.
     backgroundImage: kachel('autolackierung-leipzig-carcare'),
-    imageAlt: 'Fahrzeuglackierung in der Lackierkabine des CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    imageAlt: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf – Reparaturlackierung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
+    pageImage: kachel('autolackierung-hintergrund-leipzig-carcare'),
   },
   {
     id: 'smart',
@@ -139,10 +157,11 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Hammer',
     href: '/dellenentfernung-leipzig',
     cta: 'Dellen entfernen',
+    // Seit 2026-09-21 echtes Foto: die Delle, waehrend sie entfernt wird (Backlog 3.11/3.24).
     backgroundImage: kachel('dellenentfernung-leipzig-carcare'),
-    imageAlt: 'Lackfreie Dellenentfernung an einem Fahrzeug im CarCare Center Leipzig',
-    imageWidth: 1200,
-    imageHeight: 896,
+    imageAlt: 'Techniker richtet unter der Reflexionslampe eine Delle an der A-Säule aus – lackfreie Dellenentfernung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
   },
   {
     id: 'hagel',
@@ -199,10 +218,11 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Sparkles',
     href: '/innenaufbereitung-leipzig',
     cta: 'Innenaufbereitung ansehen',
+    // Seit 2026-09-21 echtes Foto eines exklusiven Fahrzeugs (Backlog 2.15/3.29).
     backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
-    imageAlt: 'Gereinigter Fahrzeuginnenraum nach der Innenaufbereitung im CarCare Center Leipzig',
-    imageWidth: 2400,
-    imageHeight: 1340,
+    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens – Innenaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
     // Nur auf `/leistungen`, siehe Hinweis beim Eintrag `aussenaufbereitung`.
     inOverviewGrid: false,
   },
@@ -216,10 +236,12 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Sparkles',
     href: '/aussenaufbereitung-leipzig',
     cta: 'Außenaufbereitung ansehen',
-    backgroundImage: kachel('fahrzeugaufbereitung-leipzig-carcare'),
-    imageAlt: 'Aufbereitete Fahrzeugoberfläche nach der Außenaufbereitung im CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    // Seit 2026-09-21 eigenes, echtes Motiv statt der Leihgabe von `fahrzeugaufbereitung-…` (R2) —
+    // dasselbe Foto wie `aufbereitungKacheln.aussen` in data/detailing.ts.
+    backgroundImage: kachel('lackaufbereitung-leipzig-carcare'),
+    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV – Außen- und Lackaufbereitung im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
     // Erscheint nur auf `/leistungen`: die Startseite fuehrt die Aufbereitungsbereiche
     // bereits ueber die Aufklapp-Kacheln in `AutoDetailingExpertiseSection`.
     inOverviewGrid: false,

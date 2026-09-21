@@ -99,10 +99,18 @@ for (const quelle of dateien) {
 
   try {
     const vorher = (await stat(quelle)).size;
-    const bild = sharp(quelle);
+    // `.rotate()` ohne Winkel richtet nach dem EXIF-Vermerk auf. PFLICHT, nicht Kosmetik:
+    // sharp entfernt beim Umwandeln alle Metadaten, auch den Drehvermerk — die Pixel eines
+    // Handyfotos im Hochformat (orientation 6) liegen aber quer. Ohne diese Zeile waeren von der
+    // Lieferung am 2026-09-21 vier von elf Fotos quer liegend herausgekommen — nachgemessen an
+    // einem davon: 5712 × 4284 statt 2400 × 3200 (Befund O1,
+    // docs/bilder/tasks/2026-09-21-bildtausch-lieferung-september-optimierung-tasks.md).
+    const bild = sharp(quelle).rotate();
     const meta = await bild.metadata();
+    // `metadata()` nennt die Masse VOR der Drehung; bei orientation 5–8 sind Breite und Hoehe vertauscht.
+    const breite = (meta.orientation ?? 1) >= 5 ? meta.height : meta.width;
     // Nur verkleinern, nie hochskalieren.
-    if (meta.width && meta.width > MAX_BREITE) bild.resize({ width: MAX_BREITE, withoutEnlargement: true });
+    if (breite && breite > MAX_BREITE) bild.resize({ width: MAX_BREITE, withoutEnlargement: true });
     await bild.webp({ quality: 82, effort: 6 }).toFile(ziel);
     const nachher = (await stat(ziel)).size;
 

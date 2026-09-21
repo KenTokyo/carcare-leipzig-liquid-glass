@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionVal
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { ExternMarke, externAttribute } from './ExternerLink';
+import KiMarke from './KiMarke';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 /**
@@ -117,6 +118,10 @@ const Footer: React.FC = () => {
               Wer hier aufhellt, muss den Kontrast neu messen. */}
           <div className="absolute inset-0 bg-gray-900/80" />
         </div>
+        {/* Kennzeichnung des Fusszeilen-Motivs. Ausserhalb der `aria-hidden`-Bildebene, damit
+            Vorlesegeraete sie mitlesen; oben rechts im Innenabstand, dort beginnt der Inhalt erst
+            bei 64 px. */}
+        <KiMarke quelle={footerBgSrc} className="right-5 top-5" />
 
         {/* dezente Brand-Lichter im Hintergrund */}
         <div className="pointer-events-none absolute inset-0 opacity-60">

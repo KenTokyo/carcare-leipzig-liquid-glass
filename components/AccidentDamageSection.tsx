@@ -35,9 +35,13 @@ const steps: ProcessStepCard[] = [
     title: 'Schadenaufnahme',
     description:
       'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
-    image: kachel('schadenaufnahme-leipzig-carcare'),
+    // Seit 2026-09-21 das fruehere Motiv der Unfall-Kachel (B10), auf Wunsch des Users hierher
+    // versetzt: ruhiger als das vorige Bild mit Kundin und gelbem Sportwagen (Backlog 3.8).
+    // Gilt bis zur Klaerung als KI-generiert (`data/bildherkunft.ts`) — der Text beschreibt
+    // deshalb das Bild, ohne es als unsere Werkstatt auszugeben.
+    image: kachel('versicherung-schadenabwicklung-leipzig-carcare'),
     imageAlt:
-      'Unser Mitarbeiter nimmt gemeinsam mit einer Kundin den Unfallschaden an einem gelben Sportwagen auf und dokumentiert ihn per Tablet.',
+      'Mitarbeiter mit Tablet dokumentiert den Heckschaden an einem silbernen Elektro-Sportwagen.',
   },
   {
     n: '03',
@@ -62,9 +66,12 @@ const steps: ProcessStepCard[] = [
     title: 'Ersatzwagen nach Verfügbarkeit',
     description:
       'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen für die Dauer der Reparatur.',
+    // Seit 2026-09-21 unsere eigene Mietwagenflotte statt Symbolbild (Backlog 2.21/3.4, B23).
+    // Das fruehere Motiv (Schluesseluebergabe) steht weiter bei „Fahrzeug abgeben" als
+    // `fahrzeugabgabe-leipzig-carcare.webp`.
     image: kachel('ersatzwagen-leipzig-carcare'),
     imageAlt:
-      'Unser Mitarbeiter übergibt einer Kundin vor der Werkstatt den Schlüssel für einen Ersatzwagen.',
+      'Unsere Ersatzwagen: eine Reihe weißer Kleinwagen mit der Beschriftung des CarCare Center vor unserer Werkstatt in Leipzig.',
   },
 ];
 

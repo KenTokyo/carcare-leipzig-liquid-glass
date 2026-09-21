@@ -611,6 +611,33 @@ textarea {
 }
 
 /* ---------------------------------------------------------------------------
+   Kennzeichnung KI-Bilder (Art. 50 KI-VO, seit 02.08.2026) — `components/KiMarke.tsx`
+   ---------------------------------------------------------------------------
+   Klein und ruhig, aber ohne Zoom lesbar: 10 px Schrift, 2/8 px Innenabstand.
+
+   DER GRUND IST DECKEND GENUG GERECHNET, nicht geschaetzt: Die Plakette liegt auf
+   Fotos, deren Helligkeit niemand kennt. Bei `rgb(17 24 39 / 0.78)` ergibt der
+   schlechteste Fall — ein rein weisser Bildbereich darunter — einen Grund von etwa
+   rgb(69 75 86); weisse Schrift darauf liegt bei ~6,9:1 und damit ueber WCAG AA (4,5).
+   Wer den Wert senkt, misst mit `npm run kontrast` nach.
+
+   `pointer-events: none`: Die Plakette darf Klicks auf Karten und Links nicht abfangen.
+   --------------------------------------------------------------------------- */
+.cc-ki-marke {
+  z-index: 20;
+  pointer-events: none;
+  border-radius: 9999px;
+  background-color: rgb(17 24 39 / 0.78);
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
    Seiten mit durchgehendem Foto-Hintergrund (`BackdropLayout` in PageBlocks.tsx)
    ---------------------------------------------------------------------------
    Das Foto haengt per `position: sticky` im Viewport, der Inhalt scrollt darueber.
