@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 20.09.2026, 23:48, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 22.09.2026, 00:55, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 20.09.2026, 23:48 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 22.09.2026, 00:55 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `a81c6e8` | `21edd3b` | 2 vor GitHub (kommt mit dem Push) |
-| `2026-09-18-bilder-inventar` | `a81c6e8` | — | neu, 2 Commit(s) noch nicht auf GitHub |
+| `main` | `53264d9` | `53264d9` | gleich |
+| `2026-09-18-bilder-inventar` | `965eb9c` | `53264d9` | 2 vor GitHub (kommt mit dem Push) |
 | 12 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,8 +19,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `9b23f5d` | 20.09.2026, 23:46 | oalabhypercode | Bildinventar: feste Nummern B1-B111 fuer jede Bildstelle, quadratische Favicons | 19 (12 neu) | package.json | **kommt mit diesem Push** |
-| `a81c6e8` | 20.09.2026, 23:48 | oalabhypercode | Push-Stand: zurueckgestellte Folgepunkte zaehlen mit (O10) | 2 | — | **kommt mit diesem Push** |
+| `9875e8e` | 22.09.2026, 00:55 | oalabhypercode | Bilder: Lieferung September eingebaut, Kartenvideo B11, Bereichsvideos, KI-Plakette | 49 (16 neu) | package.json | **kommt mit diesem Push** |
+| `965eb9c` | 22.09.2026, 00:55 | oalabhypercode | Docs: Bildliste B1-B118 mit Vermerken, Backlog und Aufgaben zum Bildtausch | 13 (3 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -30,8 +30,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run bilder`, neu: `npm run favicons` |
-| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `a81c6e8`, `9b23f5d` |
+| npm-Skripte | neu: `npm run fotos` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `965eb9c`, `9875e8e` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -49,14 +49,14 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| ⏸️ Phase O-C — Kennzeichen im Karriere-Video (O1, Teil OALAB) · bewusst zurückgestellt | `docs/bilder/tasks/2026-09-18-bilder-inventar-optimierung-tasks.md` |
+| Phase 4 — offen, braucht Angaben des Users | `docs/bilder/tasks/2026-09-21-ki-kennzeichnung-tasks.md` |
 
-### Backlog gesamt: 56 offene Punkte
+### Backlog gesamt: 45 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
 <details>
-<summary>Schleife 2: 12 offen</summary>
+<summary>Schleife 2: 7 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
@@ -64,12 +64,7 @@ Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 | 2.7 | Globalen Slogan anpassen: „Premium" bleibt, Fahrzeugpflege geringer gewichten, Unfallinstandsetzung / Karosse… | offen | Oalab |
 | 2.8 | Angepassten Slogan überall konsistent platzieren | offen | Oalab |
 | 2.11 | Zusatzleistungen als optionale, wählbare Zusatzleistungen auf der Subseite aufführen (Fußnote/Hinweis) | ⏸️ später | Oalab |
-| 2.14 | Leasingrückgabe braucht ein eigenes Bild | offen | André |
-| 2.15 | Innenaufbereitung: KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug | offen | Oalab |
-| 2.16 | Hero-Bild ersetzen – wirkt wie Schadensaufnahme, nicht wie Instandsetzung | offen | Oalab / André |
 | 2.18 | Sektion „Schadenaufnahme": Transparenz reduzieren (bei viel Text unübersichtlich) | offen | Oalab |
-| 2.20 | Foto Fuhrpark-/Autohausservice (Hänger) einbauen | offen | Oalab |
-| 2.21 | Mietwagenbild / weiße Mietwagenflotte einarbeiten | offen | Oalab |
 | 2.26 | Liste aller Sonder-/Zusatzleistungen Aufbereitung (Keramikversiegelung, Nanoversiegelung, leichte Kratzerentf… | ⏸️ später | André |
 | 2.27 | Liste lokaler Jobbörsen / Arbeitsamt / Recruiting-Portale notieren – für spätere Weiterleitung auf die offizi… | offen | André |
 
@@ -78,26 +73,20 @@ Quelle: `docs/backlog/schleife-2.md`
 </details>
 
 <details>
-<summary>Schleife 3: 21 offen</summary>
+<summary>Schleife 3: 15 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
-| 3.4 | Bild 5 (Ersatzwagen nach Verfügbarkeit) durch Foto eines eigenen Mietwagens ersetzen (nice to have) | offen | Oalab / André |
 | 3.6 | Parallax-Bereich: keine „dreckig/sauber"-Vergleiche, sondern Endbilder bzw. Bilder kurz vor Fertigstellung /… | offen | Oalab |
-| 3.8 | Sektion „Schadenaufnahme": Hintergrundbild ändern, ruhigeres Motiv im Stil der Aufbereitungsseite | offen | Oalab |
 | 3.10 | Smart-Repair-Foto ersetzen – zeigt Kratzerentfernung/Aufbereitung, nicht Smart Repair | offen | Oalab |
-| 3.11 | Dellenentfernung: sauberes Bild hinterlegen | offen | Oalab |
 | 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | offen | Oalab / André |
 | 3.16 | Partner nach Freigabe direkt verlinken („geschenkte Leads") | 🟨 teilweise | Oalab |
 | 3.19 | Mitarbeiterstimmen anonymisiert – nur Berufsbezeichnung + kurzer Kommentar, keine Namen | 🟦 Struktur steht | Oalab |
 | 3.22 | Wissensdatenbank-Seite bleibt vorerst Platzhalter, wird komplett neu gestaltet | offen | Oalab |
 | 3.23 | Fotopaket Aufbereitung: Versiegelung, Felgenreinigung, Politur, Keramikapplikation während der Arbeit (Termin… | offen | André |
-| 3.24 | Foto: Delle, während sie entfernt wird | offen | André |
 | 3.25 | Foto: Smart Repair, echte Nahaufnahme | offen | André |
-| 3.26 | Foto: Neu-/Reparaturlackierung – Stoßstange beim Schleifen, angeschliffenes Teil oder Lackierkabine | offen | André |
 | 3.27 | Foto: Hagelschaden (Archiv oder anstehendes Fahrzeug) | offen | André |
 | 3.28 | Foto: Felge in Reparatur / beim Lackieren (vorhanden nur beschädigte Felgen) | offen | André |
-| 3.29 | Bilder Innenaufbereitung: exklusives Fahrzeug, kein Transporter | offen | André |
 | 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | offen · Abgleich 2026-09-17: „Vintech" ist sehr wahrscheinl… | André |
 | 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16)… | André |
 | 3.32 | Ausbildungsstellen: widersprüchlich – erst „nein", dann „haben wir aktuell auch schon". Vor Umsetzung der Kar… | Klärung | André |
@@ -134,14 +123,14 @@ Quelle: `docs/backlog/schleife-4.md`
 | R4 | Ausbildung bestätigen (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen,… | offen · Richtung „ja" (4.19: „Ausbildungsbetrieb im Lackier… | André |
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite | offen | André |
 | R7 | Echtes Vorschaubild statt Unsplash-Stockfoto (`og:image`, JSON-LD). Deckungsgleich mit dem offenen OG-Bild-Pu… | offen | André |
-| R2 | Eigene Motive für Leasingrückgabe und Außenaufbereitung | offen | André |
-| R15 | Herkunft jedes Fotos bestätigen: echtes Foto · KI-bearbeitet · KI-generiert. Seit 02.08.2026 gilt die Kennzei… | offen, aufgenommen 2026-09-18 (Bildinventar) | André (und OALAB, falls selbs… |
-| R16 | Karriere-Video (B110/B111): Das Kennzeichen eines Kundenfahrzeugs ist im Standbild und im Clip (etwa Sekunde… | offen, aufgenommen 2026-09-18 | OALAB (Kennzeichen) · André (… |
+| R15 | Herkunft jedes Fotos bestätigen: echtes Foto · KI-bearbeitet · KI-generiert. Seit 02.08.2026 gilt die Kennzei… | offen, aufgenommen 2026-09-18 (Bildinventar) · 2026-09-21:… | André (und OALAB, falls selbs… |
+| R18 | Drei Bereichsvideos (Karosserie- und Mechanik-, Lackier-, Aufbereitungsbereich) für `/ueber-uns` und `/karrie… | offen, aufgenommen 2026-09-21 (Wunsch User) · Platzhalter i… | André |
 | – | Partnerlogos: schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schu… | 🟨 teilweise — riparo (Logo + Link), Porsche Zentrum Leipzi… | André |
 | R9 | Anhänge mitsenden. Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | 🟨 für Schäden gelöst — Fotos gehen seit 2026-09-16 über re… | OALAB |
 | R11 | Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen. Beim Schadenformular ist Streichen seit… | offen | OALAB |
 | – | Anhalte-Möglichkeit für die drei automatisch laufenden Videos (WCAG 2.2.2: Bewegung über 5 s braucht Pause/St… | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/20… | OALAB |
 | – | 12 Drohnenclips und 16 Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotop… | offen, zu prüfen | OALAB |
+| R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
 | T4 | Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich | offen | OALAB |
 | – | `ITEMS` gegen `serviceCatalog` prüfen, ableiten oder bewusst trennen; Wächter erwägen | offen | OALAB |
 | – | Footer-Icons stehen bei Kontrast 1,00:1 auf dunklem Grund | offen | André (Gestaltungsfrage) |
