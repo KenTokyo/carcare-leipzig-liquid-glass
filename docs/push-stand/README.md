@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 22.09.2026, 00:55, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 22.09.2026, 00:58, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 22.09.2026, 00:55 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 22.09.2026, 00:58 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `53264d9` | `53264d9` | gleich |
-| `2026-09-18-bilder-inventar` | `965eb9c` | `53264d9` | 2 vor GitHub (kommt mit dem Push) |
+| `main` | `13dc38c` | `53264d9` | 3 vor GitHub (kommt mit dem Push) |
+| `2026-09-18-bilder-inventar` | `13dc38c` | `13dc38c` | gleich |
 | 12 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,8 +19,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `9875e8e` | 22.09.2026, 00:55 | oalabhypercode | Bilder: Lieferung September eingebaut, Kartenvideo B11, Bereichsvideos, KI-Plakette | 49 (16 neu) | package.json | **kommt mit diesem Push** |
-| `965eb9c` | 22.09.2026, 00:55 | oalabhypercode | Docs: Bildliste B1-B118 mit Vermerken, Backlog und Aufgaben zum Bildtausch | 13 (3 neu) | — | **kommt mit diesem Push** |
+| `9875e8e` | 22.09.2026, 00:55 | oalabhypercode | Bilder: Lieferung September eingebaut, Kartenvideo B11, Bereichsvideos, KI-Plakette | 49 (16 neu) | package.json | war schon oben |
+| `965eb9c` | 22.09.2026, 00:55 | oalabhypercode | Docs: Bildliste B1-B118 mit Vermerken, Backlog und Aufgaben zum Bildtausch | 13 (3 neu) | — | war schon oben |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -30,7 +30,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run fotos` |
+| Nur wer noch vor `9875e8e` steht (Commits „war schon oben") | npm-Skripte: neu: `npm run fotos` |
 | Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `965eb9c`, `9875e8e` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
