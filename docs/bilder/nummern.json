@@ -1,6 +1,6 @@
 {
   "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
-  "naechste": 112,
+  "naechste": 119,
   "stellen": {
     "alle|ladebildschirm|||bild|desktop|": {
       "nr": 1,
@@ -59,14 +59,20 @@
     "/|leistungen||Unfallinstandsetzung|bild||": {
       "nr": 10,
       "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Unfallinstandsetzung“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/|leistungen|bild|"
     },
-    "/|leistungen||Neu- und Reparaturlackierung|bild||": {
+    "/|leistungen||Neu- und Reparaturlackierung|standbild||": {
       "nr": 11,
-      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Neu- und Reparaturlackierung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/|leistungen|bild|"
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Neu- und Reparaturlackierung“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/|leistungen|standbild|"
+    },
+    "/|leistungen||Neu- und Reparaturlackierung|video||": {
+      "nr": 112,
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Neu- und Reparaturlackierung“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/|leistungen|video|"
     },
     "/|leistungen||Smart Repair|bild||": {
       "nr": 12,
@@ -119,7 +125,7 @@
     "/|unfall-schaden||Schadenaufnahme|bild||": {
       "nr": 20,
       "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Schadenaufnahme“",
-      "datei": "kacheln/schadenaufnahme-leipzig-carcare.webp",
+      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
     "/|unfall-schaden||Gutachten & Kalkulation|bild||": {
@@ -167,13 +173,13 @@
     "/|autoaufbereitung||Außenaufbereitung|bild||": {
       "nr": 28,
       "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Außenaufbereitung“",
-      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung|bild|"
     },
     "/|autoaufbereitung||Leasingrückgabe vorbereiten|bild||": {
       "nr": 29,
       "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Leasingrückgabe vorbereiten“",
-      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "datei": "kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung|bild|"
     },
     "/|autoaufbereitung||Mehr über Aufbereitung erfahren|bild||": {
@@ -197,13 +203,13 @@
     "/|autoaufbereitung-ablauf||Fahrzeug abgeben|bild||": {
       "nr": 33,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Fahrzeug abgeben“",
-      "datei": "kacheln/ersatzwagen-leipzig-carcare.webp",
+      "datei": "kacheln/fahrzeugabgabe-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/|autoaufbereitung-ablauf||Professionelle Aufbereitung|bild||": {
       "nr": 34,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Professionelle Aufbereitung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "datei": "kacheln/aufbereitung-aktiv-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/|autoaufbereitung-ablauf||Gepflegt zurückerhalten|bild||": {
@@ -215,13 +221,13 @@
     "/unfallinstandsetzung-leipzig|seite|||bild||": {
       "nr": 36,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-hintergrund-leipzig-carcare.webp",
       "rahmen": "/unfallinstandsetzung-leipzig|seite|bild|"
     },
     "/unfallinstandsetzung-leipzig|reparaturleistungen||Unfallinstandsetzung|bild||": {
       "nr": 37,
       "ort": "„Welche Reparatur Ihr Fahrzeug braucht – und was …“ › Karte „Unfallinstandsetzung“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
     },
     "/unfallinstandsetzung-leipzig|reparaturleistungen||Neu- und Reparaturlackierung|bild||": {
@@ -275,13 +281,13 @@
     "/fahrzeugaufbereitung-leipzig|umfang||Außenaufbereitung|bild||": {
       "nr": 46,
       "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Außenaufbereitung“",
-      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
     "/fahrzeugaufbereitung-leipzig|umfang||Lackaufbereitung|bild||": {
       "nr": 47,
       "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Lackaufbereitung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
     "/fahrzeugaufbereitung-leipzig|einblicke||Innenaufbereitung|platzhalter||": {
@@ -395,7 +401,7 @@
     "/aussenaufbereitung-leipzig|seite|||bild||": {
       "nr": 66,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/aussenaufbereitung-leipzig|seite|bild|"
     },
     "/innenaufbereitung-leipzig|seite|||bild||": {
@@ -413,7 +419,7 @@
     "/autolackierung-leipzig|seite|||bild||": {
       "nr": 69,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "datei": "kacheln/autolackierung-hintergrund-leipzig-carcare.webp",
       "rahmen": "/autolackierung-leipzig|seite|bild|"
     },
     "/dellenentfernung-leipzig|seite|||bild||": {
@@ -461,7 +467,7 @@
     "/privatkunden|leistungen||Unfallschaden & Reparatur|bild||": {
       "nr": 77,
       "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Unfallschaden & Reparatur“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/privatkunden|leistungen|bild|"
     },
     "/privatkunden|leistungen||Smart Repair|bild||": {
@@ -509,7 +515,7 @@
     "/geschaeftskunden|angebote||Unfallinstandsetzung|bild||": {
       "nr": 85,
       "ort": "„Das komplette Spektrum – auch für gewerbliche Auftraggeber“ › Karte „Unfallinstandsetzung“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/geschaeftskunden|angebote|bild|"
     },
     "/geschaeftskunden|angebote||Neu- und Reparaturlackierung|bild||": {
@@ -569,7 +575,7 @@
     "/ueber-uns|leistungsspektrum||Karosserie & Unfallinstandsetzung|bild||": {
       "nr": 95,
       "ort": "„Alles im eigenen Haus – vom Kratzer bis zum Totalschaden“ › Karte „Karosserie & Unfallinstandsetzung“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/ueber-uns|leistungsspektrum|bild|"
     },
     "/ueber-uns|leistungsspektrum||Neu- und Reparaturlackierung|bild||": {
@@ -614,22 +620,40 @@
       "datei": "carcare-betriebsrundgang.mp4",
       "rahmen": "/ueber-uns|betriebsrundgang|video|"
     },
+    "/ueber-uns|betriebsrundgang||Karosserie- und Mechanikbereich|platzhalter||": {
+      "nr": 113,
+      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Karosserie- und Mechanikbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+    },
+    "/ueber-uns|betriebsrundgang||Lackierbereich|platzhalter||": {
+      "nr": 114,
+      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Lackierbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+    },
+    "/ueber-uns|betriebsrundgang||Aufbereitungsbereich|platzhalter||": {
+      "nr": 115,
+      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Aufbereitungsbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+    },
     "/karriere|jobbereiche||Kfz-Aufbereiter|bild||": {
       "nr": 103,
       "ort": "„Vier Gewerke unter einem Dach“ › Karte „Kfz-Aufbereiter“",
-      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "datei": "kacheln/karriere-aufbereiter-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|jobbereiche||Fahrzeuglackierer|bild||": {
       "nr": 104,
       "ort": "„Vier Gewerke unter einem Dach“ › Karte „Fahrzeuglackierer“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "datei": "kacheln/lackierkabine-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|jobbereiche||Karosserie- und Fahrzeugbaumechaniker|bild||": {
       "nr": 105,
       "ort": "„Vier Gewerke unter einem Dach“ › Karte „Karosserie- und Fahrzeugbaumechaniker“",
-      "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
+      "datei": "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|jobbereiche||Serviceberater|bild||": {
@@ -641,13 +665,13 @@
     "/karriere|jobbereiche|Ausbildung im Betrieb.|Fahrzeuglackierer/in|bild||": {
       "nr": 107,
       "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Fahrzeuglackierer/in“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "datei": "kacheln/lackierkabine-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|jobbereiche|Ausbildung im Betrieb.|Karosserie- und Fahrzeugbaumechaniker/in|bild||": {
       "nr": 108,
       "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Karosserie- und Fahrzeugbaumechaniker/in“",
-      "datei": "kacheln/schadenaufnahme-leipzig-carcare.webp",
+      "datei": "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|jobbereiche|Ausbildung im Betrieb.|Industriekaufmann/-frau|bild||": {
@@ -667,6 +691,24 @@
       "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Video",
       "datei": "carcare-arbeitsplatz.mp4",
       "rahmen": "/karriere|betrieb|video|"
+    },
+    "/karriere|betrieb||Karosserie- und Mechanikbereich|platzhalter||": {
+      "nr": 116,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Karosserie- und Mechanikbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/karriere|betrieb|platzhalter|"
+    },
+    "/karriere|betrieb||Lackierbereich|platzhalter||": {
+      "nr": 117,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Lackierbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/karriere|betrieb|platzhalter|"
+    },
+    "/karriere|betrieb||Aufbereitungsbereich|platzhalter||": {
+      "nr": 118,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Aufbereitungsbereich“ (Video fehlt)",
+      "datei": "",
+      "rahmen": "/karriere|betrieb|platzhalter|"
     }
   },
   "entfallen": {}

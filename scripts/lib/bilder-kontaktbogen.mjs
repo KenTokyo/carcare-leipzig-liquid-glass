@@ -36,12 +36,15 @@ export async function schreibeKontaktbogen(k) {
     const reihen = k.zeilen.filter((z) => z.seite === seite).map((z) => {
       const i = z.info ?? {};
       const m = i.motiv ?? {};
-      const suche = `b${z.nr} ${k.seitenName(seite)} ${z.ort} ${z.datei} ${m.motiv ?? ''} ${m.offen ?? ''}`.toLowerCase();
+      const vermerk = z.vermerk ? `${z.vermerk.zeichen} ${z.vermerk.text}${z.vermerk.notiz ? `: ${z.vermerk.notiz}` : ''}` : '';
+      const suche = `b${z.nr} ${k.seitenName(seite)} ${z.ort} ${z.datei} ${m.motiv ?? ''} ${m.offen ?? ''} ${vermerk}`.toLowerCase();
       const klasse = klassen.get(z.datei);
-      const ersatz = z.rolle === 'platzhalter' ? 'Foto fehlt' : 'extern';
-      return `<article data-suche="${esc(suche)}"><div class="nr">B${z.nr}</div>`
+      const ersatz = z.rolle === 'platzhalter' ? (z.medium === 'video' ? 'Video fehlt' : 'Foto fehlt') : 'extern';
+      // Erledigte Vermerke (angepasst, in Ordnung) gruen, offene orange — der Stand ist beim Durchscrollen lesbar.
+      const erledigt = ['angepasst', 'ok'].includes(z.vermerk?.status);
+      return `<article data-suche="${esc(suche)}"${z.vermerk ? ` class="vermerkt${erledigt ? ' erledigt' : ''}"` : ''}><div class="nr">B${z.nr}</div>`
         + `<div class="bild ${klasse ?? 'leer'}">${klasse ? '' : esc(ersatz)}</div>`
-        + `<div class="text"><div class="ort">${esc(z.ort)}</div>`
+        + `<div class="text">${vermerk ? `<div class="vermerk">${esc(vermerk)}</div>` : ''}<div class="ort">${esc(z.ort)}</div>`
         + `<div class="datei">${esc(z.datei ? k.dateiName(z.datei) : '—')} · <span class="datum">${esc(z.datei ? k.datumZelle(i) : '—')}</span></div>`
         + `${m.motiv ? `<div class="motiv">${esc(m.motiv)}</div>` : ''}`
         + `${m.offen ? `<div class="offen">Offen: ${esc(m.offen)}</div>` : ''}</div></article>`;
@@ -67,6 +70,9 @@ article{display:grid;grid-template-columns:64px 168px 1fr;gap:14px;align-items:c
 .bild.leer{display:flex;align-items:center;justify-content:center;color:var(--leise);font-size:12px;background:repeating-linear-gradient(45deg,#e5e7eb 0 8px,#f3f4f6 8px 16px)}
 .ort{font-weight:600}.datei{font:12.5px ui-monospace,monospace;color:var(--leise);margin-top:2px;overflow-wrap:anywhere}
 .datum{white-space:nowrap}.motiv{font-size:13px;margin-top:4px}.offen{font-size:12.5px;color:var(--warn);margin-top:3px}
+article.vermerkt{border-color:#f59e0b;box-shadow:inset 3px 0 0 #f59e0b}
+.vermerk{display:inline-block;margin-bottom:4px;padding:2px 8px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;font-weight:700}
+article.erledigt{border-color:#16a34a;box-shadow:inset 3px 0 0 #16a34a}article.erledigt .vermerk{background:#dcfce7;color:#166534}
 @media (max-width:640px){article{grid-template-columns:48px 1fr;align-items:start}.bild{grid-column:1/-1;width:100%;height:160px;order:-1}}
 ${regeln.join('\n')}
 </style></head><body>

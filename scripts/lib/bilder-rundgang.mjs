@@ -72,6 +72,13 @@ export function sammleImBrowser() {
       if (bg && bg !== 'none') for (const m of bg.matchAll(/url\(["']?([^"')]+)["']?\)/g)) melde(el, 'bild', m[1]);
     }
     if (el.hasAttribute('data-bild-platzhalter')) melde(el, 'platzhalter', null, { label: el.getAttribute('data-bild-platzhalter') });
+    // Videoplaetze ohne Material (BetriebsVideo, BereichsVideos): dieselbe Rolle, aber „Video fehlt“.
+    if (el.hasAttribute('data-videoplatz')) {
+      melde(el, 'platzhalter', null, {
+        label: el.getAttribute('data-platzhalter-label') || el.getAttribute('data-videoplatz'),
+        medium: 'video',
+      });
+    }
   }
   const kopf = [];
   for (const m of document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')) {

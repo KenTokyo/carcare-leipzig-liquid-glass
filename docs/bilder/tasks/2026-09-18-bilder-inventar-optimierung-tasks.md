@@ -39,10 +39,10 @@ Backlog-Nummern. Was André beantworten muss, steht zusätzlich als `R15`/`R16` 
 `docs/bilder/motive.json`
 `scripts/bilder-inventar.mjs`
 
-### ⏸️ Phase O-C — Kennzeichen im Karriere-Video (O1, Teil OALAB) · bewusst zurückgestellt
+### ✅ Phase O-C — Kennzeichen im Karriere-Video (O1, Teil OALAB) · erledigt 2026-09-21
 * [x] Befund belegt: Kennzeichen im Standbild (71,1 s der Quelle) und im Clip etwa Sekunde 22–26 lesbar; Quelle `CarCare .mov` liegt lokal bereit, `npm run video` baut reproduzierbar
 * [x] **Zurückgestellt mit Grund:** Dasselbe Video zeigt Mitarbeitende erkennbar. Fehlt deren Einwilligung (R16, André), muss der Ausschnitt ohnehin ersetzt werden, und eine Unkenntlichmachung wäre verlorene Arbeit. Nur das Standbild zu entschärfen, täuschte Sicherheit vor: Das Video zeigt das Kennzeichen trotzdem
-* [ ] Nach Andrés Antwort: Weichzeichnung als Zeitfenster mit Position in `scripts/build-video.mjs` (Schnitt `karriere-betrieb`), Standbild aus der entschärften Fassung, Kontrolle Bild für Bild im Kontaktbogen `output/video-pruef/`
+* [x] **2026-09-21: Einwilligung liegt laut User vollständig vor** → umgesetzt: bewegte Weichzeichnung in `scripts/build-video.mjs`, Standbild aus der entschärften Fassung, Kontrolle Bild für Bild am fertigen Video. **Beim Nachprüfen kamen zwei weitere Kennzeichen im Karriere-Video und eines im Rundgang dazu** — Einzelheiten in [`2026-09-21-bildtausch-lieferung-september-tasks.md`](2026-09-21-bildtausch-lieferung-september-tasks.md), Phase 8. Die Sichtung vom 18.09. im Abstand von 1,5–2,5 s hatte sie übersehen
 
 ---
 

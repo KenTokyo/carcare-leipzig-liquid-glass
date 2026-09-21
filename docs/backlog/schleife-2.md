@@ -55,8 +55,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 | 2.11 | Zusatzleistungen als optionale, wählbare Zusatzleistungen auf der Subseite aufführen (Fußnote/Hinweis) | Oalab | ⏸️ **später** | *2026-09-16 vom User zurückgestellt, zusammen mit 2.26. Die Preisfrage dazu ist entschieden (3.35): Zusatzleistungen werden bepreist, sonst „Preis nach Absprache".* *Vorher:* *Hängt an 2.26 — die Liste fehlt. Struktur steht in `data/zusatzleistungen.ts`. Richtung aus Schleife 4: variable Leistungen „nach Absprache/Aufwand" (4.4, 4.9), Aufpreise noch offen (4.7) — für die Preisfrage siehe 3.35.* |
 | 2.12 | Prüfen, ob die erklärende Darstellung (Innen-/Außen-/Lackaufbereitung) auch für die Pakete oben übernommen wird | Oalab | ✅ **beantwortet und umgesetzt** | *Geprüft: Die Darstellung besteht aus Foto + Erklärung + Link auf eine eigene Subseite. **Das Foto ist durch 2.13 bereits ausgeschlossen** (Premium/Exklusiv fotografisch nicht trennbar), und eigene Paket-Subseiten wären Thin Content. Übertragbar war der **Textteil** — die Orientierungshilfe „welches Paket passt" steht jetzt über den Preisen, Wortlaut aus der bereits abgenommenen FAQ. 2026-09-06* |
 | 2.13 | Premium vs. Exklusiv fotografisch schwer trennbar → vorerst ohne Foto, ggf. über Textbausteine lösen | Oalab | ✅ **erfüllt (geprüft)** | *Gegengeprüft 2026-09-10, keine Codeänderung nötig: Die vier Pakete stehen ohne Foto. Getrennt werden sie über den Text — Premiumpflege = Brillant + Intensiv inkl. Motorreinigung und Versiegelung, „exklusiv" = Handarbeit außen und innen mit SWIZÖL-Wachsen (seit 2.9); die Orientierung „welches Paket passt" steht seit 2.12 über den Preisen. Im nächsten Review zur Abnahme zeigen. Schleife 4 ändert das Paket „exklusiv" weiter: künftig ohne Festpreis (4.4, 4.10).* |
-| 2.14 | Leasingrückgabe braucht ein eigenes Bild | André | offen | **Dopplung:** *entspricht dem repo-lokal vergebenen „1.28" (heute **R2**). Als ein Punkt führen.* |
-| 2.15 | Innenaufbereitung: KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug | Oalab | offen | *Deckt sich mit 3.29 (Bringschuld André). Zusammen anfordern.* |
+| 2.14 | Leasingrückgabe braucht ein eigenes Bild | André | ✅ **erledigt 2026-09-21** | *2026-09-21: eigenes Foto an „Leasingrückgabe vorbereiten“ (B29) — der Stelle, die sich das Motiv mit Smart Repair teilte.* **Dopplung:** *entspricht dem repo-lokal vergebenen „1.28" (heute **R2**). Als ein Punkt führen.* |
+| 2.15 | Innenaufbereitung: KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug | Oalab | ✅ **erledigt 2026-09-21** | *2026-09-21: echtes Foto aus dem Innenraum eines exklusiven Fahrzeugs (B27, B45, B67). Deckt 3.29 mit ab.* *Deckt sich mit 3.29 (Bringschuld André). Zusammen anfordern.* |
 
 ---
 
@@ -64,7 +64,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.16 | Hero-Bild ersetzen – wirkt wie Schadensaufnahme, nicht wie Instandsetzung | Oalab / André | offen | *Braucht Motiv von André.* |
+| 2.16 | Hero-Bild ersetzen – wirkt wie Schadensaufnahme, nicht wie Instandsetzung | Oalab / André | ✅ **erledigt 2026-09-21** | *2026-09-21: echtes Foto aus der Karosserieinstandsetzung (Schweißen) an B36 und allen Stellen des alten Motivs.* *Braucht Motiv von André.* |
 | 2.17 | Karte „Karosseriearbeiten" → „Karosserie- und Lackierarbeiten" | Oalab | ✅ **erledigt** | *Karte auf `/unfallinstandsetzung-leipzig` umbenannt und die Beschreibung um die Lackierarbeiten ergänzt. **Nicht global ersetzt:** Von 8 Fundstellen nannten 6 die Lackierung bereits daneben — dort wäre die Umbenennung eine Dopplung. Mitgezogen wurden `data/services.ts` (nannte Lack nicht) und `components/AccidentFocus.tsx`. 2026-09-06* |
 | 2.18 | Sektion „Schadenaufnahme": Transparenz reduzieren (bei viel Text unübersichtlich) | Oalab | offen | *Gleiche Ursache wie der A11y-Befund aus Paket C. Mit 2.1 bündeln.* |
 
@@ -82,8 +82,8 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 2.20 | Foto Fuhrpark-/Autohausservice (Hänger) einbauen | Oalab | offen | *Braucht Motiv von André.* |
-| 2.21 | Mietwagenbild / weiße Mietwagenflotte einarbeiten | Oalab | offen | *Deckt sich mit 3.4 (eigener Mietwagen statt Symbolbild).* |
+| 2.20 | Foto Fuhrpark-/Autohausservice (Hänger) einbauen | Oalab | ✅ **erledigt 2026-09-21** | *2026-09-21: echtes Foto — Fahrzeug auf unserem Autotransporter (B26, B84).* *Braucht Motiv von André.* |
+| 2.21 | Mietwagenbild / weiße Mietwagenflotte einarbeiten | Oalab | ✅ **erledigt 2026-09-21** | *2026-09-21: unsere weiße Mietwagenflotte an „Ersatzwagen nach Verfügbarkeit“ (B23). Deckt 3.4 mit ab.* *Deckt sich mit 3.4 (eigener Mietwagen statt Symbolbild).* |
 
 ---
 

@@ -32,8 +32,9 @@
  *     erste Karte. Sie sind keine eigene Stelle (keine eigene Datei) und stehen als Hinweis da.
  *  4. Ein veraltetes dist/ liefert eine richtige Liste des FALSCHEN Stands. Deshalb Abbruch, wenn
  *     Quellcode oder Bilder juenger sind als dist/index.html.
- *  5. Das Datum stammt aus Git. Eine getauschte, noch nicht committete Datei truege sonst das alte
- *     Datum. Sie wird deshalb als „nicht committet“ ausgewiesen.
+ *  5. Das Datum stammt aus Git, und zwar fuer den INHALT: erster Commit mit genau diesem Bild, egal
+ *     unter welchem Namen. Umbenennen ist keine Anpassung. Neuer, noch nicht committeter Inhalt
+ *     hat kein solches Datum und wird als „nicht committet“ ausgewiesen.
  *  6. „0 Bilder“ auf einer Seite ist kein Befund, wenn die Seite nicht gerendert hat. Fehlt die h1
  *     (React-Absturz nach dem Mount), bricht das Skript ab, statt eine leere Seite zu melden.
  *  7. Eine Umbenennung wird nur erkannt, wenn Bild und Rahmen gleich bleiben. Aendern sich Titel
@@ -224,7 +225,7 @@ for (const route of routen) {
       else {
         const sek = sekKey(f);
         const sekName = `„${kurz(f.sektion.titel)}“`;
-        if (rolle === 'platzhalter') { teile = [route, sek, '', f.label, rolle]; ort = `${sekName} › Platzhalter „${f.label}“ (Foto fehlt)`; }
+        if (rolle === 'platzhalter') { teile = [route, sek, '', f.label, rolle]; ort = `${sekName} › Platzhalter „${f.label}“ (${f.medium === 'video' ? 'Video' : 'Foto'} fehlt)`; }
         else if (f.karte) { teile = [route, sek, f.gruppe, f.karte, rolle]; ort = `${sekName} › ${f.gruppe ? `„${kurz(f.gruppe)}“ › ` : ''}Karte „${kurz(f.karte)}“${zusatz}`; }
         else if (f.sektion.hero) { teile = [route, sek, '', '', rolle === 'bild' ? 'titelbild' : rolle]; ort = `Titelbild (Hero)${zusatz}`; }
         else if (kartenDateien.get(sek)?.has(datei)) {
@@ -234,7 +235,7 @@ for (const route of routen) {
         } else { teile = [route, sek, '', '', rolle]; ort = `${sekName}${zusatz || ' › Bild'}`; }
       }
       const key = teile.join('|');
-      if (!stellen.has(key)) stellen.set(key, { teile, ort, reihenfolge: Infinity, ansichten: {} });
+      if (!stellen.has(key)) stellen.set(key, { teile, ort, reihenfolge: Infinity, ansichten: {}, medium: f.medium ?? '' });
       const s = stellen.get(key);
       s.reihenfolge = Math.min(s.reihenfolge, f.position + (a.name === 'desktop' ? 0 : 1e7));
       const an = (s.ansichten[a.name] ??= new Map());
@@ -281,6 +282,7 @@ for (const [key, s] of stellen) {
         datei,
         reihenfolge: s.reihenfolge + (ansicht === 'mobil' ? 0.5 : 0),
         rolle: s.teile[4],
+        medium: s.medium,
       });
     }
   }
@@ -307,8 +309,15 @@ for (const z of zeilen) {
   if (register.stellen[z.key]) { z.nr = register.stellen[z.key].nr; neu[z.key] = true; } else offen.push(z);
 }
 const frei = Object.entries(register.stellen).filter(([k]) => !neu[k]);
+// Schluessel ohne Rolle (Teil 5 von route|sektion|gruppe|karte|rolle|ansicht|datei).
+const ohneRolle = (key) => key.split('|').map((t, i) => (i === 4 ? '' : t)).join('|');
 for (const z of offen) {
-  const i = frei.findIndex(([, v]) => v.rahmen === z.rahmen && v.datei === z.datei);
+  let i = frei.findIndex(([, v]) => v.rahmen === z.rahmen && v.datei === z.datei);
+  // Ein Foto wird zum Video mit Standbild (B11, 2026-09-21): Ort und Karte bleiben, nur die Rolle
+  // wechselt von „bild“ zu „standbild“. Die Nummer gehoert zum Ort, also bleibt sie beim Standbild;
+  // das Video selbst ist eine neue Stelle und bekommt die naechste Nummer. Ohne diese Regel waere
+  // B11 still „entfallen“ — gegen die Zusage, dass eine Nummer den Bildtausch uebersteht.
+  if (i < 0 && z.rolle === 'standbild') i = frei.findIndex(([k]) => k.split('|')[4] === 'bild' && ohneRolle(k) === ohneRolle(z.key));
   if (i >= 0) {
     const [, v] = frei.splice(i, 1)[0];
     z.nr = v.nr;
@@ -339,9 +348,16 @@ const info = async (datei) => {
     const rel = path.relative(wurzel, abs).split(path.sep).join('/');
     if (fs.existsSync(abs)) {
       const st = fs.statSync(abs);
+      // DATUM DES INHALTS, nicht des Dateinamens: Wird eine Datei nur umbenannt (2026-09-21:
+      // `autolackierung-…` → `lackierkabine-…`, weil der alte Name dem neuen Foto gehoert), hat sich
+      // das Bild an ihren Stellen nicht geaendert. `git log -- pfad` nennte trotzdem den Tag der
+      // Umbenennung. Deshalb: der erste Commit, der GENAU DIESEN Inhalt (Blob) einbrachte — egal
+      // unter welchem Namen. Neuer Inhalt hat keinen solchen Commit → „nicht committet“.
+      const blob = git('hash-object', '--', rel);
+      const erster = blob ? git('log', '--reverse', '--format=%cs', `--find-object=${blob}`).split('\n')[0] : '';
       const status = git('status', '--porcelain', '--', rel);
-      i.datum = status ? '' : git('log', '-1', '--format=%cs', '--', rel);
-      if (status) i.hinweis = `nicht committet, Datei geändert am ${datumDE(new Date(st.mtimeMs).toISOString())}`;
+      i.datum = erster || (status ? '' : git('log', '-1', '--format=%cs', '--', rel));
+      if (!i.datum && status) i.hinweis = `nicht committet, Datei geändert am ${datumDE(new Date(st.mtimeMs).toISOString())}`;
       const kb = `${Math.round(st.size / 1024)} KB`;
       if (/\.(webp|png|jpe?g|avif|gif)$/i.test(datei)) {
         const meta = await sharp(abs).metadata();
@@ -395,6 +411,30 @@ const fehlend = [...gesehen].filter(istLokal).filter((d) => !fs.existsSync(pfadV
 const ohneMotiv = [...new Set(zeilen.map((z) => z.datei).filter(Boolean))].filter((d) => !motive.dateien[d]);
 const verwaisteMotive = Object.keys(motive.dateien).filter((d) => istLokal(d) && !imOrdner.includes(d));
 
+// Vermerke je Stelle (motive.json → stellen), vom User gesetzt: „anzupassen“ oder {status, notiz}.
+// Ein Vermerk auf einer Nummer, die es nicht gibt, ist ein Tippfehler und wird laut gemeldet —
+// sonst waere der Wunsch des Kunden still verschwunden.
+// Seit 2026-09-21 auch die Erledigung: „angepasst“ (in dieser Runde getauscht) und „ok“ (der Kunde
+// will die Stelle so behalten). So steht Andrés Liste samt Stand an der Stelle, nicht im Chat.
+const VERMERKE = {
+  anzupassen: { text: 'Anzupassen', zeichen: '🟠' },
+  todo: { text: 'Später einfügen', zeichen: '🕓' },
+  angepasst: { text: 'Angepasst', zeichen: '✅' },
+  ok: { text: 'In Ordnung', zeichen: '🟢' },
+};
+const stellenVermerke = motive.stellen ?? {};
+const vermerkVon = (nr) => {
+  const roh = stellenVermerke[`B${nr}`];
+  if (!roh) return null;
+  const status = typeof roh === 'string' ? roh : roh.status;
+  const art = VERMERKE[status];
+  if (!art) return { status, text: status, zeichen: '•', notiz: typeof roh === 'object' ? roh.notiz : '' };
+  return { status, ...art, notiz: typeof roh === 'object' ? (roh.notiz ?? '') : '' };
+};
+for (const z of zeilen) z.vermerk = vermerkVon(z.nr);
+const vermerkteNummern = new Set(zeilen.filter((z) => z.vermerk).map((z) => `B${z.nr}`));
+const unbekannteVermerke = Object.keys(stellenVermerke).filter((k) => !vermerkteNummern.has(k));
+
 /* ------------------------------------------------------------------ */
 /* 5. Ausgabe                                                          */
 /* ------------------------------------------------------------------ */
@@ -428,13 +468,30 @@ md.push('> **Nicht von Hand bearbeiten**, der nächste Lauf überschreibt die Da
 md.push('## So benutzt du die Liste', '');
 md.push('- **Jede Bildstelle hat eine feste Nummer** (B1, B2 …). Sie bleibt, wenn das Bild getauscht wird, und wird nie neu vergeben. Es genügt: „B14 und B27 tauschen“.');
 md.push('- **Eine Datei steht oft an mehreren Stellen.** Wer die Datei ersetzt, ändert alle ihre Stellen. Welche das sind, zeigt [Nach Datei](#nach-datei). Soll nur eine Stelle ein anderes Bild bekommen, braucht sie eine eigene Datei.');
-md.push('- **Datum der Anpassung** = letzte Änderung der Datei im Repository (Git). Nach einem Tausch `npm run build` und `npm run bilder`, dann stimmt es wieder.');
+md.push('- **Datum der Anpassung** = seit wann genau dieses Bild im Repository liegt (Git, erster Commit mit diesem Inhalt). Umbenennen zählt nicht als Anpassung. Nach einem Tausch `npm run build` und `npm run bilder`, dann stimmt es wieder.');
 md.push('- **Mit Vorschaubildern** zum Durchsehen: `output/bilder/bilder-uebersicht.html` (entsteht beim selben Lauf, nur lokal).', '');
 md.push('## Überblick', '');
-md.push(`- **${fotoZeilen.length} Bildstellen** aus **${dateienFoto.length} Dateien** auf ${[...seitenMitBild].filter((s) => s !== 'alle').length} Seiten, dazu ${platzhalter.length} Platzhalter ohne Foto.`);
+md.push(`- **${fotoZeilen.length} Bildstellen** aus **${dateienFoto.length} Dateien** auf ${[...seitenMitBild].filter((s) => s !== 'alle').length} Seiten, dazu ${platzhalter.length} Platzhalter ohne Foto oder Video.`);
 const mehrfach = [...stellenJeDatei].filter(([, l]) => l.length >= 5).sort((a, b) => b[1].length - a[1].length);
 if (mehrfach.length) md.push(`- **Am häufigsten verwendet:** ${mehrfach.slice(0, 5).map(([d, l]) => `\`${dateiName(d)}\` (${l.length}×)`).join(', ')}.`);
 if (ohneBildText.length) md.push(`- **Seiten ohne eigene Fotos** (nur die Stellen „auf allen Seiten“): ${ohneBildText.join(' · ')}.`);
+for (const [status, art] of Object.entries(VERMERKE)) {
+  const treffer = zeilen.filter((z) => z.vermerk?.status === status).sort((a, b) => a.nr - b.nr);
+  if (!treffer.length) continue;
+  if (status !== 'todo') {
+    md.push(`- ${art.zeichen} **${art.text} (${treffer.length}):** ${treffer.map((z) => `B${z.nr}`).join(', ')}`);
+    continue;
+  }
+  // „Später einfügen“ nach Notiz gruppiert: Vorschaubild (R7) und Bereichsvideos (R18) sind
+  // verschiedene Zulieferungen. Frueher stand hier die Notiz der ERSTEN Stelle fuer alle.
+  const gruppen = new Map();
+  for (const z of treffer) {
+    const notiz = z.vermerk.notiz || '';
+    if (!gruppen.has(notiz)) gruppen.set(notiz, []);
+    gruppen.get(notiz).push(`B${z.nr}`);
+  }
+  md.push(`- ${art.zeichen} **${art.text} (${treffer.length}):** ${[...gruppen].map(([notiz, nrn]) => `${nrn.join(', ')}${notiz ? ` — ${notiz}` : ''}`).join('; ')}`);
+}
 md.push('');
 md.push('## Nach Seite', '');
 for (const seite of seitenFolge) {
@@ -444,12 +501,15 @@ for (const seite of seitenFolge) {
   if (spiegel.has(seite)) {
     md.push(`> Der große Hintergrund von ${[...spiegel.get(seite)].join(', ')} zeigt am Desktop das Bild der gerade aktiven Karte. Keine eigene Datei, er wechselt mit der Karte.`, '');
   }
-  md.push('| Nr. | Ort des Bildes | Dateiname | Datum der Anpassung |', '|---|---|---|---|');
-  for (const z of liste) md.push(`| **B${z.nr}** | ${zelle(z.ort)} | ${z.datei ? `\`${zelle(dateiName(z.datei))}\`` : '—'} | ${z.datei ? zelle(datumZelle(z.info)) : '—'} |`);
+  md.push('| Nr. | Vermerk | Ort des Bildes | Dateiname | Datum der Anpassung |', '|---|---|---|---|---|');
+  for (const z of liste) {
+    const v = z.vermerk ? `${z.vermerk.zeichen} **${z.vermerk.text}**${z.vermerk.notiz ? `<br>${zelle(z.vermerk.notiz)}` : ''}` : '';
+    md.push(`| **B${z.nr}** | ${v} | ${zelle(z.ort)} | ${z.datei ? `\`${zelle(dateiName(z.datei))}\`` : '—'} | ${z.datei ? zelle(datumZelle(z.info)) : '—'} |`);
+  }
   md.push('');
 }
 md.push('## Nach Datei', '');
-md.push('Wer eine Datei ersetzt, ändert alle ihre Stellen. Herkunft nur mit Beleg; **ob KI beteiligt war, ist für kein Foto dokumentiert**, das klärt der Abgleich mit André.', '');
+md.push('Wer eine Datei ersetzt, ändert alle ihre Stellen. Herkunft nur mit Beleg: **Für die Fotos und das Video der Lieferung vom 21.09.2026 hat der User bestätigt, dass sie echt sind** (weder KI-generiert noch -bearbeitet). Für alle übrigen steht die Angabe noch aus (Backlog R15); bis dahin tragen sie auf der Seite die Plakette „KI-generiert“.', '');
 md.push('| Vorschau | Datei | Motiv | Stellen | Datum der Anpassung | Herkunft laut Repository | Offene Punkte |', '|---|---|---|---|---|---|---|');
 const vorschauMd = (d) => {
   const bild = /\.mp4$/.test(d) ? standbildZu.get(d) : d;
@@ -459,13 +519,14 @@ const vorschauMd = (d) => {
 const ersteNr = (l) => Math.min(...l.map((z) => z.nr));
 for (const [d, l] of [...stellenJeDatei].sort((a, b) => ersteNr(a[1]) - ersteNr(b[1]))) {
   const i = l[0].info ?? {};
-  const nrn = l.map((z) => z.nr).sort((a, b) => a - b).map((n) => `B${n}`).join(', ');
+  // Vermerkte Stellen tragen ihr Zeichen mit: Wer die Datei tauscht, sieht sofort, welche ihrer Stellen gemeint sind.
+  const nrn = [...l].sort((a, b) => a.nr - b.nr).map((z) => `B${z.nr}${z.vermerk ? ` ${z.vermerk.zeichen}` : ''}`).join(', ');
   md.push(`| ${vorschauMd(d)} | \`${zelle(dateiName(d))}\`${i.masse ? `<br>${i.masse}` : ''} | ${zelle(i.motiv?.motiv ?? '*fehlt in motive.json*')}`
     + ` | **${l.length}×** ${nrn} | ${zelle(datumZelle(i))} | ${zelle(i.motiv?.herkunft ?? '')} | ${zelle(i.motiv?.offen ?? '')} |`);
 }
 md.push('');
 if (platzhalter.length) {
-  md.push('## Platzhalter: hier fehlt ein Foto', '');
+  md.push('## Platzhalter: hier fehlt ein Foto oder Video', '');
   for (const s of [...new Set(platzhalter.map((z) => z.key.split('|')[1]))]) {
     const p = platzhalter.filter((z) => z.key.split('|')[1] === s);
     md.push(`- **${seitenName(p[0].seite)}**, ${p.map((z) => `B${z.nr}`).join(', ')}${motive.platzhalter?.[s] ? `: ${motive.platzhalter[s]}` : ''}`);
@@ -495,6 +556,7 @@ if (nichtGesehenBekannt.length) {
 if (unbenutzt.length) md.push(`- **Unbenutzt** (weder angezeigt noch im Code, wird trotzdem mit ausgeliefert): ${unbenutzt.map((d) => `\`${d}\``).join(', ')}`);
 if (fehlend.length) md.push(`- 🔴 **Angezeigt, aber Datei fehlt:** ${fehlend.map((d) => `\`${d}\``).join(', ')}`);
 if (ohneMotiv.length) md.push(`- **Ohne Eintrag in \`motive.json\`:** ${ohneMotiv.map((d) => `\`${dateiName(d)}\``).join(', ')}`);
+if (unbekannteVermerke.length) md.push(`- 🔴 **Vermerk auf einer Nummer, die es nicht gibt** (Tippfehler in \`motive.json\` → \`stellen\`): ${unbekannteVermerke.join(', ')}`);
 const entfallen = Object.values(register.entfallen).sort((a, b) => a.nr - b.nr);
 md.push(`- **Entfallene Nummern:** ${entfallen.length ? entfallen.map((e) => `B${e.nr} (${e.ort}, seit ${datumDE(e.seit)})`).join('; ') : 'keine'}`);
 if (umbenannt.length) md.push(`- **In diesem Lauf umbenannt, Nummer behalten:** ${umbenannt.map((u) => `B${u.nr}: ${u.von} → ${u.zu}`).join('; ')}`);
@@ -525,6 +587,14 @@ if (veralteteBekannte.length) console.log(`[bilder] motive.json → bekannt nenn
 if (unbenutzt.length) console.log(`[bilder] unbenutzt: ${unbenutzt.join(', ')}`);
 if (ohneMotiv.length) console.log(`[bilder] ohne Motiv in motive.json: ${ohneMotiv.join(', ')}`);
 if (verwaisteMotive.length) console.log(`[bilder] motive.json nennt Dateien, die es nicht gibt: ${verwaisteMotive.join(', ')}`);
+for (const [status, art] of Object.entries(VERMERKE)) {
+  const n = zeilen.filter((z) => z.vermerk?.text === art.text).length;
+  if (n) console.log(`[bilder] Vermerk „${art.text}“: ${n} Stellen`);
+}
+if (unbekannteVermerke.length) {
+  console.error(`[bilder] FEHLER: Vermerk auf unbekannter Nummer (Tippfehler in motive.json): ${unbekannteVermerke.join(', ')}`);
+  process.exitCode = 1;
+}
 if (fehlend.length) {
   console.error(`[bilder] FEHLER: angezeigt, aber Datei fehlt: ${fehlend.join(', ')}`);
   process.exit(1);

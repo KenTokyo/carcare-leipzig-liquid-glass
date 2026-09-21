@@ -1,19 +1,64 @@
 {
   "_hinweis": "Von Hand gepflegt. Je Datei: was zu sehen ist (motiv), was das Repository ueber die Herkunft belegt (herkunft) und welche offenen Backlog-Punkte sie betreffen (offen). Schluessel = Pfad unter public/assets/ bzw. die volle URL bei externen Bildern. Nummern und Datum pflegt `npm run bilder` selbst (nummern.json, Git) - hier nicht eintragen. Herkunft NUR mit Beleg eintragen (Commit, Lieferung, Aussage des Kunden), nie nach Augenschein.",
   "dateien": {
-    "hero-leipzig-carcare-desktop.webp": {
-      "motiv": "Zwei Porsche Taycan in heller Halle: vorn blau, dahinter rot mit demontierter Front (Querformat)",
-      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
-      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+    "carcare-arbeitsplatz-standbild.webp": {
+      "motiv": "Zwei Mitarbeiter an einem grauen Mercedes mit offener Tür (Standbild bei 71,1 s)",
+      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026); aus der entschärften Fassung (Kennzeichen weichgezeichnet, 21.09.2026)",
+      "offen": ""
     },
-    "hero-leipzig-carcare-mobile.webp": {
-      "motiv": "Dasselbe Motiv hochkant (Zuschnitt fürs Smartphone)",
-      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
-      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+    "carcare-arbeitsplatz.mp4": {
+      "motiv": "Video: von der Lackierkabine bis zum Reifenraum (Ausschnitt 46,3–75,9 s)",
+      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026); seit 21.09.2026 vier Kennzeichen weichgezeichnet (R16, npm run video), Einwilligung der Mitarbeitenden liegt laut User vor",
+      "offen": ""
     },
-    "footer-leipzig-carcare.webp": {
-      "motiv": "Die zwei Porsche Taycan aus dem Startbild, stark abgedunkelt mit Blauverlauf",
-      "herkunft": "Kundenmotiv (Commit 12b9f4b, 23.07.2026)",
+    "carcare-autolackierung-standbild.webp": {
+      "motiv": "Standbild des Lackiervideos bei 4,0 s: Lackierer mit Atemschutz und Pistole, Sprühnebel",
+      "herkunft": "Standbild aus dem Lackiervideo (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026)",
+      "offen": ""
+    },
+    "carcare-autolackierung.mp4": {
+      "motiv": "Video: Lackierer lackiert in der Kabine eine Motorhaube (Ausschnitt 2,0–15,0 s, quadratisch, 720 × 720)",
+      "herkunft": "Video aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Video - Lackieren.mov“, aufgenommen 19.08.2026); laut User echt",
+      "offen": ""
+    },
+    "carcare-betriebsrundgang-standbild.webp": {
+      "motiv": "Werkhalle von oben: weißer VW Golf, mintfarbener Porsche Taycan, Audi mit offener Haube",
+      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026); aus der entschärften Fassung (21.09.2026)",
+      "offen": ""
+    },
+    "carcare-betriebsrundgang.mp4": {
+      "motiv": "Video: Rundgang vom Waschplatz bis zur Lackierkabine (Ausschnitt 21,5–52,2 s)",
+      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026); seit 21.09.2026 ein Kennzeichen weichgezeichnet (R16), Einwilligung der Mitarbeitenden liegt laut User vor",
+      "offen": "4.14 vollständiges Drohnenvideo, Schwenk durch die Karosserieabteilung fehlt"
+    },
+    "carcare-center-logo.webp": {
+      "motiv": "Vollständiges Logo: Siegel und Schriftzug (842 × 596, nicht quadratisch)",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-mark-animated.mp4": {
+      "motiv": "Animiertes Siegel auf weißem Grund",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-mark.webp": {
+      "motiv": "Siegel „C“, rund freigestellt",
+      "herkunft": "aus dem Logo erzeugt (scripts/build-preloader-assets.mjs)",
+      "offen": ""
+    },
+    "carcare-center-wordmark-dark.webp": {
+      "motiv": "Schriftzug dunkel, verkleinert",
+      "herkunft": "aus dem Schriftzug erzeugt (scripts/build-preloader-assets.mjs)",
+      "offen": ""
+    },
+    "carcare-center-wordmark-weiss.png": {
+      "motiv": "Schriftzug „CarCare Center“, weiß",
+      "herkunft": "Markendatei",
+      "offen": ""
+    },
+    "carcare-center-wordmark.png": {
+      "motiv": "Schriftzug „CarCare Center“, dunkel",
+      "herkunft": "Markendatei",
       "offen": ""
     },
     "carcare-hero-workshop.webp": {
@@ -31,25 +76,35 @@
       "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
       "offen": ""
     },
-    "carcare-betriebsrundgang-standbild.webp": {
-      "motiv": "Werkhalle von oben: weißer VW Golf, mintfarbener Porsche Taycan, Audi mit offener Haube",
-      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026)",
+    "eu-emblem.svg": {
+      "motiv": "EU-Flagge für den Förderhinweis",
+      "herkunft": "offizielles Emblem, erzeugt von scripts/build-eu-emblem.mjs",
       "offen": ""
     },
-    "carcare-betriebsrundgang.mp4": {
-      "motiv": "Video: Rundgang vom Waschplatz bis zur Lackierkabine (Ausschnitt 21,5–52,2 s)",
-      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
-      "offen": "4.14 vollständiges Drohnenvideo, Schwenk durch die Karosserieabteilung fehlt · R16 zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    "footer-leipzig-carcare.webp": {
+      "motiv": "Die zwei Porsche Taycan aus dem Startbild, stark abgedunkelt mit Blauverlauf",
+      "herkunft": "Kundenmotiv (Commit 12b9f4b, 23.07.2026)",
+      "offen": ""
     },
-    "carcare-arbeitsplatz-standbild.webp": {
-      "motiv": "Zwei Mitarbeiter an einem grauen Mercedes mit offener Tür (Standbild bei 71,1 s)",
-      "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026)",
-      "offen": "R16 Kennzeichen eines Kundenfahrzeugs lesbar; zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    "hero-leipzig-carcare-desktop.webp": {
+      "motiv": "Zwei Porsche Taycan in heller Halle: vorn blau, dahinter rot mit demontierter Front (Querformat)",
+      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
+      "offen": "4.1 Felgen des blauen Porsche retuschieren"
     },
-    "carcare-arbeitsplatz.mp4": {
-      "motiv": "Video: von der Lackierkabine bis zum Reifenraum (Ausschnitt 46,3–75,9 s)",
-      "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026)",
-      "offen": "R16 Kennzeichen lesbar (etwa Sekunde 22–26); zeigt Mitarbeitende (Einwilligung nach § 22 KUG?)"
+    "hero-leipzig-carcare-mobile.webp": {
+      "motiv": "Dasselbe Motiv hochkant (Zuschnitt fürs Smartphone)",
+      "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
+      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+    },
+    "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop": {
+      "motiv": "Externes Stockfoto von Unsplash, kein Bild des Betriebs",
+      "herkunft": "Stockfoto (Unsplash)",
+      "offen": "R7 echtes Vorschaubild statt Stockfoto (og:image und strukturierte Daten)"
+    },
+    "kacheln/aufbereitung-aktiv-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter reinigt kniend die Scheibe der geöffneten Fahrertür eines kupferfarbenen Porsche Macan (4:3 aus Hochformat)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Aufbereitung-aktiv-leipzig-carcare.webp.jpeg“, aufgenommen 25.07.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
     },
     "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp": {
       "motiv": "Zwei Mitarbeiter setzen an einem roten Mercedes SLS (Flügeltüren) die Frontscheibe ein",
@@ -57,34 +112,44 @@
       "offen": ""
     },
     "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp": {
-      "motiv": "Grüner Bentley auf einem Abschleppwagen vor einem Autohaus, zwei Männer beim Handschlag",
-      "herkunft": "laut Commit acfcd0c „echte Fotos“ (22.07.2026)",
-      "offen": "2.20 Foto Fuhrpark-/Autohausservice (Hänger), laut Kategorienliste für die Geschäftskundenseite"
+      "motiv": "Grüner Porsche Cayenne auf unserem Autotransporter vor der Werkstatthalle",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „autohaueser-und- fuhrparks-leipzig-carcare.webp.jpeg“, aufgenommen 27.07.2026); laut User weder KI-generiert noch -bearbeitet; Kennzeichen eines Cabrios im Hintergrund weichgezeichnet",
+      "offen": ""
     },
     "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp": {
       "motiv": "Mann mit Tablet vor einer Reihe Porsche (Cayenne, Panamera) in großer Halle",
       "herkunft": "nicht dokumentiert (16.07.2026)",
       "offen": ""
     },
+    "kacheln/autolackierung-hintergrund-leipzig-carcare.webp": {
+      "motiv": "Ausschnitt des Lackierfotos für den Seitenhintergrund: Lackierpistole und Handschuh vor der abgeklebten Stoßfängerkante (16:10)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „autolackierung-leipzig-carcare.webp.jpeg“, aufgenommen 19.08.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
+    },
     "kacheln/autolackierung-leipzig-carcare.webp": {
-      "motiv": "Lackierer mit Atemschutz lackiert in der Kabine ein mit Folie abgedecktes Fahrzeug",
-      "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "3.26 Foto Neu-/Reparaturlackierung (Stoßstange beim Schleifen oder Lackierkabine)"
+      "motiv": "Lackierer mit Lackierpistole an einem abgeklebten Stoßfänger, Fahrzeug mit Folie und Papier abgedeckt (4:3 aus Hochformat)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „autolackierung-leipzig-carcare.webp.jpeg“, aufgenommen 19.08.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
     },
     "kacheln/dellenentfernung-leipzig-carcare.webp": {
-      "motiv": "Mitarbeiter mit Dellenlampe an der Tür eines weißen Audi RS 6 Avant",
-      "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "3.11 sauberes Bild hinterlegen, Motiv über 3.24 (Delle, während sie entfernt wird)"
+      "motiv": "Dellentechniker mit Reflexionslampe und Ausbeulwerkzeug an der A-Säule eines dunkelgrauen Porsche (4:3 aus Hochformat)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „dellenentfernung-leipzig-carcare.webp.jpeg“, aufgenommen 19.08.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
     },
     "kacheln/ersatzwagen-leipzig-carcare.webp": {
+      "motiv": "Unsere Mietwagenflotte: Reihe weißer VW Polo mit Beschriftung des CarCare Center vor der Halle (4:3 aus Hochformat)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „ersatzwagen-leipzig-carcare.webp.jpeg“, aufgenommen 11.06.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
+    },
+    "kacheln/fahrzeugabgabe-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter übergibt einer Kundin den Schlüssel, silberner Kleinwagen vor der Halle",
-      "herkunft": "nicht dokumentiert (22.07.2026)",
-      "offen": "2.21 / 3.4 eigener Mietwagen statt Symbolbild"
+      "herkunft": "nicht dokumentiert (22.07.2026); bis 21.09.2026 als ersatzwagen-leipzig-carcare.webp, Motiv unverändert",
+      "offen": ""
     },
     "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp": {
       "motiv": "Poliermaschine an der abgeklebten Tür eines silbergrauen Fahrzeugs (Nahaufnahme)",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "R2 eigenes Motiv für Außenaufbereitung (die Datei steht dort nur leihweise)"
+      "offen": ""
     },
     "kacheln/felgenreparatur-leipzig-carcare.webp": {
       "motiv": "Beschädigte Felge mit Bordsteinschaden in Nahaufnahme",
@@ -97,13 +162,38 @@
       "offen": "3.27 Foto Hagelschaden (Archiv oder anstehendes Fahrzeug)"
     },
     "kacheln/innenaufbereitung-leipzig-carcare.webp": {
-      "motiv": "Mitarbeiter reinigt mit Pinsel den Innenraum eines gelben Ferrari (Cognac-Leder)",
-      "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
-      "offen": "2.15 / 3.29 „KI-Bild ersetzen – kein Transporter, eher exklusives Fahrzeug“: Das heutige Motiv zeigt einen Ferrari. Ob der Punkt damit erledigt ist, mit André klären"
+      "motiv": "Mitarbeiter reinigt mit Pinsel die Mittelkonsole eines Porsche Taycan (Pepita-Sitze)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „innenaufbereitung-leipzig-carcare.webp.jpeg“, aufgenommen 19.08.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": ""
     },
     "kacheln/kalkulation-leipzig-carcare.webp": {
       "motiv": "Kundin unterschreibt am Tresen, Berater mit Tablet, gelber Ferrari im Hintergrund",
       "herkunft": "nicht dokumentiert (22.07.2026)",
+      "offen": ""
+    },
+    "kacheln/karriere-aufbereiter-leipzig-carcare.webp": {
+      "motiv": "Kfz-Aufbereiter im Firmenshirt wischt den Türrahmen eines dunkelgrauen Porsche Taycan",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „karriere-aufbereiter-leipzig-carcare.webp.jpeg“, aufgenommen 20.08.2026); laut User weder KI-generiert noch -bearbeitet; zeigt einen Mitarbeiter, Einwilligung liegt laut User vollständig vor",
+      "offen": ""
+    },
+    "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp": {
+      "motiv": "Karosseriebauer mit Schutzbrille an der Punktschweißzange am Dachrahmen eines Unfallfahrzeugs",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „karriere-fahrzeugbau-leipzig-carcare.webp.jpeg“, aufgenommen 04.09.2026); laut User weder KI-generiert noch -bearbeitet; zeigt einen Mitarbeiter, Einwilligung liegt laut User vollständig vor",
+      "offen": ""
+    },
+    "kacheln/lackaufbereitung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Radlauf abgeklebt",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Lackaufbereitung-leipzig-carcare.webp.jpeg“, aufgenommen 16.07.2026); laut User weder KI-generiert noch -bearbeitet",
+      "offen": "Steht an B28, B46, B47, B66 – B47 wird später ersetzt (Kunde, 22.09.2026), bis dahin stehen B46 und B47 nebeneinander mit demselben Foto"
+    },
+    "kacheln/lackierkabine-leipzig-carcare.webp": {
+      "motiv": "Lackierer mit Atemschutz lackiert in der Kabine ein mit Folie abgedecktes Fahrzeug",
+      "herkunft": "nicht dokumentiert (16.07.2026); bis 21.09.2026 als autolackierung-leipzig-carcare.webp, Motiv unverändert",
+      "offen": "Steht nur noch an B104 (bleibt, Kunde) und B107 („erstmal stehen lassen“)"
+    },
+    "kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp": {
+      "motiv": "Außenspiegel und Fahrertür eines dunkelgrauen Porsche in Nahaufnahme, frisch aufbereitet",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „leasingrueckgabe-aufbereitung-leipzig-carcare.webp.jpeg“, aufgenommen 18.08.2026); laut User weder KI-generiert noch -bearbeitet",
       "offen": ""
     },
     "kacheln/leasingrueckgabe-leipzig-carcare.webp": {
@@ -124,17 +214,27 @@
     "kacheln/schadenaufnahme-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter und Kundin knien am gelben Ferrari mit eingedrückter Tür, Tablet",
       "herkunft": "nicht dokumentiert (22.07.2026)",
-      "offen": "3.8 ruhigeres Hintergrundmotiv für die Sektion „Schadenaufnahme“ (Startseite, Unfall & Schaden), zusammen mit 2.18"
+      "offen": "Bleibt auf Wunsch des Users im Bestand (22.09.2026), derzeit ohne Verwendung – B20 zeigt das ruhigere Motiv, B108 das Karosseriebau-Foto"
     },
     "kacheln/smart-repair-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter bearbeitet die Tür eines schwarzen Porsche Macan",
       "herkunft": "nicht dokumentiert (16.07.2026)",
       "offen": "3.10 zeigt Aufbereitung, nicht Smart Repair (Motiv über 3.25) · R2 steht auch leihweise für „Leasingrückgabe vorbereiten“ · Kennzeichen am rechten Bildrand teilweise lesbar"
     },
+    "kacheln/unfallinstandsetzung-hintergrund-leipzig-carcare.webp": {
+      "motiv": "Ausschnitt des Unfallfotos für den Seitenhintergrund: Schweißer mit Helm an der Dachsäule, rechts der Mitte (16:10)",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Unfallinstandsetzung-leipzig-carcare.webp.jpeg“, aufgenommen 04.09.2026); laut User weder KI-generiert noch -bearbeitet; Kennzeichen eines SUV im Hintergrund weichgezeichnet",
+      "offen": ""
+    },
+    "kacheln/unfallinstandsetzung-leipzig-carcare.webp": {
+      "motiv": "Karosseriebauer mit Schweißhelm schweißt an der Dachsäule eines weißen, abgeklebten Unfallfahrzeugs; Werkhalle im Hintergrund",
+      "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Unfallinstandsetzung-leipzig-carcare.webp.jpeg“, aufgenommen 04.09.2026); laut User weder KI-generiert noch -bearbeitet; Kennzeichen eines SUV im Hintergrund weichgezeichnet",
+      "offen": ""
+    },
     "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter mit Tablet kniet hinter einem silbernen Porsche Taycan mit Heckschaden",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "2.16 Titelbild der Unfallseite wirkt wie Schadensaufnahme, nicht wie Instandsetzung"
+      "offen": "Seit 21.09.2026 an B20 (Schadenaufnahme) auf Wunsch des Users; B10 und seine übrigen Stellen zeigen das neue Unfallfoto"
     },
     "kacheln/versicherungen-und-agenturen-leipzig-carcare.webp": {
       "motiv": "Große Werkhalle mit vielen Fahrzeugen, zwei Mitarbeitende mit Tablet in der Mitte",
@@ -151,46 +251,6 @@
       "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
       "offen": ""
     },
-    "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop": {
-      "motiv": "Externes Stockfoto von Unsplash, kein Bild des Betriebs",
-      "herkunft": "Stockfoto (Unsplash)",
-      "offen": "R7 echtes Vorschaubild statt Stockfoto (og:image und strukturierte Daten)"
-    },
-    "carcare-center-logo.webp": {
-      "motiv": "Vollständiges Logo: Siegel und Schriftzug (842 × 596, nicht quadratisch)",
-      "herkunft": "Markendatei",
-      "offen": ""
-    },
-    "carcare-center-mark.webp": {
-      "motiv": "Siegel „C“, rund freigestellt",
-      "herkunft": "aus dem Logo erzeugt (scripts/build-preloader-assets.mjs)",
-      "offen": ""
-    },
-    "carcare-center-mark-animated.mp4": {
-      "motiv": "Animiertes Siegel auf weißem Grund",
-      "herkunft": "Markendatei",
-      "offen": ""
-    },
-    "carcare-center-wordmark.png": {
-      "motiv": "Schriftzug „CarCare Center“, dunkel",
-      "herkunft": "Markendatei",
-      "offen": ""
-    },
-    "carcare-center-wordmark-dark.webp": {
-      "motiv": "Schriftzug dunkel, verkleinert",
-      "herkunft": "aus dem Schriftzug erzeugt (scripts/build-preloader-assets.mjs)",
-      "offen": ""
-    },
-    "carcare-center-wordmark-weiss.png": {
-      "motiv": "Schriftzug „CarCare Center“, weiß",
-      "herkunft": "Markendatei",
-      "offen": ""
-    },
-    "eu-emblem.svg": {
-      "motiv": "EU-Flagge für den Förderhinweis",
-      "herkunft": "offizielles Emblem, erzeugt von scripts/build-eu-emblem.mjs",
-      "offen": ""
-    },
     "partner/bvat.webp": {
       "motiv": "Siegel des Verbands BVAT",
       "herkunft": "Freigabe laut docs/partnerlogos/README.md",
@@ -203,10 +263,263 @@
     }
   },
   "platzhalter": {
-    "einblicke": "3.23 Fotopaket Aufbereitung (während der Arbeit) füllt diese Galerie, erledigt damit auch 2.2 und 3.6"
+    "einblicke": "3.23 Fotopaket Aufbereitung (während der Arbeit) füllt diese Galerie, erledigt damit auch 2.2 und 3.6",
+    "betriebsrundgang": "R18 Bereichsvideos Karosserie- und Mechanik-, Lackier- und Aufbereitungsbereich (Wunsch des Users 21.09.2026); dieselben drei Filme stehen auch auf /karriere. Material liefert André",
+    "betrieb": "R18 Bereichsvideos wie auf /ueber-uns (ein Eintrag je Bereich in data/videos.ts, beide Seiten zugleich)"
   },
   "bekannt": {
     "carcare-hero-workshop.webp": "Ersatzbild: DEFAULT_CARD_BG in ExpandingCardAccordion und TargetGroupCards, Rückfall in UeberUnsPage. Greift nur, wenn einer Karte das Motiv fehlt, und ist deshalb derzeit nirgends sichtbar.",
     "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop": "Steht nur im toten components/Hero.tsx, das laut Vorgabe ohne Import unangetastet bleibt (offene-punkte-konsolidiert.md, Paket G)."
-  }
+  },
+  "stellen": {
+    "B4": {
+      "status": "todo",
+      "notiz": "Echtes Vorschaubild statt Unsplash-Stockfoto einsetzen (Backlog R7)"
+    },
+    "B5": {
+      "status": "todo",
+      "notiz": "Echtes Vorschaubild statt Unsplash-Stockfoto einsetzen (Backlog R7)"
+    },
+    "B6": {
+      "status": "todo",
+      "notiz": "Echtes Vorschaubild statt Unsplash-Stockfoto einsetzen (Backlog R7)"
+    },
+    "B10": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B11": {
+      "status": "angepasst",
+      "notiz": "Video statt Foto, nur auf der Startseite (Lieferung 21.09.2026); die Nummer steht jetzt am Standbild"
+    },
+    "B13": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B20": {
+      "status": "angepasst",
+      "notiz": "Bisheriges B10-Motiv, auf Wunsch des Users hierher (ruhiger als vorher, Backlog 3.8) – 21.09.2026"
+    },
+    "B23": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B26": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B27": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B28": {
+      "status": "angepasst",
+      "notiz": "Lackaufbereitungs-Foto (Lieferung 21.09.2026), wie B46 und B66"
+    },
+    "B29": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B31": {
+      "status": "ok",
+      "notiz": "Bleibt, wie es ist (Kunde, 21.09.2026)"
+    },
+    "B33": {
+      "status": "ok",
+      "notiz": "Bleibt, wie es ist (Kunde, 21.09.2026)"
+    },
+    "B34": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B36": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026), als Hintergrund-Ausschnitt: Schweißer rechts der Mitte"
+    },
+    "B37": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B38": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B40": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B45": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B46": {
+      "status": "angepasst",
+      "notiz": "Lackaufbereitungs-Foto (21.09.2026) – steht direkt neben B47 mit demselben Bild"
+    },
+    "B47": {
+      "status": "anzupassen",
+      "notiz": "Wird später ersetzt (Kunde, 22.09.2026) – bis dahin das Lackaufbereitungs-Foto wie B46 daneben"
+    },
+    "B48": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B49": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B50": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B51": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B52": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B53": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B54": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B55": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B56": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B57": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B58": {
+      "status": "anzupassen",
+      "notiz": "Fotos liefert der Kunde später"
+    },
+    "B60": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B64": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B66": {
+      "status": "angepasst",
+      "notiz": "Lackaufbereitungs-Foto (21.09.2026), wie die Startseitenkarte B28"
+    },
+    "B67": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B69": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026), als Hintergrund-Ausschnitt: Pistole rechts der Mitte"
+    },
+    "B70": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B77": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B79": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B80": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B84": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B85": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B86": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B88": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B95": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B96": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B103": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B104": {
+      "status": "ok",
+      "notiz": "„So lassen“ (Kunde, 21.09.2026)"
+    },
+    "B105": {
+      "status": "angepasst",
+      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+    },
+    "B106": {
+      "status": "anzupassen",
+      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+    },
+    "B107": {
+      "status": "anzupassen",
+      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+    },
+    "B108": {
+      "status": "angepasst",
+      "notiz": "Karosseriebau-Foto wie B105 (21.09.2026, nach Rückfrage)"
+    },
+    "B109": {
+      "status": "anzupassen",
+      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+    },
+    "B112": {
+      "status": "angepasst",
+      "notiz": "Neu: das Lackiervideo selbst (21.09.2026), lädt erst beim Aufklappen der Karte"
+    },
+    "B113": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    },
+    "B114": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    },
+    "B115": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    },
+    "B116": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    },
+    "B117": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    },
+    "B118": {
+      "status": "todo",
+      "notiz": "Video liefert der Kunde (Backlog R18)"
+    }
+  },
+  "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."
 }
