@@ -1,26 +1,25 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 22.09.2026, 00:58, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 24.09.2026, 00:25, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 22.09.2026, 00:58 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.09.2026, 00:25 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `13dc38c` | `53264d9` | 3 vor GitHub (kommt mit dem Push) |
-| `2026-09-18-bilder-inventar` | `13dc38c` | `13dc38c` | gleich |
-| 12 weitere lokale Branches | – | – | gleich mit GitHub |
+| `main` | `114c841` | `c56b3bc` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-09-23-bereichsvideos` | `114c841` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| 13 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `9875e8e` | 22.09.2026, 00:55 | oalabhypercode | Bilder: Lieferung September eingebaut, Kartenvideo B11, Bereichsvideos, KI-Plakette | 49 (16 neu) | package.json | war schon oben |
-| `965eb9c` | 22.09.2026, 00:55 | oalabhypercode | Docs: Bildliste B1-B118 mit Vermerken, Backlog und Aufgaben zum Bildtausch | 13 (3 neu) | — | war schon oben |
+| `114c841` | 24.09.2026, 00:25 | oalabhypercode | Videos: Drei Bereichsvideos eingebaut (R18) | 16 (7 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -30,8 +29,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Nur wer noch vor `9875e8e` steht (Commits „war schon oben") | npm-Skripte: neu: `npm run fotos` |
-| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `965eb9c`, `9875e8e` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `114c841` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -47,11 +45,9 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-| Punkt | Planung |
-|---|---|
-| Phase 4 — offen, braucht Angaben des Users | `docs/bilder/tasks/2026-09-21-ki-kennzeichnung-tasks.md` |
+Keine offenen Folgepunkte in den berührten Planungsdateien.
 
-### Backlog gesamt: 45 offene Punkte
+### Backlog gesamt: 44 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -111,7 +107,7 @@ Quelle: `docs/backlog/schleife-4.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 20 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 19 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
@@ -124,12 +120,11 @@ Quelle: `docs/backlog/schleife-4.md`
 | 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite | offen | André |
 | R7 | Echtes Vorschaubild statt Unsplash-Stockfoto (`og:image`, JSON-LD). Deckungsgleich mit dem offenen OG-Bild-Pu… | offen | André |
 | R15 | Herkunft jedes Fotos bestätigen: echtes Foto · KI-bearbeitet · KI-generiert. Seit 02.08.2026 gilt die Kennzei… | offen, aufgenommen 2026-09-18 (Bildinventar) · 2026-09-21:… | André (und OALAB, falls selbs… |
-| R18 | Drei Bereichsvideos (Karosserie- und Mechanik-, Lackier-, Aufbereitungsbereich) für `/ueber-uns` und `/karrie… | offen, aufgenommen 2026-09-21 (Wunsch User) · Platzhalter i… | André |
 | – | Partnerlogos: schriftliche Referenzfreigabe je Partner, monochrome Dateien, Vorgaben zu Mindestgröße und Schu… | 🟨 teilweise — riparo (Logo + Link), Porsche Zentrum Leipzi… | André |
 | R9 | Anhänge mitsenden. Derzeit ersetzt durch Vorgangsnummer + vorbereitete E-Mail | 🟨 für Schäden gelöst — Fotos gehen seit 2026-09-16 über re… | OALAB |
 | R11 | Termin-, Geschäftskunden- und Bewerbungsfelder datengetrieben machen. Beim Schadenformular ist Streichen seit… | offen | OALAB |
 | – | Anhalte-Möglichkeit für die drei automatisch laufenden Videos (WCAG 2.2.2: Bewegung über 5 s braucht Pause/St… | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/20… | OALAB |
-| – | 12 Drohnenclips und 16 Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotop… | offen, zu prüfen | OALAB |
+| – | Drohnen- und Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte 3.23… | 🟨 teilweise — am 2026-09-23 sind 3 der 12 Drohnenclips als… | OALAB |
 | R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
 | T4 | Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich | offen | OALAB |
 | – | `ITEMS` gegen `serviceCatalog` prüfen, ableiten oder bewusst trennen; Wächter erwägen | offen | OALAB |

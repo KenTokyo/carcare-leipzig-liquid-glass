@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 24.09.2026, 00:25 | `2026-09-23-bereichsvideos`, `main` | `114c841` (1) | nein | — |
 | 22.09.2026, 00:58 | — | nur Übersicht  | nein | — |
 | 22.09.2026, 00:55 | `2026-09-18-bilder-inventar` | `9875e8e` `965eb9c` (2) | nein | neue Skripte: fotos |
 | 20.09.2026, 23:48 | `2026-09-18-bilder-inventar`, `main` | `9b23f5d` `a81c6e8` (2) | nein | neue Skripte: bilder, favicons |
