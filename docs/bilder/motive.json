@@ -21,6 +21,36 @@
       "herkunft": "Video aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Video - Lackieren.mov“, aufgenommen 19.08.2026); laut User echt",
       "offen": ""
     },
+    "carcare-bereich-aufbereitung-standbild.webp": {
+      "motiv": "Standbild bei 4,5 s: zwei Mitarbeiter polieren einen schwarzen Porsche Taycan, weißer Audi dahinter",
+      "herkunft": "Standbild aus dem Bereichsvideo Aufbereitungsbereich (Lieferung 07.09.2026, eingebaut 23.09.2026)",
+      "offen": ""
+    },
+    "carcare-bereich-aufbereitung.mp4": {
+      "motiv": "Video: Politur und Innenreinigung in der Aufbereitungshalle (Ausschnitt 0,8–16,8 s von 25,4 s)",
+      "herkunft": "Drohnenclip „CarCare 1 Polieren .mov\" aus der Lieferung 07.09.2026, vom User am 23.09.2026 dem Aufbereitungsbereich zugeordnet (R18); kein Kennzeichen im Bild, Einwilligung der Mitarbeitenden liegt laut User vor",
+      "offen": ""
+    },
+    "carcare-bereich-karosserie-standbild.webp": {
+      "motiv": "Standbild bei 7,5 s: Werkhalle mit Hebebühne, Auffahrrampen und Techniker am Motorraum",
+      "herkunft": "Standbild aus dem Bereichsvideo Karosserie und Mechanik (Lieferung 07.09.2026, eingebaut 23.09.2026); aus der entschärften Fassung",
+      "offen": ""
+    },
+    "carcare-bereich-karosserie.mp4": {
+      "motiv": "Video: Fahrzeug auf der Hebebühne, Techniker am geöffneten Motorraum (ganze Einstellung, 10,1 s)",
+      "herkunft": "Drohnenclip „CarCare 2 Hebebühne.mov\" aus der Lieferung 07.09.2026, vom User am 23.09.2026 dem Karosserie- und Mechanikbereich zugeordnet (R18); zwei Kundenkennzeichen weichgezeichnet (npm run video), schwarze Ränder der Bildstabilisierung weggeschnitten",
+      "offen": ""
+    },
+    "carcare-bereich-lack-standbild.webp": {
+      "motiv": "Standbild bei 10,8 s: geöffnete Lackierkabine, abgeklebtes Fahrzeug, Lackierer in Schutzkleidung",
+      "herkunft": "Standbild aus dem Bereichsvideo Lackierbereich (Lieferung 07.09.2026, eingebaut 23.09.2026)",
+      "offen": ""
+    },
+    "carcare-bereich-lack.mp4": {
+      "motiv": "Video: Lackierkabine mit abgeklebtem Fahrzeug, Lackierer bei der Arbeit (Ausschnitt 1,6–11,9 s)",
+      "herkunft": "Drohnenclip „CarCare Lackieren.mov\" aus der Lieferung 07.09.2026, vom User am 23.09.2026 dem Lackierbereich zugeordnet (R18); kein Kennzeichen im Bild, Fahrzeug vollständig abgeklebt",
+      "offen": ""
+    },
     "carcare-betriebsrundgang-standbild.webp": {
       "motiv": "Werkhalle von oben: weißer VW Golf, mintfarbener Porsche Taycan, Audi mit offener Haube",
       "herkunft": "Standbild aus dem Betriebsvideo des Kunden (Lieferung 07.09.2026); aus der entschärften Fassung (21.09.2026)",
@@ -263,9 +293,7 @@
     }
   },
   "platzhalter": {
-    "einblicke": "3.23 Fotopaket Aufbereitung (während der Arbeit) füllt diese Galerie, erledigt damit auch 2.2 und 3.6",
-    "betriebsrundgang": "R18 Bereichsvideos Karosserie- und Mechanik-, Lackier- und Aufbereitungsbereich (Wunsch des Users 21.09.2026); dieselben drei Filme stehen auch auf /karriere. Material liefert André",
-    "betrieb": "R18 Bereichsvideos wie auf /ueber-uns (ein Eintrag je Bereich in data/videos.ts, beide Seiten zugleich)"
+    "einblicke": "3.23 Fotopaket Aufbereitung (während der Arbeit) füllt diese Galerie, erledigt damit auch 2.2 und 3.6"
   },
   "bekannt": {
     "carcare-hero-workshop.webp": "Ersatzbild: DEFAULT_CARD_BG in ExpandingCardAccordion und TargetGroupCards, Rückfall in UeberUnsPage. Greift nur, wenn einer Karte das Motiv fehlt, und ist deshalb derzeit nirgends sichtbar.",
@@ -497,28 +525,28 @@
       "notiz": "Neu: das Lackiervideo selbst (21.09.2026), lädt erst beim Aufklappen der Karte"
     },
     "B113": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Karosserie- und Mechanikbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     },
     "B114": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Lackierbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     },
     "B115": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Aufbereitungsbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     },
     "B116": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Karosserie- und Mechanikbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     },
     "B117": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Lackierbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     },
     "B118": {
-      "status": "todo",
-      "notiz": "Video liefert der Kunde (Backlog R18)"
+      "status": "angepasst",
+      "notiz": "R18 erledigt 23.09.2026: Aufbereitungsbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
     }
   },
   "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."

@@ -134,9 +134,19 @@ export const videoPlaetze: VideoPlatz[] = [
     titel: 'Videoplatz Karosserie- und Mechanikbereich',
     beschreibung: 'Der Karosserie- und Mechanikbereich im laufenden Betrieb.',
     zweck: 'Kurzer Rundgang durch den Karosserie- und Mechanikbereich: Instandsetzung nach Unfallschäden, Richten, Schweißen und Montage — Menschen bei der Arbeit, kein Text im Bild.',
-    quelle: null,
-    poster: null,
-    istPlatzhalter: true,
+    // Geliefert am 2026-09-23 vom User („CarCare 2 Hebebühne.mov" aus dem Drohnenordner der
+    // Lieferung vom 07.09.). Ganze Einstellung 0–10,1 s, stumm, 960 breit — 0,57 MiB statt
+    // 13,4 MiB. Herleitung: `scripts/build-video.mjs`, Schnitt `bereich-karosserie`.
+    //
+    // ZWEI KUNDENKENNZEICHEN sind weichgezeichnet (Mercedes im Vordergrund, BMW auf der
+    // Hebebühne) — dieselbe Pflicht wie bei R16. Am fertigen Video Bild für Bild
+    // nachgeprüft, nicht nur an den acht Punkten des Prüfbogens.
+    //
+    // Dieser Clip ist bildstabilisiert und trägt schwarze Ränder (oben 12, links 20 px);
+    // sie sind im Schnitt weggeschnitten. Gemessen mit `cropdetect`, nicht geschätzt.
+    quelle: '/assets/carcare-bereich-karosserie.mp4',
+    poster: '/assets/carcare-bereich-karosserie-standbild.webp',
+    istPlatzhalter: false,
     backlog: 'R18',
   },
   {
@@ -144,9 +154,15 @@ export const videoPlaetze: VideoPlatz[] = [
     titel: 'Videoplatz Lackierbereich',
     beschreibung: 'Der Lackierbereich im laufenden Betrieb.',
     zweck: 'Kurzer Rundgang durch den Lackierbereich: Vorbereitung, Farbtonbestimmung und Arbeit in der Lackierkabine — kein Text im Bild.',
-    quelle: null,
-    poster: null,
-    istPlatzhalter: true,
+    // Geliefert am 2026-09-23 vom User („CarCare Lackieren.mov"). Ausschnitt 1,6–11,9 s,
+    // stumm, 960 breit — 0,73 MiB statt 15,8 MiB.
+    //
+    // Das Standbild stammt von 10,8 s: ganze Kabine, abgeklebtes Fahrzeug, Lackierer daneben.
+    // Bei diesen Karten läuft das Video erst auf Klick — das Standbild ist also das, was
+    // praktisch jeder sieht, und muss die Karte allein tragen.
+    quelle: '/assets/carcare-bereich-lack.mp4',
+    poster: '/assets/carcare-bereich-lack-standbild.webp',
+    istPlatzhalter: false,
     backlog: 'R18',
   },
   {
@@ -154,9 +170,12 @@ export const videoPlaetze: VideoPlatz[] = [
     titel: 'Videoplatz Aufbereitungsbereich',
     beschreibung: 'Der Aufbereitungsbereich im laufenden Betrieb.',
     zweck: 'Kurzer Rundgang durch den Aufbereitungsbereich: Innen- und Außenaufbereitung, Politur und Versiegelung — kein Text im Bild.',
-    quelle: null,
-    poster: null,
-    istPlatzhalter: true,
+    // Geliefert am 2026-09-23 vom User („CarCare 1 Polieren .mov"). Ausschnitt 0,8–16,8 s
+    // von 25,4 s, stumm, 960 breit — 1,58 MiB statt 33,3 MiB. Ab etwa 17 s wandert die
+    // Kamera nach rechts und es steht mehr Hallenboden als Arbeit im Bild.
+    quelle: '/assets/carcare-bereich-aufbereitung.mp4',
+    poster: '/assets/carcare-bereich-aufbereitung-standbild.webp',
+    istPlatzhalter: false,
     backlog: 'R18',
   },
 ];

@@ -1,6 +1,6 @@
 {
   "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
-  "naechste": 119,
+  "naechste": 125,
   "stellen": {
     "alle|ladebildschirm|||bild|desktop|": {
       "nr": 1,
@@ -620,23 +620,41 @@
       "datei": "carcare-betriebsrundgang.mp4",
       "rahmen": "/ueber-uns|betriebsrundgang|video|"
     },
-    "/ueber-uns|betriebsrundgang||Karosserie- und Mechanikbereich|platzhalter||": {
+    "/ueber-uns|betriebsrundgang||Karosserie- und Mechanikbereich|standbild||": {
       "nr": 113,
-      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Karosserie- und Mechanikbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Karosserie- und Mechanikbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-karosserie-standbild.webp",
+      "rahmen": "/ueber-uns|betriebsrundgang|standbild|"
     },
-    "/ueber-uns|betriebsrundgang||Lackierbereich|platzhalter||": {
+    "/ueber-uns|betriebsrundgang||Karosserie- und Mechanikbereich|video||": {
+      "nr": 119,
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Karosserie- und Mechanikbereich“ › Video",
+      "datei": "carcare-bereich-karosserie.mp4",
+      "rahmen": "/ueber-uns|betriebsrundgang|video|"
+    },
+    "/ueber-uns|betriebsrundgang||Lackierbereich|standbild||": {
       "nr": 114,
-      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Lackierbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Lackierbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-lack-standbild.webp",
+      "rahmen": "/ueber-uns|betriebsrundgang|standbild|"
     },
-    "/ueber-uns|betriebsrundgang||Aufbereitungsbereich|platzhalter||": {
+    "/ueber-uns|betriebsrundgang||Lackierbereich|video||": {
+      "nr": 120,
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Lackierbereich“ › Video",
+      "datei": "carcare-bereich-lack.mp4",
+      "rahmen": "/ueber-uns|betriebsrundgang|video|"
+    },
+    "/ueber-uns|betriebsrundgang||Aufbereitungsbereich|standbild||": {
       "nr": 115,
-      "ort": "„Ein Rundgang durch die Hallen“ › Platzhalter „Aufbereitungsbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/ueber-uns|betriebsrundgang|platzhalter|"
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Aufbereitungsbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-aufbereitung-standbild.webp",
+      "rahmen": "/ueber-uns|betriebsrundgang|standbild|"
+    },
+    "/ueber-uns|betriebsrundgang||Aufbereitungsbereich|video||": {
+      "nr": 121,
+      "ort": "„Ein Rundgang durch die Hallen“ › Karte „Aufbereitungsbereich“ › Video",
+      "datei": "carcare-bereich-aufbereitung.mp4",
+      "rahmen": "/ueber-uns|betriebsrundgang|video|"
     },
     "/karriere|jobbereiche||Kfz-Aufbereiter|bild||": {
       "nr": 103,
@@ -692,23 +710,41 @@
       "datei": "carcare-arbeitsplatz.mp4",
       "rahmen": "/karriere|betrieb|video|"
     },
-    "/karriere|betrieb||Karosserie- und Mechanikbereich|platzhalter||": {
+    "/karriere|betrieb||Karosserie- und Mechanikbereich|standbild||": {
       "nr": 116,
-      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Karosserie- und Mechanikbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/karriere|betrieb|platzhalter|"
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Karosserie- und Mechanikbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-karosserie-standbild.webp",
+      "rahmen": "/karriere|betrieb|standbild|"
     },
-    "/karriere|betrieb||Lackierbereich|platzhalter||": {
+    "/karriere|betrieb||Karosserie- und Mechanikbereich|video||": {
+      "nr": 122,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Karosserie- und Mechanikbereich“ › Video",
+      "datei": "carcare-bereich-karosserie.mp4",
+      "rahmen": "/karriere|betrieb|video|"
+    },
+    "/karriere|betrieb||Lackierbereich|standbild||": {
       "nr": 117,
-      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Lackierbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/karriere|betrieb|platzhalter|"
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Lackierbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-lack-standbild.webp",
+      "rahmen": "/karriere|betrieb|standbild|"
     },
-    "/karriere|betrieb||Aufbereitungsbereich|platzhalter||": {
+    "/karriere|betrieb||Lackierbereich|video||": {
+      "nr": 123,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Lackierbereich“ › Video",
+      "datei": "carcare-bereich-lack.mp4",
+      "rahmen": "/karriere|betrieb|video|"
+    },
+    "/karriere|betrieb||Aufbereitungsbereich|standbild||": {
       "nr": 118,
-      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Platzhalter „Aufbereitungsbereich“ (Video fehlt)",
-      "datei": "",
-      "rahmen": "/karriere|betrieb|platzhalter|"
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Aufbereitungsbereich“ › Standbild des Videos",
+      "datei": "carcare-bereich-aufbereitung-standbild.webp",
+      "rahmen": "/karriere|betrieb|standbild|"
+    },
+    "/karriere|betrieb||Aufbereitungsbereich|video||": {
+      "nr": 124,
+      "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Aufbereitungsbereich“ › Video",
+      "datei": "carcare-bereich-aufbereitung.mp4",
+      "rahmen": "/karriere|betrieb|video|"
     }
   },
   "entfallen": {}

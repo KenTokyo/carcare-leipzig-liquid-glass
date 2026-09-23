@@ -69,6 +69,17 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/karriere-fahrzeugbau-leipzig-carcare.webp': 'echt',
   '/assets/carcare-autolackierung.mp4': 'echt',
   '/assets/carcare-autolackierung-standbild.webp': 'echt',
+
+  // Bereichsvideos (R18), geliefert vom User am 2026-09-23: drei Drohnenclips aus derselben
+  // Aufnahme wie das Betriebsvideo vom 07.09.2026 — echte Aufnahmen aus dem Betrieb. Im
+  // Karosserieclip sind zwei Kundenkennzeichen weichgezeichnet; das ist eine Unkenntlichmachung
+  // aus Datenschutzgründen, keine generative Veränderung — die Herkunft bleibt „echt“.
+  '/assets/carcare-bereich-karosserie.mp4': 'echt',
+  '/assets/carcare-bereich-karosserie-standbild.webp': 'echt',
+  '/assets/carcare-bereich-lack.mp4': 'echt',
+  '/assets/carcare-bereich-lack-standbild.webp': 'echt',
+  '/assets/carcare-bereich-aufbereitung.mp4': 'echt',
+  '/assets/carcare-bereich-aufbereitung-standbild.webp': 'echt',
 };
 
 /** Vorgabe für alles, was nicht in den Ausnahmen steht (Stand 2026-09-20). */

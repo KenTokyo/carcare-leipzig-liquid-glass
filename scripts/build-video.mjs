@@ -71,7 +71,27 @@ const BETRIEBSVIDEO =
 const LACKIERVIDEO =
   'C:/Users/Moham/Sameh & Hashoorzada GbR/Sameh & Hashoorzada GbR - General/Kunden/CarCare-Center/Fotos/Neue Fotos Schleife September/Video - Lackieren.mov';
 
+/**
+ * Drohnenordner der Lieferung vom 2026-09-07, Unterordner `3. Drohnen Videos` — zwoelf Clips,
+ * aus denen der Film `2. Video/CarCare .mov` geschnitten wurde. Der User hat am 2026-09-23 drei
+ * davon den drei Bereichskarten zugeordnet (R18); die Zuordnung steht je Schnitt unten.
+ * Alle drei: 1920 x 1080, 25 B/s, H.264 mit rund 11 Mbit/s, dazu eine AAC-Tonspur.
+ *
+ * ⚠️ „CarCare 1 Polieren .mov" traegt ein Leerzeichen VOR der Endung. Das ist kein Tippfehler
+ * hier, sondern der Dateiname in der Lieferung.
+ */
+const DROHNE = 'C:/Users/Moham/Sameh & Hashoorzada GbR/Sameh & Hashoorzada GbR - General/Kunden/CarCare-Center/Fotos/CarCare Drohne/3. Drohnen Videos/';
+
 const BREITE = 1280;
+/**
+ * Bereichskarten (R18) — GEMESSEN, nicht geschaetzt: Der Medienrahmen von `BereichsVideos`
+ * rendert hoechstens 451 x 282 CSS-px (Fenster 1920 breit; 1440 → 366, Smartphone 390 → 276).
+ * 960 ist damit die doppelte Aufloesung des groessten Falls und auf feinen Bildschirmen scharf.
+ * 1280 waere fuer eine Karte dieser Groesse bezahltes Gewicht ohne sichtbaren Gewinn.
+ * Bewusst in Kauf genommen: Wer ueber die Steuerleiste in den Vollbildmodus geht, sieht auf
+ * einem Full-HD-Schirm eine hochgerechnete Fassung.
+ */
+const BREITE_KARTE = 960;
 const CRF = 29;
 const URHEBER = 'CarCare Center Leipzig (BS CarCare GmbH)';
 const RECHTE = '(c) 2026 BS CarCare GmbH, Leipzig';
@@ -215,6 +235,117 @@ const SCHNITTE = [
     titel: 'Lackieren in der Lackierkabine – CarCare Center Leipzig',
     beschreibung: 'Lackierer in Schutzkleidung und Atemschutz lackiert eine Motorhaube in der Lackierkabine des CarCare Center in Leipzig.',
   },
+
+  /*
+   * BEREICHSVIDEOS (Backlog R18) — drei Karten auf `/ueber-uns` und `/karriere`.
+   * Zuordnung vom User am 2026-09-23, wortwoertlich: Hebebuehne → Karosserie und Mechanik,
+   * Lackieren → Lackierbereich, Polieren → Aufbereitungsbereich.
+   *
+   * ALLE DREI SIND EINE EINZIGE EINSTELLUNG. Die Szenenerkennung (`select='gt(scene,0.30)'`,
+   * dasselbe Mittel wie beim Betriebsvideo) findet in keinem der drei einen Schnitt — die
+   * Ausschnitte unten sind deshalb nicht nach Schnittgrenzen gewaehlt, sondern nach dem, was
+   * im Bild passiert; angesehen wurde je Film ein Kontaktbogen im 0,5- bzw. 1-Sekunden-Raster.
+   *
+   * SIE LAUFEN ERST AUF KLICK (`controls`, `preload="none"` in `BereichsVideos.tsx`), nicht
+   * automatisch. Deshalb traegt hier das Standbild die Karte dauerhaft und nicht nur bei
+   * reduzierter Bewegung — `standbildBei` ist bei diesen dreien die wichtigste Zahl.
+   */
+  {
+    id: 'bereich-karosserie',
+    quelle: `${DROHNE}CarCare 2 Hebebühne.mov`,
+    datei: 'carcare-bereich-karosserie',
+    start: 0.0,
+    dauer: 10.1,
+    // Techniker am geoeffneten Motorraum, Wagen auf der Buehne, Auffahrrampen im Vordergrund.
+    // Die ersten Sekunden zeigen den Anflug, da steht der Wagen klein und halb verdeckt.
+    standbildBei: 7.5,
+    breite: BREITE_KARTE,
+    /*
+     * ⚠️ SCHWARZE RAENDER: Dieser Clip ist der einzige der drei mit Bildstabilisierung —
+     * `cropdetect` meldet in 252 von 254 Bildern denselben Rand (oben 12, links 20 px).
+     * Ohne diesen Zuschnitt saessen schwarze Kanten in der Karte. Bei den anderen beiden
+     * meldet `cropdetect` 1920:1080:0:0, dort ist nichts zu tun.
+     */
+    bild: 'crop=1880:1058:20:12',
+    zweck: 'Bereichskarte Karosserie und Mechanik (R18) — Wagen auf der Hebebuehne, Techniker am Motorraum',
+    titel: 'Karosserie- und Mechanikbereich – CarCare Center Leipzig',
+    beschreibung: 'Blick in den Karosserie- und Mechanikbereich des CarCare Center in Leipzig: ein Fahrzeug auf der Hebebuehne, ein Techniker arbeitet am geoeffneten Motorraum.',
+    /*
+     * ZWEI KUNDENKENNZEICHEN (dieselbe Pflicht wie R16). Gefunden beim Absuchen der Einstellung
+     * in voller Aufloesung, nicht im Zeitraster — genau die Lehre aus Befund O2 vom 2026-09-21.
+     * Beide Bahnen per normierter Kreuzkorrelation auf halber Aufloesung verfolgt (254 Bilder);
+     * hier steht etwa jeder 15. bzw. 25. Punkt, dazwischen linear.
+     *
+     * Die Koordinaten sind QUELLPIXEL VOR dem Zuschnitt oben: `bildkette` zeichnet zuerst weich
+     * und schneidet danach zu. Wer `bild` aendert, muss die Bahnen NICHT nachziehen.
+     */
+    unkenntlich: [
+      {
+        was: 'Kennzeichen des silbernen Mercedes im Vordergrund (Kundenfahrzeug), lesbar ab dem ersten Bild',
+        von: 0,
+        bis: 7.3,
+        // Grosszuegig: Das Schild waechst beim Anflug von rund 150 auf 160 px Breite, steht
+        // schraeg und laeuft am Ende links aus dem Bild. Die Verfolgung wurde bei 0,6 s und
+        // 3,0 s an abgelesenen Einzelbildern gegengeprueft (Abweichung 12–18 px).
+        w: 280,
+        h: 150,
+        pfad: [[0, 545, 1052], [0.6, 475, 1050], [1.2, 410, 1048], [1.8, 352, 1046], [2.4, 295, 1040],
+          [3.0, 235, 1035], [3.6, 187, 1024], [4.2, 139, 1013], [4.8, 91, 1000], [5.4, 47, 984],
+          [6.0, 15, 974], [6.6, -15, 970], [7.2, -45, 968]],
+      },
+      {
+        was: 'Kennzeichen des BMW auf der Hebebuehne (Kundenfahrzeug), ab etwa 5 s voll lesbar',
+        von: 0,
+        bis: 10.1,
+        // Trefferguete 0,86–0,99 ab 4,6 s; davor faellt sie, weil das Schild nur 45 px breit
+        // ist — die Bahn bleibt dort aber glatt und monoton, und weichgezeichnet wird ohnehin
+        // von Anfang an.
+        w: 160,
+        h: 90,
+        pfad: [[0, 1161, 630], [1.0, 1147, 632], [2.0, 1137, 638], [3.0, 1123, 642], [4.0, 1107, 646],
+          [5.0, 1089, 650], [6.0, 1069, 652], [7.0, 1043, 656], [8.0, 1015, 660], [9.0, 987, 662],
+          [10.1, 955, 667]],
+      },
+    ],
+  },
+  {
+    id: 'bereich-lack',
+    quelle: `${DROHNE}CarCare Lackieren.mov`,
+    datei: 'carcare-bereich-lack',
+    // Beginnt bei 1,6 s: Davor schiebt sich eine rote Hubarbeitsbuehne durch das linke Drittel.
+    start: 1.6,
+    dauer: 10.3,
+    // Ganze Kabine im Bild, Fahrzeug abgeklebt in der Mitte, Lackierer links daneben. Die
+    // frueheren Bilder (2,6–3,4 s) zeigen ihn groesser beim Spruehen, dafuer haelt die rechte
+    // Bildhaelfte nur leeren Hallenboden — auf einer Karte gewinnt die geschlossene Komposition.
+    standbildBei: 10.8,
+    breite: BREITE_KARTE,
+    zweck: 'Bereichskarte Lackierbereich (R18) — Lackierkabine mit abgeklebtem Fahrzeug, Lackierer bei der Arbeit',
+    titel: 'Lackierbereich – CarCare Center Leipzig',
+    beschreibung: 'Blick in den Lackierbereich des CarCare Center in Leipzig: ein abgeklebtes Fahrzeug in der Lackierkabine, ein Lackierer in Schutzkleidung arbeitet daran.',
+    // Keine Weichzeichnung noetig: Das Fahrzeug ist vollstaendig abgeklebt, ein zweiter
+    // Rohbau rechts ebenfalls; im ganzen Clip ist kein Kennzeichen zu sehen (abgesucht in
+    // voller Aufloesung, linke/mittlere/rechte Bildhaelfte einzeln).
+  },
+  {
+    id: 'bereich-aufbereitung',
+    quelle: `${DROHNE}CarCare 1 Polieren .mov`,
+    datei: 'carcare-bereich-aufbereitung',
+    start: 0.8,
+    // 16 s statt der ganzen 25,4 s: Ab etwa 17 s wandert die Kamera nach rechts und es steht
+    // mehr Hallenboden als Arbeit im Bild. Der User achtet ausdruecklich auf das Datenvolumen.
+    dauer: 16.0,
+    // Kollege poliert die Haube mit der Poliermaschine, weisser Kombi dahinter, zweiter Kollege
+    // an der Tuer — auf einer Aufbereitungskarte zaehlen Menschen bei der Arbeit.
+    standbildBei: 4.5,
+    breite: BREITE_KARTE,
+    zweck: 'Bereichskarte Aufbereitungsbereich (R18) — Politur und Innenreinigung in der Aufbereitungshalle',
+    titel: 'Aufbereitungsbereich – CarCare Center Leipzig',
+    beschreibung: 'Blick in den Aufbereitungsbereich des CarCare Center in Leipzig: Mitarbeiter polieren und reinigen Fahrzeuge in der Aufbereitungshalle.',
+    // Keine Weichzeichnung noetig: Kein Fahrzeug zeigt ein Kennzeichen — der schwarze Kombi
+    // rechts traegt ab 21 s einen LEEREN Schilderhalter. Abgesucht in voller Aufloesung, je
+    // Bildviertel, ueber den ganzen Clip.
+  },
 ];
 
 const args = process.argv.slice(2);
@@ -229,7 +360,24 @@ if (ersatzQuelle && !nur) {
   console.error('[video] --quelle gilt nur zusammen mit --nur <schnitt>: Die Schnitte haben verschiedene Quellen.');
   process.exit(1);
 }
-const auswahl = SCHNITTE.filter((s) => !nur || s.id === nur).map((s) => ({ ...s, quelle: ersatzQuelle ?? s.quelle }));
+/**
+ * Loest Umlaute im Dateinamen auf die Form auf, die tatsaechlich auf der Platte liegt.
+ *
+ * WARUM DAS NOETIG IST: Die Drohnenclips kommen von einem Apple-Geraet. macOS speichert
+ * Dateinamen ZERLEGT (NFD): „ü" steht dort als „u" + kombinierendes Trema (75 cc 88), nicht
+ * als ein Zeichen (c3 bc). Windows vergleicht Dateinamen zwar ohne Ruecksicht auf Gross- und
+ * Kleinschreibung, aber NICHT ohne Ruecksicht auf diese Zerlegung — `fs.existsSync` mit der
+ * zusammengesetzten Form meldet bei „CarCare 2 Hebebühne.mov" schlicht `false`, obwohl die
+ * Datei danebenliegt. Die Quelle oben steht deshalb in lesbarer Form im Code und wird hier
+ * auf die vorhandene Form gedreht.
+ */
+const vorhandenerPfad = (p) => {
+  for (const form of [p, p.normalize('NFD'), p.normalize('NFC')]) if (fs.existsSync(form)) return form;
+  return p;
+};
+
+const auswahl = SCHNITTE.filter((s) => !nur || s.id === nur)
+  .map((s) => ({ ...s, quelle: vorhandenerPfad(ersatzQuelle ?? s.quelle) }));
 for (const s of auswahl) {
   if (fs.existsSync(s.quelle)) continue;
   console.error(`[video] Quelle fuer "${s.id}" nicht gefunden:\n        ${s.quelle}`);

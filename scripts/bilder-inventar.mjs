@@ -313,11 +313,21 @@ const frei = Object.entries(register.stellen).filter(([k]) => !neu[k]);
 const ohneRolle = (key) => key.split('|').map((t, i) => (i === 4 ? '' : t)).join('|');
 for (const z of offen) {
   let i = frei.findIndex(([, v]) => v.rahmen === z.rahmen && v.datei === z.datei);
-  // Ein Foto wird zum Video mit Standbild (B11, 2026-09-21): Ort und Karte bleiben, nur die Rolle
-  // wechselt von „bild“ zu „standbild“. Die Nummer gehoert zum Ort, also bleibt sie beim Standbild;
-  // das Video selbst ist eine neue Stelle und bekommt die naechste Nummer. Ohne diese Regel waere
-  // B11 still „entfallen“ — gegen die Zusage, dass eine Nummer den Bildtausch uebersteht.
-  if (i < 0 && z.rolle === 'standbild') i = frei.findIndex(([k]) => k.split('|')[4] === 'bild' && ohneRolle(k) === ohneRolle(z.key));
+  /*
+   * Ein Foto wird zum Video mit Standbild (B11, 2026-09-21), oder ein Videoplatzhalter wird
+   * zum gelieferten Video (B113–B118, 2026-09-23): Ort und Karte bleiben, nur die ROLLE
+   * wechselt — von „bild“ bzw. „platzhalter“ zu „standbild“. Die Nummer gehoert zum Ort, also
+   * bleibt sie beim Standbild; das Video selbst ist eine neue Stelle und bekommt die naechste
+   * Nummer. Ohne diese Regel waeren die Nummern still „entfallen“ — gegen die Zusage, dass
+   * eine Nummer den Bildtausch uebersteht.
+   *
+   * ⚠️ Der Platzhalterfall ist der WICHTIGERE der beiden: Genau unter diesen Nummern hat der
+   * User die fehlenden Videos bestellt. Waeren sie beim Liefern weitergewandert, haette
+   * „B113“ in der naechsten Absprache etwas anderes bedeutet als in der letzten.
+   */
+  if (i < 0 && z.rolle === 'standbild') {
+    i = frei.findIndex(([k]) => ['bild', 'platzhalter'].includes(k.split('|')[4]) && ohneRolle(k) === ohneRolle(z.key));
+  }
   if (i >= 0) {
     const [, v] = frei.splice(i, 1)[0];
     z.nr = v.nr;

@@ -154,15 +154,11 @@ const ANERKANNT = [
   { text: 'Mitarbeiterstimme 1', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 2', backlog: '3.19 / 1.26', seit: '2026-09-06' },
   { text: 'Mitarbeiterstimme 3', backlog: '3.19 / 1.26', seit: '2026-09-06' },
-  // Backlog R18: Bereichsvideos Karosserie/Mechanik, Lack, Aufbereitung auf /ueber-uns und
-  // /karriere — vom User am 2026-09-21 ausdruecklich als Platzhalter bestellt, das Material
-  // liefert André nach. Die beiden Wendungen stehen im Rahmen jedes Platzes (Netz 2), die drei
-  // Titel sind die Eintraege in data/videos.ts (Netz 1).
-  { text: 'Videoplatz Karosserie- und Mechanikbereich', backlog: 'R18', seit: '2026-09-21' },
-  { text: 'Videoplatz Lackierbereich', backlog: 'R18', seit: '2026-09-21' },
-  { text: 'Videoplatz Aufbereitungsbereich', backlog: 'R18', seit: '2026-09-21' },
-  { text: 'Videoplatz', backlog: 'R18', seit: '2026-09-21' },
-  { text: 'Das Material wird nachgeliefert', backlog: 'R18', seit: '2026-09-21' },
+  // Die fuenf Zeilen fuer die Bereichsvideos (R18) sind am 2026-09-23 entfallen: Der User hat
+  // die drei Drohnenclips geliefert, `istPlatzhalter` steht auf `false`, der Rahmen mit
+  // „Videoplatz …" und „Das Material wird nachgeliefert" wird nicht mehr gerendert. Damit
+  // steht im Projekt KEIN anerkannter Videoplatzhalter mehr — haetten die Zeilen hier
+  // ueberlebt, haette Eigenschaft 3 den Build gebrochen.
 ];
 
 const anerkanntFuer = (text) => ANERKANNT.find((a) => a.text === text);
