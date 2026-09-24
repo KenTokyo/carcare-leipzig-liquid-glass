@@ -14,6 +14,8 @@ dist-ssr
 
 # Auto-generiert beim Build (scripts/generate-sitemap.mjs) – wird bei jedem Build neu erzeugt
 public/sitemap.xml
+# Suchindex, beim Build aus dist/ kopiert (Dev-Server): scripts/prerender.mjs
+public/suchindex.json
 
 # Chromium fuer den Prerender. Liegt seit 2026-08-10 per .puppeteerrc.cjs IM Projekt
 # statt in ~/.cache/puppeteer, damit Vercel den Ordner cachen kann (siehe dortiger

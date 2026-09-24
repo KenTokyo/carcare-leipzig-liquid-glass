@@ -1,46 +1,57 @@
-// Schwebende Knoepfe „Anrufen" und „Schaden melden" (`components/SchwebendeAktionen.tsx`):
-// Liegen sie irgendwo DAUERHAFT ueber Text oder Bedienelementen der Seite?
+// Aktions-Aussparung oben rechts („Anrufen", „Schaden melden", `components/AktionsAussparung.tsx`):
+// Liegt irgendwo DAUERHAFT Text oder ein Bedienelement der Seite darunter?
 //
 // AUFRUF:
-//   npm run schwebend                      alle Routen, drei Fenster
-//   npm run schwebend -- /karriere /       nur diese Routen
+//   npm run aussparung                     alle Routen, drei Fenster
+//   npm run aussparung -- /karriere /      nur diese Routen
 //   (unter Git Bash `MSYS_NO_PATHCONV=1` davor — sonst kommt `/karriere` als
 //    `C:/Program Files/Git/karriere` an, dieselbe Falle wie bei `npm run shots`)
 //
 // BRAUCHT ein aktuelles `dist/` (`npm run build`), startet `vite preview` selbst.
 //
+// GESCHICHTE: Am 2026-09-24 als `npm run schwebend` fuer zwei schwebende Knoepfe UNTEN rechts
+// entstanden — die erste Fassung dort verdeckte die Versichererliste. Am selben Tag wanderten
+// die Knoepfe in die Aussparung OBEN rechts (Wunsch des Users); die Frage bleibt dieselbe.
+// Oben rechts ist die Gefahr kleiner — die Aussparung liegt im 100-px-Band der Navbar, in dem
+// kein Inhalt stehen bleibt —, aber nicht null: Alles, was mit `position: sticky` HOEHER als
+// die Navbar gepinnt wird, stuende rechts dauerhaft darunter.
+//
 // WAS GEMESSEN WIRD: Jede Route wird in Schritten einer halben Fensterhoehe durchgescrollt. An
-// jeder Position, an der die Knoepfe sichtbar sind (nicht `inert`), wird gesammelt, welche
-// Textstellen und Bedienelemente unter ihnen OBEN liegen — per `elementsFromPoint`, nicht nur
-// geometrisch; was hinter einer anderen Flaeche liegt, zaehlt nicht.
+// jeder Position wird gesammelt, welche Textstellen und Bedienelemente unter der Aussparung
+// OBEN liegen — per `elementsFromPoint`, nicht nur geometrisch; was hinter einer anderen
+// Flaeche liegt, zaehlt nicht.
 //
 // DAUERHAFT heisst: an zwei aufeinanderfolgenden Positionen verdeckt UND nicht mitbewegt (die
 // Oberkante verschiebt sich um weniger als 20 px, obwohl eine halbe Fensterhoehe gescrollt
-// wurde). Das trifft gepinnte Flaechen (`position: sticky`) und bildschirmhohe Bereiche. Was
-// unter den Knoepfen nur vorbeizieht, zaehlt nicht — das tut jeder schwebende Knopf.
-// Die erste Fassung (2026-09-24) zaehlte „an zwei Positionen verdeckt" und meldete damit neun
-// grosse Karten-Links, die nur vorbeiscrollten.
+// wurde). Das trifft gepinnte Flaechen. Was nur darunter vorbeizieht, zaehlt nicht — das tut
+// jeder Inhalt unter der Navbar. Die erste Fassung zaehlte „an zwei Positionen verdeckt" und
+// meldete neun grosse Karten-Links, die nur vorbeiscrollten.
 //
-// ABHILFE BEI EINEM BEFUND: Die Flaeche mit `data-aktionen-ausweichen` markieren
-// (`hooks/useAusweichzone.ts`) — aber nur, wenn sie die Ecke dauerhaft belegt UND die Aktionen
-// selbst anbietet (so bei Hero und Zielgruppenstapel der Startseite). Sonst den Inhalt aus der
-// rechten unteren Ecke nehmen.
+// ABHILFE BEI EINEM BEFUND: Die gepinnte Flaeche unter die Navbar-Hoehe setzen (Muster: die
+// CSS-Variable `--nav` in den Zielgruppenkarten, 5,35 rem mobil / 6,75 rem ab `md`).
 //
 // ⚠️ WAS DIESE PRUEFUNG BESTEHT, OHNE DASS DIE SACHE IN ORDNUNG IST:
-//  1. GRUEN DURCH VERSTECKEN. Wer ueberall `data-aktionen-ausweichen` setzt, bekommt 0 Befunde
-//     und Knoepfe, die nie zu sehen sind. Deshalb steht je Route der Anteil der Positionen, an
-//     denen sie sichtbar sind; unter 50 % gibt es einen Hinweis (kein Fehler — kurze Seiten
-//     verstecken sie vor dem Footer zu Recht an vielen Positionen).
+//  1. GRUEN DURCH VERSTECKEN. Ist die Aussparung ausgeblendet, gibt es nichts zu verdecken. Deshalb
+//     steht je Route der Anteil der Positionen, an denen sie sichtbar ist; unter 50 % ein Hinweis.
+//     Seit sie immer steht, muss dort 100 % stehen — alles andere ist ein Befund fuer sich.
 //  2. DREI FENSTER (1920 × 945, 1280 × 800, 1024 × 700). Dazwischen und darunter nicht; unter
-//     1024 px sind die Knoepfe ausgeblendet (dort gilt die mobile Leiste).
+//     1024 px gibt es keine Aussparung (dort gilt die Leiste unten).
 //  3. SCHRITTWEITE eine halbe Fensterhoehe: Eine gepinnte Flaeche, die kuerzer steht, faellt durch.
 //  4. TEXT UND BEDIENELEMENTE, keine Bilder. Ein verdecktes Motiv, Logo oder Siegel meldet sie nicht.
-//  5. GESCHLOSSENE KNOEPFE. Beim Ueberfahren klappen sie nach links auf und sind breiter; dieser
-//     Zustand dauert, solange die Maus darauf steht, und wird nicht geprueft.
+//  5. DIE HINWEISE UNTER DEN KNOEPFEN (beim Ueberfahren) prueft sie nicht — sie stehen nur, solange
+//     die Maus darauf ist.
+//  6. (behoben) DIE AUSSPARUNG SELBST. Bis zur zweiten Fassung prueften wir nur, was UNTER ihr liegt.
+//     Dass ihr rechter Knopf um 15 px angeschnitten war (der weisse Schatten des konkaven Uebergangs
+//     `::after` lag darueber), meldete die Pruefung gruen — gesehen hat es erst ein Bildschirmfoto.
+//     Seitdem: PIXELPROBE je Knopf — 5 px innerhalb jedes Randes muss der dunkle Verlauf stehen,
+//     kein Weiss. Ein Treffertest (`elementFromPoint`) haette es NICHT gefunden: Schatten nehmen am
+//     Treffertest nicht teil, der Knopf galt als „oben", obwohl Weiss ueber ihm gemalt war. Die
+//     Gegenprobe auf dem alten Stand hat genau das gezeigt, bevor die Pixelprobe kam.
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer';
+import sharp from 'sharp';
 import { getRoutes } from './routes.mjs';
 import { startePreview, HALTE_SCROLL } from './lib/preview-server.mjs';
 
@@ -49,7 +60,7 @@ process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 const FENSTER = [
   [1920, 945], // Full HD, Browser maximiert (siehe CLAUDE.md: nicht 1080)
   [1280, 800],
-  [1024, 700], // kleinstes Fenster mit Knoepfen (`lg`)
+  [1024, 700], // kleinstes Fenster mit Aussparung (`lg`)
 ];
 /** Oberkante darf sich um weniger bewegen, dann gilt das Element als stehend. */
 const STEHT = 20;
@@ -58,10 +69,10 @@ const SICHTBAR_MINDESTENS = 0.5;
 const nurRouten = process.argv.slice(2).filter((a) => a.startsWith('/'));
 const routen = nurRouten.length ? nurRouten : (await getRoutes()).map((r) => r.path);
 
-/** Im Browser: was liegt unter den Knoepfen oben auf? `null` = Knoepfe nicht sichtbar. */
+/** Im Browser: was liegt unter der Aussparung oben auf? `null` = Aussparung nicht sichtbar. */
 const UNTER_DEN_KNOEPFEN = () => {
-  const k = document.querySelector('[data-schwebende-aktionen]');
-  if (!k || k.inert || getComputedStyle(k).display === 'none') return null;
+  const k = document.querySelector('[data-aktions-aussparung]');
+  if (!k || getComputedStyle(k).display === 'none') return null;
   const kr = k.getBoundingClientRect();
   const r = { l: kr.left - 4, t: kr.top - 4, r: kr.right + 4, b: kr.bottom + 4 };
   const schneidet = (a) => a.left < r.r && a.right > r.l && a.top < r.b && a.bottom > r.t;
@@ -101,10 +112,39 @@ const UNTER_DEN_KNOEPFEN = () => {
   return funde;
 };
 
+/**
+ * Pixelprobe: Die Knoepfe tragen einen dunklen Verlauf. 5 px innerhalb jedes Randes (Mitte der
+ * jeweiligen Kante, dort reicht der fast runde Knopf bis an den Rand) darf nichts Helles stehen.
+ * Die Mitte wird NICHT geprueft — dort steht das weisse Symbol.
+ */
+const pruefeKnoepfe = async (seite) => {
+  const kaputt = [];
+  for (const knopf of await seite.$$('[data-aktions-aussparung] a, [data-aktions-aussparung] button')) {
+    const box = await knopf.boundingBox();
+    if (!box || box.width < 10) continue;
+    const bild = await seite.screenshot({ clip: box, type: 'png' });
+    const { data, info } = await sharp(bild).raw().toBuffer({ resolveWithObject: true });
+    const hell = (x, y) => {
+      const i = (Math.round(y) * info.width + Math.round(x)) * info.channels;
+      return (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
+    };
+    const w = info.width - 1;
+    const h = info.height - 1;
+    const proben = { links: hell(5, h / 2), rechts: hell(w - 5, h / 2), oben: hell(w / 2, 5), unten: hell(w / 2, h - 5) };
+    const helle = Object.entries(proben).filter(([, l]) => l > 0.75).map(([seite_]) => seite_);
+    if (helle.length) {
+      const name = await knopf.evaluate((el) => el.getAttribute('aria-label'));
+      kaputt.push(`${name} — hell am Rand ${helle.join('/')}`);
+    }
+  }
+  return kaputt;
+};
+
 const { basis, stopp } = await startePreview(4193);
 const browser = await puppeteer.launch({ headless: 'new', args: ['--force-prefers-no-reduced-motion'] });
 const warte = (ms) => new Promise((r) => setTimeout(r, ms));
 let befunde = 0;
+let angeschnittenGesamt = 0;
 let hinweise = 0;
 
 try {
@@ -116,6 +156,11 @@ try {
     console.log(`\n${b} × ${h}`);
     for (const route of routen) {
       await seite.goto(basis + route, { waitUntil: 'networkidle0' });
+      const angeschnitten = await pruefeKnoepfe(seite);
+      if (angeschnitten.length) {
+        console.log(`  ✗ ${route.padEnd(52)} Knopf der Aussparung angeschnitten: ${angeschnitten.join(', ')}`);
+        angeschnittenGesamt += angeschnitten.length;
+      }
       const weg = await seite.evaluate(() => document.documentElement.scrollHeight - innerHeight);
       let vorige = new Map();
       const dauerhaft = new Map();
@@ -123,7 +168,7 @@ try {
       let sichtbar = 0;
       for (let y = 0; y <= weg; y += Math.round(h / 2)) {
         await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
-        // Gepinnte Flaechen brauchen ein, zwei Bilder; `inert` setzt React sofort.
+        // Gepinnte Flaechen brauchen ein, zwei Bilder.
         await warte(160);
         const funde = await seite.evaluate(UNTER_DEN_KNOEPFEN);
         positionen++;
@@ -143,7 +188,7 @@ try {
       const anteil = positionen ? sichtbar / positionen : 0;
       const zeichen = dauerhaft.size ? '✗' : anteil < SICHTBAR_MINDESTENS ? '⚠' : '✓';
       console.log(`  ${zeichen} ${route.padEnd(52)} sichtbar an ${String(Math.round(anteil * 100)).padStart(3)} % von ${positionen} Positionen`);
-      for (const [name, n] of dauerhaft) console.log(`      → ${name} liegt an ${n} Positionen fest darunter`);
+      for (const [name, n] of dauerhaft) console.log(`      → ${name} liegt an ${n} Positionen fest unter der Aussparung`);
       befunde += dauerhaft.size;
       if (!dauerhaft.size && anteil < SICHTBAR_MINDESTENS) hinweise++;
     }
@@ -154,10 +199,13 @@ try {
   stopp();
 }
 
+const alle = befunde + angeschnittenGesamt;
 console.log(
-  befunde
-    ? `\n✗ ${befunde} dauerhafte Ueberdeckung(en)`
-    : `\n✓ Keine dauerhafte Ueberdeckung — ${routen.length} Routen × ${FENSTER.length} Fenster`
-      + (hinweise ? ` (${hinweise} Route(n) mit Knoepfen an weniger als der Haelfte der Positionen, siehe ⚠)` : '')
+  alle
+    ? `
+✗ ${alle} Befund(e): ${befunde} dauerhafte Ueberdeckung(en), ${angeschnittenGesamt} angeschnittene(r) Knopf/Knoepfe`
+    : `
+✓ Keine dauerhafte Ueberdeckung, Knoepfe unversehrt — ${routen.length} Routen × ${FENSTER.length} Fenster`
+      + (hinweise ? ` (${hinweise} Route(n) mit Aussparung an weniger als der Haelfte der Positionen, siehe ⚠)` : '')
 );
-process.exit(befunde ? 1 : 0);
+process.exit(alle ? 1 : 0);

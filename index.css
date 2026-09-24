@@ -10,6 +10,7 @@
 @import './styles/zielgruppen.css';
 @import './styles/scrollverlauf.css';
 @import './styles/karten.css';
+@import './styles/aussparung.css';
 
 @tailwind base;
 @tailwind components;
@@ -89,7 +90,10 @@
   --cc-shell-canvas: #ffffff;
   --cc-shell-gap: clamp(0.5rem, 1vw, 1rem);
   --cc-shell-radius: clamp(1.35rem, 2vw, 1.75rem);
-  --cc-nav-width: 1000px;
+  /* `--cc-nav-width` (Reiterbreite der Navbar) steht in styles/aussparung.css — samt den
+     schmaleren Werten unter 1440 px. Grundwert UND Abweichungen muessen in derselben Datei
+     stehen: Importierte Dateien kommen vor den Regeln hier, ein Grundwert an dieser Stelle
+     haette die schmaleren Werte bei gleicher Spezifitaet ueberschrieben. */
   --cc-nav-radius: 24px;
   --cc-nav-inner-radius: 28px;
 }
@@ -387,7 +391,9 @@ body {
   display: none;
 }
 
-@media (min-width: 1080px) {
+/* Ab 1024 statt wie bis 2026-09-24 ab 1080: Bei 1024–1079 war der Reiter 1000 px breit und fuer
+   die Uebergaenge kein Platz. Seit der Reiter dort 580 px misst (siehe REITERBREITE), ist er da. */
+@media (min-width: 1024px) {
   .solidroad-cutout-left,
   .solidroad-cutout-right {
     display: block;
@@ -398,7 +404,7 @@ body {
    wie auf dem Desktop. MUSS nach der Basisregel (.solidroad-cutout-* { display:none })
    stehen, sonst ueberschreibt diese den Wert (gleiche Spezifitaet). Die Cutouts sind
    Kinder des Frames (right/left:100%) und sitzen automatisch an den eingerueckten
-   Navbar-Kanten. Desktop (>=1080px) bleibt unveraendert. */
+   Navbar-Kanten. Desktop (>=1024px) bleibt unveraendert. */
 @media (max-width: 767px) {
   .solidroad-cutout-left,
   .solidroad-cutout-right {

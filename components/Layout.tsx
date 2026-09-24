@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import MobileStickyCTA from './MobileStickyCTA';
-import SchwebendeAktionen from './SchwebendeAktionen';
+import AktionsAussparung from './AktionsAussparung';
+import SuchDialog from './SuchDialog';
 import { AnfrageDialogProvider } from './AnfrageDialog';
 
 interface LayoutProps {
@@ -63,6 +64,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div aria-hidden="true" className={`solidroad-nav-cutouts ${footerVisible ? 'is-footer' : ''}`} />
           <Navbar />
         </header>
+
+        {/* Aktions-Aussparung oben rechts (ab `lg`). Im Seitenrahmen wie der Navbar-Reiter —
+            ausserhalb von <main>, dessen Transform `position: fixed` an <main> binden wuerde. */}
+        <AktionsAussparung />
       </div>
 
       {/* overflow-clip (nicht -hidden): clippt horizontalen Überhang weiterhin, erzeugt aber KEINEN
@@ -75,11 +80,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
 
       <Footer />
-      {/* Beide fixierten Aktionsflaechen stehen NEBEN <main>, nicht darin: dessen Transform
-          wuerde `position: fixed` an <main> statt ans Fenster binden. Unter `lg` die Leiste,
-          ab `lg` die schwebenden Knoepfe unten rechts. */}
+      {/* Unter `lg` die Aktionsleiste am unteren Rand; ab `lg` stehen dieselben Aktionen in der
+          Aussparung oben rechts (oben im Seitenrahmen). */}
       <MobileStickyCTA />
-      <SchwebendeAktionen />
+      {/* Globale Suche: einmal fuer alle Seiten; oeffnet per Navbar-Knopf, Strg/⌘ + K oder „/". */}
+      <SuchDialog />
     </div>
     </AnfrageDialogProvider>
   );

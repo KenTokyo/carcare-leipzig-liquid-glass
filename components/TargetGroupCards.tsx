@@ -177,11 +177,7 @@ const TargetGroupCards: React.FC = () => {
     // Shell-Kante laufen (wie die Hero-Sektion). Der Shell selbst haelt bereits
     // `margin: var(--cc-shell-gap)` Abstand zur Fensterkante — mehr braucht es nicht.
     // Der Ueberschriftenblock behaelt sein Padding ueber den inneren Wrapper.
-    // `data-aktionen-ausweichen`: Die schwebenden Knoepfe (`SchwebendeAktionen`) weichen hier aus.
-    // Die weisse Karte reicht ab `lg` bis in die rechte untere Ecke und steht dort gepinnt —
-    // bei 1024 × 700 lagen die Knoepfe dauerhaft auf „Porsche Werk Leipzig" (`npm run zielgruppen`,
-    // 2026-09-24). Jede Karte hat ihre eigenen Handlungsaufrufe.
-    <section id="zielgruppen" aria-labelledby="target-groups-heading" data-aktionen-ausweichen="" className="bg-white py-20 md:py-28">
+    <section id="zielgruppen" aria-labelledby="target-groups-heading" className="bg-white py-20 md:py-28">
       {/* Stapel bewusst OHNE `container mx-auto px-6` — nur so laeuft er randlos bis an die
           Shell-Kante (gemessen: 14 px Rand bei 1440, identisch zur Hero-Sektion).
           Die Stellschrauben (`--gap`, `--bar`, `--kopf`, `--fuss`, `--nav`, `--verweil`,

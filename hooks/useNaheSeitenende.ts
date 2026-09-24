@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
  * `true`, sobald das Seitenende naeher ist als `anteil` Bildschirmhoehen. Dort schiebt sich der
  * Inhalt nach oben weg und gibt den fixierten Footer frei (Reveal-Footer, `Footer.tsx`).
  *
- * GETEILT von den beiden fixierten Aktionsflaechen:
- *  - `MobileStickyCTA` — Leiste am unteren Rand, unter `lg`
- *  - `SchwebendeAktionen` — Knoepfe unten rechts, ab `lg`
- * Beide blenden dort aus, sonst laegen sie ueber dem Footer, und der nennt Telefon und Adresse
- * ohnehin selbst. Ein Hook statt zweier Kopien derselben Rechnung, damit beide garantiert an
- * derselben Stelle verschwinden (bis 2026-09-24 stand die Rechnung nur in `MobileStickyCTA`).
+ * Genutzt von `MobileStickyCTA` (Leiste am unteren Rand, unter `lg`): Sie blendet dort aus, sonst
+ * laege sie ueber dem Footer — und der nennt Telefon und Adresse ohnehin selbst.
+ * Am 2026-09-24 aus der Komponente herausgeloest, als kurzzeitig auch schwebende Knoepfe unten
+ * rechts sie brauchten (seitdem ersetzt durch die Aussparung oben rechts, die immer steht).
+ * Dabei behoben: Nach einem Seitenwechsel per Navbar rechnete die Leiste erst beim naechsten
+ * Scrollen neu.
  */
 export const useNaheSeitenende = (anteil = 0.7): boolean => {
   const [nahe, setNahe] = useState(false);

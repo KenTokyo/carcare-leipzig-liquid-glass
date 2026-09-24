@@ -99,6 +99,17 @@ Vom Kunden abgenommen, nicht wegoptimieren:
   Begründung, Fälle und Anwendung:
   `docs/waechter/2026-09-03-notwendig-aber-nicht-hinreichend.md`
 
+## Globale Suche
+
+Suchdialog in der Navbar (rechts neben „Kontakt", Strg/⌘ + K, „/"). Der **Index entsteht beim Build
+im Prerender** aus dem gerenderten Inhalt jeder Route (`scripts/lib/suchindex.mjs` →
+`dist/suchindex.json`): neue Seiten und Texte sind also automatisch auffindbar. Der Build bricht, wenn
+eine Route fehlt oder unter 200 Zeichen Text liefert.
+- Text von der Suche ausnehmen: `data-suche="aus"` am Element (Platzhalter, `aria-hidden`,
+  CTA-Knöpfe `.cc-gradient-button` und KI-Plaketten `.cc-ki-marke` sind es schon).
+- Kundenworte, die auf der Seite anders heißen („Leihwagen" → „Ersatzwagen"): `SYNONYME` in
+  `lib/suche.ts` — nur für Dinge, die wir wirklich anbieten.
+
 ## Messwerkzeuge
 
 Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht schätzen.**
@@ -109,7 +120,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
-| `npm run schwebend` | Schwebende Knöpfe „Anrufen"/„Schaden melden" (ab 1024 px unten rechts): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter? 29 Routen × 3 Fenster; dazu je Route, an wie viel Prozent der Positionen die Knöpfe überhaupt sichtbar sind (gegen „grün durch Verstecken") | nach jeder Änderung an Flächen, die bis in die rechte untere Ecke reichen, an `SchwebendeAktionen` oder an `data-aktionen-ausweichen` |
+| `npm run aussparung` | Aktions-Aussparung oben rechts („Anrufen"/„Schaden melden", ab 1024 px): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter (z. B. etwas, das höher als die Navbar gepinnt ist)? 29 Routen × 3 Fenster; dazu je Route, an wie viel Prozent der Positionen die Aussparung sichtbar ist (muss 100 % sein) | nach jeder Änderung an gepinnten Flächen (`position: sticky`), an `AktionsAussparung` oder an der Navbar-Höhe |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 

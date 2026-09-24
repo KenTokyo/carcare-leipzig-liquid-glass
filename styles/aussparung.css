@@ -1,0 +1,91 @@
+/* Aktions-Aussparung oben rechts + Reiterbreite der Navbar. Angelegt 2026-09-24.
+   Eingebunden per @import oben in index.css (wie `karten.css`, `scrollverlauf.css`).
+
+   WUNSCH DES USERS: „Anrufen" und „Schaden melden" sofort und immer rechts oben sichtbar, „in
+   einem weissen Punchhole-Design mit den selben Rundungen, wie wir sie sonst haben". Die
+   Rundungen der Navbar sind `--cc-nav-radius` (24 px, konvex, untere Ecken des Reiters) und
+   `--cc-nav-inner-radius` (28 px, konkav, Uebergang in den oberen Rahmen) — beide in index.css. */
+
+/* REITERBREITE DER NAVBAR. Grundwert UND Abweichungen stehen hier zusammen: Diese Datei wird
+   vor den Regeln von index.css eingelesen; stuende der Grundwert dort im `:root`, ueberschriebe
+   er die Medienregeln unten bei gleicher Spezifitaet.
+
+   Die Aussparung braucht mit ihren konkaven Uebergaengen rund 200 px neben dem Reiter.
+   GEMESSEN war rechts frei (2026-09-24, 1000 px breiter Reiter): 1920 → 444, 1536 → 252,
+   1440 → 205, 1366 → 169, 1280 → 127, 1024 → 0 px. Darunter wird der Reiter schmaler:
+     1280–1535: 840 px, bei 1280 bis 810 px (`100vw − 470px`) — die Links sitzen von der Mitte
+                aus (`right: calc(50% + 124px)`) und reichen links 388 px, rechts mit dem
+                Suchkreis 356 px weit; 405 px Halbbreite tragen beide mit Rand. Die Links ruecken
+                dabei nicht. Das Suchfeld (breiter als der Kreis) erscheint deshalb erst ab 1536.
+     1024–1279: 580 px — dort zeigt die Navbar nur Suche, Logo und Menue.
+   ZWEITE MESSUNG (erste Fassung: 840 px erst ab 1280, 1000 px ab 1440, Aussparung 154 px): Die
+   beiden konkaven Uebergaenge lagen bei 1440 und 1280 nur 10–11 px auseinander — ein schmaler
+   Schlitz, in dem das Hero-Foto zwischen zwei weissen Formen eingeklemmt stand. Jetzt mindestens
+   rund 30 px (gemessen: siehe Planung).
+   Unter 1024 bleibt es beim Grundwert (mobil schmaler per Regel in index.css). Dort gibt es
+   keine Aussparung: Die Aktionen liegen in der Leiste am unteren Rand (`MobileStickyCTA`). */
+:root {
+  --cc-nav-width: 1000px;
+}
+
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :root {
+    --cc-nav-width: 580px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1535.98px) {
+  :root {
+    --cc-nav-width: clamp(800px, calc(100vw - 470px), 840px);
+  }
+}
+
+/* DIE AUSSPARUNG. Weisse Flaeche buendig in der Ecke oben rechts, so hoch wie der Navbar-Reiter
+   (6,25 rem ab `md`; sichtbar erst ab `lg`). Rechts und oben geht sie nahtlos in den weissen
+   Seitenrahmen ueber, deshalb nur EINE konvexe Ecke (links unten) und zwei konkave Uebergaenge:
+     ::before — links oben in den oberen Rahmen, Kopie von `.solidroad-cutout-left`
+     ::after  — rechts unten in den rechten Rahmen, derselbe Kniff um 90° versetzt
+   DER KNIFF: ein durchsichtiges 28-px-Quadrat mit EINER gerundeten Ecke und einem weissen
+   Schatten ohne Unschaerfe (Versatz 40/−40, Ausdehnung 40). Der Schatten malt oben und rechts um
+   das Quadrat herum Weiss, das Quadrat selbst bleibt ein Fenster auf die Seite — mit genau der
+   Rundung, die der Uebergang braucht.
+   Schatten wie `.solidroad-nav-frame`, damit beide Reiter gleich tief liegen. */
+.cc-aussparung {
+  align-items: center;
+  background: var(--cc-white);
+  border-bottom-left-radius: var(--cc-nav-radius);
+  box-shadow:
+    0 12px 20px rgb(var(--cc-carbon-rgb) / 0.18),
+    0 4px 8px rgb(var(--cc-carbon-rgb) / 0.12);
+  gap: 0.625rem;
+  height: 6.25rem;
+  padding-left: 1rem;
+  /* Rechts steht die Flaeche ueber dem Seitenrahmen (`--cc-shell-gap`) — der Innenabstand
+     beginnt erst an dessen Innenkante, damit die Knoepfe optisch mittig im Weiss sitzen. */
+  padding-right: calc(var(--cc-shell-gap) + 1rem);
+  pointer-events: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.cc-aussparung::before,
+.cc-aussparung::after {
+  border-top-right-radius: var(--cc-nav-inner-radius);
+  box-shadow: 40px -40px 0 40px var(--cc-white);
+  content: '';
+  height: var(--cc-nav-inner-radius);
+  pointer-events: none;
+  position: absolute;
+  width: var(--cc-nav-inner-radius);
+}
+
+.cc-aussparung::before {
+  right: 100%;
+  top: var(--cc-shell-gap);
+}
+
+.cc-aussparung::after {
+  right: var(--cc-shell-gap);
+  top: 100%;
+}

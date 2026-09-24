@@ -26,7 +26,8 @@ const KARTEN_ZIELE = [
 const MobileStickyCTA: React.FC = () => {
   const { oeffnen } = useAnfrageDialog();
   // Beim Reveal-Footer (letzte ~70 % Bildschirmhoehe vor Dokumentende) ausblenden, sonst ueberdeckt
-  // die Leiste den Footer. Seit 2026-09-24 ein gemeinsamer Hook mit `SchwebendeAktionen`.
+  // die Leiste den Footer. Seit 2026-09-24 als Hook (`useNaheSeitenende`), der auch nach einem
+  // Seitenwechsel per Navbar neu rechnet.
   const nearBottom = useNaheSeitenende();
   // Auswahl-Popover fuer die Navigation. Bewusst eine Nachfrage statt Plattform-Automatik:
   // Auto-Erkennung liegt bei Android-Nutzern mit Apple-Konto bzw. Desktop-Safari regelmaessig

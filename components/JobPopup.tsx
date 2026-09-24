@@ -94,11 +94,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
           transition={{ duration: 0.24, ease: 'easeOut' }}
           // `bottom-28` auf Mobile: darueber sitzt die feste Aktionsleiste
           // (MobileStickyCTA). Ohne den Abstand laegen zwei Elemente uebereinander.
-          // Ab `lg` seit 2026-09-24 UEBER den schwebenden Knoepfen (`SchwebendeAktionen`,
-          // zwei Knoepfe a 48 px + 10 px Abstand ab `--cc-shell-gap + 1.5rem`): vorher
-          // `lg:bottom-6`, das Pop-up haette beide Knoepfe verdeckt. Rechte Kante buendig
-          // mit den Knoepfen.
-          className="fixed bottom-28 left-4 right-4 z-40 rounded-2xl border border-gray-100 bg-white p-5 shadow-[0_28px_60px_-24px_rgb(var(--cc-carbon-rgb)/0.45)] sm:left-auto sm:right-6 sm:w-[340px] lg:bottom-[calc(var(--cc-shell-gap)_+_9.5rem)] lg:right-[calc(var(--cc-shell-gap)_+_1.5rem)]"
+          className="fixed bottom-28 left-4 right-4 z-40 rounded-2xl border border-gray-100 bg-white p-5 shadow-[0_28px_60px_-24px_rgb(var(--cc-carbon-rgb)/0.45)] sm:left-auto sm:right-6 sm:w-[340px] lg:bottom-6"
         >
           <button
             ref={schliessenRef}

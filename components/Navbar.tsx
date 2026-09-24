@@ -1,10 +1,10 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, ChevronRight, Menu, Phone, X } from 'lucide-react';
+import { ChevronRight, Menu, Search, X } from 'lucide-react';
 import NavMegaMenu, { NAV_MEGA_PANEL_ID } from './NavMegaMenu';
 import { navSections } from '../data/navigation';
-import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
+import { oeffneSuche } from '../lib/suche';
 
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
@@ -27,11 +27,15 @@ const navLinks = [
 const desktopLeftLinks = navLinks.slice(0, 3);
 const desktopRightLinks = navLinks.slice(3);
 
-const navActionClass =
-  'cc-gradient-button group inline-flex h-11 w-11 items-center justify-start overflow-hidden whitespace-nowrap rounded-[20px] border text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-[width,filter,transform,box-shadow] duration-300 hover:w-[168px] focus-visible:w-[168px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
-const navActionIconClass = 'flex h-11 w-11 shrink-0 items-center justify-center';
-const navActionLabelClass =
-  'max-w-0 overflow-hidden pr-0 opacity-0 transition-[max-width,opacity,padding] duration-200 group-hover:max-w-[112px] group-hover:pr-3 group-hover:opacity-100 group-focus-visible:max-w-[112px] group-focus-visible:pr-3 group-focus-visible:opacity-100';
+/*
+ * KEINE AKTIONSKNOEPFE MEHR IN DER NAVBAR (Wunsch des Users vom 2026-09-24, „komplett raus"):
+ * „Schaden melden" stand links, „Anrufen" rechts, je als Kreis, der beim Ueberfahren seine
+ * Beschriftung ausklappte. Beide sitzen jetzt dauerhaft in der weissen Aussparung oben rechts
+ * (`AktionsAussparung`, ab `lg`) bzw. unten in der Leiste (`MobileStickyCTA`, darunter). An ihrer
+ * Stelle rechts: die globale Suche.
+ */
+const suchKreis =
+  'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-[var(--cc-carbon)] shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
 
 const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -202,7 +206,7 @@ const Navbar: React.FC = () => {
         y: 0,
       }}
       transition={{ type: 'spring', stiffness: 220, damping: 28 }}
-      className="solidroad-nav-shell pointer-events-auto mx-auto grid grid-cols-[auto_auto] items-center justify-between px-3 h-[4.85rem] max-w-[1000px] md:h-[6.25rem] md:px-6 xl:grid-cols-[1fr_auto_1fr] xl:justify-items-stretch relative"
+      className="solidroad-nav-shell pointer-events-auto mx-auto grid grid-cols-[auto_auto] items-center justify-between px-3 h-[4.85rem] max-w-[var(--cc-nav-width)] md:h-[6.25rem] md:px-6 xl:grid-cols-[1fr_auto_1fr] xl:justify-items-stretch relative"
     >
           <a
             href="/"
@@ -241,18 +245,6 @@ const Navbar: React.FC = () => {
             className="absolute top-1/2 z-20 hidden -translate-y-1/2 items-center justify-end gap-5 xl:flex"
             style={{ right: 'calc(50% + 124px)' }}
           >
-            <a
-              href={SCHADEN_ZIEL}
-              {...externAttribute(SCHADEN_ZIEL)}
-              onClick={(e) => handleLinkClick(e, SCHADEN_ZIEL, true)}
-              aria-label={istExtern(SCHADEN_ZIEL) ? 'Schaden melden (öffnet in einem neuen Tab)' : 'Schaden melden'}
-              className={navActionClass}
-            >
-              <span className={navActionIconClass}>
-                <AlertTriangle size={16} strokeWidth={2.4} aria-hidden="true" />
-              </span>
-              <span className={navActionLabelClass}>Schaden melden</span>
-            </a>
             {desktopLeftLinks.map(renderDesktopNavLink)}
           </nav>
 
@@ -262,16 +254,20 @@ const Navbar: React.FC = () => {
             style={{ left: 'calc(50% + 124px)' }}
           >
             {desktopRightLinks.map(renderDesktopNavLink)}
-            <a
-              href="tel:+493412617790"
-              aria-label="CarCare Center anrufen"
-              className={navActionClass}
+            {/* GLOBALE SUCHE rechts neben „Kontakt" (User 2026-09-24). Ab 1536 px als Feld, darunter
+                als Kreis: Zwischen 1280 und 1535 ist der Reiter nur 810–840 px breit (Platz fuer die
+                Aktions-Aussparung oben rechts, styles/aussparung.css), ein Feld liefe dort ueber
+                seinen Rand hinaus — gemessen: rechte Haelfte 356 px ab Mitte mit Kreis, 433 px mit Feld. */}
+            <button
+              type="button"
+              onClick={oeffneSuche}
+              aria-label="Suche öffnen"
+              aria-keyshortcuts="Control+K"
+              className={`${suchKreis} min-[1536px]:w-auto min-[1536px]:justify-start min-[1536px]:gap-2.5 min-[1536px]:pl-3.5 min-[1536px]:pr-5`}
             >
-              <span className={navActionIconClass}>
-                <Phone size={16} strokeWidth={2.4} aria-hidden="true" />
-              </span>
-              <span className={navActionLabelClass}>Anrufen</span>
-            </a>
+              <Search size={16} strokeWidth={2.4} aria-hidden="true" />
+              <span className="hidden text-[13px] font-medium text-gray-600 min-[1536px]:inline">Suchen …</span>
+            </button>
           </nav>
 
           <NavMegaMenu
@@ -282,6 +278,15 @@ const Navbar: React.FC = () => {
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
           />
+
+          {/* Suche unter `xl`: LINKS im Reiter, spiegelbildlich zum Menue. Rechts daneben war kein
+              Platz — mobil ist der Reiter 280 px breit, ein zweiter Knopf neben dem Menue ragte 34 px
+              ins Logo (gemessen 2026-09-24 bei 390 px). */}
+          <div className="absolute left-3 top-1/2 z-20 -translate-y-1/2 md:left-6 xl:hidden">
+            <button type="button" onClick={oeffneSuche} aria-label="Suche öffnen" className={suchKreis}>
+              <Search size={17} strokeWidth={2.4} aria-hidden="true" className="text-blue-600" />
+            </button>
+          </div>
 
           <div className="absolute right-3 top-1/2 z-20 flex -translate-y-1/2 items-center gap-2 justify-end md:right-6">
             {/* Mobile Hamburger toggle (visible below xl breakpoint) */}
@@ -386,25 +391,6 @@ const Navbar: React.FC = () => {
                   ))}
                 </nav>
 
-                <div className="mt-5 border-t border-gray-100 pt-4 flex flex-col gap-2">
-                  <a
-                    href="tel:+493412617790"
-                    className="cc-gradient-button flex items-center justify-center gap-2 rounded-full border py-3 text-xs font-bold uppercase tracking-[0.1em] text-white"
-                  >
-                    <Phone size={14} />
-                    Direkt anrufen
-                  </a>
-                  <a
-                    href={SCHADEN_ZIEL}
-                    {...externAttribute(SCHADEN_ZIEL)}
-                    onClick={(e) => handleLinkClick(e, SCHADEN_ZIEL, true)}
-                    className="cc-gradient-button flex items-center justify-center gap-2 rounded-full border py-3 text-xs font-bold uppercase tracking-[0.1em] text-white"
-                  >
-                    <AlertTriangle size={14} />
-                    Schaden melden
-                    <ExternMarke href={SCHADEN_ZIEL} pfeil={false} />
-                  </a>
-                </div>
               </motion.div>
             )}
           </AnimatePresence>

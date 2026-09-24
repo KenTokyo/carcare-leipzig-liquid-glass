@@ -65,6 +65,11 @@
       gemeinsam, sonst waere sie fast deckend geworden
 
 ### ✅ Phase 4 — Schwebende Aktionen „Anrufen" und „Schaden melden"
+> ⚠️ **Ersetzt am 2026-09-24 (zweite Runde, Wunsch des Users):** Die Knoepfe stehen jetzt dauerhaft in
+> einer weissen Aussparung **oben rechts**, die Navbar hat keine Aktionsknoepfe mehr, das Ausweichen
+> (`useAusweichzone`) ist entfernt, `npm run schwebend` heisst `npm run aussparung`.
+> Siehe `2026-09-24-aussparung-oben-rechts-und-suche-tasks.md`. Die Punkte unten beschreiben den Stand
+> der ersten Runde.
 * [x] `components/SchwebendeAktionen.tsx` ab `lg` unten rechts, im `Layout` neben `MobileStickyCTA`
 * [x] Gemeinsamer Hook `hooks/useNaheSeitenende.ts` statt doppelter Scroll-Logik; rechnet jetzt
       auch nach Seitenwechseln per Navbar neu (vorher erst beim naechsten Scrollen)

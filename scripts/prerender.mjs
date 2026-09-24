@@ -22,6 +22,7 @@ import { dirname, resolve, join } from 'node:path';
 import { preview } from 'vite';
 import puppeteer from 'puppeteer';
 import { getRoutes } from './routes.mjs';
+import { SUCH_AUSZUG, entdopple, pruefeSuchindex } from './lib/suchindex.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = resolve(root, 'dist');
@@ -154,6 +155,8 @@ async function run() {
 
   let ok = 0;
   const failed = [];
+  /** Auszuege fuer die globale Suche, je Route einer (scripts/lib/suchindex.mjs). */
+  const suchSeiten = [];
   try {
     for (const route of routes) {
       const page = await browser.newPage();
@@ -200,6 +203,11 @@ async function run() {
           seitenfehler,
         ]);
         await autoScroll(page);
+
+        // Suchindex: aus derselben, fertig gerenderten und durchgescrollten Seite, die gleich als
+        // HTML gespeichert wird. `u` aus der Routenliste, nicht aus `location` — so passt der
+        // Eintrag garantiert zur Pruefung unten.
+        suchSeiten.push({ ...(await page.evaluate(SUCH_AUSZUG)), u: route });
 
         let html = await page.content();
         // Flash-Guard: leert #root synchron VOR dem Client-Mount. Sonst sehen Nutzer
@@ -253,6 +261,20 @@ async function run() {
   if (failed.length) {
     bail(`${failed.length} Route(n) fehlgeschlagen: ${failed.join(', ')}`);
   }
+
+  // Suchindex pruefen und schreiben. Bricht den Build, wenn eine Seite fehlt oder (fast) keinen
+  // Text hat — ein Index, der still Inhalt verliert, faende einfach nichts, und niemand merkte es.
+  const suchFehler = pruefeSuchindex(suchSeiten, routes);
+  if (suchFehler.length) bail(`Suchindex unvollstaendig: ${suchFehler.join(' · ')}`);
+  const { seiten: indexSeiten, weg: doppelt } = entdopple(suchSeiten);
+  const index = JSON.stringify({ v: 1, stand: new Date().toISOString(), seiten: indexSeiten });
+  writeFileSync(join(distDir, 'suchindex.json'), index);
+  // Kopie fuer den Dev-Server (der liefert `public/` aus, nicht `dist/`). In .gitignore wie
+  // `public/sitemap.xml` — dort ist sie so aktuell wie der letzte Build.
+  writeFileSync(join(root, 'public', 'suchindex.json'), index);
+  const abschnitte = indexSeiten.reduce((n, x) => n + x.a.length, 0);
+  const fragen = indexSeiten.reduce((n, x) => n + x.f.length, 0);
+  console.log(`[prerender] Suchindex: ${indexSeiten.length} Seiten, ${abschnitte} Abschnitte, ${fragen} FAQ (${doppelt} Doppelte entfernt), ${(index.length / 1024).toFixed(0)} KB.`);
 }
 
 run().catch((err) => bail(`Unerwarteter Fehler: ${err.message}`));

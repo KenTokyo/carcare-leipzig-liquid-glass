@@ -143,7 +143,13 @@ const NavMegaMenu: React.FC<NavMegaMenuProps> = ({
           }}
           onKeyDown={handleKeyDown}
           id={NAV_MEGA_PANEL_ID}
-          className="pointer-events-auto absolute left-0 right-0 top-[calc(100%+14px)] z-50 hidden rounded-[22px] border border-black/[0.05] bg-white p-5 shadow-[0_30px_70px_-34px_rgb(var(--cc-carbon-rgb)/0.4)] xl:block"
+          // Breite ENTKOPPELT vom Navbar-Reiter (2026-09-24): Der Reiter ist unter 1440 px nur
+          // 840 px breit (Platz fuer die Aktions-Aussparung oben rechts), das Panel bleibt bei
+          // min(1000 px, Fenster − 3 rem) — vier Kartenspalten brauchen die Breite. Symmetrischer
+          // Einzug von der Mitte aus statt `left-1/2 -translate-x-1/2`: Framer setzt `transform`
+          // hier selbst und wuerde eine Translate-Klasse ueberschreiben. Ab 1440 ergibt die
+          // Rechnung 0 — wie vorher `left-0 right-0`.
+          className="pointer-events-auto absolute left-[calc(50%_-_min(500px,50vw_-_1.5rem))] right-[calc(50%_-_min(500px,50vw_-_1.5rem))] top-[calc(100%+14px)] z-50 hidden rounded-[22px] border border-black/[0.05] bg-white p-5 shadow-[0_30px_70px_-34px_rgb(var(--cc-carbon-rgb)/0.4)] xl:block"
         >
           <div className="mb-4 border-b border-gray-100 px-1 pb-3">
             <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-[rgb(var(--cc-graphite-rgb)/0.62)]">

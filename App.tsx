@@ -65,11 +65,25 @@ const App: React.FC = () => {
       // Ueber Lenis scrollen, solange es laeuft: ein nativer window.scrollTo wuerde gegen
       // dessen Interpolation arbeiten (sichtbares Zurueckspringen). Fallback bleibt nativ.
       const lenis = getLenis();
+      // NEUE SEITE, NEUE HOEHE: Lenis kennt nach dem Wechsel noch die Scrollgrenze der ALTEN Seite
+      // und kappt `scrollTo` daran. Gemessen 2026-09-24 (globale Suche): /kontakt → /#faq blieb bei
+      // y = 2354 stehen — der Maximalhoehe von /kontakt —, die FAQ lag 13 000 px tiefer. Betraf auch
+      // jeden Navbar-Link auf einen Startseiten-Anker. `resize()` liest die Hoehe neu.
+      lenis?.resize();
       if (hash) {
         const target = document.getElementById(hash);
         if (target) {
-          if (lenis) lenis.scrollTo(target, { offset: -88 });
-          else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+          // Am Ende einmal nachjustieren: Bauen sich waehrend des Scrollens noch Bilder oder
+          // gepinnte Buehnen auf, wandert das Ziel — der erste Sprung landete dann zu frueh.
+          if (lenis) {
+            lenis.scrollTo(target, {
+              offset: -88,
+              onComplete: () => {
+                lenis.resize();
+                if (Math.abs(target.getBoundingClientRect().top - 88) > 4) lenis.scrollTo(target, { offset: -88, immediate: true });
+              },
+            });
+          } else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
           return;
         }
       }
