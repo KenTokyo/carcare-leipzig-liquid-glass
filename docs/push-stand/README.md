@@ -1,25 +1,24 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 24.09.2026, 02:31, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 24.09.2026, 20:41, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.09.2026, 02:31 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.09.2026, 20:41 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `5cc0da1` | `ba8833b` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-09-24-karten-vignette-aktionen` | `5cc0da1` | — | neu, 1 Commit(s) noch nicht auf GitHub |
-| 14 weitere lokale Branches | – | – | gleich mit GitHub |
+| `main` | `335a6fb` | `cb0e467` | 1 vor GitHub (kommt mit dem Push) |
+| 15 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `5cc0da1` | 24.09.2026, 02:31 | oalabhypercode | Startseite: Karten ruhiger, Vignette in CI-Schwarzblau, schwebende Aktionen | 18 (7 neu) | package.json | **kommt mit diesem Push** |
+| `335a6fb` | 24.09.2026, 20:41 | oalabhypercode | Aktionen oben rechts in Aussparung, Navbar ohne Aktionsknoepfe, globale Suche | 26 (7 neu) | package.json | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,8 +28,9 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run schwebend` |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `5cc0da1` |
+| npm-Skripte | neu: `npm run aussparung`, entfernt: `schwebend` |
+| Konfiguration geändert | `.gitignore` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `335a6fb` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
