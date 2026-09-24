@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import MobileStickyCTA from './MobileStickyCTA';
+import SchwebendeAktionen from './SchwebendeAktionen';
 import { AnfrageDialogProvider } from './AnfrageDialog';
 
 interface LayoutProps {
@@ -74,7 +75,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
 
       <Footer />
+      {/* Beide fixierten Aktionsflaechen stehen NEBEN <main>, nicht darin: dessen Transform
+          wuerde `position: fixed` an <main> statt ans Fenster binden. Unter `lg` die Leiste,
+          ab `lg` die schwebenden Knoepfe unten rechts. */}
       <MobileStickyCTA />
+      <SchwebendeAktionen />
     </div>
     </AnfrageDialogProvider>
   );

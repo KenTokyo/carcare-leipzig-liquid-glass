@@ -177,7 +177,11 @@ const TargetGroupCards: React.FC = () => {
     // Shell-Kante laufen (wie die Hero-Sektion). Der Shell selbst haelt bereits
     // `margin: var(--cc-shell-gap)` Abstand zur Fensterkante — mehr braucht es nicht.
     // Der Ueberschriftenblock behaelt sein Padding ueber den inneren Wrapper.
-    <section id="zielgruppen" aria-labelledby="target-groups-heading" className="bg-white py-20 md:py-28">
+    // `data-aktionen-ausweichen`: Die schwebenden Knoepfe (`SchwebendeAktionen`) weichen hier aus.
+    // Die weisse Karte reicht ab `lg` bis in die rechte untere Ecke und steht dort gepinnt —
+    // bei 1024 × 700 lagen die Knoepfe dauerhaft auf „Porsche Werk Leipzig" (`npm run zielgruppen`,
+    // 2026-09-24). Jede Karte hat ihre eigenen Handlungsaufrufe.
+    <section id="zielgruppen" aria-labelledby="target-groups-heading" data-aktionen-ausweichen="" className="bg-white py-20 md:py-28">
       {/* Stapel bewusst OHNE `container mx-auto px-6` — nur so laeuft er randlos bis an die
           Shell-Kante (gemessen: 14 px Rand bei 1440, identisch zur Hero-Sektion).
           Die Stellschrauben (`--gap`, `--bar`, `--kopf`, `--fuss`, `--nav`, `--verweil`,
@@ -266,6 +270,12 @@ const TargetGroupCards: React.FC = () => {
                     `.cc-radial-veil-graphite-right` (Zentrum 100% 50%). */}
                 <div aria-hidden="true" className="cc-radial-veil-graphite absolute inset-0" />
                 <div aria-hidden="true" className="cc-radial-veil-graphite-right absolute inset-0" />
+                {/* Vignette ringsum im selben Ton (seit 2026-09-24, Wunsch des Users: „fuer alle
+                    Karten auf der Seite"). Diese Karten sind die Farbvorlage, hatten aber nur die
+                    beiden Verlaeufe oben links und rechts — keine Kante unten und links. Im Stapel,
+                    wo sich die naechste Karte ueber die vorige schiebt, macht der Rand sichtbar, wo
+                    eine Karte endet. Definition: `.cc-karten-vignette` in index.css. */}
+                <div aria-hidden="true" className="cc-karten-vignette absolute inset-0" />
                 {/* Kennzeichnung des Kartenmotivs. Unten links: Das Foto steht linksbuendig,
                     die weisse Karte liegt rechts; oben links sitzt ab `lg` die Ueberschrift. */}
                 <KiMarke quelle={group.backgroundImage ?? DEFAULT_CARD_BG} className="bottom-4 left-4 hidden lg:block" />

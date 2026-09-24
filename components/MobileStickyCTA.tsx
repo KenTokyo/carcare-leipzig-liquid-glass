@@ -4,6 +4,7 @@ import { Phone, AlertTriangle, CalendarClock, Navigation } from 'lucide-react';
 import { useAnfrageDialog } from './AnfrageDialog';
 import { SCHADENMELDUNG_EXTERN, SCHADENMELDUNG_URL } from '../data/schadenmeldung';
 import { ExternMarke, externAttribute } from './ExternerLink';
+import { useNaheSeitenende } from '../hooks/useNaheSeitenende';
 
 /**
  * Navigationsziel. Wortlaut EXAKT wie NAP_ADRESSE in CLAUDE.md / Impressum / Footer —
@@ -24,28 +25,14 @@ const KARTEN_ZIELE = [
 
 const MobileStickyCTA: React.FC = () => {
   const { oeffnen } = useAnfrageDialog();
-  const [nearBottom, setNearBottom] = useState(false);
+  // Beim Reveal-Footer (letzte ~70 % Bildschirmhoehe vor Dokumentende) ausblenden, sonst ueberdeckt
+  // die Leiste den Footer. Seit 2026-09-24 ein gemeinsamer Hook mit `SchwebendeAktionen`.
+  const nearBottom = useNaheSeitenende();
   // Auswahl-Popover fuer die Navigation. Bewusst eine Nachfrage statt Plattform-Automatik:
   // Auto-Erkennung liegt bei Android-Nutzern mit Apple-Konto bzw. Desktop-Safari regelmaessig
   // daneben — und der Nutzer soll seine gewohnte App behalten duerfen.
   const [kartenOffen, setKartenOffen] = useState(false);
   const kartenRef = useRef<HTMLDivElement>(null);
-
-  // Beim Reveal-Footer (letzte ~70% Bildschirmhöhe vor Doku-Ende) ausblenden, sonst überdeckt der CTA den Footer.
-  useEffect(() => {
-    const onScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight;
-      const threshold = document.documentElement.scrollHeight - window.innerHeight * 0.7;
-      setNearBottom(scrolled >= threshold);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
 
   // Popover schliessen bei Klick ausserhalb und mit Escape.
   useEffect(() => {
@@ -124,7 +111,9 @@ const MobileStickyCTA: React.FC = () => {
           `pointer-events-auto` sitzt bewusst auf den BUTTONS statt auf dem Grid: So lassen die
           Luecken dazwischen Klicks auf den Seiteninhalt dahinter durch. */}
       <div className="grid grid-cols-4 gap-2.5">
-        <a href="tel:03412617790" className={buttonKlassen} aria-label="Anrufen">
+        {/* Internationales Format wie an den uebrigen 25 Stellen (SEO-GEO-STANDARDS, NAP_TELEFON).
+            Bis 2026-09-24 stand hier „tel:03412617790" — waehlbar, aber abweichend. */}
+        <a href="tel:+493412617790" className={buttonKlassen} aria-label="Anrufen">
           <Phone size={18} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
         </a>

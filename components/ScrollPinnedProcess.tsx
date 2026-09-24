@@ -108,12 +108,16 @@ const ProcessCard: React.FC<{
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      {/* Layer 2 – Carbon-Verlauf von unten: Tiefe + Halt fuer die Textbox; die Bildoberkante
-          bleibt „klar" sichtbar. */}
+      {/* Layer 2 – Verlauf von unten: Tiefe + Halt fuer die Textbox; die Bildoberkante bleibt
+          „klar" sichtbar. Dazu die Vignette ringsum. Beide seit 2026-09-24 im Schwarzblau der
+          Zielgruppenkarten statt in Carbon — dieselbe Behandlung wie im `ExpandingCardAccordion`
+          (Wunsch des Users: alle Karten der Startseite). Der Verlauf ist etwas schwaecher als der
+          fruehere Carbon-Verlauf (0,5), weil die Vignette die Unterkante mitfaerbt. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.5)] via-[rgb(var(--cc-carbon-rgb)/0.1)] to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-cta-blue-rgb)/0.42)] via-[rgb(var(--cc-cta-blue-rgb)/0.08)] to-transparent"
       />
+      <div aria-hidden="true" className="cc-karten-vignette absolute inset-0" />
 
       {/* Layer 3 – weisse Textbox im ExpandingCardAccordion-Design: Kicker (Schritt-Nr.) +
           Titel mit blauem Punkt + Beschreibung. Unten verankert, Breite gedeckelt -> das Foto

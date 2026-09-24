@@ -71,6 +71,10 @@ const HeroSection: React.FC = () => {
       ref={sectionRef}
       id="home"
       aria-labelledby="home-heading"
+      // Die schwebenden Knoepfe (`SchwebendeAktionen`) weichen hier aus: Die Vertrauensleiste am
+      // Fuss des Heros belegt die rechte untere Ecke (bei 1280 × 800 lagen sie auf „Standort
+      // Leipzig"), und der Hero bietet „Schaden melden" selbst an. Siehe `useAusweichzone`.
+      data-aktionen-ausweichen=""
       className="relative overflow-hidden bg-transparent"
     >
       <div className="hero-card-shell relative min-h-[92svh] overflow-hidden rounded-[1.45rem] bg-gray-950 md:min-h-[calc(100svh-2rem)] md:rounded-[1.75rem]">

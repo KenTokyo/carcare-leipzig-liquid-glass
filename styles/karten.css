@@ -1,0 +1,37 @@
+/* Bildkarten: Vignette ringsum. Ausgelagert aus index.css am 2026-09-24 — die Datei stand
+   mit dieser Regel bei 697 von hoechstens 700 Zeilen (CLAUDE.md). Eingebunden per @import
+   oben in index.css, wie `scrollverlauf.css` und `zielgruppen.css`.
+   Die Farbe `--cc-cta-blue-rgb` steht in index.css (:root). */
+
+/* VIGNETTE DER BILDKARTEN — ringsum, im Schwarzblau der Zielgruppenkarten.
+   Wunsch des Users 2026-09-24: um das Kartenbild eine Vignette, aufgeklappt UND eingeklappt,
+   „ganz wichtig ringsrum, damit wir eine saubere Abgrenzung haben" — nicht schwarz, sondern in
+   den Farben aus „Fuer wen wir arbeiten". Das ist `--cc-cta-blue` (index.css, :root); die beiden
+   Verlaeufe der Zielgruppenkarten (`.cc-radial-veil-graphite`, `-right`) nutzen ausschliesslich ihn.
+
+   ZWEI SCHICHTEN, weil eine allein nicht reicht:
+    - `box-shadow` innen: ein feiner Rand (1 px) plus ein schmaler, gleichmaessiger Saum. Er ist
+      an allen vier Kanten gleich breit und folgt dem Kartenradius — das ist die „saubere
+      Abgrenzung". Eine Radialvignette allein ist an den Kantenmitten schwach und nur in den
+      Ecken kraeftig.
+    - `radial-gradient` als ELLIPSE: waechst mit der Karte mit. Die Karten wechseln zwischen
+      rund 82 × 460 px (eingeklappt, Desktop), 342 × 64 px (eingeklappt, mobil) und gut
+      650 × 460 px (aufgeklappt). Ein fester Saum allein wuerde die schmalen Streifen komplett
+      einfaerben; die Ellipse haelt die Mitte in jeder Groesse frei.
+
+   `border-radius: inherit` — das Element liegt `absolute inset-0` in der gerundeten Karte;
+   ohne das saesse der Innenschatten in eckigen Ecken unter dem Radius.
+   Genutzt von `ExpandingCardAccordion`, `ScrollPinnedProcess` und `TargetGroupCards`. */
+.cc-karten-vignette {
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse farthest-corner at 50% 50%,
+    rgb(var(--cc-cta-blue-rgb) / 0) 52%,
+    rgb(var(--cc-cta-blue-rgb) / 0.32) 78%,
+    rgb(var(--cc-cta-blue-rgb) / 0.74) 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cc-cta-blue-rgb) / 0.55),
+    inset 0 0 22px 2px rgb(var(--cc-cta-blue-rgb) / 0.58);
+}

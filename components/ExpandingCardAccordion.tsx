@@ -278,7 +278,14 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             ) : (
               <img src={cardImage} alt="" aria-hidden="true" loading="lazy" decoding="async" className={bildKlasse} />
             )}
-            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-carbon-rgb)/0.62)] via-[rgb(var(--cc-carbon-rgb)/0.14)] to-transparent" />
+            {/* Verlauf von unten und Vignette ringsum — beide im Schwarzblau der Zielgruppenkarten
+                (`--cc-cta-blue`), nicht mehr in Carbon. Seit 2026-09-24, Wunsch des Users: „nicht
+                schwarz, in den Farben aus ‚Für wen wir arbeiten'". Der Verlauf ist schwaecher als
+                der fruehere Carbon-Verlauf (0,62), weil die Vignette die Unterkante mitfaerbt —
+                beide zusammen wuerden unten sonst fast deckend. Die Vignette steht in BEIDEN
+                Zustaenden, aufgeklappt und eingeklappt. */}
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-cta-blue-rgb)/0.46)] via-[rgb(var(--cc-cta-blue-rgb)/0.1)] to-transparent" />
+            <div aria-hidden="true" className="cc-karten-vignette absolute inset-0" />
             {/* Kennzeichnung des Kartenmotivs. Am Desktop NUR auf der aufgeklappten Karte:
                 Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
                 angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer. */}
@@ -336,12 +343,19 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   bekommt ein Flex-Kind die Mindesthoehe seines Inhalts und laeuft aus der
                   Karte heraus, statt zu scrollen. `.cc-card-scroll` liefert die schmale
                   Leiste in Kartenfarbe (index.css, aus TargetGroupCards uebernommen). */}
-              {/* `relative`, damit der Verlauf unten im Scrollbereich haengt und nicht in
-                  der Karte. Er zeigt an, dass unterhalb der Kante weitergeht — ohne ihn
-                  wirkt eine mitten im Wort abgeschnittene Zeile wie ein Darstellungsfehler
-                  statt wie eine Einladung zu scrollen. */}
-              <div className="relative mt-3 flex min-h-0 flex-1 flex-col">
-                <div className="cc-card-scroll min-h-0 flex-1 overflow-y-auto pr-1">
+              {/* KEIN WEISSER VERLAUF MEHR (entfernt 2026-09-24, Wunsch des Users: „Weissuebergang
+                  weg"). Bis dahin lag hier ein weisser Verlauf (weiss 92 %) UEBER dem Textbereich,
+                  als Hinweis „es geht weiter". Die Textbox ist selbst weiss 92 % — die zweite
+                  Schicht machte das Feld unten sichtbar heller, ein Band direkt ueber dem CTA.
+                  Und er stand IMMER, auch wenn nichts scrollt: Gemessen am 2026-09-24 laeuft auf
+                  der Startseite keine der 14 Karten ueber, in keinem Fenster (1920, 1440, 390).
+                  Jetzt `.cc-scroll-verlauf` (styles/scrollverlauf.css, seit 2026-09-17 in den
+                  Zielgruppenkarten): blendet den INHALT aus statt Weiss darueberzulegen, und nur,
+                  solange der Bereich tatsaechlich weiterscrollt. Wo der Text passt, ist nichts
+                  zu sehen; wo er ueberlaeuft (Stellenkarten mit Anforderungsliste), bleibt der
+                  Hinweis — ohne Band. */}
+              <div className="mt-3 flex min-h-0 flex-1 flex-col">
+                <div className="cc-card-scroll cc-scroll-verlauf min-h-0 flex-1 overflow-y-auto pr-1">
                 {item.hinweis && (
                   <p className="mb-3 rounded-lg bg-gray-100 px-3 py-2 text-xs leading-relaxed text-gray-700">
                     {item.hinweis}
@@ -364,10 +378,6 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   </>
                 )}
                 </div>
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-[rgb(255_255_255/0.92)] to-transparent"
-                />
               </div>
               <div className="mt-auto flex items-center justify-between gap-3 pt-4">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-900">{item.cta ?? 'Mehr ansehen'}</span>

@@ -9,6 +9,7 @@
 /* Zielgruppen-Kartenstapel und Scroll-Verlauf (2026-09-17) — gleiche Regel: nur hier oben. */
 @import './styles/zielgruppen.css';
 @import './styles/scrollverlauf.css';
+@import './styles/karten.css';
 
 @tailwind base;
 @tailwind components;

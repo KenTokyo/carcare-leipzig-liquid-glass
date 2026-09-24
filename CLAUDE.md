@@ -109,6 +109,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
+| `npm run schwebend` | Schwebende Knöpfe „Anrufen"/„Schaden melden" (ab 1024 px unten rechts): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter? 29 Routen × 3 Fenster; dazu je Route, an wie viel Prozent der Positionen die Knöpfe überhaupt sichtbar sind (gegen „grün durch Verstecken") | nach jeder Änderung an Flächen, die bis in die rechte untere Ecke reichen, an `SchwebendeAktionen` oder an `data-aktionen-ausweichen` |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 

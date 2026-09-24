@@ -30,6 +30,7 @@
     "meta": "node scripts/check-meta.mjs",
     "nav": "node scripts/check-navigation.mjs",
     "zielgruppen": "node scripts/check-zielgruppen.mjs",
+    "schwebend": "node scripts/check-schwebend.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",
     "push-stand": "node scripts/push-stand.mjs",
     "video": "node scripts/build-video.mjs",
