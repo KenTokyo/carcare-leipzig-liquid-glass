@@ -1,16 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 24.09.2026, 20:41, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 25.09.2026, 03:06, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.09.2026, 20:41 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 25.09.2026, 03:06 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `335a6fb` | `cb0e467` | 1 vor GitHub (kommt mit dem Push) |
+| `main` | `156b472` | `06bc482` | 2 vor GitHub (kommt mit dem Push) |
+| `aussparung-beschriftete-aktionen` | `156b472` | — | neu, 2 Commit(s) noch nicht auf GitHub |
 | 15 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -18,7 +19,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `335a6fb` | 24.09.2026, 20:41 | oalabhypercode | Aktionen oben rechts in Aussparung, Navbar ohne Aktionsknoepfe, globale Suche | 26 (7 neu) | package.json | **kommt mit diesem Push** |
+| `0e546c9` | 25.09.2026, 03:05 | oalabhypercode | Aussparung beschriftet mit Live-Status, Liquid Glass fuer die mobile Leiste | 21 (8 neu) | — | **kommt mit diesem Push** |
+| `156b472` | 25.09.2026, 03:06 | oalabhypercode | Docs: offene Folgepunkte von Aussparung und Liquid Glass als zurueckgestellt | 2 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,9 +30,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run aussparung`, entfernt: `schwebend` |
-| Konfiguration geändert | `.gitignore` |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `335a6fb` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `156b472`, `0e546c9` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -46,7 +46,10 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-Keine offenen Folgepunkte in den berührten Planungsdateien.
+| Punkt | Planung |
+|---|---|
+| ⏸️ Phase 6 — Offen nach der Abnahme (zurueckgestellt, braucht Geraet bzw. Entscheidung) | `docs/liquid-glass/tasks/2026-09-24-liquid-glass-anrufen-tasks.md` |
+| ⏸️ Phase 8 — Offen: Betriebsruhe fuer den Live-Status (zurueckgestellt, Rueckfrage an André) | `docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-beschriftete-aktionen-tasks.md` |
 
 ### Backlog gesamt: 44 offene Punkte
 

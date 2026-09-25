@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 25.09.2026, 03:06 | `aussparung-beschriftete-aktionen`, `main` | `0e546c9` `156b472` (2) | nein | — |
 | 24.09.2026, 20:41 | `main` | `335a6fb` (1) | nein | Konfiguration: .gitignore; neue Skripte: aussparung |
 | 24.09.2026, 02:31 | `2026-09-24-karten-vignette-aktionen`, `main` | `5cc0da1` (1) | nein | neue Skripte: schwebend |
 | 24.09.2026, 00:25 | `2026-09-23-bereichsvideos`, `main` | `114c841` (1) | nein | — |
