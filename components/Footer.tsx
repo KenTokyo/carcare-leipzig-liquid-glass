@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
 import { ExternMarke, externAttribute } from './ExternerLink';
 import KiMarke from './KiMarke';
 
@@ -209,8 +210,8 @@ const Footer: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Clock size={16} className="mt-1 shrink-0 text-gray-400" />
                   <div className="leading-snug">
-                    <p><span className="font-semibold text-white">Mo – Fr:</span> 07:00 – 18:00</p>
-                    <p><span className="font-semibold text-white">Sa:</span> n. Vereinbarung</p>
+                    <p><span className="font-semibold text-white">{OEFFNUNG_ANZEIGE.werktage}:</span> {OEFFNUNG_ANZEIGE.zeit}</p>
+                    <p><span className="font-semibold text-white">Sa:</span> {OEFFNUNG_ANZEIGE.samstagKurz}</p>
                   </div>
                 </div>
               </div>

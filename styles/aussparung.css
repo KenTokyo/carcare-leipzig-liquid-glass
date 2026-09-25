@@ -4,39 +4,56 @@
    WUNSCH DES USERS: „Anrufen" und „Schaden melden" sofort und immer rechts oben sichtbar, „in
    einem weissen Punchhole-Design mit den selben Rundungen, wie wir sie sonst haben". Die
    Rundungen der Navbar sind `--cc-nav-radius` (24 px, konvex, untere Ecken des Reiters) und
-   `--cc-nav-inner-radius` (28 px, konkav, Uebergang in den oberen Rahmen) — beide in index.css. */
+   `--cc-nav-inner-radius` (28 px, konkav, Uebergang in den oberen Rahmen) — beide in index.css.
+   DRITTE RUNDE (gleicher Tag): Die Knoepfe waren „zu unscheinbar und nicht selbsterklaerend" —
+   jetzt beschriftete Pillen mit Rangfolge (Abschnitt DIE AKTIONEN unten). Planung und Messungen:
+   docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-beschriftete-aktionen-tasks.md */
 
 /* REITERBREITE DER NAVBAR. Grundwert UND Abweichungen stehen hier zusammen: Diese Datei wird
    vor den Regeln von index.css eingelesen; stuende der Grundwert dort im `:root`, ueberschriebe
    er die Medienregeln unten bei gleicher Spezifitaet.
 
-   Die Aussparung braucht mit ihren konkaven Uebergaengen rund 200 px neben dem Reiter.
-   GEMESSEN war rechts frei (2026-09-24, 1000 px breiter Reiter): 1920 → 444, 1536 → 252,
-   1440 → 205, 1366 → 169, 1280 → 127, 1024 → 0 px. Darunter wird der Reiter schmaler:
-     1280–1535: 840 px, bei 1280 bis 810 px (`100vw − 470px`) — die Links sitzen von der Mitte
-                aus (`right: calc(50% + 124px)`) und reichen links 388 px, rechts mit dem
-                Suchkreis 356 px weit; 405 px Halbbreite tragen beide mit Rand. Die Links ruecken
-                dabei nicht. Das Suchfeld (breiter als der Kreis) erscheint deshalb erst ab 1536.
-     1024–1279: 580 px — dort zeigt die Navbar nur Suche, Logo und Menue.
-   ZWEITE MESSUNG (erste Fassung: 840 px erst ab 1280, 1000 px ab 1440, Aussparung 154 px): Die
-   beiden konkaven Uebergaenge lagen bei 1440 und 1280 nur 10–11 px auseinander — ein schmaler
-   Schlitz, in dem das Hero-Foto zwischen zwei weissen Formen eingeklemmt stand. Jetzt mindestens
-   rund 30 px (gemessen: siehe Planung).
+   Beschriftete Aktionen brauchen neben dem Reiter bis zu 270 px: konkaver Uebergang der Navbar
+   28 + Luecke >= 20 + Uebergang der Aussparung 28 + Aussparung 193–216 (mit Pfeil breiter).
+   Jede Spanne ist deshalb „so breit wie moeglich, so schmal wie noetig" — die Luecke zwischen
+   den beiden konkaven Uebergaengen bleibt ueberall >= 20 px (bei 10 px sah es aus wie ein
+   Schlitz, siehe Vorgaenger-Planung). Gemessen an 16 Breiten: Planung, Phase 3.
+     1024–1279: 440–580 px (`100vw − 584px`; bis zur dritten Runde fest 580) — die Navbar zeigt
+                dort nur Suche, Logo und Menue; bei 440 bleiben zwischen ihnen je rund 60 px.
+     1280–1535: 740–840 px (`100vw − 540px`; vorher `− 470px` ab 810). Damit die Links bei 740
+                noch in den Reiter passen, stehen sie hier enger (Variablen darunter): Einzug von
+                der Mitte 106 statt 124 px, Abstand 14 statt 20, Laufweite 0,11 statt 0,13 em.
+                Bis 1439 ausserdem ohne Pfeil in „Schaden melden" (Abschnitt DIE AKTIONEN).
+     ab 1536:   940–1000 px (`100vw − 596px`) — Links in voller Weite, rechts das Suchfeld.
+                Ab 1596 wieder die vollen 1000.
    Unter 1024 bleibt es beim Grundwert (mobil schmaler per Regel in index.css). Dort gibt es
    keine Aussparung: Die Aktionen liegen in der Leiste am unteren Rand (`MobileStickyCTA`). */
 :root {
   --cc-nav-width: 1000px;
+  /* Lage der Desktop-Links (Navbar.tsx): Einzug von der Mitte, Abstand, Laufweite. */
+  --cc-nav-einzug: 124px;
+  --cc-nav-abstand: 20px;
+  --cc-nav-laufweite: 0.13em;
 }
 
 @media (min-width: 1024px) and (max-width: 1279.98px) {
   :root {
-    --cc-nav-width: 580px;
+    --cc-nav-width: clamp(440px, calc(100vw - 584px), 580px);
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1535.98px) {
   :root {
-    --cc-nav-width: clamp(800px, calc(100vw - 470px), 840px);
+    --cc-nav-width: clamp(740px, calc(100vw - 540px), 840px);
+    --cc-nav-einzug: 106px;
+    --cc-nav-abstand: 14px;
+    --cc-nav-laufweite: 0.11em;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --cc-nav-width: clamp(940px, calc(100vw - 596px), 1000px);
   }
 }
 
@@ -49,20 +66,30 @@
    Schatten ohne Unschaerfe (Versatz 40/−40, Ausdehnung 40). Der Schatten malt oben und rechts um
    das Quadrat herum Weiss, das Quadrat selbst bleibt ein Fenster auf die Seite — mit genau der
    Rundung, die der Uebergang braucht.
+   ⚠️ Beide Schatten reichen bis zu 80 px IN die Aussparung hinein — ueber die Pillen, wenn diese
+   keinen z-Index haben (2026-09-24 gesehen: rechter Knopf um 15 px angeschnitten). Deshalb tragen
+   die Pillen `z-index: 1`, die Hinweise `z-index: 2`.
    Schatten wie `.solidroad-nav-frame`, damit beide Reiter gleich tief liegen. */
 .cc-aussparung {
-  align-items: center;
+  /* Masse der Pillen — im STAPEL (Standard): zwei Zeilen uebereinander, 36 px hoch. */
+  --aktion-h: 2.25rem;
+  --aktion-symbol: 1.625rem;
+  --aktion-schrift: 0.8125rem;
+  --aktion-innen: 0.875rem;
+  align-items: stretch;
   background: var(--cc-white);
   border-bottom-left-radius: var(--cc-nav-radius);
   box-shadow:
     0 12px 20px rgb(var(--cc-carbon-rgb) / 0.18),
     0 4px 8px rgb(var(--cc-carbon-rgb) / 0.12);
-  gap: 0.625rem;
+  flex-direction: column;
+  gap: 0.375rem;
   height: 6.25rem;
-  padding-left: 1rem;
+  justify-content: center;
+  padding-left: 0.625rem;
   /* Rechts steht die Flaeche ueber dem Seitenrahmen (`--cc-shell-gap`) — der Innenabstand
-     beginnt erst an dessen Innenkante, damit die Knoepfe optisch mittig im Weiss sitzen. */
-  padding-right: calc(var(--cc-shell-gap) + 1rem);
+     beginnt erst an dessen Innenkante, damit die Pillen optisch mittig im Weiss sitzen. */
+  padding-right: calc(var(--cc-shell-gap) + 0.75rem);
   pointer-events: auto;
   position: absolute;
   right: 0;
@@ -88,4 +115,311 @@
 .cc-aussparung::after {
   right: var(--cc-shell-gap);
   top: 100%;
+}
+
+/* DIE AKTIONEN. Zwei Pillen mit Symbol-Plakette links und Beschriftung — die Beschriftung steht
+   IMMER (NN/g: nie erst beim Ueberfahren). Beide hell in Eisblau (`cc-aktion--hell`, unten) — bis
+   2026-09-25 war „Schaden melden" als Hauptaktion dunkel mit Lichtstreif; der User wollte es „im
+   aehnlichen Design wie der Anruf-CTA". Bewegung ruhig und EINMALIG, wo sie von selbst laeuft
+   (Eintritt, Status-Puls < 5 s — WCAG 2.2.2); alles Weitere nur auf Zeigen.
+   Kein reduced-motion-Gate: Projektentscheidung, Windows meldet es systemweit (Memory
+   `no-reduced-motion-gates`). */
+.cc-aktion {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  display: flex;
+  font-size: var(--aktion-schrift);
+  font-weight: 600;
+  gap: 0.5rem;
+  height: var(--aktion-h);
+  line-height: 1;
+  /* Plakette mit gleichem Abstand oben, unten und links: (Hoehe − Plakette) / 2, minus Rahmen. */
+  padding: 0 var(--aktion-innen) 0 calc((var(--aktion-h) - var(--aktion-symbol)) / 2 - 1px);
+  position: relative;
+  text-decoration: none;
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    filter 250ms ease,
+    transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Hoehere Spezifitaet als die `:hover`-Schatten der Pillen (Abschnitt ZEIGEN): Wer mit der
+   Tastatur kommt und dabei die Maus darauf hat, soll den Fokusring trotzdem sehen. */
+.cc-aussparung .cc-aktion:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--cc-white),
+    0 0 0 5px rgb(var(--cc-signal-blue-rgb) / 0.6);
+  outline: none;
+}
+
+.cc-aktion__symbol {
+  align-items: center;
+  border-radius: 999px;
+  display: flex;
+  flex: none;
+  height: var(--aktion-symbol);
+  justify-content: center;
+  position: relative;
+  width: var(--aktion-symbol);
+}
+
+/* Rollender Text: Fenster eine Zeile hoch, darin zwei gleiche Zeilen. */
+.cc-aktion__rolle {
+  display: block;
+  height: 1.25em;
+  line-height: 1.25em;
+  overflow: hidden;
+}
+
+.cc-aktion__spur {
+  display: block;
+  transition: transform 450ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cc-aktion__spur > span {
+  display: block;
+}
+
+/* Kopie in Ruhe unsichtbar (Grund: AktionsAussparung.tsx, `Rolle`). Beim Zurueckrollen erst nach
+   Ende der Bewegung verstecken, sonst verschwindet sie mitten im Rollen. */
+.cc-aktion__kopie {
+  transition: visibility 0s linear 450ms;
+  visibility: hidden;
+}
+
+/* HELLE PILLE — beide Aktionen: Eisblau getoent, dunkle Schrift, Symbol in einer weissen Plakette.
+   Gilt NUR hier oben rechts; „Schaden melden" an allen anderen Stellen (Hero, Seiten, mobile Leiste)
+   behaelt sein Design. */
+.cc-aktion--hell {
+  background-color: rgb(var(--cc-ice-blue-rgb) / 0.6);
+  border-color: rgb(var(--cc-trust-blue-rgb) / 0.14);
+  color: var(--cc-carbon);
+}
+
+.cc-aktion--hell .cc-aktion__symbol {
+  background: var(--cc-white);
+  box-shadow:
+    0 1px 2px rgb(var(--cc-carbon-rgb) / 0.12),
+    inset 0 0 0 1px rgb(var(--cc-trust-blue-rgb) / 0.1);
+  color: var(--cc-trust-blue);
+}
+
+.cc-aktion__pfeil {
+  flex: none;
+  margin-left: -0.125rem;
+  opacity: 0.72;
+  transition:
+    opacity 300ms ease,
+    transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 1280–1439: Der Reiter braucht dort fast die ganze Breite (Links in voller Laenge), der Pfeil
+   kostet 20 px, die es nicht gibt. Die Ansage „oeffnet in einem neuen Tab" bleibt (`aria-label`),
+   und der Hinweis beim Zeigen nennt das Ziel samt Pfeil. */
+@media (min-width: 1280px) and (max-width: 1439.98px) {
+  .cc-aktion__pfeil {
+    display: none;
+  }
+}
+
+/* Live-Punkt an der Plakette: gruen = geoeffnet, grau = geschlossen, ohne Status gar nicht.
+   Gesteuert ueber `data-offen` am Knopf — hier oben rechts UND an „Anrufen" in der Leiste unten
+   (`MobileStickyCTA`, Modifikator `--leiste`). Weisser Ring trennt ihn vom Symbol.
+   Farben mit >= 3:1 gegen Weiss (WCAG 1.4.11): #059669 3,8:1, #64748b 4,8:1. */
+.cc-aktion__punkt {
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px var(--cc-white);
+  display: none;
+  height: 0.5rem;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  width: 0.5rem;
+}
+
+.cc-aktion__punkt--leiste {
+  right: -4px;
+  top: -3px;
+}
+
+[data-offen] .cc-aktion__punkt {
+  display: block;
+}
+
+[data-offen='true'] .cc-aktion__punkt,
+.cc-aktion-hinweis__punkt[data-offen='true'] {
+  background: #059669;
+}
+
+[data-offen='false'] .cc-aktion__punkt,
+.cc-aktion-hinweis__punkt[data-offen='false'] {
+  background: #64748b;
+}
+
+/* Puls nur, solange geoeffnet ist — dreimal, dann steht der Punkt. */
+[data-offen='true'] .cc-aktion__punkt::after {
+  animation: cc-aktion-puls 1.6s cubic-bezier(0, 0, 0.2, 1) 1.2s 3 both;
+  background: inherit;
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
+/* HINWEISE unter der Aussparung, rechtsbuendig (Grund fuer die Lage: AktionsAussparung.tsx). */
+.cc-aktion-hinweis {
+  align-items: center;
+  background: var(--cc-carbon);
+  border-radius: 0.625rem;
+  box-shadow: 0 14px 28px -14px rgb(var(--cc-carbon-rgb) / 0.7);
+  color: var(--cc-white);
+  display: flex;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 0.4rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  opacity: 0;
+  padding: 0.5rem 0.75rem;
+  pointer-events: none;
+  position: absolute;
+  right: calc(var(--cc-shell-gap) + 0.75rem);
+  text-transform: uppercase;
+  top: calc(100% + 0.75rem);
+  transform: translateY(-4px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.cc-aktion-hinweis__punkt {
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9);
+  flex: none;
+  height: 0.4375rem;
+  width: 0.4375rem;
+}
+
+/* ZEIGEN: Rollen, Pfeil, Klingeln, Hinweis — mit der Tastatur immer (`:focus-visible`), mit der
+   Maus nur, wo es echtes Zeigen gibt (`hover: hover`). Auf Touch-Geraeten ab 1024 px (iPad quer)
+   bliebe `:hover` nach einem Tipp haengen: Der Hinweis stuende dann dauerhaft ueber dem Hero. */
+.cc-aktion:focus-visible .cc-aktion__spur {
+  transform: translateY(-1.25em);
+}
+
+.cc-aktion:focus-visible .cc-aktion__kopie {
+  transition-delay: 0s;
+  visibility: visible;
+}
+
+.cc-aktion:focus-visible .cc-aktion__pfeil {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.cc-aktion--telefon:focus-visible .cc-aktion__hoerer {
+  animation: cc-aktion-klingeln 700ms ease-in-out;
+}
+
+.cc-aktion--telefon:focus-visible ~ .cc-aktion-hinweis--telefon,
+.cc-aktion--schaden:focus-visible ~ .cc-aktion-hinweis--schaden {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  .cc-aktion:hover {
+    transform: translateY(-1px);
+  }
+
+  .cc-aktion--hell:hover {
+    background-color: rgb(var(--cc-ice-blue-rgb) / 0.95);
+    border-color: rgb(var(--cc-trust-blue-rgb) / 0.26);
+    box-shadow: 0 10px 20px -14px rgb(var(--cc-trust-blue-rgb) / 0.6);
+  }
+
+  .cc-aktion:hover .cc-aktion__spur {
+    transform: translateY(-1.25em);
+  }
+
+  .cc-aktion:hover .cc-aktion__kopie {
+    transition-delay: 0s;
+    visibility: visible;
+  }
+
+  .cc-aktion:hover .cc-aktion__pfeil {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
+  .cc-aktion--telefon:hover .cc-aktion__hoerer {
+    animation: cc-aktion-klingeln 700ms ease-in-out;
+  }
+
+  .cc-aktion--telefon:hover ~ .cc-aktion-hinweis--telefon,
+  .cc-aktion--schaden:hover ~ .cc-aktion-hinweis--schaden {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Druck-Feedback fuer Maus UND Finger — nach dem `:hover`-Block, damit es den Hub ueberstimmt. */
+.cc-aktion:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* EINTRITT: erst, wenn der Preloader weg ist — solange `html.cc-preloading` steht, greift die
+   Regel nicht, die Animation beginnt also genau beim Freigeben (hooks/usePreloader.ts). Ohne
+   Preloader sofort. `backwards` statt `both`: Nach dem Eintritt darf `:hover` den Transform
+   wieder setzen — eine stehengebliebene Endstellung wuerde ihn ueberstimmen. */
+html:not(.cc-preloading) .cc-aktion {
+  animation: cc-aktion-rein 650ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+html:not(.cc-preloading) .cc-aktion--schaden {
+  animation-delay: 90ms;
+}
+
+@keyframes cc-aktion-rein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes cc-aktion-puls {
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+@keyframes cc-aktion-klingeln {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(-14deg);
+  }
+  30% {
+    transform: rotate(12deg);
+  }
+  45% {
+    transform: rotate(-9deg);
+  }
+  60% {
+    transform: rotate(6deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
 }

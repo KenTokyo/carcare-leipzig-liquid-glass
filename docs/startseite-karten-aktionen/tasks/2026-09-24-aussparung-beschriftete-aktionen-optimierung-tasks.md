@@ -1,0 +1,16 @@
+# Optimierung — beschriftete Aktions-Aussparung
+
+**Bezug:** `2026-09-24-aussparung-beschriftete-aktionen-tasks.md` (Kommentarsektion). Befunde, die
+waehrend der Phasen auffielen, nach Schwere. Erledigtes bleibt mit Stand stehen, damit die
+Begruendung auffindbar ist.
+
+| Nr. | Schwere | Befund | Stand |
+|---|---|---|---|
+| O1 | 🟠 Hoch | **Pixelprobe mass eine halb eingeblendete Pille.** Puppeteers `screenshot({ clip })` vergroessert zum Aufnehmen kurz das Fenster (`captureBeyondViewport`, 2 × `resize`) und startet dabei CSS-Eintritte neu. Echte Groessenaenderungen tun das nicht (gleiche Knoten, kein `animationstart`). | ✅ **fixed:** `captureBeyondViewport: false`, endliche Animationen der Aussparung vorher per `finish()` ans Ende (Falle 7 im Kopf von `check-aussparung.mjs`). Andere Skripte nehmen ganze Fenster auf — nicht betroffen |
+| O2 | 🟠 Hoch | **Pixelprobe haette die helle Telefon-Pille als Fehler gemeldet** (alte Regel: „nichts Helles am Rand"). | ✅ **fixed:** Vergleich mit der berechneten Pillenfarbe (±12 je Kanal), sechs Messpunkte statt vier, keiner auf der Symbol-Plakette (Falle 8) |
+| O3 | 🟡 Mittel | **Kontrastmesser: einmalige CSS-Animationen zwischen seinen zwei Aufnahmen.** Der Lichtstreif ueber „Schaden melden" (1 s nach dem Laden, 1,1 s lang) haette in der Differenzmaske als Glyphen gezaehlt. | ✅ **fixed:** zeitgetriebene, endliche CSS-Animationen vor jeder Messung beendet; scrollgetriebene (`scrollverlauf.css`) und endlose bleiben unberuehrt (Falle 8 in `check-kontrast.mjs`) |
+| O4 | 🟡 Mittel | **`:hover` klebt auf Touch-Geraeten ab 1024 px** (iPad quer): Nach einem Tipp stuende der Hinweis dauerhaft ueber dem Hero. | ✅ **fixed:** Zeige-Effekte nur bei `(hover: hover)`, Tastaturfokus immer, Druck-Feedback fuer beides. Gemessen: Maus/Touch/Tastatur je richtig |
+| O5 | 🟡 Mittel | **Oeffnungszeiten an vier Stellen, zweierlei Striche** („Mo - Fr" in `KontaktDaten`/`ContactCTA`, „Mo – Fr" im Footer, Zeiten im JSON-LD). Mit dem Live-Status waere eine fuenfte Wahrheit dazugekommen. | ✅ **fixed:** `data/oeffnungszeiten.ts` ist die einzige Quelle (`OEFFNUNG`, `OEFFNUNG_ANZEIGE`, `OEFFNUNG_NEUTRAL`); alle Stellen lesen daraus, einheitlich Halbgeviertstrich |
+| O6 | 🟢 Niedrig | **Betriebsferien kennt der Live-Status nicht.** Waehrend einer Betriebsruhe stuende an Werktagen „Jetzt geöffnet". | offen — **Rueckfrage an André:** feste Schliesstage (z. B. 24.12./31.12., Sommerpause)? Eintragen in `BETRIEBSRUHE` (`JJJJ-MM-TT`), der Status sagt dann „Betriebsruhe · … ab 7 Uhr" |
+| O7 | 🟢 Niedrig | **Der Hinweis beim Ueberfahren liegt kurz ueber der KI-Plakette des Heros** (1440: Plakette y 125–147, Hinweis ab y 112). | bewusst so — nur solange der Zeiger auf der Pille ist; die Plakette bleibt in Ruhe frei (gemessen von `npm run aussparung`, das nur dauerhafte Ueberdeckung meldet) |
+| O8 | 🟢 Niedrig | **CTA-Verlauf zweimal wortgleich in `index.css`** (`.cc-gradient-button`, `.cc-gradient-fill`) — bestand vorher. Wer den Verlauf aendert, muss zwei Stellen treffen. | ✅ **fixed:** `--cc-cta-verlauf` im `:root`, beide Klassen lesen ihn. Gegengeprueft im Browser: 14 Knoepfe + 18 Flaechen mit exakt demselben berechneten `background-image` wie vorher; `index.css` 671 → 667 Zeilen |

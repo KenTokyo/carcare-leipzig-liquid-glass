@@ -4,6 +4,8 @@
 // AUFRUF:
 //   npm run aussparung                     alle Routen, drei Fenster
 //   npm run aussparung -- /karriere /      nur diese Routen
+//   npm run aussparung -- --gegenprobe     PRUEFT DEN PRUEFER: spielt vier bekannte Fehler per CSS
+//                                          ein und verlangt, dass jeder gemeldet wird (Exit 1 sonst)
 //   (unter Git Bash `MSYS_NO_PATHCONV=1` davor — sonst kommt `/karriere` als
 //    `C:/Program Files/Git/karriere` an, dieselbe Falle wie bei `npm run shots`)
 //
@@ -43,10 +45,39 @@
 //  6. (behoben) DIE AUSSPARUNG SELBST. Bis zur zweiten Fassung prueften wir nur, was UNTER ihr liegt.
 //     Dass ihr rechter Knopf um 15 px angeschnitten war (der weisse Schatten des konkaven Uebergangs
 //     `::after` lag darueber), meldete die Pruefung gruen — gesehen hat es erst ein Bildschirmfoto.
-//     Seitdem: PIXELPROBE je Knopf — 5 px innerhalb jedes Randes muss der dunkle Verlauf stehen,
-//     kein Weiss. Ein Treffertest (`elementFromPoint`) haette es NICHT gefunden: Schatten nehmen am
-//     Treffertest nicht teil, der Knopf galt als „oben", obwohl Weiss ueber ihm gemalt war. Die
-//     Gegenprobe auf dem alten Stand hat genau das gezeigt, bevor die Pixelprobe kam.
+//     Seitdem: PIXELPROBE je Pille (heute als Differenzprobe, Falle 8). Ein Treffertest
+//     (`elementFromPoint`) haette es NICHT gefunden: Schatten nehmen am Treffertest nicht teil, der
+//     Knopf galt als „oben", obwohl Weiss ueber ihm gemalt war. Die Gegenprobe auf dem alten Stand
+//     hat genau das gezeigt, bevor die Pixelprobe kam.
+//  7. (behoben 2026-09-24, dritte Runde) DIE PROBE MASS EINE HALB EINGEBLENDETE PILLE. Die Pillen
+//     blenden beim Laden ein. Puppeteers `screenshot({ clip })` vergroessert zum Aufnehmen kurz das
+//     Fenster (`captureBeyondViewport`) — das startete den Eintritt NEU, die Probe sah eine fast
+//     durchsichtige Pille und haette Weiss gemeldet, wo keins ist. Jetzt: erst warten, bis die
+//     endlichen Animationen der Aussparung durch sind, dann ohne Vergroessern aufnehmen.
+//  8. HELLE PILLEN — AUS DER FARBPROBE WURDE EINE DIFFERENZPROBE. Die Probe verlangte erst „dunkel
+//     am Rand", dann „mindestens 20 Stufen unter Weiss" (Eisblau, Glas mit Vignette: 37–89 Stufen).
+//     Das neutrale Liquid Glass (2026-09-25) liegt auf der weissen Aussparung nur 4–9 Stufen unter
+//     Weiss, ein darueber gemalter weisser Schatten aenderte es um ~8 — keine feste Farbschwelle
+//     trennt das. Jetzt: jede Pille zweimal aufnehmen, wie ausgeliefert und mit ausgeblendeten
+//     Uebergaengen. GEMESSEN (1024/1440/1920): richtig 0 px Unterschied, sporadisch bis 56 px
+//     Rasterrauschen im Hoerer-Symbol (tritt auch zwischen zwei gleichen Aufnahmen auf);
+//     eingespielter z-Index-Fehler 397–583 px. Schwelle 150 px.
+//     Das Glas ist oben rechts seit 2026-09-25 wieder zurueckgenommen (nur noch mobile Leiste); die
+//     Differenzprobe bleibt — sie haengt nicht von der Pillenfarbe ab, die Farbproben davor schon.
+//     ⚠️ Was sie NICHT sieht: Etwas anderes als die beiden Uebergaenge, das ueber der Pille liegt.
+//
+// GEOMETRIE (seit der dritten Runde, 2026-09-24): Die Pillen tragen jetzt Beschriftungen, und
+// die brauchen Platz neben dem Navbar-Reiter. Je Fensterbreite (23 Stueck, alle Spannengrenzen
+// 1279/1280, 1439/1440, 1535/1536, 1595/1596 dabei) wird auf `/` geprueft:
+//   - Luecke zwischen den konkaven Uebergaengen von Reiter und Aussparung >= 20 px
+//   - jede Pille liegt in der Aussparung, ihre Beschriftung ist sichtbar und nicht abgeschnitten
+//   - der sichtbare Text steht in der Ansage (`aria-label`, WCAG 2.5.3 „Label in Name")
+//   - die Navbar-Links liegen mit >= 12 px Rand im Reiter (sie ruecken dafuer 1280–1535 zusammen)
+// ⚠️ WAS DIE GEOMETRIE BESTEHT, OHNE DASS ES STIMMT: Sie misst Lage, nicht Lesbarkeit (Kontrast:
+// `npm run kontrast`, dort nur 1440) und nicht Verstaendlichkeit. Sie prueft mit der echten Schrift;
+// faellt die Webschrift beim Besucher aus, ist die Ersatzschrift breiter oder schmaler. Zwischen den
+// 23 Breiten misst sie nicht — die Breiten folgen aber `clamp()`-Geraden, deren Extreme an den
+// Spannengrenzen liegen, und die sind alle dabei.
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -65,6 +96,25 @@ const FENSTER = [
 /** Oberkante darf sich um weniger bewegen, dann gilt das Element als stehend. */
 const STEHT = 20;
 const SICHTBAR_MINDESTENS = 0.5;
+/** Geometrie der Aussparung neben dem Reiter — Breiten siehe Kopf. */
+const GEOMETRIE_BREITEN = [
+  1024, 1100, 1152, 1200, 1279, 1280, 1300, 1366, 1380, 1400, 1439, 1440, 1500, 1535, 1536, 1566, 1595, 1596,
+  1600, 1680, 1800, 1920, 2560,
+];
+const LUECKE_MIN = 20;
+const RAND_LINKS_MIN = 12;
+
+/**
+ * GEGENPROBE: Fehler, die es schon gab oder die beim naechsten Umbau naheliegen — je einer per CSS
+ * eingespielt. Wird einer NICHT gemeldet, ist die Pruefung an dieser Stelle blind geworden.
+ */
+const GEGENPROBEN = {
+  'Pillen ohne z-Index — Schatten des Uebergangs liegt darueber (der Fehler vom 2026-09-24)':
+    '.cc-aussparung .cc-aktion { z-index: auto !important; }',
+  'Reiter zu breit — Luecke zwischen den Uebergaengen unter 20 px': ':root { --cc-nav-width: 1060px !important; }',
+  'Beschriftung abgeschnitten': '.cc-aktion__rolle { max-width: 3em !important; }',
+  'Navbar-Links ragen an den Reiterrand': ':root { --cc-nav-einzug: 190px !important; }',
+};
 
 const nurRouten = process.argv.slice(2).filter((a) => a.startsWith('/'));
 const routen = nurRouten.length ? nurRouten : (await getRoutes()).map((r) => r.path);
@@ -113,31 +163,105 @@ const UNTER_DEN_KNOEPFEN = () => {
 };
 
 /**
- * Pixelprobe: Die Knoepfe tragen einen dunklen Verlauf. 5 px innerhalb jedes Randes (Mitte der
- * jeweiligen Kante, dort reicht der fast runde Knopf bis an den Rand) darf nichts Helles stehen.
- * Die Mitte wird NICHT geprueft — dort steht das weisse Symbol.
+ * Endliche Animationen der Aussparung (Eintritt, Status-Puls) sofort ans Ende setzen — Falle 7.
+ * Geprueft wird der Ruhezustand; Warten statt `finish()` kostete je Route bis zu 2,1 s (damals
+ * wegen des Lichtstreifs ueber „Schaden melden", seit 2026-09-25 entfernt).
+ */
+const AUSSPARUNG_RUHIG = () => {
+  for (const a of document.querySelector('[data-aktions-aussparung]')?.getAnimations({ subtree: true }) ?? []) {
+    if (a.effect?.getComputedTiming().iterations !== Infinity) a.finish();
+  }
+};
+
+/** Blendet die konkaven Uebergaenge der Aussparung aus — Vergleichsbild der Differenzprobe. */
+const OHNE_UEBERGAENGE = '.cc-aussparung::before, .cc-aussparung::after { display: none !important; }';
+/** Ab so vielen abweichenden Pixeln (je Kanal > 3) liegt etwas ueber der Pille — Falle 8. */
+const DIFFERENZ_MIN_PX = 150;
+
+/**
+ * DIFFERENZPROBE je Pille (Falle 8): einmal aufnehmen wie ausgeliefert, einmal mit ausgeblendeten
+ * Uebergaengen (`::before`/`::after` der Aussparung). Liegt deren weisser Schatten UEBER der Pille,
+ * unterscheiden sich die Bilder; liegt er (richtig) darunter, sind sie gleich — dort ist hinter der
+ * Pille ohnehin das Weiss der Aussparung. Die Farbe der Pille spielt keine Rolle mehr.
  */
 const pruefeKnoepfe = async (seite) => {
   const kaputt = [];
-  for (const knopf of await seite.$$('[data-aktions-aussparung] a, [data-aktions-aussparung] button')) {
-    const box = await knopf.boundingBox();
-    if (!box || box.width < 10) continue;
-    const bild = await seite.screenshot({ clip: box, type: 'png' });
-    const { data, info } = await sharp(bild).raw().toBuffer({ resolveWithObject: true });
-    const hell = (x, y) => {
-      const i = (Math.round(y) * info.width + Math.round(x)) * info.channels;
-      return (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
-    };
-    const w = info.width - 1;
-    const h = info.height - 1;
-    const proben = { links: hell(5, h / 2), rechts: hell(w - 5, h / 2), oben: hell(w / 2, 5), unten: hell(w / 2, h - 5) };
-    const helle = Object.entries(proben).filter(([, l]) => l > 0.75).map(([seite_]) => seite_);
-    if (helle.length) {
+  await seite.evaluate(AUSSPARUNG_RUHIG);
+  const knoepfe = await seite.$$('[data-aktions-aussparung] .cc-aktion');
+  const aufnehmen = async () => {
+    const bilder = [];
+    for (const knopf of knoepfe) {
+      const box = await knopf.boundingBox();
+      // Falle 7: ohne Vergroessern aufnehmen, sonst startet der Eintritt neu.
+      bilder.push(box && box.width >= 10
+        ? await sharp(await seite.screenshot({ clip: box, type: 'png', captureBeyondViewport: false })).raw().toBuffer({ resolveWithObject: true })
+        : null);
+    }
+    return bilder;
+  };
+  const zweiBilder = () => seite.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+  const mit = await aufnehmen();
+  await seite.evaluate((css) => {
+    const s = document.createElement('style');
+    s.id = 'cc-probe-ohne-uebergaenge';
+    s.textContent = css;
+    document.head.appendChild(s);
+  }, OHNE_UEBERGAENGE);
+  await zweiBilder();
+  const ohne = await aufnehmen();
+  await seite.evaluate(() => document.getElementById('cc-probe-ohne-uebergaenge')?.remove());
+  await zweiBilder();
+  for (const [i, knopf] of knoepfe.entries()) {
+    const a = mit[i];
+    const b = ohne[i];
+    if (!a || !b || a.data.length !== b.data.length) continue;
+    let abweichend = 0;
+    for (let p = 0; p < a.data.length; p += a.info.channels) {
+      if (Math.abs(a.data[p] - b.data[p]) > 3 || Math.abs(a.data[p + 1] - b.data[p + 1]) > 3 || Math.abs(a.data[p + 2] - b.data[p + 2]) > 3) abweichend++;
+    }
+    if (abweichend >= DIFFERENZ_MIN_PX) {
       const name = await knopf.evaluate((el) => el.getAttribute('aria-label'));
-      kaputt.push(`${name} — hell am Rand ${helle.join('/')}`);
+      kaputt.push(`${name} — von den Uebergaengen der Aussparung ueberdeckt (${abweichend} px weichen ab)`);
     }
   }
   return kaputt;
+};
+
+/** Im Browser: Lage der Aussparung neben dem Reiter und ihrer Beschriftungen. */
+const GEOMETRIE = ({ luckeMin, randMin }) => {
+  const fehler = [];
+  const aus = document.querySelector('[data-aktions-aussparung]');
+  const reiter = document.querySelector('.solidroad-nav-frame');
+  if (!aus || getComputedStyle(aus).display === 'none') return { fehler: ['Aussparung nicht sichtbar'] };
+  const a = aus.getBoundingClientRect();
+  const f = reiter.getBoundingClientRect();
+  const radius = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cc-nav-inner-radius')) || 28;
+  const luecke = a.left - radius - (f.right + radius);
+  if (luecke < luckeMin) fehler.push(`Luecke zwischen den Uebergaengen nur ${luecke.toFixed(1)} px`);
+  if (a.right > innerWidth + 0.5 || a.top < -0.5) fehler.push('Aussparung ragt aus dem Fenster');
+  for (const pille of aus.querySelectorAll('.cc-aktion')) {
+    const name = pille.getAttribute('aria-label') ?? '(ohne Ansage)';
+    const p = pille.getBoundingClientRect();
+    if (p.left < a.left - 0.5 || p.right > a.right + 0.5 || p.top < a.top - 0.5 || p.bottom > a.bottom + 0.5) {
+      fehler.push(`${name}: ragt aus der Aussparung`);
+    }
+    const rolle = pille.querySelector('.cc-aktion__rolle');
+    const text = rolle?.querySelector('.cc-aktion__spur > span')?.textContent.trim() ?? '';
+    if (!rolle || !text || !rolle.checkVisibility({ opacityProperty: true, visibilityProperty: true })) {
+      fehler.push(`${name}: keine sichtbare Beschriftung`);
+      continue;
+    }
+    if (rolle.scrollWidth > rolle.clientWidth + 0.5) fehler.push(`${name}: Beschriftung „${text}" abgeschnitten`);
+    if (rolle.getBoundingClientRect().right > p.right - 4) fehler.push(`${name}: Beschriftung stoesst an den Rand`);
+    if (!name.includes(text)) fehler.push(`${name}: sichtbarer Text „${text}" fehlt in der Ansage (WCAG 2.5.3)`);
+  }
+  for (const nav of document.querySelectorAll('nav[aria-label^="Hauptnavigation"]')) {
+    if (getComputedStyle(nav).display === 'none') continue;
+    const n = nav.getBoundingClientRect();
+    const rand = Math.min(n.left - f.left, f.right - n.right);
+    if (rand < randMin) fehler.push(`${nav.getAttribute('aria-label')}: nur ${rand.toFixed(1)} px bis zum Reiterrand`);
+  }
+  return { fehler, luecke: Math.round(luecke * 10) / 10, breite: Math.round(a.width) };
 };
 
 const { basis, stopp } = await startePreview(4193);
@@ -146,8 +270,59 @@ const warte = (ms) => new Promise((r) => setTimeout(r, ms));
 let befunde = 0;
 let angeschnittenGesamt = 0;
 let hinweise = 0;
+let geometrieFehler = 0;
+
+if (process.argv.includes('--gegenprobe')) {
+  // Je Fehler eine frische Seite bei 1440 × 900: Fehler-CSS einspielen, dann Geometrie und Pixelprobe.
+  let blind = 0;
+  try {
+    for (const [fehler, css] of Object.entries(GEGENPROBEN)) {
+      const seite = await browser.newPage();
+      await seite.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+      await seite.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
+      await seite.goto(basis + '/', { waitUntil: 'networkidle0' });
+      await seite.addStyleTag({ content: css });
+      await warte(200);
+      await seite.evaluate(AUSSPARUNG_RUHIG);
+      const meldungen = [
+        ...(await seite.evaluate(GEOMETRIE, { luckeMin: LUECKE_MIN, randMin: RAND_LINKS_MIN })).fehler,
+        ...(await pruefeKnoepfe(seite)),
+      ];
+      console.log(`  ${meldungen.length ? '✓ erkannt ' : '✗ BLIND   '} ${fehler}`);
+      for (const m of meldungen.slice(0, 2)) console.log(`      → ${m}`);
+      if (!meldungen.length) blind++;
+      await seite.close();
+    }
+  } finally {
+    await browser.close();
+    stopp();
+  }
+  console.log(blind ? `\n✗ ${blind} eingespielte(r) Fehler NICHT erkannt` : `\n✓ Gegenprobe: alle ${Object.keys(GEGENPROBEN).length} eingespielten Fehler erkannt`);
+  process.exit(blind ? 1 : 0);
+}
 
 try {
+  // GEOMETRIE: einmal auf `/` je Breite — Reiter und Aussparung sind auf allen Routen gleich.
+  {
+    const seite = await browser.newPage();
+    await seite.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
+    console.log(`\nGeometrie auf / (${GEOMETRIE_BREITEN.length} Breiten)`);
+    const zeilen = [];
+    for (const b of GEOMETRIE_BREITEN) {
+      await seite.setViewport({ width: b, height: 800, deviceScaleFactor: 1 });
+      if (!zeilen.length) await seite.goto(basis + '/', { waitUntil: 'networkidle0' });
+      await warte(200);
+      await seite.evaluate(AUSSPARUNG_RUHIG);
+      const g = await seite.evaluate(GEOMETRIE, { luckeMin: LUECKE_MIN, randMin: RAND_LINKS_MIN });
+      zeilen.push(`${b}: ${g.luecke ?? '—'}`);
+      for (const f of g.fehler) console.log(`  ✗ ${String(b).padStart(4)} px  ${f}`);
+      geometrieFehler += g.fehler.length;
+    }
+    console.log(`  Luecke je Breite (px): ${zeilen.join(' · ')}`);
+    if (!geometrieFehler) console.log(`  ✓ alle ${GEOMETRIE_BREITEN.length} Breiten: Luecke >= ${LUECKE_MIN} px, Beschriftungen vollstaendig, Links im Reiter`);
+    await seite.close();
+  }
+
   for (const [b, h] of FENSTER) {
     const seite = await browser.newPage();
     await seite.setViewport({ width: b, height: h, deviceScaleFactor: 1 });
@@ -199,13 +374,14 @@ try {
   stopp();
 }
 
-const alle = befunde + angeschnittenGesamt;
+const alle = befunde + angeschnittenGesamt + geometrieFehler;
 console.log(
   alle
     ? `
-✗ ${alle} Befund(e): ${befunde} dauerhafte Ueberdeckung(en), ${angeschnittenGesamt} angeschnittene(r) Knopf/Knoepfe`
+✗ ${alle} Befund(e): ${befunde} dauerhafte Ueberdeckung(en), ${angeschnittenGesamt} angeschnittene(r) Knopf/Knoepfe, ${geometrieFehler} Geometrie-Fehler`
     : `
-✓ Keine dauerhafte Ueberdeckung, Knoepfe unversehrt — ${routen.length} Routen × ${FENSTER.length} Fenster`
+✓ Keine dauerhafte Ueberdeckung, Knoepfe unversehrt — ${routen.length} Routen × ${FENSTER.length} Fenster;`
+      + ` Geometrie an ${GEOMETRIE_BREITEN.length} Breiten in Ordnung`
       + (hinweise ? ` (${hinweise} Route(n) mit Aussparung an weniger als der Haelfte der Positionen, siehe ⚠)` : '')
 );
 process.exit(alle ? 1 : 0);

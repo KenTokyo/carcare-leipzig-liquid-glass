@@ -202,6 +202,22 @@ try {
         await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
         await new Promise((r) => setTimeout(r, 550));
 
+        /* Falle 8 (2026-09-24): EINMALIGE CSS-ANIMATIONEN laufen zwischen den beiden Aufnahmen
+           weiter. Anlass war der Lichtstreif ueber „Schaden melden" oben rechts (1 s nach dem
+           Laden, 1,1 s lang; seit 2026-09-25 entfernt): Er stand in der einen Aufnahme links, in
+           der anderen rechts, und die Differenz haette bewegtes Licht als Glyphen gezaehlt. Die
+           Regel bleibt fuer jede einmalige Animation. Gemessen wird der Ruhezustand: zeitgetriebene,
+           endliche CSS-Animationen ans Ende setzen. NICHT angefasst: endlose (Laufbaender),
+           scrollgetriebene (`scrollverlauf.css`, `animation-timeline: scroll()` — `finish()`
+           spraenge dort ans Scrollende) und Framers WAAPI-Animationen (keine `CSSAnimation`). */
+        await seite.evaluate(() => {
+          for (const a of document.getAnimations()) {
+            if (!(a instanceof CSSAnimation) || a.timeline !== document.timeline) continue;
+            if (a.effect?.getComputedTiming().iterations === Infinity) continue;
+            a.finish();
+          }
+        });
+
         const stellen = await seite.evaluate(SAMMLE);
         if (!stellen.length) continue;
 

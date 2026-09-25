@@ -5,6 +5,9 @@ import { useAnfrageDialog } from './AnfrageDialog';
 import { SCHADENMELDUNG_EXTERN, SCHADENMELDUNG_URL } from '../data/schadenmeldung';
 import { ExternMarke, externAttribute } from './ExternerLink';
 import { useNaheSeitenende } from '../hooks/useNaheSeitenende';
+import { useOeffnungsStatus } from '../hooks/useOeffnungsStatus';
+import { OEFFNUNG_NEUTRAL } from '../data/oeffnungszeiten';
+import { glasLicht } from '../lib/glasLicht';
 
 /**
  * Navigationsziel. Wortlaut EXAKT wie NAP_ADRESSE in CLAUDE.md / Impressum / Footer —
@@ -29,6 +32,7 @@ const MobileStickyCTA: React.FC = () => {
   // die Leiste den Footer. Seit 2026-09-24 als Hook (`useNaheSeitenende`), der auch nach einem
   // Seitenwechsel per Navbar neu rechnet.
   const nearBottom = useNaheSeitenende();
+  const status = useOeffnungsStatus();
   // Auswahl-Popover fuer die Navigation. Bewusst eine Nachfrage statt Plattform-Automatik:
   // Auto-Erkennung liegt bei Android-Nutzern mit Apple-Konto bzw. Desktop-Safari regelmaessig
   // daneben — und der Nutzer soll seine gewohnte App behalten duerfen.
@@ -61,8 +65,13 @@ const MobileStickyCTA: React.FC = () => {
   // statt zur Kontaktseite zu springen. Der Helfer stand danach nur noch als toter Code
   // herum und haette beim naechsten Lesen so ausgesehen, als gaebe es den Sprungweg noch.
 
-  const buttonKlassen =
-    'cc-gradient-button pointer-events-auto flex flex-col items-center justify-center gap-1 rounded-2xl border py-3 text-white';
+  // LIQUID GLASS fuer alle vier Knoepfe (Entscheidung des Users 2026-09-25, nach dem Piloten an
+  // „Anrufen"): neutrales, stark verwischtes Glas mit heller Lichtkante, dunkle Schrift und Symbole
+  // (styles/glas.css). NUR hier — die Leiste schwebt ueber dem Seiteninhalt, also gibt es etwas zu
+  // verwischen. Die Desktop-Aktionen oben rechts liegen auf Weiss und behalten ihr Design.
+  // `glasLicht` fuehrt den Lichtpunkt unter den Finger (lib/glasLicht.ts).
+  const glasKlassen =
+    'cc-liquid cc-liquid--kachel pointer-events-auto flex flex-col items-center justify-center gap-1 rounded-2xl border py-3';
 
   return (
     <motion.div
@@ -107,37 +116,49 @@ const MobileStickyCTA: React.FC = () => {
       </AnimatePresence>
 
       {/* Vier EIGENSTAENDIGE Buttons (2026-07-23). Der frueher umschliessende weisse Container
-          entfiel, weil er die Flaechen zu einem Block verschmolz. Jeder Button traegt eigenen
-          Radius, Rahmen und Schatten (Letztere aus `.cc-gradient-button`).
+          entfiel, weil er die Flaechen zu einem Block verschmolz. Jeder Button traegt eigenes
+          Glas, Lichtkante und Schatten (`.cc-liquid`, seit 2026-09-25; vorher `.cc-gradient-button`).
+          Bewusst VIER Glasflaechen statt einer Leiste dahinter: Die Luecken sollen den Inhalt zeigen.
           `pointer-events-auto` sitzt bewusst auf den BUTTONS statt auf dem Grid: So lassen die
           Luecken dazwischen Klicks auf den Seiteninhalt dahinter durch. */}
       <div className="grid grid-cols-4 gap-2.5">
         {/* Internationales Format wie an den uebrigen 25 Stellen (SEO-GEO-STANDARDS, NAP_TELEFON).
             Bis 2026-09-24 stand hier „tel:03412617790" — waehlbar, aber abweichend. */}
-        <a href="tel:+493412617790" className={buttonKlassen} aria-label="Anrufen">
-          <Phone size={18} />
+        {/* Live-Punkt wie oben rechts in der Aussparung (seit 2026-09-24): gruen = geoeffnet,
+            grau = geschlossen; der Satz dazu steht in der Ansage. Styles: styles/aussparung.css. */}
+        <a
+          href="tel:+493412617790"
+          className={glasKlassen}
+          {...glasLicht}
+          aria-label={`Anrufen, ${status?.text ?? OEFFNUNG_NEUTRAL}`}
+          data-offen={status ? String(status.offen) : undefined}
+        >
+          <span className="relative inline-flex">
+            <Phone size={18} strokeWidth={2.2} />
+            <span className="cc-aktion__punkt cc-aktion__punkt--leiste" aria-hidden="true" />
+          </span>
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
         </a>
         {/* Seit 2026-09-16 ein Link zur Schadenseite auf reparatur.info (Backlog 2.23) —
             ohne Umweg ueber den Dialog. Mit dem Schalter in `data/schadenmeldung.ts` wieder
             der Knopf ins eigene Formular. */}
         {SCHADENMELDUNG_EXTERN ? (
-          <a href={SCHADENMELDUNG_URL} {...externAttribute(SCHADENMELDUNG_URL)} className={buttonKlassen}>
-            <AlertTriangle size={18} />
+          <a href={SCHADENMELDUNG_URL} {...externAttribute(SCHADENMELDUNG_URL)} className={glasKlassen} {...glasLicht}>
+            <AlertTriangle size={18} strokeWidth={2.2} />
             <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
             <ExternMarke href={SCHADENMELDUNG_URL} pfeil={false} />
           </a>
         ) : (
-          <button type="button" onClick={() => oeffnen('schaden')} className={buttonKlassen}>
-            <AlertTriangle size={18} />
+          <button type="button" onClick={() => oeffnen('schaden')} className={glasKlassen} {...glasLicht}>
+            <AlertTriangle size={18} strokeWidth={2.2} />
             <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
           </button>
         )}
         {/* Termin oeffnet den Dialog statt zu scrollen — sonst haetten Mobil- und
             Desktopnutzer zwei verschiedene Wege zum selben Formular. Ueber den Hook
             statt ueber das Link-Abfangen, weil das hier ein <button> ist. */}
-        <button type="button" onClick={() => oeffnen('termin')} className={buttonKlassen}>
-          <CalendarClock size={18} />
+        <button type="button" onClick={() => oeffnen('termin')} className={glasKlassen} {...glasLicht}>
+          <CalendarClock size={18} strokeWidth={2.2} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Termin</span>
         </button>
         <button
@@ -146,9 +167,10 @@ const MobileStickyCTA: React.FC = () => {
           aria-expanded={kartenOffen}
           aria-haspopup="dialog"
           aria-label="Navigation zur Werkstatt starten"
-          className={buttonKlassen}
+          className={glasKlassen}
+          {...glasLicht}
         >
-          <Navigation size={18} />
+          <Navigation size={18} strokeWidth={2.2} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Route</span>
         </button>
       </div>

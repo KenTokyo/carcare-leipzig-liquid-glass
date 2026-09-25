@@ -11,6 +11,11 @@
 **Vorgaenger:** `2026-09-24-karten-vignette-schwebende-aktionen-tasks.md` (Phase 4 dort wird hiermit
 ersetzt: kein Ausweichen, kein Ausblenden mehr).
 
+**Nachfolger (dritte Runde, gleicher Tag):** `2026-09-24-aussparung-beschriftete-aktionen-tasks.md` —
+die zwei Symbolkreise waren „zu unscheinbar und nicht selbsterklaerend"; jetzt beschriftete Pillen.
+⚠️ Die Reiterbreiten unten (580 / 810–840 / 1000) gelten NICHT mehr: 440–580 / 740–840 / 940–1000,
+Navbar-Links 1280–1535 enger. Aktuelle Werte: `styles/aussparung.css`, Abschnitt REITERBREITE.
+
 **Gemessen vor der Planung (ausgeliefertes HTML, Puppeteer):**
 
 | Fenster | Navbar-Reiter | frei rechts daneben |

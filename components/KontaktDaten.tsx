@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock, MapPin, Phone } from 'lucide-react';
+import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
 
 /**
  * Adresse, Oeffnungszeiten und Telefon — Backlog 2.6.
@@ -38,9 +39,9 @@ const KARTEN = [
     titel: 'Öffnungszeiten',
     inhalt: (
       <p className="text-sm leading-relaxed text-gray-600">
-        Mo - Fr: 07:00 - 18:00 Uhr
+        {OEFFNUNG_ANZEIGE.werktage}: {OEFFNUNG_ANZEIGE.zeit} Uhr
         <br />
-        Sa: nach Vereinbarung
+        Sa: {OEFFNUNG_ANZEIGE.samstag}
       </p>
     ),
   },

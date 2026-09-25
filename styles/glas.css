@@ -1,0 +1,195 @@
+/* LIQUID GLASS — `cc-liquid`. Angelegt 2026-09-24, zweite Fassung 2026-09-25.
+   Eingebunden per @import oben in index.css (nach `aussparung.css`).
+   Planung: docs/liquid-glass/tasks/2026-09-24-liquid-glass-anrufen-tasks.md
+
+   WO: NUR an den vier Sticky-Buttons der mobilen Leiste (`MobileStickyCTA`, unter 1024 px) —
+   Entscheidung des Users 2026-09-25 nach dem Piloten an „Anrufen". Die Leiste schwebt ueber dem
+   Seiteninhalt, dort zeigt sich der Blur. Die Desktop-Pille oben rechts war zwei Tage Pilot und
+   ist zurueck auf Eisblau: Auf der weissen Aussparung gibt es nichts zu verwischen.
+
+   ZWEITE FASSUNG (User, 2026-09-25, mit Referenzbild einer Liquid-Glass-Leiste): „mach diese Vignette
+   weg. Uebernimm nicht die Farben, sondern wirklich nur das blurry Design eines originalen Liquid
+   Glass Designs." Die erste Fassung trug die schwarzblaue Vignette der Bildkarten — jetzt NEUTRALES
+   Glas wie im Original: stark verwischt, durchscheinend, eine duenne helle Lichtkante rundum, der
+   Rand heller statt dunkler (Glas bricht dort das Licht), weicher Schatten.
+
+   HELLE TINTE, DUNKLE SCHRIFT: Die Referenz ist dunkel — deren Farben uebernehmen wir ausdruecklich
+   nicht. Die Leiste liegt ueber wechselndem Seiteninhalt (Fotos, weisse Sektionen); die Schrift
+   bleibt dunkel und braucht darunter genug helle Tinte (Werte unten, gemessen mit `npm run kontrast`).
+
+   DIE SCHICHTEN, von hinten nach vorn:
+     1. FROST       `backdrop-filter: blur(20px) saturate(180%)` — der Kern des Originals, ueber
+                    Fotos deutlich sichtbar.
+     2. KOERPER     neutrale Tinte: ein Hauch kuehles Grau (damit das Glas sich auf Weiss ueberhaupt
+                    abhebt und die weisse Lichtkante sichtbar wird) unter heller Weiss-Tinte, oben
+                    heller als unten. Ueber dunklem Inhalt bleibt es hell genug fuer die Schrift.
+     3. LINSENRAND  Aufhellung zum Rand hin (Ellipse, aussen Weiss) — das Gegenteil der Vignette:
+                    Echtes Glas bricht am Rand Licht und wirkt dort heller.
+     4. LICHTKANTE  `::before`, 1,5-px-Ring per Maske: am hellsten oben links und unten rechts, an den
+                    Seiten schwaecher — wie im Referenzbild. Dazu leuchtet die Kante dort auf, wo der
+                    Zeiger ist (`lib/glasLicht.ts` setzt `--glas-x/-y`).
+     5. LICHTPUNKT  `::after`, weicher Glanzfleck; in Ruhe oben links, beim Zeigen am Zeiger.
+   Beide Pseudo-Elemente liegen mit `z-index: -1` ZWISCHEN Hintergrund und Inhalt: Licht hellt die
+   Flaeche auf, nie die Schrift.
+
+   Kein reduced-motion-Gate (Projektentscheidung, Memory `no-reduced-motion-gates`). */
+
+@property --glas-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 26%;
+}
+
+@property --glas-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+.cc-liquid {
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  background:
+    /* 3. Linsenrand: innen klar, aussen heller */
+    radial-gradient(
+      ellipse farthest-corner at 50% 50%,
+      rgb(255 255 255 / 0) 55%,
+      rgb(255 255 255 / 0.18) 80%,
+      rgb(255 255 255 / 0.4) 100%
+    ),
+    /* 2. Koerper: Weiss-Tinte, oben heller. Ueber #303438 (dunkles Foto, verwischt) ergibt die
+          Mitte ~#8f9296 — dunkle Schrift darauf 6,5:1. */
+    linear-gradient(180deg, rgb(255 255 255 / 0.55) 0%, rgb(255 255 255 / 0.38) 100%),
+    /* 2. …ueber einem Hauch kuehlem Grau: auf Weiss ~#f3f4f6, sonst verschwaende das Glas dort */
+    linear-gradient(rgb(116 124 138 / 0.12), rgb(116 124 138 / 0.12));
+  border-color: transparent;
+  /* Schatten als Variable: `:hover` tauscht sie, der Fokus (unten) behaelt sie — ein Fokusring im
+     `box-shadow` ersetzte sonst die Lichtkanten. */
+  --liquid-schatten:
+    /* innen: Lichtkante oben, schwacher Gegenschein unten, zarter heller Innenring */
+    inset 0 1px 1px rgb(255 255 255 / 0.85),
+    inset 0 -1px 1px rgb(255 255 255 / 0.35),
+    inset 0 0 0 1px rgb(255 255 255 / 0.22),
+    /* aussen: Haarlinie (Form auf Weiss), weicher neutraler Schatten, Kontaktschatten */
+    0 0 0 0.5px rgb(0 0 0 / 0.08),
+    0 8px 22px -10px rgb(0 0 0 / 0.3),
+    0 1px 3px rgb(0 0 0 / 0.08);
+  box-shadow: var(--liquid-schatten);
+  color: var(--cc-carbon);
+  isolation: isolate;
+  position: relative;
+  transition:
+    box-shadow 300ms ease,
+    transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    --glas-x 160ms ease-out,
+    --glas-y 160ms ease-out;
+}
+
+.cc-liquid::before,
+.cc-liquid::after {
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+/* 4. LICHTKANTE — Ring aus zwei Verlaeufen, die Maske laesst nur den 1,5-px-Rand (padding) stehen:
+   einer am Zeiger, einer fest (hell oben links und unten rechts, an den Seiten schwaecher). */
+.cc-liquid::before {
+  background:
+    radial-gradient(
+      circle at var(--glas-x) var(--glas-y),
+      rgb(255 255 255 / 1) 0%,
+      rgb(255 255 255 / 0.45) 22%,
+      rgb(255 255 255 / 0) 45%
+    ),
+    linear-gradient(
+      135deg,
+      rgb(255 255 255 / 1) 0%,
+      rgb(255 255 255 / 0.45) 22%,
+      rgb(255 255 255 / 0.18) 50%,
+      rgb(255 255 255 / 0.45) 78%,
+      rgb(255 255 255 / 0.9) 100%
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  padding: 1.5px;
+}
+
+/* 5. LICHTPUNKT — in Ruhe ein fester Glanz oben links, beim Zeigen am Zeiger. */
+.cc-liquid::after {
+  background: radial-gradient(
+    circle at var(--glas-x) var(--glas-y),
+    rgb(255 255 255 / 0.7) 0%,
+    rgb(255 255 255 / 0.2) 24%,
+    rgb(255 255 255 / 0) 55%
+  );
+  opacity: 0.6;
+  transition: opacity 300ms ease;
+}
+
+@media (hover: hover) {
+  /* Farbe, Rand und Schatten HIER ausdruecklich, nicht nur die Variable: Ein Material muss gegen
+     Hover-Regeln seines Einsatzorts bestehen. Gelernt 2026-09-25 an der Desktop-Pille, deren
+     Eisblau-Hover (spezifischer) das Glas beim Ueberfahren blau faerbte. */
+  .cc-liquid:hover {
+    --liquid-schatten:
+      inset 0 1px 1px rgb(255 255 255 / 0.95),
+      inset 0 -1px 1px rgb(255 255 255 / 0.45),
+      inset 0 0 0 1px rgb(255 255 255 / 0.3),
+      0 0 0 0.5px rgb(0 0 0 / 0.1),
+      0 12px 26px -10px rgb(0 0 0 / 0.36),
+      0 1px 3px rgb(0 0 0 / 0.08);
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: var(--liquid-schatten);
+  }
+
+  .cc-liquid:hover::after {
+    opacity: 1;
+  }
+}
+
+/* FOKUS als `outline` (folgt der Rundung) — der Schatten traegt hier das Material; ein Fokusring im
+   `box-shadow` loeschte die Lichtkanten beim Tabben. */
+.cc-liquid:focus-visible {
+  box-shadow: var(--liquid-schatten);
+  outline: 3px solid rgb(var(--cc-signal-blue-rgb) / 0.6);
+  outline-offset: 2px;
+}
+
+/* AKTIV (z. B. „Route", solange die Auswahl Apple/Google offen ist): „eingedrueckt" — dunklerer
+   Innenring, ein Hauch dunklere Toenung, flacherer Schatten. Zeigt, wer das Fenster geoeffnet hat.
+   Die erste Fassung machte die Scheibe HELLER wie im (dunklen) Referenzbild — auf hellem Glas ueber
+   Weiss war das im Bild nicht zu sehen (2026-09-25). */
+.cc-liquid[aria-expanded='true'] {
+  --liquid-schatten:
+    inset 0 0 0 1.5px rgb(var(--cc-carbon-rgb) / 0.3),
+    inset 0 1px 2px rgb(var(--cc-carbon-rgb) / 0.12),
+    inset 0 -1px 1px rgb(255 255 255 / 0.5),
+    0 0 0 0.5px rgb(0 0 0 / 0.1),
+    0 4px 12px -8px rgb(0 0 0 / 0.3);
+  background-color: rgb(var(--cc-carbon-rgb) / 0.06);
+}
+
+/* DRUCK: kurz eindruecken, beim Loslassen federt es zurueck (Uebergang oben mit Ueberschwingen). */
+.cc-liquid:active {
+  transform: scale(0.96);
+  transition-duration: 90ms;
+}
+
+.cc-liquid:active::after {
+  opacity: 1;
+}
+
+/* KACHEL (mobile Leiste, ~85 × 68 px) — Haken fuer kachelspezifische Werte. */
+.cc-liquid--kachel {
+  border-radius: 1rem;
+}

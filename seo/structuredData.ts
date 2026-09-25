@@ -1,4 +1,5 @@
 import { FAQItem } from '../types';
+import { OEFFNUNG, SCHEMA_WOCHENTAGE } from '../data/oeffnungszeiten';
 
 export const siteUrl = 'https://www.carcare-center.de';
 
@@ -38,12 +39,13 @@ const localBusiness = {
     latitude: 51.3303,
     longitude: 12.4087,
   },
+  // Aus `data/oeffnungszeiten.ts` — dieselbe Quelle wie der Live-Status oben rechts.
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '07:00',
-      closes: '18:00',
+      dayOfWeek: SCHEMA_WOCHENTAGE,
+      opens: OEFFNUNG.von,
+      closes: OEFFNUNG.bis,
     },
   ],
   areaServed: {

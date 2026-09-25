@@ -11,6 +11,8 @@
 @import './styles/scrollverlauf.css';
 @import './styles/karten.css';
 @import './styles/aussparung.css';
+/* Liquid Glass mit Kartenvignette (2026-09-24) — NACH aussparung.css: gewinnt bei gleicher Spezifitaet. */
+@import './styles/glas.css';
 
 @tailwind base;
 @tailwind components;
@@ -96,6 +98,16 @@
      haette die schmaleren Werte bei gleicher Spezifitaet ueberschrieben. */
   --cc-nav-radius: 24px;
   --cc-nav-inner-radius: 28px;
+  /* CTA-Verlauf — EINE Quelle fuer `.cc-gradient-button` und `.cc-gradient-fill` (bis 2026-09-24
+     stand er in beiden wortgleich). Aufbau und Herleitung bei `.cc-gradient-button`. */
+  --cc-cta-verlauf:
+    radial-gradient(
+      ellipse 85% 130% at 86% 116%,
+      rgb(47 128 237 / 0.95) 0%,
+      rgb(47 128 237 / 0.45) 38%,
+      rgb(47 128 237 / 0) 68%
+    ),
+    linear-gradient(100deg, #34383d 0%, #2e3b48 45%, #27333f 100%);
 }
 
 /* Kein `scroll-behavior: smooth` mehr: Die Glaettung besitzt jetzt Lenis
@@ -449,14 +461,7 @@ textarea {
    wer ihn nachzieht, aendert damit auch das Veil der Zielgruppen-Sektion. */
 .cc-gradient-button {
   background-color: var(--cc-graphite);
-  background-image:
-    radial-gradient(
-      ellipse 85% 130% at 86% 116%,
-      rgb(47 128 237 / 0.95) 0%,
-      rgb(47 128 237 / 0.45) 38%,
-      rgb(47 128 237 / 0) 68%
-    ),
-    linear-gradient(100deg, #34383d 0%, #2e3b48 45%, #27333f 100%);
+  background-image: var(--cc-cta-verlauf);
   border-color: rgb(var(--cc-ice-blue-rgb) / 0.72);
   box-shadow: 0 18px 34px -24px rgb(var(--cc-carbon-rgb) / 0.9);
   color: var(--cc-white);
@@ -484,14 +489,7 @@ textarea {
    Hier zaehlt nur die Flaeche — Groesse, Radius und Drehung bleiben bei den Utilities. */
 .cc-gradient-fill {
   background-color: var(--cc-graphite);
-  background-image:
-    radial-gradient(
-      ellipse 85% 130% at 86% 116%,
-      rgb(47 128 237 / 0.95) 0%,
-      rgb(47 128 237 / 0.45) 38%,
-      rgb(47 128 237 / 0) 68%
-    ),
-    linear-gradient(100deg, #34383d 0%, #2e3b48 45%, #27333f 100%);
+  background-image: var(--cc-cta-verlauf);
   color: var(--cc-white);
 }
 

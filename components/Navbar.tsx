@@ -182,7 +182,7 @@ const Navbar: React.FC = () => {
           aria-haspopup={hasDropdown ? 'true' : undefined}
           aria-expanded={hasDropdown ? isOpen : undefined}
           aria-controls={hasDropdown && isOpen ? NAV_MEGA_PANEL_ID : undefined}
-          className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.13em] text-[var(--cc-carbon)] transition-colors hover:text-[var(--cc-carbon)]"
+          className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold uppercase tracking-[var(--cc-nav-laufweite)] text-[var(--cc-carbon)] transition-colors hover:text-[var(--cc-carbon)]"
         >
           <span>{link.label}</span>
           {hasDropdown && (
@@ -239,19 +239,21 @@ const Navbar: React.FC = () => {
             </span>
           </a>
 
-          {/* Desktop navigation with inline dropdowns */}
+          {/* Desktop navigation with inline dropdowns. Einzug, Abstand und Laufweite kommen aus
+              styles/aussparung.css: Zwischen 1280 und 1535 stehen die Links enger, damit der Reiter
+              schmaler sein kann und rechts die beschriftete Aktions-Aussparung Platz hat. */}
           <nav
             aria-label="Hauptnavigation links"
-            className="absolute top-1/2 z-20 hidden -translate-y-1/2 items-center justify-end gap-5 xl:flex"
-            style={{ right: 'calc(50% + 124px)' }}
+            className="absolute top-1/2 z-20 hidden -translate-y-1/2 items-center justify-end gap-[var(--cc-nav-abstand)] xl:flex"
+            style={{ right: 'calc(50% + var(--cc-nav-einzug))' }}
           >
             {desktopLeftLinks.map(renderDesktopNavLink)}
           </nav>
 
           <nav
             aria-label="Hauptnavigation rechts"
-            className="absolute top-1/2 z-20 hidden -translate-y-1/2 items-center justify-start gap-5 xl:flex"
-            style={{ left: 'calc(50% + 124px)' }}
+            className="absolute top-1/2 z-20 hidden -translate-y-1/2 items-center justify-start gap-[var(--cc-nav-abstand)] xl:flex"
+            style={{ left: 'calc(50% + var(--cc-nav-einzug))' }}
           >
             {desktopRightLinks.map(renderDesktopNavLink)}
             {/* GLOBALE SUCHE rechts neben „Kontakt" (User 2026-09-24). Ab 1536 px als Feld, darunter
