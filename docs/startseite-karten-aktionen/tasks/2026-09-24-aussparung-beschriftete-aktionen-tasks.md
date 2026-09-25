@@ -202,6 +202,11 @@ auch im aehnlichen Design sein wie der Anruf-CTA … Aber nur den CTA-Button obe
       gruen**, Geometrie 23 Breiten gruen (Pillenbreiten unveraendert) · `--gegenprobe` **4/4** ·
       `nav` **16/16**
 
+### ⏸️ Phase 8 — Offen: Betriebsruhe fuer den Live-Status (zurueckgestellt, Rueckfrage an André)
+* [ ] Feste Schliesstage oder Betriebsferien (z. B. 24.12./31.12., Sommerpause) beim Kunden erfragen
+      und in `BETRIEBSRUHE` (`data/oeffnungszeiten.ts`, Format `JJJJ-MM-TT`) eintragen — sonst zeigt
+      der Status an solchen Werktagen „Jetzt geöffnet" (Optimierungsplan O6)
+
 **Referenzen:**
 `docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-oben-rechts-und-suche-tasks.md`
 `docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-beschriftete-aktionen-optimierung-tasks.md`

@@ -118,7 +118,13 @@ rechts am Desktop (dort liegt die Pille auf Weiss — kein Blur sichtbar, siehe 
       Beschriftungen mobil an jeder Messposition) · `aussparung` + Geometrie **gruen** ·
       `--gegenprobe` **4/4** · `nav` **16/16** · `zielgruppen` **alle Karten in Ordnung** ·
       Bilder aus dem Produktions-Build (ueber Foto, ueber Weiss, Hero, Route offen, Desktop)
-* [ ] Offen: die zwei Knoepfe im Route-Fenster (Apple Karten / Google Maps) sind noch dunkel (L7)
+
+### ⏸️ Phase 6 — Offen nach der Abnahme (zurueckgestellt, braucht Geraet bzw. Entscheidung)
+* [ ] **Android-Test** (L2): vier `backdrop-filter`-Flaechen auf der festen Leiste an einem echten
+      Mittelklasse-Android scrollen. Ruckelt es: `blur(20px)` → `blur(10px)` in `styles/glas.css`
+* [ ] **Knoepfe im Route-Fenster** (L7): „Apple Karten" / „Google Maps" noch im dunklen Verlauf —
+      Rueckfrage an den User: mit auf Glas oder bewusst dunkel lassen?
+* [ ] Optional **echte Lichtbrechung** (L3, nur Chromium) — nur auf Wunsch des Users
 
 **Referenzen:**
 `styles/glas.css`
