@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 26.09.2026, 15:22 | `2026-09-25-schleife-5-import`, `main` | `28a7691` `2ba47f0` (2) | nein | — |
 | 25.09.2026, 03:06 | `aussparung-beschriftete-aktionen`, `main` | `0e546c9` `156b472` (2) | nein | — |
 | 24.09.2026, 20:41 | `main` | `335a6fb` (1) | nein | Konfiguration: .gitignore; neue Skripte: aussparung |
 | 24.09.2026, 02:31 | `2026-09-24-karten-vignette-aktionen`, `main` | `5cc0da1` (1) | nein | neue Skripte: schwebend |
