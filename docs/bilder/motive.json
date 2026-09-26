@@ -119,12 +119,12 @@
     "hero-leipzig-carcare-desktop.webp": {
       "motiv": "Zwei Porsche Taycan in heller Halle: vorn blau, dahinter rot mit demontierter Front (Querformat)",
       "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
-      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+      "offen": ""
     },
     "hero-leipzig-carcare-mobile.webp": {
       "motiv": "Dasselbe Motiv hochkant (Zuschnitt fürs Smartphone)",
       "herkunft": "nicht dokumentiert (eingebaut 20.07.2026, Commit 24f6dd3)",
-      "offen": "4.1 Felgen des blauen Porsche retuschieren"
+      "offen": ""
     },
     "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop": {
       "motiv": "Externes Stockfoto von Unsplash, kein Bild des Betriebs",
@@ -144,12 +144,12 @@
     "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp": {
       "motiv": "Grüner Porsche Cayenne auf unserem Autotransporter vor der Werkstatthalle",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „autohaueser-und- fuhrparks-leipzig-carcare.webp.jpeg“, aufgenommen 27.07.2026); laut User weder KI-generiert noch -bearbeitet; Kennzeichen eines Cabrios im Hintergrund weichgezeichnet",
-      "offen": ""
+      "offen": "5.14: B26 (Startseite) bekommt ein eigenes Bild; B84 bleibt"
     },
     "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp": {
       "motiv": "Mann mit Tablet vor einer Reihe Porsche (Cayenne, Panamera) in großer Halle",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": ""
+      "offen": "5.11 Original ohne generierte Person als neue Datei für B18/B73; B106 (Serviceberater) behält dieses Bild"
     },
     "kacheln/autolackierung-hintergrund-leipzig-carcare.webp": {
       "motiv": "Ausschnitt des Lackierfotos für den Seitenhintergrund: Lackierpistole und Handschuh vor der abgeklebten Stoßfängerkante (16:10)",
@@ -164,7 +164,7 @@
     "kacheln/dellenentfernung-leipzig-carcare.webp": {
       "motiv": "Dellentechniker mit Reflexionslampe und Ausbeulwerkzeug an der A-Säule eines dunkelgrauen Porsche (4:3 aus Hochformat)",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „dellenentfernung-leipzig-carcare.webp.jpeg“, aufgenommen 19.08.2026); laut User weder KI-generiert noch -bearbeitet",
-      "offen": ""
+      "offen": "5.10 Motiv tauschen (André: Delle nicht erkennbar, Fußabtreter im Hintergrund)"
     },
     "kacheln/ersatzwagen-leipzig-carcare.webp": {
       "motiv": "Unsere Mietwagenflotte: Reihe weißer VW Polo mit Beschriftung des CarCare Center vor der Halle (4:3 aus Hochformat)",
@@ -184,12 +184,12 @@
     "kacheln/felgenreparatur-leipzig-carcare.webp": {
       "motiv": "Beschädigte Felge mit Bordsteinschaden in Nahaufnahme",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "3.28 Felge in Reparatur / beim Lackieren (vorhanden sind nur beschädigte Felgen)"
+      "offen": ""
     },
     "kacheln/hagelschadenreparatur-leipzig.webp": {
       "motiv": "Mitarbeiter drückt am Dach eines grauen Porsche Panamera Dellen aus, Leuchtschirm darüber",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "3.27 Foto Hagelschaden (Archiv oder anstehendes Fahrzeug)"
+      "offen": "5.7 durch ein echtes Foto ersetzen (Motiv 3.27 geliefert); das heutige ist laut Ali KI-aufgewertet"
     },
     "kacheln/innenaufbereitung-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter reinigt mit Pinsel die Mittelkonsole eines Porsche Taycan (Pepita-Sitze)",
@@ -214,12 +214,12 @@
     "kacheln/lackaufbereitung-leipzig-carcare.webp": {
       "motiv": "Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Radlauf abgeklebt",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Lackaufbereitung-leipzig-carcare.webp.jpeg“, aufgenommen 16.07.2026); laut User weder KI-generiert noch -bearbeitet",
-      "offen": "Steht an B28, B46, B47, B66 – B47 wird später ersetzt (Kunde, 22.09.2026), bis dahin stehen B46 und B47 nebeneinander mit demselben Foto"
+      "offen": "5.36: B46 (Außen) bekommt die Ferrari-Wäsche, B47 (Lack) behält dieses Foto; B28 und B66 prüfen"
     },
     "kacheln/lackierkabine-leipzig-carcare.webp": {
       "motiv": "Lackierer mit Atemschutz lackiert in der Kabine ein mit Folie abgedecktes Fahrzeug",
       "herkunft": "nicht dokumentiert (16.07.2026); bis 21.09.2026 als autolackierung-leipzig-carcare.webp, Motiv unverändert",
-      "offen": "Steht nur noch an B104 (bleibt, Kunde) und B107 („erstmal stehen lassen“)"
+      "offen": "5.27: B107 bekommt ein Foto einer jungen Lackiererin; B104 bleibt"
     },
     "kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp": {
       "motiv": "Außenspiegel und Fahrertür eines dunkelgrauen Porsche in Nahaufnahme, frisch aufbereitet",
@@ -249,7 +249,7 @@
     "kacheln/smart-repair-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter bearbeitet die Tür eines schwarzen Porsche Macan",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "3.10 zeigt Aufbereitung, nicht Smart Repair (Motiv über 3.25) · R2 steht auch leihweise für „Leasingrückgabe vorbereiten“ · Kennzeichen am rechten Bildrand teilweise lesbar"
+      "offen": "5.6 durch den weißen Porsche Macan ersetzen (Motiv 3.25 geliefert) · Kennzeichen am rechten Bildrand teilweise lesbar"
     },
     "kacheln/unfallinstandsetzung-hintergrund-leipzig-carcare.webp": {
       "motiv": "Ausschnitt des Unfallfotos für den Seitenhintergrund: Schweißer mit Helm an der Dachsäule, rechts der Mitte (16:10)",
@@ -264,7 +264,7 @@
     "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter mit Tablet kniet hinter einem silbernen Porsche Taycan mit Heckschaden",
       "herkunft": "nicht dokumentiert (16.07.2026)",
-      "offen": "Seit 21.09.2026 an B20 (Schadenaufnahme) auf Wunsch des Users; B10 und seine übrigen Stellen zeigen das neue Unfallfoto"
+      "offen": "5.12 echte Schadenaufnahme (André fotografiert) · Seit 21.09.2026 an B20 (Schadenaufnahme) auf Wunsch des Users; B10 und seine übrigen Stellen zeigen das neue Unfallfoto"
     },
     "kacheln/versicherungen-und-agenturen-leipzig-carcare.webp": {
       "motiv": "Große Werkhalle mit vielen Fahrzeugen, zwei Mitarbeitende mit Tablet in der Mitte",
@@ -279,7 +279,7 @@
     "kacheln/wissensdatenbank-leipzig-carcare.webp": {
       "motiv": "Roter Kotflügel eines Mercedes SLS in Nahaufnahme",
       "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
-      "offen": ""
+      "offen": "5.17 Karte wird geprüft, entfällt evtl."
     },
     "partner/bvat.webp": {
       "motiv": "Siegel des Verbands BVAT",
@@ -321,20 +321,20 @@
       "notiz": "Video statt Foto, nur auf der Startseite (Lieferung 21.09.2026); die Nummer steht jetzt am Standbild"
     },
     "B13": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B20": {
-      "status": "angepasst",
-      "notiz": "Bisheriges B10-Motiv, auf Wunsch des Users hierher (ruhiger als vorher, Backlog 3.8) – 21.09.2026"
+      "status": "anzupassen",
+      "notiz": "5.12: André fotografiert eine echte Schadenaufnahme; bis dahin bleibt das Zwischenmotiv (Schleife 5, 25.09.2026)"
     },
     "B23": {
       "status": "angepasst",
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B26": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.14: eigenes Bild, der grüne Cayenne ist zu dominant – übergangsweise dunkler Macan, endgültig Andrés Foto (5.15) (Schleife 5, 25.09.2026)"
     },
     "B27": {
       "status": "angepasst",
@@ -373,68 +373,68 @@
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B40": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B45": {
       "status": "angepasst",
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B46": {
-      "status": "angepasst",
-      "notiz": "Lackaufbereitungs-Foto (21.09.2026) – steht direkt neben B47 mit demselben Bild"
+      "status": "anzupassen",
+      "notiz": "5.36: Außenaufbereitung bekommt das Foto „gelber Ferrari bei der Wäsche“ (neue Datei) (Schleife 5, 25.09.2026)"
     },
     "B47": {
-      "status": "anzupassen",
-      "notiz": "Wird später ersetzt (Kunde, 22.09.2026) – bis dahin das Lackaufbereitungs-Foto wie B46 daneben"
+      "status": "ok",
+      "notiz": "Behält das Politurfoto – passt laut André zur Lackaufbereitung (5.36) (Schleife 5, 25.09.2026)"
     },
     "B48": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B49": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B50": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B51": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.38: Foto angefragt – Wischen über das Cockpit, mit Schaum oder Dampf (Schleife 5, 25.09.2026)"
     },
     "B52": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.41: „Versiegelung“ und „Keramikschutz“ werden eine Kachel; Foto 5.39 (Keramik beim Auftragen) liefert André (Schleife 5, 25.09.2026)"
     },
     "B53": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B54": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.40: Foto angefragt – Lederpflege beim Auftragen (Schleife 5, 25.09.2026)"
     },
     "B55": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B56": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.41: „Versiegelung“ und „Keramikschutz“ werden eine Kachel; Foto 5.39 (Keramik beim Auftragen) liefert André (Schleife 5, 25.09.2026)"
     },
     "B57": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
     },
     "B58": {
       "status": "anzupassen",
-      "notiz": "Fotos liefert der Kunde später"
+      "notiz": "5.42: André liefert ein Foto der Endkontrolle (Schleife 5, 25.09.2026)"
     },
     "B60": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B64": {
       "status": "angepasst",
@@ -453,24 +453,24 @@
       "notiz": "Echtes Foto (Lieferung 21.09.2026), als Hintergrund-Ausschnitt: Pistole rechts der Mitte"
     },
     "B70": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B77": {
       "status": "angepasst",
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B79": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B80": {
       "status": "angepasst",
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B84": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "ok",
+      "notiz": "Bleibt – auf der Geschäftskundenseite „als Kontrast richtig schön“ (Schleife 5, 25.09.2026)"
     },
     "B85": {
       "status": "angepasst",
@@ -481,16 +481,16 @@
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B88": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.10: André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter) – Tesla oder Zuschnitt ohne KI (Schleife 5, 25.09.2026)"
     },
     "B95": {
       "status": "angepasst",
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B96": {
-      "status": "angepasst",
-      "notiz": "Echtes Foto (Lieferung 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "5.23: Lackiervideo wie auf der Startseite (B11/B112) (Schleife 5, 25.09.2026)"
     },
     "B103": {
       "status": "angepasst",
@@ -510,7 +510,7 @@
     },
     "B107": {
       "status": "anzupassen",
-      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+      "notiz": "5.27: Foto einer jungen Lackiererin (Azubi), nach ihrer Berufsschulzeit (Schleife 5, 25.09.2026)"
     },
     "B108": {
       "status": "angepasst",
@@ -547,6 +547,70 @@
     "B118": {
       "status": "angepasst",
       "notiz": "R18 erledigt 23.09.2026: Aufbereitungsbereich zeigt jetzt den vom User zugeordneten Drohnenclip"
+    },
+    "B12": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B39": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B61": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B68": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B78": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B87": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B97": {
+      "status": "anzupassen",
+      "notiz": "5.6: weißer Porsche Macan – Stoßfänger hinten, abgeklebt, kurz vor dem Lackieren (Schleife 5, 25.09.2026)"
+    },
+    "B14": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B41": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B71": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B81": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B89": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B98": {
+      "status": "anzupassen",
+      "notiz": "5.7: echtes Foto – Dellentechniker am Dach, Dellenlampe (Schleife 5, 25.09.2026)"
+    },
+    "B18": {
+      "status": "anzupassen",
+      "notiz": "5.11: Originalfoto ohne die generierte Person, als neue Datei (B106 behält dieses Bild) (Schleife 5, 25.09.2026)"
+    },
+    "B73": {
+      "status": "anzupassen",
+      "notiz": "5.11: Originalfoto ohne die generierte Person, als neue Datei (B106 behält dieses Bild) (Schleife 5, 25.09.2026)"
+    },
+    "B30": {
+      "status": "anzupassen",
+      "notiz": "5.17: Karte wird per SEO-Check geprüft, entfällt evtl. (Schleife 5, 25.09.2026)"
     }
   },
   "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."

@@ -108,6 +108,14 @@ const slug = (s) => String(s).toLowerCase().normalize('NFKD').replace(/[^\w]+/g,
 const zelle = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
 const git = (...args) => { try { return execFileSync('git', args, { cwd: wurzel, encoding: 'utf8' }).trim(); } catch { return ''; } };
 const uhrzeit = (ms) => new Date(ms).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+/**
+ * Datum in ORTSZEIT als JJJJ-MM-TT. `toISOString()` liefert UTC: Ein Lauf um 00:04 Uhr stand deshalb als
+ * „23.09., 00:04" im Kopf, obwohl er am 24.09. lief — Datum in UTC, Uhrzeit in Ortszeit (bis 2026-09-25).
+ */
+const lokalISO = (ms = Date.now()) => {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
 
 /* ------------------------------------------------------------------ */
 /* 0. Ist dist/ aktuell?                                               */
@@ -293,7 +301,7 @@ zeilen.sort((x, y) => seitenFolge.indexOf(x.seite) - seitenFolge.indexOf(y.seite
 /* ------------------------------------------------------------------ */
 /* 3. Feste Nummern                                                    */
 /* ------------------------------------------------------------------ */
-const heuteISO = new Date().toISOString().slice(0, 10);
+const heuteISO = lokalISO();
 const register = fs.existsSync(DATEI_NUMMERN)
   ? JSON.parse(fs.readFileSync(DATEI_NUMMERN, 'utf8'))
   : { naechste: 1, stellen: {}, entfallen: {} };
@@ -367,7 +375,7 @@ const info = async (datei) => {
       const erster = blob ? git('log', '--reverse', '--format=%cs', `--find-object=${blob}`).split('\n')[0] : '';
       const status = git('status', '--porcelain', '--', rel);
       i.datum = erster || (status ? '' : git('log', '-1', '--format=%cs', '--', rel));
-      if (!i.datum && status) i.hinweis = `nicht committet, Datei geändert am ${datumDE(new Date(st.mtimeMs).toISOString())}`;
+      if (!i.datum && status) i.hinweis = `nicht committet, Datei geändert am ${datumDE(lokalISO(st.mtimeMs))}`;
       const kb = `${Math.round(st.size / 1024)} KB`;
       if (/\.(webp|png|jpe?g|avif|gif)$/i.test(datei)) {
         const meta = await sharp(abs).metadata();
@@ -449,7 +457,7 @@ const unbekannteVermerke = Object.keys(stellenVermerke).filter((k) => !vermerkte
 /* 5. Ausgabe                                                          */
 /* ------------------------------------------------------------------ */
 const stempel = `${datumDE(heuteISO)}, ${uhrzeit(Date.now())} Uhr`;
-const distStempel = `${datumDE(new Date(distZeit).toISOString())}, ${uhrzeit(distZeit)} Uhr`;
+const distStempel = `${datumDE(lokalISO(distZeit))}, ${uhrzeit(distZeit)} Uhr`;
 const dateiName = (d) => (istLokal(d) ? d.replace(/^\//, '') : 'Unsplash-Stockfoto (extern)');
 const datumZelle = (i) => (i?.hinweis && !i.datum ? i.hinweis : datumDE(i?.datum));
 const fotoZeilen = zeilen.filter((z) => z.rolle !== 'platzhalter');
