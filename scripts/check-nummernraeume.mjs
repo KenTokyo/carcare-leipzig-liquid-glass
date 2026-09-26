@@ -40,13 +40,15 @@ const lies = (p) => fs.readFileSync(path.join(wurzel, p), 'utf8');
 /**
  * Die Schleifendateien sind die Quelle der Wahrheit fuer den erlaubten Raum.
  * Schleife 4 (seit 2026-09-10) traegt als erste ORIGINALE Kundennummern (Spalte „Nr." der
- * xlsx); 1-3 sind aus der Sortierung einer CSV rekonstruiert. Fuer den Waechter gleich.
+ * xlsx); 1-3 sind aus der Sortierung einer CSV rekonstruiert. Schleife 5 (seit 2026-09-25)
+ * hat OALAB auf Wunsch des Users aus dem Meeting-Transkript nummeriert. Fuer den Waechter gleich.
  */
 const QUELLEN = [
   { datei: 'docs/backlog/schleife-1.md', praefix: '1' },
   { datei: 'docs/backlog/schleife-2.md', praefix: '2' },
   { datei: 'docs/backlog/schleife-3.md', praefix: '3' },
   { datei: 'docs/backlog/schleife-4.md', praefix: '4' },
+  { datei: 'docs/backlog/schleife-5.md', praefix: '5' },
 ];
 
 const grenzen = {};

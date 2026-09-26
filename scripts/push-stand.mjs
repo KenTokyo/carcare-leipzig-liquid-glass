@@ -301,8 +301,9 @@ function backlogOffen() {
     { datei: 'docs/backlog/schleife-2.md', titel: 'Schleife 2' },
     { datei: 'docs/backlog/schleife-3.md', titel: 'Schleife 3' },
     { datei: 'docs/backlog/schleife-4.md', titel: 'Schleife 4' },
-    // Kundennummern 2.x–4.x stehen in ihren Schleifen-Dateien; hier nur R-Befunde, 1.x und Querschnitt.
-    { datei: 'docs/backlog/offene-punkte-konsolidiert.md', titel: 'Repo-Befunde, Schleife 1 und Querschnitt', auslassen: /^[234]\./ },
+    { datei: 'docs/backlog/schleife-5.md', titel: 'Schleife 5' },
+    // Kundennummern 2.x–5.x stehen in ihren Schleifen-Dateien; hier nur R-Befunde, 1.x und Querschnitt.
+    { datei: 'docs/backlog/offene-punkte-konsolidiert.md', titel: 'Repo-Befunde, Schleife 1 und Querschnitt', auslassen: /^[2345]\./ },
   ];
   const gruppen = [];
   for (const q of quellen) {
@@ -331,6 +332,9 @@ function backlogOffen() {
         const status = sauber(z[iStatus]);
         if (/^✅/.test(status) || /^(erledigt|umgesetzt|abgenommen|erfüllt)\b/i.test(status)) continue;
         if (/^(Prinzip|vereinbart|terminiert)\b/i.test(status)) continue;
+        // 🔁 = in einem Punkt einer spaeteren Schleife aufgegangen und dort gezaehlt (seit Schleife 5,
+        // 2026-09-25). Nicht erledigt — aber zweimal gezaehlt waere dieselbe Aufgabe doppelt offen.
+        if (/^🔁/.test(status)) continue;
         if (q.auslassen?.test(nr)) continue;
         eintraege.push({
           nr: nr === '(ohne Nr.)' ? '–' : nr,

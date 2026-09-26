@@ -157,7 +157,7 @@ Was die Sperre nicht abdeckt, steht im Kopf von `scripts/push-stand.mjs`.
 
 **Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`
 
-Dort liegen alle vier Review-Schleifen mit 124 Aufgaben, die Auswertung „was ist
+Dort liegen alle fünf Review-Schleifen mit 168 Aufgaben, die Auswertung „was ist
 wirklich offen", und die vom Kunden gelieferten Quelllisten.
 
 | Datei | Nummernraum |
@@ -166,6 +166,7 @@ wirklich offen", und die vom Kunden gelieferten Quelllisten.
 | `docs/backlog/schleife-2.md` | 2.1 – 2.27 |
 | `docs/backlog/schleife-3.md` | 3.1 – 3.37 |
 | `docs/backlog/schleife-4.md` | 4.1 – 4.21 (Originalnummern aus Andrés Liste) |
+| `docs/backlog/schleife-5.md` | 5.1 – 5.44 (Meeting 2026-09-25; von OALAB auf Wunsch des Users aus dem Transkript vergeben) |
 | `docs/backlog/nicht-relevant.md` | ohne Nummer |
 | `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |
 
