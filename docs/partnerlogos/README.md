@@ -15,6 +15,8 @@
 |---|---|---|---|---|---|
 | **riparo** (riparo gmbh, Holzgerlingen) | Schadensteuerer | vom Kunden mitgeteilt 2026-09-16 | **Logo + Link** `riparo.de` | `quelle/riparo_logo.png` von riparo.de, SHA-256 `3dba852d…` | ✅ eingebaut |
 | **Porsche Zentrum Leipzig** | Autohaus | vom Kunden mitgeteilt 2026-09-16 | **nur Link** `porsche-leipzig.de` | — | ⚠️ Logo **nicht** eingebaut, siehe unten |
+| **Volkswagen Automobile Leipzig** | Autohaus | mündlich im Meeting 2026-09-25 (Schleife 5, 5.16) | **nur Link** `volkswagen-leipzig.de` (Impressum: Volkswagen Automobile Leipzig GmbH, geprüft 2026-09-27) | — | ✅ Link eingebaut · Logo **nicht** (Marke der Volkswagen AG, wie bei Porsche) |
+| **Audi Zentrum Leipzig** | Autohaus | mündlich im Meeting 2026-09-25 (Schleife 5, 5.16) | **nur Link** `audi-zentrum-leipzig.de` (Betreiber: Audi Leipzig GmbH, geprüft 2026-09-27) | — | ✅ Link eingebaut · Logo **nicht** (Marke der AUDI AG) |
 | **BVAT** (Bundesverband Ausbeultechnik und Hagelinstandsetzung e.V.) | Verband, **Mitgliedschaft** | Mitgliedssiegel für Mitglieder (Verbandsangabe) | **Siegel + Link** `bvat.de` | `quelle/BVAT-Logo-2024-komplett-Web.png` von bvat.de, SHA-256 `e68b746c…` | ✅ eingebaut |
 
 **Offen beim Kunden:** Die schriftlichen Freigaben selbst liegen nicht im Repository. Bitte bei

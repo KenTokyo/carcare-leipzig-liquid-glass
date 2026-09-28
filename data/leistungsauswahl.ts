@@ -68,7 +68,8 @@ export const terminLeistungen: Leistungsoption[] = [
     label: 'Leasingrückgabe',
     routen: ['/leasingrueckgabe-leipzig', '/autoaufbereitung-wissen/leasingrueckgabe-vorbereiten'],
   },
-  { id: 'verkauf', label: 'Verkaufsaufbereitung' },
+  // „Verkaufsaufbereitung“ am 2026-09-28 gestrichen (Backlog 5.19, Andre: „gibt es so als solches eigentlich
+  // nicht“). Wer vor dem Verkauf aufbereiten laesst, waehlt ein Paket — die Leasingrueckgabe bleibt (Andre: „lass es so“).
   { id: 'sonstiges', label: 'Sonstiges' },
 ];
 

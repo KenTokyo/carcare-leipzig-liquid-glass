@@ -138,15 +138,16 @@ const VERDAECHTIGE_TEXTE = [
  * solange irgendein Platzhalter im Projekt steht.
  */
 const ANERKANNT = [
-  { text: 'Zusatzleistung 1', backlog: '1.18', seit: '2026-09-04' },
-  { text: 'Zusatzleistung 2', backlog: '1.18', seit: '2026-09-04' },
+  // „Zusatzleistung 1/2“ am 2026-09-28 entfallen: echte Liste aus der Mail von Andre eingesetzt
+  // (Backlog 5.20, fuehrt 1.18/2.26 fort). In VERDAECHTIGE_TEXTE bleiben sie — tauchen sie wieder auf, bricht der Build.
   // „Meilenstein 1" am 2026-09-11 entfallen: Station 2000 geliefert (Schleife 4, 4.17).
   // „Meilenstein 2" am 2026-09-14 entfallen: Station 2013 eingesetzt (Schleife 4, 4.18),
   // entsperrt durch die Flaechenentscheidung 4.2. Eigenschaft 3 der Liste greift hier —
   // der Eintrag haette den Build gebrochen, wenn er stehen geblieben waere.
-  { text: 'Meilenstein 3', backlog: 'R1', seit: '2026-09-04' },
-  { text: 'Jahr offen', backlog: 'R1', seit: '2026-09-04' },
-  { text: 'Platzhalter — wird durch', backlog: '1.18 / R1', seit: '2026-09-04' },
+  // „Meilenstein 3" und „Jahr offen" am 2026-09-27 entfallen: Station 2017 eingesetzt (Backlog 5.24,
+  // Jahr aus dem Meeting 2026-09-25). Der Satzanfang unten bleibt — er steht weiter in den
+  // Mitarbeiterstimmen (3.19); in den Zusatzleistungen seit 2026-09-28 nicht mehr (5.20).
+  { text: 'Platzhalter — wird durch', backlog: '3.19', seit: '2026-09-04' },
   // Die vier Videozeilen (3.18, 3.20, 3.21) sind am 2026-09-07 entfallen: Material
   // geliefert, Platzhalter weg. Genau der in Eigenschaft 3 beschriebene Fall — ein
   // Eintrag, der auf nichts mehr passt, haette den Build gebrochen.

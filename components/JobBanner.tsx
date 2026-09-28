@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, BriefcaseBusiness } from 'lucide-react';
-import { BEWERBEN_BANNER_AKTIV, offeneStellen } from '../data/jobs';
+import { BEWERBEN_BANNER_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker } from '../data/jobs';
 
 /**
  * „Jetzt bewerben"-Banner oben auf `/karriere` (Backlog 1.23).
@@ -38,11 +38,20 @@ const JobBanner: React.FC<JobBannerProps> = ({ href }) => {
             </span>
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
-                {anzahl === 1 ? 'Eine offene Stelle' : `${anzahl} offene Stellen`}
+                {offeneStellenKicker()}
               </p>
-              <p className="mt-1.5 text-lg font-bold leading-tight tracking-tight text-gray-950 md:text-xl">
-                {offeneStellen.map((job) => job.title).join(' · ')}
-              </p>
+              {/* Backlog 5.26: Berufe und Ausbildung getrennt — sonst stuende „Fahrzeuglackierer"
+                  neben „Fahrzeuglackierer/in" in einer Zeile, ohne dass man sieht, was was ist. */}
+              {offeneBerufe.length > 0 && (
+                <p className="mt-1.5 text-lg font-bold leading-tight tracking-tight text-gray-950 md:text-xl">
+                  {offeneBerufe.map((job) => job.title).join(' · ')}
+                </p>
+              )}
+              {offeneAusbildungen.length > 0 && (
+                <p className="mt-1.5 text-sm font-semibold leading-snug text-gray-800 md:text-base">
+                  Ausbildung: {offeneAusbildungen.map((job) => job.title).join(' · ')}
+                </p>
+              )}
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
                 Bewerbung mit Name, Kontakt und ein paar Sätzen zu Ihrer Erfahrung — Lebenslauf gern,
                 aber nicht zwingend.

@@ -1,4 +1,5 @@
 import type { PriceItem } from '../components/PageBlocks';
+import { zusatzleistungen } from './zusatzleistungen';
 
 /**
  * Inhalte des Aufbereitungs-Strangs (`/fahrzeugaufbereitung-leipzig`).
@@ -19,12 +20,18 @@ import type { PriceItem } from '../components/PageBlocks';
 export const AUFPREIS_SATZ =
   'Für Geländewagen und Großraumlimousinen kommt ein Aufpreis von 20 % hinzu, für Transporter von 50 %.';
 
-/** Pflegepakete inkl. Preis. Reihenfolge = aufsteigender Leistungsumfang. */
+/**
+ * Pflegepakete inkl. Preis. Reihenfolge = aufsteigender Leistungsumfang.
+ *
+ * Backlog 5.32 (Meeting 2026-09-25): Die drei Festpreise tragen ein „ab" — wegen der Aufpreise nach
+ * Fahrzeugklasse (`AUFPREIS_SATZ`). Gleich umgestellt: Preis-FAQ, Seitentexte und im Schema
+ * `from: true` in `priceOffers` (→ `PriceSpecification.minPrice` statt Fixpreis).
+ */
 export const carePackages: PriceItem[] = [
   {
     id: 'p1',
     title: 'Brillant Außenpflege',
-    price: '169,00 €',
+    price: 'ab 169,00 €',
     fussnote: true,
     leistung: 'aussen',
     // Backlog 2.10: Der zweite Satz trennt zwei Dinge, die sonst verwechselt werden —
@@ -39,7 +46,7 @@ export const carePackages: PriceItem[] = [
     id: 'p2',
     // Backlog 4.21: Programmname des Kunden. Bis 2026-09-16 stand hier „Intensiv Innenreinigung".
     title: 'Intensiv Innenraumreinigung',
-    price: '199,00 €',
+    price: 'ab 199,00 €',
     fussnote: true,
     leistung: 'innen',
     // Backlog 4.6: Teppichreinigung ergaenzt, „Schonende Oberwaesche" statt „inkl. Abledern".
@@ -51,7 +58,7 @@ export const carePackages: PriceItem[] = [
   {
     id: 'p3',
     title: 'Premiumpflege',
-    price: '299,00 €',
+    price: 'ab 299,00 €',
     fussnote: true,
     leistung: 'komplett',
     description:
@@ -81,46 +88,84 @@ export const carePackages: PriceItem[] = [
     leistung: 'lack',
     anfrageLabel: 'Lackaufbereitung anfragen',
     description:
-      'Hochglanzpolitur und Lackversiegelung, abgestimmt auf den Zustand Ihres Lackes — auf Wunsch mit Swissvax-Wachsen. Wie viel Arbeit nötig ist, zeigt erst die Begutachtung; danach nennen wir Ihnen den Preis.',
-  },
-];
-
-/** Desinfektions- und Hygieneleistungen inkl. Preis. */
-export const disinfectionServices: PriceItem[] = [
-  {
-    id: 'd1',
-    title: 'Ozonbehandlung',
-    price: '45,00 €',
-    // Keine passende Formularoption — bewusst KEINE Vorauswahl statt einer falschen.
-    leistung: '',
-    description:
-      'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.',
-  },
-  {
-    id: 'd2',
-    title: 'Heißvernebelung (KC-Refresher)',
-    price: '59,00 €',
-    leistung: '',
-    description:
-      'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.',
+      // Backlog 5.33 (Meeting 2026-09-25): Die Lackaufbereitung geht tiefer als die Brillant Außenpflege
+      // und soll staerker herausgestellt werden. Swissvax gehoert zur Premiumpflege „exklusiv" und steht
+      // deshalb hier nicht mehr — dafuer Keramik- und Nanoversiegelung, die Andre pushen moechte.
+      'Die Lackaufbereitung geht tiefer als die Außenpflege: Wir arbeiten leichte Kratzer und matte Stellen aus dem Lack heraus, polieren auf Hochglanz und schützen das Ergebnis — auf Wunsch mit einer Keramik- oder Nanoversiegelung. Wie viel Arbeit nötig ist, zeigt erst die Begutachtung; danach nennen wir Ihnen den Preis.',
   },
 ];
 
 /**
- * Maschinenlesbare Fassung der Preise fuer `offerCatalogSchema`.
- * `from: true` = „ab"-Preis, wird als `PriceSpecification.minPrice` ausgezeichnet.
+ * Zusatzleistung als Preiskachel. Name, Preis und Text kommen aus `data/zusatzleistungen.ts` — derselben
+ * Liste wie die Kaestchen im Formular. `leistung` = ID der Zusatzleistung: Der Anfrage-Link der Kachel
+ * hakt sie im Formular an (`startwerte` in `components/RequestForm.tsx`).
  */
-export const priceOffers = [
-  { name: 'Brillant Außenpflege', price: '169.00', description: `Außenaufbereitung mit Handoberwäsche, Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}` },
-  { name: 'Intensiv Innenraumreinigung', price: '199.00', description: `Intensive Innenraumreinigung mit Polstershampoonierung oder Lederpflege sowie Teppichreinigung. ${AUFPREIS_SATZ}` },
-  { name: 'Premiumpflege', price: '299.00', description: `Brillant Außenpflege und Intensiv Innenraumreinigung kombiniert, inklusive Motorreinigung und Versiegelung. ${AUFPREIS_SATZ}` },
-  // Backlog 2.9 / 4.4: ohne `price` — Preis nach Absprache, im Schema daher keine Preisfelder.
-  { name: 'Premiumpflege „exklusiv“', description: 'Aufbereitung außen und innen in Handarbeit, mit Swissvax-Wachsen, Carnaubaanteil 30 bis 60 %. Preis nach Absprache.' },
-  // Backlog 4.9: sichtbar bei den Paketen, deshalb auch hier — ebenfalls ohne Preis.
-  { name: 'Lackaufbereitung', description: 'Hochglanzpolitur und Lackversiegelung nach Zustand des Lackes. Preis nach Aufwand.' },
-  { name: 'Ozonbehandlung', price: '45.00', description: 'Innenraum-Desinfektion mit Ozon, ca. 30 Minuten Einwirkzeit.' },
-  { name: 'Heißvernebelung (KC-Refresher)', price: '59.00', description: 'Lang anhaltende Innenraum-Desinfektion gegen Bakterien, behüllte Viren und Schimmelpilze.' },
-];
+const zusatzKachel = (id: string): PriceItem => {
+  const z = zusatzleistungen.find((eintrag) => eintrag.id === id);
+  if (!z) throw new Error(`data/detailing.ts: Zusatzleistung „${id}“ fehlt in data/zusatzleistungen.ts`);
+  return { id: `zusatz-${z.id}`, title: z.label, price: z.preis, description: z.beschreibung, leistung: z.id };
+};
+
+/**
+ * Anzeigepreis einer Zusatzleistung fuer Fliesstext (Einleitungen, FAQ) — keine zweite Schreibweise des Preises.
+ * Mit geschuetzten Leerzeichen: Im Fliesstext brach mobil sonst „169,00 / €“ zwischen Betrag und Waehrung um.
+ */
+const fliesstextPreis = (preis: string) => preis.replace(/ /g, '\u00A0');
+export const zusatzPreis = (id: string): string => fliesstextPreis(zusatzKachel(id).price);
+
+/** Desinfektions- und Hygieneleistungen inkl. Preis (Backlog 1.10 / 1.11). */
+export const disinfectionServices: PriceItem[] = ['ozon', 'heissvernebelung'].map(zusatzKachel);
+
+/**
+ * Exklusiv- und Zusatzleistungen mit Festpreis (Mail Andre 2026-09-28): Versiegelungen und Pflege-Extras.
+ * Keramik und Nano als eigene Kacheln „zur besseren Vermarktung“ (Andre).
+ */
+export const zusatzAngebote: PriceItem[] = ['keramik', 'nano', 'frontscheibe', 'felgen', 'cabrio', 'motor'].map(zusatzKachel);
+
+const paket = (id: string): PriceItem => {
+  const gefunden = carePackages.find((p) => p.id === id);
+  if (!gefunden) throw new Error(`data/detailing.ts: Paket „${id}“ fehlt in carePackages`);
+  return gefunden;
+};
+
+/**
+ * WELCHE KACHEL AUF WELCHER SEITE (User, 2026-09-28): Die Uebersicht `/fahrzeugaufbereitung-leipzig`
+ * zeigt ALLE Aufbereitungsleistungen, Aussen- und Innenseite nur die zugeordneten. Die kombinierten
+ * Pakete (Premiumpflege, „exklusiv“) gehoeren keiner Seite allein — sie stehen auf der Uebersicht,
+ * die beiden Unterseiten verweisen darauf. Umhaengen = eine ID hier verschieben.
+ */
+/** Anzeigepreis eines Pakets fuer Fliesstext — wie `zusatzPreis`. */
+export const paketPreis = (id: string): string => fliesstextPreis(paket(id).price);
+
+export const angeboteAussen = {
+  pakete: [paket('p1'), paket('p5')],
+  zusatz: zusatzAngebote,
+};
+export const angeboteInnen = {
+  // Einzelne Karte ueber die volle Breite, damit sie nicht allein in der halben Spalte steht.
+  pakete: [{ ...paket('p2'), breit: true }],
+  zusatz: disinfectionServices,
+};
+
+/**
+ * Maschinenlesbare Fassung der Kacheln fuer `offerCatalogSchema` — ABGELEITET aus genau den Kacheln,
+ * die eine Seite zeigt (SEO-GEO §5: nur Sichtbares auszeichnen). Bis 2026-09-28 stand hier eine
+ * handgeschriebene Zweitliste (`priceOffers`) mit eigenen Kurztexten; jede neue Kachel haette dort
+ * nachgetragen werden muessen.
+ *
+ * Betrag aus dem Anzeigepreis: „ab 169,00 €“ → `minPrice` 169.00 (`from`), „95,20 €“ → `price` 95.20,
+ * „Preis nach Aufwand/Absprache“ → keine Preisfelder, der Wortlaut steht dann in der Beschreibung.
+ */
+export const schemaAngebote = (kacheln: PriceItem[]) =>
+  kacheln.map((kachel) => {
+    const treffer = kachel.price.match(/^(ab\s+)?([\d.]+),(\d{2})\s*€$/);
+    const zusatz = kachel.fussnote ? ` ${AUFPREIS_SATZ}` : treffer ? '' : ` ${kachel.price}.`;
+    return {
+      name: kachel.title,
+      description: `${kachel.description}${zusatz}`,
+      ...(treffer ? { price: `${treffer[2].replace(/\./g, '')}.${treffer[3]}`, from: Boolean(treffer[1]) } : {}),
+    };
+  });
 
 /**
  * EINZIGE QUELLE der Motive im Aufbereitungs-Kontext.
@@ -155,7 +200,8 @@ export const aufbereitungKacheln = {
   aussen: '/assets/kacheln/lackaufbereitung-leipzig-carcare.webp',
   lack: '/assets/kacheln/lackaufbereitung-leipzig-carcare.webp',
   leasing: '/assets/kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp',
-  wissen: '/assets/kacheln/wissensdatenbank-leipzig-carcare.webp',
+  // `wissen` entfallen (Backlog 5.17, 2026-09-27): Die Wissens-Karte der Startseite ist weg, das Motiv
+  // `wissensdatenbank-…` wird nirgends mehr verwendet (Liste „unbenutzt" in `npm run bilder`).
 } as const;
 
 export interface DetailingScope {
@@ -231,22 +277,28 @@ export const detailingScopes: DetailingScope[] = [
     imageHeight: 1500,
     title: 'Lackaufbereitung',
     intro:
-      'Politur und Versiegelung arbeiten den Lack selbst auf — für Glanz und einen Schutz, der die spätere Reinigung erleichtert. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',
+      'Die Lackaufbereitung geht tiefer als die Außenpflege: Politur nimmt leichte Kratzer und matte Stellen aus dem Lack, eine Versiegelung schützt den Glanz — auf Wunsch als Keramik- oder Nanoversiegelung. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',
     href: '/aussenaufbereitung-leipzig',
     hrefLabel: 'Zur Lackaufbereitung',
   },
 ];
 
 /**
- * Ablauf der Aufbereitung — wortgleich zu den Prozesskarten der Startseite
- * (`components/DetailingProcessSection.tsx`, mit der Geschaeftsfuehrung abgestimmt).
- * Bewusst dieselbe Formulierung: Mainpage und Hub duerfen den Ablauf nicht
- * unterschiedlich beschreiben.
+ * Ablauf der Aufbereitung — EINE QUELLE fuer die Prozesskarten der Startseite
+ * (`components/DetailingProcessSection.tsx`) und den Ablauf auf `/fahrzeugaufbereitung-leipzig`.
+ *
+ * Bis 2026-09-27 stand der Wortlaut zweimal: hier und als Kopie in der Komponente. Beide waren
+ * noch gleich, aber jede Korrektur musste doppelt gemacht werden (gefunden bei Backlog 5.18).
+ * Die Startseite liest Titel und Text jetzt von hier; nur ihre Bilder stehen in der Komponente.
+ *
+ * Backlog 5.18 (Meeting 2026-09-25): „Außen" als Bereichsname gross wie „Lack", und „nach dem
+ * hoechsten Standard" statt „nach unserem Standard" — das klang, als haetten wir einen eigenen
+ * Standard erfunden.
  */
 export const detailingSteps = [
   { title: 'Leistung auswählen', description: 'Passendes Paket oder individuelle Aufbereitung wählen.' },
   { title: 'Termin anfragen', description: 'Wunschtermin online oder telefonisch übermitteln.' },
   { title: 'Fahrzeug abgeben', description: 'Persönliche Übergabe mit kurzer Beratung vor Ort.' },
-  { title: 'Professionelle Aufbereitung', description: 'Innen, außen, Lack und Details nach unserem Standard.' },
+  { title: 'Professionelle Aufbereitung', description: 'Innen, Außen, Lack und Details nach dem höchsten Standard.' },
   { title: 'Gepflegt zurückerhalten', description: 'Sichtbar aufgewertet und bereit für Alltag oder Rückgabe.' },
 ];

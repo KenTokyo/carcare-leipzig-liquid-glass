@@ -3,7 +3,10 @@ import { render, toPlainText } from 'react-email';
 import nodemailer from 'nodemailer';
 import { randomInt } from 'node:crypto';
 import type { RequestFormKind } from '../types.js';
-import { BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, MAX_FELDER, MAX_LAENGE, PFLICHTFELDER } from '../data/anfrageSchema.js';
+import {
+  ANHANG_MAX_BYTES, ANHANG_MAX_DATEIEN, ANHANG_TYPEN, BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, MAX_FELDER, MAX_LAENGE,
+  LEISTUNGS_IDS, PFLICHTFELDER, PFLICHT_EINS_VON, anhangEndung, passtSignatur,
+} from '../data/anfrageSchema.js';
 import AnfrageEmail from '../emails/AnfrageEmail.js';
 
 /** Node.js is required for SMTP. Credentials stay in the server environment. */
@@ -11,6 +14,13 @@ export const maxDuration = 30;
 const EMAIL = /^[^@\s<>\r\n]+@[^@\s<>\r\n]+\.[^@\s<>\r\n]+$/;
 const ZEICHEN = '23456789ABCDEFGHJKMNPQRSTVWXYZ';
 const MAX_BODY_BYTES = 48_000;
+/**
+ * Backlog 5.29: Nur Bewerbungen duerfen Anhaenge tragen. 3 MB roh sind als Base64 rund 4 MB — die
+ * Grenze liegt knapp darueber und unter Vercels 4,5 MB. Alle uebrigen Anfragen behalten 48 KB; das
+ * wird nach dem Lesen der Anfrageart geprueft, weil sie erst im Koerper steht.
+ */
+const MAX_BODY_BYTES_ANHANG = 4_400_000;
+const BASE64 = /^[A-Za-z0-9+/]*={0,2}$/;
 const antwort = (koerper: unknown, status: number) => new Response(JSON.stringify(koerper), {
   status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
 });
@@ -46,6 +56,39 @@ const vorgangsnummer = () => {
 const istObjekt = (wert: unknown): wert is Record<string, unknown> =>
   typeof wert === 'object' && wert !== null && !Array.isArray(wert);
 
+export interface Anhang { filename: string; content: Buffer; contentType: string }
+
+/**
+ * Prueft die Anhaenge einer Bewerbung (Backlog 5.29) — verbindlich; das Formular prueft dasselbe nur
+ * zur Bequemlichkeit. Typ ueber die SIGNATUR der Datei, nicht nur die Endung. Dateinamen ohne Pfad-
+ * und Steuerzeichen, damit im Mailprogramm nichts anderes ankommt als eine Datei.
+ */
+export const pruefeAnhaenge = (roh: unknown): { anhaenge: Anhang[] } | { fehler: string; status: number } => {
+  if (roh === undefined) return { anhaenge: [] };
+  if (!Array.isArray(roh)) return { fehler: 'Ungültige Anhänge.', status: 400 };
+  if (roh.length > ANHANG_MAX_DATEIEN) return { fehler: `Bitte höchstens ${ANHANG_MAX_DATEIEN} Dateien anhängen.`, status: 400 };
+  const anhaenge: Anhang[] = [];
+  let gesamt = 0;
+  for (const eintrag of roh) {
+    if (!istObjekt(eintrag) || typeof eintrag.name !== 'string' || typeof eintrag.daten !== 'string') {
+      return { fehler: 'Ungültige Anhänge.', status: 400 };
+    }
+    // eslint-disable-next-line no-control-regex
+    const name = eintrag.name.replace(/[\\/:*?"<>|\u0000-\u001f\u007f]+/g, '_').trim().slice(-120) || 'anhang';
+    const endung = anhangEndung(name);
+    const typ = ANHANG_TYPEN[endung];
+    if (!typ) return { fehler: `Dieser Dateityp ist nicht erlaubt: ${name}. Bitte PDF, Word, ODT, JPG oder PNG.`, status: 400 };
+    if (!BASE64.test(eintrag.daten)) return { fehler: `Der Anhang ist nicht lesbar: ${name}.`, status: 400 };
+    const inhalt = Buffer.from(eintrag.daten, 'base64');
+    if (!inhalt.length) return { fehler: `Die Datei ist leer: ${name}.`, status: 400 };
+    gesamt += inhalt.length;
+    if (gesamt > ANHANG_MAX_BYTES) return { fehler: 'Die Anhänge sind zusammen größer als 3 MB.', status: 413 };
+    if (!passtSignatur(inhalt.subarray(0, 8), endung)) return { fehler: `Die Datei passt nicht zu ihrer Endung: ${name}.`, status: 400 };
+    anhaenge.push({ filename: name, content: inhalt, contentType: typ.mime });
+  }
+  return { anhaenge };
+};
+
 export async function handler(request: Request): Promise<Response> {
   const stand = einrichtung();
   if (request.method === 'GET') return antwort({ bereit: stand.bereit }, stand.bereit ? 200 : 503);
@@ -53,16 +96,16 @@ export async function handler(request: Request): Promise<Response> {
   if (!stand.bereit) return antwort({ bereit: false, fehler: 'Der Online-Versand ist derzeit nicht eingerichtet. Bitte kontaktieren Sie uns per E-Mail oder Telefon.' }, 503);
   // Bound the actual stream, not only Content-Length (which clients can omit).
   let roh: unknown;
+  let bytes = 0;
   try {
     const reader = request.body?.getReader();
     if (!reader) return antwort({ fehler: 'Anfrage nicht lesbar.' }, 400);
     const chunks: Uint8Array[] = [];
-    let bytes = 0;
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       bytes += value.byteLength;
-      if (bytes > MAX_BODY_BYTES) {
+      if (bytes > MAX_BODY_BYTES_ANHANG) {
         await reader.cancel();
         return antwort({ fehler: 'Anfrage ist zu groß.' }, 413);
       }
@@ -74,6 +117,12 @@ export async function handler(request: Request): Promise<Response> {
     return antwort({ fehler: 'Unbekannte Anfrageart.' }, 400);
   }
   const art = roh.art as RequestFormKind;
+  // Die hohe Grenze gilt nur fuer Bewerbungen mit Anhang (5.29) — alle anderen bleiben bei 48 KB.
+  if (art !== 'bewerbung' && bytes > MAX_BODY_BYTES) return antwort({ fehler: 'Anfrage ist zu groß.' }, 413);
+  if (art !== 'bewerbung' && roh.anhaenge !== undefined) return antwort({ fehler: 'Anhänge sind nur bei Bewerbungen möglich.' }, 400);
+  const geprueft = pruefeAnhaenge(roh.anhaenge);
+  if ('fehler' in geprueft) return antwort({ fehler: geprueft.fehler }, geprueft.status);
+  const { anhaenge } = geprueft;
   const eingang = roh.daten;
   if (!istObjekt(eingang)) return antwort({ fehler: 'Ungültige Formularfelder.' }, 400);
   if (Object.keys(eingang).length > MAX_FELDER) return antwort({ fehler: 'Zu viele Felder.' }, 400);
@@ -91,21 +140,31 @@ export async function handler(request: Request): Promise<Response> {
   }
   const fehlend = PFLICHTFELDER[art].filter((feld) => !daten[feld]);
   if (fehlend.length) return antwort({ fehler: `Pflichtangaben fehlen: ${fehlend.join(', ')}` }, 400);
-  if (!EMAIL.test(daten.email)) return antwort({ fehler: 'E-Mail-Adresse sieht nicht gültig aus.' }, 400);
+  // Mindestens eins je Gruppe (Terminanfrage: Telefon oder E-Mail, 2026-09-28).
+  const keinsVon = (PFLICHT_EINS_VON[art] ?? []).filter((gruppe) => !gruppe.some((feld) => daten[feld]));
+  if (keinsVon.length) return antwort({ fehler: `Bitte mindestens eine Angabe: ${keinsVon.map((g) => g.join(' oder ')).join('; ')}` }, 400);
+  // Die E-Mail wird nur geprueft, wenn es eine gibt — bei der Terminanfrage darf sie fehlen.
+  if (daten.email && !EMAIL.test(daten.email)) return antwort({ fehler: 'E-Mail-Adresse sieht nicht gültig aus.' }, 400);
+  if (art === 'termin' && !LEISTUNGS_IDS.has(daten.service)) return antwort({ fehler: 'Unbekannte Leistung.' }, 400);
   const vorgang = vorgangsnummer();
   const transport = smtpTransport(stand);
   try {
-    const html = await render(createElement(AnfrageEmail, { art, daten, vorgang }));
+    const anhangListe = anhaenge.map((a) => ({ name: a.filename, bytes: a.content.length }));
+    const html = await render(createElement(AnfrageEmail, { art, daten, vorgang, anhaenge: anhangListe }));
     const ziel = empfaengerFuer(art, stand)!;
     const result = await transport.sendMail({
       from: { name: 'CarCare Center · Website', address: stand.absender! },
-      to: ziel, replyTo: { address: daten.email },
+      // Antwortadresse nur, wenn der Kunde eine E-Mail genannt hat — sonst meldet sich der Betrieb telefonisch.
+      to: ziel, ...(daten.email ? { replyTo: { address: daten.email } } : {}),
       subject: `[${vorgang}] ${BETREFF[art]} — ${(daten.company || daten.name || daten.contact).replace(/[\r\n]/g, ' ').slice(0, 160)}`,
       text: toPlainText(html), html,
+      // Backlog 5.29: Anhaenge nur als Speicherinhalt (Buffer) — `disableFileAccess`/`disableUrlAccess`
+      // bleiben wirksam, es wird nie ein Pfad oder eine URL aufgeloest. Nichts wird gespeichert.
+      ...(anhaenge.length ? { attachments: anhaenge } : {}),
     });
     if (!result.accepted.length || result.rejected.length) throw new Error('SMTP_REJECTED');
     // SMTP acceptance is not proof of final delivery or forwarding. No customer data in logs.
-    console.info('[anfrage] SMTP angenommen', { vorgang, art, messageId: result.messageId });
+    console.info('[anfrage] SMTP angenommen', { vorgang, art, anhaenge: anhaenge.length, messageId: result.messageId });
     return antwort({ ok: true, vorgang }, 200);
   } catch (error) {
     const code = istObjekt(error) && typeof error.code === 'string' ? error.code : 'SEND_FAILED';

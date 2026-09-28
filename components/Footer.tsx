@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
 import { ExternMarke, externAttribute } from './ExternerLink';
@@ -169,9 +169,11 @@ const Footer: React.FC = () => {
                   loading="lazy"
                 />
               </div>
+              {/* Backlog 5.31 (Meeting 2026-09-25): Wortlaut von André. Bis dahin „… Fahrzeugaufbereitung
+                  und -pflege" — die Unfallinstandsetzung, der zweite Hauptbereich, fehlte hier ganz. */}
               <p className="text-gray-300 text-sm leading-relaxed max-w-sm">
                 BS CarCare GmbH<br />
-                Ihr Premium-Partner für Fahrzeugaufbereitung und -pflege in Leipzig.
+                Ihr Premium-Partner für Fahrzeugaufbereitung und Unfallinstandsetzung in Leipzig.
               </p>
             </motion.div>
 
@@ -187,17 +189,15 @@ const Footer: React.FC = () => {
                   <Phone size={16} className="text-gray-400 shrink-0" />
                   <a href="tel:+493412617790" className="hover:text-white transition-colors">0341 - 261 77 90</a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Printer size={16} className="text-gray-400 shrink-0" />
-                  <p>0341 - 962 74 87</p>
-                </div>
+                {/* Backlog 5.30 (2026-09-25): Die Faxnummer 0341 - 962 74 87 ist entfallen — André:
+                    „braucht ja heute sowieso kein Mensch mehr", die Telefonnummer reicht. */}
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-gray-400 shrink-0" />
                   {/* `tracking-tight` haelt die Adresse in der schmalen 1/6-Footerspalte auf EINER
                       Zeile: Space Grotesk laeuft breiter als das fruehere Inter und kippte sie ab
                       ~1440px in einen Umbruch mitten in der Domain ("carcare-" / "center.de").
-                      Bewusst das Letterspacing statt der Schriftgroesse: haelt 14px konsistent zu
-                      Telefon/Fax daneben und faellt bei einem technischen String nicht auf. */}
+                      Bewusst das Letterspacing statt der Schriftgroesse: haelt 14px konsistent zur
+                      Telefonnummer daneben und faellt bei einem technischen String nicht auf. */}
                   <a href="mailto:info@carcare-center.de" className="tracking-tight hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">info@carcare-center.de</a>
                 </div>
               </div>

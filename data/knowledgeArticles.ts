@@ -549,7 +549,7 @@ export const knowledgeCategories: KnowledgeCategory[] = [
   {
     id: 'werterhalt',
     title: 'Werterhalt & Leasing',
-    description: 'Wissenswertes zu Leasingrückgabe, Verkaufsaufbereitung und sinnvoller Vorbereitung vor Bewertung oder Übergabe.',
+    description: 'Wissenswertes zu Leasingrückgabe, Aufbereitung vor dem Verkauf und sinnvoller Vorbereitung vor Bewertung oder Übergabe.',
     articleSlugs: ['leasingrueckgabe-vorbereiten'],
   },
   {

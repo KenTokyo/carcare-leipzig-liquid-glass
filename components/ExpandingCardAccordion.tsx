@@ -243,9 +243,14 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
         // Gilt fuer Foto und Video gleich: Zoom beim Aufklappen, Graustufen bei gedaempften Karten.
         const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
         // Titel in „alles ausser letztem Wort" + „letztes Wort" zerlegen: Der blaue Akzentpunkt
-        // wird unten mit dem letzten Wort in eine `whitespace-nowrap`-Klammer gesetzt. Ohne das
-        // rutscht er bei mehrzeiligen Titeln allein in eine neue Zeile und wirkt wie ein Fehler
-        // (gleiche Ueberlegung wie in TargetGroupCards, dort driftete er nach rechts weg).
+        // haengt am letzten Wort. Ohne das rutscht er bei mehrzeiligen Titeln allein in eine neue
+        // Zeile und wirkt wie ein Fehler (gleiche Ueberlegung wie in TargetGroupCards).
+        //
+        // BACKLOG 5.25 (2026-09-27): Bis dahin hielt ein `whitespace-nowrap` um das letzte Wort den
+        // Punkt fest — und verbot damit auch jede Trennung IM Wort. „Fahrzeugbaumechaniker/in" ist
+        // bei 24 px breiter als der 252 px schmale Textkasten und lief sichtbar ueber dessen Rand
+        // („die Schrift ist ueber dem Kasten", Meeting 2026-09-25). Jetzt haelt ein Wortverbinder
+        // (U+2060) den Punkt am Wort, und der Titel darf deutsch silbengetrennt werden.
         const woerter = item.title.split(' ');
         const letztesWort = woerter.pop() ?? '';
         const davor = woerter.join(' ');
@@ -288,8 +293,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             <div aria-hidden="true" className="cc-karten-vignette absolute inset-0" />
             {/* Kennzeichnung des Kartenmotivs. Am Desktop NUR auf der aufgeklappten Karte:
                 Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
-                angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer. */}
-            {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className="right-3 top-3" />}
+                angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer.
+                Auf dem 64 px hohen mobilen Streifen 4 px hoeher (`top-2`) und der Titel unten
+                (siehe dort): Mittig gesetzt lag er bei 360–430 px auf 11 von 96 Streifen unter der
+                Plakette (gemessen 2026-09-27, z. B. „Autoglas / Scheibenfolien", „Industriekaufmann/-frau"). */}
+            {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className={isActive ? 'right-3 top-3' : 'right-3 top-2'} />}
             {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
                 eingeklappten Titel (gleicher Stapel, spaeter im DOM) und hinter der
                 Textbox (z-10). Deshalb kein z-Index — die DOM-Reihenfolge genuegt. */}
@@ -298,10 +306,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             )}
 
             {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop),
-                faded bei aktiv aus */}
+                faded bei aktiv aus. Mobil am UNTEREN Rand des Streifens statt mittig: Oben rechts
+                steht die KI-Plakette, und unten liegt der dunklere Teil des Verlaufs. */}
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute inset-0 flex items-center justify-center px-4 text-center text-[13px] font-bold uppercase tracking-wide text-white [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
+              className={`pointer-events-none absolute inset-0 flex items-end justify-center px-4 pb-2.5 text-center text-[13px] font-bold uppercase leading-tight tracking-wide text-white lg:items-center lg:pb-0 lg:leading-normal [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
             >
               {item.title}
             </span>
@@ -332,12 +341,13 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   {item.badge.label}
                 </span>
               )}
-              <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
+              {/* `hyphens-auto` trennt nach deutscher Silbenregel (`<html lang="de">`), `break-words`
+                  ist das Netz fuer ein Wort ohne Trennstelle — ein Titel darf nie ueber den Kasten. */}
+              <h3 className="hyphens-auto break-words text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
                 {davor && `${davor} `}
-                <span className="whitespace-nowrap">
-                  {letztesWort}
-                  <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
-                </span>
+                {letztesWort}
+                {'\u2060'}
+                <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
               </h3>
               {/* Scrollbarer Textbereich. `min-h-0` ist hier nicht kosmetisch: Ohne das
                   bekommt ein Flex-Kind die Mindesthoehe seines Inhalts und laeuft aus der

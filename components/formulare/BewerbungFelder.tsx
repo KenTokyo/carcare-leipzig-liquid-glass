@@ -1,6 +1,7 @@
 import React from 'react';
 import { ausbildungsberufe, berufsbilder } from '../../data/jobs';
 import { inputClass, labelClass, type FeldAenderung, type FormFieldsByKind } from './felder';
+import AnhangFeld from './AnhangFeld';
 
 /**
  * Felder der Variante „Bewerbung".
@@ -12,9 +13,12 @@ import { inputClass, labelClass, type FeldAenderung, type FormFieldsByKind } fro
 interface BewerbungFelderProps {
   werte: FormFieldsByKind['bewerbung'];
   onChange: FeldAenderung;
+  /** Angehaengte Dateien (Backlog 5.29) — Zustand in `RequestForm`, der sie beim Absenden mitschickt. */
+  anhaenge: File[];
+  onAnhaenge: (dateien: File[]) => void;
 }
 
-const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) => (
+const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anhaenge, onAnhaenge }) => (
   <>
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
@@ -64,7 +68,8 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) =>
             {ausbildungsberufe.map((job) => (
               <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
                 {job.title}
-                {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
+                {/* Backlog 5.26: Beginn mitnennen, wo es einen gibt („Beginn Sommer 2027"). */}
+                {job.status === 'suchend' ? (job.hinweis ? ` — ${job.hinweis}` : '') : ' — zurzeit keine offene Stelle'}
               </option>
             ))}
           </optgroup>
@@ -77,7 +82,11 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) =>
       </div>
     </div>
     {/*
-      DAS UPLOADFELD IST ENTFERNT (2026-09-05, Backlog R9).
+      ANHAENGE WIEDER DA (Backlog 5.29, 2026-09-27) — diesmal wirklich mitgesendet: als Base64 im
+      Anfragekoerper, auf dem Server an der Dateisignatur geprueft und als Mail-Anhang weitergegeben.
+      Die Geschichte darunter erklaert, warum das Feld bis dahin fehlte:
+
+      DAS UPLOADFELD WAR ENTFERNT (2026-09-05, Backlog R9).
       Anhaenge werden nicht mitgesendet — der Anfragekoerper der Versandfunktion ist auf
       wenige Megabyte begrenzt. Ein bedienbares Feld, das seinen Inhalt verwirft, ist
       dieselbe Klasse Fehler wie eine Erfolgsmeldung ohne Versand: Wer seinen Lebenslauf
@@ -91,11 +100,12 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange }) =>
       OHNE Unterlagen abgeschickt werden kann. Das gilt weiterhin.
     */}
     <div className="rounded-xl border border-gray-200 bg-white p-4">
-      <p className="text-[11px] leading-relaxed text-gray-700">
+      <p className="mb-4 text-[11px] leading-relaxed text-gray-700">
         <span className="font-semibold text-gray-950">Unterlagen sind nicht nötig, um zu starten.</span>{' '}
-        Schicken Sie erst einmal diese Angaben ab — Lebenslauf und Zeugnisse reichen Sie danach
-        bequem per E-Mail nach. Den Weg dafür zeigen wir Ihnen direkt nach dem Absenden.
+        Hängen Sie Lebenslauf oder Zeugnisse gern gleich an — oder reichen Sie sie nach dem Absenden per
+        E-Mail nach. Den Weg dafür zeigen wir Ihnen dann.
       </p>
+      <AnhangFeld dateien={anhaenge} onChange={onAnhaenge} />
     </div>
     <div>
       <label className={labelClass} htmlFor="bewerbung-description">Nachricht</label>

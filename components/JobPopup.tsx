@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
-import { STELLEN_POPUP_AKTIV, offeneStellen } from '../data/jobs';
+import { STELLEN_POPUP_AKTIV, offeneStellen, offeneStellenKicker } from '../data/jobs';
 
 /**
  * Pop-up mit den offenen Stellen auf `/karriere` (Backlog 1.23).
@@ -107,7 +107,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
           </button>
 
           <p className="pr-8 text-[10px] font-bold uppercase tracking-[0.22em] text-blue-600">
-            {offeneStellen.length === 1 ? 'Eine offene Stelle' : `${offeneStellen.length} offene Stellen`}
+            {offeneStellenKicker()}
           </p>
           <p className="mt-2 text-base font-bold leading-tight tracking-tight text-gray-950">
             Wir suchen Verstärkung.
@@ -116,7 +116,12 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
             {offeneStellen.map((job) => (
               <li key={job.id} className="flex gap-2 text-sm leading-snug text-gray-600">
                 <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-600" />
-                {job.title}
+                {/* Backlog 5.26: Ausbildungsplaetze als solche kenntlich, sonst stuende
+                    „Fahrzeuglackierer/in" ohne Erklaerung neben „Fahrzeuglackierer". */}
+                <span>
+                  {job.title}
+                  {job.art === 'ausbildung' && ` (Ausbildung${job.hinweis ? `, ${job.hinweis}` : ''})`}
+                </span>
               </li>
             ))}
           </ul>

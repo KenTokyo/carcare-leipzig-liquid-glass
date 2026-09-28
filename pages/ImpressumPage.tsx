@@ -8,8 +8,9 @@ import { PageHero, PageMeta } from '../components/PageBlocks';
  * `www.carcare-center.de/kontakt/impressum.html` entnommen und dort veroeffentlicht.
  * Nichts davon ist hergeleitet, geschaetzt oder aus anderen Quellen ergaenzt.
  *
- * WAS NICHT BELEGT IST, STEHT NICHT DA. Vier Angaben fehlen bewusst; sie sind unten
- * einzeln als TODO markiert. Kein sichtbarer Platzhalter, keine Vermutung — dieselbe
+ * WAS NICHT BELEGT IST, STEHT NICHT DA. Zwei Angabengruppen fehlen bewusst (berufsrechtliche
+ * Angaben, Verbraucherstreitbeilegung); sie sind unten einzeln als TODO markiert. Die Telefon-
+ * nummer ist seit dem 2026-09-25 geklaert (Backlog 5.30). Kein sichtbarer Platzhalter, keine Vermutung — dieselbe
  * Regel wie bei den Benefits (1.18) und der Ausstattungsliste (R3): ein leeres Feld
  * ist ein ehrlicher Zustand, ein geratenes ist eine falsche Angabe. Und eine falsche
  * Angabe im Impressum ist genau die Sorte Fehler, die der Matomo-Satz im Footer war.
@@ -74,19 +75,22 @@ const ImpressumPage: React.FC = () => (
         <Abschnitt title="Kontakt">
           <dl>
             {/*
-              TODO (Backlog R5): TELEFONNUMMER FEHLT — bewusst.
-              Die Altseite nennt ZWEI Nummern nebeneinander: 0341 - 222 96 20 und
-              0341 - 261 77 90. Das Projekt fuehrt durchgaengig nur die zweite
-              (CLAUDE.md, NAP_TELEFON). Welche ins Impressum gehoert, ob beide oder
-              ob eine davon nicht mehr gilt, kann nur Andre sagen.
-              Die Pflicht zur schnellen Kontaktaufnahme traegt bis dahin die E-Mail.
+              TELEFON GEKLAERT (Backlog 5.30, Meeting 2026-09-25): Die Nummer mit der 90 am Ende
+              „reicht vollkommen aus" (André) — dieselbe wie ueberall im Projekt (CLAUDE.md,
+              NAP_TELEFON). Bis dahin stand hier keine, weil die Altseite zwei nennt
+              (0341 - 222 96 20 und 0341 - 261 77 90). Das Telefax 0341 - 962 74 87 ist entfallen,
+              ebenso im Footer.
             */}
+            <Angabe label="Telefon">
+              <a className="font-semibold text-blue-600 underline" href="tel:+493412617790">
+                0341 - 261 77 90
+              </a>
+            </Angabe>
             <Angabe label="E-Mail">
               <a className="font-semibold text-blue-600 underline" href="mailto:info@carcare-center.de">
                 info@carcare-center.de
               </a>
             </Angabe>
-            <Angabe label="Telefax">0341 - 962 74 87</Angabe>
           </dl>
         </Abschnitt>
 

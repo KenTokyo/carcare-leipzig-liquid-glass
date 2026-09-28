@@ -180,11 +180,17 @@ export const breadcrumbSchema = (items: Array<{ name: string; path: string }>) =
   })),
 });
 
-export const jobPostingSchema = (title: string, description: string) => ({
+/**
+ * Stellenausschreibung. Seit 2026-09-27 (Backlog 5.26) mit `datePosted` — ein Pflichtfeld fuer die
+ * Stellenanzeigen bei Google, das bis dahin fehlte — und mit der vollstaendigen Anschrift aus
+ * `localBusiness` (NAP an einer Stelle, SEO-GEO-STANDARDS §5.2).
+ */
+export const jobPostingSchema = (job: { title: string; description: string; datePosted?: string }) => ({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',
-  title,
-  description,
+  title: job.title,
+  description: job.description,
+  ...(job.datePosted ? { datePosted: job.datePosted } : {}),
   hiringOrganization: {
     '@type': 'Organization',
     name: 'BS CarCare GmbH',
@@ -192,12 +198,7 @@ export const jobPostingSchema = (title: string, description: string) => ({
   },
   jobLocation: {
     '@type': 'Place',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Leipzig',
-      addressRegion: 'Sachsen',
-      addressCountry: 'DE',
-    },
+    address: localBusiness.address,
   },
   employmentType: 'FULL_TIME',
 });

@@ -85,6 +85,10 @@ export const normalisiere = (t: string): string =>
     .replace(/ß/g, 'ss')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // kombinierende Zeichen (Umlautpunkte nach NFD)
+    // Unsichtbare Trennhilfen (weiches Trennzeichen, Wortverbinder, Nullbreitenleerzeichen) ersatzlos
+    // weg — sonst zerfiele der Kartentitel „Fahrzeugbau(weiches Trennzeichen)mechaniker" (Backlog 5.25)
+    // in zwei Woerter und waere unter „Fahrzeugbaumechaniker" nicht mehr zu finden.
+    .replace(/[\u00ad\u2060\u200b]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 

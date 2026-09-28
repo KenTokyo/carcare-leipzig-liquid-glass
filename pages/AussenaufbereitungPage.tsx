@@ -1,6 +1,6 @@
 import React from 'react';
-import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { AUFPREIS_SATZ, aufbereitungKacheln } from '../data/detailing';
+import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { AUFPREIS_SATZ, angeboteAussen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
 
 /**
  * Aussenaufbereitung als eigene Leistungsseite (Backlog 1.8).
@@ -13,10 +13,14 @@ import { AUFPREIS_SATZ, aufbereitungKacheln } from '../data/detailing';
  * Geschaeftsfuehrung abgestimmt sind. Auf `/fahrzeugaufbereitung-leipzig` steht
  * dazu nur noch ein eigenstaendig formulierter Teaser — nicht derselbe Text
  * (Dublettenvermeidung, SEO-GEO-STANDARDS.md §4.5).
+ *
+ * PREISKACHELN (User, 2026-09-28): dieselben Kacheln wie auf der Uebersicht, direkt anfragbar, aber
+ * NUR die dieser Seite zugeordneten — Brillant Außenpflege, Lackaufbereitung, Versiegelungen und die
+ * Pflege-Extras. Zuordnung an einer Stelle: `angeboteAussen` in `data/detailing.ts`.
  */
 
 // Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt — aus beiden Listen entfernt.
-// Damit trennen sich die Bereiche sauber (4.8): aussen = reinigen, Lack = Politur, Versiegelung, Wachs.
+// Damit trennen sich die Bereiche sauber (4.8): aussen = reinigen, Lack = Politur und Versiegelung.
 const aussenLeistungen = [
   { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung und Felgenreinigung.' },
   { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
@@ -25,11 +29,14 @@ const aussenLeistungen = [
   { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Teil der Außenpflege.' },
 ];
 
+// Backlog 5.33 (Meeting 2026-09-25): Die Lackaufbereitung geht tiefer als die Aussenpflege. Swissvax-Wachse
+// gehoeren zur Premiumpflege „exklusiv" (FAQ „wachs" sagt das) und stehen hier nicht mehr; dafuer die
+// Keramik- und Nanoversiegelung, die Andre staerker herausstellen moechte.
 const lackLeistungen = [
+  { title: 'Leichte Kratzer herauspolieren', description: 'Wir arbeiten leichte Kratzer, Anhaftungen und matte Stellen aus dem Lack heraus.' },
   { title: 'Hochglanzpolitur', description: 'Hochglanzpolitur für glattere Oberflächen und sichtbaren Glanz.' },
   { title: 'Lackversiegelung', description: 'Lackversiegelung für Schutz und Werterhalt.' },
-  // Backlog 4.4: Swissvax ist der heutige Name der Marke, die im DACH-Raum frueher Swizoel hiess.
-  { title: 'Swissvax-Wachse', description: 'Auf Wunsch Wachse von Swissvax mit 30 bis 60 % Carnaubaanteil.' },
+  { title: 'Keramik- und Nanoversiegelung', description: 'Auf Wunsch schützen wir den Lack mit einer Keramik- oder Nanoversiegelung statt der klassischen Versiegelung.' },
 ];
 
 const usp = [
@@ -59,12 +66,34 @@ const AussenaufbereitungPage: React.FC = () => (
       keywords={['Außenaufbereitung Leipzig', 'Lackaufbereitung Leipzig', 'Autopolitur Leipzig', 'Lackversiegelung Leipzig']}
     />
 
+    {/* Preise weit oben wie auf der Uebersicht: Sie sind die haeufigste Frage (SEO-GEO §4.3, Antwort zuerst). */}
+    <section id="preise" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Pakete & Preise"
+          title="Was kostet eine Außenaufbereitung in Leipzig?"
+          description={`Die Brillant Außenpflege kostet ${paketPreis('p1')}, die Lackaufbereitung berechnen wir nach Aufwand. Beide fragen Sie direkt über die Karte an.`}
+        />
+        <PricingGrid
+          items={angeboteAussen.pakete}
+          fussnote={AUFPREIS_SATZ}
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt."
+        />
+        <p className="mt-6 text-sm leading-relaxed text-gray-700">
+          Innen und außen zusammen:{' '}
+          <a href="/fahrzeugaufbereitung-leipzig#preise" className="font-bold text-blue-600 underline-offset-4 hover:underline">
+            Premiumpflege und Premiumpflege „exklusiv“ ansehen
+          </a>
+        </p>
+      </div>
+    </section>
+
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Außenaufbereitung"
           title="Was zur Außenaufbereitung gehört."
-          description={`Die Brillant Außenpflege kostet 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte, dazu Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}`}
+          description={`Die Brillant Außenpflege kostet ab 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte, dazu Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={aussenLeistungen} />
       </div>
@@ -75,29 +104,27 @@ const AussenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Lackaufbereitung"
           title="Wie wir die Lackoberfläche aufarbeiten."
-          description="Die Lackaufbereitung entfernt Anhaftungen und matte Stellen, holt Glanz zurück und schützt das Ergebnis anschließend."
+          description="Die Lackaufbereitung geht tiefer als die Außenpflege: Sie nimmt leichte Kratzer und matte Stellen aus dem Lack, holt Glanz zurück und schützt das Ergebnis. Wir berechnen sie nach Aufwand."
         />
         <ProcessList steps={lackLeistungen} />
       </div>
     </section>
 
     {/*
-      TODO 1.18 – Beschreibungen ausstehend, Zulieferung André
-
-      Die drei Bezeichnungen stammen aus dem Kundenreview und sind belegt; die
-      Beschreibungstexte liegen noch beim Kunden. BEWUSST KEINE PLATZHALTER:
-      erfundener Text sieht im Review wie fertiger Text aus und geht so live.
+      EXKLUSIVLEISTUNGEN ALS PREISKACHELN (User 2026-09-28, Preise aus Andres Mail vom selben Tag).
+      Bis dahin standen hier nur drei Namen ohne Text (Backlog 1.8). „Lackbausteine“ ist entfallen:
+      Seit Schleife 1 gibt es dazu weder Beschreibung noch Preis, und Andres Liste nennt sie nicht —
+      Rueckfrage in docs/aufbereitung-zusatzleistungen/tasks/2026-09-28-zusatzleistungen-kacheln-tasks.md.
+      Name, Preis, Text und Vorauswahl kommen aus `data/zusatzleistungen.ts`, derselben Liste wie im Formular.
     */}
-    <section className="bg-white px-6 py-20 md:py-28">
+    <section id="exklusivleistungen" className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro eyebrow="Exklusivleistungen" title="Keramikversiegelung, Nanoversiegelung und Lackbausteine." />
-        <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {['Keramikversiegelung', 'Nanoversiegelung', 'Lackbausteine'].map((leistung) => (
-            <li key={leistung} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6 text-lg font-bold leading-tight text-gray-950">
-              {leistung}
-            </li>
-          ))}
-        </ul>
+        <SectionIntro
+          eyebrow="Exklusiv- und Zusatzleistungen"
+          title="Versiegelungen und Zusatzleistungen zum Festpreis."
+          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. Dazu kommen die Frontscheibenversiegelung und Pflege-Extras für Felgen, Cabrioverdeck und Motorraum.`}
+        />
+        <PricingGrid items={angeboteAussen.zusatz} ctaLabel="Termin anfragen" note="Alle Preise inkl. gesetzlicher Mehrwertsteuer." />
       </div>
     </section>
 

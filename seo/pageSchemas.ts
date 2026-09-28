@@ -12,7 +12,7 @@ import {
 import { faqsByRoute } from '../data/faqs';
 import { offeneStellen } from '../data/jobs';
 import { knowledgeArticles } from '../data/knowledgeArticles';
-import { priceOffers } from '../data/detailing';
+import { angeboteAussen, angeboteInnen, carePackages, disinfectionServices, schemaAngebote, zusatzAngebote } from '../data/detailing';
 
 
 
@@ -53,8 +53,12 @@ export const pageSchemas: Record<string, unknown[]> = {
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' }]),
     serviceSchema('Fahrzeugaufbereitung Leipzig', 'Professionelle Innenaufbereitung, Außenaufbereitung, Politur, Versiegelung, Geruchsentfernung und Leasingrückgabe-Vorbereitung mit festen Paketpreisen ab 169,00 €.', '/fahrzeugaufbereitung-leipzig'),
     // Die Preise stehen sichtbar auf der Seite; als `Offer` sind sie zusaetzlich
-    // maschinenlesbar und damit fuer KI-Antworten zitierbar.
-    offerCatalogSchema('Pflegepakete und Desinfektion', '/fahrzeugaufbereitung-leipzig', priceOffers),
+    // maschinenlesbar und damit fuer KI-Antworten zitierbar. Abgeleitet aus genau den Kacheln der Seite.
+    offerCatalogSchema(
+      'Pflegepakete, Desinfektion, Exklusiv- und Zusatzleistungen',
+      '/fahrzeugaufbereitung-leipzig',
+      schemaAngebote([...carePackages, ...disinfectionServices, ...zusatzAngebote])
+    ),
     faqSchema(faqsByRoute['/fahrzeugaufbereitung-leipzig']),
   ],
   '/aussenaufbereitung-leipzig': [
@@ -64,6 +68,8 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
     ]),
     serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    // Seit 2026-09-28 mit Preiskacheln — ausgezeichnet werden genau die sichtbaren (Zuordnung in data/detailing.ts).
+    offerCatalogSchema('Außen- und Lackaufbereitung, Exklusiv- und Zusatzleistungen', '/aussenaufbereitung-leipzig', schemaAngebote([...angeboteAussen.pakete, ...angeboteAussen.zusatz])),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
   ],
   '/innenaufbereitung-leipzig': [
@@ -73,6 +79,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Innenaufbereitung Leipzig', path: '/innenaufbereitung-leipzig' },
     ]),
     serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung — Intensiv Innenraumreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
+    offerCatalogSchema('Innenaufbereitung und Desinfektion', '/innenaufbereitung-leipzig', schemaAngebote([...angeboteInnen.pakete, ...angeboteInnen.zusatz])),
     faqSchema(faqsByRoute['/innenaufbereitung-leipzig']),
   ],
   '/leasingrueckgabe-leipzig': [
@@ -145,9 +152,16 @@ export const pageSchemas: Record<string, unknown[]> = {
    */
   '/karriere': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Karriere', path: '/karriere' }]),
-    ...offeneStellen.map((job) =>
-      jobPostingSchema(job.title, `${job.title} beim CarCare Center Leipzig. ${job.description}`)
-    ),
+    // Backlog 5.26: Ausbildungsplaetze als solche benannt („Ausbildung Fahrzeuglackierer/in"), der
+    // Beginn steht in der Beschreibung — nicht im Titel (Google: keine Daten im Stellentitel).
+    ...offeneStellen.map((job) => {
+      const titel = job.art === 'ausbildung' ? `Ausbildung ${job.title}` : job.title;
+      return jobPostingSchema({
+        title: titel,
+        description: `${titel} beim CarCare Center Leipzig. ${job.description}${job.hinweis ? ` ${job.hinweis}.` : ''}`,
+        datePosted: job.ausgeschriebenSeit,
+      });
+    }),
     faqSchema(faqsByRoute['/karriere']),
   ],
   '/kontakt': [

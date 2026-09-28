@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
-import { AUFPREIS_SATZ, aufbereitungKacheln, disinfectionServices } from '../data/detailing';
+import { AUFPREIS_SATZ, angeboteInnen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
 
 /**
  * Innenaufbereitung als eigene Leistungsseite (Backlog 1.9).
@@ -13,6 +13,10 @@ import { AUFPREIS_SATZ, aufbereitungKacheln, disinfectionServices } from '../dat
  * Abgrenzung zum Ratgeber `/autoaufbereitung-wissen/innenaufbereitung`: der
  * erklaert das Thema (informational), diese Seite verkauft die Leistung
  * (kommerziell). Beide verlinken wechselseitig, SEO-GEO §4.1.
+ *
+ * PREISKACHELN (User, 2026-09-28): dieselben Kacheln wie auf der Uebersicht, direkt anfragbar, aber
+ * NUR die dieser Seite zugeordneten — Intensiv Innenraumreinigung, Ozon, Heissvernebelung.
+ * Zuordnung an einer Stelle: `angeboteInnen` in `data/detailing.ts`.
  */
 
 const innenLeistungen = [
@@ -21,7 +25,8 @@ const innenLeistungen = [
   { title: 'Polster oder Leder', description: 'Polstershampoonierung – alternativ materialgerechte Lederpflege.' },
   { title: 'Scheiben', description: 'Scheibenreinigung innen und außen.' },
   { title: 'Geruch und Luft', description: 'Geruchsentfernung und Behandlung belasteter Innenraumluft.' },
-  { title: 'Motorreinigung', description: 'Auf Wunsch Motorreinigung im Rahmen der Premiumpflege.' },
+  // Seit 2026-09-28 einzeln buchbar (Mail Andre); Preis aus data/zusatzleistungen.ts.
+  { title: 'Motorreinigung', description: `Auf Wunsch für ${zusatzPreis('motor')} dazu, in der Premiumpflege bereits enthalten.` },
 ];
 
 const usp = [
@@ -49,12 +54,34 @@ const InnenaufbereitungPage: React.FC = () => (
       keywords={['Innenaufbereitung Leipzig', 'Autoinnenreinigung Leipzig', 'Polsterreinigung Auto Leipzig', 'Geruchsentfernung Auto Leipzig']}
     />
 
+    {/* Preis weit oben wie auf der Uebersicht: die haeufigste Frage (SEO-GEO §4.3, Antwort zuerst). */}
+    <section id="preise" className="bg-white px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Paket & Preis"
+          title="Was kostet eine Innenaufbereitung in Leipzig?"
+          description={`Die Intensiv Innenraumreinigung kostet ${paketPreis('p2')}. Gegen Gerüche buchen Sie Ozonbehandlung oder Heißvernebelung dazu, beide weiter unten mit Festpreis.`}
+        />
+        <PricingGrid
+          items={angeboteInnen.pakete}
+          fussnote={AUFPREIS_SATZ}
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Der genaue Umfang wird nach Fahrzeugzustand und Wunsch persönlich abgestimmt."
+        />
+        <p className="mt-6 text-sm leading-relaxed text-gray-700">
+          Innen und außen zusammen:{' '}
+          <a href="/fahrzeugaufbereitung-leipzig#preise" className="font-bold text-blue-600 underline-offset-4 hover:underline">
+            Premiumpflege und Premiumpflege „exklusiv“ ansehen
+          </a>
+        </p>
+      </div>
+    </section>
+
     <section className="bg-white px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Innenaufbereitung"
           title="Was zur Innenaufbereitung gehört."
-          description={`Die Intensiv Innenraumreinigung kostet 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
+          description={`Die Intensiv Innenraumreinigung kostet ab 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={innenLeistungen} />
       </div>
@@ -64,8 +91,8 @@ const InnenaufbereitungPage: React.FC = () => (
       Backlog 1.11: Ozon und Heissvernebelung sind hier als OPTIONAL BUCHBAR
       hinterlegt, nicht nur auf der Aufbereitungs-Bestandsseite. Wer gezielt die
       Innenaufbereitung sucht, ist genau die Zielgruppe fuer Geruchsbehandlung.
-      Preise und Beschreibungen kommen aus `disinfectionServices` in
-      data/detailing.ts — dieselbe Quelle wie dort, damit sie nicht auseinanderlaufen.
+      Preise und Beschreibungen kommen aus `data/zusatzleistungen.ts` (ueber `angeboteInnen`) — dieselbe
+      Quelle wie Uebersicht und Formular. Seit 2026-09-28 hakt der Anfrage-Link die Leistung im Formular an.
     */}
     <section id="optional" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
@@ -75,7 +102,7 @@ const InnenaufbereitungPage: React.FC = () => (
           description="Sitzt der Geruch tiefer, als eine Reinigung erreicht, lassen sich diese beiden Verfahren zur Innenaufbereitung dazubuchen."
         />
         <PricingGrid
-          items={disinfectionServices}
+          items={angeboteInnen.zusatz}
           ctaLabel="Termin anfragen"
           note="Alle Preise inkl. gesetzlicher Mehrwertsteuer, zusätzlich zur gebuchten Innenaufbereitung."
         />

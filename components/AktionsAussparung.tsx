@@ -1,14 +1,18 @@
 import React from 'react';
-import { AlertTriangle, ArrowUpRight, Phone } from 'lucide-react';
+import { AlertTriangle, ArrowUpRight, CalendarClock } from 'lucide-react';
 import { useAnfrageDialog } from './AnfrageDialog';
 import { SCHADENMELDUNG_EXTERN, SCHADENMELDUNG_PORTAL, SCHADENMELDUNG_URL } from '../data/schadenmeldung';
 import { externAttribute } from './ExternerLink';
-import { OEFFNUNG_NEUTRAL } from '../data/oeffnungszeiten';
-import { useOeffnungsStatus } from '../hooks/useOeffnungsStatus';
 
 /**
- * „Schaden melden" und Telefon in der weissen Aussparung oben rechts — ab `lg` (1024 px), sofort
- * und dauerhaft sichtbar. Form, Rundungen und Anordnung: `styles/aussparung.css`.
+ * „Aufbereitung anfragen“ und „Schaden melden“ in der weissen Aussparung oben rechts — ab `lg`
+ * (1024 px), sofort und dauerhaft sichtbar. Form, Rundungen und Anordnung: `styles/aussparung.css`.
+ *
+ * VIERTE RUNDE (User, 2026-09-28): Die Telefon-Pille ist durch „Aufbereitung anfragen“ ersetzt —
+ * „fuer Andre ist es wichtiger, nicht direkt anzurufen, sondern einen Termin immer auf jeder Seite
+ * anzufragen“. NUR hier am Desktop: Mobil behaelt die Leiste unten ihr „Anrufen“ (`MobileStickyCTA`),
+ * und in den Seiten steht der Anruf weiter (Hero, Abschluss-CTA, Fusszeile). Der Live-Punkt
+ * geoeffnet/geschlossen lebt seitdem nur noch in der mobilen Leiste.
  *
  * GESCHICHTE (alles 2026-09-24): erst zwei schwebende Kreise unten rechts, dann zwei 44-px-Kreise
  * in dieser Aussparung, nur mit Symbol — Beschriftung erschien erst beim Ueberfahren. Der User fand
@@ -20,14 +24,12 @@ import { useOeffnungsStatus } from '../hooks/useOeffnungsStatus';
  * JETZT: zwei beschriftete Pillen im selben hellen Design (`cc-aktion--hell`, Eisblau). Bis
  * 2026-09-25 war „Schaden melden" als Hauptaktion dunkel mit Lichtstreif; der User wollte es „im
  * aehnlichen Design wie der Anruf-CTA" — NUR hier oben rechts, alle anderen „Schaden melden" bleiben.
+ *  - „Aufbereitung anfragen“ mit Kalender-Plakette (wie „Termin“ in der mobilen Leiste), oeffnet den
+ *    Anfrage-Dialog. Bis 2026-09-28 stand hier die Telefonnummer mit Live-Punkt geoeffnet/geschlossen;
+ *    der Punkt lebt am „Anrufen“ der Leiste unten weiter (`MobileStickyCTA`).
  *  - „Schaden melden" mit Warn-Plakette und Pfeil ↗ (externes Ziel).
- *  - Telefon mit der NUMMER als Beschriftung: Symbol + Nummer ist
- *    eindeutig, und am Desktop fuehrt `tel:` ohne Telefon-App oft ins Leere — dann ist die Nummer
- *    das, was man braucht. Dazu ein Live-Punkt: geoeffnet / geschlossen (`hooks/useOeffnungsStatus.ts`,
- *    Zeiten und Feiertage in `data/oeffnungszeiten.ts`) — derselbe Punkt steht unter 1024 px am
- *    „Anrufen" der Leiste unten (`MobileStickyCTA`).
  *  - Unter beiden ein Hinweis beim Ueberfahren/Fokussieren mit dem, was nicht auf die Pille passt:
- *    Status in Worten bzw. das Ziel (reparatur.info, neuer Tab).
+ *    was sich oeffnet bzw. das Ziel (reparatur.info, neuer Tab).
  * Die Symbolkreise von frueher leben als Plaketten links in den Pillen weiter.
  *
  * WARUM IM SEITENRAHMEN (`Layout`, `.solidroad-shell-frame-container`): Dort liegt auch der
@@ -38,13 +40,10 @@ import { useOeffnungsStatus } from '../hooks/useOeffnungsStatus';
  * in der Leiste am unteren Rand (`MobileStickyCTA`).
  */
 
-/** Anzeigeformat wie an allen anderen Stellen (SEO-GEO-STANDARDS, NAP_TELEFON). */
-const TELEFON_ANZEIGE = '0341 - 261 77 90';
-
 /**
  * Rollender Text beim Ueberfahren: zwei GLEICHE Zeilen, die zweite rollt von unten herein. Gleich,
- * damit die Nummer unter dem Mauszeiger lesbar bleibt — ein Wechsel auf „Jetzt anrufen" haette sie
- * genau dann weggenommen, wenn jemand sie abschreiben will.
+ * damit die Beschriftung unter dem Mauszeiger lesbar bleibt (eingefuehrt fuer die Telefonnummer, die
+ * man beim Zeigen abschreiben koennen sollte).
  *
  * ⚠️ Die Kopie ist in Ruhe `visibility: hidden` (styles/aussparung.css). Sonst misst
  * `npm run kontrast` sie mit: Sie liegt unterhalb der Pille, und die Trefferprobe dort landet auf
@@ -61,8 +60,6 @@ const Rolle: React.FC<{ text: string }> = ({ text }) => (
 
 const AktionsAussparung: React.FC = () => {
   const { oeffnen } = useAnfrageDialog();
-  const status = useOeffnungsStatus();
-  const statusText = status?.text ?? OEFFNUNG_NEUTRAL;
 
   const schadenInhalt = (
     <>
@@ -90,18 +87,22 @@ const AktionsAussparung: React.FC = () => {
           styles/glas.css) war hier zwei Tage Pilot und gilt jetzt NUR fuer die Sticky-Buttons der
           mobilen Leiste. Auf der weissen Aussparung gibt es hinter der Pille nichts zu verwischen —
           dort bleibt die Eisblau-Pille. */}
-      <a
-        href="tel:+493412617790"
-        className="cc-aktion cc-aktion--telefon cc-aktion--hell"
-        aria-label={`Anrufen: ${TELEFON_ANZEIGE}, ${statusText}`}
-        data-offen={status ? String(status.offen) : undefined}
+      {/* KNOPF statt Link auf `#contact-termin`: Der Dialog faengt solche Links ab und leitet sie auf
+          Reparaturseiten zur Schadenmeldung um (R8, `TERMIN_UEBERSCHREIBUNG`). Diese Pille meint aber
+          ueberall die Aufbereitung — `oeffnen('termin')` geht an der Umleitung vorbei. Die Leistung
+          waehlt der Dialog wie gewohnt aus der Seite vor (auf `/innenaufbereitung-leipzig` die
+          Innenaufbereitung), sonst bleibt sie offen. Symbol wie „Termin“ in der mobilen Leiste. */}
+      <button
+        type="button"
+        onClick={() => oeffnen('termin')}
+        className="cc-aktion cc-aktion--aufbereitung cc-aktion--hell"
+        aria-label="Aufbereitung anfragen: Formular für Ihren Wunschtermin öffnen"
       >
         <span className="cc-aktion__symbol" aria-hidden="true">
-          <Phone className="cc-aktion__hoerer" size={14} strokeWidth={2.4} />
-          <span className="cc-aktion__punkt" />
+          <CalendarClock className="cc-aktion__kalender" size={14} strokeWidth={2.4} />
         </span>
-        <Rolle text={TELEFON_ANZEIGE} />
-      </a>
+        <Rolle text="Aufbereitung anfragen" />
+      </button>
 
       {/* Wie in `MobileStickyCTA`: seit 2026-09-16 ein Link zur Schadenseite auf reparatur.info
           (Backlog 2.23). Mit dem Schalter in `data/schadenmeldung.ts` wieder das eigene Formular. */}
@@ -129,9 +130,8 @@ const AktionsAussparung: React.FC = () => {
           ihr, rechtsbuendig) — im Stapel laege ein Hinweis unter der oberen Pille sonst ueber der
           unteren. Eingeblendet per `~`-Selektor beim Ueberfahren oder Fokussieren. Nur Anzeige:
           Die Ansage steht im `aria-label` der Pille. */}
-      <span className="cc-aktion-hinweis cc-aktion-hinweis--telefon" aria-hidden="true">
-        {status && <span className="cc-aktion-hinweis__punkt" data-offen={String(status.offen)} />}
-        {statusText}
+      <span className="cc-aktion-hinweis cc-aktion-hinweis--aufbereitung" aria-hidden="true">
+        Formular für Ihren Wunschtermin
       </span>
       <span className="cc-aktion-hinweis cc-aktion-hinweis--schaden" aria-hidden="true">
         {SCHADENMELDUNG_EXTERN ? (

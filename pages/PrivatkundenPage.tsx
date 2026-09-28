@@ -21,8 +21,8 @@ const advantages = [
     description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
   },
   {
-    title: 'Feste Preise bei der Aufbereitung',
-    description: 'Die Pflegepakete haben feste Preise: 169,00 € für die Brillant Außenpflege, 199,00 € für die Intensiv Innenraumreinigung, 299,00 € für beides als Premiumpflege — für Geländewagen, Großraumlimousinen und Transporter mit festem Aufpreis. Sie wissen vorher, was es kostet.',
+    title: 'Feste Paketpreise bei der Aufbereitung',
+    description: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege — für Geländewagen, Großraumlimousinen und Transporter mit festem Aufpreis. Sie wissen vorher, was es kostet.',
   },
   {
     title: 'Wir empfehlen die kleinere Lösung zuerst',

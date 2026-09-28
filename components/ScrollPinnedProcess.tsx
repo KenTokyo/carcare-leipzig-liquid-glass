@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
+import { getLenis } from '../hooks/useSmoothScroll';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import KiMarke from './KiMarke';
 
@@ -208,6 +209,41 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
     return unsub;
   }, [progress, steps.length, stepSize]);
 
+  /**
+   * „Ablauf überspringen" (Backlog 5.13, Meeting 2026-09-25): Die gepinnte Strecke ist gewollt, aber
+   * aus Andrés Umfeld kam, man muesse „scrollen, scrollen, scrollen" — Aeltere koennten an einen
+   * Fehler denken. Der Knopf fuehrt hinter den Ablauf zur naechsten Sektion.
+   *
+   * UEBER LENIS, nicht nativ: Ein `window.scrollTo` arbeitete gegen dessen Interpolation (dieselbe
+   * Lehre wie beim Anker-Sprung in App.tsx und der Suche); `-88` = Hoehe der schwebenden Navigation.
+   * Danach bekommt die Zielsektion den Fokus, damit Tastatur und Vorlesegeraet dort weitermachen und
+   * nicht im uebersprungenen Ablauf stehen bleiben.
+   */
+  const ueberspringen = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const ziel = track.nextElementSibling instanceof HTMLElement ? track.nextElementSibling : null;
+    const lenis = getLenis();
+    const fokussieren = () => {
+      if (!ziel) return;
+      if (!ziel.hasAttribute('tabindex')) ziel.setAttribute('tabindex', '-1');
+      ziel.setAttribute('data-sprungziel', '');
+      ziel.focus({ preventScroll: true });
+    };
+    if (ziel) {
+      if (lenis) lenis.scrollTo(ziel, { offset: -88, onComplete: fokussieren });
+      else {
+        window.scrollTo({ top: ziel.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+        window.setTimeout(fokussieren, 700);
+      }
+      return;
+    }
+    // Kein Nachbar (letzte Sektion eines Wrappers): ans Ende der Strecke.
+    const ende = track.getBoundingClientRect().bottom + window.scrollY;
+    if (lenis) lenis.scrollTo(ende);
+    else window.scrollTo({ top: ende, behavior: 'smooth' });
+  };
+
   return (
     // Track: 100vh Scrollweg je Karte. Bewusst als Inline-Style statt Tailwind-Klasse — so
     // waechst die Hoehe automatisch mit `steps.length` mit. (Zuvor hartcodiert: eine zusaetzliche
@@ -277,19 +313,34 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
               {intro}
             </p>
 
-            {/* Fortschritts-Indikator: Dots + Zaehler, folgen dem aktiven Schritt */}
-            <div className="mt-7 flex items-center gap-2.5" aria-hidden="true">
-              {steps.map((s, i) => (
-                <span
-                  key={s.n}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === active ? 'w-9 bg-blue-600' : 'w-2.5 bg-blue-200'
-                  }`}
-                />
-              ))}
-              <span className="ml-2 text-xs font-bold tracking-wide text-gray-600">
-                {steps[active].n} / {String(steps.length).padStart(2, '0')}
-              </span>
+            {/* Fortschritts-Indikator (Dots + Zaehler, folgen dem aktiven Schritt) und daneben
+                „Ablauf überspringen" (5.13). Der Knopf steht BEWUSST ausserhalb des `aria-hidden`
+                der Dots und VOR den CTAs: Wer den Ablauf nicht sehen will, soll ihn frueh verlassen
+                koennen. Beschriftet statt Symbol (Vorgabe des Users), 48 px hoch (SEO-GEO §2.3);
+                mobil die kurze Fassung, damit er neben die Dots passt. */}
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="flex items-center gap-2.5" aria-hidden="true">
+                {steps.map((s, i) => (
+                  <span
+                    key={s.n}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === active ? 'w-9 bg-blue-600' : 'w-2.5 bg-blue-200'
+                    }`}
+                  />
+                ))}
+                <span className="ml-2 text-xs font-bold tracking-wide text-gray-600">
+                  {steps[active].n} / {String(steps.length).padStart(2, '0')}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={ueberspringen}
+                className="inline-flex min-h-12 items-center gap-2 rounded-full border border-blue-200 bg-white px-5 text-sm font-bold text-blue-600 shadow-sm transition-colors hover:border-blue-400 hover:bg-blue-50"
+              >
+                <span className="sm:hidden">Überspringen</span>
+                <span className="hidden sm:inline">Ablauf überspringen</span>
+                <ArrowDown size={16} aria-hidden="true" />
+              </button>
             </div>
 
             {/* CTAs nur ab Desktop – auf Mobile deckt die fixierte Bottom-Nav (Anrufen/Schaden/

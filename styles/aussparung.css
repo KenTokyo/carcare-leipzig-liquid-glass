@@ -7,25 +7,35 @@
    `--cc-nav-inner-radius` (28 px, konkav, Uebergang in den oberen Rahmen) — beide in index.css.
    DRITTE RUNDE (gleicher Tag): Die Knoepfe waren „zu unscheinbar und nicht selbsterklaerend" —
    jetzt beschriftete Pillen mit Rangfolge (Abschnitt DIE AKTIONEN unten). Planung und Messungen:
-   docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-beschriftete-aktionen-tasks.md */
+   docs/startseite-karten-aktionen/tasks/2026-09-24-aussparung-beschriftete-aktionen-tasks.md
+   VIERTE RUNDE (2026-09-28): „Aufbereitung anfragen“ statt der Telefonnummer — Andre will Termin-
+   anfragen auf jeder Seite, der Anruf steht weiter in den Seiten und mobil in der Leiste. Die
+   Beschriftung ist 40 px laenger als die Nummer; Pillen, Reiter und Linkabstaende sind dafuer neu
+   vermessen (unten, und docs/aussparung-aufbereitung/tasks/2026-09-28-aussparung-aufbereitung-tasks.md). */
 
 /* REITERBREITE DER NAVBAR. Grundwert UND Abweichungen stehen hier zusammen: Diese Datei wird
    vor den Regeln von index.css eingelesen; stuende der Grundwert dort im `:root`, ueberschriebe
    er die Medienregeln unten bei gleicher Spezifitaet.
 
-   Beschriftete Aktionen brauchen neben dem Reiter bis zu 270 px: konkaver Uebergang der Navbar
-   28 + Luecke >= 20 + Uebergang der Aussparung 28 + Aussparung 193–216 (mit Pfeil breiter).
+   Beschriftete Aktionen brauchen neben dem Reiter bis zu 280 px: konkaver Uebergang der Navbar
+   28 + Luecke >= 20 + Uebergang der Aussparung 28 + Aussparung, deren Breite die laengste Pille
+   bestimmt — seit 2026-09-28 „Aufbereitung anfragen“: 188 px, von 1280 bis 1439 kompakt 177 px.
    Jede Spanne ist deshalb „so breit wie moeglich, so schmal wie noetig" — die Luecke zwischen
    den beiden konkaven Uebergaengen bleibt ueberall >= 20 px (bei 10 px sah es aus wie ein
    Schlitz, siehe Vorgaenger-Planung). Gemessen an 16 Breiten: Planung, Phase 3.
-     1024–1279: 440–580 px (`100vw − 584px`; bis zur dritten Runde fest 580) — die Navbar zeigt
-                dort nur Suche, Logo und Menue; bei 440 bleiben zwischen ihnen je rund 60 px.
-     1280–1535: 740–840 px (`100vw − 540px`; vorher `− 470px` ab 810). Damit die Links bei 740
-                noch in den Reiter passen, stehen sie hier enger (Variablen darunter): Einzug von
-                der Mitte 106 statt 124 px, Abstand 14 statt 20, Laufweite 0,11 statt 0,13 em.
-                Bis 1439 ausserdem ohne Pfeil in „Schaden melden" (Abschnitt DIE AKTIONEN).
-     ab 1536:   940–1000 px (`100vw − 596px`) — Links in voller Weite, rechts das Suchfeld.
-                Ab 1596 wieder die vollen 1000.
+     1024–1279: 424–580 px (`100vw − 600px`; bis 2026-09-28 `− 584px` ab 440) — die Navbar zeigt
+                dort nur Suche, Logo und Menue; bei 424 bleiben zwischen ihnen je rund 50 px.
+     1280–1535: 714–830 px (`100vw − 566px`; bis 2026-09-28 740–840 mit `− 540px`). Damit die Links
+                bei 714 noch in den Reiter passen, stehen sie hier enger (Variablen darunter): Einzug
+                von der Mitte 96 statt 124 px (bis 2026-09-28: 106), Abstand 14 statt 20, Laufweite
+                0,11 statt 0,13 em. Gemessen: 14 px Rand links bei 1280 (Regel: >= 12).
+                Bis 1439 ausserdem ohne Pfeil in „Schaden melden“ und mit kompakten Pillen (Abschnitt
+                DIE AKTIONEN): Der Reiter ist zentriert, jeder Pixel Reiter bringt nur einen halben
+                Pixel Luecke — dort reichte schmaler allein nicht.
+     ab 1536:   928–1000 px (`100vw − 608px`; bis 2026-09-28 `− 596px` ab 940) — Links in voller
+                Weite, rechts das Suchfeld. Ab 1608 wieder die vollen 1000.
+   Kleinste gemessene Luecke nach der vierten Runde: 22,1 px (1380) — 2 px Reserve gegen andere
+   Schriftwiedergabe, bewusst.
    Unter 1024 bleibt es beim Grundwert (mobil schmaler per Regel in index.css). Dort gibt es
    keine Aussparung: Die Aktionen liegen in der Leiste am unteren Rand (`MobileStickyCTA`). */
 :root {
@@ -38,14 +48,14 @@
 
 @media (min-width: 1024px) and (max-width: 1279.98px) {
   :root {
-    --cc-nav-width: clamp(440px, calc(100vw - 584px), 580px);
+    --cc-nav-width: clamp(424px, calc(100vw - 600px), 580px);
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1535.98px) {
   :root {
-    --cc-nav-width: clamp(740px, calc(100vw - 540px), 840px);
-    --cc-nav-einzug: 106px;
+    --cc-nav-width: clamp(714px, calc(100vw - 566px), 830px);
+    --cc-nav-einzug: 96px;
     --cc-nav-abstand: 14px;
     --cc-nav-laufweite: 0.11em;
   }
@@ -53,7 +63,7 @@
 
 @media (min-width: 1536px) {
   :root {
-    --cc-nav-width: clamp(940px, calc(100vw - 596px), 1000px);
+    --cc-nav-width: clamp(928px, calc(100vw - 608px), 1000px);
   }
 }
 
@@ -71,11 +81,13 @@
    die Pillen `z-index: 1`, die Hinweise `z-index: 2`.
    Schatten wie `.solidroad-nav-frame`, damit beide Reiter gleich tief liegen. */
 .cc-aussparung {
-  /* Masse der Pillen — im STAPEL (Standard): zwei Zeilen uebereinander, 36 px hoch. */
+  /* Masse der Pillen — im STAPEL (Standard): zwei Zeilen uebereinander, 36 px hoch. Seit 2026-09-28
+     etwas schlanker (Plakette 24 statt 26 px, Schrift 12,5 statt 13 px, Innenrand 12 statt 14 px):
+     „Aufbereitung anfragen“ braucht sonst 198 px, und die Luecke zum Reiter fiel an 14 von 23 Breiten. */
   --aktion-h: 2.25rem;
-  --aktion-symbol: 1.625rem;
-  --aktion-schrift: 0.8125rem;
-  --aktion-innen: 0.875rem;
+  --aktion-symbol: 1.5rem;
+  --aktion-schrift: 0.78125rem;
+  --aktion-innen: 0.75rem;
   align-items: stretch;
   background: var(--cc-white);
   border-bottom-left-radius: var(--cc-nav-radius);
@@ -131,7 +143,7 @@
   display: flex;
   font-size: var(--aktion-schrift);
   font-weight: 600;
-  gap: 0.5rem;
+  gap: 0.375rem;
   height: var(--aktion-h);
   line-height: 1;
   /* Plakette mit gleichem Abstand oben, unten und links: (Hoehe − Plakette) / 2, minus Rahmen. */
@@ -225,6 +237,21 @@
   .cc-aktion__pfeil {
     display: none;
   }
+
+  /* KOMPAKT (2026-09-28): Hier ist der Reiter im Verhaeltnis zum Fenster am breitesten, und die Links
+     stehen schon eng (14 px Rand bei 1280). Den Rest holen die Pillen: Plakette 20 px, Schrift 12 px,
+     knappere Innenraender der Aussparung — gemessen 177 statt 188 px, Luecke 22,1 bis 23,9 px. */
+  .cc-aussparung {
+    --aktion-symbol: 1.25rem;
+    --aktion-schrift: 0.75rem;
+    --aktion-innen: 0.625rem;
+    padding-left: 0.375rem;
+    padding-right: calc(var(--cc-shell-gap) + 0.5rem);
+  }
+
+  .cc-aktion {
+    gap: 0.3125rem;
+  }
 }
 
 /* Live-Punkt an der Plakette: gruen = geoeffnet, grau = geschlossen, ohne Status gar nicht.
@@ -307,7 +334,7 @@
   width: 0.4375rem;
 }
 
-/* ZEIGEN: Rollen, Pfeil, Klingeln, Hinweis — mit der Tastatur immer (`:focus-visible`), mit der
+/* ZEIGEN: Rollen, Pfeil, Kalender-Hopser, Hinweis — mit der Tastatur immer (`:focus-visible`), mit der
    Maus nur, wo es echtes Zeigen gibt (`hover: hover`). Auf Touch-Geraeten ab 1024 px (iPad quer)
    bliebe `:hover` nach einem Tipp haengen: Der Hinweis stuende dann dauerhaft ueber dem Hero. */
 .cc-aktion:focus-visible .cc-aktion__spur {
@@ -324,11 +351,11 @@
   transform: translate(2px, -2px);
 }
 
-.cc-aktion--telefon:focus-visible .cc-aktion__hoerer {
-  animation: cc-aktion-klingeln 700ms ease-in-out;
+.cc-aktion--aufbereitung:focus-visible .cc-aktion__kalender {
+  animation: cc-aktion-hopsen 600ms ease-in-out;
 }
 
-.cc-aktion--telefon:focus-visible ~ .cc-aktion-hinweis--telefon,
+.cc-aktion--aufbereitung:focus-visible ~ .cc-aktion-hinweis--aufbereitung,
 .cc-aktion--schaden:focus-visible ~ .cc-aktion-hinweis--schaden {
   opacity: 1;
   transform: none;
@@ -359,11 +386,11 @@
     transform: translate(2px, -2px);
   }
 
-  .cc-aktion--telefon:hover .cc-aktion__hoerer {
-    animation: cc-aktion-klingeln 700ms ease-in-out;
+  .cc-aktion--aufbereitung:hover .cc-aktion__kalender {
+    animation: cc-aktion-hopsen 600ms ease-in-out;
   }
 
-  .cc-aktion--telefon:hover ~ .cc-aktion-hinweis--telefon,
+  .cc-aktion--aufbereitung:hover ~ .cc-aktion-hinweis--aufbereitung,
   .cc-aktion--schaden:hover ~ .cc-aktion-hinweis--schaden {
     opacity: 1;
     transform: none;
@@ -402,24 +429,16 @@ html:not(.cc-preloading) .cc-aktion--schaden {
   }
 }
 
-@keyframes cc-aktion-klingeln {
+/* Kurzer Hopser des Kalenders beim Zeigen — Nachfolger des Klingelns am frueheren Hoerer. */
+@keyframes cc-aktion-hopsen {
   0%,
   100% {
-    transform: rotate(0);
+    transform: translateY(0);
   }
-  15% {
-    transform: rotate(-14deg);
+  35% {
+    transform: translateY(-2px);
   }
-  30% {
-    transform: rotate(12deg);
-  }
-  45% {
-    transform: rotate(-9deg);
-  }
-  60% {
-    transform: rotate(6deg);
-  }
-  75% {
-    transform: rotate(-3deg);
+  65% {
+    transform: translateY(1px);
   }
 }

@@ -451,6 +451,13 @@ textarea {
   outline-offset: 3px;
 }
 
+/* Sprungziel von „Ablauf überspringen" (Backlog 5.13): Die ganze Sektion bekommt den Fokus, damit
+   Tastatur und Vorlesegeraet dort weitermachen. Ein Rahmen um die komplette Sektion waere nur Laerm —
+   den Ortswechsel zeigt schon das Scrollen. Wie bei Sprunglinks auf `<main>` ueblich. */
+[data-sprungziel]:focus-visible {
+  outline: none;
+}
+
 /* CTA-Button, Standardfassung fuer HELLE Untergruende (2026-07-23).
    Der Verlauf ist jetzt reines CSS statt des frueheren Bildes `carcare-button-gradient.webp`.
    Warum: Das Bild lag mit `background-size: cover` an und wurde bei schmalen Buttons gestaucht —

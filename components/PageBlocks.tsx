@@ -303,7 +303,8 @@ export interface PriceItem {
   id: string;
   title: string;
   /**
-   * Anzeigepreis inkl. Waehrung, z. B. "169,00 €" — oder ein Wortlaut, wo es keinen
+   * Anzeigepreis inkl. Waehrung, z. B. "ab 169,00 €" (Backlog 5.32: alle Paketpreise mit „ab",
+   * wegen der Aufpreise nach Fahrzeugklasse) — oder ein Wortlaut, wo es keinen
    * Festpreis gibt: „Preis nach Absprache" (Backlog 4.4), „Preis nach Aufwand" (4.9).
    */
   price: string;
@@ -319,7 +320,8 @@ export interface PriceItem {
   /** Beschriftung des Anfrage-Links, wo „Paket anfragen" nicht passt. */
   anfrageLabel?: string;
   /**
-   * Vorauswahl im Terminformular — `id` aus `data/leistungsauswahl.ts`. `''` = bewusst keine.
+   * Vorauswahl im Terminformular — `id` aus `data/leistungsauswahl.ts` (waehlt die Leistung) oder aus
+   * `data/zusatzleistungen.ts` (hakt die Zusatzleistung an, seit 2026-09-28). `''` = bewusst keine.
    * Ohne Angabe leitet der Dialog sie aus der SEITE ab, und dann waehlte jede Karte dasselbe
    * Paket vor (2026-09-16 gefunden, siehe `AnfrageDialog`).
    */

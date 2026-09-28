@@ -6,7 +6,7 @@ import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 const contactWays = [
   // Seit 2026-09-16 direkt zur Schadenseite auf reparatur.info (Backlog 2.23).
   { title: 'Schaden melden', description: 'Für Unfall-, Hagel-, Lack- oder Glasschäden: Schadendaten und Fotos über unsere Schadenseite auf reparatur.info übermitteln.', href: SCHADEN_ZIEL },
-  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackaufbereitung, Leasingrückgabe oder Verkaufsaufbereitung.', href: '#contact-termin' },
+  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackaufbereitung oder die Vorbereitung auf die Leasingrückgabe.', href: '#contact-termin' },
   { title: 'Geschäftskundenanfrage', description: 'Für Autohäuser, Fuhrparks, Versicherungen und Versicherungsagenturen.', href: '#contact-business' },
 ];
 

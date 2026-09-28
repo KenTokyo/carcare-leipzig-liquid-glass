@@ -85,7 +85,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     groupHub: true,
     title: 'Fahrzeugaufbereitung',
     localTitle: 'Fahrzeugaufbereitung Leipzig',
-    description: 'Innen, außen und Lack — Wohlfühlen im Alltag und sichtbarer Werterhalt.',
+    description: 'Innen, Außen und Lack — Wohlfühlen im Alltag und sichtbarer Werterhalt.',
     listDescription: 'Innen- und Außenaufbereitung, Politur und Versiegelung — für den Alltag, für den Werterhalt und für Verkauf oder Leasingrückgabe.',
     iconName: 'Sparkles',
     href: '/fahrzeugaufbereitung-leipzig',
@@ -287,7 +287,14 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Building2',
     href: '/geschaeftskunden',
     cta: 'Geschäftskunden ansehen',
-    // Kein Kachelmotiv noetig: erscheint nur auf /leistungen, nicht in der Kachelreihe.
+    // Erscheint nur auf /leistungen, nicht in der Kachelreihe. Seit 2026-09-27 MIT Motiv (Backlog 5.44):
+    // `/leistungen` zeigt jetzt Bildkarten wie die uebrigen Seiten — ohne Motiv waere diese die einzige
+    // Karte ohne Foto. Dasselbe Motiv wie der Seitenhintergrund von `/geschaeftskunden`, wo es auf
+    // Wunsch von André bleibt (Meeting 2026-09-25, 5.14).
+    backgroundImage: kachel('autohaeuser-und-fuhrparks-leipzig-carcare'),
+    imageAlt: 'Grüner Porsche Cayenne auf unserem Autotransporter vor der Werkstatthalle – Service für Autohäuser und Fuhrparks',
+    imageWidth: 2000,
+    imageHeight: 1500,
     inOverviewGrid: false,
   },
 ];
@@ -316,7 +323,7 @@ export const serviceGroups: ServiceGroup[] = [
     id: 'aufbereitung',
     anchor: 'aufbereitung',
     navLabel: 'Fahrzeugaufbereitung',
-    navDescription: 'Innen, außen, Lack & Werterhalt',
+    navDescription: 'Innen, Außen, Lack & Werterhalt',
     navIconName: 'Sparkles',
     eyebrow: 'Fahrzeugaufbereitung & Werterhalt',
     title: 'Pflege, die den Fahrzeugwert sichtbar hält.',

@@ -17,6 +17,9 @@ import { TargetGroupPartner } from '../types';
  *     nicht dem Autohaus; deren Lizenz schliesst die Nutzung hier aus. Logo nur, wenn das
  *     Autohaus eine Datei samt Nutzungsrecht liefert.
  *   - riparo — Link und Logo (Schadensteuerer, siehe `claimsPartners`)
+ *   - Volkswagen Automobile Leipzig, Audi Zentrum Leipzig — Link ja, Logo NEIN (Backlog 5.16,
+ *     muendlich im Meeting 2026-09-25: „Du kannst auch VW und Audi verlinken"). Die Marken
+ *     gehoeren der Volkswagen AG bzw. der AUDI AG, nicht den Autohaeusern — wie bei Porsche.
  *
  * WEITERE FREIGABE = drei Schritte: Original nach `docs/partnerlogos/quelle/`, eine Zeile in
  * `scripts/build-partner-logos.mjs`, hier `logo`, `logoBreite`, `logoHoehe`, `url` setzen.
@@ -24,8 +27,11 @@ import { TargetGroupPartner } from '../types';
 
 /** Autohaus- und Werkspartner (Stand 2026-07-24, vom Betrieb benannt). */
 export const dealerPartners: TargetGroupPartner[] = [
-  { name: 'Volkswagen Automobile Leipzig' },
-  { name: 'Audi Zentrum Leipzig' },
+  // Freigabe 2026-09-25 (5.16). Adressen am 2026-09-27 geprueft: `volkswagen-leipzig.de` gehoert laut
+  // Impressum der Volkswagen Automobile Leipzig GmbH, `audi-zentrum-leipzig.de` fuehrt das Autohaus
+  // „Audi Zentrum Leipzig" (Audi Leipzig GmbH) mit allen Leipziger Standorten.
+  { name: 'Volkswagen Automobile Leipzig', url: 'https://www.volkswagen-leipzig.de/' },
+  { name: 'Audi Zentrum Leipzig', url: 'https://www.audi-zentrum-leipzig.de/' },
   // Freigabe 2026-09-16. `porsche-leipzig.de` ist die Adresse des Autohauses selbst und leitet
   // auf die aktuelle Porsche-Plattform weiter — sie ueberlebt deren naechsten Umbau.
   { name: 'Porsche Zentrum Leipzig', url: 'https://www.porsche-leipzig.de/' },

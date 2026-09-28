@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
 import { terminLeistungen } from '../data/leistungsauswahl';
+import { bereinigteZusaetze, zusatzleistungen } from '../data/zusatzleistungen';
+import { ANDERES_MODELL } from '../data/fahrzeugmarken';
 import { HONIGTOPF } from '../data/anfrageSchema';
 import { useVersandBereitschaft } from '../hooks/useVersandBereitschaft';
 import { schadenFelder, sichtbareFelder } from '../data/schadenFelder';
@@ -25,7 +27,7 @@ interface RequestFormProps {
 const initialState: FormFieldsByKind = {
   // Aus der Feldliste abgeleitet — ein gestrichenes Feld verschwindet damit auch hier.
   schaden: Object.fromEntries(schadenFelder.map((f) => [f.id, ''])),
-  termin: { name: '', phone: '', email: '', vehicle: '', service: '', zusatzleistungen: [], preferredDate: '', description: '' },
+  termin: { name: '', phone: '', email: '', marke: '', modell: '', modellFrei: '', service: '', zusatzleistungen: [], preferredDate: '', description: '' },
   business: { company: '', contact: '', phone: '', email: '', partnerType: '', description: '' },
   bewerbung: { name: '', email: '', phone: '', position: '', description: '' },
 };
@@ -53,7 +55,7 @@ const headlineByKind: Record<RequestFormKind, { icon: React.ReactNode; eyebrow: 
     icon: <BriefcaseBusiness size={14} />,
     eyebrow: 'Bewerbung',
     title: 'Bewerbung senden.',
-    subtitle: 'Name, Kontakt und ein paar Sätze zu Ihrer Erfahrung genügen. Ein Lebenslauf hilft, ist aber keine Bedingung.',
+    subtitle: 'Name, Kontakt und ein paar Sätze zu Ihrer Erfahrung genügen. Lebenslauf und Zeugnisse können Sie anhängen, müssen aber nicht.',
   },
 };
 
@@ -73,6 +75,12 @@ const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
   // anzeigen kann — das Feld saehe leer aus, waere aber belegt.
   if (kind === 'termin' && vorauswahl && terminLeistungen.some((l) => l.id === vorauswahl)) {
     (werte as FormFieldsByKind['termin']).service = vorauswahl;
+  }
+  // Seit 2026-09-28 kann die Vorauswahl auch eine ZUSATZLEISTUNG sein (Preiskachel „Keramikversiegelung“):
+  // Dann ist ihr Kaestchen angehakt und die Leistung bleibt offen — welches Paket dazu passt, entscheidet
+  // der Kunde. Die IDs beider Listen sind eindeutig (Pruefung in data/anfrageSchema.ts).
+  if (kind === 'termin' && vorauswahl && zusatzleistungen.some((z) => z.id === vorauswahl)) {
+    (werte as FormFieldsByKind['termin']).zusatzleistungen = [vorauswahl];
   }
   // Bei der Schadenmeldung belegt die Vorauswahl die Schadenart (R8): Wer von
   // `/felgenreparatur-leipzig` kommt, findet „Felgenschaden" gewaehlt. Den
@@ -95,6 +103,15 @@ export const formularTitel = Object.fromEntries(
   Object.entries(headlineByKind).map(([art, kopf]) => [art, kopf.title])
 ) as Record<RequestFormKind, string>;
 
+/** Datei als Base64 ohne `data:`-Vorsatz — so erwartet sie `api/anfrage.ts` (Backlog 5.29). */
+const alsBase64 = (datei: File) =>
+  new Promise<string>((ok, fehler) => {
+    const leser = new FileReader();
+    leser.onload = () => ok(String(leser.result).split(',')[1] ?? '');
+    leser.onerror = () => fehler(leser.error);
+    leser.readAsDataURL(datei);
+  });
+
 const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => {
   const [values, setValues] = useState(() => startwerte(kind, vorauswahl));
   const [submitted, setSubmitted] = useState(false);
@@ -105,6 +122,9 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
   const [fehler, setFehler] = useState<string | null>(null);
   /** Honigtopf. Fuer Menschen unsichtbar, Formularroboter fuellen ihn aus. */
   const [honigtopf, setHonigtopf] = useState('');
+  /** Anhaenge der Bewerbung (5.29) und wie viele davon tatsaechlich mitgingen — fuer die Bestaetigung. */
+  const [anhaenge, setAnhaenge] = useState<File[]>([]);
+  const [gesendeteAnhaenge, setGesendeteAnhaenge] = useState(0);
 
   const versandMoeglich = bereit;
   const kontaktMail = kind === 'business' ? 'abosse@carcare-center.de' : 'info@carcare-center.de';
@@ -112,6 +132,16 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues((prev) => {
       const naechste = { ...prev, [e.target.name]: e.target.value };
+      // Neue Leistung gewaehlt: Zusatzleistungen, die dazu keinen Sinn ergeben, fallen heraus (5.20,
+      // Regeln in data/zusatzleistungen.ts). Das Kaestchen ist dann gesperrt — mitgeschickt wuerde es sonst trotzdem.
+      // Neue Marke: Modell und Freitext gehoeren zur alten Marke und fallen weg. Anderes Modell abgewaehlt:
+      // Der Freitext dazu faellt weg — sonst stuende in der Mail ein Modell, das der Kunde zurueckgenommen hat.
+      if (kind === 'termin' && e.target.name === 'marke') return { ...naechste, modell: '', modellFrei: '' } as never;
+      if (kind === 'termin' && e.target.name === 'modell' && e.target.value !== ANDERES_MODELL) return { ...naechste, modellFrei: '' } as never;
+      if (kind === 'termin' && e.target.name === 'service') {
+        const termin = naechste as FormFieldsByKind['termin'];
+        return { ...termin, zusatzleistungen: bereinigteZusaetze(termin.service, termin.zusatzleistungen ?? []) } as never;
+      }
       // Ausgeblendete Felder verlieren ihren Wert. Sonst stuende eine Schadennummer in
       // der Mail, obwohl der Absender am Ende „Ich selbst" gewaehlt hat — die Werkstatt
       // laese eine Angabe, die der Kunde zurueckgenommen hat.
@@ -126,9 +156,10 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
   /** Mehrfachauswahl: an- und abwaehlen, ohne die uebrigen Felder anzufassen. */
   const handleZusatzleistung = (id: string, aktiv: boolean) => {
     setValues((prev) => {
-      const bisher = (prev as FormFieldsByKind['termin']).zusatzleistungen ?? [];
+      const termin = prev as FormFieldsByKind['termin'];
+      const bisher = termin.zusatzleistungen ?? [];
       const neu = aktiv ? [...bisher, id] : bisher.filter((eintrag) => eintrag !== id);
-      return { ...prev, zusatzleistungen: neu } as never;
+      return { ...prev, zusatzleistungen: bereinigteZusaetze(termin.service ?? '', neu) } as never;
     });
   };
 
@@ -141,10 +172,14 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
     setSendet(true);
     setFehler(null);
     try {
+      const mitAnhang = kind === 'bewerbung' && anhaenge.length > 0;
+      const dateien = mitAnhang
+        ? await Promise.all(anhaenge.map(async (datei) => ({ name: datei.name, daten: await alsBase64(datei) })))
+        : undefined;
       const antwort = await fetch('/api/anfrage', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ art: kind, daten: { ...values, [HONIGTOPF]: honigtopf } }),
+        body: JSON.stringify({ art: kind, daten: { ...values, [HONIGTOPF]: honigtopf }, ...(dateien ? { anhaenge: dateien } : {}) }),
         signal: AbortSignal.timeout(35_000),
       });
       const inhalt = await antwort.json().catch(() => ({}));
@@ -165,6 +200,7 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
         return;
       }
       setVorgang(inhalt.vorgang);
+      setGesendeteAnhaenge(mitAnhang ? anhaenge.length : 0);
       setSubmitted(true);
     } catch {
       setFehler(
@@ -225,7 +261,9 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
               <p className="mt-1 font-mono text-lg font-bold tracking-wide text-gray-950">{vorgang}</p>
               <p className="mt-3 text-sm leading-relaxed text-gray-600">
                 {kind === 'bewerbung'
-                  ? 'Ihre Unterlagen — Lebenslauf, Zeugnisse — schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
+                  ? gesendeteAnhaenge > 0
+                    ? `Ihre ${gesendeteAnhaenge === 1 ? 'Datei ist' : `${gesendeteAnhaenge} Dateien sind`} mit der Bewerbung bei uns angekommen. Weitere Unterlagen können Sie per E-Mail nachreichen — die Vorgangsnummer im Betreff genügt.`
+                    : 'Ihre Unterlagen — Lebenslauf, Zeugnisse — schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
                   : kind === 'business'
                     ? 'Weitere Unterlagen zu Ihrer Anfrage können Sie direkt an unsere Geschäftsführung senden. Bitte nennen Sie die Vorgangsnummer im Betreff.'
                     : kind === 'termin'
@@ -246,7 +284,9 @@ Mit freundlichen Grüßen
                 className="cc-gradient-button mt-4 inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white"
               >
                 <Send size={14} />
-                {unterlagen ? 'Unterlagen per E-Mail nachreichen' : 'Bilder per E-Mail nachreichen'}
+                {unterlagen
+                  ? gesendeteAnhaenge > 0 ? 'Weitere Unterlagen per E-Mail' : 'Unterlagen per E-Mail nachreichen'
+                  : 'Bilder per E-Mail nachreichen'}
               </a>
               <p className="mt-3 text-[11px] leading-relaxed text-gray-600">
                 Öffnet sich kein E-Mail-Programm: an{' '}
@@ -275,7 +315,12 @@ Mit freundlichen Grüßen
           )}
 
           {kind === 'bewerbung' && (
-            <BewerbungFelder werte={values as FormFieldsByKind['bewerbung']} onChange={handleChange} />
+            <BewerbungFelder
+              werte={values as FormFieldsByKind['bewerbung']}
+              onChange={handleChange}
+              anhaenge={anhaenge}
+              onAnhaenge={setAnhaenge}
+            />
           )}
 
           {/*

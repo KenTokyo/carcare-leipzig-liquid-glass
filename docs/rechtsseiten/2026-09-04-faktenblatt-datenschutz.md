@@ -9,6 +9,13 @@
 
 **Technischer Nachtrag 2026-09-16:** „Schaden melden" führt jetzt auf die Schadenseite des Betriebs bei **reparatur.info** (Anwendung der PDR.cloud GmbH) — neuer Abschnitt **3a**. Das eigene Schadenformular der Website ist abgeschaltet. Dazu kommen **ausgehende Links** zu Partnern und zum BVAT — Abschnitt 2, Sonderfall 3.
 
+**Technischer Nachtrag 2026-09-27:** Das **Bewerbungsformular überträgt jetzt Anhänge** (Backlog 5.29): bis zu drei
+Dateien, zusammen höchstens 3 MB, nur PDF, DOC/DOCX, ODT, JPG oder PNG (geprüft an der Dateisignatur). Die Dateien
+gehen im Anfragekörper an die Vercel-Funktion und von dort als **Anhang der Benachrichtigungs-E-Mail** über den
+Netcup-Versand an `info@carcare-center.de` — **keine Speicherung** auf dem Server, keine Speicherdienste. Bewerbungsunterlagen
+sind besonders schutzbedürftig (Beschäftigtendatenschutz): Die Datenschutzerklärung muss diesen Weg, Zweck und
+Löschfristen im Postfach nennen. Abschnitt 3, „Anhänge", ist entsprechend angepasst.
+
 ---
 
 ## Wozu dieses Blatt
@@ -134,7 +141,13 @@ stillschweigend**, ohne eine Mail zu erzeugen. Es findet keine Auswertung des
 Nutzerverhaltens statt, es wird kein CAPTCHA eingebunden und keine IP-basierte Bewertung
 vorgenommen.
 
-### ⚠️ Anhänge werden weiterhin nicht übertragen
+### Anhänge: seit 2026-09-27 nur bei der Bewerbung übertragen
+
+**Stand 2026-09-27 (Backlog 5.29):** Die Bewerbung nimmt bis zu drei Dateien (zusammen 3 MB; PDF, Word, ODT, JPG,
+PNG) und schickt sie als Anhang der E-Mail mit. Die übrigen Formulare übertragen weiterhin keine Dateien; die Funktion
+weist Anhänge dort ab. Der Text darunter beschreibt den Stand bis zu dieser Änderung.
+
+**Bis 2026-09-26:**
 
 Die Upload-Felder für Schadenbilder und den Lebenslauf sind im Formular vorhanden, ihr
 Inhalt wird aber **nicht** mitgesendet. Grund ist eine technische Grenze: Der

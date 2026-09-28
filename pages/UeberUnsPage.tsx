@@ -64,7 +64,7 @@ const spectrum = [
   { title: 'Smart Repair & Dellenentfernung', description: 'Punktgenaue Lackinstandsetzung und lackfreies Ausdrücken von Dellen — Instandsetzung statt Tauschen.', href: '/smart-repair-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und direkte Abrechnung mit der Versicherung, ohne Anzahlung.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgen & Autoglas', description: 'Felgenreparatur im TÜV-zertifizierten Verfahren, Scheibentausch und Steinschlagreparatur als WINTEC-Partner.', href: '/felgenreparatur-leipzig' },
-  { title: 'Fahrzeugaufbereitung', description: 'Innen, außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege „exklusiv“ mit Swissvax-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
+  { title: 'Fahrzeugaufbereitung', description: 'Innen, Außen und Lack mit festen Paketpreisen ab 169,00 € — bis zur Premiumpflege „exklusiv“ mit Swissvax-Wachsen.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
 
 /**

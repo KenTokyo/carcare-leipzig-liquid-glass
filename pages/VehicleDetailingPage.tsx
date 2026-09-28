@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import DetailingGallery from '../components/DetailingGallery';
-import { AUFPREIS_SATZ, carePackages, detailingScopes, detailingSteps, disinfectionServices } from '../data/detailing';
+import { AUFPREIS_SATZ, carePackages, detailingScopes, detailingSteps, disinfectionServices, zusatzAngebote, zusatzPreis } from '../data/detailing';
 
 /**
  * Hub-Seite des Aufbereitungs-Strangs.
@@ -38,7 +38,7 @@ const VehicleDetailingPage: React.FC = () => (
     <PageMeta
       canonical="/fahrzeugaufbereitung-leipzig"
       title="Fahrzeugaufbereitung Leipzig | ab 169 € | CarCare Center"
-      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenraumreinigung ab 199 €, Premiumpflege ab 299 €. Innen, außen, Lack."
+      description="Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen: Außenpflege ab 169 €, Innenraumreinigung ab 199 €, Premiumpflege ab 299 €. Innen, Außen, Lack."
     />
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
@@ -56,7 +56,7 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
-          description="Vier aufeinander aufbauende Pakete – von der Brillant Außenpflege für 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv Innenraumreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege. Die Lackaufbereitung berechnen wir nach Aufwand."
+          description="Vier aufeinander aufbauende Pakete – von der Brillant Außenpflege ab 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv Innenraumreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege. Die Lackaufbereitung berechnen wir nach Aufwand."
         />
         {/* Backlog 4.7: Aufpreise als Fussnote — Entscheidung des Kunden vom 2026-09-16.
             Der Satz kommt aus `AUFPREIS_SATZ`, dieselbe Quelle wie die Preis-FAQ. */}
@@ -89,6 +89,24 @@ const VehicleDetailingPage: React.FC = () => (
     </section>
 
     {/*
+      Exklusiv- und Zusatzleistungen (Mail Andre 2026-09-28): Keramik und Nano als eigene Kacheln
+      „zur besseren Vermarktung“, dazu Frontscheibenversiegelung und die Pflege-Extras. Bewusst HINTER
+      der Desinfektion: Backlog 1.10 verlangt Ozon und Heissvernebelung direkt unter den Paketen.
+      Name, Preis, Text und Vorauswahl aus `data/zusatzleistungen.ts`, derselben Liste wie im Formular.
+      Diese Seite zeigt ALLE Aufbereitungsleistungen, die Unterseiten nur ihre (User, 2026-09-28).
+    */}
+    <section id="zusatzleistungen" className="bg-gray-50/70 px-6 py-20 md:py-28">
+      <div className="container mx-auto">
+        <SectionIntro
+          eyebrow="Exklusiv- und Zusatzleistungen"
+          title="Was kosten Keramikversiegelung und Zusatzleistungen?"
+          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. Dazu kommen die Frontscheibenversiegelung und Pflege-Extras zum Festpreis, die Sie zu Ihrem Paket buchen oder direkt anfragen.`}
+        />
+        <PricingGrid items={zusatzAngebote} ctaLabel="Termin anfragen" note="Alle Preise inkl. gesetzlicher Mehrwertsteuer." />
+      </div>
+    </section>
+
+    {/*
       Layout bewusst UNVERAENDERT gegenueber dem Stand vor 2026-08-09: eine Sektion,
       dreispaltiges Kartenraster, `shadow-sm`. Ein zwischenzeitlicher Umbau auf drei
       volle Bildsektionen wurde zurueckgenommen — er verdreifachte die Malflaeche direkt
@@ -105,7 +123,7 @@ const VehicleDetailingPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Aufbereitungsumfang"
-          title="Innen, außen und Lack – die drei Bereiche im Überblick."
+          title="Innen, Außen und Lack – die drei Bereiche im Überblick."
           description="Die Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab — der vollständige Leistungsumfang steht auf der jeweiligen Seite."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">

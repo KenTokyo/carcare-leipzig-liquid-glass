@@ -25,7 +25,11 @@ interface FormFieldsByKind {
     name: string;
     phone: string;
     email: string;
-    vehicle: string;
+    /** Seit 2026-09-28 zwei Auswahllisten statt Freitext „Fahrzeug“ — Quelle `data/fahrzeugmarken.ts`. */
+    marke: string;
+    modell: string;
+    /** Freitext, nur bei „Andere Marke“ (Marke und Modell) oder „Anderes Modell“. */
+    modellFrei: string;
     service: string;
     /** Mehrfachauswahl, Quelle: `data/zusatzleistungen.ts` (Backlog 1.18). */
     zusatzleistungen: string[];

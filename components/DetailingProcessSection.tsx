@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Sparkles } from 'lucide-react';
 import ScrollPinnedProcess, { type ProcessStepCard } from './ScrollPinnedProcess';
+import { detailingSteps } from '../data/detailing';
 
 /**
  * Ablauf der Autoaufbereitung — seit 2026-07-22 als eigene, scroll-gepinnte Sektion im
@@ -8,9 +9,9 @@ import ScrollPinnedProcess, { type ProcessStepCard } from './ScrollPinnedProcess
  * `ScrollPinnedProcess`, deshalb sind Layout, Scroll-Animation, Karten-Crossfade,
  * Fortschritts-Dots und Full-Bleed-Hintergrund garantiert identisch.
  *
- * Inhalt stammt 1:1 aus der frueheren Sektion „Prozess" (Tab „Autoaufbereitung") — mit der
- * Geschaeftsfuehrung abgestimmter Wortlaut, deshalb unveraendert uebernommen.
- * Die volle Tiefe bleibt auf /fahrzeugaufbereitung-leipzig.
+ * TITEL UND TEXT KOMMEN AUS `detailingSteps` (data/detailing.ts) — derselben Quelle wie der
+ * Ablauf auf /fahrzeugaufbereitung-leipzig. Bis 2026-09-27 stand hier eine Kopie des Wortlauts
+ * (Backlog 5.18, Optimierung O5). Hier stehen nur noch die Bilder und der Karten-CTA.
  */
 
 /** Kachel-Foto je Schritt — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
@@ -20,48 +21,45 @@ const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
 // uebrigen sind vorhandene CarCare-Kacheln — bewusst FUENF UNTERSCHIEDLICHE, denn Karten- und
 // Hintergrund-Crossfade leben vom Bildwechsel. Beim Tausch bitte `image` UND `imageAlt` gemeinsam
 // aktualisieren (der Alt-Text beschreibt jeweils das tatsaechlich gezeigte Motiv, SEO §3.3).
-const steps: ProcessStepCard[] = [
+// REIHENFOLGE = Reihenfolge von `detailingSteps`: Eintrag i gehoert zu Schritt i.
+const bilder: Array<Pick<ProcessStepCard, 'image' | 'imageAlt' | 'cta'>> = [
   {
-    n: '01',
-    title: 'Leistung auswählen',
-    description: 'Passendes Paket oder individuelle Aufbereitung wählen.',
     image: kachel('fahrzeugaufbereitung-leipzig-carcare'),
     imageAlt: 'Fahrzeugaufbereitung im CarCare Center Leipzig: Ein Fahrzeug wird fachgerecht gepflegt.',
   },
   {
-    n: '02',
-    title: 'Termin anfragen',
-    description: 'Wunschtermin online oder telefonisch übermitteln.',
     image: kachel('privatkunden-leipzig-carcare'),
     imageAlt:
       'Kunde bespricht am Empfangstresen des CarCare Center Leipzig den Wunschtermin für die Fahrzeugaufbereitung.',
     cta: { label: 'Termin anfragen', href: '#contact-termin' },
   },
   {
-    n: '03',
-    title: 'Fahrzeug abgeben',
-    description: 'Persönliche Übergabe mit kurzer Beratung vor Ort.',
     // Motiv unveraendert (vom Kunden als „in Ordnung" bestaetigt, B33). Die Datei hiess bis
     // 2026-09-21 `ersatzwagen-…`; der Name gehoert jetzt dem Foto unserer Mietwagenflotte (B23).
     image: kachel('fahrzeugabgabe-leipzig-carcare'),
     imageAlt: 'Fahrzeugschlüssel wird vor der Werkstatt des CarCare Center Leipzig persönlich übergeben.',
   },
   {
-    n: '04',
-    title: 'Professionelle Aufbereitung',
-    description: 'Innen, außen, Lack und Details nach unserem Standard.',
     // Seit 2026-09-21 echtes Foto (B34, nur diese Stelle).
     image: kachel('aufbereitung-aktiv-leipzig-carcare'),
     imageAlt: 'Unser Mitarbeiter reinigt kniend die Scheibe der geöffneten Fahrertür eines kupferfarbenen SUV in unserer Aufbereitungshalle in Leipzig.',
   },
   {
-    n: '05',
-    title: 'Gepflegt zurückerhalten',
-    description: 'Sichtbar aufgewertet und bereit für Alltag oder Rückgabe.',
     image: kachel('leasingrueckgabe-leipzig-carcare'),
     imageAlt: 'Gepflegtes Fahrzeug nach der Aufbereitung im CarCare Center Leipzig.',
   },
 ];
+
+// Laut statt still: Ein Schritt ohne Bild wuerde als leere Karte gepinnt stehen.
+if (bilder.length !== detailingSteps.length) {
+  throw new Error(`DetailingProcessSection: ${detailingSteps.length} Schritte, aber ${bilder.length} Bilder`);
+}
+
+const steps: ProcessStepCard[] = detailingSteps.map((schritt, i) => ({
+  n: String(i + 1).padStart(2, '0'),
+  ...schritt,
+  ...bilder[i],
+}));
 
 const DetailingProcessSection: React.FC = () => (
   <ScrollPinnedProcess

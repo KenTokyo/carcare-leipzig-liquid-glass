@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { BEWERBUNGS_ZIEL, ausbildungsberufe, berufsbilder, offeneStellen, type JobPosition } from '../data/jobs';
+import { BEWERBUNGS_ZIEL, ausbildungsberufe, berufsbilder, offeneBerufe, type JobPosition } from '../data/jobs';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
 
@@ -50,7 +50,8 @@ const alsKarte = (job: JobPosition): ExpandingCardItem => {
   const offen = job.status === 'suchend';
   return {
     id: job.id,
-    title: job.title,
+    // 5.25: mit weichen Trennstellen, damit lange Titel an der Wortfuge umbrechen.
+    title: job.anzeigeTitel ?? job.title,
     description: job.description,
     href: BEWERBUNGS_ZIEL,
     cta: offen ? 'Jetzt bewerben' : 'Initiativ bewerben',
@@ -61,15 +62,18 @@ const alsKarte = (job: JobPosition): ExpandingCardItem => {
     gedaempft: !offen,
     // „Ruhig" fuer nicht ausgeschriebene Stellen: Ein blaues Abzeichen an dieser Stelle
     // liest sich wie eine Einladung und widerspraeche dem Text daneben.
+    // Backlog 5.26: Ausbildungskarten nennen den Beginn („Beginn Sommer 2027"), wo es einen gibt —
+    // „Stelle offen" passt fuer einen Ausbildungsplatz nicht.
     badge: offen
-      ? { label: 'Stelle offen', ton: 'aktiv' }
+      ? { label: job.hinweis ?? (job.art === 'ausbildung' ? 'Ausbildungsplatz frei' : 'Stelle offen'), ton: 'aktiv' }
       : { label: 'Zurzeit nicht ausgeschrieben', ton: 'ruhig' },
   };
 };
 
 const JobCards: React.FC = () => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
-  const anzahl = offeneStellen.length;
+  // Nur die Berufe: Die Ausbildungsplaetze haben ihre eigene Reihe und Einleitung darunter.
+  const anzahl = offeneBerufe.length;
 
   return (
     <section
@@ -121,9 +125,12 @@ const JobCards: React.FC = () => {
               <h3 className="text-2xl font-bold leading-tight tracking-tight text-gray-950 md:text-4xl">
                 Ausbildung im Betrieb.
               </h3>
+              {/* Backlog 5.26 (Zusage 2026-09-25): Lack und Karosserie ab Sommer 2027, die kaufmaennische
+                  Ausbildung bewusst ohne Termin (dort waere ein Nachzuegler noch willkommen). */}
               <p className="mt-4 text-base leading-relaxed text-gray-600">
-                Diese Ausbildungsberufe gibt es bei uns. Ob im kommenden Jahrgang ausgebildet wird,
-                stimmen wir gerade ab — melden Sie sich gern jetzt schon, dann kommen Sie auf die Liste.
+                Wir bilden aus. In der Fahrzeuglackierung und im Karosserie- und Fahrzeugbau beginnt der
+                nächste Ausbildungsjahrgang im Sommer 2027. Für die kaufmännische Ausbildung zum
+                Industriekaufmann oder zur Industriekauffrau freuen wir uns ebenfalls über Ihre Bewerbung.
               </p>
             </div>
             <ExpandingCardAccordion items={ausbildungsberufe.map(alsKarte)} mobileActiveHeight={430} />

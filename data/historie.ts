@@ -18,8 +18,13 @@ import type { TimelineStation } from '../components/Timeline';
  *     Flaechenfrage blockiert: Sein Text nennt „über 3.500 m²", die Seite sagte damals
  *     ueberall 3.000. Mit der Entscheidung zu 4.2 (Textregel 4, ebenfalls 2026-09-14 auf
  *     3.500 umgestellt) ist der Widerspruch weg.
- *   Meilenstein 3 — bleibt Platzhalter. Text liegt vor (4.19), das JAHR fehlt. Ein
- *     geratenes Jahr sieht aus wie eine gepruefte Angabe.
+ *   Meilenstein 3 (2017) — am 2026-09-27 eingesetzt (Backlog 5.24). Das Jahr hat Andre im
+ *     Meeting vom 2026-09-25 genannt (4.19 war bis dahin ohne Jahr), den Titel „Eintritt in die
+ *     Schadensteuerung" hat Ali dort festgelegt. Andre hat das Jahr im Gespraech geschaetzt
+ *     (zwischen 2016 und 2017) — beim naechsten Termin kurz bestaetigen lassen.
+ *     BEWUSST NICHT UEBERNOMMEN: der zweite Teil von 4.19 („Ausbildungsbetrieb im Lackier- und
+ *     Karosseriebauhandwerk"). Ob das seit 2017 gilt, ist offen (Rueckfrage in schleife-5.md);
+ *     unter diesem Jahr stuende sonst eine ungepruefte Aussage.
  *
  * ⚠️ WER EINEN PLATZHALTER ERSETZT, ENTFERNT `istPlatzhalter` — und den Titel aus der
  * `ANERKANNT`-Liste von `scripts/check-dummies.mjs`. Sonst bricht der Build. Das ist
@@ -54,9 +59,12 @@ export const historie: TimelineStation[] = [
       'Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des Portfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie komplett neue Arbeitsbereiche.',
   },
   {
-    title: 'Meilenstein 3',
-    description: 'Platzhalter — wird durch die abgestimmte Station ersetzt.',
-    istPlatzhalter: true,
+    zeit: '2017',
+    title: 'Eintritt in die Schadensteuerung',
+    // Backlog 4.19 (Wortlaut des Kunden, erster Teil) + 5.24 (Jahr und Titel aus dem Meeting 2026-09-25).
+    // Der zweite Satz ist die kurze Erklaerung, warum der Schritt wichtig ist (Wunsch aus dem Meeting).
+    description:
+      'Beginn der Zusammenarbeit im Schadens- und Versicherungsbereich durch großflächige Partnerschaften mit der Versicherungswirtschaft. Seitdem steuern Versicherer und Schadensteuerer Schadenfälle direkt zu uns — Reparatur und Abwicklung aus einer Hand.',
   },
   {
     zeit: '2026',

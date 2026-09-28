@@ -43,6 +43,13 @@ export interface JobPosition {
   id: string;
   /** Berufsbild, wie es auf der Karte und im Schema steht. */
   title: string;
+  /**
+   * Derselbe Titel mit weichen Trennstellen (U+00AD) an den Wortfugen — NUR fuer den schmalen
+   * Textkasten der Karten (Backlog 5.25). Die automatische Silbentrennung greift bei „…/in" nicht;
+   * dann brach der Notfallumbruch mitten im Wort („Fahrzeugbaumechanik / er/in"). Schema, Formular,
+   * Banner und Pop-up nutzen `title`: Dort ist Platz, und ein Trennzeichen im Schema waere Stoerfeuer.
+   */
+  anzeigeTitel?: string;
   art: JobArt;
   /** Ein bis zwei Saetze: worum geht es in dieser Rolle. */
   description: string;
@@ -52,6 +59,16 @@ export interface JobPosition {
    */
   anforderungen: string[];
   status: JobStatus;
+  /**
+   * Kurzer Zusatz fuer das Abzeichen offener Stellen, z. B. „Beginn Sommer 2027" (Backlog 5.26).
+   * Ohne Angabe steht „Stelle offen" bzw. bei Ausbildung „Ausbildungsplatz frei".
+   */
+  hinweis?: string;
+  /**
+   * Seit wann die Stelle auf der Seite ausgeschrieben ist (JJJJ-MM-TT). Speist `datePosted` im
+   * `JobPosting`-Markup — ein Pflichtfeld bei Google, das bis 2026-09-27 fehlte. Nur bei `suchend`.
+   */
+  ausgeschriebenSeit?: string;
   /** Kachelmotiv, Dateien in /public/assets/kacheln. */
   backgroundImage: string;
 }
@@ -72,6 +89,7 @@ export const jobPositions: JobPosition[] = [
       'Bereitschaft, sich in Verfahren und Mittel einzuarbeiten',
     ],
     status: 'suchend',
+    ausgeschriebenSeit: '2026-09-03',
     // B103, seit 2026-09-21: echtes Foto eines Kollegen bei der Arbeit (Einwilligung liegt vor).
     backgroundImage: kachel('karriere-aufbereiter-leipzig-carcare'),
   },
@@ -88,6 +106,7 @@ export const jobPositions: JobPosition[] = [
       'Anspruch an ein Ergebnis, das man nicht sieht',
     ],
     status: 'suchend',
+    ausgeschriebenSeit: '2026-09-03',
     // B104 bleibt, wie es ist (Kunde, 2026-09-21). Nur der Dateiname ist neu: `autolackierung-…`
     // traegt seit dem 2026-09-21 das echte Lackierfoto der Leistungsseiten.
     backgroundImage: kachel('lackierkabine-leipzig-carcare'),
@@ -96,6 +115,7 @@ export const jobPositions: JobPosition[] = [
     id: 'karosserie',
     art: 'beruf',
     title: 'Karosserie- und Fahrzeugbaumechaniker',
+    anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker',
     description:
       'Instandsetzung nach Unfallschäden, Karosseriearbeiten und Richtbank — instand setzen, wo es fachlich vertretbar ist.',
     anforderungen: [
@@ -105,6 +125,7 @@ export const jobPositions: JobPosition[] = [
       'Bereitschaft zur Abstimmung mit Lackierung und Service',
     ],
     status: 'suchend',
+    ausgeschriebenSeit: '2026-09-03',
     // B105, seit 2026-09-21: echtes Foto aus dem Karosseriebau (Einwilligung liegt vor).
     backgroundImage: kachel('karriere-fahrzeugbau-leipzig-carcare'),
   },
@@ -135,10 +156,11 @@ export const jobPositions: JobPosition[] = [
    * beiden decken sich mit den Gewerken aus dem Kundenreview, der dritte ist eine
    * bewusste Ergaenzung.
    *
-   * Alle drei stehen auf `nicht-suchend`, bis Andre bestaetigt (Backlog R4). Damit
-   * erscheinen sie mit Schleier und Initiativ-Aufruf — eine Aussage, die in jedem Fall
-   * stimmt, waehrend „wir bilden aus" ohne Zusage eine Behauptung waere. Nach der
-   * Zusage ist es ein Wort je Eintrag.
+   * ZUSAGE VOM 2026-09-25 (Meeting, Backlog 5.26, beantwortet 3.32): Alle drei werden
+   * ausgeschrieben. Lackierung und Karosserie mit dem Hinweis „Beginn Sommer 2027" (Andre:
+   * „keine Nachzuegler mehr"), Industriekaufmann/-frau bewusst OHNE Hinweis — dort waere ein
+   * Nachzuegler noch willkommen („lassen wir es mal unkommentiert"). Bis dahin standen alle drei
+   * auf `nicht-suchend`, mit Schleier und Initiativ-Aufruf.
    *
    * Die Anforderungen sind bewusst knapp und allgemeingueltig gehalten. Was den Karten
    * fachlich fehlt — Ausbildungsbeginn, Dauer, schulische Voraussetzungen,
@@ -150,6 +172,7 @@ export const jobPositions: JobPosition[] = [
     id: 'ausbildung-lackierer',
     art: 'ausbildung',
     title: 'Fahrzeuglackierer/in',
+    anzeigeTitel: 'Fahrzeug\u00ADlackierer/in',
     description:
       'Ausbildung im Lackierhandwerk: Untergrund, Farbtonbestimmung, Applikation und Finish — bei einem Glasurit-Lackpartner.',
     anforderungen: [
@@ -157,7 +180,9 @@ export const jobPositions: JobPosition[] = [
       'Sorgfalt und Geduld bei feinen Arbeitsschritten',
       'Bereitschaft, im Team und nach Vorgaben zu arbeiten',
     ],
-    status: 'nicht-suchend',
+    status: 'suchend',
+    hinweis: 'Beginn Sommer 2027',
+    ausgeschriebenSeit: '2026-09-27',
     // B107 bleibt vorerst (Kunde, 2026-09-21: „erstmal stehen lassen“), Motiv wie B104.
     backgroundImage: kachel('lackierkabine-leipzig-carcare'),
   },
@@ -165,6 +190,7 @@ export const jobPositions: JobPosition[] = [
     id: 'ausbildung-karosserie',
     art: 'ausbildung',
     title: 'Karosserie- und Fahrzeugbaumechaniker/in',
+    anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker/in',
     description:
       'Ausbildung in Karosserie und Instandsetzung: Schadenbeurteilung, Richten, Fügen und der Umgang mit modernen Fahrzeugstrukturen.',
     anforderungen: [
@@ -172,7 +198,9 @@ export const jobPositions: JobPosition[] = [
       'Interesse an Fahrzeugtechnik und Konstruktion',
       'Zuverlässigkeit im Umgang mit Werkzeug und Material',
     ],
-    status: 'nicht-suchend',
+    status: 'suchend',
+    hinweis: 'Beginn Sommer 2027',
+    ausgeschriebenSeit: '2026-09-27',
     // B108, seit 2026-09-21: dasselbe Karosseriebau-Foto wie B105 (Rueckfrage beantwortet: nicht
     // das Aufbereiter-Foto aus dem ersten Auftrag — die Karte ist die Karosserie-Ausbildung).
     backgroundImage: kachel('karriere-fahrzeugbau-leipzig-carcare'),
@@ -181,6 +209,7 @@ export const jobPositions: JobPosition[] = [
     id: 'ausbildung-industriekaufmann',
     art: 'ausbildung',
     title: 'Industriekaufmann/-frau',
+    anzeigeTitel: 'Industrie\u00ADkaufmann/-frau',
     description:
       'Kaufmännische Ausbildung im Werkstattbetrieb: Auftragsabwicklung, Einkauf, Rechnungswesen und die Abstimmung mit Versicherern.',
     anforderungen: [
@@ -188,7 +217,8 @@ export const jobPositions: JobPosition[] = [
       'Sicheres Auftreten am Telefon und im Schriftverkehr',
       'Sorgfalt bei Unterlagen und Fristen',
     ],
-    status: 'nicht-suchend',
+    status: 'suchend',
+    ausgeschriebenSeit: '2026-09-27',
     backgroundImage: kachel('kalkulation-leipzig-carcare'),
   },
 ];
@@ -204,6 +234,24 @@ export const ausbildungsberufe = jobPositions.filter((job) => job.art === 'ausbi
  * Wer hier etwas anderes einsetzt, zeichnet Stellen aus, die es nicht gibt.
  */
 export const offeneStellen = jobPositions.filter((job) => job.status === 'suchend');
+
+/**
+ * Offene Stellen und Ausbildungsplaetze GETRENNT (Backlog 5.26). Seit alle drei Ausbildungsberufe
+ * ausgeschrieben sind, haetten Banner, Pop-up und Zaehler sonst „6 offene Stellen" gemeldet und
+ * „Fahrzeuglackierer" neben „Fahrzeuglackierer/in" gestellt.
+ */
+export const offeneBerufe = offeneStellen.filter((job) => job.art === 'beruf');
+export const offeneAusbildungen = offeneStellen.filter((job) => job.art === 'ausbildung');
+
+/** „3 offene Stellen · 3 Ausbildungsplätze" — Kicker von Banner und Pop-up, an einer Stelle formuliert. */
+export const offeneStellenKicker = (): string => {
+  const teile: string[] = [];
+  const b = offeneBerufe.length;
+  const a = offeneAusbildungen.length;
+  if (b) teile.push(b === 1 ? 'Eine offene Stelle' : `${b} offene Stellen`);
+  if (a) teile.push(a === 1 ? 'Ein Ausbildungsplatz' : `${a} Ausbildungsplätze`);
+  return teile.join(' · ');
+};
 
 /**
  * Schaltet das Pop-up mit den offenen Stellen auf `/karriere` (Backlog 1.23).

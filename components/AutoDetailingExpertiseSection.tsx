@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import { aufbereitungKacheln } from '../data/detailing';
+import { getKnowledgeArticleBySlug } from '../data/knowledgeArticles';
 
 /** Kachel-Foto je Karte — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
 
@@ -11,10 +13,14 @@ import { aufbereitungKacheln } from '../data/detailing';
  * sind Kartenaufteilung UND Animation exakt identisch statt nur nachgebaut. Ersetzt die
  * frueheren flachen Artikel-Chips (gleiche Ziele, jetzt mit Bild + Beschreibung).
  *
- * Karte 5 („Mehr über Aufbereitung erfahren") ersetzt seit 2026-07-22 den frueheren kleinen
- * Textlink „Autoaufbereitung Wissen ansehen" neben dem Intro: Er fuehrt jetzt als vollwertige
- * Karte auf den Wissenshub, statt als leicht uebersehbarer Link danebenzustehen. Der Textlink
- * wurde entfernt — sonst stuende dasselbe Ziel zweimal in derselben Sektion.
+ * WISSENS-KARTE ENTFALLEN (Backlog 5.17, 2026-09-27). Die Karte „Mehr über Aufbereitung erfahren"
+ * fuehrte auf den Wissenshub — gemessen am ausgelieferten HTML war der Hub von der Startseite aber
+ * ohnehin dreimal verlinkt (Navigation, zweimal Footer) und von allen 29 Seiten erreichbar, waehrend
+ * KEIN einzelner Ratgeber einen Link von der Startseite hatte. Die Karte trug dazu ein Fuellfoto mit
+ * KI-Plakette. Statt ihrer steht unter den Karten eine Ratgeber-Zeile mit Direktlinks auf die vier
+ * Aufbereitungsartikel: beschreibende Ankertexte von der staerksten Seite auf die Artikel
+ * (SEO-GEO §4.4). Das loest zugleich T4 („zweiter Knopf → Wissensbereich"), ohne einen Link IN die
+ * Karte zu setzen — die ganze Karte ist ein <a>, ein zweiter Link darin waere verschachtelt.
  *
  * FOTO-STAND (2026-09-02): Die Kachel „Lackaufbereitung" ist entfallen (Backlog 1.7),
  * ihr Inhalt steht jetzt vollstaendig auf `/aussenaufbereitung-leipzig`. Damit bleiben
@@ -50,16 +56,18 @@ const expertiseCards: ExpandingCardItem[] = [
     cta: 'Leasingrückgabe ansehen',
     backgroundImage: aufbereitungKacheln.leasing,
   },
-  {
-    id: 'wissen',
-    title: 'Mehr über Aufbereitung erfahren',
-    description:
-      'Ratgeber rund um Innenraum, Lack, Werterhalt und Leasingrückgabe – verständlich erklärt im Wissensbereich.',
-    href: '/autoaufbereitung-wissen',
-    cta: 'Zum Wissensbereich',
-    backgroundImage: aufbereitungKacheln.wissen,
-  },
 ];
+
+/**
+ * Ratgeber zum Aufbereitungs-Cluster — Titel und Pfad aus `data/knowledgeArticles.ts`, damit ein
+ * umbenannter Artikel hier nicht als toter Link stehen bleibt. Fehlt ein Artikel, bricht der Build
+ * (lieber laut als ein Link ins Leere).
+ */
+const ratgeber = ['was-ist-autoaufbereitung', 'innenaufbereitung', 'lackaufbereitung', 'leasingrueckgabe-vorbereiten'].map((slug) => {
+  const artikel = getKnowledgeArticleBySlug(slug);
+  if (!artikel) throw new Error(`AutoDetailingExpertiseSection: Ratgeber „${slug}" fehlt in data/knowledgeArticles.ts`);
+  return { titel: artikel.cardTitle, pfad: artikel.path };
+});
 
 const AutoDetailingExpertiseSection: React.FC = () => {
   // Full-Bleed-Section-Hintergrund: das Akkordeon meldet via onActiveImageChange das Bild der
@@ -138,6 +146,27 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             scroll-gepinnte Sektion (`DetailingProcessSection`) direkt darunter — im exakt
             gleichen Aufbau wie „Unfall & Schaden Leipzig". */}
         <ExpandingCardAccordion items={expertiseCards} onActiveImageChange={setActiveImage} className="mt-12" />
+
+        {/* Ratgeber-Zeile (5.17): ersetzt die Wissens-Karte. 48 px hohe Ziele (SEO-GEO §2.3). */}
+        <nav aria-label="Ratgeber zur Autoaufbereitung" className="mt-8 flex flex-wrap items-center gap-3">
+          <span className="mr-1 text-xs font-bold uppercase tracking-[0.2em] text-gray-600">Ratgeber</span>
+          {ratgeber.map((r) => (
+            <a
+              key={r.pfad}
+              href={r.pfad}
+              className="inline-flex min-h-12 items-center rounded-full border border-blue-200 bg-white px-5 text-sm font-semibold text-blue-600 shadow-sm transition-colors hover:border-blue-400 hover:bg-blue-50"
+            >
+              {r.titel}
+            </a>
+          ))}
+          <a
+            href="/autoaufbereitung-wissen"
+            className="inline-flex min-h-12 items-center gap-2 px-2 text-sm font-bold text-blue-600 underline-offset-4 hover:underline"
+          >
+            Alle Ratgeber
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </nav>
       </div>
     </section>
   );
