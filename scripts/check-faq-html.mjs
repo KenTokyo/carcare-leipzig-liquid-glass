@@ -68,8 +68,13 @@ const faqRoutenAnzahl = [
 ].length;
 
 // ---------- 2. Inhalt: steht jeder ausgezeichnete Text auch im HTML? ----------
+// `&nbsp;` (seit 2026-09-28): Chrome schreibt ein geschuetztes Leerzeichen (U+00A0) beim Vorrendern
+// als Entitaet. Auf der Schemaseite ist es das Zeichen selbst, und `\s` macht daraus ein Leerzeichen.
+// Ohne diese Zeile galt eine sichtbare Antwort mit „49,00 €“ (Betrag und Waehrung geschuetzt) als
+// „nicht ausgeliefert“. Versteckter Text faellt weiter durch — hier wird nur die Schreibweise gleich.
 const entitaeten = (s) =>
   s
+    .replace(/&nbsp;/g, ' ')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'")

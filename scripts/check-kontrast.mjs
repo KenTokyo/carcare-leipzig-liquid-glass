@@ -16,6 +16,10 @@
 //     Knopf, der faelschlich als `disabled` markiert ist, wird damit nie geprueft.
 //  6. `text-shadow` und `drop-shadow` verbessern die Lesbarkeit real, kommen in der
 //     Kontrastformel aber nicht vor. Wo damit gearbeitet wird, misst sie ZU STRENG.
+//  7. (seit 2026-09-28) Faellt eine Stelle nur in der ERSTEN Messung einer Position durch und
+//     besteht sie eine Sekunde spaeter, gilt sie als Einblendung und wird nicht gemeldet (Falle 9).
+//     Dauerhaft animierter Text kann dabei in einem guenstigen Moment gemessen werden — dieselbe
+//     Schwaeche hatte schon die einzelne Messung.
 //
 // DIE SECHS FALLEN, in die der erste Aufbau getappt ist (Spezifikation:
 // docs/paket-c-serviceseiten/tasks/2026-09-03-paket-c-tasks.md, Abschnitt 7.2):
@@ -45,6 +49,8 @@ const AA_NORMAL = 4.5;
 const AA_GROSS = 3.0;
 /** Anteil der Seitenhoehe je Aufnahme. Mehr Stellen = laenger, aber vollstaendiger. */
 const POSITIONEN = [0, 0.25, 0.5, 0.75];
+/** Wartezeit vor der zweiten Messung einer Position mit Befund (Falle 9). */
+const NACHMESSEN_MS = 1000;
 
 const args = process.argv.slice(2);
 const nurRoute = args.find((a) => a.startsWith('/'));
@@ -166,6 +172,77 @@ if (!fs.existsSync(path.join(wurzel, 'dist', 'index.html'))) {
   process.exit(1);
 }
 
+/**
+ * Misst alle Textstellen im aktuellen Bildausschnitt und gibt je Stelle das Ergebnis zurueck.
+ * Herausgeloest am 2026-09-28, damit eine Position ein zweites Mal gemessen werden kann (Falle 9).
+ */
+async function messePosition(seite) {
+  /* Falle 8 (2026-09-24): EINMALIGE CSS-ANIMATIONEN laufen zwischen den beiden Aufnahmen
+     weiter. Anlass war der Lichtstreif ueber „Schaden melden" oben rechts (1 s nach dem
+     Laden, 1,1 s lang; seit 2026-09-25 entfernt): Er stand in der einen Aufnahme links, in
+     der anderen rechts, und die Differenz haette bewegtes Licht als Glyphen gezaehlt. Die
+     Regel bleibt fuer jede einmalige Animation. Gemessen wird der Ruhezustand: zeitgetriebene,
+     endliche CSS-Animationen ans Ende setzen. NICHT angefasst: endlose (Laufbaender),
+     scrollgetriebene (`scrollverlauf.css`, `animation-timeline: scroll()` — `finish()`
+     spraenge dort ans Scrollende) und Framers WAAPI-Animationen (keine `CSSAnimation`). */
+  await seite.evaluate(() => {
+    for (const a of document.getAnimations()) {
+      if (!(a instanceof CSSAnimation) || a.timeline !== document.timeline) continue;
+      if (a.effect?.getComputedTiming().iterations === Infinity) continue;
+      a.finish();
+    }
+  });
+
+  const stellen = await seite.evaluate(SAMMLE);
+  if (!stellen.length) return [];
+
+  const mitText = await seite.screenshot({ type: 'png' });
+  await seite.evaluate((css) => {
+    const s = document.createElement('style');
+    s.id = 'cc-kontrast-style';
+    s.textContent = css.replace('#cc-kontrast-aus', 'html');
+    document.head.appendChild(s);
+  }, TEXT_AUS);
+  await new Promise((r) => setTimeout(r, 220));
+  const ohneText = await seite.screenshot({ type: 'png' });
+  await seite.evaluate(() => document.getElementById('cc-kontrast-style')?.remove());
+
+  const ergebnisse = [];
+  const A = await sharp(mitText).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const B = await sharp(ohneText).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = A.info.width, H = A.info.height;
+
+  for (const s of stellen) {
+    // Falle 6: Rechteck auf die Leinwand begrenzen.
+    const x0 = Math.max(0, Math.floor(s.rect.x));
+    const y0 = Math.max(0, Math.floor(s.rect.y));
+    const x1 = Math.min(W, Math.ceil(s.rect.x + s.rect.w));
+    const y1 = Math.min(H, Math.ceil(s.rect.y + s.rect.h));
+    if (x1 - x0 < 3 || y1 - y0 < 3) continue;
+
+    // Falle 1 + 4: Glyphenmaske aus der Differenz beider Aufnahmen.
+    // Nur klar abweichende Pixel zaehlen — Kantenglaettung faellt raus.
+    let sr = 0, sg = 0, sb = 0, n = 0;
+    for (let y = y0; y < y1; y++) {
+      for (let x = x0; x < x1; x++) {
+        const i = (y * W + x) * 4;
+        const d = Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i+1] - B.data[i+1]) + Math.abs(A.data[i+2] - B.data[i+2]);
+        if (d < 60) continue;               // kein Glyphenpixel
+        sr += B.data[i]; sg += B.data[i+1]; sb += B.data[i+2]; n++;
+      }
+    }
+    if (n < 4) continue;                     // zu wenig Glyphenflaeche
+    const hintergrund = [Math.round(sr/n), Math.round(sg/n), Math.round(sb/n)];
+
+    const { rgb, alpha } = rgbLesen(s.farbe);
+    const wirksam = alpha < 1 ? ueberlagern(rgb, alpha, hintergrund) : rgb;
+    const wert = verhaeltnis(wirksam, hintergrund);
+    const soll = schwelleFuer(s.px, s.gewicht);
+    ergebnisse.push({ wert, soll, px: s.px, gewicht: s.gewicht, text: s.text, farbe: s.farbe, hintergrund });
+  }
+  return ergebnisse;
+}
+
 const routen = (nurRoute ? [nurRoute] : getRoutes().map((r) => r.path ?? r)).filter(Boolean);
 const { basis, stopp } = await startePreview();
 /*
@@ -185,6 +262,7 @@ const { basis, stopp } = await startePreview();
 const browser = await puppeteer.launch({ headless: 'new' });
 const befunde = [];
 let gemessen = 0;
+let nachgemessen = 0;
 
 try {
   for (const route of routen) {
@@ -201,72 +279,22 @@ try {
         const y = Math.round(Math.max(0, Math.min(hoehe - b.hoehe, hoehe * anteil)));
         await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
         await new Promise((r) => setTimeout(r, 550));
-
-        /* Falle 8 (2026-09-24): EINMALIGE CSS-ANIMATIONEN laufen zwischen den beiden Aufnahmen
-           weiter. Anlass war der Lichtstreif ueber „Schaden melden" oben rechts (1 s nach dem
-           Laden, 1,1 s lang; seit 2026-09-25 entfernt): Er stand in der einen Aufnahme links, in
-           der anderen rechts, und die Differenz haette bewegtes Licht als Glyphen gezaehlt. Die
-           Regel bleibt fuer jede einmalige Animation. Gemessen wird der Ruhezustand: zeitgetriebene,
-           endliche CSS-Animationen ans Ende setzen. NICHT angefasst: endlose (Laufbaender),
-           scrollgetriebene (`scrollverlauf.css`, `animation-timeline: scroll()` — `finish()`
-           spraenge dort ans Scrollende) und Framers WAAPI-Animationen (keine `CSSAnimation`). */
-        await seite.evaluate(() => {
-          for (const a of document.getAnimations()) {
-            if (!(a instanceof CSSAnimation) || a.timeline !== document.timeline) continue;
-            if (a.effect?.getComputedTiming().iterations === Infinity) continue;
-            a.finish();
-          }
-        });
-
-        const stellen = await seite.evaluate(SAMMLE);
-        if (!stellen.length) continue;
-
-        const mitText = await seite.screenshot({ type: 'png' });
-        await seite.evaluate((css) => {
-          const s = document.createElement('style');
-          s.id = 'cc-kontrast-style';
-          s.textContent = css.replace('#cc-kontrast-aus', 'html');
-          document.head.appendChild(s);
-        }, TEXT_AUS);
-        await new Promise((r) => setTimeout(r, 220));
-        const ohneText = await seite.screenshot({ type: 'png' });
-        await seite.evaluate(() => document.getElementById('cc-kontrast-style')?.remove());
-
-        const A = await sharp(mitText).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-        const B = await sharp(ohneText).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-        const W = A.info.width, H = A.info.height;
-
-        for (const s of stellen) {
-          // Falle 6: Rechteck auf die Leinwand begrenzen.
-          const x0 = Math.max(0, Math.floor(s.rect.x));
-          const y0 = Math.max(0, Math.floor(s.rect.y));
-          const x1 = Math.min(W, Math.ceil(s.rect.x + s.rect.w));
-          const y1 = Math.min(H, Math.ceil(s.rect.y + s.rect.h));
-          if (x1 - x0 < 3 || y1 - y0 < 3) continue;
-
-          // Falle 1 + 4: Glyphenmaske aus der Differenz beider Aufnahmen.
-          // Nur klar abweichende Pixel zaehlen — Kantenglaettung faellt raus.
-          let sr = 0, sg = 0, sb = 0, n = 0;
-          for (let y = y0; y < y1; y++) {
-            for (let x = x0; x < x1; x++) {
-              const i = (y * W + x) * 4;
-              const d = Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i+1] - B.data[i+1]) + Math.abs(A.data[i+2] - B.data[i+2]);
-              if (d < 60) continue;               // kein Glyphenpixel
-              sr += B.data[i]; sg += B.data[i+1]; sb += B.data[i+2]; n++;
-            }
-          }
-          if (n < 4) continue;                     // zu wenig Glyphenflaeche
-          const hintergrund = [Math.round(sr/n), Math.round(sg/n), Math.round(sb/n)];
-
-          const { rgb, alpha } = rgbLesen(s.farbe);
-          const wirksam = alpha < 1 ? ueberlagern(rgb, alpha, hintergrund) : rgb;
-          const wert = verhaeltnis(wirksam, hintergrund);
-          const soll = schwelleFuer(s.px, s.gewicht);
-          gemessen++;
-          if (wert + 0.01 < soll) {
-            befunde.push({ route, breite: b.name, y, wert, soll, px: s.px, gewicht: s.gewicht,
-                           text: s.text, farbe: s.farbe, hintergrund });
-          }
+        let ergebnisse = await messePosition(seite);
+        /* Falle 9 (2026-09-28): EINBLENDUNGEN laufen beim Messen noch. Framers `whileInView` blendet
+           Karten gestaffelt ein (0,4 s + 0,05 s je Karte); die WAAPI-Animationen setzt Falle 8 bewusst
+           nicht ans Ende. Nach 550 ms waren die letzten von sechs Preiskacheln noch halb durchsichtig:
+           Die schwarze Preisplakette wurde als Grau gemessen, weiße Schrift darauf mit 1,99:1 gemeldet —
+           sieben Fehlalarme am 2026-09-28. Deshalb: Faellt an einer Position etwas durch, wird dieselbe
+           Position nach NACHMESSEN_MS noch einmal gemessen, und es zaehlt nur die zweite Messung.
+           Ein echter Mangel faellt auch dann durch; eine Einblendung ist bis dahin fertig. */
+        if (ergebnisse.some((e) => e.wert + 0.01 < e.soll)) {
+          await new Promise((r) => setTimeout(r, NACHMESSEN_MS));
+          ergebnisse = await messePosition(seite);
+          nachgemessen++;
+        }
+        gemessen += ergebnisse.length;
+        for (const e of ergebnisse) {
+          if (e.wert + 0.01 < e.soll) befunde.push({ route, breite: b.name, y, ...e });
         }
       }
       await seite.close();
@@ -278,7 +306,8 @@ try {
   stopp();
 }
 
-console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, 2 Breiten, ${POSITIONEN.length} Positionen.`);
+console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, 2 Breiten, ${POSITIONEN.length} Positionen`
+  + (nachgemessen ? ` (${nachgemessen} Position(en) nach ${NACHMESSEN_MS} ms nachgemessen, Falle 9).` : '.'));
 
 if (!befunde.length) {
   console.log('[kontrast] ok: kein Text unter WCAG AA.');
