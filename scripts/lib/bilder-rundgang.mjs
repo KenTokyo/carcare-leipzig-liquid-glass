@@ -10,7 +10,11 @@ import puppeteer from 'puppeteer';
  * Karte, die nicht zur eigenen Kartenreihe gehoert (z. B. „Ausbildung im Betrieb“ auf /karriere).
  */
 export function sammleImBrowser() {
-  const text = (el) => (el?.textContent ?? '').replace(/\s+/g, ' ').trim();
+  // Unsichtbare Trennhilfen (weiches Trennzeichen, Wortverbinder, Nullbreitenleerzeichen) gehoeren
+  // nicht in Schluessel und Ortsangaben: Seit 5.25 (2026-09-27) haengt der blaue Punkt per Wortverbinder
+  // am Kartentitel, und die Karriere-Titel tragen weiche Trennstellen. Ungefiltert aenderten sich damit
+  // still 21 Schluessel in nummern.json, und „Karte „…““ im README waere per Textsuche nicht mehr zu finden.
+  const text = (el) => (el?.textContent ?? '').replace(/[\u00ad\u2060\u200b]/g, '').replace(/\s+/g, ' ').trim();
   const alle = [...document.querySelectorAll('*')];
   const position = new Map(alle.map((el, i) => [el, i]));
   const ueberschriften = (el) => [...el.querySelectorAll('h1, h2, h3')];

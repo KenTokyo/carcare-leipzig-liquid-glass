@@ -45,7 +45,7 @@ import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { startePreview } from './lib/preview-server.mjs';
 import { rundgang } from './lib/bilder-rundgang.mjs';
 import { schreibeKontaktbogen } from './lib/bilder-kontaktbogen.mjs';
@@ -450,6 +450,21 @@ const vermerkVon = (nr) => {
   return { status, ...art, notiz: typeof roh === 'object' ? (roh.notiz ?? '') : '' };
 };
 for (const z of zeilen) z.vermerk = vermerkVon(z.nr);
+
+// TAG = KI-Kennzeichnung, wie sie auf der Seite steht (seit 2026-09-28). Aus DERSELBEN Quelle wie die
+// Plakette: data/bildherkunft.ts (Node 24 liest TypeScript mit reinen Typangaben direkt). Nicht hier
+// nachbauen — eine zweite Regel liefe beim naechsten Eintrag auseinander. Der Tag gilt je DATEI.
+const herkunft = await import(pathToFileURL(path.join(wurzel, 'data', 'bildherkunft.ts')).href);
+const UNGEKLAERT = 'KI-generiert (Vorgabe, ungeklärt)';
+const tagVon = (datei) => {
+  if (!datei) return '';
+  if (!istLokal(datei)) return 'echt (Stockfoto)';
+  const quelle = datei.startsWith('/') ? datei : `/assets/${datei}`;
+  const art = herkunft.herkunftVon(quelle);
+  if (art === 'generiert') return herkunft.istGeklaert(quelle) ? 'KI-generiert' : UNGEKLAERT;
+  return art === 'aufgewertet' ? 'KI-bearbeitet' : 'echt';
+};
+for (const z of zeilen) z.tag = tagVon(z.datei);
 const vermerkteNummern = new Set(zeilen.filter((z) => z.vermerk).map((z) => `B${z.nr}`));
 const unbekannteVermerke = Object.keys(stellenVermerke).filter((k) => !vermerkteNummern.has(k));
 
@@ -486,12 +501,24 @@ md.push('> **Nicht von Hand bearbeiten**, der nächste Lauf überschreibt die Da
 md.push('## So benutzt du die Liste', '');
 md.push('- **Jede Bildstelle hat eine feste Nummer** (B1, B2 …). Sie bleibt, wenn das Bild getauscht wird, und wird nie neu vergeben. Es genügt: „B14 und B27 tauschen“.');
 md.push('- **Eine Datei steht oft an mehreren Stellen.** Wer die Datei ersetzt, ändert alle ihre Stellen. Welche das sind, zeigt [Nach Datei](#nach-datei). Soll nur eine Stelle ein anderes Bild bekommen, braucht sie eine eigene Datei.');
+md.push('- **Tag** = Kennzeichnung auf der Seite (KI-generiert · KI-bearbeitet · echt), gelesen aus `data/bildherkunft.ts`. Er gilt **je Datei**: Ein Tag für eine Nummer gilt für alle Stellen derselben Datei. „Vorgabe, ungeklärt“ = noch niemand hat die Herkunft bestätigt (Backlog R15), die Seite zeigt vorsorglich „KI-generiert“.');
 md.push('- **Datum der Anpassung** = seit wann genau dieses Bild im Repository liegt (Git, erster Commit mit diesem Inhalt). Umbenennen zählt nicht als Anpassung. Nach einem Tausch `npm run build` und `npm run bilder`, dann stimmt es wieder.');
 md.push('- **Mit Vorschaubildern** zum Durchsehen: `output/bilder/bilder-uebersicht.html` (entsteht beim selben Lauf, nur lokal).', '');
 md.push('## Überblick', '');
 md.push(`- **${fotoZeilen.length} Bildstellen** aus **${dateienFoto.length} Dateien** auf ${[...seitenMitBild].filter((s) => s !== 'alle').length} Seiten, dazu ${platzhalter.length} Platzhalter ohne Foto oder Video.`);
 const mehrfach = [...stellenJeDatei].filter(([, l]) => l.length >= 5).sort((a, b) => b[1].length - a[1].length);
 if (mehrfach.length) md.push(`- **Am häufigsten verwendet:** ${mehrfach.slice(0, 5).map(([d, l]) => `\`${dateiName(d)}\` (${l.length}×)`).join(', ')}.`);
+{
+  const jeTag = new Map();
+  for (const d of dateienFoto) {
+    const tag = tagVon(d);
+    if (!jeTag.has(tag)) jeTag.set(tag, []);
+    jeTag.get(tag).push(d);
+  }
+  md.push(`- **Tag je Datei:** ${[...jeTag].map(([tag, l]) => `${tag} ${l.length}`).join(' · ')}.`);
+  const offenTag = fotoZeilen.filter((z) => z.tag === UNGEKLAERT).sort((a, b) => a.nr - b.nr);
+  if (offenTag.length) md.push(`- 🟠 **Tag ungeklärt (${jeTag.get(UNGEKLAERT)?.length ?? 0} Dateien, ${offenTag.length} Stellen):** ${offenTag.map((z) => `B${z.nr}`).join(', ')}`);
+}
 if (ohneBildText.length) md.push(`- **Seiten ohne eigene Fotos** (nur die Stellen „auf allen Seiten“): ${ohneBildText.join(' · ')}.`);
 for (const [status, art] of Object.entries(VERMERKE)) {
   const treffer = zeilen.filter((z) => z.vermerk?.status === status).sort((a, b) => a.nr - b.nr);
@@ -519,16 +546,16 @@ for (const seite of seitenFolge) {
   if (spiegel.has(seite)) {
     md.push(`> Der große Hintergrund von ${[...spiegel.get(seite)].join(', ')} zeigt am Desktop das Bild der gerade aktiven Karte. Keine eigene Datei, er wechselt mit der Karte.`, '');
   }
-  md.push('| Nr. | Vermerk | Ort des Bildes | Dateiname | Datum der Anpassung |', '|---|---|---|---|---|');
+  md.push('| Nr. | Vermerk | Ort des Bildes | Dateiname | Tag | Datum der Anpassung |', '|---|---|---|---|---|---|');
   for (const z of liste) {
     const v = z.vermerk ? `${z.vermerk.zeichen} **${z.vermerk.text}**${z.vermerk.notiz ? `<br>${zelle(z.vermerk.notiz)}` : ''}` : '';
-    md.push(`| **B${z.nr}** | ${v} | ${zelle(z.ort)} | ${z.datei ? `\`${zelle(dateiName(z.datei))}\`` : '—'} | ${z.datei ? zelle(datumZelle(z.info)) : '—'} |`);
+    md.push(`| **B${z.nr}** | ${v} | ${zelle(z.ort)} | ${z.datei ? `\`${zelle(dateiName(z.datei))}\`` : '—'} | ${z.tag || '—'} | ${z.datei ? zelle(datumZelle(z.info)) : '—'} |`);
   }
   md.push('');
 }
 md.push('## Nach Datei', '');
 md.push('Wer eine Datei ersetzt, ändert alle ihre Stellen. Herkunft nur mit Beleg: **Für die Fotos und das Video der Lieferung vom 21.09.2026 hat der User bestätigt, dass sie echt sind** (weder KI-generiert noch -bearbeitet). Für alle übrigen steht die Angabe noch aus (Backlog R15); bis dahin tragen sie auf der Seite die Plakette „KI-generiert“.', '');
-md.push('| Vorschau | Datei | Motiv | Stellen | Datum der Anpassung | Herkunft laut Repository | Offene Punkte |', '|---|---|---|---|---|---|---|');
+md.push('| Vorschau | Datei | Motiv | Stellen | Tag | Datum der Anpassung | Herkunft laut Repository | Offene Punkte |', '|---|---|---|---|---|---|---|---|');
 const vorschauMd = (d) => {
   const bild = /\.mp4$/.test(d) ? standbildZu.get(d) : d;
   if (!bild) return '';
@@ -540,7 +567,7 @@ for (const [d, l] of [...stellenJeDatei].sort((a, b) => ersteNr(a[1]) - ersteNr(
   // Vermerkte Stellen tragen ihr Zeichen mit: Wer die Datei tauscht, sieht sofort, welche ihrer Stellen gemeint sind.
   const nrn = [...l].sort((a, b) => a.nr - b.nr).map((z) => `B${z.nr}${z.vermerk ? ` ${z.vermerk.zeichen}` : ''}`).join(', ');
   md.push(`| ${vorschauMd(d)} | \`${zelle(dateiName(d))}\`${i.masse ? `<br>${i.masse}` : ''} | ${zelle(i.motiv?.motiv ?? '*fehlt in motive.json*')}`
-    + ` | **${l.length}×** ${nrn} | ${zelle(datumZelle(i))} | ${zelle(i.motiv?.herkunft ?? '')} | ${zelle(i.motiv?.offen ?? '')} |`);
+    + ` | **${l.length}×** ${nrn} | ${tagVon(d)} | ${zelle(datumZelle(i))} | ${zelle(i.motiv?.herkunft ?? '')} | ${zelle(i.motiv?.offen ?? '')} |`);
 }
 md.push('');
 if (platzhalter.length) {
@@ -582,7 +609,7 @@ md.push('');
 md.push('## Was diese Liste nicht sieht', '');
 md.push('- Bilder, die erst nach einem Klick erscheinen (Dialoge), und Motive nur für Tablet-Breiten. Beide fängt die Gegenprobe oben ab, sofern der Pfad im Code steht.');
 md.push('- Sektionshintergründe, die das Bild der aktiven Karte spiegeln: keine eigene Stelle, Hinweis steht unter der jeweiligen Seite.');
-md.push('- Ob ein Foto KI-generiert oder -bearbeitet ist. Das lässt sich einem Bild nicht ansehen und wird nicht geraten.');
+md.push('- Ob der Tag stimmt. Die Spalte zeigt, was `data/bildherkunft.ts` festlegt; einem Bild sieht man seine Herkunft nicht an. Eingetragen wird nur mit Beleg (Kunde, eigene Bildproduktion), nie nach Augenschein.');
 md.push('');
 fs.writeFileSync(DATEI_MD, md.join('\n'));
 

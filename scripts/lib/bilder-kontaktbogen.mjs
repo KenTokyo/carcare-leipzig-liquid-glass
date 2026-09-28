@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 /**
  * @param {object} k
  * @param {string} k.ziel                 Zieldatei
- * @param {object[]} k.zeilen             Stellen (nr, seite, ort, datei, rolle, info)
+ * @param {object[]} k.zeilen             Stellen (nr, seite, ort, datei, rolle, info, tag)
  * @param {string[]} k.seitenFolge        Reihenfolge der Seiten ('alle' zuerst)
  * @param {(route: string) => string} k.seitenName
  * @param {(datei: string) => string} k.dateiName
@@ -37,14 +37,17 @@ export async function schreibeKontaktbogen(k) {
       const i = z.info ?? {};
       const m = i.motiv ?? {};
       const vermerk = z.vermerk ? `${z.vermerk.zeichen} ${z.vermerk.text}${z.vermerk.notiz ? `: ${z.vermerk.notiz}` : ''}` : '';
-      const suche = `b${z.nr} ${k.seitenName(seite)} ${z.ort} ${z.datei} ${m.motiv ?? ''} ${m.offen ?? ''} ${vermerk}`.toLowerCase();
+      const suche = `b${z.nr} ${k.seitenName(seite)} ${z.ort} ${z.datei} ${m.motiv ?? ''} ${m.offen ?? ''} ${vermerk} ${z.tag ?? ''}`.toLowerCase();
+      // Tag = KI-Kennzeichnung der Datei (aus data/bildherkunft.ts, siehe bilder-inventar.mjs): ungeklärt orange, echt grün.
+      const tagArt = !z.tag ? '' : z.tag.includes('ungeklärt') ? ' ungeklaert' : z.tag.startsWith('echt') ? ' echt' : '';
+      const tag = z.tag ? `<div class="tagzeile">Tag: <span class="tag${tagArt}">${esc(z.tag)}</span></div>` : '';
       const klasse = klassen.get(z.datei);
       const ersatz = z.rolle === 'platzhalter' ? (z.medium === 'video' ? 'Video fehlt' : 'Foto fehlt') : 'extern';
       // Erledigte Vermerke (angepasst, in Ordnung) gruen, offene orange — der Stand ist beim Durchscrollen lesbar.
       const erledigt = ['angepasst', 'ok'].includes(z.vermerk?.status);
       return `<article data-suche="${esc(suche)}"${z.vermerk ? ` class="vermerkt${erledigt ? ' erledigt' : ''}"` : ''}><div class="nr">B${z.nr}</div>`
         + `<div class="bild ${klasse ?? 'leer'}">${klasse ? '' : esc(ersatz)}</div>`
-        + `<div class="text">${vermerk ? `<div class="vermerk">${esc(vermerk)}</div>` : ''}<div class="ort">${esc(z.ort)}</div>`
+        + `<div class="text">${vermerk ? `<div class="vermerk">${esc(vermerk)}</div>` : ''}<div class="ort">${esc(z.ort)}</div>${tag}`
         + `<div class="datei">${esc(z.datei ? k.dateiName(z.datei) : '—')} · <span class="datum">${esc(z.datei ? k.datumZelle(i) : '—')}</span></div>`
         + `${m.motiv ? `<div class="motiv">${esc(m.motiv)}</div>` : ''}`
         + `${m.offen ? `<div class="offen">Offen: ${esc(m.offen)}</div>` : ''}</div></article>`;
@@ -73,12 +76,14 @@ article{display:grid;grid-template-columns:64px 168px 1fr;gap:14px;align-items:c
 article.vermerkt{border-color:#f59e0b;box-shadow:inset 3px 0 0 #f59e0b}
 .vermerk{display:inline-block;margin-bottom:4px;padding:2px 8px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;font-weight:700}
 article.erledigt{border-color:#16a34a;box-shadow:inset 3px 0 0 #16a34a}article.erledigt .vermerk{background:#dcfce7;color:#166534}
+.tagzeile{font-size:12.5px;margin-top:3px;color:var(--leise)}.tag{display:inline-block;padding:1px 8px;border-radius:999px;background:#e5e7eb;color:#111827;font-weight:700}
+.tag.ungeklaert{background:#ffedd5;color:#9a3412}.tag.echt{background:#dcfce7;color:#166534}
 @media (max-width:640px){article{grid-template-columns:48px 1fr;align-items:start}.bild{grid-column:1/-1;width:100%;height:160px;order:-1}}
 ${regeln.join('\n')}
 </style></head><body>
 <header><h1>Bilder der Website · CarCare Center</h1>
 <p>${esc(k.kopfzeile)}</p>
-<input type="search" placeholder="Suchen: B12, Karriere, Ferrari, smart-repair …" aria-label="Bildstellen durchsuchen"></header>
+<input type="search" placeholder="Suchen: B12, Karriere, Ferrari, smart-repair, ungeklärt …" aria-label="Bildstellen durchsuchen"></header>
 <main>${abschnitte}</main>
 <script>
 const feld=document.querySelector('input');feld.addEventListener('input',()=>{const q=feld.value.trim().toLowerCase();

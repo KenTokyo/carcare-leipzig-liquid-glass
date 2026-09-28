@@ -1,6 +1,6 @@
 {
   "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
-  "naechste": 125,
+  "naechste": 139,
   "stellen": {
     "alle|ladebildschirm|||bild|desktop|": {
       "nr": 1,
@@ -182,12 +182,6 @@
       "datei": "kacheln/leasingrueckgabe-aufbereitung-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung|bild|"
     },
-    "/|autoaufbereitung||Mehr über Aufbereitung erfahren|bild||": {
-      "nr": 30,
-      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Mehr über Aufbereitung erfahren“",
-      "datei": "kacheln/wissensdatenbank-leipzig-carcare.webp",
-      "rahmen": "/|autoaufbereitung|bild|"
-    },
     "/|autoaufbereitung-ablauf||Leistung auswählen|bild||": {
       "nr": 31,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Leistung auswählen“",
@@ -217,6 +211,90 @@
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Gepflegt zurückerhalten“",
       "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
+    },
+    "/leistungen|seite|||bild||": {
+      "nr": 125,
+      "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
+      "datei": "carcare-betriebsrundgang-standbild.webp",
+      "rahmen": "/leistungen|seite|bild|"
+    },
+    "/leistungen|aufbereitung||Fahrzeugaufbereitung Leipzig|bild||": {
+      "nr": 126,
+      "ort": "„Pflege, die den Fahrzeugwert sichtbar hält“ › Karte „Fahrzeugaufbereitung Leipzig“",
+      "datei": "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|aufbereitung|bild|"
+    },
+    "/leistungen|aufbereitung||Innenaufbereitung Leipzig|bild||": {
+      "nr": 127,
+      "ort": "„Pflege, die den Fahrzeugwert sichtbar hält“ › Karte „Innenaufbereitung Leipzig“",
+      "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|aufbereitung|bild|"
+    },
+    "/leistungen|aufbereitung||Außenaufbereitung Leipzig|bild||": {
+      "nr": 128,
+      "ort": "„Pflege, die den Fahrzeugwert sichtbar hält“ › Karte „Außenaufbereitung Leipzig“",
+      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|aufbereitung|bild|"
+    },
+    "/leistungen|aufbereitung||Leasingrückgabe Leipzig|bild||": {
+      "nr": 129,
+      "ort": "„Pflege, die den Fahrzeugwert sichtbar hält“ › Karte „Leasingrückgabe Leipzig“",
+      "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
+      "rahmen": "/leistungen|aufbereitung|bild|"
+    },
+    "/leistungen|unfall-lack||Unfallinstandsetzung Leipzig|bild||": {
+      "nr": 130,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Unfallinstandsetzung Leipzig“",
+      "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|unfall-lack|bild|"
+    },
+    "/leistungen|unfall-lack||Neu- und Reparaturlackierung Leipzig|bild||": {
+      "nr": 131,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Neu- und Reparaturlackierung Leipzig“",
+      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|unfall-lack|bild|"
+    },
+    "/leistungen|unfall-lack||Smart Repair Leipzig|bild||": {
+      "nr": 132,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Smart Repair Leipzig“",
+      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "rahmen": "/leistungen|unfall-lack|bild|"
+    },
+    "/leistungen|unfall-lack||Dellenentfernung Leipzig|bild||": {
+      "nr": 133,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Dellenentfernung Leipzig“",
+      "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
+      "rahmen": "/leistungen|unfall-lack|bild|"
+    },
+    "/leistungen|unfall-lack||Hagelschadenreparatur Leipzig|bild||": {
+      "nr": 134,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Hagelschadenreparatur Leipzig“",
+      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "rahmen": "/leistungen|unfall-lack|bild|"
+    },
+    "/leistungen|rad-glas||Felgenreparatur Leipzig|bild||": {
+      "nr": 135,
+      "ort": "„Felgen und Fahrzeugglas im eigenen Haus“ › Karte „Felgenreparatur Leipzig“",
+      "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
+      "rahmen": "/leistungen|rad-glas|bild|"
+    },
+    "/leistungen|rad-glas||Autoglas & Scheibenfolien Leipzig|bild||": {
+      "nr": 136,
+      "ort": "„Felgen und Fahrzeugglas im eigenen Haus“ › Karte „Autoglas & Scheibenfolien Leipzig“",
+      "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
+      "rahmen": "/leistungen|rad-glas|bild|"
+    },
+    "/leistungen|gewerbe||Fuhrparkservice Leipzig|bild||": {
+      "nr": 137,
+      "ort": "„Planbare Fahrzeugdienstleistungen für Unternehmen“ › Karte „Fuhrparkservice Leipzig“",
+      "datei": "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp",
+      "rahmen": "/leistungen|gewerbe|bild|"
+    },
+    "/leistungen|gewerbe||Geschäftskundenbetreuung Leipzig|bild||": {
+      "nr": 138,
+      "ort": "„Planbare Fahrzeugdienstleistungen für Unternehmen“ › Karte „Geschäftskundenbetreuung Leipzig“",
+      "datei": "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp",
+      "rahmen": "/leistungen|gewerbe|bild|"
     },
     "/unfallinstandsetzung-leipzig|seite|||bild||": {
       "nr": 36,
@@ -274,19 +352,19 @@
     },
     "/fahrzeugaufbereitung-leipzig|umfang||Innenaufbereitung|bild||": {
       "nr": 45,
-      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Innenaufbereitung“",
+      "ort": "„Innen, Außen und Lack – die drei Bereiche im Überblick“ › Karte „Innenaufbereitung“",
       "datei": "kacheln/innenaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
     "/fahrzeugaufbereitung-leipzig|umfang||Außenaufbereitung|bild||": {
       "nr": 46,
-      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Außenaufbereitung“",
+      "ort": "„Innen, Außen und Lack – die drei Bereiche im Überblick“ › Karte „Außenaufbereitung“",
       "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
     "/fahrzeugaufbereitung-leipzig|umfang||Lackaufbereitung|bild||": {
       "nr": 47,
-      "ort": "„Innen, außen und Lack – die drei Bereiche im Überblick“ › Karte „Lackaufbereitung“",
+      "ort": "„Innen, Außen und Lack – die drei Bereiche im Überblick“ › Karte „Lackaufbereitung“",
       "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
@@ -747,5 +825,12 @@
       "rahmen": "/karriere|betrieb|video|"
     }
   },
-  "entfallen": {}
+  "entfallen": {
+    "/|autoaufbereitung||Mehr über Aufbereitung erfahren|bild||": {
+      "nr": 30,
+      "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Mehr über Aufbereitung erfahren“",
+      "datei": "kacheln/wissensdatenbank-leipzig-carcare.webp",
+      "seit": "2026-09-27"
+    }
+  }
 }

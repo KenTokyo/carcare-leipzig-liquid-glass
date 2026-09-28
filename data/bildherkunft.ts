@@ -37,6 +37,10 @@ export const HERKUNFT_TEXT: Record<Bildherkunft, string> = {
 /**
  * Ausnahmen je Datei. Was hier nicht steht, gilt als `STANDARD`.
  * Schlüssel ist der Pfad, wie er im Code steht (mit `/assets/`).
+ *
+ * AUCH BESTÄTIGTES „generiert“ HIER EINTRAGEN (seit 2026-09-28): Für die Plakette ändert das nichts,
+ * aber die Datei gilt dann als geklärt (`istGeklaert`). Das Bildinventar (`npm run bilder`) zeigt so
+ * „KI-generiert“ statt „KI-generiert (Vorgabe, ungeklärt)“ — und R15 lässt sich am Stand ablesen.
  */
 const AUSNAHMEN: Record<string, Bildherkunft> = {
   // Betriebsvideo des Kunden und die daraus gezogenen Standbilder — echte Aufnahmen.
@@ -94,6 +98,14 @@ export const herkunftVon = (quelle?: string | null): Bildherkunft => {
   if (GRAFIK.test(quelle)) return 'echt';
   return AUSNAHMEN[quelle] ?? STANDARD;
 };
+
+/**
+ * Ist die Herkunft ausdrücklich geklärt — Eintrag in `AUSNAHMEN`, Grafik oder externes Bild?
+ * `false` heißt: Die Plakette folgt nur der Vorgabe `STANDARD` (offen in Backlog R15).
+ * Gelesen vom Bildinventar (`scripts/bilder-inventar.mjs`), nicht von der Seite.
+ */
+export const istGeklaert = (quelle?: string | null): boolean =>
+  !quelle || !quelle.startsWith('/assets/') || GRAFIK.test(quelle) || quelle in AUSNAHMEN;
 
 /** Text für die Plakette an genau diesem Bild; leer heißt: keine Plakette. */
 export const hinweisFuer = (quelle?: string | null): string => HERKUNFT_TEXT[herkunftVon(quelle)];

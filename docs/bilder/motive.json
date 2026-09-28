@@ -279,7 +279,7 @@
     "kacheln/wissensdatenbank-leipzig-carcare.webp": {
       "motiv": "Roter Kotflügel eines Mercedes SLS in Nahaufnahme",
       "herkunft": "Kundenmotiv (Commit de2069b, 23.07.2026)",
-      "offen": "5.17 Karte wird geprüft, entfällt evtl."
+      "offen": "Seit 27.09.2026 ohne Verwendung: Die Wissens-Karte der Startseite ist entfallen (5.17), ihre Stelle B30 ebenso. Bleibt als Kundenmotiv im Bestand (wie schadenaufnahme-…, Wunsch des Users 22.09.2026) – Kandidat für den Wissensbereich (3.22)"
     },
     "partner/bvat.webp": {
       "motiv": "Siegel des Verbands BVAT",
@@ -607,10 +607,6 @@
     "B73": {
       "status": "anzupassen",
       "notiz": "5.11: Originalfoto ohne die generierte Person, als neue Datei (B106 behält dieses Bild) (Schleife 5, 25.09.2026)"
-    },
-    "B30": {
-      "status": "anzupassen",
-      "notiz": "5.17: Karte wird per SEO-Check geprüft, entfällt evtl. (Schleife 5, 25.09.2026)"
     }
   },
   "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."
