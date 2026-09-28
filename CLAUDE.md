@@ -120,7 +120,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil | vor jedem Review mit dem Kunden |
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
-| `npm run aussparung` | Aktions-Aussparung oben rechts (beschriftete Pillen Telefon + „Schaden melden", ab 1024 px): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter (z. B. etwas, das höher als die Navbar gepinnt ist)? 29 Routen × 3 Fenster, je Route Sichtbarkeit (muss 100 % sein) und Pixelprobe je Pille. Dazu **Geometrie an 23 Breiten**: Lücke zum Navbar-Reiter ≥ 20 px, Beschriftungen vollständig, Navbar-Links ≥ 12 px im Reiter, sichtbarer Text in der Ansage | nach jeder Änderung an gepinnten Flächen (`position: sticky`), an `AktionsAussparung`, an der Navbar-Höhe oder an Reiterbreite/Link-Abständen (`--cc-nav-*` in `styles/aussparung.css`) |
+| `npm run aussparung` | Aktions-Aussparung oben rechts (beschriftete Pillen „Aufbereitung anfragen" + „Schaden melden", ab 1024 px; bis 2026-09-28 Telefon): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter (z. B. etwas, das höher als die Navbar gepinnt ist)? 29 Routen × 3 Fenster, je Route Sichtbarkeit (muss 100 % sein) und Pixelprobe je Pille. Dazu **Geometrie an 23 Breiten**: Lücke zum Navbar-Reiter ≥ 20 px, Beschriftungen vollständig, Navbar-Links ≥ 12 px im Reiter, sichtbarer Text in der Ansage | nach jeder Änderung an gepinnten Flächen (`position: sticky`), an `AktionsAussparung`, an der Navbar-Höhe oder an Reiterbreite/Link-Abständen (`--cc-nav-*` in `styles/aussparung.css`) |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 
@@ -168,6 +168,7 @@ wirklich offen", und die vom Kunden gelieferten Quelllisten.
 | `docs/backlog/schleife-4.md` | 4.1 – 4.21 (Originalnummern aus Andrés Liste) |
 | `docs/backlog/schleife-5.md` | 5.1 – 5.44 (Meeting 2026-09-25; von OALAB auf Wunsch des Users aus dem Transkript vergeben) |
 | `docs/backlog/nicht-relevant.md` | ohne Nummer |
+| `docs/backlog/nice-to-have.md` | `R<n>` — eigene Vorschläge „für später“, nicht beauftragt, nicht gezählt |
 | `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |
 
 Aufgaben werden über ihre Nummer referenziert (z. B. „setze 1.7 und 1.8 um").

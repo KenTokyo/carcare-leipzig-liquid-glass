@@ -5,7 +5,7 @@ Vor-Ort-Reviews mit André Bosse. Wer eine Aufgabennummer sucht („was ist 2.26
 findet sie über die Tabelle unten.
 
 **Stand:** 2026-09-06, gegen den Code abgeglichen am 2026-09-10 und **2026-09-17**, zuletzt fortgeschrieben am **2026-09-25** (Schleife 5) · **Website:** `carcare-center.vercel.app`
-**Offen, gezählt am 2026-09-25** (nach den Regeln von `npm run push-stand`): Schleife 2: **3** · Schleife 3: **5** · Schleife 4: **0** (abgeschlossen) · **Schleife 5: 43** · Repo-Befunde, Schleife 1 und Querschnitt: **18** — zusammen **69**. *(Die Zählung vom 17.09. — 5 · 13 · 21 · 3 — ist überholt.)*
+**Offen, gezählt am 2026-09-28** (nach den Regeln von `npm run push-stand`): Schleife 2: **2** · Schleife 3: **5** · Schleife 4: **0** (abgeschlossen) · **Schleife 5: 28** (Paket 1 umgesetzt, 5.19 und 5.20 am 28.09.) · Repo-Befunde, Schleife 1 und Querschnitt: **17** — zusammen **52**. *(Am 27.09. waren es 55: seitdem 5.19, 5.20 und 2.11 erledigt.)*
 **Letzter Abgleich:** [`tasks/2026-09-17-abgleich-offene-punkte-tasks.md`](tasks/2026-09-17-abgleich-offene-punkte-tasks.md) (davor: [`tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`](tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md))
 **Neu (2026-09-25): Schleife 5** aus dem Meeting mit André — [`schleife-5.md`](schleife-5.md), 44 Punkte. Livegang für die Woche ab 28.09. geplant, nächster Termin **Mo 28.09., 10:00–11:30**. Import und Befunde: [`tasks/2026-09-25-schleife-5-import-tasks.md`](tasks/2026-09-25-schleife-5-import-tasks.md)
 **Zuletzt erledigt (2026-09-16):** Kundenentscheidungen zu Preisen (4.4, 4.7, 4.9, 4.10, 3.35), Texten (4.3, 4.8, 4.21), BVAT (3.12, 4.13), Partnerlogos (riparo, Porsche Zentrum — 3.16/3.31 teilweise) und „Schaden melden" → reparatur.info (2.23, 3.33, 3.34); R13 erledigt — `docs/preise-partner-schadenlink/`
@@ -27,9 +27,12 @@ findet sie über die Tabelle unten.
 | [`schleife-2.md`](schleife-2.md) | Zweite Review-Runde; 2.2, 2.7, 2.8, 2.26 seit 2026-09-25 in Schleife 5 aufgegangen | 27 | **2.1 – 2.27** |
 | [`schleife-3.md`](schleife-3.md) | Dritte Review-Runde; von 6 offenen Entscheidungen ist noch 1 offen (3.37) — 3.32 am 2026-09-25 beantwortet, 3.36 in 5.4 aufgegangen; 3.30 freigegeben | 37 | **3.1 – 3.37** |
 | [`schleife-4.md`](schleife-4.md) | Vierte Runde: Feedbackliste von André (2026-09-10), **Originalnummern**; **abgeschlossen** am 2026-09-25 — 4.1 gestrichen, 4.14 durch die Bereichsvideos erledigt, 4.19 beantwortet (Umsetzung 5.24) | 21 | **4.1 – 4.21** |
-| [`schleife-5.md`](schleife-5.md) | Fünfte Runde: Meeting mit André am 2026-09-25 (Transkript), **Nummern von OALAB** in Gesprächsreihenfolge; 43 von 44 offen | 44 | **5.1 – 5.44** |
+| [`schleife-5.md`](schleife-5.md) | Fünfte Runde: Meeting mit André am 2026-09-25 (Transkript), **Nummern von OALAB** in Gesprächsreihenfolge; 28 von 44 offen (Stand 28.09.) | 44 | **5.1 – 5.44** |
 | [`nicht-relevant.md`](nicht-relevant.md) | Ohne Schleifenzuordnung — 8 abgenommene Entscheidungen, 5 offene Punkte | 13 | *ohne Nummer* |
 | | **Summe** | **168** | |
+
+**Für später:** [`nice-to-have.md`](nice-to-have.md) — eigene Vorschläge von OALAB, die der User geparkt hat;
+nicht beauftragt, nicht gezählt, Nummern nach der Repo-Regel `R<n>` (zuerst R19: eine Seite je offener Stelle).
 
 **Statuszeichen:** ✅ erledigt · 🟨 teilweise · ⏸️ zurückgestellt · 🔁 in einer späteren Schleife aufgegangen
 (dort geführt und gezählt, hier gestrichen — **nicht** erledigt). `npm run push-stand` zählt 🔁-Zeilen nicht mit.

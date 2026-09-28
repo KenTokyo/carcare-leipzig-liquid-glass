@@ -80,7 +80,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.16 | Partner nach Freigabe direkt verlinken („geschenkte Leads") | Oalab | 🟨 **teilweise** | *2026-09-25 (Schleife 5): Dazu Volkswagen Automobile Leipzig und Audi Zentrum Leipzig, nur Link (5.16).* *2026-09-16: Freigaben für **riparo** (Schadensteuerer — Logo + Link) und **Porsche Zentrum Leipzig** (Link; das Logo ist nicht verwendbar, die Wortmarke gehört der Porsche AG — `docs/partnerlogos/README.md`). Weitere Partner folgen mit weiteren Freigaben, Vorgehen dort.* *Vorher:* ⚠️ *„Nr. 78" ist eine Nummer aus der globalen Durchnummerierung der Originalliste und **nicht rekonstruierbar** (die CSV ist umsortiert). Inhaltlich naheliegend gemeint: **3.31** (Freigaben Partner-Logos). Als Lesart gekennzeichnet, nicht als Fakt.* |
+| 3.16 | Partner nach Freigabe direkt verlinken („geschenkte Leads") | Oalab | 🟨 **teilweise** · 2026-09-27: VW und Audi verlinkt (5.16) | *2026-09-25 (Schleife 5): Dazu Volkswagen Automobile Leipzig und Audi Zentrum Leipzig, nur Link (5.16).* *2026-09-16: Freigaben für **riparo** (Schadensteuerer — Logo + Link) und **Porsche Zentrum Leipzig** (Link; das Logo ist nicht verwendbar, die Wortmarke gehört der Porsche AG — `docs/partnerlogos/README.md`). Weitere Partner folgen mit weiteren Freigaben, Vorgehen dort.* *Vorher:* ⚠️ *„Nr. 78" ist eine Nummer aus der globalen Durchnummerierung der Originalliste und **nicht rekonstruierbar** (die CSV ist umsortiert). Inhaltlich naheliegend gemeint: **3.31** (Freigaben Partner-Logos). Als Lesart gekennzeichnet, nicht als Fakt.* |
 
 ---
 
@@ -139,7 +139,7 @@ Neun Zulieferungen. **Als ein Paket anfordern**, nicht einzeln.
 | 3.28 | Foto: Felge in Reparatur / beim Lackieren (vorhanden nur beschädigte Felgen) | André | ✅ **entfällt** (Meeting 2026-09-25): Das vorhandene Foto der beschädigten Cupra-Felge bleibt, laut André realistisch und „das Maximum" |
 | 3.29 | Bilder Innenaufbereitung: exklusives Fahrzeug, kein Transporter | André | ✅ **geliefert 2026-09-21** — Innenraumfoto an B27, B45, B67 |
 | 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | André | ✅ **freigegeben** (Meeting 2026-09-25, vom User bestätigt): keine Einwände gegen „ISO 9001 zertifiziert, 30 Jahre Garantie, WINTEC-Partner"; der Name bleibt · *Abgleich 2026-09-17: „Vintech" ist sehr wahrscheinlich **WINTEC** (Autoglas-Partnernetz). Der Name steht bereits **18× in 9 Dateien** — auch in Title, Meta-Description und Schema von `/autoglas-leipzig`, übernommen von der Altseite. Sagt André „nicht nennen", sind alle 18 Stellen zugleich zu ändern.* |
-| 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | André | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16), siehe `docs/partnerlogos/README.md` · 2026-09-25: dazu VW und Audi, nur Link (5.16) |
+| 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | André | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16), siehe `docs/partnerlogos/README.md` · 2026-09-25: dazu VW und Audi, nur Link (5.16) · 2026-09-27: VW und Audi als Link eingebaut |
 
 *Ergänzung: 3.23–3.29 bedienen direkt 3.10, 3.11, 2.15 und 2.16. Die Fotogrundregel
 (Handyfotos, unbearbeitet, während der Bearbeitung) steht im Block ohne
