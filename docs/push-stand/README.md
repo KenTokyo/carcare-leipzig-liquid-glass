@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 28.09.2026, 14:13, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 29.09.2026, 03:21, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 28.09.2026, 14:13 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 29.09.2026, 03:20 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `ccae356` | `974469d` | 4 vor GitHub (kommt mit dem Push) |
-| `2026-09-27-schleife-5-paket-1` | `ccae356` | — | neu, 4 Commit(s) noch nicht auf GitHub |
+| `main` | `f5efc3d` | `e8e328b` | 2 vor GitHub (kommt mit dem Push) |
+| `2026-09-28-schleife-6-umsetzung` | `f5efc3d` | — | neu, 2 Commit(s) noch nicht auf GitHub |
 | 15 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,10 +19,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `5047363` | 28.09.2026, 14:12 | oalabhypercode | Messwerkzeuge: Kontrastmesser misst Einblendungen nach, FAQ-Waechter liest &nbsp; | 2 | — | **kommt mit diesem Push** |
-| `c89309c` | 28.09.2026, 14:12 | oalabhypercode | Schleife 5: Paket 1, Zusatzleistungen mit Preiskacheln, Aufbereitung anfragen oben rechts | 49 (7 neu) | — | **kommt mit diesem Push** |
-| `722f993` | 28.09.2026, 14:12 | oalabhypercode | Bildliste: Tag-Spalte (KI-Kennzeichnung), B30 entfallen, B125-B138 fuer /leistungen | 8 (1 neu) | — | **kommt mit diesem Push** |
-| `ccae356` | 28.09.2026, 14:13 | oalabhypercode | Backlog: Paket 1, 5.19, 5.20 und 2.11 erledigt (52 offen), Nice-to-have-Liste | 9 (1 neu) | — | **kommt mit diesem Push** |
+| `b4bd5a4` | 29.09.2026, 03:20 | oalabhypercode | Backlog: Schleife 6 aus dem Meeting mit Andre (28.09.) und seiner Mail | 8 (2 neu) | — | **kommt mit diesem Push** |
+| `f5efc3d` | 29.09.2026, 03:20 | oalabhypercode | Schleife 6: Umsetzung und Seitendurchgang Startseite und Karriere | 95 (14 neu) | package.json | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -32,7 +30,9 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -5 main`: oben „Docs: Push-Stand …", darunter `ccae356`, `722f993`, `c89309c`, `5047363` |
+| npm-Skripte | neu: `npm run gedankenstriche` |
+| Konfiguration geändert | `.env.example`, `tailwind.config.js` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `f5efc3d`, `b4bd5a4` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -40,7 +40,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 15, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Lokale Branches ohne GitHub-Gegenstück | 17, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
 
@@ -50,13 +50,12 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| O6 — Preise im übrigen Fließtext ohne geschütztes Leerzeichen (🟢 niedrig) | `docs/aufbereitung-zusatzleistungen/tasks/2026-09-28-zusatzleistungen-kacheln-optimierung-tasks.md` |
-| O7 — Offene Angaben von André (nicht raten) | `docs/aufbereitung-zusatzleistungen/tasks/2026-09-28-zusatzleistungen-kacheln-optimierung-tasks.md` |
-| Phase 4 — Tags des Users eintragen (wartet auf Zuruf) | `docs/bilder/tasks/2026-09-28-tags-je-nummer-tasks.md` |
-| O4 — KI-Plaketten an echten Fotos (🟡 mittel) | `docs/schleife-5-umsetzung/tasks/2026-09-27-paket-1-optimierung-tasks.md` |
-| O6 — Footer-Symbole kaum sichtbar (🟢 niedrig) | `docs/schleife-5-umsetzung/tasks/2026-09-27-paket-1-optimierung-tasks.md` |
+| O7 — `index.css` steht bei 683 von 700 Zeilen 🟡 | `docs/backlog/tasks/2026-09-28-schleife-6-umsetzung-optimierung-tasks.md` |
+| O4 — Früheres Hintergrundfoto der Lackierseite ist jetzt nur Rückfall 🟢 | `docs/backlog/tasks/2026-09-28-schleife-6-umsetzung-optimierung-tasks.md` |
+| O5 — Gesamtwertung der Google-Bewertungen veraltet von selbst 🟢 | `docs/backlog/tasks/2026-09-28-schleife-6-umsetzung-optimierung-tasks.md` |
+| O6 — `data-partner`-Merkmale an den Privatkunden-Kacheln 🟢 | `docs/backlog/tasks/2026-09-28-schleife-6-umsetzung-optimierung-tasks.md` |
 
-### Backlog gesamt: 52 offene Punkte
+### Backlog gesamt: 57 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -96,17 +95,13 @@ Quelle: `docs/backlog/schleife-4.md`
 </details>
 
 <details>
-<summary>Schleife 5: 28 offen</summary>
+<summary>Schleife 5: 23 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
 | 5.1 | Projekt: Livegang in der Woche ab 28.09.2026 vorbereiten. Dieses Meeting ist die letzte Abstimmung davor; KUP… | offen | OALAB |
-| 5.3 | Alle Seiten: KI-Plakette dezenter gestalten. Andrés Tochter und ihre Studienkollegen finden das Label „KI-gen… | offen | OALAB |
-| 5.4 | Startseite › Titelbild: Slogan statt „Unfallinstandsetzung, Karosserie und Lack in Leipzig." Die Begrüßung so… | wartet auf Vorschlag | André (Wortlaut) · OALAB (Lay… |
-| 5.5 | Startseite › Titelbild: „Karosserie" nicht trennen. André stört, dass das Wort in der Überschrift „so auseina… | offen | OALAB |
 | 5.6 | Alle Seiten › Smart Repair: Smart-Repair-Foto durch den weißen Porsche Macan ersetzen. André hat eine Stoßfän… | offen | OALAB |
 | 5.7 | Alle Seiten › Hagelschaden: Hagelschaden-Foto durch ein echtes ersetzen. Das heutige ist mit KI aufgewertet u… | offen | OALAB |
-| 5.8 | Innenaufbereitung: Bilder zum Alcantara-Lenkrad einfügen. Die Fotos hat André geschickt, sie liegen bei Ali (… | offen | OALAB |
 | 5.9 | Alle Seiten: Herkunft der Bilder aus dem Meeting eintragen. Beim Durchgang hat Ali für neun Dateien die Herku… | offen | OALAB |
 | 5.10 | Alle Seiten › Dellenentfernung: Dellenfoto tauschen. André gefällt das Motiv nicht: Die Delle ist nicht zu er… | offen | OALAB |
 | 5.11 | Alle Seiten › Fuhrparkservice: Fuhrparkfoto ohne die generierte Person. Links im Bild wurde eine Person hinzu… | offen | OALAB |
@@ -114,7 +109,6 @@ Quelle: `docs/backlog/schleife-4.md`
 | 5.14 | Startseite › „Der richtige Ansprechpartner": Transporterbild auf der Startseite tauschen. Der grüne Cayenne a… | offen | OALAB |
 | 5.15 | Startseite: Neues Transporterfoto: ein sauberer Transporter, im Mittelpunkt das Fahrzeug auf der Ladefläche u… | offen | André |
 | 5.21 | Alle Seiten › Fußzeile: Fußzeile verkleinern. Sie ist „sehr breit" und wird auf das Wesentliche reduziert. | offen | OALAB |
-| 5.22 | reparatur.info: Terminvereinbarung über reparatur.info testen. Weder Ali noch André wissen, ob ein Termin ode… | offen | André · OALAB |
 | 5.23 | Über uns › „Alles im eigenen Haus": Die Leistungskarten wie auf der Startseite bebildern. Die Karte „Neu- und… | offen | OALAB |
 | 5.27 | Karriere › Ausbildung „Fahrzeuglackierer/in": Foto einer jungen Lackiererin (Azubi) bei der Arbeit. Die Ausbi… | offen | André |
 | 5.28 | Karriere › „Aus dem Team": Mitarbeiterstimmen einsammeln. Die Frage an die Kolleginnen und Kollegen: „Was sch… | offen | André (Stimmen, Einwilligunge… |
@@ -130,6 +124,26 @@ Quelle: `docs/backlog/schleife-4.md`
 | 5.43 | Unfallinstandsetzung › Reparaturleistungen: Neue Karte „Classic Cars (Old- und Youngtimer)". Bilder: der vorh… | offen | OALAB (Karte, Text) · André (… |
 
 Quelle: `docs/backlog/schleife-5.md`
+
+</details>
+
+<details>
+<summary>Schleife 6: 10 offen</summary>
+
+| Nr | Aufgabe | Status | Wer |
+|---|---|---|---|
+| 6.5 | Startseite / Geschäftskunden › Partner: Autohaus Otto Grimm und Porsche Werk Leipzig als Partner. Otto Grimm:… | offen · wartet auf Freigabe | André (Freigaben) · OALAB (Ei… |
+| 6.7 | Anfrage-Dialog › Zusatzleistungen: Ausgrau-Regeln je Paket. André liefert, welche Zusatzleistung zu welcher L… | 🟨 teilweise | André (Liste) · OALAB (Einbau) |
+| 6.8 | Startseite › Titelbild, seitenweit: Slogan „We Care and Repair". Im Titelbild groß „We Care and Repair", die… | 🟨 Entwurf umgesetzt, Freigabe André offen | OALAB (Entwurf) · André (Frei… |
+| 6.9 | Alle Seiten › KI-Plakette: Plakette unten in eine Ecke statt oben, dezent gestaltet. Ali: Man schaue zuerst z… | offen | OALAB |
+| 6.10 | Livegang › Google: Indexierung der neuen Unterseiten mit Falk klären. Die vielen neuen Unterseiten müssen bei… | offen | OALAB · KUPA IT |
+| 6.16 | Karriere › Ausbildung Industriekaufmann/-frau: Foto einer Mitarbeiterin am Computer (Kundenannahme) für die A… | offen · Zulieferung André | André |
+| 6.19 | Livegang › alte Website: Inhalte der alten Website sichern lassen (Backup), bevor umgestellt wird. | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
+| 6.20 | Rechtliches › Analyse und Cookies: Matomo mit KUPA IT klären. Läuft die Analyse auf der neuen Seite weiter, k… | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
+| 6.21 | Rechtliches › KI: Allgemeinen Hinweis zur Nutzung von KI ergänzen („wurde mit künstlicher Intelligenz gearbei… | ⏸️ zurückgestellt (User, 28.09.) | OALAB |
+| 6.22 | Über uns (ggf. Fahrzeugaufbereitung) › Bewertungen: Google-Bewertungen statisch einbinden: ausgewählte, berei… | 🟨 teilweise — Auswahl der Bewertungen offen | OALAB (Auswahl) · André (ok) |
+
+Quelle: `docs/backlog/schleife-6.md`
 
 </details>
 

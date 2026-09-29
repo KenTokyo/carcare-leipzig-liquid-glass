@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 29.09.2026, 03:21 | `2026-09-28-schleife-6-umsetzung`, `main` | `b4bd5a4` `f5efc3d` (2) | nein | Konfiguration: .env.example, tailwind.config.js; neue Skripte: gedankenstriche |
 | 28.09.2026, 14:13 | `2026-09-27-schleife-5-paket-1`, `main` | `5047363` `c89309c` `722f993` `ccae356` (4) | nein | — |
 | 26.09.2026, 15:22 | `2026-09-25-schleife-5-import`, `main` | `28a7691` `2ba47f0` (2) | nein | — |
 | 25.09.2026, 03:06 | `aussparung-beschriftete-aktionen`, `main` | `0e546c9` `156b472` (2) | nein | — |
