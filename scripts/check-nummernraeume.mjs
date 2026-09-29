@@ -49,6 +49,8 @@ const QUELLEN = [
   { datei: 'docs/backlog/schleife-3.md', praefix: '3' },
   { datei: 'docs/backlog/schleife-4.md', praefix: '4' },
   { datei: 'docs/backlog/schleife-5.md', praefix: '5' },
+  // Schleife 6 (seit 2026-09-28): Meeting vom 28.09. plus Andres Mail, ebenfalls von OALAB nummeriert.
+  { datei: 'docs/backlog/schleife-6.md', praefix: '6' },
 ];
 
 const grenzen = {};

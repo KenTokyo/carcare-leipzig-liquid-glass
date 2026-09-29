@@ -302,8 +302,9 @@ function backlogOffen() {
     { datei: 'docs/backlog/schleife-3.md', titel: 'Schleife 3' },
     { datei: 'docs/backlog/schleife-4.md', titel: 'Schleife 4' },
     { datei: 'docs/backlog/schleife-5.md', titel: 'Schleife 5' },
+    { datei: 'docs/backlog/schleife-6.md', titel: 'Schleife 6' },
     // Kundennummern 2.x–5.x stehen in ihren Schleifen-Dateien; hier nur R-Befunde, 1.x und Querschnitt.
-    { datei: 'docs/backlog/offene-punkte-konsolidiert.md', titel: 'Repo-Befunde, Schleife 1 und Querschnitt', auslassen: /^[2345]\./ },
+    { datei: 'docs/backlog/offene-punkte-konsolidiert.md', titel: 'Repo-Befunde, Schleife 1 und Querschnitt', auslassen: /^[23456]\./ },
   ];
   const gruppen = [];
   for (const q of quellen) {
