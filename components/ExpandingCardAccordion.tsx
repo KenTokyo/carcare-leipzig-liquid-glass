@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import KiMarke from './KiMarke';
+import BereichsPlakette from './BereichsPlakette';
+import type { Bereich } from '../data/services';
 
 /**
  * Ein Item des ExpandOnHover-Akkordeons. Bewusst minimal, damit sowohl
@@ -41,6 +43,8 @@ export interface ExpandingCardItem {
    * ein blaues Abzeichen an dieser Stelle liest sich wie eine Einladung.
    */
   badge?: { label: string; ton?: 'aktiv' | 'ruhig' };
+  /** „Care" oder „Repair" ueber dem Titel (Backlog 6.8) — `ServiceGrid` leitet es aus der Katalog-Gruppe ab. */
+  bereich?: Bereich | null;
   /**
    * Kurzer Hinweis ueber der Beschreibung, z. B. warum die Karte gedaempft ist.
    * Traegt die Erklaerung dorthin, wo die Daempfung auffaellt.
@@ -258,7 +262,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
           <motion.a
             key={item.id}
             href={item.href}
-            aria-label={`${item.title} – ${item.cta ?? 'Mehr ansehen'}`}
+            aria-label={`${item.title}: ${item.cta ?? 'Mehr ansehen'}`}
             aria-expanded={isActive}
             onMouseEnter={hoverCapable ? () => setActive(idx) : undefined}
             onFocus={hoverCapable ? () => setActive(idx) : undefined}
@@ -326,28 +330,43 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   : 'shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)]'
               } ${isActive ? 'translate-x-0 opacity-100' : 'pointer-events-none -translate-x-2 opacity-0'}`}
             >
+              {/* Care/Repair steht seit 28.09. abends NICHT mehr hier, sondern als eigene Ebene vor der Kachel (unten). */}
               {item.badge && (
-                <span
-                  className={`mb-3 inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] ${
-                    item.badge.ton === 'ruhig'
-                      ? 'bg-gray-100 text-gray-700'
-                      : 'bg-blue-50 text-blue-600'
-                  }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`h-1.5 w-1.5 rounded-full ${item.badge.ton === 'ruhig' ? 'bg-gray-400' : 'bg-blue-600'}`}
-                  />
-                  {item.badge.label}
-                </span>
+                <div className="mb-3 flex flex-wrap items-center gap-2">
+                  {item.badge && (
+                    <span
+                      className={`inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] ${
+                        item.badge.ton === 'ruhig'
+                          ? 'bg-gray-100 text-gray-700'
+                          : 'bg-blue-50 text-blue-600'
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`h-1.5 w-1.5 rounded-full ${item.badge.ton === 'ruhig' ? 'bg-gray-400' : 'bg-blue-600'}`}
+                      />
+                      {item.badge.label}
+                    </span>
+                  )}
+                </div>
               )}
               {/* `hyphens-auto` trennt nach deutscher Silbenregel (`<html lang="de">`), `break-words`
-                  ist das Netz fuer ein Wort ohne Trennstelle — ein Titel darf nie ueber den Kasten. */}
-              <h3 className="hyphens-auto break-words text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
+                  ist das Netz fuer ein Wort ohne Trennstelle — ein Titel darf nie ueber den Kasten.
+                  DER BLAUE PUNKT IST EIN SCHRIFTZEICHEN („•“), kein runder Block mit Wortverbinder davor (bis
+                  2026-09-28). Der Wortverbinder (U+2060) hielt den Punkt am Wort, schaltete aber fuer dieses Wort die
+                  Silbentrennung ab: Auf 390 px brach die erste, offene Karte der Startseite als
+                  „Fahrzeugaufbereitun / g“, auf 360 px „Unfallinstandsetzu / ng“ (Notumbruch von `break-words`,
+                  ohne Trennstrich). Ein geschuetztes Leerzeichen statt des Verbinders liess den Punkt in 5 von 39
+                  Faellen (13 Titel, 320/360/390 px) allein in die naechste Zeile rutschen. Das Zeichen haelt von selbst:
+                  Zwischen Buchstabe und „•“ darf nicht umbrochen werden, und das Wort bleibt trennbar (0 von 39).
+                  `-mr-3`: Der Titel darf 12 px in den rechten Innenrand der Kachel ragen (24 px bleiben 12). Sonst passte
+                  „Fahrzeugaufbereitung“ samt Punkt am Desktop (252 px Titelbreite) nicht in eine Zeile und wurde
+                  getrennt; bis 2026-09-28 stand das Wort ganz und der Punkt allein in der Zeile darunter. Gemessen an
+                  1024–1920 und 320–390 px: nur weniger Zeilen, nirgends Ueberlauf. */}
+              <h3 className="-mr-3 hyphens-auto break-words text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
                 {davor && `${davor} `}
                 {letztesWort}
-                {'\u2060'}
-                <span aria-hidden="true" className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 align-top" />
+                <span aria-hidden="true" className="ml-[0.06em] align-[0.34em] text-[0.9em] leading-[0] text-blue-600">•</span>
               </h3>
               {/* Scrollbarer Textbereich. `min-h-0` ist hier nicht kosmetisch: Ohne das
                   bekommt ein Flex-Kind die Mindesthoehe seines Inhalts und laeuft aus der
@@ -396,6 +415,25 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                 </span>
               </div>
             </div>
+
+            {/* CARE/REPAIR VOR DER TEXTKACHEL (6.8, Seitendurchgang mit dem User).
+                Bis 2026-09-28 stand die Plakette IN der weissen Kachel; der User wollte sie davor („vor der
+                Textkachel"). Jetzt eine eigene Ebene ueber der Kachel (z-20, Kachel z-10), als Reiter auf ihrer
+                Oberkante, buendig mit dem Kacheltext, in Liquid Glass (`BereichsPlakette`).
+                NUR AN DER OFFENEN KARTE (User, 2026-09-29: „in einer eingeklappten Karte sollte das Care- und
+                Repair-Label nicht gesehen werden"). Einen Abend lang stand sie auch auf den eingeklappten Streifen,
+                am Desktop senkrecht; das ist zurueckgenommen. Sie blendet mit der Kachel ein und aus (300 ms).
+                Nur Karten mit `bereich` (Startseite); die Stellenkarten der Karriereseite tragen keinen. */}
+            {item.bereich && (
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute left-9 top-3 z-20 -translate-y-1/2 transition-opacity duration-300 ${
+                  isActive ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <BereichsPlakette bereich={item.bereich} />
+              </span>
+            )}
 
             {/* Logo-Badge unten rechts – nur auf der aufgeklappten Karte
                 (kollabierte Streifen sind zu schmal/niedrig) */}

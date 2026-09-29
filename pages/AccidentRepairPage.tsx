@@ -2,7 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
-import { serviceByHref } from '../data/services';
+import { bereichVon, serviceByHref } from '../data/services';
 
 /**
  * Hub-Seite des Reparatur-Strangs (Unfall, Karosserie, Lack, Rad und Glas).
@@ -24,7 +24,7 @@ import { serviceByHref } from '../data/services';
 const repairServices = [
   {
     title: 'Unfallinstandsetzung',
-    description: 'Der komplette Schadenfall aus einer Hand: Schadenaufnahme, Kalkulation, Karosseriearbeiten, Reparaturlackierung und die Abstimmung mit Versicherung und Gutachter — bis zur dokumentierten Übergabe.', imageHref: '/unfallinstandsetzung-leipzig',
+    description: 'Der komplette Schadenfall aus einer Hand: Schadenaufnahme, Kalkulation, Karosseriearbeiten, Reparaturlackierung und die Abstimmung mit Versicherung und Gutachter, bis zur dokumentierten Übergabe.', imageHref: '/unfallinstandsetzung-leipzig',
   },
   {
     title: 'Neu- und Reparaturlackierung',
@@ -33,22 +33,22 @@ const repairServices = [
   },
   {
     title: 'Smart Repair',
-    description: 'Punktuelle Lackinstandsetzung mit geringem Aufwand. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet — unsere bevorzugte Methode bei kleineren Lack- und Kunststoffschäden.',
+    description: 'Punktuelle Lackinstandsetzung mit geringem Aufwand. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet, unsere bevorzugte Methode bei kleineren Lack- und Kunststoffschäden.',
     href: '/smart-repair-leipzig',
   },
   {
     title: 'Dellenentfernung',
-    description: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hageldellen. Voraussetzung ist ein unbeschädigter Lack. Die Methode ist von allen Versicherungen und Gutachtern anerkannt und im Nachhinein nicht nachweisbar — es entsteht keine Wertminderung.',
+    description: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hageldellen. Voraussetzung ist ein unbeschädigter Lack. Die Methode ist von allen Versicherungen und Gutachtern anerkannt und im Nachhinein nicht nachweisbar. Es entsteht keine Wertminderung.',
     href: '/dellenentfernung-leipzig',
   },
   {
     title: 'Hagelschadenreparatur',
-    description: 'Strukturierte Hilfe nach Hagelereignissen: Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung — ohne Anzahlung. Bei intaktem Lack werden die Dellen lackfrei entfernt.',
+    description: 'Strukturierte Hilfe nach Hagelereignissen: Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung. Bei intaktem Lack werden die Dellen lackfrei entfernt.',
     href: '/hagelschadenreparatur-leipzig',
   },
   {
     title: 'Felgenreparatur',
-    description: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben — auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
+    description: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben, auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
     href: '/felgenreparatur-leipzig',
   },
   {
@@ -76,8 +76,8 @@ const caseHandling = [
  * (`components/AccidentDamageSection.tsx`, mit der Geschaeftsfuehrung abgestimmt).
  */
 const steps = [
-  { title: 'Schaden melden', description: 'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info – mit Schadendaten und Fotos. Telefonisch geht es genauso.' },
-  { title: 'Schadenaufnahme', description: 'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.' },
+  { title: 'Schaden melden', description: 'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info, mit Schadendaten und Fotos. Telefonisch geht es genauso.' },
+  { title: 'Schadenaufnahme', description: 'Wir erfassen den Schaden, vor Ort oder anhand Ihrer Fotos, und dokumentieren Umfang und Hergang für die weitere Bearbeitung.' },
   { title: 'Gutachten & Kalkulation', description: 'Auf Wunsch stimmen wir uns mit einem Gutachter ab und erstellen eine nachvollziehbare Kostenkalkulation für die Reparatur.' },
   { title: 'Versicherungsabwicklung', description: 'Wir übernehmen die Kommunikation mit Ihrer Versicherung und kümmern uns um den Schriftverkehr rund um den Schadenfall.' },
   { title: 'Ersatzwagen nach Verfügbarkeit', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen für die Dauer der Reparatur.' },
@@ -107,12 +107,13 @@ const AccidentRepairPage: React.FC = () => (
     <PageMeta
       canonical="/unfallinstandsetzung-leipzig"
       title="Unfallinstandsetzung Leipzig | Karosserie, Lack & Glas"
-      description="Unfallinstandsetzung in Leipzig: Schadenaufnahme, Kalkulation, Karosserie, Lackierung, Smart Repair, Dellen und Autoglas – inklusive Versicherungsabwicklung."
+      description="Unfallinstandsetzung in Leipzig: Schadenaufnahme, Kalkulation, Karosserie, Lackierung, Smart Repair, Dellen und Autoglas, inklusive Versicherungsabwicklung."
     />
     <PageHero
       eyebrow="Unfallinstandsetzung Leipzig"
+      bereich={bereichVon('/unfallinstandsetzung-leipzig')}
       title="Unfallschaden in Leipzig? Wir reparieren und begleiten Ihren Schadenfall."
-      description="Vom ersten Kontakt bis zur Fahrzeugübergabe: Schadenaufnahme, Kalkulation, Karosseriearbeiten und Reparaturlackierung im eigenen Haus — als Meisterbetrieb und Glasurit-Lackpartner, auf Wunsch inklusive kompletter Versicherungsabwicklung."
+      description="Vom ersten Kontakt bis zur Fahrzeugübergabe: Schadenaufnahme, Kalkulation, Karosseriearbeiten und Reparaturlackierung im eigenen Haus, als Meisterbetrieb und Glasurit-Lackpartner, auf Wunsch inklusive kompletter Versicherungsabwicklung."
       primaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Unfallschaden Leipzig', 'Karosseriebau Leipzig', 'Autolackierung Leipzig', 'Schadenabwicklung Leipzig']}
@@ -122,7 +123,7 @@ const AccidentRepairPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Reparaturleistungen"
-          title="Welche Reparatur Ihr Fahrzeug braucht – und was dahintersteckt."
+          title="Welche Reparatur Ihr Fahrzeug braucht und was dahintersteckt."
           description="Von der kompletten Unfallinstandsetzung bis zur punktuellen Reparatur an Lack, Delle, Felge oder Scheibe. Wir empfehlen grundsätzlich die kleinere Lösung, wo sie fachlich ausreicht."
         />
         {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf /ueber-uns und
@@ -147,7 +148,7 @@ const AccidentRepairPage: React.FC = () => (
         <SectionIntro
           eyebrow="Ablauf"
           title="So läuft die Unfallinstandsetzung bei uns."
-          description="Von der Schadenmeldung bis zum Ersatzwagen – in fünf klaren Schritten, aus einer Hand."
+          description="Von der Schadenmeldung bis zum Ersatzwagen in fünf klaren Schritten, aus einer Hand."
         />
         <ProcessList steps={steps} />
       </div>

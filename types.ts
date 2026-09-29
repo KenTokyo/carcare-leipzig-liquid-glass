@@ -65,6 +65,13 @@ export interface TargetGroup {
   partners?: TargetGroupPartner[];
   /** Ueberschrift ueber der Partnerliste. Default: „Partnerbetriebe". */
   partnersLabel?: string;
+  /**
+   * Textkacheln statt Partnerliste (Backlog 6.4): Kurzfassungen der Zielgruppen-Unterseite, gezeigt von
+   * `components/ZielgruppenKacheln.tsx`. Bisher nur Privatkunden (`data/privatkunden.ts`).
+   */
+  kacheln?: { title: string; text: string }[];
+  /** Ueberschrift ueber den Textkacheln. */
+  kachelnLabel?: string;
 }
 
 export interface OverviewService {

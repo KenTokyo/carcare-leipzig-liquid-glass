@@ -20,7 +20,7 @@ const scope = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt – der Felgenlack entsteht im eigenen Haus.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Der Felgenlack entsteht im eigenen Haus.' },
   { title: 'Full-Service auf über 3.500 m²', description: 'Felgen, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue Lackierung der Felgen für ein Ergebnis optisch wie neu.' },
 ];
@@ -31,13 +31,13 @@ const FelgenreparaturPage: React.FC = () => (
     meta={{
       title: 'Felgenreparatur Leipzig | TÜV-zertifiziert | CarCare Center',
       description:
-        'Felgenreparatur in Leipzig: TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb – bis zu 90 % der Bordstein- und Korrosionsschäden günstig behoben.',
+        'Felgenreparatur in Leipzig: TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb. Bis zu 90 % der Bordstein- und Korrosionsschäden günstig behoben.',
     }}
     hero={{
       eyebrow: 'Felgenreparatur Leipzig',
       title: 'Felgenreparatur in Leipzig.',
       description:
-        'Einmal versehentlich am Bordstein entlang geschrammt und schon ist die Alufelge beschädigt – nicht nur die Optik leidet, auch der Wert des Fahrzeugs sinkt. Mit unserem TÜV-zertifizierten Alufelgenreparaturverfahren beheben wir bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig.',
+        'Einmal versehentlich am Bordstein entlang geschrammt und schon ist die Alufelge beschädigt. Nicht nur die Optik leidet, auch der Wert des Fahrzeugs sinkt. Mit unserem TÜV-zertifizierten Alufelgenreparaturverfahren beheben wir bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig.',
       primaryCta: { label: 'Felgenreparatur anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Felgenreparatur Leipzig', 'Alufelgen reparieren Leipzig', 'Bordsteinschaden Felge Leipzig'],
@@ -60,15 +60,15 @@ const FelgenreparaturPage: React.FC = () => (
       eyebrow: 'Leistungsumfang',
       title: 'Zertifizierte Felgenreparatur als Wheel-Doctor-Fachbetrieb.',
       description:
-        'Wir sind einer der zertifizierten Wheel-Doctor-Fachbetriebe und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien – denn nicht in jedem Fall ist eine Felgenreparatur erlaubt.',
+        'Wir sind einer der zertifizierten Wheel-Doctor-Fachbetriebe und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien, denn nicht in jedem Fall ist eine Felgenreparatur erlaubt.',
       items: scope,
     }}
-    usp={{ title: 'Zertifizierter Meisterbetrieb – Full-Service in Leipzig.', items: usp }}
+    usp={{ title: 'Zertifizierter Meisterbetrieb mit Full-Service in Leipzig.', items: usp }}
     faq={{ title: 'Häufige Fragen zur Felgenreparatur.' }}
     cta={{
       title: 'Bordsteinschaden an der Felge? Kommen Sie vorbei.',
       description:
-        'Lassen Sie sich vor Ort beraten – wir prüfen, ob der Schaden nach den TÜV-Richtlinien reparabel ist, und beheben ihn kostengünstig.',
+        'Lassen Sie sich vor Ort beraten. Wir prüfen, ob der Schaden nach den TÜV-Richtlinien reparabel ist, und beheben ihn kostengünstig.',
       primaryLabel: 'Felgenreparatur anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

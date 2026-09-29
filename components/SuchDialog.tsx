@@ -307,7 +307,7 @@ const SuchDialog: React.FC = () => {
 
                 {zustand === 'fehler' && (
                   <p className="px-3 py-6 text-sm leading-relaxed text-gray-600">
-                    Die Suche ist gerade nicht erreichbar. Die wichtigsten Seiten finden Sie hier — oder rufen
+                    Die Suche ist gerade nicht erreichbar. Die wichtigsten Seiten finden Sie hier, oder rufen
                     Sie uns an:{' '}
                     <a href="tel:+493412617790" className="font-semibold text-gray-950 underline-offset-2 hover:underline">
                       0341 - 261 77 90
@@ -343,7 +343,7 @@ const SuchDialog: React.FC = () => {
                   <div className="px-3 py-6 text-sm leading-relaxed text-gray-600">
                     <p className="font-semibold text-gray-950">Keine Treffer für „{anfrage.trim()}".</p>
                     <p className="mt-2">
-                      Versuchen Sie ein anderes Wort — oder fragen Sie uns direkt:{' '}
+                      Versuchen Sie ein anderes Wort, oder fragen Sie uns direkt:{' '}
                       <a href="tel:+493412617790" className="font-semibold text-gray-950 underline-offset-2 hover:underline">
                         0341 - 261 77 90
                       </a>

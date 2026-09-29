@@ -53,7 +53,7 @@ const JobBanner: React.FC<JobBannerProps> = ({ href }) => {
                 </p>
               )}
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                Bewerbung mit Name, Kontakt und ein paar Sätzen zu Ihrer Erfahrung — Lebenslauf gern,
+                Bewerbung mit Name, Kontakt und ein paar Sätzen zu Ihrer Erfahrung. Lebenslauf gern,
                 aber nicht zwingend.
               </p>
             </div>

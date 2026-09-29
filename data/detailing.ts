@@ -39,8 +39,9 @@ export const carePackages: PriceItem[] = [
     // Keramikversiegelung. Das Paket ist deren Voraussetzung, nicht deren Ersatz.
     // Backlog 4.5: „schonende Handoberwäsche" statt „Oberwäsche inkl. Abledern" — Wortlaut des Kunden.
     // Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt, Entscheidung des Kunden.
+    // Backlog 6.24 (Mail Andre 2026-09-28): „Intensive Vorreinigung inkl. Entfernung von Ablagerungen".
     description:
-      'Intensive Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
+      'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
   },
   {
     id: 'p2',
@@ -52,8 +53,9 @@ export const carePackages: PriceItem[] = [
     // Backlog 4.6: Teppichreinigung ergaenzt, „Schonende Oberwaesche" statt „inkl. Abledern".
     // Die Polstershampoonierung stand schon drin — als Alternative zur Lederpflege, und
     // so bleibt sie: Stoff wird shampooniert, Leder gepflegt. Die Teppiche gelten fuer beide.
+    // Backlog 6.24 (Mail Andre 2026-09-28): „Reinigung aller Ablagen und Fächer, Dachhimmelreinigung".
     description:
-      'Schonende Oberwäsche, intensive Reinigung des gesamten Innenraumes, Polstershampoonierung – alternativ Lederpflege –, Teppichreinigung sowie Scheibenreinigung innen und außen.',
+      'Schonende Oberwäsche, intensive Reinigung des gesamten Innenraumes mit allen Ablagen und Fächern, Dachhimmelreinigung, Polstershampoonierung oder alternativ Lederpflege, Teppichreinigung sowie Scheibenreinigung innen und außen.',
   },
   {
     id: 'p3',
@@ -75,7 +77,7 @@ export const carePackages: PriceItem[] = [
     // las sich das Paket wie eine reine Lackbehandlung — die Nennung von Wachs,
     // Carnauba und Glanzgrad zieht den Blick nach aussen. Es umfasst beides.
     description:
-      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien – u. a. Wachse von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
+      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien, u. a. Wachsen von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
   },
   {
     // Backlog 4.9 (2026-09-16): Die Lackaufbereitung steht jetzt BEI den Paketen, mit
@@ -91,7 +93,8 @@ export const carePackages: PriceItem[] = [
       // Backlog 5.33 (Meeting 2026-09-25): Die Lackaufbereitung geht tiefer als die Brillant Außenpflege
       // und soll staerker herausgestellt werden. Swissvax gehoert zur Premiumpflege „exklusiv" und steht
       // deshalb hier nicht mehr — dafuer Keramik- und Nanoversiegelung, die Andre pushen moechte.
-      'Die Lackaufbereitung geht tiefer als die Außenpflege: Wir arbeiten leichte Kratzer und matte Stellen aus dem Lack heraus, polieren auf Hochglanz und schützen das Ergebnis — auf Wunsch mit einer Keramik- oder Nanoversiegelung. Wie viel Arbeit nötig ist, zeigt erst die Begutachtung; danach nennen wir Ihnen den Preis.',
+      // Backlog 6.24 (Mail Andre 2026-09-28): Umfang in Andres Worten, im Stil der Paketlisten darueber.
+      'Lacktiefenpolitur, Entfernung von Oberflächenkratzern und Antihologramm-Bearbeitung, abgestimmt auf den Zustand Ihres Fahrzeuglackes. Nach Absprache und auf Wunsch erweiterbar mit Wachs-, Nano- oder Keramikversiegelung. Wie viel Arbeit nötig ist, zeigt erst die Begutachtung. Danach nennen wir Ihnen den Preis.',
   },
 ];
 
@@ -117,8 +120,8 @@ export const zusatzPreis = (id: string): string => fliesstextPreis(zusatzKachel(
 export const disinfectionServices: PriceItem[] = ['ozon', 'heissvernebelung'].map(zusatzKachel);
 
 /**
- * Exklusiv- und Zusatzleistungen mit Festpreis (Mail Andre 2026-09-28): Versiegelungen und Pflege-Extras.
- * Keramik und Nano als eigene Kacheln „zur besseren Vermarktung“ (Andre).
+ * Exklusiv- und Zusatzleistungen mit Preis (Mail Andre 2026-09-28): Versiegelungen und Pflege-Extras.
+ * Keramik und Nano als eigene Kacheln „zur besseren Vermarktung“ (Andre), seit 6.17 mit „ab“-Preis.
  */
 export const zusatzAngebote: PriceItem[] = ['keramik', 'nano', 'frontscheibe', 'felgen', 'cabrio', 'motor'].map(zusatzKachel);
 
@@ -246,7 +249,7 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'innenaufbereitung',
     image: aufbereitungKacheln.innen,
-    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens – Innenaufbereitung im CarCare Center Leipzig',
+    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens, Innenaufbereitung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     title: 'Innenaufbereitung',
@@ -258,7 +261,7 @@ export const detailingScopes: DetailingScope[] = [
   {
     id: 'aussenaufbereitung',
     image: aufbereitungKacheln.aussen,
-    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV – Außen- und Lackaufbereitung im CarCare Center Leipzig',
+    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Außen- und Lackaufbereitung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     title: 'Außenaufbereitung',
@@ -272,12 +275,12 @@ export const detailingScopes: DetailingScope[] = [
     image: aufbereitungKacheln.lack,
     // Beschreibt das gezeigte Motiv. (Bis 2026-09-21 stand hier die Lackierkabine mit einem Text,
     // der eine polierte Lackoberflaeche versprach — die war auf dem Bild nicht zu sehen.)
-    imageAlt: 'Poliermaschine auf dem Lack eines dunkelblauen SUV, der Radlauf ist abgeklebt – Lackaufbereitung im CarCare Center Leipzig',
+    imageAlt: 'Poliermaschine auf dem Lack eines dunkelblauen SUV, der Radlauf ist abgeklebt. Lackaufbereitung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     title: 'Lackaufbereitung',
     intro:
-      'Die Lackaufbereitung geht tiefer als die Außenpflege: Politur nimmt leichte Kratzer und matte Stellen aus dem Lack, eine Versiegelung schützt den Glanz — auf Wunsch als Keramik- oder Nanoversiegelung. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',
+      'Die Lackaufbereitung geht tiefer als die Außenpflege: Politur nimmt leichte Kratzer und matte Stellen aus dem Lack, eine Versiegelung schützt den Glanz, auf Wunsch als Keramik- oder Nanoversiegelung. Ausführlich beschrieben auf der Seite zur Außenaufbereitung.',
     href: '/aussenaufbereitung-leipzig',
     hrefLabel: 'Zur Lackaufbereitung',
   },

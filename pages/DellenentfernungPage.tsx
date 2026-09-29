@@ -19,7 +19,7 @@ const vorteile = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Karosserie und Lack aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998. Karosserie und Lack aus einer Hand.' },
   { title: 'Full-Service auf über 3.500 m²', description: 'Ist der Lack doch verletzt, geht es ohne Umweg in Karosserie und Lackierung im selben Haus.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Von der Parkdelle am Privatwagen bis zur Hagelserie im Firmenfuhrpark.' },
 ];
@@ -30,7 +30,7 @@ const DellenentfernungPage: React.FC = () => (
     meta={{
       title: 'Dellenentfernung Leipzig | ohne Lackieren | CarCare Center',
       description:
-        'Dellenentfernung ohne Lackieren in Leipzig: lackfreie Methode bei Parkdellen und Hagelschäden – keine Farbunterschiede, von Versicherungen anerkannt.',
+        'Dellenentfernung ohne Lackieren in Leipzig: lackfreie Methode bei Parkdellen und Hagelschäden, keine Farbunterschiede, von Versicherungen anerkannt.',
     }}
     hero={{
       eyebrow: 'Dellenentfernung Leipzig',
@@ -60,12 +60,12 @@ const DellenentfernungPage: React.FC = () => (
       title: 'Warum die lackfreie Dellenentfernung überzeugt.',
       items: vorteile,
     }}
-    usp={{ title: 'Erfahrener Meisterbetrieb – Full-Service in Leipzig.', items: usp }}
+    usp={{ title: 'Erfahrener Meisterbetrieb mit Full-Service in Leipzig.', items: usp }}
     faq={{ title: 'Häufige Fragen zur Dellenentfernung.' }}
     cta={{
       title: 'Delle am Fahrzeug? Wir prüfen die lackfreie Instandsetzung.',
       description:
-        'Zeigen Sie uns die Delle oder senden Sie Fotos – wir schätzen ein, ob der Lack intakt ist und der Originalzustand lackfrei hergestellt werden kann.',
+        'Zeigen Sie uns die Delle oder senden Sie Fotos. Wir schätzen ein, ob der Lack intakt ist und der Originalzustand lackfrei hergestellt werden kann.',
       primaryLabel: 'Dellenentfernung anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

@@ -134,6 +134,30 @@ Defekt gemessen oder meinen Aufbau?**
 
 ---
 
+## Ein grünes Protokoll vom falschen Stand
+
+*Ergänzt am 2026-09-28, Schleife 6.*
+
+Der Kontrastlauf meldete „5554 Textstellen, kein Text unter WCAG AA" und wurde als Beleg
+für den fertigen Stand eingetragen. Gemessen hatte er den Build von 17:05, eingetragen
+wurde er für den Build von 17:15, der danach geänderte Privatkunden-Kacheln brachte. Das
+Protokoll nannte keinen Build und sah deshalb genauso aus wie eines vom richtigen Stand.
+Aufgefallen ist es erst beim Abgleich der Dateizeiten von Protokoll und `dist/`.
+
+Das ist Fall 3 in lokaler Form: „Das Werkzeug ist grün" ist notwendig, hinreichend wird
+es erst, wenn das Protokoll zum geprüften Stand gehört. Seitdem nennt jede Messung über
+`startePreview` ihren Build (`[dist] Build vom …`) und bricht ab, wenn eine getrackte
+Quelldatei neuer ist (`scripts/lib/dist-stand.mjs`). Der Zeitstempel ist dabei wie in
+Fall 5 nur ein notwendiges Merkmal. Er übersieht Inhalte mit altem Zeitstempel und vor
+allem eine Messung, die erst **nachträglich** veraltet, also genau diesen Fall. Eine
+Inhalts-Identität (Hash der Quellen, beim Build nach `dist/` geschrieben) wäre
+hinreichend, verlangte aber einen Eingriff in die Build-Kette, die auch auf Vercel läuft.
+
+> **Nach jeder Korrektur alle Werkzeuge gegen denselben neuen Build, und jedes Ergebnis
+> in der Doku mit seinem Build belegen.**
+
+---
+
 ## Anwendung
 
 Für jeden neuen Wächter, jedes Prüfskript und jeden Smoke-Test in diesem Projekt gilt:

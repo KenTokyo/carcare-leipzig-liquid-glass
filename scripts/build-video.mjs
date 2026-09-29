@@ -235,6 +235,33 @@ const SCHNITTE = [
     titel: 'Lackieren in der Lackierkabine – CarCare Center Leipzig',
     beschreibung: 'Lackierer in Schutzkleidung und Atemschutz lackiert eine Motorhaube in der Lackierkabine des CarCare Center in Leipzig.',
   },
+  /*
+   * BACKLOG 6.12 (Meeting 2026-09-28): „Das Subbild muss bitte angepasst werden in das Video, was wir in der
+   * Hauptpage genutzt haben. Und das Hintergrundbild." — derselbe Film wie auf der Startseitenkarte, aber als
+   * SEITENHINTERGRUND von `/autolackierung-leipzig`. Dieselben 13 Sekunden (2,0–15,0 s), eigener Zuschnitt:
+   *
+   * WARUM NICHT DIE 720-PX-DATEI DER KARTE: quadratisch und 720 breit — als Hintergrund auf 1440 px doppelt
+   * hochgerechnet (sichtbar weich) und oben wie unten beschnitten. Hier QUER 16:10 wie die Hintergrundflaeche,
+   * in voller Quellbreite (1080 px, auf 1440 px nur 1,33-fach).
+   * WIE GERAHMT: Der Hintergrund zeigt das Motiv rechts der Mitte, links liegt der weisse Textschutz. Zwei Hoehen
+   * mit nachgestelltem Textschutz verglichen (Oberkante 760 und 900 von 1920): Bei 900 steht rechts unten das
+   * dunkle Kabinengitter und gibt Kontrast, die Pistole zieht mehrmals durch die rechte Haelfte; der Lackierer
+   * selbst steht links am Textschutz.
+   * STANDBILD bei 6,5 s: Pistole und Handschuh in der rechten Haelfte — es steht, bis das Video laeuft.
+   */
+  {
+    id: 'lackierung-hintergrund',
+    quelle: LACKIERVIDEO,
+    datei: 'carcare-autolackierung-hintergrund',
+    start: 2.0,
+    dauer: 13.0,
+    standbildBei: 6.5,
+    bild: 'crop=1080:675:0:900',
+    breite: 1080,
+    zweck: 'Seitenhintergrund /autolackierung-leipzig (Backlog 6.12, Meeting 2026-09-28)',
+    titel: 'Lackieren in der Lackierkabine – CarCare Center Leipzig',
+    beschreibung: 'Lackierer in Schutzkleidung lackiert mit der Lackierpistole eine Motorhaube in der Lackierkabine des CarCare Center in Leipzig.',
+  },
 
   /*
    * BEREICHSVIDEOS (Backlog R18) — drei Karten auf `/ueber-uns` und `/karriere`.

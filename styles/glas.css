@@ -2,10 +2,11 @@
    Eingebunden per @import oben in index.css (nach `aussparung.css`).
    Planung: docs/liquid-glass/tasks/2026-09-24-liquid-glass-anrufen-tasks.md
 
-   WO: NUR an den vier Sticky-Buttons der mobilen Leiste (`MobileStickyCTA`, unter 1024 px) —
+   WO: an den vier Sticky-Buttons der mobilen Leiste (`MobileStickyCTA`, unter 1024 px) —
    Entscheidung des Users 2026-09-25 nach dem Piloten an „Anrufen". Die Leiste schwebt ueber dem
    Seiteninhalt, dort zeigt sich der Blur. Die Desktop-Pille oben rechts war zwei Tage Pilot und
    ist zurueck auf Eisblau: Auf der weissen Aussparung gibt es nichts zu verwischen.
+   SEIT 2026-09-29 AUCH an allen Care/Repair-Plaketten der Website (Wunsch des Users, `.cc-liquid--plakette` unten).
 
    ZWEITE FASSUNG (User, 2026-09-25, mit Referenzbild einer Liquid-Glass-Leiste): „mach diese Vignette
    weg. Uebernimm nicht die Farben, sondern wirklich nur das blurry Design eines originalen Liquid
@@ -192,4 +193,19 @@
 /* KACHEL (mobile Leiste, ~85 × 68 px) — Haken fuer kachelspezifische Werte. */
 .cc-liquid--kachel {
   border-radius: 1rem;
+}
+
+/* PLAKETTE „Care"/„Repair" (`BereichsPlakette`; seit 2026-09-29 auf Wunsch des Users: „Der
+   Hintergrund der Labels soll auch in Liquid Glass sein und nicht weiss"). Dasselbe Glas als ruhiges Etikett:
+   - Der 2-px-Rand bleibt in der Wagenfarbe (`--plakette-rand`, gesetzt in der Komponente), auch beim Zeigen.
+     `.cc-liquid` und `.cc-liquid:hover` setzen den Rand sonst durchsichtig; diese Regeln stehen deshalb NACH ihnen
+     und sind beim Zeigen gleich spezifisch.
+   - Kein Eindruecken: Die Plakette ist kein Bedienelement. */
+.cc-liquid--plakette,
+.cc-liquid--plakette:hover {
+  border-color: var(--plakette-rand);
+}
+
+.cc-liquid--plakette:active {
+  transform: none;
 }

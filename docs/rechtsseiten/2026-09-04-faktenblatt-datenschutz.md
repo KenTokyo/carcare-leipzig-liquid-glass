@@ -238,15 +238,18 @@ die Angaben dort gelten wieder, falls es zurückgeschaltet wird.
 
 ## 4. Speicherung im Browser des Besuchers
 
-Es werden **keine Cookies** gesetzt. Es gibt zwei Einträge im `sessionStorage` — sie
-gelten nur für das laufende Browserfenster und sind beim Schließen fort. Kein Eintrag
-enthält eine Kennung, mit der sich jemand wiedererkennen ließe; beide speichern lediglich
-den Wert „schon gesehen".
+Es werden **keine Cookies** gesetzt. Es gibt einen Eintrag im `sessionStorage` — er
+gilt nur für das laufende Browserfenster und ist beim Schließen fort. Er enthält keine
+Kennung, mit der sich jemand wiedererkennen ließe; er speichert lediglich den Wert
+„schon gesehen".
 
 | Schlüssel | Zweck | Inhalt |
 |---|---|---|
 | `cc-preloader-v1` | Die Startanimation wird nur beim ersten Aufruf gezeigt | `"1"` |
-| `cc-stellen-popup-geschlossen` | Ein geschlossener Stellenhinweis kommt nicht sofort wieder | `"1"` |
+
+*Nachtrag 2026-09-28:* Der zweite Eintrag `cc-stellen-popup-geschlossen` entfällt. Der
+Stellenhinweis auf `/karriere` erscheint jetzt bei jedem Aufruf und merkt sich das
+Schließen nicht mehr.
 
 `localStorage` wird bewusst nicht verwendet, damit nichts über die Sitzung hinaus bleibt.
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { overviewServices } from '../data/services';
+import { bereichDerGruppe, overviewServices } from '../data/services';
 import { videoPlatz } from '../data/videos';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
@@ -25,12 +25,17 @@ const STARTSEITEN_VIDEOS: Record<string, string> = {
   lackierung: 'startseite-lackierung',
 };
 
+/**
+ * Care oder Repair an jeder Leistungskarte (Backlog 6.8), aus der Gruppe des Katalogeintrags — dieselbe
+ * Ableitung wie in den Seitenkoepfen (`bereichVon` in data/services.ts).
+ */
 const karten: ExpandingCardItem[] = overviewServices.map((service) => {
+  const karte = { ...service, bereich: bereichDerGruppe(service.group) };
   const platzId = STARTSEITEN_VIDEOS[service.id];
-  if (!platzId) return service;
+  if (!platzId) return karte;
   const platz = videoPlatz(platzId);
-  if (!platz.quelle || !platz.poster) return service;
-  return { ...service, backgroundImage: platz.poster, backgroundVideo: platz.quelle };
+  if (!platz.quelle || !platz.poster) return karte;
+  return { ...karte, backgroundImage: platz.poster, backgroundVideo: platz.quelle };
 });
 
 const ServiceGrid: React.FC = () => {

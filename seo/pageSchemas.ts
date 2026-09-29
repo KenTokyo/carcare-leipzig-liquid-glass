@@ -46,7 +46,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/unfallinstandsetzung-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Unfallinstandsetzung Leipzig', path: '/unfallinstandsetzung-leipzig' }]),
-    serviceSchema('Unfallinstandsetzung Leipzig', 'Schadenaufnahme, Audatex-Kalkulation, Gutachterservice, Versicherungsabwicklung, Karosseriearbeiten und Reparaturlackierung — dazu Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur und Autoglas in Leipzig.', '/unfallinstandsetzung-leipzig'),
+    serviceSchema('Unfallinstandsetzung Leipzig', 'Schadenaufnahme, Audatex-Kalkulation, Gutachterservice, Versicherungsabwicklung, Karosseriearbeiten und Reparaturlackierung, dazu Smart Repair, Dellenentfernung, Hagelschadenreparatur, Felgenreparatur und Autoglas in Leipzig.', '/unfallinstandsetzung-leipzig'),
     faqSchema(faqsByRoute['/unfallinstandsetzung-leipzig']),
   ],
   '/fahrzeugaufbereitung-leipzig': [
@@ -67,7 +67,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Hochglanzpolitur und Lackversiegelung — Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Hochglanzpolitur und Lackversiegelung. Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
     // Seit 2026-09-28 mit Preiskacheln — ausgezeichnet werden genau die sichtbaren (Zuordnung in data/detailing.ts).
     offerCatalogSchema('Außen- und Lackaufbereitung, Exklusiv- und Zusatzleistungen', '/aussenaufbereitung-leipzig', schemaAngebote([...angeboteAussen.pakete, ...angeboteAussen.zusatz])),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
@@ -78,28 +78,28 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Innenaufbereitung Leipzig', path: '/innenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung — Intensiv Innenraumreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
+    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung. Intensiv Innenraumreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
     offerCatalogSchema('Innenaufbereitung und Desinfektion', '/innenaufbereitung-leipzig', schemaAngebote([...angeboteInnen.pakete, ...angeboteInnen.zusatz])),
     faqSchema(faqsByRoute['/innenaufbereitung-leipzig']),
   ],
   '/leasingrueckgabe-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Leasingrückgabe Leipzig', path: '/leasingrueckgabe-leipzig' }]),
-    serviceSchema('Leasingrückgabe-Vorbereitung Leipzig', 'Begutachtung vor der Leasingrückgabe sowie Instandsetzung von Dellen, Lackschäden, Felgen und Glas mit anschließender Fahrzeugaufbereitung — für Privatkunden und Fuhrparks in Leipzig.', '/leasingrueckgabe-leipzig'),
+    serviceSchema('Leasingrückgabe-Vorbereitung Leipzig', 'Begutachtung vor der Leasingrückgabe sowie Instandsetzung von Dellen, Lackschäden, Felgen und Glas mit anschließender Fahrzeugaufbereitung, für Privatkunden und Fuhrparks in Leipzig.', '/leasingrueckgabe-leipzig'),
     faqSchema(faqsByRoute['/leasingrueckgabe-leipzig']),
   ],
   '/smart-repair-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Smart Repair Leipzig', path: '/smart-repair-leipzig' }]),
-    serviceSchema('Smart Repair Leipzig', 'Punktuelle Lackinstandsetzung mit geringem Aufwand (Spot-Repair) als Glasurit-Lackpartner und Meisterbetrieb – Ziel ist die unsichtbare Reparatur ohne Komplettlackierung.', '/smart-repair-leipzig'),
+    serviceSchema('Smart Repair Leipzig', 'Punktuelle Lackinstandsetzung mit geringem Aufwand (Spot-Repair) als Glasurit-Lackpartner und Meisterbetrieb. Ziel ist die unsichtbare Reparatur ohne Komplettlackierung.', '/smart-repair-leipzig'),
     faqSchema(faqsByRoute['/smart-repair-leipzig']),
   ],
   '/autolackierung-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Autolackierung Leipzig', path: '/autolackierung-leipzig' }]),
-    serviceSchema('Autolackierung Leipzig', 'Neu- und Reparaturlackierung mit dem Ziel der unsichtbaren Reparatur – als Glasurit-Lackpartner und Meisterbetrieb farbtongenau, Spot-Repair bevorzugt, Komplettlackierung bei Bedarf.', '/autolackierung-leipzig'),
+    serviceSchema('Autolackierung Leipzig', 'Neu- und Reparaturlackierung mit dem Ziel der unsichtbaren Reparatur, als Glasurit-Lackpartner und Meisterbetrieb farbtongenau, Spot-Repair bevorzugt, Komplettlackierung bei Bedarf.', '/autolackierung-leipzig'),
     faqSchema(faqsByRoute['/autolackierung-leipzig']),
   ],
   '/dellenentfernung-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Dellenentfernung Leipzig', path: '/dellenentfernung-leipzig' }]),
-    serviceSchema('Dellenentfernung Leipzig', 'Lackierfreie Dellenentfernung bei Parkplatzdellen und Hagelschäden – keine Wertminderung, von Versicherungen anerkannt.', '/dellenentfernung-leipzig'),
+    serviceSchema('Dellenentfernung Leipzig', 'Lackierfreie Dellenentfernung bei Parkplatzdellen und Hagelschäden, keine Wertminderung, von Versicherungen anerkannt.', '/dellenentfernung-leipzig'),
     faqSchema(faqsByRoute['/dellenentfernung-leipzig']),
   ],
   '/hagelschadenreparatur-leipzig': [
@@ -109,7 +109,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/felgenreparatur-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Felgenreparatur Leipzig', path: '/felgenreparatur-leipzig' }]),
-    serviceSchema('Felgenreparatur Leipzig', 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb – Bordstein- und Korrosionsschäden bis 1 mm Tiefe.', '/felgenreparatur-leipzig'),
+    serviceSchema('Felgenreparatur Leipzig', 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.', '/felgenreparatur-leipzig'),
     faqSchema(faqsByRoute['/felgenreparatur-leipzig']),
   ],
   '/fuhrparkservice-leipzig': [
@@ -119,7 +119,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/autoglas-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Autoglas & Scheibenfolien Leipzig', path: '/autoglas-leipzig' }]),
-    serviceSchema('Autoglas & Scheibenfolien Leipzig', 'Scheibentausch, Steinschlagreparatur und Scheibenfolierung – WINTEC-Partner, ISO 9001 TÜV-zertifiziert, 30 Jahre Garantie.', '/autoglas-leipzig'),
+    serviceSchema('Autoglas & Scheibenfolien Leipzig', 'Scheibentausch, Steinschlagreparatur und Scheibenfolierung. WINTEC-Partner, ISO 9001 TÜV-zertifiziert, 30 Jahre Garantie.', '/autoglas-leipzig'),
     faqSchema(faqsByRoute['/autoglas-leipzig']),
   ],
   '/privatkunden': [
@@ -129,12 +129,12 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/geschaeftskunden': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Geschäftskunden', path: '/geschaeftskunden' }]),
-    serviceSchema('Fuhrparkservice und Geschäftskundenservice Leipzig', 'Fahrzeugdienstleistungen für Autohäuser, Fuhrparks, Versicherungen, Schadensteuerer und Versicherungsagenturen — inklusive Leasingrückgabe-Vorbereitung und Fuhrparkservice.', '/geschaeftskunden'),
+    serviceSchema('Fuhrparkservice und Geschäftskundenservice Leipzig', 'Fahrzeugdienstleistungen für Autohäuser, Fuhrparks, Versicherungen, Schadensteuerer und Versicherungsagenturen, inklusive Leasingrückgabe-Vorbereitung und Fuhrparkservice.', '/geschaeftskunden'),
     faqSchema(faqsByRoute['/geschaeftskunden']),
   ],
   '/ueber-uns': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Über uns', path: '/ueber-uns' }]),
-    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk in Leipzig und seit 1998 am Markt. Über 50 Mitarbeiter bearbeiten auf über 3.500 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung — als Glasurit-Lackpartner und WINTEC-Partner.'),
+    aboutPageSchema('/ueber-uns', 'Die BS CarCare GmbH ist Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk in Leipzig und seit 1998 am Markt. Über 50 Mitarbeiter bearbeiten auf über 3.500 m² Karosserie, Lack, Smart Repair, Felgen, Autoglas und Fahrzeugaufbereitung, als Glasurit-Lackpartner und WINTEC-Partner.'),
     faqSchema(faqsByRoute['/ueber-uns']),
   ],
   /**

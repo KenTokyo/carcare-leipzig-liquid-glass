@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { bereichVon } from '../data/services';
 import LeistungsKarten from '../components/LeistungsKarten';
 
 /**
@@ -29,7 +30,7 @@ const gutachterChecks = [
   },
   {
     title: 'Was als normale Abnutzung gilt',
-    description: 'Gebrauchsspuren, die sich bei vertragsgemäßer Nutzung nicht vermeiden lassen, sind in der Regel abgedeckt. Die Grenze zieht der Leasingvertrag — sie ist je nach Anbieter unterschiedlich.',
+    description: 'Gebrauchsspuren, die sich bei vertragsgemäßer Nutzung nicht vermeiden lassen, sind in der Regel abgedeckt. Die Grenze zieht der Leasingvertrag, sie ist je nach Anbieter unterschiedlich.',
   },
   {
     title: 'Warum die Reparatur vorab günstiger ist',
@@ -49,12 +50,12 @@ const repairs = [
   },
   {
     title: 'Spot-Repair bei Lackschäden',
-    description: 'Bei kleineren Kratzern und Lackschäden bearbeiten wir gezielt nur die betroffene Stelle statt des ganzen Bauteils — deutlich weniger aufwendig als eine Komplettlackierung.',
+    description: 'Bei kleineren Kratzern und Lackschäden bearbeiten wir gezielt nur die betroffene Stelle statt des ganzen Bauteils, deutlich weniger aufwendig als eine Komplettlackierung.',
     href: '/smart-repair-leipzig',
   },
   {
     title: 'Felgen mit Bordsteinschäden',
-    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe setzen wir im TÜV-zertifizierten Verfahren instand — auch an glanzgedrehten Felgen.',
+    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe setzen wir im TÜV-zertifizierten Verfahren instand, auch an glanzgedrehten Felgen.',
     href: '/felgenreparatur-leipzig',
   },
   {
@@ -64,12 +65,12 @@ const repairs = [
   },
   {
     title: 'Größere Lack- und Karosserieschäden',
-    description: 'Reicht Spot-Repair nicht aus, lackieren wir farbtongenau als Glasurit-Lackpartner — ohne für das Auge erkennbare Farbton- oder Effektunterschiede zur Originallackierung.',
+    description: 'Reicht Spot-Repair nicht aus, lackieren wir farbtongenau als Glasurit-Lackpartner, ohne für das Auge erkennbare Farbton- oder Effektunterschiede zur Originallackierung.',
     href: '/autolackierung-leipzig',
   },
   {
     title: 'Aufbereitung innen und außen',
-    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenraumreinigung kostet ab 199,00 €, die Premiumpflege mit Außenaufbereitung ab 299,00 € — inklusive gesetzlicher Mehrwertsteuer, Aufpreis je nach Fahrzeugklasse.',
+    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenraumreinigung kostet ab 199,00 €, die Premiumpflege mit Außenaufbereitung ab 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer und mit Aufpreis je nach Fahrzeugklasse.',
     href: '/fahrzeugaufbereitung-leipzig#preise',
   },
 ];
@@ -96,11 +97,11 @@ const privateBenefits = [
 const businessBenefits = [
   {
     title: 'Mehrere Fahrzeuge parallel',
-    description: 'Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten — relevant, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
+    description: 'Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten. Das hilft, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
   },
   {
     title: 'Fester Ansprechpartner',
-    description: 'Ein Ansprechpartner für den gesamten Rückgabeprozess statt wechselnder Zuständigkeiten — mit strukturierten Abläufen und planbarer Rückmeldung.',
+    description: 'Ein Ansprechpartner für den gesamten Rückgabeprozess statt wechselnder Zuständigkeiten, mit strukturierten Abläufen und planbarer Rückmeldung.',
   },
   {
     title: 'Nachvollziehbare Kalkulation',
@@ -108,7 +109,7 @@ const businessBenefits = [
   },
   {
     title: 'Erfahrung mit Flotten und Autohäusern',
-    description: 'Wir arbeiten für Autohäuser, Firmenfuhrparks und Werksniederlassungen deutscher Premiumhersteller — wiederkehrende Abläufe sind eingespielt.',
+    description: 'Wir arbeiten für Autohäuser, Firmenfuhrparks und Werksniederlassungen deutscher Premiumhersteller. Wiederkehrende Abläufe sind eingespielt.',
   },
 ];
 
@@ -116,7 +117,7 @@ const steps = [
   { title: 'Termin vereinbaren', description: 'Melden Sie sich einige Wochen vor dem Rückgabetermin unter 0341 - 261 77 90 oder über das Formular. Nennen Sie dabei das Rückgabedatum.' },
   { title: 'Fahrzeug begutachten', description: 'Wir sehen uns Lack, Karosserie, Felgen, Glas und Innenraum an und gleichen den Zustand mit dem ab, was bei der Rückgabe bewertet wird.' },
   { title: 'Aufstellung erhalten', description: 'Sie bekommen einen Kostenvoranschlag mit klarer Empfehlung: was sich vorher lohnt und was Sie getrost dem Rückgabeprotokoll überlassen können.' },
-  { title: 'Instandsetzen und aufbereiten', description: 'Wir arbeiten die freigegebenen Punkte ab — Dellen, Lack, Felgen, Glas — und bereiten das Fahrzeug innen und außen auf.' },
+  { title: 'Instandsetzen und aufbereiten', description: 'Wir arbeiten die freigegebenen Punkte zu Dellen, Lack, Felgen und Glas ab und bereiten das Fahrzeug innen und außen auf.' },
   { title: 'Fahrzeug übernehmen', description: 'Sie erhalten das Fahrzeug gereinigt zurück, mit Erklärung, was gemacht wurde. Danach geht es in die Rückgabe.' },
 ];
 
@@ -127,12 +128,13 @@ const LeasingrueckgabePage: React.FC = () => (
     <PageMeta
       canonical="/leasingrueckgabe-leipzig"
       title="Leasingrückgabe Leipzig | vorbereiten | CarCare Center"
-      description="Fahrzeug vor der Leasingrückgabe prüfen und instand setzen lassen: Dellen, Lack, Felgen, Glas und Aufbereitung in Leipzig – für Privatkunden und Fuhrparks."
+      description="Fahrzeug vor der Leasingrückgabe prüfen und instand setzen lassen: Dellen, Lack, Felgen, Glas und Aufbereitung in Leipzig, für Privatkunden und Fuhrparks."
     />
     <PageHero
       eyebrow="Leasingrückgabe Leipzig"
-      title="Leasingrückgabe vorbereiten – bevor der Gutachter abrechnet."
-      description="Bei der Rückgabe bewertet ein Gutachter den Fahrzeugzustand und rechnet Schäden nach den Sätzen des Leasinggebers ab. Vieles davon lässt sich vorher im Fachbetrieb günstiger beheben. Wir begutachten, setzen instand und bereiten auf – für Privatkunden und Fuhrparks."
+      bereich={bereichVon('/leasingrueckgabe-leipzig')}
+      title="Leasingrückgabe vorbereiten, bevor der Gutachter abrechnet."
+      description="Bei der Rückgabe bewertet ein Gutachter den Fahrzeugzustand und rechnet Schäden nach den Sätzen des Leasinggebers ab. Vieles davon lässt sich vorher im Fachbetrieb günstiger beheben. Wir begutachten, setzen instand und bereiten auf, für Privatkunden und Fuhrparks."
       primaryCta={{ label: 'Fahrzeug begutachten lassen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Leasingrückgabe Leipzig', 'Leasingfahrzeug aufbereiten', 'Dellen entfernen Leipzig', 'Smart Repair Leipzig']}
@@ -144,7 +146,7 @@ const LeasingrueckgabePage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Worum es geht"
-          title="Was bei der Rückgabe bewertet wird – und was das kostet."
+          title="Was bei der Rückgabe bewertet wird und was das kostet."
           description="Der Rückgabegutachter dokumentiert den Fahrzeugzustand im Rückgabeprotokoll. Was über normale Abnutzung hinausgeht, wird nach den Sätzen des Leasinggebers berechnet."
         />
         <FeatureGrid items={gutachterChecks} columns="four" />
@@ -183,7 +185,7 @@ const LeasingrueckgabePage: React.FC = () => (
         <SectionIntro
           eyebrow="Was wir vorher instand setzen"
           title="Von der Parkplatzdelle bis zur Innenraumaufbereitung."
-          description="Alle Arbeiten laufen im eigenen Haus — Sie müssen für Delle, Lack, Felge, Glas und Aufbereitung nicht vier Betriebe ansteuern."
+          description="Alle Arbeiten laufen im eigenen Haus. Sie müssen für Delle, Lack, Felge, Glas und Aufbereitung nicht vier Betriebe ansteuern."
         />
         {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
         <LeistungsKarten items={repairs} columns="three" />

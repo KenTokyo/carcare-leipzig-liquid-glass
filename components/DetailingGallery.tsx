@@ -220,7 +220,7 @@ const DetailingGallery: React.FC = () => {
         <SectionIntro
           eyebrow="Einblicke"
           title="Ergebnisse, die man sieht."
-          description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung – die Spalten bewegen sich sanft beim Scrollen."
+          description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung. Die Spalten bewegen sich sanft beim Scrollen."
         />
 
         {/*

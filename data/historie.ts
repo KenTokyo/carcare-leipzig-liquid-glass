@@ -43,7 +43,7 @@ export const historie: TimelineStation[] = [
     // Backlog 4.16, Wortlaut des Kunden. Er ersetzt „Start als Betrieb des Kfz-Lackierhandwerks.
     // Der Meisterbrief ist von Anfang an die fachliche Grundlage." — siehe offene Frage R13.
     description:
-      'Start als Kfz-Aufbereitungsbetrieb und Anbieter/Dienstleister für Premiumhersteller in Leipzig und im gesamten Bundesgebiet – von Anfang an fachliche Grundlage.',
+      'Start als Kfz-Aufbereitungsbetrieb und Anbieter/Dienstleister für Premiumhersteller in Leipzig und im gesamten Bundesgebiet, von Anfang an fachliche Grundlage.',
   },
   {
     zeit: '2000',
@@ -64,7 +64,7 @@ export const historie: TimelineStation[] = [
     // Backlog 4.19 (Wortlaut des Kunden, erster Teil) + 5.24 (Jahr und Titel aus dem Meeting 2026-09-25).
     // Der zweite Satz ist die kurze Erklaerung, warum der Schritt wichtig ist (Wunsch aus dem Meeting).
     description:
-      'Beginn der Zusammenarbeit im Schadens- und Versicherungsbereich durch großflächige Partnerschaften mit der Versicherungswirtschaft. Seitdem steuern Versicherer und Schadensteuerer Schadenfälle direkt zu uns — Reparatur und Abwicklung aus einer Hand.',
+      'Beginn der Zusammenarbeit im Schadens- und Versicherungsbereich durch großflächige Partnerschaften mit der Versicherungswirtschaft. Seitdem steuern Versicherer und Schadensteuerer Schadenfälle direkt zu uns. Reparatur und Abwicklung aus einer Hand.',
   },
   {
     zeit: '2026',

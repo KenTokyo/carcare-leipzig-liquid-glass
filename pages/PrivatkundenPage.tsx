@@ -2,6 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, ProcessList, SectionIntro } from '../components/PageBlocks';
 import LeistungsKarten from '../components/LeistungsKarten';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
+import { privatkundenVorteile } from '../data/privatkunden';
 
 /**
  * Zielgruppenseite Privatkunden — Gegenstueck zu `BusinessCustomersPage`.
@@ -15,56 +16,26 @@ import { SCHADEN_ZIEL } from '../data/schadenmeldung';
  * Kostenvoranschlag genannt statt einer erfundenen Spanne.
  */
 
-const advantages = [
-  {
-    title: 'Ein Betrieb statt drei Werkstätten',
-    description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht — und Sie haben einen Ansprechpartner statt drei.',
-  },
-  {
-    title: 'Feste Paketpreise bei der Aufbereitung',
-    description: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege — für Geländewagen, Großraumlimousinen und Transporter mit festem Aufpreis. Sie wissen vorher, was es kostet.',
-  },
-  {
-    title: 'Wir empfehlen die kleinere Lösung zuerst',
-    description: 'Wo Spot-Repair fachlich ausreicht, raten wir dazu statt zur Komplettlackierung. Ist die Delle lackfrei zu drücken, wird gar nicht lackiert. Reicht das nicht aus, sagen wir das ebenso deutlich.',
-  },
-  {
-    title: 'Sie verhandeln nicht mit der Versicherung',
-    description: 'Auf Wunsch übernehmen wir Kostenvoranschlag, Schriftverkehr und die Abstimmung mit Versicherern, Agenturen und Gutachtern. Bei Hagelschäden rechnen wir direkt ab — ohne Anzahlung Ihrerseits.',
-  },
-  {
-    title: 'Sie bleiben mobil',
-    description: 'Für die Dauer der Reparatur organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug. Sprechen Sie uns bei der Terminvereinbarung darauf an.',
-  },
-  {
-    title: 'Reparatur ohne Wertminderung',
-    description: 'Die lackfreie Dellenentfernung ist lackschonend und im Nachhinein nicht nachweisbar — es entsteht keine Wertminderung. Sie ist von allen Versicherungen und Gutachtern anerkannt.',
-  },
-  {
-    title: 'Farbtongenau als Glasurit-Lackpartner',
-    description: 'Ziel jeder Lackreparatur ist, dass weder Farbton noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind — mit umweltschonenden Wasserbasislacken.',
-  },
-  {
-    title: 'Markenunabhängig und erfahren',
-    // Backlog 4.11 + R13: neue Bezeichnung; „seit 1998 am Markt" haengt am Betrieb, nicht am Meistertitel.
-    description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt, über 50 Mitarbeiter, alle Fabrikate — vom Kleinwagen bis zum Premiumfahrzeug.',
-  },
-];
+/**
+ * Vorteile: Lang- und Kurzfassung stehen seit Backlog 6.4 (2026-09-28) in `data/privatkunden.ts` — die Kurzfassung
+ * steht als Textkachel auf der Privatkunden-Karte der Startseite. Hier die Langfassung.
+ */
+const advantages = privatkundenVorteile.map(({ title, beschreibung }) => ({ title, description: beschreibung }));
 
 const services = [
   {
     title: 'Fahrzeugaufbereitung',
-    description: 'Innen- und Außenaufbereitung, Politur und Versiegelung — mit festen Paketpreisen ab 169,00 €.',
+    description: 'Innen- und Außenaufbereitung, Politur und Versiegelung, mit festen Paketpreisen ab 169,00 €.',
     href: '/fahrzeugaufbereitung-leipzig',
   },
   {
     title: 'Unfallschaden & Reparatur',
-    description: 'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand — auf Wunsch inklusive Abstimmung mit Versicherung und Gutachter.',
+    description: 'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand, auf Wunsch inklusive Abstimmung mit Versicherung und Gutachter.',
     href: '/unfallinstandsetzung-leipzig',
   },
   {
     title: 'Smart Repair',
-    description: 'Bei kleineren Lackschäden bearbeiten wir gezielt nur die betroffene Stelle statt des ganzen Bauteils — weniger aufwendig als eine Komplettlackierung.',
+    description: 'Bei kleineren Lackschäden bearbeiten wir gezielt nur die betroffene Stelle statt des ganzen Bauteils, weniger aufwendig als eine Komplettlackierung.',
     href: '/smart-repair-leipzig',
   },
   {
@@ -74,17 +45,17 @@ const services = [
   },
   {
     title: 'Neu- und Reparaturlackierung',
-    description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner — ohne erkennbare Farbton- oder Effektunterschiede zur Originallackierung.',
+    description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, ohne erkennbare Farbton- oder Effektunterschiede zur Originallackierung.',
     href: '/autolackierung-leipzig',
   },
   {
     title: 'Hagelschaden',
-    description: 'Kalkulation über das anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung — ohne Anzahlung.',
+    description: 'Kalkulation über das anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung.',
     href: '/hagelschadenreparatur-leipzig',
   },
   {
     title: 'Felgenreparatur',
-    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe im TÜV-zertifizierten Verfahren — auch an glanzgedrehten Felgen.',
+    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe im TÜV-zertifizierten Verfahren, auch an glanzgedrehten Felgen.',
     href: '/felgenreparatur-leipzig',
   },
   {
@@ -98,14 +69,14 @@ const situations = [
   { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege ab 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
   { title: 'Vor der Leasingrückgabe', description: 'Der Rückgabegutachter bewertet Dellen, Lackschäden, Felgen und Innenraum nach den Sätzen des Leasinggebers. Vorher instand gesetzt, ist vieles davon günstiger.', href: '/leasingrueckgabe-leipzig' },
   { title: 'Nach einem Unfall', description: 'Wir nehmen den Schaden auf, kalkulieren nachvollziehbar und übernehmen auf Wunsch die komplette Abstimmung mit der Versicherung.', href: '/unfallinstandsetzung-leipzig' },
-  { title: 'Nach dem Parkplatzrempler', description: 'Kleine Dellen und Kratzer müssen kein Fall für die Komplettlackierung sein — wir prüfen zuerst die lackfreie Variante und Spot-Repair.', href: '/dellenentfernung-leipzig' },
+  { title: 'Nach dem Parkplatzrempler', description: 'Kleine Dellen und Kratzer müssen kein Fall für die Komplettlackierung sein. Wir prüfen zuerst die lackfreie Variante und Spot-Repair.', href: '/dellenentfernung-leipzig' },
 ];
 
 const steps = [
-  { title: 'Melden', description: 'Rufen Sie an oder schildern Sie Ihr Anliegen online. Einen Schaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info — das hilft uns bei der ersten Einschätzung.' },
+  { title: 'Melden', description: 'Rufen Sie an oder schildern Sie Ihr Anliegen online. Einen Schaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info. Das hilft uns bei der ersten Einschätzung.' },
   { title: 'Fahrzeug ansehen', description: 'Wir begutachten das Fahrzeug vor Ort in Leipzig und besprechen, welcher Weg fachlich und wirtschaftlich sinnvoll ist.' },
   { title: 'Preis klären', description: 'Bei der Aufbereitung gelten die festen Paketpreise. Bei Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
-  { title: 'Reparatur & Übergabe', description: 'Wir arbeiten das Fahrzeug ab und übergeben es gereinigt zurück — mit Erklärung, was gemacht wurde.' },
+  { title: 'Reparatur & Übergabe', description: 'Wir arbeiten das Fahrzeug ab und übergeben es gereinigt zurück, mit Erklärung, was gemacht wurde.' },
 ];
 
 const PrivatkundenPage: React.FC = () => (
@@ -118,8 +89,8 @@ const PrivatkundenPage: React.FC = () => (
     />
     <PageHero
       eyebrow="Privatkunden"
-      title="Ihr Auto in Leipzig – gepflegt, repariert und wieder wie neu."
-      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort — als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
+      title="Ihr Auto in Leipzig, gepflegt, repariert und wieder wie neu."
+      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort, als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Autoaufbereitung Leipzig', 'Autoreparatur Leipzig', 'Smart Repair Leipzig', 'Leasingrückgabe Leipzig']}
@@ -141,7 +112,7 @@ const PrivatkundenPage: React.FC = () => (
         <SectionIntro
           eyebrow="Typische Anlässe"
           title="Wann Privatkunden uns brauchen."
-          description="Vier Situationen, in denen sich der Gang in den Fachbetrieb rechnet — mit dem jeweils passenden Einstieg."
+          description="Vier Situationen, in denen sich der Gang in den Fachbetrieb rechnet, mit dem jeweils passenden Einstieg."
         />
         <FeatureGrid items={situations} columns="four" />
       </div>
@@ -152,7 +123,7 @@ const PrivatkundenPage: React.FC = () => (
         <SectionIntro
           eyebrow="Leistungen für Privatkunden"
           title="Was wir für Ihr Fahrzeug tun können."
-          description="Von der Pflege bis zum Unfallschaden — wählen Sie den Bereich, der zu Ihrem Anliegen passt."
+          description="Wählen Sie den Bereich, der zu Ihrem Anliegen passt, von der Pflege bis zum Unfallschaden."
         />
         {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
         <LeistungsKarten items={services} columns="four" />
@@ -175,7 +146,7 @@ const PrivatkundenPage: React.FC = () => (
 
     <PageCTA
       title="Sagen Sie uns, was Ihr Auto braucht."
-      description="Beschreiben Sie Ihr Anliegen oder senden Sie Fotos des Schadens — wir schätzen ein, welcher Weg für Ihr Fahrzeug der passende ist."
+      description="Beschreiben Sie Ihr Anliegen oder senden Sie Fotos des Schadens. Wir schätzen ein, welcher Weg für Ihr Fahrzeug der passende ist."
       primaryLabel="Anfrage starten"
       primaryHref="/kontakt#contact-termin"
     />

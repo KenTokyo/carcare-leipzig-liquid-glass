@@ -8,14 +8,18 @@
 //     zweite Teil der Ausgabe (Dubletten), aber nur exakt gleiche Texte.
 //  3. Google schneidet nach Pixelbreite ab, nicht nach Zeichen. Der Korridor ist eine
 //     brauchbare Naeherung, keine Garantie.
+//  4. Sie liest `dist/`. Ein veraltetes `dist/` haelt seit 2026-09-28 `pruefeDistStand` ab
+//     (scripts/lib/dist-stand.mjs, dort auch, was DIESE Pruefung durchlaesst).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { pruefeDistStand } from './lib/dist-stand.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const AUS = path.join(wurzel, 'dist');
 const T = [50, 60], D = [140, 160];
 const strikt = process.argv.includes('--strikt');
+pruefeDistStand();
 
 const entschluesseln = (s) => s
   .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')

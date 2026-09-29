@@ -28,6 +28,11 @@
 // wurde). Das trifft gepinnte Flaechen. Was nur darunter vorbeizieht, zaehlt nicht — das tut
 // jeder Inhalt unter der Navbar. Die erste Fassung zaehlte „an zwei Positionen verdeckt" und
 // meldete neun grosse Karten-Links, die nur vorbeiscrollten.
+// SEIT 2026-09-28 JE ELEMENT, NICHT JE WORTLAUT: Verglichen wird dasselbe Element (Pfad ab <main>). Vorher genuegte
+// derselbe Text — auf 1024 × 700 stand an einer Position der Titel „Fuhrparkservice" einer Leistungskarte unter der
+// Aussparung und an der naechsten deren gleichlautende Knopfzeile, 10 px daneben: gemeldet als gepinnte Flaeche,
+// obwohl beides mitscrollte. Eine gepinnte Flaeche ist dasselbe Element an beiden Positionen — die trifft es weiter
+// (Gegenprobe „gepinnter Text").
 //
 // ABHILFE BEI EINEM BEFUND: Die gepinnte Flaeche unter die Navbar-Hoehe setzen (Muster: die
 // CSS-Variable `--nav` in den Zielgruppenkarten, 5,35 rem mobil / 6,75 rem ab `md`).
@@ -136,6 +141,12 @@ const UNTER_DEN_KNOEPFEN = () => {
   };
   const funde = [];
   const main = document.querySelector('main');
+  // Pfad ab <main> (Kindindizes) — unterscheidet gleichlautende Texte verschiedener Elemente.
+  const pfad = (el) => {
+    const teile = [];
+    for (let a = el; a && a !== main && a.parentElement; a = a.parentElement) teile.push([...a.parentElement.children].indexOf(a));
+    return teile.reverse().join('.');
+  };
   const gehe = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
   while (gehe.nextNode()) {
     const t = gehe.currentNode;
@@ -148,7 +159,7 @@ const UNTER_DEN_KNOEPFEN = () => {
     bereich.selectNodeContents(t);
     for (const rr of bereich.getClientRects()) {
       if (schneidet(rr) && obenAuf(el, mitte(rr))) {
-        funde.push({ name: `Text „${text.slice(0, 48)}"`, oben: Math.round(el.getBoundingClientRect().top) });
+        funde.push({ name: `Text „${text.slice(0, 48)}"`, schluessel: pfad(el), oben: Math.round(el.getBoundingClientRect().top) });
         break;
       }
     }
@@ -157,7 +168,7 @@ const UNTER_DEN_KNOEPFEN = () => {
     const er = el.getBoundingClientRect();
     if (!er.width || !schneidet(er) || !obenAuf(el, mitte(er))) continue;
     const name = (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ');
-    funde.push({ name: `${el.tagName.toLowerCase()} „${name.slice(0, 48)}"`, oben: Math.round(er.top) });
+    funde.push({ name: `${el.tagName.toLowerCase()} „${name.slice(0, 48)}"`, schluessel: pfad(el), oben: Math.round(er.top) });
   }
   return funde;
 };
@@ -267,6 +278,40 @@ const GEOMETRIE = ({ luckeMin, randMin }) => {
 const { basis, stopp } = await startePreview(4193);
 const browser = await puppeteer.launch({ headless: 'new', args: ['--force-prefers-no-reduced-motion'] });
 const warte = (ms) => new Promise((r) => setTimeout(r, ms));
+/**
+ * Scrollt die Seite in Schritten einer halben Fensterhoehe durch und sammelt, was DAUERHAFT unter der Aussparung
+ * liegt: dasselbe Element (Schluessel = Pfad ab <main>) an zwei aufeinanderfolgenden Positionen, Oberkante um
+ * weniger als `STEHT` verschoben. Rueckgabe: Name → Anzahl Positionen, dazu Positionen gesamt und mit Aussparung.
+ * `von`/`bis` begrenzen den Scrollbereich (Gegenprobe), ohne Angabe die ganze Seite.
+ */
+async function dauerhafteUeberdeckung(seite, h, von = 0, bis = null) {
+  const weg = bis ?? (await seite.evaluate(() => document.documentElement.scrollHeight - innerHeight));
+  let vorige = new Map();
+  const dauerhaft = new Map();
+  let positionen = 0;
+  let sichtbar = 0;
+  for (let y = von; y <= weg; y += Math.round(h / 2)) {
+    await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
+    // Gepinnte Flaechen brauchen ein, zwei Bilder.
+    await warte(160);
+    const funde = await seite.evaluate(UNTER_DEN_KNOEPFEN);
+    positionen++;
+    const jetzt = new Map();
+    if (funde) {
+      sichtbar++;
+      for (const f of funde) jetzt.set(`${f.name}@${f.schluessel}`, f);
+      for (const [schluessel, f] of jetzt) {
+        if (vorige.has(schluessel) && Math.abs(vorige.get(schluessel).oben - f.oben) < STEHT) {
+          dauerhaft.set(f.name, (dauerhaft.get(f.name) ?? 1) + 1);
+        }
+      }
+    }
+    vorige = jetzt;
+    await seite.evaluate(() => window.__ccLoslassen());
+  }
+  return { dauerhaft, positionen, sichtbar };
+}
+
 let befunde = 0;
 let angeschnittenGesamt = 0;
 let hinweise = 0;
@@ -293,11 +338,37 @@ if (process.argv.includes('--gegenprobe')) {
       if (!meldungen.length) blind++;
       await seite.close();
     }
+    // Gepinnter Text (seit 2026-09-28): prueft, dass der Vergleich je Element eine echte gepinnte Flaeche weiter findet.
+    {
+      const seite = await browser.newPage();
+      await seite.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+      await seite.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
+      await seite.evaluateOnNewDocument(HALTE_SCROLL);
+      await seite.goto(basis + '/', { waitUntil: 'networkidle0' });
+      const bereich = await seite.evaluate(() => {
+        const s = document.getElementById('leistungen');
+        const d = document.createElement('div');
+        d.textContent = 'Gepinnter Testtext';
+        d.style.cssText = 'position:sticky;top:12px;margin-left:auto;width:280px;height:60px;background:#fff;z-index:30';
+        s.prepend(d);
+        const r = s.getBoundingClientRect();
+        // Der Block rastet erst nach dem oberen Sektionsabstand (112 px) ein und steht bis kurz vor dem Sektionsende:
+        // 150 px nach dem Anfang beginnen und 100 px vor dem Ende aufhoeren — so fallen zwei Messpositionen hinein
+        // (erster Aufbau: nur eine, Gegenprobe blind, gemessen am 2026-09-28).
+        return { von: Math.round(r.top + scrollY + 150), bis: Math.round(r.bottom + scrollY - 100) };
+      });
+      await seite.evaluate(AUSSPARUNG_RUHIG);
+      const { dauerhaft } = await dauerhafteUeberdeckung(seite, 900, bereich.von, bereich.bis);
+      const erkannt = [...dauerhaft.keys()].some((n) => n.includes('Gepinnter Testtext'));
+      console.log(`  ${erkannt ? '✓ erkannt ' : '✗ BLIND   '} gepinnter Text unter der Aussparung (dauerhafte Ueberdeckung)`);
+      if (!erkannt) blind++;
+      await seite.close();
+    }
   } finally {
     await browser.close();
     stopp();
   }
-  console.log(blind ? `\n✗ ${blind} eingespielte(r) Fehler NICHT erkannt` : `\n✓ Gegenprobe: alle ${Object.keys(GEGENPROBEN).length} eingespielten Fehler erkannt`);
+  console.log(blind ? `\n✗ ${blind} eingespielte(r) Fehler NICHT erkannt` : `\n✓ Gegenprobe: alle ${Object.keys(GEGENPROBEN).length + 1} eingespielten Fehler erkannt`);
   process.exit(blind ? 1 : 0);
 }
 
@@ -336,30 +407,7 @@ try {
         console.log(`  ✗ ${route.padEnd(52)} Knopf der Aussparung angeschnitten: ${angeschnitten.join(', ')}`);
         angeschnittenGesamt += angeschnitten.length;
       }
-      const weg = await seite.evaluate(() => document.documentElement.scrollHeight - innerHeight);
-      let vorige = new Map();
-      const dauerhaft = new Map();
-      let positionen = 0;
-      let sichtbar = 0;
-      for (let y = 0; y <= weg; y += Math.round(h / 2)) {
-        await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
-        // Gepinnte Flaechen brauchen ein, zwei Bilder.
-        await warte(160);
-        const funde = await seite.evaluate(UNTER_DEN_KNOEPFEN);
-        positionen++;
-        const jetzt = new Map();
-        if (funde) {
-          sichtbar++;
-          for (const f of funde) jetzt.set(f.name, f.oben);
-          for (const [name, oben] of jetzt) {
-            if (vorige.has(name) && Math.abs(vorige.get(name) - oben) < STEHT) {
-              dauerhaft.set(name, (dauerhaft.get(name) ?? 1) + 1);
-            }
-          }
-        }
-        vorige = jetzt;
-        await seite.evaluate(() => window.__ccLoslassen());
-      }
+      const { dauerhaft, positionen, sichtbar } = await dauerhafteUeberdeckung(seite, h);
       const anteil = positionen ? sichtbar / positionen : 0;
       const zeichen = dauerhaft.size ? '✗' : anteil < SICHTBAR_MINDESTENS ? '⚠' : '✓';
       console.log(`  ${zeichen} ${route.padEnd(52)} sichtbar an ${String(Math.round(anteil * 100)).padStart(3)} % von ${positionen} Positionen`);

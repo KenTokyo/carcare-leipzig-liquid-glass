@@ -44,7 +44,7 @@ export const videoPlaetze: VideoPlatz[] = [
     titel: 'Videoplatz Hero Über uns',
     beschreibung: 'Läuft als Hintergrund hinter dem Kopfbereich weiter, während gescrollt wird.',
     zweck:
-      'Ruhiger Ausschnitt aus dem Betriebsvideo, der als Endlosschleife im Hintergrund tragen kann — ohne harte Schnitte, ohne Text im Bild.',
+      'Ruhiger Ausschnitt aus dem Betriebsvideo, der als Endlosschleife im Hintergrund tragen kann, ohne harte Schnitte, ohne Text im Bild.',
     // Geliefert am 2026-09-07. Ausschnitt 9,0–21,2 s aus `2. Video/CarCare .mov` — die
     // laengste schnittfreie Einstellung des Films, stumm, 1280 breit, 2,1 MiB statt
     // 115,6 MiB. Herleitung des Ausschnitts und der Parameter: `scripts/build-video.mjs`.
@@ -80,7 +80,7 @@ export const videoPlaetze: VideoPlatz[] = [
   {
     id: 'karriere-betrieb',
     titel: 'Videoplatz Arbeitsplatz',
-    beschreibung: 'Zeigt den Betrieb, in dem gearbeitet wird — nicht nur eine Liste von Vorteilen.',
+    beschreibung: 'Zeigt den Betrieb, in dem gearbeitet wird, nicht nur eine Liste von Vorteilen.',
     zweck:
       'Derselbe Rundgang wie auf „Über uns", hier auf den Arbeitsplatz hin geschnitten: Hallen, Ausstattung, Arbeitsplätze im Betrieb.',
     // Geliefert am 2026-09-07, Ausschnitt 46,3–75,9 s aus derselben Quelle: Lackierkabine,
@@ -110,10 +110,27 @@ export const videoPlaetze: VideoPlatz[] = [
     // NUR AUF DER STARTSEITE (Wunsch des Users: „damit wir nicht zu viel Datenvolumen mit der
     // gesamten Seite fressen“). Alle anderen Stellen der Leistung zeigen das Foto aus
     // `data/services.ts`. Auch hier laedt das Video erst, wenn die Karte aufgeklappt wird.
+    // Ausnahme seit 2026-09-28: der Seitenhintergrund der Lackierseite (6.12) — mit EIGENEM Querschnitt,
+    // siehe `lackierung-hintergrund` unten.
     quelle: '/assets/carcare-autolackierung.mp4',
     poster: '/assets/carcare-autolackierung-standbild.webp',
     istPlatzhalter: false,
     backlog: 'B11',
+  },
+  {
+    id: 'lackierung-hintergrund',
+    titel: 'Videoplatz Hintergrund Neu- und Reparaturlackierung',
+    beschreibung: 'Ein Kollege lackiert in der Lackierkabine eine Motorhaube.',
+    zweck:
+      'Derselbe Film wie auf der Startseitenkarte, als stehender Seitenhintergrund von /autolackierung-leipzig.',
+    // Backlog 6.12 (Meeting 2026-09-28): „Das Subbild muss bitte angepasst werden in das Video, was wir in der
+    // Hauptpage genutzt haben. Und das Hintergrundbild.“ Dieselben 13 Sekunden wie die Karte, aber quer 16:10
+    // in voller Quellbreite (1080 px, 1,27 MiB) statt quadratisch mit 720 px — Herleitung in
+    // `scripts/build-video.mjs`, Schnitt `lackierung-hintergrund`. Laeuft nur auf dieser einen Seite.
+    quelle: '/assets/carcare-autolackierung-hintergrund.mp4',
+    poster: '/assets/carcare-autolackierung-hintergrund-standbild.webp',
+    istPlatzhalter: false,
+    backlog: '6.12',
   },
 
   /*
@@ -133,7 +150,7 @@ export const videoPlaetze: VideoPlatz[] = [
     id: 'bereich-karosserie',
     titel: 'Videoplatz Karosserie- und Mechanikbereich',
     beschreibung: 'Der Karosserie- und Mechanikbereich im laufenden Betrieb.',
-    zweck: 'Kurzer Rundgang durch den Karosserie- und Mechanikbereich: Instandsetzung nach Unfallschäden, Richten, Schweißen und Montage — Menschen bei der Arbeit, kein Text im Bild.',
+    zweck: 'Kurzer Rundgang durch den Karosserie- und Mechanikbereich: Instandsetzung nach Unfallschäden, Richten, Schweißen und Montage. Menschen bei der Arbeit, kein Text im Bild.',
     // Geliefert am 2026-09-23 vom User („CarCare 2 Hebebühne.mov" aus dem Drohnenordner der
     // Lieferung vom 07.09.). Ganze Einstellung 0–10,1 s, stumm, 960 breit — 0,57 MiB statt
     // 13,4 MiB. Herleitung: `scripts/build-video.mjs`, Schnitt `bereich-karosserie`.
@@ -153,7 +170,7 @@ export const videoPlaetze: VideoPlatz[] = [
     id: 'bereich-lack',
     titel: 'Videoplatz Lackierbereich',
     beschreibung: 'Der Lackierbereich im laufenden Betrieb.',
-    zweck: 'Kurzer Rundgang durch den Lackierbereich: Vorbereitung, Farbtonbestimmung und Arbeit in der Lackierkabine — kein Text im Bild.',
+    zweck: 'Kurzer Rundgang durch den Lackierbereich: Vorbereitung, Farbtonbestimmung und Arbeit in der Lackierkabine. Kein Text im Bild.',
     // Geliefert am 2026-09-23 vom User („CarCare Lackieren.mov"). Ausschnitt 1,6–11,9 s,
     // stumm, 960 breit — 0,73 MiB statt 15,8 MiB.
     //
@@ -169,7 +186,7 @@ export const videoPlaetze: VideoPlatz[] = [
     id: 'bereich-aufbereitung',
     titel: 'Videoplatz Aufbereitungsbereich',
     beschreibung: 'Der Aufbereitungsbereich im laufenden Betrieb.',
-    zweck: 'Kurzer Rundgang durch den Aufbereitungsbereich: Innen- und Außenaufbereitung, Politur und Versiegelung — kein Text im Bild.',
+    zweck: 'Kurzer Rundgang durch den Aufbereitungsbereich: Innen- und Außenaufbereitung, Politur und Versiegelung. Kein Text im Bild.',
     // Geliefert am 2026-09-23 vom User („CarCare 1 Polieren .mov"). Ausschnitt 0,8–16,8 s
     // von 25,4 s, stumm, 960 breit — 1,58 MiB statt 33,3 MiB. Ab etwa 17 s wandert die
     // Kamera nach rechts und es steht mehr Hallenboden als Arbeit im Bild.

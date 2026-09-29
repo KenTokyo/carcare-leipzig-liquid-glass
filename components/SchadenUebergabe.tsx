@@ -32,7 +32,7 @@ const SchadenUebergabe: React.FC<{ imDialog?: boolean }> = ({ imDialog = false }
       <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-700">Schaden melden</span>
     </div>
     <h3 className="mb-3 pr-10 text-2xl font-bold leading-tight text-gray-950 md:text-3xl">
-      Schaden online melden — mit Fotos.
+      Schaden online mit Fotos melden.
     </h3>
     <p className="text-sm leading-relaxed text-gray-600 md:text-base">
       Schadenmeldungen nehmen wir über unsere Schadenseite auf {SCHADENMELDUNG_PORTAL} entgegen. Dort haben Sie
@@ -47,7 +47,7 @@ const SchadenUebergabe: React.FC<{ imDialog?: boolean }> = ({ imDialog = false }
         <span className="min-w-0">
           <span className="block text-sm font-bold text-gray-950">Schadeninformation übermitteln</span>
           <span className="mt-0.5 block text-sm leading-relaxed text-gray-600">
-            Schadendaten und Fotos hochladen — für eine schnelle Ersteinschätzung.
+            Schadendaten und Fotos hochladen, für eine schnelle Ersteinschätzung.
           </span>
         </span>
       </li>

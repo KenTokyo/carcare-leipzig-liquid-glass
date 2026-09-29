@@ -5,6 +5,8 @@ import { useScrollProgress } from '../hooks/useScrollProgress';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import KiMarke from './KiMarke';
+import BereichsPlakette from './BereichsPlakette';
+import type { Bereich } from '../data/services';
 
 /**
  * Gemeinsame Mechanik der scroll-gepinnten Prozess-Sektionen.
@@ -51,10 +53,19 @@ interface ScrollPinnedProcessProps {
   steps: ProcessStepCard[];
   /** Sektions-CTAs (Desktop). Auf Mobile deckt die fixierte Bottom-Nav dieselben Aktionen ab. */
   ctas?: ProcessSectionCta[];
+  /** „Care" oder „Repair" neben der Kopfzeile (Backlog 6.8). */
+  bereich?: Bereich | null;
 }
 
 // Weiche Crossfade-Ueberlappung an den Intervallgrenzen (kein harter Cut).
 const OVERLAP = 0.06;
+
+/**
+ * „Ablauf überspringen" als dezenter Textlink (Backlog 6.3): kein Rahmen, keine Flaeche, kleine Versalien in
+ * `gray-700`; beim Zeigen blau mit Unterstrich. Die 48 px Trefferflaeche bleiben (`min-h-12`), nur unsichtbar.
+ */
+const UEBERSPRINGEN_KLASSE =
+  'inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-full px-2 text-[11px] font-bold uppercase tracking-[0.16em] text-gray-700 underline-offset-4 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600';
 
 /**
  * CarCare-Logo-Siegel (statisches WebP, kein Autoplay-Video): identisch zum
@@ -175,6 +186,7 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
   intro,
   steps,
   ctas = [],
+  bereich,
 }) => {
   const trackRef = useRef<HTMLElement>(null);
   const stepSize = 1 / steps.length;
@@ -298,9 +310,12 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
         <div className="container relative mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
           {/* Links/oben: statischer Header + CTAs + Fortschritt */}
           <div className="lg:w-[45%]">
-            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
-              {badgeIcon}
-              {badgeLabel}
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
+                {badgeIcon}
+                {badgeLabel}
+              </div>
+              <BereichsPlakette bereich={bereich} className="py-1.5" />
             </div>
             <h2
               id={headingId}
@@ -313,12 +328,13 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
               {intro}
             </p>
 
-            {/* Fortschritts-Indikator (Dots + Zaehler, folgen dem aktiven Schritt) und daneben
-                „Ablauf überspringen" (5.13). Der Knopf steht BEWUSST ausserhalb des `aria-hidden`
-                der Dots und VOR den CTAs: Wer den Ablauf nicht sehen will, soll ihn frueh verlassen
-                koennen. Beschriftet statt Symbol (Vorgabe des Users), 48 px hoch (SEO-GEO §2.3);
-                mobil die kurze Fassung, damit er neben die Dots passt. */}
-            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+            {/* Fortschritts-Indikator (Dots + Zaehler, folgen dem aktiven Schritt).
+                „ABLAUF ÜBERSPRINGEN" (5.13, seit 6.3 dezent): Im Meeting 2026-09-28 wollte Ali es „sehr dezent auf
+                der rechten Seite" statt als Knopf neben den Punkten. Deshalb ein TEXTLINK ohne Rahmen und Flaeche,
+                bleibt aber beschriftet (Vorgabe des Users) und 48 px hoch (SEO-GEO §2.3). Unterhalb `lg` rechts in
+                dieser Zeile, ab `lg` unten rechts an der Buehne (zweiter Knopf weiter unten). Nur einer ist je
+                Breite sichtbar; der andere ist `display: none` und damit auch fuer Vorlesegeraete nicht da. */}
+            <div className="mt-7 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2.5" aria-hidden="true">
                 {steps.map((s, i) => (
                   <span
@@ -328,18 +344,15 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
                     }`}
                   />
                 ))}
-                <span className="ml-2 text-xs font-bold tracking-wide text-gray-600">
+                {/* `whitespace-nowrap`: Mit „Überspringen" rechts daneben brach der Zaehler auf 390 px in
+                    „01 /" und „05" um (Bildschirmfoto 2026-09-28). */}
+                <span className="ml-2 whitespace-nowrap text-xs font-bold tracking-wide text-gray-600">
                   {steps[active].n} / {String(steps.length).padStart(2, '0')}
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={ueberspringen}
-                className="inline-flex min-h-12 items-center gap-2 rounded-full border border-blue-200 bg-white px-5 text-sm font-bold text-blue-600 shadow-sm transition-colors hover:border-blue-400 hover:bg-blue-50"
-              >
-                <span className="sm:hidden">Überspringen</span>
-                <span className="hidden sm:inline">Ablauf überspringen</span>
-                <ArrowDown size={16} aria-hidden="true" />
+              <button type="button" onClick={ueberspringen} className={`${UEBERSPRINGEN_KLASSE} lg:hidden`}>
+                Überspringen
+                <ArrowDown size={14} aria-hidden="true" />
               </button>
             </div>
 
@@ -383,6 +396,17 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
                 folgt aber weiterhin dem aktiven Schritt. */}
             <KiMarke quelle={steps[active].image} className="right-4 top-4" />
           </div>
+
+          {/* „Ablauf überspringen" ab `lg` (6.3): unten rechts am Inhaltsbereich, unter der Kartenbuehne. Dort liegt
+              der weisse Rand des Hintergrundfotos, und ab `lg` gibt es keine feste Leiste am Fensterfuss. */}
+          <button
+            type="button"
+            onClick={ueberspringen}
+            className={`${UEBERSPRINGEN_KLASSE} absolute bottom-6 right-0 hidden lg:inline-flex`}
+          >
+            Ablauf überspringen
+            <ArrowDown size={14} aria-hidden="true" />
+          </button>
         </div>
       </div>
     </section>

@@ -23,10 +23,10 @@ const steps: ProcessStepCard[] = [
     n: '01',
     title: 'Schaden melden',
     description:
-      'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info – mit Schadendaten und Fotos. Telefonisch geht es genauso.',
+      'Melden Sie Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info, mit Schadendaten und Fotos. Telefonisch geht es genauso.',
     image: kachel('schaden-melden-leipzig-carcare'),
     imageAlt:
-      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über die Online-Schadenseite des CarCare Center Leipzig – im Hintergrund das beschädigte Fahrzeug.',
+      'Autofahrerin meldet ihren Unfallschaden unterwegs per Smartphone über die Online-Schadenseite des CarCare Center Leipzig, im Hintergrund das beschädigte Fahrzeug.',
     // Seit 2026-09-16: Schadenseite auf reparatur.info (Backlog 2.23), Ziel aus EINER Quelle.
     cta: { label: 'Schaden melden', href: SCHADEN_ZIEL },
   },
@@ -34,7 +34,7 @@ const steps: ProcessStepCard[] = [
     n: '02',
     title: 'Schadenaufnahme',
     description:
-      'Wir erfassen den Schaden – vor Ort oder anhand Ihrer Fotos – und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
+      'Wir erfassen den Schaden, vor Ort oder anhand Ihrer Fotos, und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
     // Seit 2026-09-21 das fruehere Motiv der Unfall-Kachel (B10), auf Wunsch des Users hierher
     // versetzt: ruhiger als das vorige Bild mit Kundin und gelbem Sportwagen (Backlog 3.8).
     // Gilt bis zur Klaerung als KI-generiert (`data/bildherkunft.ts`) — der Text beschreibt
@@ -81,8 +81,10 @@ const AccidentDamageSection: React.FC = () => (
     headingId="accident-heading"
     badgeIcon={<AlertTriangle size={15} />}
     badgeLabel="Unfall & Schaden Leipzig"
+    // Backlog 6.8: Repair an allem zu Unfallinstandsetzung und Lackierung.
+    bereich="repair"
     heading="Unfallschaden? Wir übernehmen Reparatur, Gutachten und Abstimmung mit der Versicherung."
-    intro="Von der Schadenmeldung bis zum Ersatzwagen – in fünf klaren Schritten, aus einer Hand."
+    intro="Von der Schadenmeldung bis zum Ersatzwagen in fünf klaren Schritten, aus einer Hand."
     steps={steps}
     ctas={[
       { label: 'Schaden jetzt melden', href: SCHADEN_ZIEL },

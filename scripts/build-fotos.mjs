@@ -80,6 +80,9 @@ const LIEFERUNG = 'Lieferung „Neue Fotos Schleife September“, eingebaut am 2
  * Beides wurde am Bild gemessen (vergroesserte Ausschnitte), nicht geschaetzt.
  * `beschreibung` beschreibt, was zu sehen ist — Markennamen bewusst nicht, wie in den
  * Alternativtexten der Seite („gelber Sportwagen“ statt Modellname).
+ * `format` / `breite` (seit 2026-09-28, optional): anderes Seitenverhaeltnis als 4:3 bzw. geringere
+ * Breite als `MAX_BREITE` — fuer Einsatzorte, die ein anderes Format brauchen (Backlog 6.2: quadratisch,
+ * rund 430 px breit dargestellt; 2000 px waeren dort nur Ladezeit).
  */
 const FOTOS = [
   {
@@ -212,26 +215,78 @@ const FOTOS = [
     beschreibung: 'Karosseriebauer mit Schutzbrille setzt mit der Punktschweißzange Schweißpunkte am Dachrahmen eines Unfallfahrzeugs.',
     stichwoerter: ['Karosserie- und Fahrzeugbaumechaniker', 'Karriere', 'Punktschweißen', 'Karosseriebau', 'Ausbildung Leipzig'],
   },
+  /*
+   * BACKLOG 6.2 (User, 2026-09-28): Bilder zum Schaum-/Tornador-Verfahren. Aus demselben Lieferordner, vom User
+   * als Chat-Anhang ausgewaehlt; iPhone-Aufnahme vom 20.08.2026, 16:46 — zwischen dem Vorher- (14:55) und dem
+   * Nachher-Foto (17:06) desselben Lenkrads, siehe `VERGLEICHE` unten.
+   * QUADRATISCH: Die Karte steht neben der breiteren Vorher/Nachher-Karte (3/5 zu 2/5 der Reihe); gleich hoch
+   * sind beide Bilder bei 16:10 dort und 1:1 hier. `oben` 0,14: Buerste mit Schaum (ab 0,22), Lenkradkranz
+   * (0,31–0,80) und die zweite Hand rechts bleiben ganz im Bild.
+   */
+  {
+    ziel: 'kacheln/alcantara-schaumreinigung-leipzig-carcare.webp',
+    quelle: 'Alcantara Aufbereitung Waschen.jpeg',
+    stellen: 'Innenaufbereitung › Exklusivleistungen (6.2)',
+    format: 1,
+    breite: 1200,
+    oben: 0.14,
+    titel: 'Schaumreinigung eines Alcantara-Lenkrads im CarCare Center Leipzig',
+    beschreibung: 'Mitarbeiter arbeitet mit einer Bürste Reinigungsschaum in den Alcantara-Kranz eines ausgebauten Lenkrads ein, die Mitte ist mit Klebeband abgedeckt.',
+    stichwoerter: ['Alcantara', 'Lenkrad', 'Schaumreinigung', 'Innenaufbereitung', 'Fahrzeugaufbereitung'],
+  },
 ];
+
+/**
+ * VERGLEICHSBILDER (Backlog 6.2, User 2026-09-28: „ein sauberes Vorher/Nachher-Bild, was genau den Unterschied
+ * einer solchen Dienstleistung zeigt“). EIN Bild aus zwei Aufnahmen: links vorher, rechts nachher, jede Haelfte
+ * 4:5, dazwischen eine weisse Fuge. Beschriftet wird auf der Seite (HTML), nicht im Bild — scharf und vorlesbar.
+ *
+ * WARUM KEIN SCHIEBEREGLER: Der braucht deckungsgleiche Aufnahmen. Diese beiden sind aus verschiedenen Winkeln
+ * fotografiert; uebereinandergelegt stuenden Kranz und Speiche an zwei Stellen.
+ * WIE GERAHMT: gleicher Bildinhalt in beiden Haelften — der Uebergang vom Kranz zur Speiche mit Carbonblende und
+ * Schalter —, und der Kranz etwa gleich dick (die Nachher-Aufnahme ist weiter weg, deshalb der engere Ausschnitt:
+ * 0,65 statt 0,8 der Bildbreite). Drei Rahmungen verglichen (ganzes Bild, diese, noch enger); die engste zeigte den
+ * Flor am deutlichsten, verlor aber die Speiche, an der man die Stelle wiedererkennt.
+ * NUR ZUGESCHNITTEN: keine Retusche, keine Farbangleichung — sonst waere der Vergleich keiner. IPTC
+ * „compositeCapture“ = Zusammenstellung echter Aufnahmen (Gegenstueck zu `digitalCapture` beim Einzelfoto).
+ *
+ * `x0`, `y0`, `b`: linke obere Ecke und Breite des Ausschnitts relativ zum aufgerichteten Bild; die Hoehe folgt aus 4:5.
+ */
+const VERGLEICHE = [
+  {
+    ziel: 'kacheln/alcantara-lenkrad-vorher-nachher-leipzig-carcare.webp',
+    stellen: 'Innenaufbereitung › Exklusivleistungen (6.2)',
+    vorher: { quelle: 'Alcantara Lenkrad Vorher.jpeg', x0: 0.0, y0: 0.2, b: 0.8 },
+    nachher: { quelle: 'Alacantara Lenkrad nachher.jpeg', x0: 0.15, y0: 0.18, b: 0.65 },
+    titel: 'Alcantara-Lenkrad vor und nach der Aufbereitung – CarCare Center Leipzig',
+    beschreibung: 'Dasselbe Alcantara-Lenkrad am Übergang zur Speiche: links vor der Aufbereitung mit verdichtetem, speckig glänzendem Flor im Griffbereich, rechts danach mit gleichmäßig aufgerichtetem Flor. Zwei Aufnahmen vom selben Tag, nur zugeschnitten.',
+    stichwoerter: ['Alcantara', 'Lenkrad', 'Vorher Nachher', 'Innenaufbereitung', 'Fahrzeugaufbereitung'],
+  },
+];
+const QUELLTYP_ZUSAMMENSTELLUNG = 'http://cv.iptc.org/newscodes/digitalsourcetype/compositeCapture';
+const FUGE = 8;
 
 const args = process.argv.slice(2);
 const wert = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : null);
 const ordner = wert('--ordner') ?? STANDARD_ORDNER;
 const nur = wert('--nur');
 const auswahl = FOTOS.filter((f) => !nur || f.ziel.includes(nur));
+const vergleichsAuswahl = VERGLEICHE.filter((v) => !nur || v.ziel.includes(nur));
 
 if (!fs.existsSync(ordner)) {
   console.error(`[fotos] Lieferordner nicht gefunden:\n        ${ordner}`);
   console.error('[fotos] Er liegt bewusst ausserhalb des Repositories. Pfad angeben mit:  npm run fotos -- --ordner "<Pfad>"');
   process.exit(1);
 }
-if (!auswahl.length) {
-  console.error(`[fotos] Kein Ziel enthaelt "${nur}". Bekannt: ${FOTOS.map((f) => path.basename(f.ziel, '.webp')).join(', ')}`);
+if (!auswahl.length && !vergleichsAuswahl.length) {
+  const bekannt = [...FOTOS, ...VERGLEICHE].map((f) => path.basename(f.ziel, '.webp')).join(', ');
+  console.error(`[fotos] Kein Ziel enthaelt "${nur}". Bekannt: ${bekannt}`);
   process.exit(1);
 }
-const fehlend = auswahl.filter((f) => !fs.existsSync(path.join(ordner, f.quelle)));
+const quellen = [...auswahl.map((f) => f.quelle), ...vergleichsAuswahl.flatMap((v) => [v.vorher.quelle, v.nachher.quelle])];
+const fehlend = quellen.filter((q) => !fs.existsSync(path.join(ordner, q)));
 if (fehlend.length) {
-  console.error(`[fotos] Quelle fehlt im Lieferordner: ${fehlend.map((f) => f.quelle).join(', ')}`);
+  console.error(`[fotos] Quelle fehlt im Lieferordner: ${fehlend.join(', ')}`);
   process.exit(1);
 }
 
@@ -246,7 +301,7 @@ const aufnahmezeit = (exif) => {
   return zeiten[0] ?? null;
 };
 
-const xmpPaket = (f, datum) => `<?xpacket begin="\uFEFF" id="W5M0MpCehiHzreSzNTczkc9d"?>
+const xmpPaket = (f, datum, quelltyp = QUELLTYP_ECHT) => `<?xpacket begin="\uFEFF" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about=""
@@ -261,7 +316,7 @@ const xmpPaket = (f, datum) => `<?xpacket begin="\uFEFF" id="W5M0MpCehiHzreSzNTc
     photoshop:State="Sachsen"
     photoshop:Country="Deutschland"${datum ? `\n    photoshop:DateCreated="${datum}"` : ''}
     Iptc4xmpCore:CountryCode="DE"
-    Iptc4xmpExt:DigitalSourceType="${QUELLTYP_ECHT}"
+    Iptc4xmpExt:DigitalSourceType="${quelltyp}"
     xmpRights:Marked="True">
    <dc:title><rdf:Alt><rdf:li xml:lang="x-default">${xml(f.titel)}</rdf:li></rdf:Alt></dc:title>
    <dc:description><rdf:Alt><rdf:li xml:lang="x-default">${xml(f.beschreibung)}</rdf:li></rdf:Alt></dc:description>
@@ -314,20 +369,21 @@ for (const f of auswahl) {
     rohFertig = { raw: { width: r.info.width, height: r.info.height, channels: r.info.channels } };
   }
 
-  // 3. Ausschnitt 4:3 quer. Querformate mit 4:3 bleiben vollstaendig.
+  // 3. Ausschnitt 4:3 quer (oder `format`). Querformate im Zielformat bleiben vollstaendig.
   //    Ausnahme `ausschnitt` (Hintergrund-Fassungen): fester Rahmen, ohne `y1` im Format 16:10.
+  const format = f.format ?? FORMAT;
   let ausschnitt = { left: 0, top: 0, width: W, height: H };
   if (f.ausschnitt) {
     const a = f.ausschnitt;
     const width = Math.round((a.x1 - a.x0) * W);
     const height = Math.round(a.y1 !== undefined ? (a.y1 - a.y0) * H : width / 1.6);
     ausschnitt = { left: Math.round(a.x0 * W), top: Math.min(H - height, Math.round(a.y0 * H)), width, height };
-  } else if (W / H < FORMAT - 0.01) {
-    const hoehe = Math.round(W / FORMAT);
+  } else if (W / H < format - 0.01) {
+    const hoehe = Math.round(W / format);
     const top = Math.min(H - hoehe, Math.max(0, Math.round((f.oben ?? 0.5 - hoehe / H / 2) * H)));
     ausschnitt = { left: 0, top, width: W, height: hoehe };
-  } else if (W / H > FORMAT + 0.01) {
-    const breite = Math.round(H * FORMAT);
+  } else if (W / H > format + 0.01) {
+    const breite = Math.round(H * format);
     ausschnitt = { left: Math.round((W - breite) / 2), top: 0, width: breite, height: H };
   }
 
@@ -336,7 +392,7 @@ for (const f of auswahl) {
   fs.mkdirSync(path.dirname(ziel), { recursive: true });
   await sharp(entschaerft, rohFertig)
     .extract(ausschnitt)
-    .resize({ width: MAX_BREITE, withoutEnlargement: true })
+    .resize({ width: f.breite ?? MAX_BREITE, withoutEnlargement: true })
     .webp({ quality: QUALITAET, effort: AUFWAND })
     .withExif({ IFD0: { Artist: 'BS CarCare GmbH', Copyright: '(c) 2026 BS CarCare GmbH, Leipzig' } })
     .withXmp(xmpPaket(f, datum))
@@ -374,10 +430,66 @@ for (const f of auswahl) {
   ergebnis.push({ f, ziel, fertig, datum, flecken: flecken.map((fl) => fl.was), hochformat: !f.ausschnitt && ausschnitt.height < H });
 }
 
+// VERGLEICHSBILDER (6.2): zwei Ausschnitte 4:5 gleicher Groesse nebeneinander, weisse Fuge dazwischen.
+for (const v of vergleichsAuswahl) {
+  const haelfteBreite = Math.floor((MAX_BREITE - FUGE) / 2);
+  const haelfteHoehe = Math.round(haelfteBreite * 1.25);
+  const teile = [];
+  for (const seite of [v.vorher, v.nachher]) {
+    const quelle = path.join(ordner, seite.quelle);
+    const datum = aufnahmezeit((await sharp(quelle).metadata()).exif);
+    const { data, info } = await sharp(quelle).rotate().removeAlpha().toColourspace('srgb').raw()
+      .toBuffer({ resolveWithObject: true });
+    const W = info.width;
+    const H = info.height;
+    const width = Math.round(seite.b * W);
+    const height = Math.round(width * 1.25);
+    if (height > H) throw new Error(`[fotos] ${seite.quelle}: Ausschnitt ${width} x ${height} ist hoeher als das Bild (${H})`);
+    const rahmen = { left: Math.round(seite.x0 * W), top: Math.min(H - height, Math.round(seite.y0 * H)), width, height };
+    const roh = { raw: { width: W, height: H, channels: info.channels } };
+    const bild = await sharp(data, roh).extract(rahmen).resize({ width: haelfteBreite, height: haelfteHoehe }).raw().toBuffer();
+    teile.push({ seite, datum, rahmen, W, H, data, roh, bild });
+  }
+  const ziel = path.join(ZIEL, v.ziel);
+  fs.mkdirSync(path.dirname(ziel), { recursive: true });
+  const kanaele = { raw: { width: haelfteBreite, height: haelfteHoehe, channels: 3 } };
+  await sharp({ create: { width: 2 * haelfteBreite + FUGE, height: haelfteHoehe, channels: 3, background: '#ffffff' } })
+    .composite([{ input: teile[0].bild, ...kanaele, left: 0, top: 0 }, { input: teile[1].bild, ...kanaele, left: haelfteBreite + FUGE, top: 0 }])
+    .webp({ quality: QUALITAET, effort: AUFWAND })
+    .withExif({ IFD0: { Artist: 'BS CarCare GmbH', Copyright: '(c) 2026 BS CarCare GmbH, Leipzig' } })
+    .withXmp(xmpPaket(v, teile[0].datum, QUELLTYP_ZUSAMMENSTELLUNG))
+    .toFile(ziel);
+  const fertig = await sharp(ziel).metadata();
+
+  // Pruefbogen: beide Quellen mit rotem Ausschnitt, darunter das Ergebnis.
+  const vb = 420;
+  const quellbilder = [];
+  for (const t of teile) {
+    const skala = vb / t.W;
+    const rot = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${vb}" height="${Math.round(t.H * skala)}"><rect x="${t.rahmen.left * skala}" y="${t.rahmen.top * skala}" width="${t.rahmen.width * skala}" height="${t.rahmen.height * skala}" fill="none" stroke="#ef4444" stroke-width="3"/></svg>`);
+    quellbilder.push({ bild: await sharp(t.data, t.roh).resize({ width: vb }).composite([{ input: rot, left: 0, top: 0 }]).jpeg().toBuffer(), hoehe: Math.round(t.H * skala) });
+  }
+  const ergebnisBild = await sharp(ziel).resize({ width: 2 * vb + 12 }).jpeg().toBuffer();
+  const hq = Math.max(...quellbilder.map((q) => q.hoehe));
+  const he = Math.round((2 * vb + 12) / (fertig.width / fertig.height));
+  await sharp({ create: { width: 2 * vb + 36, height: hq + he + 36, channels: 3, background: '#111111' } })
+    .composite([
+      { input: quellbilder[0].bild, left: 12, top: 12 },
+      { input: quellbilder[1].bild, left: vb + 24, top: 12 },
+      { input: ergebnisBild, left: 12, top: hq + 24 },
+    ])
+    .jpeg({ quality: 80 })
+    .toFile(path.join(PRUEFUNG, `${path.basename(v.ziel, '.webp')}.jpg`));
+
+  ergebnis.push({
+    f: v, ziel, fertig, datum: `${teile[0].datum ?? '?'} / ${teile[1].datum ?? '?'}`, flecken: [], hochformat: false, vergleich: true,
+  });
+}
+
 console.log('[fotos] fertig:');
 for (const e of ergebnis) {
   const rel = path.relative(wurzel, e.ziel).split(path.sep).join('/');
-  const zusatz = [e.hochformat ? '4:3-Ausschnitt aus Hochformat' : '', e.f.ausschnitt ? 'Hintergrund-Ausschnitt' : '', e.flecken.length ? `unkenntlich: ${e.flecken.join('; ')}` : '']
+  const zusatz = [e.hochformat ? `${e.f.format === 1 ? '1:1' : '4:3'}-Ausschnitt aus Hochformat` : '', e.f.ausschnitt ? 'Hintergrund-Ausschnitt' : '', e.vergleich ? 'Vorher/Nachher aus zwei Aufnahmen' : '', e.flecken.length ? `unkenntlich: ${e.flecken.join('; ')}` : '']
     .filter(Boolean).join(' · ');
   console.log(`  ${rel.padEnd(62)} ${`${e.fertig.width}x${e.fertig.height}`.padEnd(10)} ${kb(e.ziel).padStart(7)}  ${e.datum ?? 'ohne Aufnahmezeit'}${zusatz ? `  · ${zusatz}` : ''}`);
 }

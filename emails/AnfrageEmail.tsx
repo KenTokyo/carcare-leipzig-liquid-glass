@@ -73,7 +73,7 @@ export default function AnfrageEmail({ art, daten, vorgang, anhaenge = [] }: Anf
               <Text style={{ color: '#526071', fontSize: '12px', lineHeight: '20px' }}>Alternativ die Antwortfunktion Ihres E-Mail-Programms verwenden.</Text>
             </> : daten.phone ? <>
               <Button href={`tel:${daten.phone.replace(/[^\d+]/g, '')}`} style={{ backgroundColor: '#244d76', color: '#ffffff', borderRadius: '8px', padding: '15px 24px', fontSize: '14px', fontWeight: 700, marginTop: '12px' }}>{`Zurückrufen: ${daten.phone}`}</Button>
-              <Text style={{ color: '#526071', fontSize: '12px', lineHeight: '20px' }}>Keine E-Mail-Adresse angegeben — bitte telefonisch melden.</Text>
+              <Text style={{ color: '#526071', fontSize: '12px', lineHeight: '20px' }}>Keine E-Mail-Adresse angegeben. Bitte telefonisch melden.</Text>
             </> : null}
             <Hr style={{ borderColor: '#e5eaf0', margin: '24px 0 16px' }} />
             <Text style={{ color: '#526071', fontSize: '12px', lineHeight: '20px', margin: 0 }}>

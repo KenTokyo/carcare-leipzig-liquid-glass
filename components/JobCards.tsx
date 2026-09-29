@@ -97,8 +97,8 @@ const JobCards: React.FC = () => {
               {anzahl === 1
                 ? 'Aktuell ist eine Stelle ausgeschrieben.'
                 : `Aktuell sind ${anzahl} Stellen ausgeschrieben.`}{' '}
-              Ausgegraute Karten gehören zum Betrieb, werden aber gerade nicht neu besetzt —
-              eine Initiativbewerbung ist dort trotzdem willkommen.
+              Ausgegraute Karten gehören zum Betrieb, werden aber gerade nicht neu besetzt.
+              Eine Initiativbewerbung ist dort trotzdem willkommen.
             </p>
           </div>
           <a

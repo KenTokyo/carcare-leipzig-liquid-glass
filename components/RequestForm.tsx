@@ -4,7 +4,7 @@ import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle
 import { terminLeistungen } from '../data/leistungsauswahl';
 import { bereinigteZusaetze, zusatzleistungen } from '../data/zusatzleistungen';
 import { ANDERES_MODELL } from '../data/fahrzeugmarken';
-import { HONIGTOPF } from '../data/anfrageSchema';
+import { HONIGTOPF, KONTAKT_POSTFACH } from '../data/anfrageSchema';
 import { useVersandBereitschaft } from '../hooks/useVersandBereitschaft';
 import { schadenFelder, sichtbareFelder } from '../data/schadenFelder';
 import SchadenFelder from './formulare/SchadenFelder';
@@ -73,13 +73,15 @@ const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
   // Vorauswahl gilt nur fuer die Termin-Variante und nur, wenn die Leistung existiert.
   // Ein unbekannter Wert wuerde das <select> auf einen Zustand setzen, den es nicht
   // anzeigen kann — das Feld saehe leer aus, waere aber belegt.
-  if (kind === 'termin' && vorauswahl && terminLeistungen.some((l) => l.id === vorauswahl)) {
+  const istLeistung = Boolean(vorauswahl) && terminLeistungen.some((l) => l.id === vorauswahl);
+  if (kind === 'termin' && vorauswahl && istLeistung) {
     (werte as FormFieldsByKind['termin']).service = vorauswahl;
   }
-  // Seit 2026-09-28 kann die Vorauswahl auch eine ZUSATZLEISTUNG sein (Preiskachel „Keramikversiegelung“):
+  // Seit 2026-09-28 kann die Vorauswahl auch eine ZUSATZLEISTUNG sein (Preiskachel „Felgenintensivreinigung“):
   // Dann ist ihr Kaestchen angehakt und die Leistung bleibt offen — welches Paket dazu passt, entscheidet
-  // der Kunde. Die IDs beider Listen sind eindeutig (Pruefung in data/anfrageSchema.ts).
-  if (kind === 'termin' && vorauswahl && zusatzleistungen.some((z) => z.id === vorauswahl)) {
+  // der Kunde. Steht dieselbe ID auch als Leistung zur Wahl (Versiegelungen, Backlog 6.6), hat die Leistung
+  // Vorrang und das Kaestchen bleibt leer — es waere dieselbe Leistung ein zweites Mal (data/anfrageSchema.ts).
+  if (kind === 'termin' && vorauswahl && !istLeistung && zusatzleistungen.some((z) => z.id === vorauswahl)) {
     (werte as FormFieldsByKind['termin']).zusatzleistungen = [vorauswahl];
   }
   // Bei der Schadenmeldung belegt die Vorauswahl die Schadenart (R8): Wer von
@@ -127,7 +129,8 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
   const [gesendeteAnhaenge, setGesendeteAnhaenge] = useState(0);
 
   const versandMoeglich = bereit;
-  const kontaktMail = kind === 'business' ? 'abosse@carcare-center.de' : 'info@carcare-center.de';
+  // Seit 6.13 aus `KONTAKT_POSTFACH` (data/anfrageSchema.ts) — Bewerbungen nennen bewerbung@carcare-center.de.
+  const kontaktMail = KONTAKT_POSTFACH[kind];
   const unterlagen = kind === 'bewerbung' || kind === 'business';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues((prev) => {
@@ -204,7 +207,7 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
       setSubmitted(true);
     } catch {
       setFehler(
-        'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung — oder rufen Sie uns an unter 0341 - 261 77 90.'
+        'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung, oder rufen Sie uns an unter 0341 - 261 77 90.'
       );
     } finally {
       setSendet(false);
@@ -239,7 +242,7 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
             {kind === 'bewerbung' ? 'Bewerbung übermittelt.' : 'Anfrage übermittelt.'}
           </h4>
           <p className="text-sm leading-relaxed text-gray-600">
-            Vielen Dank — wir melden uns zeitnah bei Ihnen. Bei dringenden Anliegen erreichen Sie uns telefonisch unter
+            Vielen Dank, wir melden uns zeitnah bei Ihnen. Bei dringenden Anliegen erreichen Sie uns telefonisch unter
             <span className="font-semibold text-gray-950"> 0341 - 261 77 90</span>.
           </p>
 
@@ -262,13 +265,13 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
               <p className="mt-3 text-sm leading-relaxed text-gray-600">
                 {kind === 'bewerbung'
                   ? gesendeteAnhaenge > 0
-                    ? `Ihre ${gesendeteAnhaenge === 1 ? 'Datei ist' : `${gesendeteAnhaenge} Dateien sind`} mit der Bewerbung bei uns angekommen. Weitere Unterlagen können Sie per E-Mail nachreichen — die Vorgangsnummer im Betreff genügt.`
-                    : 'Ihre Unterlagen — Lebenslauf, Zeugnisse — schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
+                    ? `Ihre ${gesendeteAnhaenge === 1 ? 'Datei ist' : `${gesendeteAnhaenge} Dateien sind`} mit der Bewerbung bei uns angekommen. Weitere Unterlagen können Sie per E-Mail nachreichen. Die Vorgangsnummer im Betreff genügt.`
+                    : 'Ihre Unterlagen wie Lebenslauf und Zeugnisse schicken Sie uns bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Bewerbung zuordnen.'
                   : kind === 'business'
                     ? 'Weitere Unterlagen zu Ihrer Anfrage können Sie direkt an unsere Geschäftsführung senden. Bitte nennen Sie die Vorgangsnummer im Betreff.'
                     : kind === 'termin'
                       ? 'Bei Bedarf können Sie Fahrzeugbilder oder weitere Angaben per E-Mail nachreichen. Bitte nennen Sie die Vorgangsnummer im Betreff.'
-                  : 'Bilder vom Schaden helfen uns sehr bei der Einschätzung. Schicken Sie sie bitte per E-Mail nach — die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Anfrage zuordnen.'}
+                  : 'Bilder vom Schaden helfen uns sehr bei der Einschätzung. Schicken Sie sie bitte per E-Mail nach. Die Vorgangsnummer im Betreff genügt, damit wir sie Ihrer Anfrage zuordnen.'}
               </p>
               <a
                 href={`mailto:${kontaktMail}?subject=${encodeURIComponent(

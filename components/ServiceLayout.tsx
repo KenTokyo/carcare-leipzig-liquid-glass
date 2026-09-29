@@ -10,7 +10,7 @@ import {
   PageMeta,
   SectionIntro,
 } from './PageBlocks';
-import { serviceByHref } from '../data/services';
+import { bereichVon, serviceByHref } from '../data/services';
 
 /**
  * Gemeinsames Layout der Leistungs-Unterseiten (Backlog 1.14).
@@ -85,7 +85,14 @@ export interface ServiceLayoutProps {
     eyebrow: string;
     title: string;
     description?: string;
-    items: FeatureItem[];
+    /** Karten — ODER `fliesstext`. Eins von beiden muss gesetzt sein. */
+    items?: FeatureItem[];
+    /**
+     * Zusammenhaengende Leistungsbeschreibung statt Einzelkarten (Backlog 6.11, Lackierseite): Wo Karten ohne Bild
+     * nur Stichworte nebeneinanderstellen, liest sich derselbe Inhalt als Text besser. `preis` steht darunter in
+     * derselben Pille wie auf den Preiskarten der Aufbereitung — „Preis nach Aufwand" soll ueberall gleich aussehen (6.25).
+     */
+    fliesstext?: { absaetze: string[]; preis?: { wert: string; hinweis: string } };
     /** Nur setzen, wenn die Ableitung aus der Kartenzahl nicht passt. */
     columns?: 'three' | 'four';
     /**
@@ -101,6 +108,11 @@ export interface ServiceLayoutProps {
   cta: { title: string; description: string; primaryLabel?: string; primaryHref?: string };
   /** Bildausschnitt des Hintergrundmotivs, siehe `PhotoBackdrop`. */
   zoom?: number;
+  /**
+   * Video statt Foto als Seitenhintergrund (Backlog 6.12, Lackierseite). Das Standbild ersetzt dann das
+   * Kachelmotiv — es steht, bis das Video laeuft. Nur ohne `zoom` (Grund bei `PhotoBackdrop.video`).
+   */
+  hintergrundVideo?: { quelle: string; standbild: string } | null;
   /**
    * Zusaetzliche Sektionen einer einzelnen Seite. Sie stehen zwischen der
    * Vertrauenssektion und dem FAQ — FAQ und CTA bleiben am Ende, weil das FAQ die
@@ -135,6 +147,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   faq,
   cta,
   zoom,
+  hintergrundVideo,
   children,
 }) => {
   const katalogEintrag = serviceByHref(route);
@@ -145,17 +158,26 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     // erst auffallen, wenn jemand die Seite zufaellig ansieht.
     throw new Error(
       `[ServiceLayout] Kein Kachelmotiv fuer "${route}" gefunden. Jede Leistungsseite ` +
-        'bezieht ihren Seitenhintergrund aus dem Katalogeintrag in data/services.ts — ' +
-        'entweder fehlt dort der Eintrag zu dieser Route oder sein `backgroundImage`.'
+        'bezieht ihren Seitenhintergrund aus dem Katalogeintrag in data/services.ts. ' +
+        'Entweder fehlt dort der Eintrag zu dieser Route oder sein `backgroundImage`.'
     );
+  }
+  // Ebenso laut: Ohne Karten UND ohne Fliesstext stuende eine Fachsektion mit Ueberschrift und leerem Raster da.
+  if (!leistung.fliesstext && !leistung.items?.length) {
+    throw new Error(`[ServiceLayout] "${route}": Die Fachsektion braucht \`items\` oder \`fliesstext\`.`);
   }
 
   return (
     // `pageImage`: eigener Ausschnitt fuer den Seitenhintergrund, wo das Kachelbild dort nicht
     // traegt (Motiv im linken Drittel, unter dem Textschutz). Sonst dasselbe Bild wie die Kachel.
-    <BackdropLayout image={katalogEintrag.pageImage ?? katalogEintrag.backgroundImage} zoom={zoom}>
+    <BackdropLayout
+      image={hintergrundVideo?.standbild ?? katalogEintrag.pageImage ?? katalogEintrag.backgroundImage}
+      video={hintergrundVideo?.quelle}
+      zoom={zoom}
+    >
       <PageMeta canonical={route} title={meta.title} description={meta.description} />
-      <PageHero {...hero} />
+      {/* Care/Repair aus dem Katalogeintrag der Route (Backlog 6.8) — die Seite muss es nicht wissen. */}
+      <PageHero {...hero} bereich={hero.bereich ?? bereichVon(route)} />
 
       {/* Erklaerung vor der Fachsektion: erst „was ist das", dann „was bieten wir dabei
           an". Wer ueber „Smart Repair Leipzig" hier landet und den Begriff nicht kennt,
@@ -172,10 +194,29 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
         <div className="container mx-auto">
           <SectionIntro eyebrow={leistung.eyebrow} title={leistung.title} description={leistung.description} />
           {leistung.zusatz && <div className="mb-10 max-w-3xl md:mb-14">{leistung.zusatz}</div>}
-          <FeatureGrid
-            items={leistung.items}
-            columns={leistung.columns ?? spaltenFuer(leistung.items.length)}
-          />
+          {leistung.fliesstext ? (
+            // Eine Karte statt vieler: Die Flaeche traegt den Text auf dem stehenden Foto (`.cc-karte`, 2.1).
+            <div className="cc-karte max-w-4xl rounded-2xl border border-gray-100 p-6 shadow-sm md:p-10">
+              {leistung.fliesstext.absaetze.map((absatz) => (
+                <p key={absatz.slice(0, 40)} className="mt-5 text-base leading-relaxed text-gray-700 first:mt-0 md:text-lg">
+                  {absatz}
+                </p>
+              ))}
+              {leistung.fliesstext.preis && (
+                <div className="mt-8 flex flex-col gap-3 border-t border-gray-100 pt-6 sm:flex-row sm:items-center sm:gap-4">
+                  <span className="w-fit shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">
+                    {leistung.fliesstext.preis.wert}
+                  </span>
+                  <p className="text-sm leading-relaxed text-gray-600">{leistung.fliesstext.preis.hinweis}</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <FeatureGrid
+              items={leistung.items ?? []}
+              columns={leistung.columns ?? spaltenFuer(leistung.items?.length ?? 0)}
+            />
+          )}
         </div>
       </section>
 

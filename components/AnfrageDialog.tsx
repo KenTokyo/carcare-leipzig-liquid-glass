@@ -84,7 +84,7 @@ const AnfrageDialogContext = createContext<AnfrageDialogWerte | null>(null);
 export const useAnfrageDialog = (): AnfrageDialogWerte => {
   const werte = useContext(AnfrageDialogContext);
   if (!werte) {
-    throw new Error('useAnfrageDialog ausserhalb von <AnfrageDialogProvider> benutzt — Provider sitzt in Layout.tsx.');
+    throw new Error('useAnfrageDialog ausserhalb von <AnfrageDialogProvider> benutzt. Provider sitzt in Layout.tsx.');
   }
   return werte;
 };
@@ -286,7 +286,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                         Worum geht es?
                       </h2>
                       <p className="mt-4 text-sm leading-relaxed text-gray-600 md:text-base">
-                        Wählen Sie Ihr Anliegen — danach fragen wir nur ab, was dafür wirklich
+                        Wählen Sie Ihr Anliegen. Danach fragen wir nur ab, was dafür wirklich
                         gebraucht wird. Für akute Schadenfälle ist der Anruf unter{' '}
                         <a href="tel:+493412617790" className="font-semibold text-gray-950 underline-offset-2 hover:underline">
                           0341 - 261 77 90
@@ -314,7 +314,7 @@ export const AnfrageDialogProvider: React.FC<{ children: React.ReactNode }> = ({
                               <span className="min-w-0 flex-1">
                                 <span className="block text-sm font-bold leading-tight">{a.label}</span>
                                 <span className="mt-1 block text-xs text-gray-600">
-                                  {extern ? `${a.beschreibung} — über ${SCHADENMELDUNG_PORTAL}` : a.beschreibung}
+                                  {extern ? `${a.beschreibung}, über ${SCHADENMELDUNG_PORTAL}` : a.beschreibung}
                                 </span>
                               </span>
                               {/* Auf schmalen Geraeten ausgeblendet: Gemessen bei 375 px

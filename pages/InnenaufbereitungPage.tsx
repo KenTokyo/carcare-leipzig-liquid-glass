@@ -1,6 +1,14 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { bereichVon } from '../data/services';
+import KiMarke from '../components/KiMarke';
 import { AUFPREIS_SATZ, angeboteInnen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
+
+/** Bilder der Exklusivleistungen (Backlog 6.2), erzeugt von `npm run fotos` aus der Lieferung vom 20.08.2026. */
+const EXKLUSIV_BILDER = {
+  vergleich: '/assets/kacheln/alcantara-lenkrad-vorher-nachher-leipzig-carcare.webp',
+  schaum: '/assets/kacheln/alcantara-schaumreinigung-leipzig-carcare.webp',
+};
 
 /**
  * Innenaufbereitung als eigene Leistungsseite (Backlog 1.9).
@@ -21,8 +29,10 @@ import { AUFPREIS_SATZ, angeboteInnen, aufbereitungKacheln, paketPreis, zusatzPr
 
 const innenLeistungen = [
   // Backlog 4.6: Teppichreinigung ergaenzt — in dieser Karte statt als sechste, damit das Raster bleibt.
-  { title: 'Innenraum komplett', description: 'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit, Oberflächen und Teppichen.' },
-  { title: 'Polster oder Leder', description: 'Polstershampoonierung – alternativ materialgerechte Lederpflege.' },
+  // Backlog 6.24 (Mail Andre 2026-09-28): „Reinigung aller Ablagen und Fächer, Dachhimmelreinigung".
+  { title: 'Innenraum komplett', description: 'Intensive Reinigung des gesamten Innenraumes inklusive Cockpit, Oberflächen, aller Ablagen und Fächer sowie der Teppiche.' },
+  { title: 'Dachhimmel', description: 'Wir reinigen auch den Dachhimmel über den Sitzen.' },
+  { title: 'Polster oder Leder', description: 'Polstershampoonierung oder alternativ materialgerechte Lederpflege.' },
   { title: 'Scheiben', description: 'Scheibenreinigung innen und außen.' },
   { title: 'Geruch und Luft', description: 'Geruchsentfernung und Behandlung belasteter Innenraumluft.' },
   // Seit 2026-09-28 einzeln buchbar (Mail Andre); Preis aus data/zusatzleistungen.ts.
@@ -30,7 +40,7 @@ const innenLeistungen = [
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998 – Aufbereitung, Karosserie und Lack aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998. Aufbereitung, Karosserie und Lack aus einer Hand.' },
   { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart/Spot Repair und Felgen an einem Standort.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Vom Privatfahrzeug bis zum vielgenutzten Poolwagen aus dem Firmenfuhrpark.' },
 ];
@@ -47,8 +57,9 @@ const InnenaufbereitungPage: React.FC = () => (
     />
     <PageHero
       eyebrow="Innenaufbereitung Leipzig"
+      bereich={bereichVon('/innenaufbereitung-leipzig')}
       title="Innenaufbereitung in Leipzig."
-      description="Die Innenaufbereitung reinigt und pflegt den kompletten Fahrzeuginnenraum – vom Cockpit über Polster und Leder bis in die Bereiche, die bei der normalen Wäsche ausgelassen werden. Auf Wunsch mit Geruchsentfernung und Behandlung belasteter Innenraumluft."
+      description="Die Innenaufbereitung reinigt und pflegt den kompletten Fahrzeuginnenraum, vom Cockpit über Polster und Leder bis in die Bereiche, die bei der normalen Wäsche ausgelassen werden. Auf Wunsch mit Geruchsentfernung und Behandlung belasteter Innenraumluft."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Innenaufbereitung Leipzig', 'Autoinnenreinigung Leipzig', 'Polsterreinigung Auto Leipzig', 'Geruchsentfernung Auto Leipzig']}
@@ -110,22 +121,79 @@ const InnenaufbereitungPage: React.FC = () => (
     </section>
 
     {/*
-      TODO 1.18 – Beschreibungen ausstehend, Zulieferung André
+      EXKLUSIVLEISTUNGEN MIT BILDERN (Backlog 6.1 und 6.2, Meeting und User 2026-09-28).
 
-      Die beiden Bezeichnungen stammen aus dem Kundenreview und sind belegt; die
-      Beschreibungstexte liegen noch beim Kunden. BEWUSST KEINE PLATZHALTER:
-      erfundener Text sieht im Review wie fertiger Text aus und geht so live.
+      6.1: „Ausbauen" steht nicht mehr im Namen (André: „dezent weglassen"). Das Foto eines ausgebauten
+      Lenkrads darf bleiben („das ist nicht schlimm").
+      6.2: Vorher/Nachher als EIN Bild aus zwei Aufnahmen desselben Lenkrads vom selben Tag, nur zugeschnitten
+      (`npm run fotos`, Art „Vergleich"). Die Beschriftung steht als HTML über dem Bild: scharf, vorlesbar und
+      ohne eingebrannte Schrift. Das Schaumfoto stammt aus derselben Serie (zwischen Vorher und Nachher).
+      Breiten 3/5 zu 2/5: Bei 16:10 links und 1:1 rechts sind beide Bilder etwa gleich hoch (gerechnet:
+      Unterschied 2 px bei 1024, 9 px bei 1440 Fensterbreite).
+
+      TODO 1.18: Die BESCHREIBUNGSTEXTE der beiden Leistungen liefert weiter André. Die Bildunterschriften
+      beschreiben nur, was auf den Fotos zu sehen ist — bewusst kein erfundener Leistungstext.
     */}
-    <section className="bg-gray-50/70 px-6 py-20 md:py-28">
+    <section id="exklusivleistungen" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro eyebrow="Exklusivleistungen" title="Alcantara-Lenkrad und Schaum-/Tornador-Verfahren." />
-        <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {['Alcantara-Lenkrad ausbauen und aufarbeiten', 'Schaum-/Tornador-Verfahren'].map((leistung) => (
-            <li key={leistung} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-6 text-lg font-bold leading-tight text-gray-950">
-              {leistung}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-5">
+          <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm md:col-span-3">
+            <figure>
+              <div className="relative">
+                <img
+                  src={EXKLUSIV_BILDER.vergleich}
+                  alt="Alcantara-Lenkrad im Vergleich: links vor der Aufbereitung mit verdichtetem, speckig glänzendem Flor im Griffbereich, rechts nach der Aufbereitung mit gleichmäßig aufgerichtetem Flor"
+                  width={2000}
+                  height={1245}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[2000/1245] w-full rounded-xl object-cover"
+                />
+                {/* Beschriftung je Hälfte. Weiß deckend mit dunkler Schrift: trägt auf dem roten Heckleuchten-
+                    Anschnitt links wie auf dem weißen Fahrzeug rechts. `aria-hidden`, weil der Alternativtext
+                    „links vorher, rechts nachher" schon sagt. */}
+                <span aria-hidden="true" className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-gray-950 shadow-sm">
+                  Vorher
+                </span>
+                <span aria-hidden="true" className="absolute left-[calc(50%+0.75rem)] top-3 rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-gray-950 shadow-sm">
+                  Nachher
+                </span>
+                <KiMarke quelle={EXKLUSIV_BILDER.vergleich} className="bottom-2 right-2" />
+              </div>
+              <figcaption className="mt-5">
+                <h3 className="text-xl font-bold leading-tight text-gray-950">Alcantara-Lenkrad aufarbeiten</h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                  Dasselbe Lenkrad am selben Tag: vorher verdichtet und speckig im Griffbereich, nachher mit wieder
+                  aufgerichtetem, gleichmäßigem Flor.
+                </p>
+              </figcaption>
+            </figure>
+          </article>
+          <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm md:col-span-2">
+            <figure>
+              <div className="relative">
+                <img
+                  src={EXKLUSIV_BILDER.schaum}
+                  alt="Mitarbeiter arbeitet mit einer Bürste Reinigungsschaum in den Alcantara-Kranz eines ausgebauten Lenkrads ein, die Mitte ist mit Klebeband abgedeckt"
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-square w-full rounded-xl object-cover"
+                />
+                <KiMarke quelle={EXKLUSIV_BILDER.schaum} className="bottom-2 right-2" />
+              </div>
+              <figcaption className="mt-5">
+                <h3 className="text-xl font-bold leading-tight text-gray-950">Schaum-/Tornador-Verfahren</h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                  Der Reinigungsschaum wird mit der Bürste in den Flor eingearbeitet, die Mitte des Lenkrads ist dabei
+                  abgeklebt.
+                </p>
+              </figcaption>
+            </figure>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -163,7 +231,7 @@ const InnenaufbereitungPage: React.FC = () => (
 
     <PageCTA
       title="Innenraum stark genutzt, verschmutzt oder riecht?"
-      description="Beschreiben Sie uns den Zustand — wir sagen Ihnen, ob die Intensiv Innenraumreinigung reicht oder ob eine Geruchsbehandlung sinnvoll dazukommt."
+      description="Beschreiben Sie uns den Zustand. Wir sagen Ihnen, ob die Intensiv Innenraumreinigung reicht oder ob eine Geruchsbehandlung sinnvoll dazukommt."
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"
     />

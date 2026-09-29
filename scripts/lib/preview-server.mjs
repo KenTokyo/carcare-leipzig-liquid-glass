@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { pruefeDistStand } from './dist-stand.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const VITE = path.join(wurzel, 'node_modules', 'vite', 'bin', 'vite.js');
@@ -20,8 +21,13 @@ const VITE = path.join(wurzel, 'node_modules', 'vite', 'bin', 'vite.js');
  * `shell: true` wuerde es auch loesen, handelt sich aber Anfuehrungszeichen-Fragen ein.
  * Der Aufruf laeuft deshalb direkt ueber `node` und die Binaerdatei im Projekt: kein
  * Shell, kein PATH, keine Plattformabhaengigkeit.
+ *
+ * WELCHER BUILD (seit 2026-09-28): Vor dem Start nennt `pruefeDistStand` den gemessenen
+ * Build und bricht ab, wenn eine Quelldatei neuer ist als `dist/`. Anlass und Grenzen
+ * stehen in `dist-stand.mjs`.
  */
 export async function startePreview(port = 4183) {
+  pruefeDistStand();
   const kind = spawn(process.execPath, [VITE, 'preview', '--port', String(port), '--strictPort'], {
     stdio: ['ignore', 'pipe', 'pipe'],
   });

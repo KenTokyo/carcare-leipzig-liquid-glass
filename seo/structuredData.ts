@@ -77,7 +77,7 @@ export const aboutPageSchema = (path: string, description: string) => ({
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   url: absoluteUrl(path),
-  name: 'Über uns — BS CarCare GmbH',
+  name: 'Über uns: BS CarCare GmbH',
   description,
   mainEntity: {
     '@type': 'AutoRepair',

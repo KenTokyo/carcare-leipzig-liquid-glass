@@ -44,6 +44,9 @@ export const PFLICHT_EINS_VON: Partial<Record<RequestFormKind, string[][]>> = {
 /** Gueltige Werte fuer „Gewuenschte Leistung“ — ein veralteter Wert (z. B. die gestrichene Verkaufsaufbereitung) wird abgewiesen. */
 export const LEISTUNGS_IDS = new Set(terminLeistungen.map((l) => l.id));
 
+/** Gueltige Zusatzleistungen (seit 2026-09-28 auch serverseitig geprueft, siehe `api/anfrage.ts`). */
+export const ZUSATZ_IDS = new Set(zusatzleistungen.map((z) => z.id));
+
 /** Beschriftung je Feld in der E-Mail. Reihenfolge bestimmt die Reihenfolge in der Mail. */
 export const FELDBESCHRIFTUNG: Record<string, string> = {
   name: 'Name',
@@ -98,8 +101,14 @@ const AUSWAHLTEXTE: Record<string, Record<string, string>> = {
  * Leistung und Zusatzleistung teilen sich EINEN Vorauswahlwert: Die Preiskachel schickt ihre ID, das
  * Formular waehlt damit die Leistung oder hakt die Zusatzleistung an (`startwerte` in RequestForm).
  * Eine ID in beiden Listen waere mehrdeutig — lieber bricht der Build (Prerender) als eine falsche Vorauswahl.
+ *
+ * AUSNAHME, BEWUSST (Backlog 6.6, 2026-09-28): Versiegelungen mit `auchAlsLeistung` stehen in beiden Listen.
+ * Fuer sie ist die Vorauswahl eindeutig geregelt — die Leistung hat Vorrang, ihr Kaestchen ist dann gesperrt.
+ * Jede ANDERE Doppelung bricht weiter den Build.
  */
-const doppelteIds = zusatzleistungen.filter((z) => terminLeistungen.some((l) => l.id === z.id)).map((z) => z.id);
+const doppelteIds = zusatzleistungen
+  .filter((z) => !z.auchAlsLeistung && terminLeistungen.some((l) => l.id === z.id))
+  .map((z) => z.id);
 if (doppelteIds.length) {
   throw new Error(`data/anfrageSchema.ts: IDs zugleich Leistung und Zusatzleistung: ${doppelteIds.join(', ')}`);
 }
@@ -107,6 +116,21 @@ if (doppelteIds.length) {
 /** Uebersetzt einen Feldwert in seinen Klartext, sofern es einen gibt. */
 export const lesbarerWert = (feld: string, wert: string): string =>
   AUSWAHLTEXTE[feld]?.[wert] ?? wert;
+
+/**
+ * Postfach, das Absender SEHEN — im Formular, wenn der Online-Versand aus ist, und in der Fehlermeldung, wenn er
+ * scheitert. EINE Liste fuer Formular und Funktion (bis 2026-09-28 stand die Zuordnung zweimal).
+ *
+ * Bewerbungen seit Backlog 6.13 (Meeting 2026-09-28) an bewerbung@carcare-center.de. Wohin die Funktion TATSAECHLICH
+ * zustellt, bestimmen die Umgebungsvariablen in `api/anfrage.ts` — beim Livegang muss dort dasselbe Postfach stehen
+ * (`ANFRAGE_EMPFAENGER_BEWERBUNG`), sonst landen Bewerbungen weiter beim allgemeinen Empfaenger.
+ */
+export const KONTAKT_POSTFACH: Record<RequestFormKind, string> = {
+  schaden: 'info@carcare-center.de',
+  termin: 'info@carcare-center.de',
+  business: 'abosse@carcare-center.de',
+  bewerbung: 'bewerbung@carcare-center.de',
+};
 
 /** Betreffzeile je Anfrageart. */
 export const BETREFF: Record<RequestFormKind, string> = {

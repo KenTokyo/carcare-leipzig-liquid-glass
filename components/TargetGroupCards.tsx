@@ -3,7 +3,9 @@ import { ArrowUpRight } from 'lucide-react';
 import { TargetGroup } from '../types';
 import { claimsPartners, dealerPartners, insurancePartners } from '../data/partners';
 import ZielgruppenPartner from './ZielgruppenPartner';
+import ZielgruppenKacheln from './ZielgruppenKacheln';
 import KiMarke from './KiMarke';
+import { privatkundenKacheln } from '../data/privatkunden';
 
 /**
  * Standard-Hintergrundbild der Kacheln.
@@ -21,7 +23,11 @@ const groups: TargetGroup[] = [
   {
     id: 'privatkunden',
     title: 'Privatkunden',
-    description: 'Fahrzeugpflege, Smart Repair, Leasingrückgabe und schnelle Hilfe bei Schäden.',
+    // Backlog 6.4 (User 2026-09-28): Texte der Privatkunden-Unterseite in Kurzform. Dieser Satz kuerzt deren
+    // Einleitung, die Kacheln darunter deren Vorteile (`data/privatkunden.ts`).
+    description: 'Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Wir übernehmen Pflege, Reparatur und Lackierung an einem Standort, für alle Marken.',
+    kacheln: privatkundenKacheln.map((vorteil) => ({ title: vorteil.title, text: vorteil.kurz })),
+    kachelnLabel: 'Ihre Vorteile',
     cta: 'Für Privatkunden',
     iconName: 'User',
     // Zeigte bis 2026-08-09 auf `/fahrzeugaufbereitung-leipzig` — ein Zeiger aus der Zeit
@@ -44,7 +50,7 @@ const groups: TargetGroup[] = [
      * quoten oder Durchlaufzeiten — die liegen hier nicht belegt vor.
      */
     description:
-      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand — Instandsetzung statt Tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
+      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand. Instandsetzung statt Tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
     cta: 'Schadenpartner kennenlernen',
     iconName: 'ShieldCheck',
     // Zeigte bis 2026-08-09 auf `/unfallinstandsetzung-leipzig`. Auf Wunsch des Users
@@ -84,7 +90,7 @@ const groups: TargetGroup[] = [
      * keine Adjektive.
      */
     description:
-      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus — auf über 3.500 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
+      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus, auf über 3.500 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',
@@ -409,6 +415,10 @@ const TargetGroupCards: React.FC = () => {
                         Jetzt steht sie auf jeder Hoehe (Messung: `npm run zielgruppen`). */}
                     {group.partners && group.partners.length > 0 && (
                       <ZielgruppenPartner partner={group.partners} titel={group.partnersLabel ?? 'Partnerbetriebe'} />
+                    )}
+                    {/* Backlog 6.4: Textkacheln an derselben Stelle, wo die anderen Karten ihre Partner zeigen. */}
+                    {group.kacheln && group.kacheln.length > 0 && (
+                      <ZielgruppenKacheln kacheln={group.kacheln} titel={group.kachelnLabel ?? 'Auf einen Blick'} />
                     )}
 
                     {/* CarCare-Marke unten RECHTS auf der weissen Karte. Bewusst im Fluss

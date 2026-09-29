@@ -4,9 +4,10 @@ import nodemailer from 'nodemailer';
 import { randomInt } from 'node:crypto';
 import type { RequestFormKind } from '../types.js';
 import {
-  ANHANG_MAX_BYTES, ANHANG_MAX_DATEIEN, ANHANG_TYPEN, BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, MAX_FELDER, MAX_LAENGE,
-  LEISTUNGS_IDS, PFLICHTFELDER, PFLICHT_EINS_VON, anhangEndung, passtSignatur,
+  ANHANG_MAX_BYTES, ANHANG_MAX_DATEIEN, ANHANG_TYPEN, BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, KONTAKT_POSTFACH, MAX_FELDER,
+  MAX_LAENGE, LEISTUNGS_IDS, PFLICHTFELDER, PFLICHT_EINS_VON, ZUSATZ_IDS, anhangEndung, passtSignatur,
 } from '../data/anfrageSchema.js';
+import { bereinigteZusaetze } from '../data/zusatzleistungen.js';
 import AnfrageEmail from '../emails/AnfrageEmail.js';
 
 /** Node.js is required for SMTP. Credentials stay in the server environment. */
@@ -33,14 +34,22 @@ export const einrichtung = () => {
   const absender = process.env.ANFRAGE_ABSENDER;
   const empfaenger = process.env.ANFRAGE_EMPFAENGER;
   const business = process.env.ANFRAGE_EMPFAENGER_BUSINESS;
+  // Backlog 6.13: Bewerbungen an ein eigenes Postfach (Livegang: bewerbung@carcare-center.de). OPTIONAL, anders als
+  // Business: Ohne Eintrag gehen sie wie bisher an den allgemeinen Empfaenger — nichts geht verloren, und eine fehlende
+  // Variable schaltet nicht alle Formulare ab. Steht etwas darin, muss es eine gueltige Adresse sein.
+  const bewerbung = process.env.ANFRAGE_EMPFAENGER_BEWERBUNG || undefined;
   const bereit = Boolean(host && [465, 587].includes(port) && user && pass &&
-    absender && EMAIL.test(absender) && empfaenger && EMAIL.test(empfaenger) && business && EMAIL.test(business));
-  return { host, port, user, pass, absender, empfaenger, business, bereit };
+    absender && EMAIL.test(absender) && empfaenger && EMAIL.test(empfaenger) && business && EMAIL.test(business) &&
+    (!bewerbung || EMAIL.test(bewerbung)));
+  return { host, port, user, pass, absender, empfaenger, business, bewerbung, bereit };
 };
 
-/** No silent fallback: business routing must be configured before enabling forms. */
+/**
+ * No silent fallback for business: routing must be configured before enabling forms. Applications (6.13) fall back
+ * to the general inbox on purpose — that is where they went until 2026-09-28.
+ */
 export const empfaengerFuer = (art: RequestFormKind, stand = einrichtung()) =>
-  art === 'business' ? stand.business : stand.empfaenger;
+  art === 'business' ? stand.business : art === 'bewerbung' ? stand.bewerbung ?? stand.empfaenger : stand.empfaenger;
 
 export const smtpTransport = (stand = einrichtung()) => nodemailer.createTransport({
   host: stand.host, port: stand.port, secure: stand.port === 465, requireTLS: true,
@@ -146,6 +155,16 @@ export async function handler(request: Request): Promise<Response> {
   // Die E-Mail wird nur geprueft, wenn es eine gibt — bei der Terminanfrage darf sie fehlen.
   if (daten.email && !EMAIL.test(daten.email)) return antwort({ fehler: 'E-Mail-Adresse sieht nicht gültig aus.' }, 400);
   if (art === 'termin' && !LEISTUNGS_IDS.has(daten.service)) return antwort({ fehler: 'Unbekannte Leistung.' }, 400);
+  // Zusatzleistungen (seit 2026-09-28): nur bekannte IDs und nur, was zur gewaehlten Leistung passt — dieselbe Regel
+  // wie im Formular (`bereinigteZusaetze`). Ein veraltetes oder umgangenes Formular schickte sonst Unvereinbares mit
+  // (Keramik als Leistung UND als Zusatz, Keramik neben Nano). Andere Anfragearten kennen keine Zusatzleistungen.
+  if (art === 'termin' && Array.isArray(eingang.zusatzleistungen)) {
+    const ids = eingang.zusatzleistungen as string[];
+    if (ids.some((id) => !ZUSATZ_IDS.has(id))) return antwort({ fehler: 'Unbekannte Zusatzleistung.' }, 400);
+    const passend = bereinigteZusaetze(daten.service, ids);
+    if (passend.length) daten.zusatzleistungen = passend.join(', ');
+    else delete daten.zusatzleistungen;
+  } else if (art !== 'termin') delete daten.zusatzleistungen;
   const vorgang = vorgangsnummer();
   const transport = smtpTransport(stand);
   try {
@@ -169,7 +188,7 @@ export async function handler(request: Request): Promise<Response> {
   } catch (error) {
     const code = istObjekt(error) && typeof error.code === 'string' ? error.code : 'SEND_FAILED';
     console.error('[anfrage] Versand fehlgeschlagen', { code });
-    return antwort({ fehler: `Die Anfrage konnte nicht versendet werden. Bitte schreiben Sie direkt an ${art === 'business' ? 'abosse@carcare-center.de' : 'info@carcare-center.de'}.` }, 502);
+    return antwort({ fehler: `Die Anfrage konnte nicht versendet werden. Bitte schreiben Sie direkt an ${KONTAKT_POSTFACH[art]}.` }, 502);
   } finally { transport.close(); }
 }
 export default { fetch: handler };

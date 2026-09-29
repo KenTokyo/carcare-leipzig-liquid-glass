@@ -5,6 +5,8 @@ import { faqsByRoute } from '../data/faqs';
 import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
 import KiMarke from './KiMarke';
+import BereichsPlakette from './BereichsPlakette';
+import type { Bereich } from '../data/services';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
@@ -15,6 +17,18 @@ export interface PageHeroProps {
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   keywords?: string[];
+  /**
+   * „Care" oder „Repair" neben der Kopfzeile (Backlog 6.8). `ServiceLayout` leitet es aus der Route ab,
+   * Seiten mit eigenem Aufbau geben es mit `bereichVon(route)` aus `data/services.ts` herein.
+   */
+  bereich?: Bereich | null;
+  /**
+   * Keine automatische Silbentrennung in der H1 (`hyphens: manual`). Nur fuer Titel ohne lange
+   * Komposita: „Jobs und Ausbildung in Leipzig." wurde mobil zu „Ausbil-dung" getrennt, dieselbe
+   * Art Trennung, die bei „Karosserie" auf der Startseite bemaengelt wurde (Backlog 5.5). Woerter wie
+   * „Unfallinstandsetzung" brauchen die Trennung, sonst bricht `break-words` sie ohne Strich.
+   */
+  ohneTrennung?: boolean;
 }
 
 /**
@@ -71,7 +85,7 @@ export interface ProcessItem {
 
 export const PageMeta: React.FC<{ canonical?: string; description: string; noindex?: boolean; og?: OpenGraphMeta; title: string }> = (props) => <SEOHead {...props} />;
 
-export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords }) => {
+export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords, bereich, ohneTrennung = false }) => {
   return (
     // Kein `overflow-hidden` mehr: Innerhalb von `BackdropLayout` wuerde es den Sticky-
     // Kontext beschneiden. Der Farbverlauf bleibt fuer Seiten OHNE Foto-Hintergrund
@@ -79,14 +93,17 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-16 pt-32 md:pb-24 md:pt-40">
       <div className="container relative mx-auto">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-4xl">
-          <span className="mb-5 inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
-            {eyebrow}
-          </span>
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
+              {eyebrow}
+            </span>
+            <BereichsPlakette bereich={bereich} className="py-1.5" />
+          </div>
           {/* `[hyphens:auto]` + `break-words`: Ohne das lief „Fahrzeugaufbereitung" auf
               375 px um 61 px aus dem Kasten und wurde abgeschnitten — lange deutsche
               Komposita passen dort in keine Zeile. `lang="de"` steht am <html>, die
               Trennung folgt also deutschen Regeln. Ab `md` greift es praktisch nie. */}
-          <h1 className="text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 [hyphens:auto] break-words md:text-6xl">{title}</h1>
+          <h1 className={`text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 ${ohneTrennung ? '[hyphens:manual]' : '[hyphens:auto]'} break-words md:text-6xl`}>{title}</h1>
           {/* `gray-700` statt `gray-600` — Reserve, nicht die Reparatur.
               Dieser Absatz ist der einzige laengere Fliesstext, der auf Seiten mit
               `BackdropLayout` ohne Karte direkt auf dem Foto liegt. Behoben ist der
@@ -321,7 +338,8 @@ export interface PriceItem {
   anfrageLabel?: string;
   /**
    * Vorauswahl im Terminformular — `id` aus `data/leistungsauswahl.ts` (waehlt die Leistung) oder aus
-   * `data/zusatzleistungen.ts` (hakt die Zusatzleistung an, seit 2026-09-28). `''` = bewusst keine.
+   * `data/zusatzleistungen.ts` (hakt die Zusatzleistung an, seit 2026-09-28). Steht die ID in beiden
+   * (Versiegelungen, Backlog 6.6), gewinnt die Leistung. `''` = bewusst keine.
    * Ohne Angabe leitet der Dialog sie aus der SEITE ab, und dann waehlte jede Karte dasselbe
    * Paket vor (2026-09-16 gefunden, siehe `AnfrageDialog`).
    */

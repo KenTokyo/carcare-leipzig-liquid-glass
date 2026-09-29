@@ -167,7 +167,7 @@ const Timeline: React.FC<{ stations: TimelineStation[] }> = ({ stations }) => {
               >
                 {idx + 1}
                 <span className="sr-only">
-                  {' — '}
+                  {', '}
                   {station.zeit ?? 'Jahr offen'}: {station.title}
                 </span>
               </motion.button>

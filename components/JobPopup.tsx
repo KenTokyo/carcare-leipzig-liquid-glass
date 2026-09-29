@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, X } from 'lucide-react';
-import { STELLEN_POPUP_AKTIV, offeneStellen, offeneStellenKicker } from '../data/jobs';
+import { ArrowRight, BriefcaseBusiness, X } from 'lucide-react';
+import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker } from '../data/jobs';
 
 /**
  * Pop-up mit den offenen Stellen auf `/karriere` (Backlog 1.23).
@@ -14,9 +14,13 @@ import { STELLEN_POPUP_AKTIV, offeneStellen, offeneStellenKicker } from '../data
  * DREI DINGE, DIE EIN POP-UP AUF EINER KUNDENSEITE NICHT DARF, und wie sie hier
  * geloest sind:
  *
- *  1. NERVEN. Es erscheint einmal je Sitzung. Wer es schliesst, sieht es bis zum
- *     naechsten Besuch nicht wieder (`sessionStorage`). Bewusst NICHT `localStorage`:
- *     Ein halbes Jahr Stille waere fuer eine Stellenanzeige zu lang.
+ *  1. NERVEN. Es erscheint bei jedem Aufruf der Karriereseite einmal. Wer es schliesst,
+ *     sieht es erst beim naechsten Aufruf wieder; gespeichert wird dabei nichts.
+ *     BIS 2026-09-28 merkte es sich das Schliessen fuer die ganze Sitzung (`sessionStorage`).
+ *     Wer es bei einer Durchsicht einmal geschlossen hatte, sah es im selben Tab nie wieder,
+ *     auch nicht die Neugestaltung aus 6.15, und hielt es fuer entfernt (Rueckmeldung des
+ *     Users am 28.09.). Auf der Karriereseite sind die offenen Stellen der Grund des Besuchs;
+ *     einmal je Aufruf nervt dort nicht.
  *  2. DEN WEG VERSTELLEN. Es sitzt unten rechts und ist schmal; auf Mobile unten mit
  *     Abstand zur festen Aktionsleiste. Kein Vollbild-Overlay, keine Sperre des
  *     Hintergrunds — die Seite bleibt bedienbar.
@@ -36,8 +40,21 @@ import { STELLEN_POPUP_AKTIV, offeneStellen, offeneStellenKicker } from '../data
  * im statischen HTML steht, wuerde dort als Seiteninhalt gelesen.
  */
 
-const VERZOEGERUNG_MS = 2600;
-const SPEICHER_SCHLUESSEL = 'cc-stellen-popup-geschlossen';
+/**
+ * Backlog 6.15 (Meeting 2026-09-28): die offenen Stellen prominenter. Deshalb frueher (1,2 statt 2,6 s) — wer die
+ * Karriereseite oeffnet, sucht genau das. Seit 28.09. abends bei jedem Aufruf, siehe Punkt 1 oben.
+ */
+const VERZOEGERUNG_MS = 1200;
+
+/**
+ * Beginn, den ALLE offenen Ausbildungsplaetze teilen — dann steht er einmal in der Zwischenzeile. Weichen sie ab
+ * (Industriekaufmann/-frau hat keinen), steht er je Platz: Sonst laese sich „Beginn Sommer 2027“ auch fuer den Platz
+ * ohne Angabe.
+ */
+const gemeinsamerBeginn =
+  offeneAusbildungen.length > 0 && offeneAusbildungen.every((job) => job.hinweis === offeneAusbildungen[0].hinweis)
+    ? offeneAusbildungen[0].hinweis
+    : undefined;
 
 interface JobPopupProps {
   /** Ziel des Handlungsaufrufs. */
@@ -50,25 +67,12 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
 
   useEffect(() => {
     if (!STELLEN_POPUP_AKTIV || offeneStellen.length === 0) return;
-    // Zugriff gekapselt: In privaten Fenstern und bei blockierten Site-Daten wirft
-    // sessionStorage, statt nur leer zu sein.
-    try {
-      if (window.sessionStorage.getItem(SPEICHER_SCHLUESSEL) === '1') return;
-    } catch {
-      /* kein Speicher verfuegbar - dann eben ohne Gedaechtnis */
-    }
     const timer = window.setTimeout(() => setSichtbar(true), VERZOEGERUNG_MS);
     return () => window.clearTimeout(timer);
   }, []);
 
-  const schliessen = () => {
-    setSichtbar(false);
-    try {
-      window.sessionStorage.setItem(SPEICHER_SCHLUESSEL, '1');
-    } catch {
-      /* siehe oben */
-    }
-  };
+  // Nur fuer diesen Aufruf: Beim naechsten Oeffnen der Karriereseite ist es wieder da (Punkt 1 oben).
+  const schliessen = () => setSichtbar(false);
 
   useEffect(() => {
     if (!sichtbar) return;
@@ -88,51 +92,87 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
         <motion.aside
           role="dialog"
           aria-label="Offene Stellen"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 12 }}
-          transition={{ duration: 0.24, ease: 'easeOut' }}
+          // Backlog 6.15: faehrt von rechts ein und federt leicht nach — sichtbar, ohne zu springen.
+          initial={{ opacity: 0, x: 48, scale: 0.96 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 32 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 26 }}
           // `bottom-28` auf Mobile: darueber sitzt die feste Aktionsleiste
           // (MobileStickyCTA). Ohne den Abstand laegen zwei Elemente uebereinander.
-          className="fixed bottom-28 left-4 right-4 z-40 rounded-2xl border border-gray-100 bg-white p-5 shadow-[0_28px_60px_-24px_rgb(var(--cc-carbon-rgb)/0.45)] sm:left-auto sm:right-6 sm:w-[340px] lg:bottom-6"
+          className="fixed bottom-28 left-4 right-4 z-40 overflow-hidden rounded-2xl bg-white shadow-[0_32px_70px_-24px_rgb(var(--cc-carbon-rgb)/0.55)] ring-1 ring-gray-200 sm:left-auto sm:right-6 sm:w-[380px] lg:bottom-6"
         >
-          <button
-            ref={schliessenRef}
-            type="button"
-            onClick={schliessen}
-            aria-label="Hinweis zu offenen Stellen schließen"
-            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-          >
-            <X size={16} />
-          </button>
+          {/*
+            BACKLOG 6.15 — PROMINENTER: Kopf im CTA-Verlauf (`.cc-gradient-fill`, derselbe wie „Schaden melden")
+            mit Symbol, Zaehler und Ueberschrift; darunter die Stellen einzeln und fett, Ausbildung getrennt mit
+            Beginn. Weisse Schrift auf dem Verlauf: gleiche Flaeche wie die CTA-Knoepfe, dort gemessen AA.
+            Der Ring um das Symbol pulsiert dreimal und steht dann — Aufmerksamkeit beim Erscheinen, keine Dauerbewegung.
+          */}
+          <div className="cc-gradient-fill relative px-5 pb-5 pt-5">
+            <button
+              ref={schliessenRef}
+              type="button"
+              onClick={schliessen}
+              aria-label="Hinweis zu offenen Stellen schließen"
+              className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <X size={17} />
+            </button>
+            <div className="flex items-center gap-3 pr-10">
+              <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white">
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-xl ring-2 ring-white/70"
+                  initial={{ opacity: 0.9, scale: 1 }}
+                  animate={{ opacity: 0, scale: 1.45 }}
+                  transition={{ duration: 1.1, repeat: 2, ease: 'easeOut', delay: 0.35 }}
+                />
+                <BriefcaseBusiness size={20} />
+              </span>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/85">{offeneStellenKicker()}</p>
+                <p className="mt-1 text-xl font-bold leading-tight tracking-tight text-white">Wir suchen Verstärkung.</p>
+              </div>
+            </div>
+          </div>
 
-          <p className="pr-8 text-[10px] font-bold uppercase tracking-[0.22em] text-blue-600">
-            {offeneStellenKicker()}
-          </p>
-          <p className="mt-2 text-base font-bold leading-tight tracking-tight text-gray-950">
-            Wir suchen Verstärkung.
-          </p>
-          <ul className="mt-3 space-y-1.5">
-            {offeneStellen.map((job) => (
-              <li key={job.id} className="flex gap-2 text-sm leading-snug text-gray-600">
-                <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-600" />
-                {/* Backlog 5.26: Ausbildungsplaetze als solche kenntlich, sonst stuende
-                    „Fahrzeuglackierer/in" ohne Erklaerung neben „Fahrzeuglackierer". */}
-                <span>
-                  {job.title}
-                  {job.art === 'ausbildung' && ` (Ausbildung${job.hinweis ? `, ${job.hinweis}` : ''})`}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <a
-            href={href}
-            onClick={schliessen}
-            className="cc-gradient-button mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white"
-          >
-            Bewerbung starten
-            <ArrowRight size={15} />
-          </a>
+          <div className="px-5 pb-5 pt-4">
+            {offeneBerufe.length > 0 && (
+              <ul className="space-y-1.5">
+                {offeneBerufe.map((job) => (
+                  <li key={job.id} className="flex items-center gap-2 text-[15px] font-bold leading-snug text-gray-950">
+                    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
+                    {job.title}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {/* Backlog 5.26: Ausbildungsplaetze als solche kenntlich, sonst stuende „Fahrzeuglackierer/in"
+                ohne Erklaerung neben „Fahrzeuglackierer". */}
+            {offeneAusbildungen.length > 0 && (
+              <>
+                <p className={`${offeneBerufe.length ? 'mt-4' : ''} text-[10px] font-bold uppercase tracking-[0.2em] text-gray-600`}>
+                  Ausbildung{gemeinsamerBeginn ? ` · ${gemeinsamerBeginn}` : ''}
+                </p>
+                <ul className="mt-1.5 space-y-1">
+                  {offeneAusbildungen.map((job) => (
+                    <li key={job.id} className="flex items-center gap-2 text-sm font-semibold leading-snug text-gray-800">
+                      <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-blue-600" />
+                      {job.title}
+                      {!gemeinsamerBeginn && job.hinweis && ` (${job.hinweis})`}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            <a
+              href={href}
+              onClick={schliessen}
+              className="cc-gradient-button mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-3.5 text-sm font-bold text-white"
+            >
+              Jetzt bewerben
+              <ArrowRight size={15} />
+            </a>
+          </div>
         </motion.aside>
       )}
     </AnimatePresence>,

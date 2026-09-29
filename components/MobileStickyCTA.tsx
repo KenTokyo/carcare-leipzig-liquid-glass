@@ -8,23 +8,9 @@ import { useNaheSeitenende } from '../hooks/useNaheSeitenende';
 import { useOeffnungsStatus } from '../hooks/useOeffnungsStatus';
 import { OEFFNUNG_NEUTRAL } from '../data/oeffnungszeiten';
 import { glasLicht } from '../lib/glasLicht';
+import { ADRESSE, KARTEN_ZIELE } from '../data/anfahrt';
 
-/**
- * Navigationsziel. Wortlaut EXAKT wie NAP_ADRESSE in CLAUDE.md / Impressum / Footer —
- * NAP-Konsistenz (SEO-GEO §6.1) gilt auch fuer Kartendienste.
- */
-const ADRESSE = 'An den Tierkliniken 42, 04103 Leipzig';
-const ZIEL = encodeURIComponent(ADRESSE);
-
-/**
- * Beide Dienste bekommen eine ROUTEN-URL (nicht nur einen Pin), damit die Navigation direkt
- * startet. Auf dem Handy uebernimmt die installierte App, sonst oeffnet die Web-Fassung.
- * Apple: `daddr` = Ziel, `dirflg=d` = Auto. Google: offizielle Directions-API-URL.
- */
-const KARTEN_ZIELE = [
-  { label: 'Apple Karten', href: `https://maps.apple.com/?daddr=${ZIEL}&dirflg=d` },
-  { label: 'Google Maps', href: `https://www.google.com/maps/dir/?api=1&destination=${ZIEL}&travelmode=driving` },
-];
+// Adresse und Routenziele: `data/anfahrt.ts` (seit 2026-09-28 dieselbe Quelle wie die Links an der Adresse, 6.23).
 
 const MobileStickyCTA: React.FC = () => {
   const { oeffnen } = useAnfrageDialog();

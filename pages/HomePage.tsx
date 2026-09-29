@@ -6,6 +6,7 @@ import TargetGroupCards from '../components/TargetGroupCards';
 import AutoDetailingExpertiseSection from '../components/AutoDetailingExpertiseSection';
 import DetailingProcessSection from '../components/DetailingProcessSection';
 import FAQSection from '../components/FAQSection';
+import GoogleBewertungen from '../components/GoogleBewertungen';
 import KontaktDaten from '../components/KontaktDaten';
 import { PageMeta } from '../components/PageBlocks';
 
@@ -19,7 +20,9 @@ import { PageMeta } from '../components/PageBlocks';
 // mit der Leistungsuebersicht. Siehe docs/hero-minimalisierung/.
 // Ausgelagert: Geschäftskunden -> /geschaeftskunden, Karriere -> /karriere.
 // Zusammengeführt: Kontaktabschluss (ContactCTA) in ContactSection.
-// Ersetzt (offen): generische „Vertrauen"-Sektion -> echte Google-Bewertungen (echte Daten nötig).
+// Ersetzt: generische „Vertrauen"-Sektion -> echte Google-Bewertungen. Seit 2026-09-28 (Seitendurchgang mit dem
+// User) derselbe Block wie auf „Über uns", nach dem Aufbereitungsablauf und vor der FAQ; einzelne Bewertungen
+// erscheinen, sobald die Auswahl in data/bewertungen.ts steht (6.22).
 const HomePage: React.FC = () => (
   <>
     <PageMeta
@@ -33,6 +36,8 @@ const HomePage: React.FC = () => (
     <TargetGroupCards />
     <AutoDetailingExpertiseSection />
     <DetailingProcessSection />
+    {/* Wunsch des Users (2026-09-28): „nach dem Bereich Autoaufbereitung Leipzig und vor dem Bereich FAQ". */}
+    <GoogleBewertungen />
     <FAQSection />
     {/* Backlog 2.6: Das Kontaktformular stand hier als letzte Sektion. Es ist
         entfernt, weil jede Anfrage seit 1.20 ueber den Anfrage-Dialog laeuft — ein

@@ -22,7 +22,13 @@
  * REPARATURSEITEN STEHEN NICHT IN DIESER LISTE, sondern in `TERMIN_UEBERSCHREIBUNG`
  * weiter unten: Ihr Handlungsaufruf zeigt zwar auf `#contact-termin`, gemeint ist aber
  * eine Schadenmeldung. Behoben mit R8 am 2026-09-05.
+ *
+ * VERSIEGELUNGEN AUCH ALS LEISTUNG (Backlog 6.6, Meeting 2026-09-28): Keramik-, Nano- und
+ * Frontscheibenversiegelung stehen zusaetzlich hier — Name und ID aus `data/zusatzleistungen.ts`
+ * (`auchAlsLeistung`), damit es keine zweite Schreibweise gibt. Wer nur eine Versiegelung will,
+ * muss seitdem nicht mehr „Sonstiges“ waehlen.
  */
+import { zusatzleistungen } from './zusatzleistungen.js';
 
 export interface Leistungsoption {
   /** Wert im Formular. Geht spaeter so in den Versand — nicht nachtraeglich umbenennen. */
@@ -63,6 +69,8 @@ export const terminLeistungen: Leistungsoption[] = [
     label: 'Lackaufbereitung',
     routen: ['/autoaufbereitung-wissen/lackaufbereitung'],
   },
+  // 6.6: dieselbe ID wie das Kaestchen — die Preiskachel waehlt damit die Leistung vor (RequestForm).
+  ...zusatzleistungen.filter((z) => z.auchAlsLeistung).map((z) => ({ id: z.id, label: z.label })),
   {
     id: 'leasing',
     label: 'Leasingrückgabe',

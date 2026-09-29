@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { bereichVon } from '../data/services';
 import { AUFPREIS_SATZ, angeboteAussen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
 
 /**
@@ -22,7 +23,8 @@ import { AUFPREIS_SATZ, angeboteAussen, aufbereitungKacheln, paketPreis, zusatzP
 // Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt — aus beiden Listen entfernt.
 // Damit trennen sich die Bereiche sauber (4.8): aussen = reinigen, Lack = Politur und Versiegelung.
 const aussenLeistungen = [
-  { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung und Felgenreinigung.' },
+  // Backlog 6.24 (Mail Andre 2026-09-28): „Intensive Vorreinigung inkl. Entfernung von Ablagerungen".
+  { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, dazu die Felgenreinigung.' },
   { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
   // Backlog 4.5: Wortlaut „Schonende Handoberwäsche" wie im Paket Brillant Außenpflege.
   { title: 'Schonende Handoberwäsche', description: 'Schonende Oberwäsche von Hand.' },
@@ -32,15 +34,17 @@ const aussenLeistungen = [
 // Backlog 5.33 (Meeting 2026-09-25): Die Lackaufbereitung geht tiefer als die Aussenpflege. Swissvax-Wachse
 // gehoeren zur Premiumpflege „exklusiv" (FAQ „wachs" sagt das) und stehen hier nicht mehr; dafuer die
 // Keramik- und Nanoversiegelung, die Andre staerker herausstellen moechte.
+// Backlog 6.24 (Mail Andre 2026-09-28): die Schritte in Andres Begriffen — Lacktiefenpolitur,
+// Oberflaechenkratzerentfernung, Antihologrammbearbeitung, „nach Absprache erweiterbar mit Wachs, Nano oder Keramik".
 const lackLeistungen = [
-  { title: 'Leichte Kratzer herauspolieren', description: 'Wir arbeiten leichte Kratzer, Anhaftungen und matte Stellen aus dem Lack heraus.' },
-  { title: 'Hochglanzpolitur', description: 'Hochglanzpolitur für glattere Oberflächen und sichtbaren Glanz.' },
-  { title: 'Lackversiegelung', description: 'Lackversiegelung für Schutz und Werterhalt.' },
-  { title: 'Keramik- und Nanoversiegelung', description: 'Auf Wunsch schützen wir den Lack mit einer Keramik- oder Nanoversiegelung statt der klassischen Versiegelung.' },
+  { title: 'Lacktiefenpolitur', description: 'Spezielle, abrasive Polituren arbeiten in die Tiefe des Lackes, abgestimmt auf seinen Zustand.' },
+  { title: 'Oberflächenkratzer entfernen', description: 'Wir arbeiten Oberflächenkratzer, Anhaftungen und matte Stellen aus dem Lack heraus.' },
+  { title: 'Antihologramm-Bearbeitung', description: 'Wir entfernen Hologramme, also schimmernde Polierspuren im Lack, und bringen ihn auf Hochglanz.' },
+  { title: 'Versiegelung nach Wunsch', description: 'Nach Absprache erweitern wir die Lackaufbereitung mit Wachs-, Nano- oder Keramikversiegelung.' },
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb seit 1998 – das Lackwissen aus der Reparatur kommt der Pflege zugute.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb seit 1998. Das Lackwissen aus der Reparatur kommt der Pflege zugute.' },
   { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart/Spot Repair und Felgen aus einer Hand.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Einzelfahrzeuge ebenso wie ganze Flotten von Autohäusern und Firmenfuhrparks.' },
 ];
@@ -59,6 +63,7 @@ const AussenaufbereitungPage: React.FC = () => (
     />
     <PageHero
       eyebrow="Außenaufbereitung Leipzig"
+      bereich={bereichVon('/aussenaufbereitung-leipzig')}
       title="Außen- und Lackaufbereitung in Leipzig."
       description="Die Außenaufbereitung entfernt Verschmutzungen, die eine gewöhnliche Wäsche stehen lässt, und bereitet den Lack auf Politur und Versiegelung vor. Die Lackaufbereitung arbeitet anschließend die Lackoberfläche selbst auf. Beides lässt sich einzeln oder kombiniert beauftragen."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
@@ -104,7 +109,7 @@ const AussenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Lackaufbereitung"
           title="Wie wir die Lackoberfläche aufarbeiten."
-          description="Die Lackaufbereitung geht tiefer als die Außenpflege: Sie nimmt leichte Kratzer und matte Stellen aus dem Lack, holt Glanz zurück und schützt das Ergebnis. Wir berechnen sie nach Aufwand."
+          description="Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, abgestimmt auf den Zustand Ihres Fahrzeuglackes. Wir berechnen sie nach Aufwand."
         />
         <ProcessList steps={lackLeistungen} />
       </div>
@@ -121,7 +126,8 @@ const AussenaufbereitungPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Exklusiv- und Zusatzleistungen"
-          title="Versiegelungen und Zusatzleistungen zum Festpreis."
+          // Seit 6.17 (2026-09-28) haben Keramik und Nano „ab“-Preise — „zum Festpreis“ stimmte damit nicht mehr.
+          title="Was kosten Versiegelungen und Zusatzleistungen?"
           description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. Dazu kommen die Frontscheibenversiegelung und Pflege-Extras für Felgen, Cabrioverdeck und Motorraum.`}
         />
         <PricingGrid items={angeboteAussen.zusatz} ctaLabel="Termin anfragen" note="Alle Preise inkl. gesetzlicher Mehrwertsteuer." />
@@ -162,7 +168,7 @@ const AussenaufbereitungPage: React.FC = () => (
 
     <PageCTA
       title="Lack matt, stumpf oder verschmutzt?"
-      description="Sagen Sie uns, in welchem Zustand das Fahrzeug ist und was Sie erreichen wollen — wir empfehlen den passenden Umfang zwischen Außenpflege und vollständiger Lackaufbereitung."
+      description="Sagen Sie uns, in welchem Zustand das Fahrzeug ist und was Sie erreichen wollen. Wir empfehlen den passenden Umfang zwischen Außenpflege und vollständiger Lackaufbereitung."
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"
     />

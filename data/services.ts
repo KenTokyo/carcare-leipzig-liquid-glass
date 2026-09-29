@@ -18,6 +18,20 @@ const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
 
 export type ServiceGroupId = 'aufbereitung' | 'unfall-lack' | 'rad-glas' | 'gewerbe';
 
+/**
+ * „Care" oder „Repair" (Backlog 6.8, Meeting 2026-09-28): Plakette an allem zur Aufbereitung (Care) und an
+ * Unfallinstandsetzung und Lackierung (Repair). Felgen und Glas sind Reparaturen und bekommen Repair. Die
+ * Geschaeftskunden-Gruppe umfasst beides und traegt deshalb keine — eine Plakette muss eindeutig sein.
+ * Abgeleitet aus der Gruppe: Eine neue Leistung bekommt ihre Plakette mit dem Katalogeintrag, ohne zweite Liste.
+ */
+export type Bereich = 'care' | 'repair';
+const BEREICH_JE_GRUPPE: Record<ServiceGroupId, Bereich | null> = {
+  aufbereitung: 'care',
+  'unfall-lack': 'repair',
+  'rad-glas': 'repair',
+  gewerbe: null,
+};
+
 export interface ServiceCatalogEntry extends OverviewService {
   /** Gruppierung auf `/leistungen`. */
   group: ServiceGroupId;
@@ -85,8 +99,8 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     groupHub: true,
     title: 'Fahrzeugaufbereitung',
     localTitle: 'Fahrzeugaufbereitung Leipzig',
-    description: 'Innen, Außen und Lack — Wohlfühlen im Alltag und sichtbarer Werterhalt.',
-    listDescription: 'Innen- und Außenaufbereitung, Politur und Versiegelung — für den Alltag, für den Werterhalt und für Verkauf oder Leasingrückgabe.',
+    description: 'Innen, Außen und Lack. Wohlfühlen im Alltag und sichtbarer Werterhalt.',
+    listDescription: 'Innen- und Außenaufbereitung, Politur und Versiegelung, für den Alltag, für den Werterhalt und für Verkauf oder Leasingrückgabe.',
     iconName: 'Sparkles',
     href: '/fahrzeugaufbereitung-leipzig',
     cta: 'Zur Aufbereitung',
@@ -102,14 +116,14 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Unfallinstandsetzung',
     localTitle: 'Unfallinstandsetzung Leipzig',
     description: 'Schadenaufnahme, Kalkulation und Reparatur aus einer Hand.',
-    listDescription: 'Schadenaufnahme, Kalkulation, Karosserie- und Lackierarbeiten sowie Reparaturbegleitung — inklusive Abstimmung mit Versicherung und Gutachter.', // Backlog 2.17
+    listDescription: 'Schadenaufnahme, Kalkulation, Karosserie- und Lackierarbeiten sowie Reparaturbegleitung, inklusive Abstimmung mit Versicherung und Gutachter.', // Backlog 2.17
     iconName: 'Wrench',
     href: '/unfallinstandsetzung-leipzig',
     cta: 'Unfall melden',
     // Seit 2026-09-21 echtes Foto (Backlog 2.16: das alte Motiv wirkte wie Schadenaufnahme,
     // nicht wie Instandsetzung). Das alte Bild bleibt als Datei im Bestand, siehe motive.json.
     backgroundImage: kachel('unfallinstandsetzung-leipzig-carcare'),
-    imageAlt: 'Karosseriebauer schweißt an der Dachsäule eines abgeklebten Unfallfahrzeugs – Unfallinstandsetzung im CarCare Center Leipzig',
+    imageAlt: 'Karosseriebauer schweißt an der Dachsäule eines abgeklebten Unfallfahrzeugs, Unfallinstandsetzung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     pageImage: kachel('unfallinstandsetzung-hintergrund-leipzig-carcare'),
@@ -120,16 +134,20 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Neu- und Reparaturlackierung',
     localTitle: 'Neu- und Reparaturlackierung Leipzig',
     description: 'Saubere Lackierungen ohne sichtbare Farbtonunterschiede.',
-    listDescription: 'Farbtongenaue Lackierung als Glasurit-Lackpartner — Ziel ist die unsichtbare Reparatur ohne erkennbare Farbton- oder Effektunterschiede.',
+    listDescription: 'Farbtongenaue Lackierung als Glasurit-Lackpartner. Ziel ist die unsichtbare Reparatur ohne erkennbare Farbton- oder Effektunterschiede.',
     iconName: 'PaintBucket',
     href: '/autolackierung-leipzig',
     cta: 'Zur Lackierung',
     // Seit 2026-09-21 echtes Foto (Backlog 3.26). Die Startseitenkarte zeigt statt des Fotos
     // ein Video — nur dort, siehe `components/ServiceGrid.tsx`.
     backgroundImage: kachel('autolackierung-leipzig-carcare'),
-    imageAlt: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf – Reparaturlackierung im CarCare Center Leipzig',
+    imageAlt: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf, Reparaturlackierung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
+    // Seit 2026-09-28 (6.12) zeigt die Seite stattdessen das Lackiervideo als Hintergrund
+    // (`hintergrundVideo` in pages/AutolackierungPage.tsx). Das Foto bleibt als Rueckfall stehen,
+    // falls der Videoplatz einmal entfaellt — ohne Eintrag hier stuende dann das Kachelfoto mit
+    // der Pistole im linken Drittel unter dem Textschutz.
     pageImage: kachel('autolackierung-hintergrund-leipzig-carcare'),
   },
   {
@@ -138,7 +156,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Smart Repair',
     localTitle: 'Smart Repair Leipzig',
     description: 'Punktgenaue Lack- und Kunststoffreparatur für kleinere Schäden.',
-    listDescription: 'Spot-Repair bearbeitet gezielt nur den beschädigten Bereich statt des ganzen Bauteils — die bevorzugte Methode bei kleineren Schäden.',
+    listDescription: 'Spot-Repair bearbeitet gezielt nur den beschädigten Bereich statt des ganzen Bauteils, die bevorzugte Methode bei kleineren Schäden.',
     iconName: 'ScanLine',
     href: '/smart-repair-leipzig',
     cta: 'Smart Repair ansehen',
@@ -153,13 +171,13 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Dellenentfernung',
     localTitle: 'Dellenentfernung Leipzig',
     description: 'Lackierfreie Instandsetzung bei Dellen und kleinen Karosserieschäden.',
-    listDescription: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hagelschäden — von Versicherungen und Gutachtern anerkannt, ohne Wertminderung.',
+    listDescription: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hagelschäden, von Versicherungen und Gutachtern anerkannt, ohne Wertminderung.',
     iconName: 'Hammer',
     href: '/dellenentfernung-leipzig',
     cta: 'Dellen entfernen',
     // Seit 2026-09-21 echtes Foto: die Delle, waehrend sie entfernt wird (Backlog 3.11/3.24).
     backgroundImage: kachel('dellenentfernung-leipzig-carcare'),
-    imageAlt: 'Techniker richtet unter der Reflexionslampe eine Delle an der A-Säule aus – lackfreie Dellenentfernung im CarCare Center Leipzig',
+    imageAlt: 'Techniker richtet unter der Reflexionslampe eine Delle an der A-Säule aus, lackfreie Dellenentfernung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
   },
@@ -169,7 +187,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Hagelschadenreparatur',
     localTitle: 'Hagelschadenreparatur Leipzig',
     description: 'Strukturierte Hilfe nach Hagelereignissen und Dellenfeldern.',
-    listDescription: 'Kalkulation über das anerkannte System Audatex und komplette Abwicklung mit Ihrer Versicherung — ohne Anzahlung.',
+    listDescription: 'Kalkulation über das anerkannte System Audatex und komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung.',
     iconName: 'CloudHail',
     href: '/hagelschadenreparatur-leipzig',
     cta: 'Hagelschaden prüfen',
@@ -184,7 +202,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Felgenreparatur',
     localTitle: 'Felgenreparatur Leipzig',
     description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb.',
-    listDescription: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb — Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
+    listDescription: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
     iconName: 'CircleDot',
     href: '/felgenreparatur-leipzig',
     cta: 'Felgen reparieren',
@@ -199,7 +217,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Autoglas / Scheibenfolien',
     localTitle: 'Autoglas & Scheibenfolien Leipzig',
     description: 'Steinschlagreparatur, Scheibentausch und Folien über WINTEC.',
-    listDescription: 'Steinschlagreparatur, Neuverglasung für PKW, LKW und Bus sowie Folierungen aller Art — als WINTEC-Partner mit 30 Jahren Garantie.',
+    listDescription: 'Steinschlagreparatur, Neuverglasung für PKW, LKW und Bus sowie Folierungen aller Art, als WINTEC-Partner mit 30 Jahren Garantie.',
     iconName: 'Glasses',
     href: '/autoglas-leipzig',
     cta: 'Zum Autoglas',
@@ -220,7 +238,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     cta: 'Innenaufbereitung ansehen',
     // Seit 2026-09-21 echtes Foto eines exklusiven Fahrzeugs (Backlog 2.15/3.29).
     backgroundImage: kachel('innenaufbereitung-leipzig-carcare'),
-    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens – Innenaufbereitung im CarCare Center Leipzig',
+    imageAlt: 'Mitarbeiter reinigt mit dem Detailpinsel die Mittelkonsole eines Sportwagens, Innenaufbereitung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     // Nur auf `/leistungen`, siehe Hinweis beim Eintrag `aussenaufbereitung`.
@@ -232,14 +250,14 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Außenaufbereitung',
     localTitle: 'Außenaufbereitung Leipzig',
     description: 'Außenreinigung, Politur und Versiegelung.',
-    listDescription: 'Vorreinigung, Felgenreinigung und schonende Handoberwäsche — dazu Hochglanzpolitur und Lackversiegelung.',
+    listDescription: 'Vorreinigung, Felgenreinigung und schonende Handoberwäsche, dazu Hochglanzpolitur und Lackversiegelung.',
     iconName: 'Sparkles',
     href: '/aussenaufbereitung-leipzig',
     cta: 'Außenaufbereitung ansehen',
     // Seit 2026-09-21 eigenes, echtes Motiv statt der Leihgabe von `fahrzeugaufbereitung-…` (R2) —
     // dasselbe Foto wie `aufbereitungKacheln.aussen` in data/detailing.ts.
     backgroundImage: kachel('lackaufbereitung-leipzig-carcare'),
-    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV – Außen- und Lackaufbereitung im CarCare Center Leipzig',
+    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Außen- und Lackaufbereitung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
     // Erscheint nur auf `/leistungen`: die Startseite fuehrt die Aufbereitungsbereiche
@@ -267,7 +285,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Fuhrparkservice',
     localTitle: 'Fuhrparkservice Leipzig',
     description: 'Planbare Pflege- und Reparaturprozesse für gewerbliche Flotten.',
-    listDescription: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf — planbare Abläufe für gewerbliche Flotten.',
+    listDescription: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, planbare Abläufe für gewerbliche Flotten.',
     iconName: 'TruckIcon',
     href: '/fuhrparkservice-leipzig',
     cta: 'Fuhrparkservice',
@@ -292,7 +310,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     // Karte ohne Foto. Dasselbe Motiv wie der Seitenhintergrund von `/geschaeftskunden`, wo es auf
     // Wunsch von André bleibt (Meeting 2026-09-25, 5.14).
     backgroundImage: kachel('autohaeuser-und-fuhrparks-leipzig-carcare'),
-    imageAlt: 'Grüner Porsche Cayenne auf unserem Autotransporter vor der Werkstatthalle – Service für Autohäuser und Fuhrparks',
+    imageAlt: 'Grüner Porsche Cayenne auf unserem Autotransporter vor der Werkstatthalle, Service für Autohäuser und Fuhrparks',
     imageWidth: 2000,
     imageHeight: 1500,
     inOverviewGrid: false,
@@ -357,8 +375,11 @@ export const serviceGroups: ServiceGroup[] = [
   },
 ];
 
-/** Kacheln der Startseiten-Uebersicht (`ServiceGrid`). */
-export const overviewServices: OverviewService[] = serviceCatalog.filter(
+/**
+ * Kacheln der Startseiten-Uebersicht (`ServiceGrid`). Seit 2026-09-28 als Katalogeintraege typisiert statt als
+ * `OverviewService`: `ServiceGrid` braucht die Gruppe fuer die Care/Repair-Plakette (6.8).
+ */
+export const overviewServices: ServiceCatalogEntry[] = serviceCatalog.filter(
   (service) => service.inOverviewGrid !== false
 );
 
@@ -376,3 +397,16 @@ export const servicesByGroup = (group: ServiceGroupId): ServiceCatalogEntry[] =>
  */
 export const serviceByHref = (href: string): ServiceCatalogEntry | undefined =>
   serviceCatalog.find((service) => service.href === href);
+
+/** Care oder Repair fuer eine Gruppe (Backlog 6.8), `null` fuer die Geschaeftskunden-Gruppe. */
+export const bereichDerGruppe = (gruppe: ServiceGroupId): Bereich | null => BEREICH_JE_GRUPPE[gruppe];
+
+/**
+ * Care oder Repair fuer einen Link oder eine Route (Backlog 6.8). Anker werden abgeschnitten
+ * (`/fahrzeugaufbereitung-leipzig#preise`). Seiten ohne Katalogeintrag bekommen keine Plakette.
+ */
+export const bereichVon = (href?: string | null): Bereich | null => {
+  if (!href) return null;
+  const eintrag = serviceByHref(href.split('#')[0]);
+  return eintrag ? BEREICH_JE_GRUPPE[eintrag.group] : null;
+};

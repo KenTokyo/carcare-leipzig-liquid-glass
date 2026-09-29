@@ -60,7 +60,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
             {berufsbilder.map((job) => (
               <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
                 {job.title}
-                {job.status === 'suchend' ? '' : ' — zurzeit keine offene Stelle'}
+                {job.status === 'suchend' ? '' : ', zurzeit keine offene Stelle'}
               </option>
             ))}
           </optgroup>
@@ -69,7 +69,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
               <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
                 {job.title}
                 {/* Backlog 5.26: Beginn mitnennen, wo es einen gibt („Beginn Sommer 2027"). */}
-                {job.status === 'suchend' ? (job.hinweis ? ` — ${job.hinweis}` : '') : ' — zurzeit keine offene Stelle'}
+                {job.status === 'suchend' ? (job.hinweis ? `, ${job.hinweis}` : '') : ', zurzeit keine offene Stelle'}
               </option>
             ))}
           </optgroup>
@@ -102,7 +102,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
     <div className="rounded-xl border border-gray-200 bg-white p-4">
       <p className="mb-4 text-[11px] leading-relaxed text-gray-700">
         <span className="font-semibold text-gray-950">Unterlagen sind nicht nötig, um zu starten.</span>{' '}
-        Hängen Sie Lebenslauf oder Zeugnisse gern gleich an — oder reichen Sie sie nach dem Absenden per
+        Hängen Sie Lebenslauf oder Zeugnisse gern gleich an, oder reichen Sie sie nach dem Absenden per
         E-Mail nach. Den Weg dafür zeigen wir Ihnen dann.
       </p>
       <AnhangFeld dateien={anhaenge} onChange={onAnhaenge} />

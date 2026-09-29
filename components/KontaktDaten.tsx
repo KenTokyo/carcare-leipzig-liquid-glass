@@ -1,6 +1,8 @@
 import React from 'react';
 import { Clock, MapPin, Phone } from 'lucide-react';
 import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
+import { APPLE_KARTEN_ROUTE, GOOGLE_MAPS_ROUTE } from '../data/anfahrt';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 /**
  * Adresse, Oeffnungszeiten und Telefon — Backlog 2.6.
@@ -27,11 +29,29 @@ const KARTEN = [
     icon: <MapPin size={18} />,
     titel: 'Adresse',
     inhalt: (
-      <p className="text-sm leading-relaxed text-gray-600">
-        An den Tierkliniken 42
-        <br />
-        04103 Leipzig
-      </p>
+      <>
+        <p className="text-sm leading-relaxed text-gray-600">
+          An den Tierkliniken 42
+          <br />
+          04103 Leipzig
+        </p>
+        {/* Backlog 6.23 (Meeting 2026-09-28): Routenlink an der Adresse, „erst nach Klick aktiv“. Ein gewoehnlicher
+            Link: Bis zum Klick verbindet die Seite nichts mit Google (Begruendung in data/anfahrt.ts). Google Maps
+            zuerst, weil so gewuenscht; Apple Karten daneben wie in der mobilen Leiste. 48 px Trefferflaeche. */}
+        <div className="mt-2 flex flex-wrap gap-x-5">
+          {[{ label: 'Route mit Google Maps', href: GOOGLE_MAPS_ROUTE }, { label: 'Apple Karten', href: APPLE_KARTEN_ROUTE }].map((ziel) => (
+            <a
+              key={ziel.href}
+              href={ziel.href}
+              {...externAttribute(ziel.href)}
+              className="inline-flex min-h-12 items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600 underline-offset-4 hover:underline"
+            >
+              {ziel.label}
+              <ExternMarke href={ziel.href} groesse={13} />
+            </a>
+          ))}
+        </div>
+      </>
     ),
   },
   {

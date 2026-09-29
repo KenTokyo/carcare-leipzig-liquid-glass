@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionVal
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
+import { GOOGLE_MAPS_ROUTE } from '../data/anfahrt';
 import { ExternMarke, externAttribute } from './ExternerLink';
 import KiMarke from './KiMarke';
 
@@ -183,7 +184,19 @@ const Footer: React.FC = () => {
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
                   <MapPin size={16} className="mt-1 shrink-0 text-gray-400" />
-                  <p className="leading-snug">An den Tierkliniken 42<br />04103 Leipzig</p>
+                  <div>
+                    <p className="leading-snug">An den Tierkliniken 42<br />04103 Leipzig</p>
+                    {/* Backlog 6.23: Routenlink an der Adresse — ein gewoehnlicher Link, bis zum Klick keine Verbindung
+                        zu Google (data/anfahrt.ts). `py-3 -my-2` gibt der kleinen Zeile die volle Trefferhoehe. */}
+                    <a
+                      href={GOOGLE_MAPS_ROUTE}
+                      {...externAttribute(GOOGLE_MAPS_ROUTE)}
+                      className="-my-2 inline-flex items-center gap-1 py-3 text-xs font-semibold text-gray-300 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white"
+                    >
+                      Route mit Google Maps
+                      <ExternMarke href={GOOGLE_MAPS_ROUTE} groesse={12} />
+                    </a>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={16} className="text-gray-400 shrink-0" />

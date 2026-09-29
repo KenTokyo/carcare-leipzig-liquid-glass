@@ -81,7 +81,7 @@ export const jobPositions: JobPosition[] = [
     art: 'beruf',
     title: 'Kfz-Aufbereiter',
     description:
-      'Fahrzeugpflege innen und außen, Politur und Versiegelung — Arbeit, deren Ergebnis man sofort sieht.',
+      'Fahrzeugpflege innen und außen, Politur und Versiegelung. Arbeit, deren Ergebnis man sofort sieht.',
     anforderungen: [
       'Sorgfalt im Umgang mit hochwertigen Fahrzeugen',
       'Auge für Details, auch an schwer zugänglichen Stellen',
@@ -98,7 +98,7 @@ export const jobPositions: JobPosition[] = [
     art: 'beruf',
     title: 'Fahrzeuglackierer',
     description:
-      'Lackierarbeiten von Spot-Repair bis Komplettlackierung — als Glasurit-Lackpartner mit farbtongenauer Angleichung.',
+      'Lackierarbeiten von Spot-Repair bis Komplettlackierung, als Glasurit-Lackpartner mit farbtongenauer Angleichung.',
     anforderungen: [
       'Abgeschlossene Ausbildung als Fahrzeuglackierer',
       'Sicheres Gespür für Farbton und Oberfläche',
@@ -117,7 +117,7 @@ export const jobPositions: JobPosition[] = [
     title: 'Karosserie- und Fahrzeugbaumechaniker',
     anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker',
     description:
-      'Instandsetzung nach Unfallschäden, Karosseriearbeiten und Richtbank — instand setzen, wo es fachlich vertretbar ist.',
+      'Instandsetzung nach Unfallschäden, Karosseriearbeiten und Richtbank. Wir setzen instand, wo es fachlich vertretbar ist.',
     anforderungen: [
       'Abgeschlossene Ausbildung im Karosserie- oder Fahrzeugbau',
       'Erfahrung mit Instandsetzung nach Unfallschäden',
@@ -174,7 +174,7 @@ export const jobPositions: JobPosition[] = [
     title: 'Fahrzeuglackierer/in',
     anzeigeTitel: 'Fahrzeug\u00ADlackierer/in',
     description:
-      'Ausbildung im Lackierhandwerk: Untergrund, Farbtonbestimmung, Applikation und Finish — bei einem Glasurit-Lackpartner.',
+      'Ausbildung im Lackierhandwerk: Untergrund, Farbtonbestimmung, Applikation und Finish, bei einem Glasurit-Lackpartner.',
     anforderungen: [
       'Interesse an Farbe, Oberfläche und sauberem Arbeiten',
       'Sorgfalt und Geduld bei feinen Arbeitsschritten',

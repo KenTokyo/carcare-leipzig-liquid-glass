@@ -63,8 +63,8 @@ const DatenschutzPage: React.FC = () => (
           </span>
           <p className="text-base leading-relaxed text-gray-950">
             Diese Website wird derzeit neu aufgebaut. Die Datenschutzerklärung wird dafür neu
-            erstellt und nicht aus dem alten Auftritt übernommen — der beschreibt eine andere
-            technische Grundlage.
+            erstellt und nicht aus dem alten Auftritt übernommen, der eine andere technische
+            Grundlage beschreibt.
           </p>
           <p className="mt-4 text-base leading-relaxed text-gray-600">
             Bis sie vorliegt, erreichen Sie uns für alle Fragen zum Datenschutz direkt über die

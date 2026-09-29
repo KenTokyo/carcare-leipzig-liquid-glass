@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
+import { bereichVon } from '../data/services';
 import DetailingGallery from '../components/DetailingGallery';
 import { AUFPREIS_SATZ, carePackages, detailingScopes, detailingSteps, disinfectionServices, zusatzAngebote, zusatzPreis } from '../data/detailing';
 
@@ -42,7 +43,8 @@ const VehicleDetailingPage: React.FC = () => (
     />
     <PageHero
       eyebrow="Fahrzeugaufbereitung Leipzig"
-      title="Professionelle Fahrzeugaufbereitung in Leipzig – mit festen Paketpreisen."
+      bereich={bereichVon('/fahrzeugaufbereitung-leipzig')}
+      title="Professionelle Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen."
       description="Innenraum und Außenpflege, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf über 3.500 m²."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
@@ -56,7 +58,8 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
-          description="Vier aufeinander aufbauende Pakete – von der Brillant Außenpflege ab 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum im Vordergrund – Polster, Leder oder Gerüche –, passt die Intensiv Innenraumreinigung. Wer beides braucht, etwa vor Verkauf oder Leasingrückgabe, wählt die Premiumpflege. Die Lackaufbereitung berechnen wir nach Aufwand."
+          // Backlog 6.24 (Mail Andre 2026-09-28): die letzten beiden Saetze in Andres Fassung, in „Sie/wir“ umformuliert.
+          description="Vier aufeinander aufbauende Pakete, von der Brillant Außenpflege ab 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, passt die Intensiv Innenraumreinigung. Wünschen Sie beides für sich und Ihr Fahrzeug oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand."
         />
         {/* Backlog 4.7: Aufpreise als Fussnote — Entscheidung des Kunden vom 2026-09-16.
             Der Satz kommt aus `AUFPREIS_SATZ`, dieselbe Quelle wie die Preis-FAQ. */}
@@ -83,7 +86,7 @@ const VehicleDetailingPage: React.FC = () => (
         <PricingGrid
           items={disinfectionServices}
           ctaLabel="Termin anfragen"
-          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung – z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf."
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer. Ideal ergänzend zur Innenaufbereitung, z. B. bei Gerüchen, nach Krankheit oder vor dem Fahrzeugverkauf."
         />
       </div>
     </section>
@@ -123,8 +126,8 @@ const VehicleDetailingPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Aufbereitungsumfang"
-          title="Innen, Außen und Lack – die drei Bereiche im Überblick."
-          description="Die Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab — der vollständige Leistungsumfang steht auf der jeweiligen Seite."
+          title="Die drei Bereiche Innen, Außen und Lack im Überblick."
+          description="Die Bereiche lassen sich einzeln oder kombiniert beauftragen. Welche Kombination sinnvoll ist, hängt von Zustand und Ziel ab. Der vollständige Leistungsumfang steht auf der jeweiligen Seite."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {detailingScopes.map((scope) => (
@@ -201,7 +204,7 @@ const VehicleDetailingPage: React.FC = () => (
         <SectionIntro
           eyebrow="Ablauf"
           title="So läuft Ihre Autoaufbereitung bei uns."
-          description="Von der Leistungsauswahl bis zur gepflegten Übergabe – in fünf klaren Schritten, aus einer Hand."
+          description="Von der Leistungsauswahl bis zur gepflegten Übergabe in fünf klaren Schritten, aus einer Hand."
         />
         <ProcessList steps={detailingSteps} />
       </div>

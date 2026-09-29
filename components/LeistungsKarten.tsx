@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { serviceByHref } from '../data/services';
+import { bereichVon, serviceByHref } from '../data/services';
 import KiMarke from './KiMarke';
+import BereichsPlakette from './BereichsPlakette';
 
 /**
  * Leistungskarte mit Foto — das durchgaengige Kartenmuster des Projekts.
@@ -50,12 +51,15 @@ const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
   const bildZiel = karte.imageHref ?? karte.href;
   const eintrag = bildZiel ? serviceByHref(ohneAnker(bildZiel)) : undefined;
   const bild = eintrag?.backgroundImage;
+  // Care oder Repair (Backlog 6.8) aus demselben Katalogeintrag wie das Foto.
+  const bereich = bereichVon(bildZiel);
 
   return (
     <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm">
       {bild && (
         /* Der Rahmen traegt den Abstand nach unten und den Bezugspunkt fuer die
-           KI-Plakette; das Bild selbst bleibt unveraendert. */
+           KI-Plakette; das Bild selbst bleibt unveraendert. Care/Repair oben links,
+           die KI-Plakette unten rechts — sie kommen sich nicht in die Quere. */
         <div className="relative mb-5">
           <img
             src={bild}
@@ -68,9 +72,11 @@ const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
                trotz `loading="lazy"`. */
             className="aspect-[16/10] w-full rounded-xl object-cover"
           />
+          <BereichsPlakette bereich={bereich} className="absolute left-2 top-2" />
           <KiMarke quelle={bild} className="bottom-2 right-2" />
         </div>
       )}
+      {!bild && <BereichsPlakette bereich={bereich} className="mb-3" />}
       <h3 className="text-xl font-bold leading-tight text-gray-950">{karte.title}</h3>
       <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{karte.description}</p>
       {karte.href && (

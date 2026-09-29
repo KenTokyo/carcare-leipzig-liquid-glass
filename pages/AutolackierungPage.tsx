@@ -1,20 +1,33 @@
 import React from 'react';
 import ServiceLayout from '../components/ServiceLayout';
+import { videoPlatz } from '../data/videos';
 
-const scope = [
-  { title: 'Spot-Repair', description: 'Die möglichst perfekte Lackinstandsetzung mit geringem Aufwand – unsere bevorzugte Reparaturmethode.' },
-  { title: 'Komplettlackierung', description: 'Wenn Spot-Repair nicht ausreicht, lackieren wir das Bauteil unter modernen Bedingungen mit bestmöglichem Ergebnis.' },
-  { title: 'Stoßfänger lackieren', description: 'Fachgerechte Lackierung beschädigter Stoßfänger inklusive farblicher Angleichung.' },
-  { title: 'Motorhaube lackieren', description: 'Lackinstandsetzung der Motorhaube bei Kratzern, Steinschlägen oder Lackschäden.' },
-  { title: 'Radlauf lackieren', description: 'Lackierung beschädigter Radläufe für ein einheitliches Erscheinungsbild.' },
-  { title: 'Farbtongenaue Angleichung', description: 'Ziel ist, dass weder Farbton noch Effektunterschiede zur Originallackierung erkennbar sind.' },
+/**
+ * LEISTUNGSUMFANG ALS ZUSAMMENHAENGENDER TEXT (Backlog 6.11, Meeting 2026-09-28).
+ *
+ * Bis dahin sechs Textkarten (Spot-Repair, Komplettlackierung, Stossfaenger, Motorhaube, Radlauf, farbtongenaue
+ * Angleichung). Ali im Meeting: Die Karten braeuchten keine eigenen Bilder, Lackierbilder und -videos gebe es genug —
+ * der Inhalt solle als saubere, zusammenhaengende Leistungsbeschreibung stehen. André hat nicht widersprochen.
+ * INHALT UNVERAENDERT, nur verbunden. Neu ist allein „Motorradteile": Gegenstand bleibt das Fahrzeug, dazu
+ * Motorradteile — andere Objekte bewusst nicht („Trödel, der kommt so schon zur Tür rein").
+ *
+ * PREIS (6.25, Mail André 2026-09-28): „Einheitliche Angabe — Preis nach Aufwand" fuer Neu- und
+ * Reparaturlackierung. Sichtbar unter dem Text und als FAQ (das FAQ-Schema zieht daraus mit).
+ */
+const leistungsbeschreibung = [
+  'Wir übernehmen Neu- und Reparaturlackierungen an Fahrzeugen aller Marken und lackieren auch Motorradteile. Bevorzugt arbeiten wir mit Spot-Repair, der möglichst perfekten Lackinstandsetzung mit geringem Aufwand: Dabei bearbeiten wir nur die beschädigte Stelle statt des ganzen Bauteils.',
+  'Reicht Spot-Repair nicht aus, lackieren wir das komplette Bauteil unter modernen Bedingungen mit bestmöglichem Ergebnis. Typische Fälle sind Stoßfänger, Motorhaube und Radlauf nach Kratzern, Steinschlägen oder anderen Lackschäden. Beschädigte Stoßfänger lackieren wir inklusive farblicher Angleichung, damit das Fahrzeug wieder ein einheitliches Erscheinungsbild hat.',
+  'Maßstab jeder Lackierung ist die farbtongenaue Angleichung: Weder Farbton noch Effekt sollen sich für das Auge von der Originallackierung unterscheiden. Dafür arbeiten wir als Glasurit-Lackpartner mit umweltschonenden Wasserbasislacken.',
 ];
 
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue, makellose Reparaturen mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt – Lackierung ist unser Kernhandwerk.' },
-  { title: 'Full-Service auf über 3.500 m²', description: 'Reicht Spot-Repair nicht aus, folgt die Komplettlackierung in derselben Halle – ohne Ortswechsel.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Lackierung ist unser Kernhandwerk.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Reicht Spot-Repair nicht aus, folgt die Komplettlackierung in derselben Halle, ohne Ortswechsel.' },
 ];
+
+/** Seitenhintergrund als Video (Backlog 6.12): derselbe Film wie auf der Startseitenkarte, eigener Querschnitt. */
+const hintergrund = videoPlatz('lackierung-hintergrund');
 
 const AutolackierungPage: React.FC = () => (
   <ServiceLayout
@@ -22,7 +35,7 @@ const AutolackierungPage: React.FC = () => (
     meta={{
       title: 'Neu- & Reparaturlackierung Leipzig | CarCare Center',
       description:
-        'Neu- und Reparaturlackierung in Leipzig: Ziel ist die unsichtbare Reparatur – kein Farbton- oder Effektunterschied zur Originallackierung. Glasurit-Lackpartner.',
+        'Neu- und Reparaturlackierung in Leipzig: Ziel ist die unsichtbare Reparatur ohne Farbton- oder Effektunterschied zur Originallackierung. Glasurit-Lackpartner.',
     }}
     hero={{
       eyebrow: 'Neu- und Reparaturlackierung Leipzig',
@@ -33,6 +46,7 @@ const AutolackierungPage: React.FC = () => (
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig'],
     }}
+    hintergrundVideo={hintergrund.quelle && hintergrund.poster ? { quelle: hintergrund.quelle, standbild: hintergrund.poster } : null}
     /*
       TODO 1.15 – Erklärtext ausstehend, Zulieferung André (Backlog R3)
 
@@ -50,16 +64,20 @@ const AutolackierungPage: React.FC = () => (
     leistung={{
       eyebrow: 'Leistungsumfang',
       title: 'Von Spot-Repair bis zur Komplettlackierung.',
-      description:
-        'Spot-Repair, die möglichst perfekte Lackinstandsetzung mit geringem Aufwand, ist unsere bevorzugte Reparaturmethode. Wo sie nicht ausreicht, folgt die Komplettlackierung des Bauteils.',
-      items: scope,
+      fliesstext: {
+        absaetze: leistungsbeschreibung,
+        preis: {
+          wert: 'Preis nach Aufwand',
+          hinweis: 'Den Preis nennen wir Ihnen nach der Besichtigung im Kostenvoranschlag. Im Versicherungsfall stimmen wir uns auf Wunsch mit Versicherung und Gutachter ab.',
+        },
+      },
     }}
-    usp={{ title: 'Glasurit-Lackpartner und Meisterbetrieb – seit 1998.', items: usp }}
+    usp={{ title: 'Glasurit-Lackpartner und Meisterbetrieb seit 1998.', items: usp }}
     faq={{ title: 'Häufige Fragen zur Lackierung.' }}
     cta={{
       title: 'Lackschaden in Leipzig? Wir beraten Sie zur unsichtbaren Reparatur.',
       description:
-        'Beschreiben Sie Ihr Anliegen oder senden Sie Fotos – wir prüfen, ob Spot-Repair ausreicht oder eine Komplettlackierung sinnvoll ist.',
+        'Beschreiben Sie Ihr Anliegen oder senden Sie Fotos. Wir prüfen, ob Spot-Repair ausreicht oder eine Komplettlackierung sinnvoll ist.',
       primaryLabel: 'Lackierung anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

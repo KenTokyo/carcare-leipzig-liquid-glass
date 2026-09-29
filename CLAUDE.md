@@ -74,6 +74,12 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    Nur die Muster „3.000 m²" und „3.000 Quadratmeter" treffen.
 5. **Meisterbetrieb:** Der Begriff bleibt auch im Aufbereitungsbereich erhalten
    (SEO-relevant), obwohl Aufbereitung kein Meisterhandwerk ist.
+6. **Keine Gedankenstriche** im sichtbaren Text, in Titeln und Beschreibungen (Wunsch André,
+   Mail vom 2026-09-28, Backlog 6.26): Satz für Satz durch Punkt oder Komma ersetzen, nicht
+   durch Suchen und Ersetzen. Bleiben dürfen Bis-Striche zwischen Zahlen („1–2 Tage",
+   „8–17 Uhr") und Wochentagen sowie die Telefonnummer „0341 - 261 77 90". Der Build bricht
+   bei einem neuen Strich (`scripts/check-gedankenstriche.mjs` im `postbuild`); Kommentare im
+   Code sind nicht betroffen.
 
 ## Inhaltliche SEO-Vorgaben des Kunden
 
@@ -122,10 +128,16 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
 | `npm run aussparung` | Aktions-Aussparung oben rechts (beschriftete Pillen „Aufbereitung anfragen" + „Schaden melden", ab 1024 px; bis 2026-09-28 Telefon): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter (z. B. etwas, das höher als die Navbar gepinnt ist)? 29 Routen × 3 Fenster, je Route Sichtbarkeit (muss 100 % sein) und Pixelprobe je Pille. Dazu **Geometrie an 23 Breiten**: Lücke zum Navbar-Reiter ≥ 20 px, Beschriftungen vollständig, Navbar-Links ≥ 12 px im Reiter, sichtbarer Text in der Ansage | nach jeder Änderung an gepinnten Flächen (`position: sticky`), an `AktionsAussparung`, an der Navbar-Höhe oder an Reiterbreite/Link-Abständen (`--cc-nav-*` in `styles/aussparung.css`) |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
+| `npm run gedankenstriche` | Gedankenstriche im ausgelieferten Text, in Titeln und Beschreibungen (Textregel 6), mit Umfeld je Fund | läuft als Wächter im `postbuild` mit; von Hand nach Textänderungen |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 
 Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
 selbst — **niemals** `npm run dev` dafür starten.
+Seit 2026-09-28 nennen sie beim Start den gemessenen Build (`[dist] Build vom …`) und brechen ab,
+wenn eine getrackte Quelldatei neuer ist als `dist/` (`scripts/lib/dist-stand.mjs`; absichtlich den
+alten Stand messen: `CC_ALTEN_STAND_MESSEN=1`). **Ergebnisse in der Doku mit diesem Build belegen,
+und nach jeder Korrektur alle Werkzeuge gegen den neuen Build**, nicht nur das mit dem Befund: Ein
+grüner Kontrastlauf hatte einmal den Build vor der letzten Korrektur gemessen.
 
 **„Full HD" heißt nicht 1080 px Seitenhöhe.** Ein maximierter Browser auf 1920 × 1080 gibt der
 Seite etwa 913–945 px, mit 110 % Zoom 830 px. An genau dieser Lücke waren die Partnerlisten
@@ -157,7 +169,7 @@ Was die Sperre nicht abdeckt, steht im Kopf von `scripts/push-stand.mjs`.
 
 **Einstiegspunkt für alle Kundenaufgaben:** `docs/backlog/README.md`
 
-Dort liegen alle fünf Review-Schleifen mit 168 Aufgaben, die Auswertung „was ist
+Dort liegen alle sechs Review-Schleifen mit 194 Aufgaben, die Auswertung „was ist
 wirklich offen", und die vom Kunden gelieferten Quelllisten.
 
 | Datei | Nummernraum |
@@ -167,6 +179,7 @@ wirklich offen", und die vom Kunden gelieferten Quelllisten.
 | `docs/backlog/schleife-3.md` | 3.1 – 3.37 |
 | `docs/backlog/schleife-4.md` | 4.1 – 4.21 (Originalnummern aus Andrés Liste) |
 | `docs/backlog/schleife-5.md` | 5.1 – 5.44 (Meeting 2026-09-25; von OALAB auf Wunsch des Users aus dem Transkript vergeben) |
+| `docs/backlog/schleife-6.md` | 6.1 – 6.26 (Meeting 2026-09-28 plus Andrés Mail vom selben Tag; ebenfalls von OALAB vergeben) |
 | `docs/backlog/nicht-relevant.md` | ohne Nummer |
 | `docs/backlog/nice-to-have.md` | `R<n>` — eigene Vorschläge „für später“, nicht beauftragt, nicht gezählt |
 | `docs/backlog/offene-punkte-konsolidiert.md` | Auswertung, gegen den Code geprüft |

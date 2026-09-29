@@ -161,9 +161,8 @@ const HeroSection: React.FC = () => {
               belegbaren Zahlen (1998, 3.500 m²) und die eigentliche
               Kaufentscheidung — „alles aus einer Hand". Antwort-zuerst statt Aufhaenger.
 
-              ⚠️ 2.7/2.8 (globaler Slogan) sind damit NICHT erledigt. Der endgueltige
-              Wortlaut haengt an der offenen Kundenfrage 3.36. Hier steht die
-              Hero-Fassung, nicht der Slogan. */}
+              SEIT 2026-09-28 (6.8) steht darueber der Slogan „We Care. We Repair." — er erledigt 2.7/2.8/3.36
+              (ueber 5.4); diese Zeile ist seitdem der Untertitel und bleibt das <h1>. */}
           {/* `hyphens-auto`: „Unfallinstandsetzung," ist bei `text-4xl` breiter als ein
               Telefon. Gemessen am 2026-09-07 lief das Wort um 32 px (390 px), 62 px
               (360 px) und 102 px (320 px) aus dem Kasten — und wurde vom
@@ -174,15 +173,40 @@ const HeroSection: React.FC = () => {
               Browser trennt „Unfall-instandsetzung" korrekt, und die Schriftgroesse
               bleibt die gestalterisch gewollte. `break-words` faengt zusaetzlich den
               Fall ab, dass ein Browser keine Trennmuster fuer Deutsch mitbringt. */}
+          {/* SLOGAN „We Care. We Repair." (Backlog 6.8, Meeting 2026-09-28; ersetzt 5.4 und 5.5).
+              Gross im Titelbild; die bisherige Ueberschrift steht darunter als Untertitel.
+
+              WORTLAUT UND GESTALT (Seitendurchgang mit dem User): 2026-09-28 abends „WeCare.WeRepair.", Care und
+              Repair OHNE farbigen Hintergrund, „einfach nur dezent mit der Schrift"; 2026-09-29 „zwischen dem We und
+              dem Care bzw. dem Repair einen normalen Space". Nach dem Punkt steht ebenfalls ein normales Leerzeichen,
+              sonst klebte „Care.We" zusammen. Bis 2026-09-28 stand hier „We Care and Repair" mit Plaketten in den
+              Wagenfarben; die Farben tragen jetzt nur noch die kleinen Plaketten an den Leistungen.
+
+              GESCHUETZTE LEERZEICHEN (`&nbsp;`) innerhalb der beiden Haelften: Bricht der Slogan (auf dem Handy), dann
+              nur zwischen „We Care." und „We Repair.", nie als „We Care. We / Repair.". Am Desktop eine Zeile.
+              `lang="en"`: Vorlesegeraete sprechen den Satz sonst deutsch aus.
+              Kein <h1>: Die Ueberschrift muss das Seitenthema nennen (SEO-GEO §3.2), das tut die Zeile darunter. */}
+          <p
+            lang="en"
+            // `md:text-5xl`: Bei 56 px stiess der Slogan auf 768 px an die KI-Plakette oben rechts (Bildschirmfoto
+            // 2026-09-28); bei 48 px bleibt Abstand. Ab `lg` ist die Zeile breit genug fuer 72/96 px.
+            className="max-w-5xl text-[2.6rem] font-bold leading-[1.08] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-6xl md:text-5xl lg:text-7xl xl:text-8xl"
+          >
+            We&nbsp;Care. We&nbsp;Repair.
+          </p>
+
+          {/* Die bisherige Ueberschrift als Untertitel (6.8) — bleibt das <h1> mit den Suchbegriffen und dem Ort.
+              5.5 („Karosserie" nicht trennen): `hyphens-manual` statt `hyphens-auto`. In dieser Groesse passt
+              „Unfallinstandsetzung," auch auf 320 px in eine Zeile; die Trennung war nur bei 36 px Schrift noetig. */}
           <h1
             id="home-heading"
-            className="max-w-4xl hyphens-auto break-words text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-5xl md:text-6xl lg:text-7xl"
+            className="mt-6 max-w-3xl break-words text-xl font-bold leading-snug tracking-tight text-white [hyphens:manual] drop-shadow-[0_2px_18px_rgb(0_0_0/0.6)] sm:text-2xl md:mt-7 md:text-3xl"
           >
             Unfallinstandsetzung, Karosserie und Lack in Leipzig.
           </h1>
 
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:text-xl">
-            Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung — alles aus einer Hand.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:mt-5 md:text-xl">
+            Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung, alles aus einer Hand.
           </p>
 
           {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
+import BereichsPlakette from './BereichsPlakette';
 import { aufbereitungKacheln } from '../data/detailing';
+import { bereichVon } from '../data/services';
 import { getKnowledgeArticleBySlug } from '../data/knowledgeArticles';
 
 /** Kachel-Foto je Karte — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
@@ -56,7 +58,8 @@ const expertiseCards: ExpandingCardItem[] = [
     cta: 'Leasingrückgabe ansehen',
     backgroundImage: aufbereitungKacheln.leasing,
   },
-];
+  // Backlog 6.8: Care-Plakette je Karte aus dem Katalog (alle drei gehoeren zur Aufbereitung).
+].map((karte) => ({ ...karte, bereich: bereichVon(karte.href) }));
 
 /**
  * Ratgeber zum Aufbereitungs-Cluster — Titel und Pfad aus `data/knowledgeArticles.ts`, damit ein
@@ -123,7 +126,11 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             viewport={{ once: true }}
             className="lg:col-span-7"
           >
-            <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Autoaufbereitung als Expertise</span>
+            {/* Backlog 6.8: Care-Plakette neben der Kopfzeile, wie an allen Aufbereitungsleistungen. */}
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <span className="block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Autoaufbereitung als Expertise</span>
+              <BereichsPlakette bereich="care" />
+            </div>
             <h2 id="detailing-heading" className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
               Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt.
             </h2>

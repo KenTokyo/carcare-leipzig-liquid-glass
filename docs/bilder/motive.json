@@ -11,6 +11,16 @@
       "herkunft": "Betriebsvideo des Kunden (Lieferung 07.09.2026); seit 21.09.2026 vier Kennzeichen weichgezeichnet (R16, npm run video), Einwilligung der Mitarbeitenden liegt laut User vor",
       "offen": ""
     },
+    "carcare-autolackierung-hintergrund-standbild.webp": {
+      "motiv": "Standbild des Lackier-Hintergrundvideos bei 6,5 s: Lackierpistole und Handschuh vor der Motorhaube, Lackierer links, Kabinengitter unten (quer 16:10)",
+      "herkunft": "Standbild aus dem Lackiervideo (Lieferung „Neue Fotos Schleife September“, Original „Video - Lackieren.mov“); Querschnitt für 6.12, eingebaut 28.09.2026",
+      "offen": ""
+    },
+    "carcare-autolackierung-hintergrund.mp4": {
+      "motiv": "Video: Lackierer lackiert in der Kabine eine Motorhaube (Ausschnitt 2,0–15,0 s, quer 16:10, 1080 × 675) — Seitenhintergrund der Lackierseite",
+      "herkunft": "Video aus dem Betrieb (Lieferung „Neue Fotos Schleife September“; Original „Video - Lackieren.mov“, aufgenommen 19.08.2026); laut User echt; npm run video, Schnitt lackierung-hintergrund (6.12)",
+      "offen": ""
+    },
     "carcare-autolackierung-standbild.webp": {
       "motiv": "Standbild des Lackiervideos bei 4,0 s: Lackierer mit Atemschutz und Pistole, Sprühnebel",
       "herkunft": "Standbild aus dem Lackiervideo (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026)",
@@ -130,6 +140,16 @@
       "motiv": "Externes Stockfoto von Unsplash, kein Bild des Betriebs",
       "herkunft": "Stockfoto (Unsplash)",
       "offen": "R7 echtes Vorschaubild statt Stockfoto (og:image und strukturierte Daten)"
+    },
+    "kacheln/alcantara-lenkrad-vorher-nachher-leipzig-carcare.webp": {
+      "motiv": "Vorher/Nachher desselben Alcantara-Lenkrads am Übergang zur Speiche (Carbonblende, Schalter): links verdichteter, speckig glänzender Flor, rechts gleichmäßig aufgerichteter Flor; zwei 4:5-Ausschnitte mit weißer Fuge, 2000 × 1245",
+      "herkunft": "zwei Fotos aus der Lieferung „Neue Fotos Schleife September“ (Originale „Alcantara Lenkrad Vorher.jpeg“, iPhone 16, 20.08.2026 14:55, und „Alacantara Lenkrad nachher.jpeg“, 20.08.2026 17:06), vom User am 28.09.2026 als Anhang für 6.2 ausgewählt; npm run fotos, nur zugeschnitten und nebeneinandergestellt (IPTC compositeCapture)",
+      "offen": "6.2: Herkunft „echt“ vom User bestätigen lassen"
+    },
+    "kacheln/alcantara-schaumreinigung-leipzig-carcare.webp": {
+      "motiv": "Alcantara-Lenkrad mit Reinigungsschaum, eine Hand mit Bürste arbeitet den Schaum ein, die Mitte ist grün abgeklebt (1:1 aus Hochformat)",
+      "herkunft": "Foto aus der Lieferung „Neue Fotos Schleife September“ (Original „Alcantara Aufbereitung Waschen.jpeg“, iPhone 16, 20.08.2026 16:46), vom User am 28.09.2026 als Anhang für 6.2 ausgewählt; npm run fotos, nur zugeschnitten",
+      "offen": "6.2: Herkunft „echt“ vom User bestätigen lassen"
     },
     "kacheln/aufbereitung-aktiv-leipzig-carcare.webp": {
       "motiv": "Mitarbeiter reinigt kniend die Scheibe der geöffneten Fahrertür eines kupferfarbenen Porsche Macan (4:3 aus Hochformat)",

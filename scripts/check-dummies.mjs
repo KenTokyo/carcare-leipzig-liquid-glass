@@ -98,7 +98,7 @@ const VERDAECHTIGE_TEXTE = [
   'Meilenstein 2',
   'Meilenstein 3',
   'Jahr offen',
-  'Platzhalter — wird durch',
+  'Platzhalter, wird durch',
   'Lorem ipsum',
   // Backlog 3.18/3.21: Das Wort steht sichtbar im Platzhalterrahmen. Netz 2 faengt
   // damit auch den Fall, dass jemand `istPlatzhalter` entfernt, ohne Material
@@ -147,7 +147,8 @@ const ANERKANNT = [
   // „Meilenstein 3" und „Jahr offen" am 2026-09-27 entfallen: Station 2017 eingesetzt (Backlog 5.24,
   // Jahr aus dem Meeting 2026-09-25). Der Satzanfang unten bleibt — er steht weiter in den
   // Mitarbeiterstimmen (3.19); in den Zusatzleistungen seit 2026-09-28 nicht mehr (5.20).
-  { text: 'Platzhalter — wird durch', backlog: '3.19', seit: '2026-09-04' },
+  // Seit 2026-09-28 mit Komma statt Gedankenstrich (Backlog 6.26) — in data/stimmen.ts und hier zugleich geaendert.
+  { text: 'Platzhalter, wird durch', backlog: '3.19', seit: '2026-09-04' },
   // Die vier Videozeilen (3.18, 3.20, 3.21) sind am 2026-09-07 entfallen: Material
   // geliefert, Platzhalter weg. Genau der in Eigenschaft 3 beschriebene Fall — ein
   // Eintrag, der auf nichts mehr passt, haette den Build gebrochen.

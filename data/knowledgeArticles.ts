@@ -399,13 +399,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     metaDescription:
       'Spot Repair erklärt: Was die punktuelle Lackreparatur leistet, wann sie funktioniert, wo ihre Grenzen liegen und wovon die Kosten im Einzelfall abhängen.',
     cardTitle: 'Was ist Spot Repair?',
-    cardDescription: 'Punktuelle Lackreparatur statt Komplettlackierung — wann sie funktioniert und wo ihre Grenzen liegen.',
+    cardDescription: 'Punktuelle Lackreparatur statt Komplettlackierung. Wann sie funktioniert und wo ihre Grenzen liegen.',
     introAnswer:
       'Spot Repair ist die punktuelle Reparatur eines begrenzten Lackschadens: Statt das ganze Bauteil neu zu lackieren, wird nur die beschädigte Stelle bearbeitet und der Übergang in den vorhandenen Lack ausgeblendet. Das spart Material und Zeit und erhält den umgebenden Originallack.',
     definition: [
       'Spot Repair gehört zum Smart Repair, dem Sammelbegriff für reparaturbegrenzte Verfahren. Bearbeitet wird nur der Schaden selbst und ein kleiner Bereich darum herum, nicht die gesamte Tür oder Stoßstange.',
       'Der Unterschied zur Komplettlackierung liegt in der Fläche, nicht in der Sorgfalt: Auch beim Spot Repair werden Grundierung, Basislack und Klarlack aufgebaut. Entscheidend ist, dass der Übergang zum Altlack unsichtbar ausläuft.',
-      'Ob ein Schaden dafür geeignet ist, entscheidet sich an Größe, Lage und Tiefe — nicht am Wunsch. Reicht der Schaden bis aufs blanke Blech oder über eine Kante, ist eine andere Reparaturstrategie richtig.',
+      'Ob ein Schaden dafür geeignet ist, entscheidet sich an Größe, Lage und Tiefe, nicht am Wunsch. Reicht der Schaden bis aufs blanke Blech oder über eine Kante, ist eine andere Reparaturstrategie richtig.',
     ],
     whenItPays: [
       'bei einzelnen Kratzern, Schrammen oder Steinschlägen auf einer begrenzten Fläche',
@@ -423,15 +423,15 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       'Ergebnis unter Licht kontrollieren, auch aus flachem Blickwinkel',
     ],
     costFactors: [
-      'Größe und Tiefe des Schadens — bis in den Klarlack, den Basislack oder aufs Blech',
+      'Größe und Tiefe des Schadens: bis in den Klarlack, den Basislack oder aufs Blech',
       'Lage: eine freie Fläche ist günstiger als eine Kante, Sicke oder Bauteilfuge',
       'Farbton: Uni-Lacke sind einfacher als Metallic-, Perleffekt- oder Dreischichtlacke',
       'ob Anbauteile für den Zugang demontiert werden müssen',
-      'Zustand des Altlacks — verwittert oder bereits nachlackiert erschwert den Übergang',
+      'Zustand des Altlacks: verwittert oder bereits nachlackiert erschwert den Übergang',
     ],
     tips: [
       'Schäden früh zeigen: Ein Steinschlag, der bis aufs Blech geht, kann unterrostet werden und ist dann kein Fall mehr für Spot Repair.',
-      'Nicht selbst mit Lackstift vorarbeiten — aufgetragenes Material muss vor der Reparatur wieder entfernt werden.',
+      'Nicht selbst mit Lackstift vorarbeiten. Aufgetragenes Material muss vor der Reparatur wieder entfernt werden.',
       'Mehrere kleine Schäden gemeinsam ansehen lassen. Ab einer gewissen Anzahl auf einem Bauteil ist die Lackierung des ganzen Teils sinnvoller.',
       'Bei Leasingrückgabe früh einplanen: Der Termin entscheidet mit darüber, welche Verfahren überhaupt noch infrage kommen.',
     ],
@@ -458,7 +458,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         id: 'sichtbar',
         question: 'Sieht man die reparierte Stelle später?',
         answer:
-          'Ziel ist ein Ergebnis, das im Alltag nicht auffällt. Möglich wird das durch einen gemessenen Farbton und einen sauber auslaufenden Übergang. Wie gut das gelingt, hängt vom Farbton und vom Zustand des umgebenden Lacks ab — Effektlacke sind anspruchsvoller als Uni-Lacke.',
+          'Ziel ist ein Ergebnis, das im Alltag nicht auffällt. Möglich wird das durch einen gemessenen Farbton und einen sauber auslaufenden Übergang. Wie gut das gelingt, hängt vom Farbton und vom Zustand des umgebenden Lacks ab. Effektlacke sind anspruchsvoller als Uni-Lacke.',
       },
     ],
     relatedSlugs: ['farbtongenauigkeit', 'dellen-ohne-lackieren-entfernen', 'lackaufbereitung'],
@@ -478,7 +478,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       'Farbtongenauigkeit heißt, dass eine reparierte Stelle farblich nicht vom übrigen Fahrzeug zu unterscheiden ist. Der Farbcode aus dem Fahrzeugpapier ist dabei nur der Startpunkt: Serienlackierungen streuen ab Werk, und Lack verändert sich über die Jahre. Deshalb wird der tatsächliche Ist-Ton am Fahrzeug ermittelt statt aus der Dose übernommen.',
     definition: [
       'Ein Farbcode benennt die Werksfarbe, nicht den Zustand Ihres Fahrzeugs. Zu einem Code gehören oft mehrere zulässige Farbtonvarianten, weil Lackchargen und Werke leicht voneinander abweichen.',
-      'Dazu kommt die Alterung: UV-Licht, Waschanlagen und Witterung verändern den Ton über Jahre — ein Neuwagenton passt dann nicht mehr zu einem acht Jahre alten Fahrzeug.',
+      'Dazu kommt die Alterung: UV-Licht, Waschanlagen und Witterung verändern den Ton über Jahre. Ein Neuwagenton passt dann nicht mehr zu einem acht Jahre alten Fahrzeug.',
       'Bei Effektlacken kommt die Ausrichtung der Pigmente hinzu. Metallic- und Perleffektlacke wirken je nach Blickwinkel unterschiedlich, weil das Licht an den Pigmenten gebrochen wird. Der Farbton hängt hier auch davon ab, wie der Lack aufgetragen wird.',
     ],
     whenItPays: [
@@ -504,10 +504,10 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       'Sonderlackierungen und Farbtöne außerhalb der Serienpalette',
     ],
     tips: [
-      'Vor der Farbtonbestimmung wird der Lack gereinigt — Schmutzfilm und Verwitterung verfälschen den Eindruck.',
+      'Vor der Farbtonbestimmung wird der Lack gereinigt. Schmutzfilm und Verwitterung verfälschen den Eindruck.',
       'Beilackierung ist kein Mehraufwand ohne Zweck: Sie ist bei Effektlacken oft der einzige Weg zu einem unsichtbaren Übergang.',
       'Den Vergleich immer bei Tageslicht und aus mehreren Winkeln ansehen. Unter Hallenlicht kann ein Ton passen, der draußen abweicht.',
-      'Wir arbeiten als Glasurit-Lackpartner mit dem Farbtonsystem des Herstellers — die Rezepturen sind auf die jeweilige Serienfarbe und ihre Varianten abgestimmt.',
+      'Wir arbeiten als Glasurit-Lackpartner mit dem Farbtonsystem des Herstellers. Die Rezepturen sind auf die jeweilige Serienfarbe und ihre Varianten abgestimmt.',
     ],
     mistakes: [
       'den Farbton allein nach dem Farbcode bestellen',
@@ -532,7 +532,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         id: 'beilackierung',
         question: 'Was ist Beilackierung?',
         answer:
-          'Beim Beilackieren wird der neue Lack in die angrenzende Fläche hinein auslaufen gelassen, statt an der Bauteilkante hart abzusetzen. Das Auge nimmt einen weichen Verlauf nicht wahr, eine harte Kante dagegen schon — auch bei einem sehr gut getroffenen Ton.',
+          'Beim Beilackieren wird der neue Lack in die angrenzende Fläche hinein auslaufen gelassen, statt an der Bauteilkante hart abzusetzen. Das Auge nimmt einen weichen Verlauf nicht wahr, eine harte Kante dagegen schon, auch bei einem sehr gut getroffenen Ton.',
       },
     ],
     relatedSlugs: ['spot-repair', 'lackaufbereitung', 'dellen-ohne-lackieren-entfernen'],

@@ -73,6 +73,13 @@
   --cc-trust-blue-rgb: 11 61 145;
   --cc-signal-blue-rgb: 47 128 237;
   --cc-ice-blue-rgb: 216 232 255;
+  /* „We Care and Repair" (Backlog 6.8, Meeting 2026-09-28): Care im Blau des blauen, Repair im Rot des roten
+     Porsche im Titelbild. GEMESSEN am Titelbild (hero-leipzig-carcare-desktop.webp): Median der beleuchteten
+     Lackpixel je Wagen (Farbton gefiltert, Glanzlichter und Schatten ausgenommen) — #315C86 und #C91825.
+     Weisse Schrift darauf: 6,99:1 und 5,77:1, also AA auch fuer kleine Plaketten. Nur als FLAECHE mit weisser
+     Schrift gedacht: Als Schriftfarbe auf dem abgedunkelten Foto lagen beide unter 3:1. */
+  --cc-care-rgb: 49 92 134;
+  --cc-repair-rgb: 201 24 37;
   /* Kanal-Vars fuer Tailwind <alpha-value> (Opacity-Modifier wie bg-white/90). */
   --cc-white-rgb: 255 255 255;
   --cc-soft-ice-rgb: 245 248 252;

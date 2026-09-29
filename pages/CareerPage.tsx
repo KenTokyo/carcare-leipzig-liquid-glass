@@ -49,11 +49,15 @@ const process = [
 
 const CareerPage: React.FC = () => (
   <>
-    <PageMeta canonical="/karriere" title="Jobs & Ausbildung in Leipzig | CarCare Center Karriere" description="Jobs & Ausbildung in Leipzig | CarCare Center Karriere: Jobs für Kfz-Aufbereiter, Fahrzeuglackierer, Karosserie- und Fahrzeugbaumechaniker sowie Serviceberater." />
+    {/* H1 und Beschreibung trugen seit 2026-09-06 den Seitentitel samt „| CarCare Center Karriere"
+        (Meta-Umstellung hatte ihn mit ersetzt), die Beschreibung nannte dazu den Serviceberater,
+        der nicht neu besetzt wird (FAQ „bereiche"). Die Seite siezt jetzt durchgehend wie der Rest. */}
+    <PageMeta canonical="/karriere" title="Jobs & Ausbildung in Leipzig | CarCare Center Karriere" description="Wir suchen in Leipzig Kfz-Aufbereiter, Fahrzeuglackierer sowie Karosserie- und Fahrzeugbaumechaniker und bilden aus. Jetzt bewerben, auch initiativ." />
     <PageHero
       eyebrow="Karriere"
-      title="Jobs & Ausbildung in Leipzig | CarCare Center Karriere"
-      description="Dein Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecke Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
+      title="Jobs und Ausbildung in Leipzig."
+      ohneTrennung
+      description="Ihr Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecken Sie unsere Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
       primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
@@ -74,7 +78,7 @@ const CareerPage: React.FC = () => (
         <SectionIntro
           eyebrow="Ihr künftiger Arbeitsplatz"
           title="So sieht der Betrieb aus, in dem Sie arbeiten würden."
-          description="Hallen, Ausstattung und Arbeitsplätze im laufenden Betrieb — damit Sie vor dem ersten Gespräch wissen, worauf Sie sich bewerben."
+          description="Hallen, Ausstattung und Arbeitsplätze im laufenden Betrieb, damit Sie vor dem ersten Gespräch wissen, worauf Sie sich bewerben."
         />
         <div className="mt-12">
           <BetriebsVideo platz={videoPlatz('karriere-betrieb')} />
@@ -91,7 +95,7 @@ const CareerPage: React.FC = () => (
         <SectionIntro
           eyebrow="Aus dem Team"
           title="Was Kolleginnen und Kollegen über die Arbeit sagen."
-          description="Bewusst ohne Namen — die Berufsbezeichnung sagt mehr darüber aus, ob die Stelle zu Ihnen passt."
+          description="Bewusst ohne Namen. Die Berufsbezeichnung sagt mehr darüber aus, ob die Stelle zu Ihnen passt."
         />
         <div className="mt-12">
           <Stimmen />
@@ -124,7 +128,7 @@ const CareerPage: React.FC = () => (
       </div>
     </section>
     <JobPopup href={BEWERBUNGS_ZIEL} />
-    <PageCTA title="Du willst Teil des Teams werden?" description="Sende eine kurze Initiativbewerbung oder melde dich direkt. Wir prüfen gemeinsam mit dir den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
+    <PageCTA title="Sie wollen Teil unseres Teams werden?" description="Senden Sie uns eine kurze Initiativbewerbung oder melden Sie sich direkt. Wir prüfen gemeinsam mit Ihnen den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
   </>
 );
 

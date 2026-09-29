@@ -23,8 +23,8 @@ import type { TargetGroupPartner } from '../types';
 
 const audiences = [
   { title: 'Autohäuser', description: 'Aufbereitung für Bestand und Präsentation, Instandsetzung vor Übergabe und verlässliche Rückmeldung zum Fahrzeugstatus.' },
-  { title: 'Fuhrparks & Flotten', description: 'Wiederkehrende Pflege, Reparatur und Werterhalt für gewerbliche Fahrzeuge — mit planbaren Abläufen statt Einzelfallorganisation.' },
-  { title: 'Versicherungen & Schadensteuerer', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand — Instandsetzung statt Tauschen, wo es fachlich vertretbar ist.' },
+  { title: 'Fuhrparks & Flotten', description: 'Wiederkehrende Pflege, Reparatur und Werterhalt für gewerbliche Fahrzeuge, mit planbaren Abläufen statt Einzelfallorganisation.' },
+  { title: 'Versicherungen & Schadensteuerer', description: 'Schadenaufnahme, Audatex-Kalkulation und Instandsetzung aus einer Hand. Instandsetzung statt Tauschen, wo es fachlich vertretbar ist.' },
   { title: 'Versicherungsagenturen', description: 'Persönliche Zusammenarbeit bei Schadenaufnahme und Kundenkommunikation, mit festem Ansprechpartner vor Ort.' },
 ];
 
@@ -44,7 +44,7 @@ const highlights = [
   {
     title: 'Fuhrparkservice',
     href: '/fuhrparkservice-leipzig',
-    intro: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf — sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.',
+    intro: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.',
     items: [
       'Wiederkehrende Pflege- und Reparaturprozesse nach vereinbartem Ablauf',
       'Im Schadensfall halten wir Sie mobil und leiten die Schritte ein',
@@ -57,30 +57,30 @@ const highlights = [
 const offerings = [
   { title: 'Unfallinstandsetzung', description: 'Kompletter Schadenfall inklusive Karosserie, Lack und Abstimmung mit Versicherung und Gutachter.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Neu- und Reparaturlackierung', description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, auf Wunsch für ganze Fahrzeugserien.', href: '/autolackierung-leipzig' },
-  { title: 'Smart Repair', description: 'Punktuelle Instandsetzung kleinerer Schäden — bei Flotten und Rückläufern der wirtschaftlichste Weg.', href: '/smart-repair-leipzig' },
+  { title: 'Smart Repair', description: 'Punktuelle Instandsetzung kleinerer Schäden, bei Flotten und Rückläufern der wirtschaftlichste Weg.', href: '/smart-repair-leipzig' },
   { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung ohne Wertminderung, von Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
-  { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung — auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
+  { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung, auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb statt Neubeschaffung von Originalfelgen.', href: '/felgenreparatur-leipzig' },
-  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für PKW, LKW und Bus — als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },
-  { title: 'Fahrzeugaufbereitung', description: 'Aufbereitung für Präsentation, Übergabe und Werterhalt — auch als wiederkehrender Prozess.', href: '/fahrzeugaufbereitung-leipzig' },
+  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für PKW, LKW und Bus, als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },
+  { title: 'Fahrzeugaufbereitung', description: 'Aufbereitung für Präsentation, Übergabe und Werterhalt, auch als wiederkehrender Prozess.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
 
 const collaboration = [
-  { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte — Sie wissen, mit wem Sie sprechen.' },
+  { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte. Sie wissen, mit wem Sie sprechen.' },
   { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.500 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
   // Backlog 4.12: Kundenwortlaut „Instandsetzung statt Tauschen" — an allen sechs Stellen gleich.
   { title: 'Instandsetzung statt Tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
   // Backlog 1.16: Programmname vom Kunden bestaetigt — "Data Motive", nicht "Beta Motive".
-  { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive — ohne Medienbruch zwischen den Schritten.' },
+  { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive, ohne Medienbruch zwischen den Schritten.' },
   { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und Endabnahme gehören zum Ablauf.' },
   { title: 'Erfahrung mit Premiumfahrzeugen', description: 'Sorgfältiger Umgang mit hochwertigen Fahrzeugen und sensiblen Oberflächen.' },
-  { title: 'Ersatzmobilität', description: 'Werkstattersatzfahrzeug nach Verfügbarkeit — damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },
-  { title: 'Flexible Zusammenarbeit', description: 'Einzelauftrag, laufende Betreuung oder perspektivische Rahmenprozesse — je nach Bedarf.' },
+  { title: 'Ersatzmobilität', description: 'Werkstattersatzfahrzeug nach Verfügbarkeit, damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },
+  { title: 'Flexible Zusammenarbeit', description: 'Einzelauftrag, laufende Betreuung oder perspektivische Rahmenprozesse, je nach Bedarf.' },
 ];
 
 const steps = [
-  { title: 'Kontakt aufnehmen', description: 'Unternehmen, Ansprechpartner und Bedarf übermitteln — telefonisch oder über das Geschäftskundenformular.' },
+  { title: 'Kontakt aufnehmen', description: 'Unternehmen, Ansprechpartner und Bedarf übermitteln, telefonisch oder über das Geschäftskundenformular.' },
   { title: 'Abläufe klären', description: 'Wir besprechen Umfang, Frequenz, Ansprechpartner, Kommunikationswege und die Übergabelogistik.' },
   { title: 'Prozess starten', description: 'Fahrzeuge oder Schadenfälle werden nach dem vereinbarten Ablauf bearbeitet.' },
   { title: 'Qualität sichern', description: 'Dokumentation, Endabnahme und transparente Rückmeldung gehören zum Prozess.' },
@@ -110,7 +110,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageHero
       eyebrow="Geschäftskunden"
       title="Fahrzeugdienstleistungen für Autohäuser, Flotten und Versicherer."
-      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen — mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.500 m² im eigenen Haus."
+      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen, mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.500 m² im eigenen Haus."
       primaryCta={{ label: 'Geschäftskundenanfrage stellen', href: '/kontakt#contact-business' }}
       secondaryCta={{ label: 'Leistungen ansehen', href: '/leistungen' }}
       keywords={['Fuhrparkservice Leipzig', 'Autohäuser Leipzig', 'Schadensteuerung Leipzig', 'Leasingrückgabe Leipzig']}
@@ -120,7 +120,7 @@ const BusinessCustomersPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Wen wir betreuen"
-          title="Vier Arten von Geschäftskunden – mit unterschiedlichen Anforderungen."
+          title="Vier Arten von Geschäftskunden mit unterschiedlichen Anforderungen."
           description="Autohäuser brauchen Präsentationsqualität, Flotten brauchen Planbarkeit, Versicherer und Schadensteuerer brauchen nachvollziehbare Kalkulation. Wir bedienen alle drei Logiken."
         />
         <FeatureGrid items={audiences} columns="four" />
@@ -132,7 +132,7 @@ const BusinessCustomersPage: React.FC = () => (
         <SectionIntro
           eyebrow="Schwerpunkte"
           title="Leasingrückgabe und Fuhrparkservice im Detail."
-          description="Zwei Angebote, die für gewerbliche Kunden den größten Unterschied machen — weil sie wiederkehrend anfallen und direkt auf die Kosten durchschlagen."
+          description="Zwei Angebote, die für gewerbliche Kunden den größten Unterschied machen, weil sie wiederkehrend anfallen und direkt auf die Kosten durchschlagen."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {highlights.map((highlight) => (
@@ -157,7 +157,7 @@ const BusinessCustomersPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Angebote im Überblick"
-          title="Das komplette Spektrum – auch für gewerbliche Auftraggeber."
+          title="Das komplette Spektrum, auch für gewerbliche Auftraggeber."
           description="Jede Leistung lässt sich einzeln beauftragen oder in einen wiederkehrenden Ablauf einbinden."
         />
         {/* Backlog-Design 2026-09-07: dieselbe Kartenform wie auf den uebrigen Seiten. */}
@@ -181,7 +181,7 @@ const BusinessCustomersPage: React.FC = () => (
         <SectionIntro
           eyebrow="Bestehende Zusammenarbeit"
           title="Für diese Unternehmen arbeiten wir bereits."
-          description="Namensnennung als Referenz – wir sind ein markenunabhängiger freier Meisterbetrieb und keine autorisierte Vertragswerkstatt der genannten Hersteller."
+          description="Namensnennung als Referenz. Wir sind ein markenunabhängiger freier Meisterbetrieb und keine autorisierte Vertragswerkstatt der genannten Hersteller."
         />
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -198,7 +198,7 @@ const BusinessCustomersPage: React.FC = () => (
               {claimsPartners.length === 1
                 ? `dem Schadensteuerer ${claimsPartners[0].name}`
                 : `${claimsPartners.length} Schadensteuerern`}{' '}
-              wickeln wir Schadenfälle ab — von der Schadenaufnahme über die Audatex-Kalkulation bis zur Freigabe.
+              wickeln wir Schadenfälle ab, von der Schadenaufnahme über die Audatex-Kalkulation bis zur Freigabe.
             </p>
             <PartnerNames partners={[...claimsPartners, ...insurancePartners]} />
           </div>

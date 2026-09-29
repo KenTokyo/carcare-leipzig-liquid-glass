@@ -67,8 +67,10 @@ const DetailingProcessSection: React.FC = () => (
     headingId="detailing-process-heading"
     badgeIcon={<Sparkles size={15} />}
     badgeLabel="Autoaufbereitung Leipzig"
+    // Backlog 6.8: Care an allem zur Aufbereitung.
+    bereich="care"
     heading="Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum, Lack und Werterhalt bis zur Übergabe."
-    intro="Von der Leistungsauswahl bis zur gepflegten Übergabe – in fünf klaren Schritten, aus einer Hand."
+    intro="Von der Leistungsauswahl bis zur gepflegten Übergabe in fünf klaren Schritten, aus einer Hand."
     steps={steps}
     ctas={[
       { label: 'Termin anfragen', href: '#contact-termin' },

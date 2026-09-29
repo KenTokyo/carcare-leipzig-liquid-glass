@@ -48,7 +48,7 @@ const ImpressumPage: React.FC = () => (
     <PageHero
       eyebrow="Impressum"
       title="Impressum"
-      description="Angaben nach § 5 DDG zur BS CarCare GmbH in Leipzig — Anschrift, Vertretung, Registereintrag und Kontakt."
+      description="Angaben nach § 5 DDG zur BS CarCare GmbH in Leipzig: Anschrift, Vertretung, Registereintrag und Kontakt."
     />
 
     <section className="bg-white px-6 py-20 md:py-28">

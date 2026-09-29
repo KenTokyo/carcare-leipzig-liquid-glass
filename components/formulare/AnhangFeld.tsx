@@ -46,7 +46,7 @@ const AnhangFeld: React.FC<AnhangFeldProps> = ({ dateien, onChange }) => {
       }
       if (neu.some((d) => d.name === datei.name && d.size === datei.size)) continue;
       if (neu.length >= ANHANG_MAX_DATEIEN) {
-        hinweis = `Bitte höchstens ${ANHANG_MAX_DATEIEN} Dateien — weitere Unterlagen können Sie nach dem Absenden per E-Mail schicken.`;
+        hinweis = `Bitte höchstens ${ANHANG_MAX_DATEIEN} Dateien. Weitere Unterlagen können Sie nach dem Absenden per E-Mail schicken.`;
         break;
       }
       if (neu.reduce((s, d) => s + d.size, 0) + datei.size > ANHANG_MAX_BYTES) {

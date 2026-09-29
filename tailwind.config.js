@@ -53,6 +53,9 @@ export default {
           200: 'rgb(var(--cc-signal-blue-rgb) / <alpha-value>)',
           900: 'rgb(var(--cc-carbon-rgb) / <alpha-value>)',
         },
+        // Backlog 6.8: Farben der beiden Porsche im Titelbild, gemessen — Herleitung bei `--cc-care-rgb` in index.css.
+        care: 'rgb(var(--cc-care-rgb) / <alpha-value>)',
+        repair: 'rgb(var(--cc-repair-rgb) / <alpha-value>)',
         tech: {
           white: 'rgb(var(--cc-white-rgb) / <alpha-value>)',
           ice: 'rgb(var(--cc-soft-ice-rgb) / <alpha-value>)',

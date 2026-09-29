@@ -20,7 +20,7 @@ const FuhrparkservicePage: React.FC = () => (
     meta={{
       title: 'Fuhrparkservice Leipzig | Firmenflotte | CarCare Center',
       description:
-        'Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks – von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, inklusive Ersatzwagen.',
+        'Fuhrparkservice in Leipzig: Betreuung Ihres Firmenfuhrparks, von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, inklusive Ersatzwagen.',
     }}
     hero={{
       eyebrow: 'Fuhrparkservice Leipzig',
@@ -49,7 +49,7 @@ const FuhrparkservicePage: React.FC = () => (
       eyebrow: 'Leistungsumfang',
       title: 'Rundum-Betreuung für Ihren Firmenfuhrpark.',
       description:
-        'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf – sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge aus einer Hand.',
+        'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge aus einer Hand.',
       items: leistungen,
     }}
     usp={{ title: 'Full-Service-Partner für Ihren Fuhrpark.', items: usp }}
@@ -57,7 +57,7 @@ const FuhrparkservicePage: React.FC = () => (
     cta={{
       title: 'Planbare Betreuung für Ihren Fuhrpark?',
       description:
-        'Sprechen Sie mit uns über die Betreuung Ihrer Fahrzeuge – von der regelmäßigen Pflege bis zur Schadenabwicklung.',
+        'Sprechen Sie mit uns über die Betreuung Ihrer Fahrzeuge, von der regelmäßigen Pflege bis zur Schadenabwicklung.',
       primaryLabel: 'Fuhrparkservice anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

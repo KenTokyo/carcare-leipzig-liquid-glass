@@ -73,6 +73,9 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/karriere-fahrzeugbau-leipzig-carcare.webp': 'echt',
   '/assets/carcare-autolackierung.mp4': 'echt',
   '/assets/carcare-autolackierung-standbild.webp': 'echt',
+  // Backlog 6.12 (2026-09-28): derselbe Film, eigener Querschnitt als Seitenhintergrund der Lackierseite.
+  '/assets/carcare-autolackierung-hintergrund.mp4': 'echt',
+  '/assets/carcare-autolackierung-hintergrund-standbild.webp': 'echt',
 
   // Bereichsvideos (R18), geliefert vom User am 2026-09-23: drei Drohnenclips aus derselben
   // Aufnahme wie das Betriebsvideo vom 07.09.2026 — echte Aufnahmen aus dem Betrieb. Im
@@ -84,6 +87,13 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/carcare-bereich-lack-standbild.webp': 'echt',
   '/assets/carcare-bereich-aufbereitung.mp4': 'echt',
   '/assets/carcare-bereich-aufbereitung-standbild.webp': 'echt',
+
+  // Backlog 6.2 (2026-09-28): Alcantara-Serie aus der Lieferung „Neue Fotos Schleife September“, vom User als
+  // Anhang für das Vorher/Nachher-Bild ausgewählt. Laut EXIF drei iPhone-Aufnahmen desselben Lenkrads vom 20.08.2026
+  // (Vorher 14:55, Schaum 16:46, Nachher 17:06). Aufbereitet mit `npm run fotos`: nur zugeschnitten, keine Retusche.
+  // Ein Vorher/Nachher ist nur als echte Aufnahme ehrlich — deshalb „echt“; Bestätigung beim User erbeten (6.2).
+  '/assets/kacheln/alcantara-lenkrad-vorher-nachher-leipzig-carcare.webp': 'echt',
+  '/assets/kacheln/alcantara-schaumreinigung-leipzig-carcare.webp': 'echt',
 };
 
 /** Vorgabe für alles, was nicht in den Ausnahmen steht (Stand 2026-09-20). */
