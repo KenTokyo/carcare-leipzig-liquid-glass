@@ -48,6 +48,17 @@ const PRUEFUNG = path.join(wurzel, 'output', 'fotos-pruef');
 
 const STANDARD_ORDNER =
   'C:/Users/Moham/Sameh & Hashoorzada GbR/Sameh & Hashoorzada GbR - General/Kunden/CarCare-Center/Fotos/Neue Fotos Schleife September';
+/**
+ * Zweiter Lieferordner (2026-10-03): das Anhaengerfoto fuer die Startseitenkarte „Autohaeuser & Fuhrparks“ liegt in den
+ * gesichteten Fotos vom August. Eintraege mit `ordner` lesen von dort; `--ordner` aendert nur den Standard.
+ */
+const ORDNER_GESICHTET_AUG26 =
+  'C:/Users/Moham/Sameh & Hashoorzada GbR/Sameh & Hashoorzada GbR - General/Kunden/CarCare-Center/Fotos/Gesichtet/CarCare Fotos Aug 26_0';
+/**
+ * Porträts der Mitarbeiterstimmen (Backlog 5.28, 2026-10-03): WeTransfer-Lieferung vom 02.10.2026, noch im Download-Ordner
+ * des Users. Vorname und Beruf stehen im Dateinamen. ⚠️ Beim Umzug in den Lieferordner diesen Pfad mitziehen.
+ */
+const ORDNER_STIMMEN_OKT26 = 'C:/Users/Moham/Downloads/wetransfer_image00001-jpeg_2026-10-02_1001';
 
 /** Werte aus `scripts/convert-images.mjs` — das Ursprungskonzept. Nicht hier abweichend drehen. */
 const QUALITAET = 82;
@@ -83,6 +94,14 @@ const LIEFERUNG = 'Lieferung „Neue Fotos Schleife September“, eingebaut am 2
  * `format` / `breite` (seit 2026-09-28, optional): anderes Seitenverhaeltnis als 4:3 bzw. geringere
  * Breite als `MAX_BREITE` — fuer Einsatzorte, die ein anderes Format brauchen (Backlog 6.2: quadratisch,
  * rund 430 px breit dargestellt; 2000 px waeren dort nur Ladezeit).
+ *
+ * PORTRÄTS DER MITARBEITERSTIMMEN (Backlog 5.28, angekuendigt 2026-10-02): je Foto ein Eintrag mit
+ * `breite: 480` (dargestellt 64–72 px rund, auch auf 3x-Bildschirmen scharf) und einem quadratischen
+ * `ausschnitt` um Kopf und Schultern — mit allen vier Werten, denn ohne `y1` rechnet das Skript 16:10:
+ * (x1 − x0) · Bildbreite = (y1 − y0) · Bildhoehe. Ziel `team/stimme-<beruf>-leipzig-carcare.webp`, andere
+ * Lieferung, also `--ordner` angeben, und im Pruefbogen ansehen, ob das Gesicht mittig im Kreis sitzt.
+ * Die uebrigen Schritte (Einwilligung, Herkunft, `foto` setzen) stehen im Kopf von `data/stimmen.ts`;
+ * ohne bestaetigte Herkunft bricht der Build absichtlich.
  */
 const FOTOS = [
   {
@@ -131,20 +150,77 @@ const FOTOS = [
   {
     ziel: 'kacheln/autolackierung-leipzig-carcare.webp',
     quelle: 'autolackierung-leipzig-carcare.webp.jpeg',
-    stellen: 'B38, B64, B69, B80, B86, B96 (B11 zeigt stattdessen das Video)',
+    // Seit 2026-10-03 zeigen alle Karten der Neu- und Reparaturlackierung das Lackiervideo (User: „überall“); das Foto
+    // bleibt Rueckfall im Katalog und ist als `smart-repair-…` das Smart-Repair-Motiv (Eintraege oben).
+    stellen: 'Rueckfall im Katalog (B11, B38, B64, B80, B86, B96, B131 zeigen das Video)',
     oben: 0.21,
     titel: 'Neu- und Reparaturlackierung im CarCare Center Leipzig',
     beschreibung: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf, das übrige Fahrzeug ist mit Folie und Papier abgedeckt.',
     stichwoerter: ['Autolackierung', 'Reparaturlackierung', 'Lackierpistole', 'Lackierkabine', 'Glasurit'],
   },
+  /*
+   * BILDTAUSCH 2026-10-03 (User): Smart Repair zeigt jetzt das Lackierfoto, Hagelschaden und Dellenentfernung bekommen
+   * neue echte Fotos, die Startseitenkarte „Autohaeuser & Fuhrparks“ das Anhaengerfoto. Die abgeloesten Dateien liegen
+   * in `docs/bilder/archiv/` (README dort). Herkunft aller vier: echt, laut User („Alle Bilder sind echt“).
+   */
   {
+    // Smart Repair: dasselbe Lackierfoto wie die Neu- und Reparaturlackierung (deren Karten zeigen seit 2026-10-03 das
+    // Lackiervideo). Eigener Dateiname, damit Name und Metadaten zur Leistung passen (SEO-GEO 3.3).
+    ziel: 'kacheln/smart-repair-leipzig-carcare.webp',
+    quelle: 'autolackierung-leipzig-carcare.webp.jpeg',
+    stellen: 'B12, B39, B61, B68 (Seitenhintergrund: eigener Ausschnitt unten), B78, B87, B97, B132',
+    oben: 0.21,
+    titel: 'Smart Repair im CarCare Center Leipzig',
+    beschreibung: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf, das übrige Fahrzeug ist mit Folie und Papier abgedeckt.',
+    stichwoerter: ['Smart Repair', 'Spot-Repair', 'Lackreparatur', 'Lackierpistole', 'Glasurit'],
+  },
+  {
+    // Seitenhintergrund von /smart-repair-leipzig: wie bei der Lackierseite rueckt der Ausschnitt die Pistole nach rechts,
+    // sonst laege sie unter dem Textschutz (siehe HINTERGRUND-AUSSCHNITTE oben). Gleiche Werte wie dort.
+    ziel: 'kacheln/smart-repair-hintergrund-leipzig-carcare.webp',
+    quelle: 'autolackierung-leipzig-carcare.webp.jpeg',
+    stellen: 'B68 (Seitenhintergrund /smart-repair-leipzig)',
+    ausschnitt: { x0: 0, y0: 0.37, x1: 0.5 },
+    titel: 'Smart Repair im CarCare Center Leipzig',
+    beschreibung: 'Lackierpistole und Hand des Lackierers vor einem abgeklebten Stoßfänger in Nahaufnahme.',
+    stichwoerter: ['Smart Repair', 'Spot-Repair', 'Lackreparatur', 'Lackierpistole', 'Glasurit'],
+  },
+  {
+    // Neues Motiv seit 2026-10-03 (User: „Dellenentfernung-leipzig-carcare-center“). Liegt schon im Querformat 4:3 vor
+    // (1600 × 1200, kein EXIF), deshalb kein Ausschnitt und keine Hochskalierung auf 2000 px. Das fruehere Motiv (Ausbeulen
+    // an der A-Saeule) ist archiviert; dieselbe Szene zeigt jetzt die Hagelschadenreparatur.
     ziel: 'kacheln/dellenentfernung-leipzig-carcare.webp',
-    quelle: 'dellenentfernung-leipzig-carcare.webp.jpeg',
-    stellen: 'B13, B40, B60, B70, B79, B88',
-    oben: 0.10,
+    quelle: 'Dellenentfernung-leipzig-carcare-center.jpeg',
+    stellen: 'B13, B40, B60, B70, B79, B88, B133',
+    // Kennzeichen des weissen Porsche im Hintergrund links (Kundenfahrzeug), gemessen an der vergroesserten Aufnahme.
+    unkenntlich: [{ was: 'Kennzeichen des weißen Porsche im Hintergrund', x0: 0.030, y0: 0.470, x1: 0.108, y1: 0.545 }],
     titel: 'Dellenentfernung ohne Lackieren im CarCare Center Leipzig',
-    beschreibung: 'Dellentechniker richtet unter der Reflexionslampe mit einem Ausbeulwerkzeug eine Delle an der A-Säule eines dunkelgrauen Fahrzeugs aus, ohne den Lack zu beschädigen.',
-    stichwoerter: ['Dellenentfernung', 'Ausbeulen ohne Lackieren', 'Smart Repair', 'Parkdelle', 'Reflexionslampe'],
+    beschreibung: 'Leuchtschirm über dem Heck eines weißen Porsche: Im Streifenlicht wird die Delle neben der Heckleuchte sichtbar, die anschließend ohne Lackieren entfernt wird.',
+    stichwoerter: ['Dellenentfernung', 'Ausbeulen ohne Lackieren', 'Leuchtschirm', 'Parkdelle', 'Smart Repair'],
+  },
+  {
+    // Neu 2026-10-03 (User: „global für das Thema Hagelschaden“). Hochformat (EXIF 6) → 4:3 ab 10 % der Hoehe: oben der
+    // Zuggriff, darunter beide Haende und die Klebestelle an der Dachsaeule (bei 55–58 %). Ersetzt
+    // `hagelschadenreparatur-leipzig.webp` vollstaendig (archiviert).
+    ziel: 'kacheln/hagelschadenreparatur-leipzig-carcare.webp',
+    quelle: 'Hagelschaden-carcare-center-leipzig.jpeg',
+    stellen: 'B14, B41, B71, B81, B89, B98, B134',
+    oben: 0.10,
+    titel: 'Hagelschadenreparatur im CarCare Center Leipzig',
+    beschreibung: 'Ausbeultechniker zieht unter dem Leuchtschirm mit Gleithammer und Klebepad eine Delle an der Dachsäule eines dunklen Fahrzeugs heraus, ohne den Lack zu beschädigen.',
+    stichwoerter: ['Hagelschadenreparatur', 'Hagelschaden', 'Ausbeulen ohne Lackieren', 'Klebetechnik', 'Leuchtschirm'],
+  },
+  {
+    // Nur die Startseitenkarte „Autohaeuser & Fuhrparks“ (B26, User 2026-10-03: „nur hier, nicht in den Subseiten“).
+    // Querformat 4:3 ohne Ausschnitt. Keine fremden Kennzeichen lesbar (Macan ohne vorderes Kennzeichen, BMW verdeckt);
+    // „L CC 300“ ist unser Transporter und bleibt. Der Fahrer sitzt mit dem Ruecken zur Kamera.
+    ziel: 'kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp',
+    ordner: ORDNER_GESICHTET_AUG26,
+    quelle: 'Autohaueser und Geschaeftskunden Haenger.jpeg',
+    stellen: 'B26 (nur Startseite)',
+    titel: 'Fahrzeugtransport für Autohäuser und Geschäftskunden, CarCare Center Leipzig',
+    beschreibung: 'Unser Autotransporter mit Anhänger bringt einen grünen und einen schwarzen Porsche, im Hintergrund die Werkstatthalle.',
+    stichwoerter: ['Autohäuser', 'Fuhrpark', 'Geschäftskunden', 'Fahrzeugtransport', 'Autotransporter'],
   },
   {
     ziel: 'kacheln/ersatzwagen-leipzig-carcare.webp',
@@ -234,6 +310,85 @@ const FOTOS = [
     beschreibung: 'Mitarbeiter arbeitet mit einer Bürste Reinigungsschaum in den Alcantara-Kranz eines ausgebauten Lenkrads ein, die Mitte ist mit Klebeband abgedeckt.',
     stichwoerter: ['Alcantara', 'Lenkrad', 'Schaumreinigung', 'Innenaufbereitung', 'Fahrzeugaufbereitung'],
   },
+  /*
+   * PORTRÄTS DER MITARBEITERSTIMMEN (Backlog 5.28, User 2026-10-03): fuenf iPhone-Aufnahmen vom 02.10.2026, Hochformat
+   * (EXIF 6). Dargestellt als Karte im Akkordeon von `components/Stimmen.tsx`, die Textkachel im unteren Drittel.
+   * AUSSCHNITT 3:4 (gleiche Anteile von Breite und Hoehe, weil das Original selbst 3:4 ist), gemessen am Raster der
+   * Originale: Kopf bis Kinn zwischen rund 14 und 60 % der Hoehe. So bleibt das Gesicht in jedem Kartenfenster ueber
+   * dem unteren Drittel (Geometrie im Kopf von `components/Stimmen.tsx`). 900 px breit: Die offene Karte ist hoechstens
+   * 473 CSS-px breit, auf 2x-Bildschirmen also rund 950 Bildpunkte.
+   * METADATEN OHNE NAMEN: Der Vorname steht auf der Seite (`data/stimmen.ts`), nicht in der Datei. Widerruft jemand,
+   * verschwindet er mit dem Foto, statt in Bildsuchen weiter an der Datei zu haengen.
+   * HERKUNFT: echte Fotos (User: „echte Mitarbeiter, die ihr Einverständnis … gegeben haben“; EXIF: Kamera, keine
+   * Bearbeitungssoftware) → `digitalCapture` ist hier richtig.
+   */
+  {
+    ziel: 'team/stimme-fahrzeuglackiererin-leipzig-carcare.webp',
+    ordner: ORDNER_STIMMEN_OKT26,
+    quelle: 'Josie-Lackiererin-Carcare-leipzig.jpeg',
+    stellen: 'B142 (Karriere › Aus dem Team)',
+    // Kopf 28–50 % des Originals, Gesichtsmitte bei 36 % der Breite → im Ausschnitt 22–50 % bzw. 45 %.
+    ausschnitt: { x0: 0, y0: 0.10, x1: 0.80, y1: 0.90 },
+    breite: 900,
+    titel: 'Fahrzeuglackiererin im CarCare Center Leipzig',
+    beschreibung: 'Porträt einer Fahrzeuglackiererin des CarCare Center in der Werkstatt. Sie hält einen feinen Pinsel und eine kleine Dose, links das Rad eines dunklen Geländewagens.',
+    stichwoerter: ['Fahrzeuglackiererin', 'Mitarbeiterin', 'Team', 'Karriere', 'Lackiererei'],
+  },
+  {
+    ziel: 'team/stimme-serviceberater-leipzig-carcare.webp',
+    ordner: ORDNER_STIMMEN_OKT26,
+    quelle: 'Marko-Serviceberater-Carcare-leipzig.jpeg',
+    stellen: 'B143 (Karriere › Aus dem Team)',
+    // Sitzt am Schreibtisch, Kopf 26–44 %, Gesichtsmitte bei 45 % der Breite → im Ausschnitt 25–48 % bzw. 50 %.
+    ausschnitt: { x0: 0.05, y0: 0.06, x1: 0.85, y1: 0.86 },
+    // Auf dem Schreibtisch ein handschriftlicher Zettel, am Klemmbrett rechts Auftragsblaetter: im Ergebnis kaum lesbar,
+    // koennten aber Kundendaten tragen. Auf der Seite liegt beides unter der Textkachel, die Datei ist trotzdem oeffentlich.
+    unkenntlich: [
+      { was: 'handschriftlicher Zettel auf dem Schreibtisch', x0: 0.04, y0: 0.74, x1: 0.20, y1: 0.815 },
+      { was: 'Auftragsblätter am Klemmbrett rechts', x0: 0.76, y0: 0.715, x1: 0.86, y1: 0.845 },
+    ],
+    breite: 900,
+    titel: 'Serviceberater im CarCare Center Leipzig',
+    beschreibung: 'Porträt eines Serviceberaters des CarCare Center am Schreibtisch im Büro.',
+    stichwoerter: ['Serviceberater', 'Mitarbeiter', 'Team', 'Karriere', 'Kundenservice'],
+  },
+  {
+    ziel: 'team/stimme-fahrzeuglackierer-leipzig-carcare.webp',
+    ordner: ORDNER_STIMMEN_OKT26,
+    quelle: 'Michal-Lackierer-Carcare-leipzig.jpeg',
+    stellen: 'B144 (Karriere › Aus dem Team)',
+    // Kopf 27–62 %, Gesichtsmitte bei 29 % der Breite → im Ausschnitt 14–56 % bzw. 34 %; rechts das abgeklebte Fahrzeug.
+    ausschnitt: { x0: 0, y0: 0.15, x1: 0.85, y1: 1 },
+    breite: 900,
+    titel: 'Fahrzeuglackierer im CarCare Center Leipzig',
+    beschreibung: 'Porträt eines Fahrzeuglackierers des CarCare Center neben einem für die Lackierung mit Folie abgedeckten Fahrzeug.',
+    stichwoerter: ['Fahrzeuglackierer', 'Mitarbeiter', 'Team', 'Karriere', 'Lackiererei'],
+  },
+  {
+    ziel: 'team/stimme-kfz-aufbereiter-leipzig-carcare.webp',
+    ordner: ORDNER_STIMMEN_OKT26,
+    quelle: 'Eshan-Aufbereiter-carcare-leipzig.jpeg',
+    stellen: 'B145 (Karriere › Aus dem Team)',
+    // Ganzes Bild: Kopf 17–54 %, Gesichtsmitte bei 50 % der Breite. Naeher heran ginge das Kinn ins untere Drittel.
+    ausschnitt: { x0: 0, y0: 0, x1: 1, y1: 1 },
+    breite: 900,
+    titel: 'Kfz-Aufbereiter im CarCare Center Leipzig',
+    beschreibung: 'Porträt eines Kfz-Aufbereiters des CarCare Center in der Halle, hinter ihm Fahrzeuge mit geöffneten Türen.',
+    stichwoerter: ['Kfz-Aufbereiter', 'Fahrzeugaufbereitung', 'Mitarbeiter', 'Team', 'Karriere'],
+  },
+  {
+    ziel: 'team/stimme-karosserie-fahrzeugbaumechaniker-leipzig-carcare.webp',
+    ordner: ORDNER_STIMMEN_OKT26,
+    quelle: 'Karol-Karosseriebauer-carcare-leipzig.jpeg',
+    stellen: 'B146 (Karriere › Aus dem Team)',
+    // Kopf 30 %, Bartende 68 % des Originals: Der lange Bart passt nicht ganz in 14–60 %. Ab 20 % liegt der Kopf bei
+    // 12,5 %, das Bartende bei 60 %, Gesichtsmitte (45 % der Breite) bei 50 % des Ausschnitts.
+    ausschnitt: { x0: 0.05, y0: 0.20, x1: 0.85, y1: 1 },
+    breite: 900,
+    titel: 'Karosserie- und Fahrzeugbaumechaniker im CarCare Center Leipzig',
+    beschreibung: 'Porträt eines Karosserie- und Fahrzeugbaumechanikers des CarCare Center in der Werkstatthalle, neben ihm ein Fahrzeug mit geöffneter Motorhaube.',
+    stichwoerter: ['Karosserie- und Fahrzeugbaumechaniker', 'Karosseriebau', 'Mitarbeiter', 'Team', 'Karriere'],
+  },
 ];
 
 /**
@@ -283,8 +438,10 @@ if (!auswahl.length && !vergleichsAuswahl.length) {
   console.error(`[fotos] Kein Ziel enthaelt "${nur}". Bekannt: ${bekannt}`);
   process.exit(1);
 }
-const quellen = [...auswahl.map((f) => f.quelle), ...vergleichsAuswahl.flatMap((v) => [v.vorher.quelle, v.nachher.quelle])];
-const fehlend = quellen.filter((q) => !fs.existsSync(path.join(ordner, q)));
+// Eintraege mit eigenem `ordner` (seit 2026-10-03) lesen von dort, alle anderen aus dem Standard bzw. `--ordner`.
+const quellpfad = (f) => path.join(f.ordner ?? ordner, f.quelle);
+const quellen = [...auswahl.map(quellpfad), ...vergleichsAuswahl.flatMap((v) => [v.vorher.quelle, v.nachher.quelle].map((q) => path.join(ordner, q)))];
+const fehlend = quellen.filter((q) => !fs.existsSync(q));
 if (fehlend.length) {
   console.error(`[fotos] Quelle fehlt im Lieferordner: ${fehlend.join(', ')}`);
   process.exit(1);
@@ -333,7 +490,7 @@ const kb = (p) => `${Math.round(fs.statSync(p).size / 1024)} KB`;
 const ergebnis = [];
 
 for (const f of auswahl) {
-  const quelle = path.join(ordner, f.quelle);
+  const quelle = quellpfad(f);
   const meta = await sharp(quelle).metadata();
   const datum = aufnahmezeit(meta.exif);
 

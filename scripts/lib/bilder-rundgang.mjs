@@ -52,8 +52,12 @@ export function sammleImBrowser() {
     const cs = getComputedStyle(el);
     const sektion = el.closest('section');
     const titel = sektion ? text(sektion.querySelector('h1, h2')) || sektion.getAttribute('aria-label') || sektion.id : '';
-    const karte = sektion ? karteVon(el, sektion) : null;
-    const gruppe = karte ? gruppeVon(karte, sektion) : '';
+    // `data-bild-ort` (seit 2026-10-02) benennt den Platz ausdruecklich, wo keine Ueberschrift ihn traegt — etwa die
+    // Porträts der Mitarbeiterstimmen. Derselbe Name wie im `data-bild-platzhalter` davor: So erkennt das Inventar,
+    // dass das Foto den Platzhalter ersetzt, und die Nummer bleibt (scripts/bilder-inventar.mjs).
+    const ort = el.closest('[data-bild-ort]')?.getAttribute('data-bild-ort');
+    const karte = ort ? { el: el.closest('[data-bild-ort]'), titel: ort } : sektion ? karteVon(el, sektion) : null;
+    const gruppe = ort ? '' : karte ? gruppeVon(karte, sektion) : '';
     funde.push({
       art, url, zone: zone(el), position: position.get(el),
       sichtbar: r.width > 1 && r.height > 1 && cs.display !== 'none' && cs.visibility !== 'hidden',

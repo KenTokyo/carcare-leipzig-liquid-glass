@@ -25,6 +25,11 @@ export type ServiceGroupId = 'aufbereitung' | 'unfall-lack' | 'rad-glas' | 'gewe
  * Abgeleitet aus der Gruppe: Eine neue Leistung bekommt ihre Plakette mit dem Katalogeintrag, ohne zweite Liste.
  */
 export type Bereich = 'care' | 'repair';
+/**
+ * Eine Plakette, mehrere (Leasingrueckgabe: Care und Repair, User 2026-10-03) oder keine. Die Komponente
+ * `BereichsPlakette` setzt mehrere nebeneinander, in der Reihenfolge des Slogans („We Care. We Repair.“).
+ */
+export type BereichsAngabe = Bereich | readonly Bereich[] | null;
 const BEREICH_JE_GRUPPE: Record<ServiceGroupId, Bereich | null> = {
   aufbereitung: 'care',
   'unfall-lack': 'repair',
@@ -86,6 +91,20 @@ export interface ServiceCatalogEntry extends OverviewService {
    * `backgroundImage`.
    */
   pageImage?: string;
+  /**
+   * Video statt Foto auf den Karten dieser Leistung: ID eines Videoplatzes aus `data/videos.ts` (Quelle + Standbild).
+   *
+   * Seit 2026-10-03 fuer die Neu- und Reparaturlackierung UEBERALL (User: „das Video fuer Neu- und Reparaturlackierung
+   * ueberall“): Startseiten-Kachel (`ServiceGrid`) und alle Leistungskarten (`LeistungsKarten`). Bis dahin nur die
+   * Startseite (Wunsch vom 2026-09-21, Datenvolumen). Geladen wird es erst, wenn die Karte im Bild ist (`preload="none"`),
+   * vorher steht das Standbild. `backgroundImage` bleibt der Rueckfall, falls der Videoplatz einmal leer ist.
+   */
+  video?: string;
+  /**
+   * Plaketten abweichend von der Gruppe (Backlog 6.8 ff.). Leasingrueckgabe traegt seit 2026-10-03 Care UND Repair
+   * (User): Aufbereitung und Instandsetzung von Gebrauchsspuren. Ohne Angabe gilt die Gruppe (`BEREICH_JE_GRUPPE`).
+   */
+  bereiche?: readonly Bereich[];
 }
 
 /**
@@ -138,9 +157,10 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'PaintBucket',
     href: '/autolackierung-leipzig',
     cta: 'Zur Lackierung',
-    // Seit 2026-09-21 echtes Foto (Backlog 3.26). Die Startseitenkarte zeigt statt des Fotos
-    // ein Video — nur dort, siehe `components/ServiceGrid.tsx`.
+    // Seit 2026-09-21 echtes Foto (Backlog 3.26). Seit 2026-10-03 zeigen ALLE Karten der Leistung das Lackiervideo
+    // (`video`), das Foto bleibt Rueckfall. Dasselbe Foto ist seitdem das Motiv von Smart Repair (eigene Datei).
     backgroundImage: kachel('autolackierung-leipzig-carcare'),
+    video: 'startseite-lackierung',
     imageAlt: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf, Reparaturlackierung im CarCare Center Leipzig',
     imageWidth: 2000,
     imageHeight: 1500,
@@ -160,10 +180,14 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'ScanLine',
     href: '/smart-repair-leipzig',
     cta: 'Smart Repair ansehen',
+    // Seit 2026-10-03 das Lackierfoto (User: „das aktuelle Standfoto von Neu und Reparaturlackierung ueberall bei Smart
+    // Repair“), eigener Dateiname aus `npm run fotos`. Das fruehere Motiv liegt in `docs/bilder/archiv/`.
     backgroundImage: kachel('smart-repair-leipzig-carcare'),
-    imageAlt: 'Punktuelle Lackinstandsetzung per Smart Repair im CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    imageAlt: 'Lackierer trägt mit der Lackierpistole Lack auf einen abgeklebten Stoßfänger auf, Smart Repair im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
+    // Die Pistole steht im linken Drittel; der Seitenhintergrund zeigt nur rechts der Mitte (wie bei der Lackierseite).
+    pageImage: kachel('smart-repair-hintergrund-leipzig-carcare'),
   },
   {
     id: 'dellen',
@@ -175,11 +199,12 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'Hammer',
     href: '/dellenentfernung-leipzig',
     cta: 'Dellen entfernen',
-    // Seit 2026-09-21 echtes Foto: die Delle, waehrend sie entfernt wird (Backlog 3.11/3.24).
+    // Seit 2026-10-03 neues echtes Foto (User, Backlog 5.10): Leuchtschirm macht die Delle neben der Heckleuchte sichtbar.
+    // Vorher (2026-09-21) das Ausbeulen an der A-Saeule — diese Szene zeigt jetzt die Hagelschadenreparatur.
     backgroundImage: kachel('dellenentfernung-leipzig-carcare'),
-    imageAlt: 'Techniker richtet unter der Reflexionslampe eine Delle an der A-Säule aus, lackfreie Dellenentfernung im CarCare Center Leipzig',
-    imageWidth: 2000,
-    imageHeight: 1500,
+    imageAlt: 'Leuchtschirm über dem Heck eines weißen Porsche macht eine Delle neben der Heckleuchte sichtbar, Dellenentfernung im CarCare Center Leipzig',
+    imageWidth: 1600,
+    imageHeight: 1200,
   },
   {
     id: 'hagel',
@@ -191,10 +216,11 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'CloudHail',
     href: '/hagelschadenreparatur-leipzig',
     cta: 'Hagelschaden prüfen',
-    backgroundImage: kachel('hagelschadenreparatur-leipzig'),
-    imageAlt: 'Fahrzeug mit Hagelschaden vor der Instandsetzung im CarCare Center Leipzig',
-    imageWidth: 1400,
-    imageHeight: 1045,
+    // Seit 2026-10-03 echtes Foto (User, Backlog 5.7); das fruehere, mit KI aufgewertete Motiv ist ganz raus (archiviert).
+    backgroundImage: kachel('hagelschadenreparatur-leipzig-carcare'),
+    imageAlt: 'Techniker zieht unter dem Leuchtschirm mit Gleithammer und Klebepad eine Delle an der Dachsäule heraus, Hagelschadenreparatur im CarCare Center Leipzig',
+    imageWidth: 2000,
+    imageHeight: 1500,
   },
   {
     id: 'felgen',
@@ -274,6 +300,8 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     iconName: 'KeyRound',
     href: '/leasingrueckgabe-leipzig',
     cta: 'Leasing vorbereiten',
+    // User 2026-10-03: Care UND Repair, ueberall wo die Leasingrueckgabe steht (Karten, Seitenkopf, Startseite).
+    bereiche: ['care', 'repair'],
     backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
     imageAlt: 'Fahrzeug in Vorbereitung auf die Leasingrückgabe im CarCare Center Leipzig',
     imageWidth: 1400,
@@ -398,15 +426,19 @@ export const servicesByGroup = (group: ServiceGroupId): ServiceCatalogEntry[] =>
 export const serviceByHref = (href: string): ServiceCatalogEntry | undefined =>
   serviceCatalog.find((service) => service.href === href);
 
-/** Care oder Repair fuer eine Gruppe (Backlog 6.8), `null` fuer die Geschaeftskunden-Gruppe. */
-export const bereichDerGruppe = (gruppe: ServiceGroupId): Bereich | null => BEREICH_JE_GRUPPE[gruppe];
+/**
+ * Plakette(n) eines Katalogeintrags (Backlog 6.8): eigene `bereiche` (Leasingrueckgabe: Care und Repair), sonst die
+ * Gruppe, `null` fuer die Geschaeftskunden-Gruppe.
+ */
+export const bereichDesEintrags = (eintrag: ServiceCatalogEntry): BereichsAngabe =>
+  eintrag.bereiche ?? BEREICH_JE_GRUPPE[eintrag.group];
 
 /**
  * Care oder Repair fuer einen Link oder eine Route (Backlog 6.8). Anker werden abgeschnitten
  * (`/fahrzeugaufbereitung-leipzig#preise`). Seiten ohne Katalogeintrag bekommen keine Plakette.
  */
-export const bereichVon = (href?: string | null): Bereich | null => {
+export const bereichVon = (href?: string | null): BereichsAngabe => {
   if (!href) return null;
   const eintrag = serviceByHref(href.split('#')[0]);
-  return eintrag ? BEREICH_JE_GRUPPE[eintrag.group] : null;
+  return eintrag ? bereichDesEintrags(eintrag) : null;
 };

@@ -101,6 +101,9 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
        */
       className={`group relative w-full shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-black/20 ring-1 ring-white/10 ${heightPx ? '' : 'h-full'}`}
       style={heightPx ? { height: `${heightPx}px` } : undefined}
+      // Platzname fuer `npm run bilder` (seit 2026-10-02): Kommt das Foto, behaelt es die Nummer des Platzhalters
+      // mit demselben Namen (B48 ff.). Ohne das Merkmal entstuende eine neue Nummer, die alte entfiele.
+      data-bild-ort={item.label}
     >
       {item.src ? (
         <img

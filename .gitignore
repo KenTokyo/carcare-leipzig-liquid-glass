@@ -57,4 +57,5 @@ data/anfrageSchema.js
 data/schadenFelder.js
 data/leistungsauswahl.js
 data/zusatzleistungen.js
+data/zusatzregeln.js
 emails/AnfrageEmail.js

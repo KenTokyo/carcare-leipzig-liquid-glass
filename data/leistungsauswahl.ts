@@ -23,10 +23,15 @@
  * weiter unten: Ihr Handlungsaufruf zeigt zwar auf `#contact-termin`, gemeint ist aber
  * eine Schadenmeldung. Behoben mit R8 am 2026-09-05.
  *
- * VERSIEGELUNGEN AUCH ALS LEISTUNG (Backlog 6.6, Meeting 2026-09-28): Keramik-, Nano- und
- * Frontscheibenversiegelung stehen zusaetzlich hier — Name und ID aus `data/zusatzleistungen.ts`
- * (`auchAlsLeistung`), damit es keine zweite Schreibweise gibt. Wer nur eine Versiegelung will,
- * muss seitdem nicht mehr „Sonstiges“ waehlen.
+ * „NUR ZUSATZLEISTUNGEN“ (Backlog 6.7, Andres Regeln, 2026-10-02): Die meisten Zusatzleistungen sind laut Andre
+ * „allein buchbar“. Bis dahin ging das nur ueber „Sonstiges“, was niemand findet. Wer jetzt nur eine Zusatzleistung
+ * will, waehlt diese Option und hakt sie darunter an. Sie ersetzte 6.6 (Keramik-, Nano- und Frontscheibenversiegelung
+ * standen vom 28.09. bis 02.10. zusaetzlich als eigene Leistung hier).
+ *
+ * VERSIEGELUNGEN ALS LEISTUNG (6.6 fuer Keramik und Nano wieder aufgenommen, User, 2026-10-03): Wer eine Versiegelung
+ * sucht, sucht sie hier. Gewaehlt, ist ihr Kaestchen unter „Zusatzleistungen“ fest angehakt. Andres Regel (nur zur
+ * Brillant Außenpflege oder Lackaufbereitung) gilt weiter: Das Paket klaert die Werkstatt, Formular und Mail sagen das.
+ * Die Optionen entstehen aus `data/zusatzleistungen.ts` (`auchAlsLeistung`), mit derselben ID und demselben Namen.
  */
 import { zusatzleistungen } from './zusatzleistungen.js';
 
@@ -39,7 +44,20 @@ export interface Leistungsoption {
    * Leer lassen, wenn keine Seite eindeutig darauf zeigt.
    */
   routen?: string[];
+  /**
+   * Kein Paket (6.7): Zusatzleistungen gelten hier als „allein“ gebucht — erlaubt ist nur, was `buchbar.einzeln`
+   * traegt (`data/zusatzregeln.ts`). Gilt fuer „Nur Zusatzleistungen“ und „Sonstiges“.
+   */
+  ohnePaket?: boolean;
+  /**
+   * Die Leistung IST eine Zusatzleistung mit derselben ID (Keramik, Nano). Ihr Kaestchen ist dann fest angehakt, das
+   * Paket dazu offen (`data/zusatzregeln.ts`). Nicht von Hand setzen: Die Eintraege entstehen aus `auchAlsLeistung`.
+   */
+  zusatzleistung?: boolean;
 }
+
+/** Wert der Option „Nur Zusatzleistungen“: braucht mindestens eine Zusatzleistung (Formular und Server). */
+export const NUR_ZUSATZ = 'nur-zusatz';
 
 export const terminLeistungen: Leistungsoption[] = [
   {
@@ -69,8 +87,6 @@ export const terminLeistungen: Leistungsoption[] = [
     label: 'Lackaufbereitung',
     routen: ['/autoaufbereitung-wissen/lackaufbereitung'],
   },
-  // 6.6: dieselbe ID wie das Kaestchen — die Preiskachel waehlt damit die Leistung vor (RequestForm).
-  ...zusatzleistungen.filter((z) => z.auchAlsLeistung).map((z) => ({ id: z.id, label: z.label })),
   {
     id: 'leasing',
     label: 'Leasingrückgabe',
@@ -78,7 +94,15 @@ export const terminLeistungen: Leistungsoption[] = [
   },
   // „Verkaufsaufbereitung“ am 2026-09-28 gestrichen (Backlog 5.19, Andre: „gibt es so als solches eigentlich
   // nicht“). Wer vor dem Verkauf aufbereiten laesst, waehlt ein Paket — die Leasingrueckgabe bleibt (Andre: „lass es so“).
-  { id: 'sonstiges', label: 'Sonstiges' },
+  // 6.6 fuer Keramik und Nano, seit 2026-10-03 wieder (User): ID und Name aus `data/zusatzleistungen.ts`, damit die
+  // Versiegelung hier nicht anders heisst als an ihrem Kaestchen. Keine Route waehlt sie vor, nur ihre Preiskachel.
+  ...zusatzleistungen
+    .filter((zusatz) => zusatz.auchAlsLeistung)
+    .map((zusatz): Leistungsoption => ({ id: zusatz.id, label: zusatz.label, zusatzleistung: true })),
+  // 6.7: Zusatzleistungen ohne Paket. Keine Route waehlt sie vor — auch die Preiskachel einer Zusatzleistung nicht:
+  // Ob der Kunde sie allein oder zu einem Paket will, entscheidet er (siehe `startwerte` in RequestForm).
+  { id: NUR_ZUSATZ, label: 'Nur Zusatzleistungen', ohnePaket: true },
+  { id: 'sonstiges', label: 'Sonstiges', ohnePaket: true },
 ];
 
 /**

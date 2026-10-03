@@ -56,7 +56,6 @@ const CareerPage: React.FC = () => (
     <PageHero
       eyebrow="Karriere"
       title="Jobs und Ausbildung in Leipzig."
-      ohneTrennung
       description="Ihr Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecken Sie unsere Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
       primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
@@ -87,16 +86,13 @@ const CareerPage: React.FC = () => (
       </div>
     </section>
 
-    {/* Backlog 3.19: Stimmen aus dem Betrieb, ausdruecklich anonymisiert —
-        Berufsbezeichnung statt Name. Steht nach dem Video: erst der Ort, dann die
-        Menschen, die dort arbeiten. */}
+    {/* Backlog 5.28 (vorher 3.19): Stimmen aus dem Betrieb, seit 2026-10-02 mit Andres fuenf Aussagen, seit
+        2026-10-03 mit Foto und Vorname als aufklappende Karten im Design der Startseite (User). Der Untertext
+        „Bewusst ohne Namen …“ ist damit entfallen. Steht nach dem Video: erst der Ort, dann die Menschen, die dort
+        arbeiten. */}
     <section id="stimmen" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
-        <SectionIntro
-          eyebrow="Aus dem Team"
-          title="Was Kolleginnen und Kollegen über die Arbeit sagen."
-          description="Bewusst ohne Namen. Die Berufsbezeichnung sagt mehr darüber aus, ob die Stelle zu Ihnen passt."
-        />
+        <SectionIntro eyebrow="Aus dem Team" title="Was Kolleginnen und Kollegen über die Arbeit sagen." />
         <div className="mt-12">
           <Stimmen />
         </div>

@@ -2,6 +2,7 @@ import type { RequestFormKind } from '../types.js';
 import { schadenFelder } from './schadenFelder.js';
 import { terminLeistungen } from './leistungsauswahl.js';
 import { zusatzleistungen } from './zusatzleistungen.js';
+import { paketOffen } from './zusatzregeln.js';
 
 export const PARTNER_TYPEN = {
   autohaus: 'Autohaus', fuhrpark: 'Fuhrpark', versicherung: 'Versicherung / Versicherungsagentur',
@@ -91,27 +92,20 @@ const AUSWAHLTEXTE: Record<string, Record<string, string>> = {
       .filter((f) => f.optionen?.length)
       .map((f) => [f.id, Object.fromEntries(f.optionen!.map((o) => [o.id, o.label]))])
   ),
-  service: Object.fromEntries(terminLeistungen.map((l) => [l.id, l.label])),
+  // Versiegelung als Leistung (6.6, seit 2026-10-03) mit „Paket offen: …“: Laut Andre gibt es sie nur zu einem Paket,
+  // und welches, klaert die Werkstatt mit dem Kunden. So steht es in der Mail, bevor jemand zurueckruft.
+  service: Object.fromEntries(terminLeistungen.map((l) => [l.id, paketOffen(l.id) ? `${l.label} (${paketOffen(l.id)})` : l.label])),
   partnerType: PARTNER_TYPEN,
   // Mit Preis (seit 2026-09-28): Wer die Mail liest, sieht sofort, was die Anfrage kostet.
   zusatzleistungen: Object.fromEntries(zusatzleistungen.map((l) => [l.id, `${l.label} (${l.preis})`])),
 };
 
-/**
- * Leistung und Zusatzleistung teilen sich EINEN Vorauswahlwert: Die Preiskachel schickt ihre ID, das
- * Formular waehlt damit die Leistung oder hakt die Zusatzleistung an (`startwerte` in RequestForm).
- * Eine ID in beiden Listen waere mehrdeutig — lieber bricht der Build (Prerender) als eine falsche Vorauswahl.
- *
- * AUSNAHME, BEWUSST (Backlog 6.6, 2026-09-28): Versiegelungen mit `auchAlsLeistung` stehen in beiden Listen.
- * Fuer sie ist die Vorauswahl eindeutig geregelt — die Leistung hat Vorrang, ihr Kaestchen ist dann gesperrt.
- * Jede ANDERE Doppelung bricht weiter den Build.
+/*
+ * Die Pruefung „keine ID zugleich Leistung und Zusatzleistung“ (Vorauswahl der Preiskachel waere mehrdeutig) stand
+ * bis 2026-10-02 hier, mit Ausnahme fuer die Versiegelungen aus 6.6. Seitdem steht sie bei den uebrigen
+ * Regelpruefungen in `data/zusatzregeln.ts` — das Modul laeuft im Formular, auf dem Server und im Prerender. Seit
+ * 2026-10-03 wieder mit Ausnahme, aber ausdruecklich: `auchAlsLeistung` (Keramik, Nano).
  */
-const doppelteIds = zusatzleistungen
-  .filter((z) => !z.auchAlsLeistung && terminLeistungen.some((l) => l.id === z.id))
-  .map((z) => z.id);
-if (doppelteIds.length) {
-  throw new Error(`data/anfrageSchema.ts: IDs zugleich Leistung und Zusatzleistung: ${doppelteIds.join(', ')}`);
-}
 
 /** Uebersetzt einen Feldwert in seinen Klartext, sofern es einen gibt. */
 export const lesbarerWert = (feld: string, wert: string): string =>

@@ -86,7 +86,7 @@ const QUELLEN = [
     flagge: 'istPlatzhalter',
     bezeichner: 'beruf',
     was: 'Mitarbeiterstimme auf /karriere',
-    backlog: '3.19 / 1.26',
+    backlog: '5.28',
   },
 ];
 
@@ -145,17 +145,15 @@ const ANERKANNT = [
   // entsperrt durch die Flaechenentscheidung 4.2. Eigenschaft 3 der Liste greift hier —
   // der Eintrag haette den Build gebrochen, wenn er stehen geblieben waere.
   // „Meilenstein 3" und „Jahr offen" am 2026-09-27 entfallen: Station 2017 eingesetzt (Backlog 5.24,
-  // Jahr aus dem Meeting 2026-09-25). Der Satzanfang unten bleibt — er steht weiter in den
-  // Mitarbeiterstimmen (3.19); in den Zusatzleistungen seit 2026-09-28 nicht mehr (5.20).
-  // Seit 2026-09-28 mit Komma statt Gedankenstrich (Backlog 6.26) — in data/stimmen.ts und hier zugleich geaendert.
-  { text: 'Platzhalter, wird durch', backlog: '3.19', seit: '2026-09-04' },
+  // Jahr aus dem Meeting 2026-09-25).
   // Die vier Videozeilen (3.18, 3.20, 3.21) sind am 2026-09-07 entfallen: Material
   // geliefert, Platzhalter weg. Genau der in Eigenschaft 3 beschriebene Fall — ein
   // Eintrag, der auf nichts mehr passt, haette den Build gebrochen.
-  { text: 'Mitarbeiterstimme', backlog: '3.19 / 1.26', seit: '2026-09-06' },
-  { text: 'Mitarbeiterstimme 1', backlog: '3.19 / 1.26', seit: '2026-09-06' },
-  { text: 'Mitarbeiterstimme 2', backlog: '3.19 / 1.26', seit: '2026-09-06' },
-  { text: 'Mitarbeiterstimme 3', backlog: '3.19 / 1.26', seit: '2026-09-06' },
+  // „Platzhalter, wird durch" und „Mitarbeiterstimme" / „Mitarbeiterstimme 1–3" am 2026-10-02 entfallen: Andre hat
+  // fuenf Stimmen geliefert (Backlog 5.28, fuehrt 3.19/1.26 fort), `istPlatzhalter` steht ueberall auf `false`. In
+  // VERDAECHTIGE_TEXTE bleiben beide Wendungen — tauchen sie wieder auf, bricht der Build. Die fehlenden FOTOS der
+  // Stimmen sind kein Platzhalter im Sinne dieses Waechters: Das Foto ist freiwillig, der Platz zeigt ohne Foto ein
+  // fertiges Symbol. Sie stehen mit fester Nummer im Bildinventar (`npm run bilder`).
   // Die fuenf Zeilen fuer die Bereichsvideos (R18) sind am 2026-09-23 entfallen: Der User hat
   // die drei Drohnenclips geliefert, `istPlatzhalter` steht auf `false`, der Rahmen mit
   // „Videoplatz …" und „Das Material wird nachgeliefert" wird nicht mehr gerendert. Damit

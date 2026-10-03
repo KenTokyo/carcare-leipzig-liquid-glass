@@ -125,10 +125,14 @@ if (!fs.existsSync(distIndex)) {
   console.error('[bilder] dist/ fehlt. Zuerst `npm run build`.');
   process.exit(1);
 }
+// Erzeugte Mail-Abhaengigkeiten (`data/*.js`, gitignored) zaehlen nicht als Quelle: `npm run test:email` schreibt sie
+// neu, ohne dass sich am Ausgelieferten etwas aendert — danach brach dieses Skript mit „dist/ ist aelter“ ab (O8,
+// 2026-10-02). Dieselbe Ausnahme macht `scripts/lib/dist-stand.mjs`, das ueber `startePreview` zusaetzlich prueft.
+const ERZEUGT = /^data[\\/][^\\/]+\.js$/;
 const juengste = (p) => {
   if (!fs.existsSync(p)) return 0;
   const st = fs.statSync(p);
-  if (!st.isDirectory()) return st.mtimeMs;
+  if (!st.isDirectory()) return ERZEUGT.test(path.relative(wurzel, p)) ? 0 : st.mtimeMs;
   return Math.max(0, ...fs.readdirSync(p).map((n) => juengste(path.join(p, n))));
 };
 const QUELLEN = ['components', 'pages', 'data', 'seo', 'styles', 'hooks', 'App.tsx', 'index.html', 'index.css', 'public/assets'];
@@ -332,9 +336,16 @@ for (const z of offen) {
    * ⚠️ Der Platzhalterfall ist der WICHTIGERE der beiden: Genau unter diesen Nummern hat der
    * User die fehlenden Videos bestellt. Waeren sie beim Liefern weitergewandert, haette
    * „B113“ in der naechsten Absprache etwas anderes bedeutet als in der letzten.
+   *
+   * SEIT 2026-10-02 AUCH PLATZHALTER → FOTO: Die Porträtplaetze der Mitarbeiterstimmen (5.28) und die Galerie
+   * „Einblicke“ (3.23) warten auf Fotos, und der User ordnet Andres Fotos per Nummer zu. Bis dahin bekam ein
+   * geliefertes Foto eine NEUE Nummer, die des Platzhalters entfiel — der Rahmen passte nicht (Rolle und Datei
+   * anders). Voraussetzung fuer den Treffer: Das Foto steht in einem Element mit `data-bild-ort` und demselben
+   * Namen wie vorher `data-bild-platzhalter` (dann sind Seite, Sektion und Ort gleich, nur die Rolle nicht).
    */
-  if (i < 0 && z.rolle === 'standbild') {
-    i = frei.findIndex(([k]) => ['bild', 'platzhalter'].includes(k.split('|')[4]) && ohneRolle(k) === ohneRolle(z.key));
+  const VORGAENGER = { standbild: ['bild', 'platzhalter'], bild: ['platzhalter'] };
+  if (i < 0 && VORGAENGER[z.rolle]) {
+    i = frei.findIndex(([k]) => VORGAENGER[z.rolle].includes(k.split('|')[4]) && ohneRolle(k) === ohneRolle(z.key));
   }
   if (i >= 0) {
     const [, v] = frei.splice(i, 1)[0];

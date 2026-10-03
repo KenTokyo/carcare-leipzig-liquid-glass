@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
-import type { Bereich } from '../data/services';
+import GanzwortTitel from './GanzwortTitel';
+import { KARTEN_RAHMEN, KARTEN_UEBERGANG, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
+import type { BereichsAngabe } from '../data/services';
 
 /**
  * Ein Item des ExpandOnHover-Akkordeons. Bewusst minimal, damit sowohl
@@ -44,7 +46,7 @@ export interface ExpandingCardItem {
    */
   badge?: { label: string; ton?: 'aktiv' | 'ruhig' };
   /** „Care" oder „Repair" ueber dem Titel (Backlog 6.8) — `ServiceGrid` leitet es aus der Katalog-Gruppe ab. */
-  bereich?: Bereich | null;
+  bereich?: BereichsAngabe;
   /**
    * Kurzer Hinweis ueber der Beschreibung, z. B. warum die Karte gedaempft ist.
    * Traegt die Erklaerung dorthin, wo die Daempfung auffaellt.
@@ -78,13 +80,6 @@ export interface ExpandingCardItem {
  * Bildern je Karte.
  */
 const DEFAULT_CARD_BG = '/assets/carcare-hero-workshop.webp';
-
-/**
- * CarCare-Logo-Badge. Bewusst das STATISCHE Logo (nicht das animierte MP4):
- * bei vielen Karten waeren das viele parallele Autoplay-Videos (Perf). Das WebP
- * ist leichtgewichtig, konsistent und zuverlaessig.
- */
-const logoMarkSrc = '/assets/carcare-center-logo.webp';
 
 /**
  * Kartenvideo: laeuft nur, solange die Karte aufgeklappt ist UND im Bild steht.
@@ -181,46 +176,12 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Mobile = vertikales Akkordeon (skiper53).
   const [active, setActive] = useState(0);
 
-  // Groesse wird von Framer getrieben (nicht per CSS-Transition): Desktop animiert
-  // `flexGrow` (Breite bei fixer Container-Hoehe), Mobile animiert `height`. Grund:
-  // die CSS-Height-Transition eines Flex-Items ist auf mobilen Browsern (v.a. iOS
-  // Safari) unzuverlaessig und snappt hart; Framer setzt den Wert per rAF direkt
-  // inline und umgeht den Flex-Quirk. Gleiche Easing/Dauer wie Desktop -> Mobile
-  // fuehlt sich identisch an.
-  //
-  // Bewusst NICHT auf prefers-reduced-motion gegated: die Animation ist ein
-  // gewuenschtes Marken-Micro-Interaction, und die uebrige Site animiert ebenfalls
-  // durchgaengig ungegated (Hero-Parallax, whileInView-Reveals) -> ein gegatetes
-  // Akkordeon (Dauer 0 unter reduced-motion) waere inkonsistent und liess die
-  // Karten auf betroffenen Systemen hart aufspringen statt smooth aufzuklappen.
-  const cardTransition = { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
-
-  // Viewport-Erkennung. Lazy-Init aus matchMedia -> korrekte Kartenhoehe schon beim
-  // ersten Paint (kein Flash). Sicher, weil der Prerender #root vor dem Client-Mount
-  // leert (scripts/prerender.mjs) -> reines CSR, keine Hydration-Mismatch-Gefahr.
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true
-  );
-
+  // Geraet, Uebergang, Rahmen, Schleier und Logo teilen sich seit 2026-10-03 beide Akkordeons
+  // (`akkordeonKarten.tsx`, dort die Begruendungen fuer Framer statt CSS und gegen reduced-motion).
   // Hover-faehig (Desktop) vs. Touch: auf Touch expandiert der erste Tap, erst der
   // zweite folgt dem Link. Hover/Focus setzen `active` nur auf Hover-Geraeten,
   // damit der Tap-Handler nicht durch ein vorab gefeuertes Focus-Event ausgehebelt wird.
-  const [hoverCapable, setHoverCapable] = useState(true);
-  useEffect(() => {
-    const hoverMq = window.matchMedia('(hover: hover)');
-    const desktopMq = window.matchMedia('(min-width: 1024px)');
-    const sync = () => {
-      setHoverCapable(hoverMq.matches);
-      setIsDesktop(desktopMq.matches);
-    };
-    sync();
-    hoverMq.addEventListener('change', sync);
-    desktopMq.addEventListener('change', sync);
-    return () => {
-      hoverMq.removeEventListener('change', sync);
-      desktopMq.removeEventListener('change', sync);
-    };
-  }, []);
+  const { isDesktop, hoverCapable } = useAkkordeonGeraet();
 
   // Section-Hintergrund folgt der AKTIVEN (aufgeklappten) Karte — nicht dem Hover.
   // Auf Desktop ist immer genau eine Karte offen, der Hintergrund bleibt also stehen,
@@ -246,18 +207,6 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
         const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
         // Gilt fuer Foto und Video gleich: Zoom beim Aufklappen, Graustufen bei gedaempften Karten.
         const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
-        // Titel in „alles ausser letztem Wort" + „letztes Wort" zerlegen: Der blaue Akzentpunkt
-        // haengt am letzten Wort. Ohne das rutscht er bei mehrzeiligen Titeln allein in eine neue
-        // Zeile und wirkt wie ein Fehler (gleiche Ueberlegung wie in TargetGroupCards).
-        //
-        // BACKLOG 5.25 (2026-09-27): Bis dahin hielt ein `whitespace-nowrap` um das letzte Wort den
-        // Punkt fest — und verbot damit auch jede Trennung IM Wort. „Fahrzeugbaumechaniker/in" ist
-        // bei 24 px breiter als der 252 px schmale Textkasten und lief sichtbar ueber dessen Rand
-        // („die Schrift ist ueber dem Kasten", Meeting 2026-09-25). Jetzt haelt ein Wortverbinder
-        // (U+2060) den Punkt am Wort, und der Titel darf deutsch silbengetrennt werden.
-        const woerter = item.title.split(' ');
-        const letztesWort = woerter.pop() ?? '';
-        const davor = woerter.join(' ');
         return (
           <motion.a
             key={item.id}
@@ -278,8 +227,8 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
               flexGrow: isActive ? 6 : 1,
               height: isDesktop ? '100%' : isActive ? mobileActiveHeight : 64,
             }}
-            transition={cardTransition}
-            className="group relative min-w-0 overflow-hidden rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0"
+            transition={KARTEN_UEBERGANG}
+            className={KARTEN_RAHMEN}
           >
             {/* Layer 1 – Hintergrundbild (pro Karte austauschbar), wahlweise als Video */}
             {item.backgroundVideo ? (
@@ -287,14 +236,8 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
             ) : (
               <img src={cardImage} alt="" aria-hidden="true" loading="lazy" decoding="async" className={bildKlasse} />
             )}
-            {/* Verlauf von unten und Vignette ringsum — beide im Schwarzblau der Zielgruppenkarten
-                (`--cc-cta-blue`), nicht mehr in Carbon. Seit 2026-09-24, Wunsch des Users: „nicht
-                schwarz, in den Farben aus ‚Für wen wir arbeiten'". Der Verlauf ist schwaecher als
-                der fruehere Carbon-Verlauf (0,62), weil die Vignette die Unterkante mitfaerbt —
-                beide zusammen wuerden unten sonst fast deckend. Die Vignette steht in BEIDEN
-                Zustaenden, aufgeklappt und eingeklappt. */}
-            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--cc-cta-blue-rgb)/0.46)] via-[rgb(var(--cc-cta-blue-rgb)/0.1)] to-transparent" />
-            <div aria-hidden="true" className="cc-karten-vignette absolute inset-0" />
+            {/* Verlauf von unten und Vignette ringsum, Schwarzblau (Begruendung in `akkordeonKarten.tsx`). */}
+            <KartenSchleier />
             {/* Kennzeichnung des Kartenmotivs. Am Desktop NUR auf der aufgeklappten Karte:
                 Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
                 angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer.
@@ -350,24 +293,20 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                   )}
                 </div>
               )}
-              {/* `hyphens-auto` trennt nach deutscher Silbenregel (`<html lang="de">`), `break-words`
-                  ist das Netz fuer ein Wort ohne Trennstelle — ein Titel darf nie ueber den Kasten.
-                  DER BLAUE PUNKT IST EIN SCHRIFTZEICHEN („•“), kein runder Block mit Wortverbinder davor (bis
-                  2026-09-28). Der Wortverbinder (U+2060) hielt den Punkt am Wort, schaltete aber fuer dieses Wort die
-                  Silbentrennung ab: Auf 390 px brach die erste, offene Karte der Startseite als
-                  „Fahrzeugaufbereitun / g“, auf 360 px „Unfallinstandsetzu / ng“ (Notumbruch von `break-words`,
-                  ohne Trennstrich). Ein geschuetztes Leerzeichen statt des Verbinders liess den Punkt in 5 von 39
-                  Faellen (13 Titel, 320/360/390 px) allein in die naechste Zeile rutschen. Das Zeichen haelt von selbst:
-                  Zwischen Buchstabe und „•“ darf nicht umbrochen werden, und das Wort bleibt trennbar (0 von 39).
-                  `-mr-3`: Der Titel darf 12 px in den rechten Innenrand der Kachel ragen (24 px bleiben 12). Sonst passte
-                  „Fahrzeugaufbereitung“ samt Punkt am Desktop (252 px Titelbreite) nicht in eine Zeile und wurde
-                  getrennt; bis 2026-09-28 stand das Wort ganz und der Punkt allein in der Zeile darunter. Gemessen an
-                  1024–1920 und 320–390 px: nur weniger Zeilen, nirgends Ueberlauf. */}
-              <h3 className="-mr-3 hyphens-auto break-words text-xl font-bold leading-tight tracking-tight text-gray-950 md:text-2xl">
-                {davor && `${davor} `}
-                {letztesWort}
-                <span aria-hidden="true" className="ml-[0.06em] align-[0.34em] text-[0.9em] leading-[0] text-blue-600">•</span>
-              </h3>
+              {/* TITEL OHNE SILBENTRENNUNG (User, 2026-10-03: „keine Bindestriche für die Trennung von Wörtern“).
+                  `GanzwortTitel` bricht nur an Leerzeichen um, jedes Wort bleibt ganz, und ist das längste Wort zu breit,
+                  wird die Schrift für diesen Titel so weit kleiner, dass es passt (20 px mobil, 24 px ab `md` als
+                  Obergrenze). Bis dahin trennte der Browser nach Silbenregel (Backlog 5.25, „Fahrzeugbaumechaniker/in“
+                  lief bei 24 px über den Kasten) — „Hagelschaden-reparatur“, „Reparatur-lackierung“.
+                  Der blaue Punkt ist ein Schriftzeichen im selben `nowrap`-Teil wie das letzte Wort und rutscht nie
+                  allein in eine Zeile. `-mr-3`: Der Titel darf 12 px in den rechten Innenrand der Kachel ragen. */}
+              <GanzwortTitel
+                text={item.title}
+                punkt
+                laufweite={-0.025}
+                huelle="-mr-3"
+                className="font-bold leading-tight tracking-tight text-gray-950 [--titel-max:1.25rem] md:[--titel-max:1.5rem]"
+              />
               {/* Scrollbarer Textbereich. `min-h-0` ist hier nicht kosmetisch: Ohne das
                   bekommt ein Flex-Kind die Mindesthoehe seines Inhalts und laeuft aus der
                   Karte heraus, statt zu scrollen. `.cc-card-scroll` liefert die schmale
@@ -437,18 +376,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
 
             {/* Logo-Badge unten rechts – nur auf der aufgeklappten Karte
                 (kollabierte Streifen sind zu schmal/niedrig) */}
-            <span
-              className={`absolute bottom-3 right-3 z-20 h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white p-1.5 shadow-lg ring-1 ring-gray-200 md:h-14 md:w-14 ${isActive ? 'flex' : 'hidden'}`}
-            >
-              <img
-                src={logoMarkSrc}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-contain"
-              />
-            </span>
+            <KartenLogo sichtbar={isActive} lage="bottom-3 right-3" />
           </motion.a>
         );
       })}

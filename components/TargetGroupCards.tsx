@@ -94,7 +94,9 @@ const groups: TargetGroup[] = [
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',
-    backgroundImage: '/assets/kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp',
+    // Seit 2026-10-03 eigenes Motiv NUR fuer diese Startseitenkarte (User, Backlog 5.14/5.15): unser Transporter mit
+    // Anhaenger. Die Unterseiten (/geschaeftskunden, /leistungen) behalten `autohaeuser-und-fuhrparks-…`.
+    backgroundImage: '/assets/kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp',
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
     partners: dealerPartners,
   },

@@ -2,6 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import { bereichVon } from '../data/services';
 import { AUFPREIS_SATZ, angeboteAussen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
+import { regelSaetze } from '../data/zusatzregeln';
 
 /**
  * Aussenaufbereitung als eigene Leistungsseite (Backlog 1.8).
@@ -128,7 +129,8 @@ const AussenaufbereitungPage: React.FC = () => (
           eyebrow="Exklusiv- und Zusatzleistungen"
           // Seit 6.17 (2026-09-28) haben Keramik und Nano „ab“-Preise — „zum Festpreis“ stimmte damit nicht mehr.
           title="Was kosten Versiegelungen und Zusatzleistungen?"
-          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. Dazu kommen die Frontscheibenversiegelung und Pflege-Extras für Felgen, Cabrioverdeck und Motorraum.`}
+          // 6.7: Regel fuer Keramik und Nano aus data/zusatzregeln.ts (Andre: nur zur Brillant Außenpflege oder Lackaufbereitung).
+          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. ${regelSaetze(['keramik', 'nano'], 'Beide')} Dazu kommen die Frontscheibenversiegelung und Pflege-Extras für Felgen, Cabrioverdeck und Motorraum.`}
         />
         <PricingGrid items={angeboteAussen.zusatz} ctaLabel="Termin anfragen" note="Alle Preise inkl. gesetzlicher Mehrwertsteuer." />
       </div>

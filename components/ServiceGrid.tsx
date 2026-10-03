@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { bereichDerGruppe, overviewServices } from '../data/services';
+import { bereichDesEintrags, overviewServices } from '../data/services';
 import { videoPlatz } from '../data/videos';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
@@ -15,25 +15,18 @@ import PhotoBackdrop from './PhotoBackdrop';
  */
 
 /**
- * Videos NUR fuer diese Kachelreihe der Startseite (Bildstelle B11, Wunsch des Users vom
- * 2026-09-21: „nur für die Mainpage …, damit wir nicht zu viel Datenvolumen mit der gesamten
- * Seite fressen"). Bewusst hier und nicht im Katalog: `data/services.ts` speist auch die
- * Leistungskarten und Seitenhintergruende der anderen Seiten — dort bleibt das Foto.
- * Das Standbild ersetzt das Kachelfoto, damit beim Anlaufen nichts umspringt.
- */
-const STARTSEITEN_VIDEOS: Record<string, string> = {
-  lackierung: 'startseite-lackierung',
-};
-
-/**
- * Care oder Repair an jeder Leistungskarte (Backlog 6.8), aus der Gruppe des Katalogeintrags — dieselbe
- * Ableitung wie in den Seitenkoepfen (`bereichVon` in data/services.ts).
+ * Video statt Foto, wo der Katalog eines nennt (`video` in data/services.ts). Bis 2026-10-03 stand hier eine eigene
+ * Liste nur fuer diese Kachelreihe (Wunsch vom 2026-09-21, Datenvolumen); seitdem zeigt die Neu- und
+ * Reparaturlackierung das Lackiervideo ueberall (User), also steht es im Katalog. Das Standbild ersetzt das Kachelfoto,
+ * damit beim Anlaufen nichts umspringt.
+ *
+ * Care und/oder Repair an jeder Leistungskarte (Backlog 6.8), aus dem Katalogeintrag — dieselbe Ableitung wie in den
+ * Seitenkoepfen (`bereichVon`); die Leasingrueckgabe traegt seit 2026-10-03 beide.
  */
 const karten: ExpandingCardItem[] = overviewServices.map((service) => {
-  const karte = { ...service, bereich: bereichDerGruppe(service.group) };
-  const platzId = STARTSEITEN_VIDEOS[service.id];
-  if (!platzId) return karte;
-  const platz = videoPlatz(platzId);
+  const karte = { ...service, bereich: bereichDesEintrags(service) };
+  if (!service.video) return karte;
+  const platz = videoPlatz(service.video);
   if (!platz.quelle || !platz.poster) return karte;
   return { ...karte, backgroundImage: platz.poster, backgroundVideo: platz.quelle };
 });

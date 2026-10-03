@@ -107,11 +107,11 @@ export const videoPlaetze: VideoPlatz[] = [
     // Ausschnitt 2,0–15,0 s, quadratisch zugeschnitten, stumm, 720 × 720 — 0,9 MiB. Herleitung:
     // `scripts/build-video.mjs`, Schnitt `startseite-lackierung`.
     //
-    // NUR AUF DER STARTSEITE (Wunsch des Users: „damit wir nicht zu viel Datenvolumen mit der
-    // gesamten Seite fressen“). Alle anderen Stellen der Leistung zeigen das Foto aus
-    // `data/services.ts`. Auch hier laedt das Video erst, wenn die Karte aufgeklappt wird.
-    // Ausnahme seit 2026-09-28: der Seitenhintergrund der Lackierseite (6.12) — mit EIGENEM Querschnitt,
-    // siehe `lackierung-hintergrund` unten.
+    // SEIT 2026-10-03 UEBERALL, wo die Neu- und Reparaturlackierung eine Karte hat (User: „das Video fuer Neu- und
+    // Reparaturlackierung ueberall“; vorher nur die Startseite, Wunsch vom 2026-09-21 wegen des Datenvolumens). Eingetragen
+    // als `video` am Katalogeintrag in `data/services.ts`; die ID bleibt, damit nichts umzuhaengen ist. Geladen wird es
+    // erst, wenn die Karte im Bild ist (Startseite: aufgeklappt). Der Seitenhintergrund der Lackierseite (6.12) hat einen
+    // EIGENEN Querschnitt, siehe `lackierung-hintergrund` unten.
     quelle: '/assets/carcare-autolackierung.mp4',
     poster: '/assets/carcare-autolackierung-standbild.webp',
     istPlatzhalter: false,

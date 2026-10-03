@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, BriefcaseBusiness, Building2, CalendarClock, CheckCircle2, Send } from 'lucide-react';
 import { terminLeistungen } from '../data/leistungsauswahl';
-import { bereinigteZusaetze, zusatzleistungen } from '../data/zusatzleistungen';
+import { zusatzleistungen } from '../data/zusatzleistungen';
+import { abgewaehlteZusaetze, bereinigteZusaetze } from '../data/zusatzregeln';
 import { ANDERES_MODELL } from '../data/fahrzeugmarken';
 import { HONIGTOPF, KONTAKT_POSTFACH } from '../data/anfrageSchema';
 import { useVersandBereitschaft } from '../hooks/useVersandBereitschaft';
@@ -75,12 +76,17 @@ const startwerte = (kind: RequestFormKind, vorauswahl?: string) => {
   // anzeigen kann — das Feld saehe leer aus, waere aber belegt.
   const istLeistung = Boolean(vorauswahl) && terminLeistungen.some((l) => l.id === vorauswahl);
   if (kind === 'termin' && vorauswahl && istLeistung) {
-    (werte as FormFieldsByKind['termin']).service = vorauswahl;
+    const termin = werte as FormFieldsByKind['termin'];
+    termin.service = vorauswahl;
+    // Eine Versiegelung als Leistung (6.6, seit 2026-10-03) bringt ihr Kaestchen fest angehakt mit: dieselbe Regel wie
+    // beim Waehlen in der Liste (`bereinigteZusaetze`). Bei einem Paket bleibt die Liste leer.
+    termin.zusatzleistungen = bereinigteZusaetze(vorauswahl, []);
   }
   // Seit 2026-09-28 kann die Vorauswahl auch eine ZUSATZLEISTUNG sein (Preiskachel „Felgenintensivreinigung“):
-  // Dann ist ihr Kaestchen angehakt und die Leistung bleibt offen — welches Paket dazu passt, entscheidet
-  // der Kunde. Steht dieselbe ID auch als Leistung zur Wahl (Versiegelungen, Backlog 6.6), hat die Leistung
-  // Vorrang und das Kaestchen bleibt leer — es waere dieselbe Leistung ein zweites Mal (data/anfrageSchema.ts).
+  // Dann ist ihr Kaestchen angehakt und die Leistung bleibt offen — ob Paket oder „Nur Zusatzleistungen“,
+  // entscheidet der Kunde. Ohne Leistung sperrt keine Buchungsregel (6.7, data/zusatzregeln.ts); das Kaestchen nennt
+  // nur seine Bedingung. AUSNAHME Keramik und Nano (6.6, vom 28.09. bis 02.10. und seit 2026-10-03 wieder): Ihre ID ist
+  // auch eine Leistung, also waehlt ihre Kachel oben die Leistung vor, und das Kaestchen kommt fest angehakt mit.
   if (kind === 'termin' && vorauswahl && !istLeistung && zusatzleistungen.some((z) => z.id === vorauswahl)) {
     (werte as FormFieldsByKind['termin']).zusatzleistungen = [vorauswahl];
   }
@@ -127,16 +133,24 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
   /** Anhaenge der Bewerbung (5.29) und wie viele davon tatsaechlich mitgingen — fuer die Bestaetigung. */
   const [anhaenge, setAnhaenge] = useState<File[]>([]);
   const [gesendeteAnhaenge, setGesendeteAnhaenge] = useState(0);
+  /** Beim letzten Leistungswechsel herausgefallene Zusatzleistungen (6.7) — der Hinweis in `TerminFelder`. */
+  const [abgewaehlt, setAbgewaehlt] = useState<ReturnType<typeof abgewaehlteZusaetze>>([]);
 
   const versandMoeglich = bereit;
   // Seit 6.13 aus `KONTAKT_POSTFACH` (data/anfrageSchema.ts) — Bewerbungen nennen bewerbung@carcare-center.de.
   const kontaktMail = KONTAKT_POSTFACH[kind];
   const unterlagen = kind === 'bewerbung' || kind === 'business';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    // Neue Leistung: Was dabei herausfaellt, nennt das Formular (6.7). Aus `values` des Renders, der das Ereignis
+    // ausgeloest hat — dieselben Werte, die der Aktualisierer unten als `prev` bekommt (ein Ereignis, eine Aenderung).
+    if (kind === 'termin' && e.target.name === 'service') {
+      setAbgewaehlt(abgewaehlteZusaetze(e.target.value, (values as FormFieldsByKind['termin']).zusatzleistungen ?? []));
+    }
     setValues((prev) => {
       const naechste = { ...prev, [e.target.name]: e.target.value };
-      // Neue Leistung gewaehlt: Zusatzleistungen, die dazu keinen Sinn ergeben, fallen heraus (5.20,
-      // Regeln in data/zusatzleistungen.ts). Das Kaestchen ist dann gesperrt — mitgeschickt wuerde es sonst trotzdem.
+      // Neue Leistung gewaehlt: Zusatzleistungen, die dazu nicht buchbar sind, fallen heraus (5.20/6.7,
+      // Regeln in data/zusatzregeln.ts). Das Kaestchen ist dann gesperrt — mitgeschickt wuerde es sonst trotzdem.
+      // Ist die neue Leistung eine Versiegelung (6.6, seit 2026-10-03), kommt ihr Kaestchen fest angehakt hinzu.
       // Neue Marke: Modell und Freitext gehoeren zur alten Marke und fallen weg. Anderes Modell abgewaehlt:
       // Der Freitext dazu faellt weg — sonst stuende in der Mail ein Modell, das der Kunde zurueckgenommen hat.
       if (kind === 'termin' && e.target.name === 'marke') return { ...naechste, modell: '', modellFrei: '' } as never;
@@ -158,6 +172,8 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
 
   /** Mehrfachauswahl: an- und abwaehlen, ohne die uebrigen Felder anzufassen. */
   const handleZusatzleistung = (id: string, aktiv: boolean) => {
+    // Wer selbst ein Kaestchen anfasst, hat den Hinweis zur letzten Abwahl gesehen — er wuerde sonst veralten.
+    setAbgewaehlt([]);
     setValues((prev) => {
       const termin = prev as FormFieldsByKind['termin'];
       const bisher = termin.zusatzleistungen ?? [];
@@ -310,6 +326,7 @@ Mit freundlichen Grüßen
               werte={values as FormFieldsByKind['termin']}
               onChange={handleChange}
               onZusatzleistung={handleZusatzleistung}
+              abgewaehlt={abgewaehlt}
             />
           )}
 

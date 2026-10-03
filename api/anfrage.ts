@@ -7,7 +7,7 @@ import {
   ANHANG_MAX_BYTES, ANHANG_MAX_DATEIEN, ANHANG_TYPEN, BETREFF, FELDBESCHRIFTUNG, HONIGTOPF, KONTAKT_POSTFACH, MAX_FELDER,
   MAX_LAENGE, LEISTUNGS_IDS, PFLICHTFELDER, PFLICHT_EINS_VON, ZUSATZ_IDS, anhangEndung, passtSignatur,
 } from '../data/anfrageSchema.js';
-import { bereinigteZusaetze } from '../data/zusatzleistungen.js';
+import { bereinigteZusaetze, FEHLT_ZUSATZLEISTUNG, fehltZusatzleistung } from '../data/zusatzregeln.js';
 import AnfrageEmail from '../emails/AnfrageEmail.js';
 
 /** Node.js is required for SMTP. Credentials stay in the server environment. */
@@ -58,9 +58,15 @@ export const smtpTransport = (stand = einrichtung()) => nodemailer.createTranspo
   disableFileAccess: true, disableUrlAccess: true,
 });
 
+/**
+ * Datum der Vorgangsnummer in deutscher Zeit (seit 2026-10-02). Vorher aus `toISOString()`, also UTC — Vercel rechnet in
+ * UTC, und zwischen 0 und 2 Uhr nachts trug die Nummer das Datum des Vortags (gefunden beim Mailtest um 00:45 Uhr:
+ * „CC-1001-…“ am 02.10.). Wer seine Bilder mit der Nummer nachreicht, liest darin den Tag seiner Anfrage.
+ */
+const DATUM_BERLIN = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', month: '2-digit', day: '2-digit' });
 const vorgangsnummer = () => {
-  const datum = new Date().toISOString().slice(5, 10).replace('-', '');
-  return `CC-${datum}-${Array.from({ length: 5 }, () => ZEICHEN[randomInt(ZEICHEN.length)]).join('')}`;
+  const teile = Object.fromEntries(DATUM_BERLIN.formatToParts(new Date()).map((t) => [t.type, t.value]));
+  return `CC-${teile.month}${teile.day}-${Array.from({ length: 5 }, () => ZEICHEN[randomInt(ZEICHEN.length)]).join('')}`;
 };
 const istObjekt = (wert: unknown): wert is Record<string, unknown> =>
   typeof wert === 'object' && wert !== null && !Array.isArray(wert);
@@ -156,15 +162,19 @@ export async function handler(request: Request): Promise<Response> {
   if (daten.email && !EMAIL.test(daten.email)) return antwort({ fehler: 'E-Mail-Adresse sieht nicht gültig aus.' }, 400);
   if (art === 'termin' && !LEISTUNGS_IDS.has(daten.service)) return antwort({ fehler: 'Unbekannte Leistung.' }, 400);
   // Zusatzleistungen (seit 2026-09-28): nur bekannte IDs und nur, was zur gewaehlten Leistung passt — dieselbe Regel
-  // wie im Formular (`bereinigteZusaetze`). Ein veraltetes oder umgangenes Formular schickte sonst Unvereinbares mit
-  // (Keramik als Leistung UND als Zusatz, Keramik neben Nano). Andere Anfragearten kennen keine Zusatzleistungen.
-  if (art === 'termin' && Array.isArray(eingang.zusatzleistungen)) {
-    const ids = eingang.zusatzleistungen as string[];
-    if (ids.some((id) => !ZUSATZ_IDS.has(id))) return antwort({ fehler: 'Unbekannte Zusatzleistung.' }, 400);
-    const passend = bereinigteZusaetze(daten.service, ids);
+  // wie im Formular (`bereinigteZusaetze`, seit 6.7 mit Andres Buchungsregeln). Ein veraltetes oder umgangenes Formular
+  // schickte sonst Unvereinbares mit (Keramik ohne Brillant oder Lackaufbereitung, Keramik neben Nano). Andere
+  // Anfragearten kennen keine Zusatzleistungen. Ist die Leistung eine Versiegelung (6.6, seit 2026-10-03), kommt ihr
+  // Kaestchen hier immer mit, auch wenn ein Formular es nicht schickt; die Mail nennt dazu „Paket offen: …“.
+  const zusatzIds = Array.isArray(eingang.zusatzleistungen) ? (eingang.zusatzleistungen as string[]) : [];
+  if (art === 'termin') {
+    if (zusatzIds.some((id) => !ZUSATZ_IDS.has(id))) return antwort({ fehler: 'Unbekannte Zusatzleistung.' }, 400);
+    // 6.7: „Nur Zusatzleistungen“ ohne eine, die allein buchbar ist, ist keine Anfrage.
+    if (fehltZusatzleistung(daten.service, zusatzIds)) return antwort({ fehler: FEHLT_ZUSATZLEISTUNG }, 400);
+    const passend = bereinigteZusaetze(daten.service, zusatzIds);
     if (passend.length) daten.zusatzleistungen = passend.join(', ');
     else delete daten.zusatzleistungen;
-  } else if (art !== 'termin') delete daten.zusatzleistungen;
+  } else delete daten.zusatzleistungen;
   const vorgang = vorgangsnummer();
   const transport = smtpTransport(stand);
   try {

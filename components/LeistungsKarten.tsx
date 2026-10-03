@@ -1,8 +1,10 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Pause, Play } from 'lucide-react';
 import { bereichVon, serviceByHref } from '../data/services';
+import { videoPlatz } from '../data/videos';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
+import GanzwortTitel from './GanzwortTitel';
 
 /**
  * Leistungskarte mit Foto — das durchgaengige Kartenmuster des Projekts.
@@ -47,37 +49,106 @@ export interface LeistungsKarte {
 /** Schneidet den Anker ab, damit `/seite#abschnitt` seinen Katalogeintrag findet. */
 const ohneAnker = (href: string) => href.split('#')[0];
 
+/**
+ * VIDEO STATT FOTO (seit 2026-10-03), wo der Katalog eines nennt: die Neu- und Reparaturlackierung zeigt ueberall das
+ * Lackiervideo (User). Verhalten wie auf der Startseite (`KartenVideo` in ExpandingCardAccordion): `preload="none"`,
+ * Standbild bis die Karte zu einem Viertel im Bild ist, dann stumm in Schleife; ausserhalb des Bildes angehalten.
+ *
+ * WCAG 2.2.2: Bewegung, die von selbst startet und laenger als 5 s laeuft, braucht ein Bedienelement zum Anhalten. Auf
+ * der Startseite haelt das Aufklappen einer anderen Karte das Video an; hier gibt es das nicht, deshalb der kleine Knopf
+ * unten links. Die Karte selbst ist kein Link (nur der Textlink darunter), ein Knopf im Bild ist also zulaessig.
+ */
+const KartenVideo: React.FC<{ quelle: string; standbild: string; titel: string }> = ({ quelle, standbild, titel }) => {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [imBild, setImBild] = useState(false);
+  const [angehalten, setAngehalten] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const beobachter = new IntersectionObserver(([eintrag]) => setImBild(eintrag.isIntersecting), { threshold: 0.25 });
+    beobachter.observe(el);
+    return () => beobachter.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (imBild && !angehalten) {
+      // Als Eigenschaft: React schreibt `muted` nicht zuverlaessig ins DOM, und nur stumme Videos laufen ohne Klick an.
+      el.muted = true;
+      el.play().catch(() => {
+        /* z. B. Energiesparmodus unter iOS: Dann bleibt das Standbild stehen, kein Fehlerfall. */
+      });
+    } else {
+      el.pause();
+    }
+  }, [imBild, angehalten]);
+
+  return (
+    <>
+      <video
+        ref={ref}
+        src={quelle}
+        poster={standbild}
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-hidden="true"
+        className="aspect-[16/10] w-full rounded-xl object-cover"
+      />
+      <button
+        type="button"
+        onClick={() => setAngehalten((wert) => !wert)}
+        aria-label={angehalten ? `Video „${titel}“ abspielen` : `Video „${titel}“ anhalten`}
+        className="absolute bottom-2 left-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/55 text-white transition-colors hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+      >
+        {angehalten ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+      </button>
+    </>
+  );
+};
+
 const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
   const bildZiel = karte.imageHref ?? karte.href;
   const eintrag = bildZiel ? serviceByHref(ohneAnker(bildZiel)) : undefined;
   const bild = eintrag?.backgroundImage;
-  // Care oder Repair (Backlog 6.8) aus demselben Katalogeintrag wie das Foto.
+  // Video statt Foto, wo der Katalog eines nennt und es geliefert ist (sonst bleibt das Foto).
+  const platz = eintrag?.video ? videoPlatz(eintrag.video) : null;
+  const video = platz?.quelle && platz.poster ? { quelle: platz.quelle, standbild: platz.poster } : null;
+  // Care und/oder Repair (Backlog 6.8) aus demselben Katalogeintrag wie das Foto.
   const bereich = bereichVon(bildZiel);
 
   return (
     <article className="cc-karte flex flex-col rounded-2xl border border-gray-100 p-6 shadow-sm">
-      {bild && (
+      {(bild || video) && (
         /* Der Rahmen traegt den Abstand nach unten und den Bezugspunkt fuer die
            KI-Plakette; das Bild selbst bleibt unveraendert. Care/Repair oben links,
            die KI-Plakette unten rechts — sie kommen sich nicht in die Quere. */
         <div className="relative mb-5">
-          <img
-            src={bild}
-            alt={eintrag?.imageAlt ?? ''}
-            width={eintrag?.imageWidth}
-            height={eintrag?.imageHeight}
-            loading="lazy"
-            decoding="async"
-            /* `aspect-[16/10]` reserviert die Flaeche vor dem Laden — kein Layout-Sprung
-               trotz `loading="lazy"`. */
-            className="aspect-[16/10] w-full rounded-xl object-cover"
-          />
+          {video ? (
+            <KartenVideo quelle={video.quelle} standbild={video.standbild} titel={karte.title} />
+          ) : (
+            <img
+              src={bild}
+              alt={eintrag?.imageAlt ?? ''}
+              width={eintrag?.imageWidth}
+              height={eintrag?.imageHeight}
+              loading="lazy"
+              decoding="async"
+              /* `aspect-[16/10]` reserviert die Flaeche vor dem Laden — kein Layout-Sprung
+                 trotz `loading="lazy"`. */
+              className="aspect-[16/10] w-full rounded-xl object-cover"
+            />
+          )}
           <BereichsPlakette bereich={bereich} className="absolute left-2 top-2" />
-          <KiMarke quelle={bild} className="bottom-2 right-2" />
+          <KiMarke quelle={video ? video.quelle : bild} className="bottom-2 right-2" />
         </div>
       )}
-      {!bild && <BereichsPlakette bereich={bereich} className="mb-3" />}
-      <h3 className="text-xl font-bold leading-tight text-gray-950">{karte.title}</h3>
+      {!bild && !video && <BereichsPlakette bereich={bereich} className="mb-3" />}
+      {/* Ohne Silbentrennung (User, 2026-10-03), siehe `GanzwortTitel`. */}
+      <GanzwortTitel text={karte.title} className="font-bold leading-tight text-gray-950 [--titel-max:1.25rem]" />
       <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{karte.description}</p>
       {karte.href && (
         <a

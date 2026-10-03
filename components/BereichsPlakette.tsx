@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Bereich } from '../data/services';
+import type { Bereich, BereichsAngabe } from '../data/services';
 
 /**
  * „Care" und „Repair" als kleine Plaketten über die ganze Seite (Backlog 6.8, Meeting 2026-09-28).
@@ -29,23 +29,41 @@ import type { Bereich } from '../data/services';
 const TEXT: Record<Bereich, string> = { care: 'Care', repair: 'Repair' };
 
 interface BereichsPlaketteProps {
-  bereich: Bereich | null | undefined;
+  /** Eine Plakette oder mehrere (Leasingrueckgabe: Care und Repair, User 2026-10-03), `null` = keine. */
+  bereich: BereichsAngabe | undefined;
+  /** Lage und Abstand — bei mehreren Plaketten fuer die ganze Gruppe. */
   className?: string;
+  /** Groesse JEDER Plakette, z. B. `py-1.5` im Seitenkopf. Bei einer Plakette dasselbe wie `className`. */
+  plaketteClassName?: string;
 }
 
-const BereichsPlakette: React.FC<BereichsPlaketteProps> = ({ bereich, className = '' }) => {
-  if (!bereich) return null;
+const Plakette: React.FC<{ bereich: Bereich; className: string }> = ({ bereich, className }) => (
+  <span
+    aria-hidden="true"
+    data-suche="aus"
+    data-bereich={bereich}
+    lang="en"
+    style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))` } as React.CSSProperties}
+    // 18 px hoch: 2 px Innenabstand plus 2 px Rand oben und unten um die 10-px-Zeile.
+    className={`cc-liquid cc-liquid--plakette inline-flex w-fit shrink-0 items-center rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-[0.18em] text-gray-950 ${className}`}
+  >
+    {TEXT[bereich]}
+  </span>
+);
+
+/**
+ * MEHRERE PLAKETTEN (seit 2026-10-03): nebeneinander mit 4 px Abstand, in der Reihenfolge der Angabe (Care vor Repair
+ * wie im Slogan). Die Gruppe bekommt Lage und Abstand (`className`), jede Plakette ihre Groesse (`plaketteClassName`).
+ */
+const BereichsPlakette: React.FC<BereichsPlaketteProps> = ({ bereich, className = '', plaketteClassName = '' }) => {
+  const liste: Bereich[] = !bereich ? [] : typeof bereich === 'string' ? [bereich] : [...bereich];
+  if (!liste.length) return null;
+  if (liste.length === 1) return <Plakette bereich={liste[0]} className={`${className} ${plaketteClassName}`.trim()} />;
   return (
-    <span
-      aria-hidden="true"
-      data-suche="aus"
-      data-bereich={bereich}
-      lang="en"
-      style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))` } as React.CSSProperties}
-      // 18 px hoch: 2 px Innenabstand plus 2 px Rand oben und unten um die 10-px-Zeile.
-      className={`cc-liquid cc-liquid--plakette inline-flex w-fit shrink-0 items-center rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-[0.18em] text-gray-950 ${className}`}
-    >
-      {TEXT[bereich]}
+    <span aria-hidden="true" data-suche="aus" className={`inline-flex w-fit shrink-0 items-center gap-1 ${className}`}>
+      {liste.map((b) => (
+        <Plakette key={b} bereich={b} className={plaketteClassName} />
+      ))}
     </span>
   );
 };

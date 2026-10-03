@@ -37,8 +37,8 @@ const steps: ProcessStepCard[] = [
       'Wir erfassen den Schaden, vor Ort oder anhand Ihrer Fotos, und dokumentieren Umfang und Hergang für die weitere Bearbeitung.',
     // Seit 2026-09-21 das fruehere Motiv der Unfall-Kachel (B10), auf Wunsch des Users hierher
     // versetzt: ruhiger als das vorige Bild mit Kundin und gelbem Sportwagen (Backlog 3.8).
-    // Gilt bis zur Klaerung als KI-generiert (`data/bildherkunft.ts`) — der Text beschreibt
-    // deshalb das Bild, ohne es als unsere Werkstatt auszugeben.
+    // Laut User (2026-10-03) ein echtes Foto, mit KI bearbeitet (Plakette „KI-bearbeitet“, `data/bildherkunft.ts`).
+    // Der Text beschreibt deshalb das Bild, ohne es als unsere Werkstatt auszugeben.
     image: kachel('versicherung-schadenabwicklung-leipzig-carcare'),
     imageAlt:
       'Mitarbeiter mit Tablet dokumentiert den Heckschaden an einem silbernen Elektro-Sportwagen.',

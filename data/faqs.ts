@@ -1,6 +1,8 @@
 import { FAQItem } from '../types';
 // Backlog 4.7: Aufpreissatz aus EINER Quelle — Fussnote, FAQ und Schema lesen denselben Text.
 import { AUFPREIS_SATZ, zusatzPreis } from './detailing';
+// Backlog 6.7: Buchungsregeln der Zusatzleistungen im FAQ-Text, abgeleitet statt abgeschrieben.
+import { regelSaetze, zusatzFaqAntwort } from './zusatzregeln';
 
 /**
  * EINZIGE QUELLE aller FAQ-Inhalte, geschluesselt nach Route.
@@ -57,6 +59,8 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'preise', question: 'Was kostet eine Autoaufbereitung beim CarCare Center Leipzig?', answer: `Die Brillant Außenpflege kostet ab 169,00 €, die Intensiv Innenraumreinigung ab 199,00 € und die Premiumpflege als Kombination beider Pakete ab 299,00 €. ${AUFPREIS_SATZ} Die Premiumpflege „exklusiv“ mit Swissvax-Wachsen hat keinen Festpreis, den Preis stimmen wir persönlich mit Ihnen ab. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand. Alle Preise verstehen sich inklusive gesetzlicher Mehrwertsteuer.` },
     // Backlog 6.24 (Mail Andre 2026-09-28): Premiumpflege-Satz in Andres Fassung, in „Sie“ umformuliert.
     { id: 'paketwahl', question: 'Welches Pflegepaket ist das richtige für mich?', answer: 'Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, ist die Intensiv Innenraumreinigung passend. Wünschen Sie beides für sich und Ihr Fahrzeug oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege.' },
+    // Backlog 6.7 (Andres Regeln, 2026-10-02): Antwort aus data/zusatzregeln.ts — ändert sich eine Regel, ändert sie sich mit.
+    { id: 'zusatz', question: 'Kann ich Zusatzleistungen auch einzeln buchen?', answer: zusatzFaqAntwort() },
     { id: 'unterschied', question: 'Was ist der Unterschied zwischen Autowäsche und Aufbereitung?', answer: 'Eine Wäsche reinigt die Oberfläche. Die Aufbereitung geht darüber hinaus: Sie entfernt Anhaftungen, die die Wäsche stehen lässt, arbeitet den Lack durch Politur auf, versiegelt ihn anschließend und behandelt den Innenraum materialgerecht bis in die Details.' },
     { id: 'leasing', question: 'Hilft das CarCare Center bei der Leasingrückgabe?', answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe, setzen Gebrauchsspuren wie Dellen, Lackschäden oder Felgenschäden fachgerecht instand und bereiten es auf. Das reduziert vermeidbare Nachbelastungen durch den Rückgabegutachter.' },
     { id: 'tierhaare', question: 'Werden auch stark verschmutzte Fahrzeuge angenommen?', answer: 'Ja, allerdings mit gesonderter Absprache. Fahrzeuge mit extremen Verschmutzungen, zum Beispiel Tierhaaren, bedürfen eines höheren Aufwands und werden deshalb vorab individuell besprochen.' },
@@ -194,7 +198,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'politur', question: 'Was bringt eine Hochglanzpolitur?', answer: 'Die Politur glättet die Lackoberfläche und holt Glanz zurück, der durch Anhaftungen und matte Stellen verloren gegangen ist. Tiefe Kratzer bis ins Grundmetall lassen sich damit nicht beheben. Dort ist eine Lackreparatur nötig.' },
     { id: 'versiegelung', question: 'Wie lange hält eine Lackversiegelung?', answer: 'Das hängt von Nutzung, Pflege und Stellplatz ab. Die Versiegelung schützt den vorbereiteten Lack und erleichtert die Reinigung. Wir sagen Ihnen bei der Begutachtung, welcher Schutz für Ihr Fahrzeug sinnvoll ist.' },
     // Neu 2026-09-28: Preise aus Andres Mail, Kacheln auf dieser Seite (Exklusiv- und Zusatzleistungen).
-    { id: 'keramik', question: 'Was kosten Keramik- und Nanoversiegelung?', answer: `Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}, jeweils inklusive gesetzlicher Mehrwertsteuer. Voraussetzung für die Keramikversiegelung ist ein gereinigter und polierter Lack, etwa nach der Brillant Außenpflege. Wir empfehlen, die Keramikversiegelung jährlich auffrischen zu lassen.` },
+    { id: 'keramik', question: 'Was kosten Keramik- und Nanoversiegelung?', answer: `Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}, jeweils inklusive gesetzlicher Mehrwertsteuer. ${regelSaetze(['keramik', 'nano'], 'Beide')} Voraussetzung für die Keramikversiegelung ist ein gereinigter und polierter Lack. Wir empfehlen, die Keramikversiegelung jährlich auffrischen zu lassen.` },
     { id: 'wachs', question: 'Was hat es mit den Swissvax-Wachsen auf sich?', answer: 'Auf Wunsch arbeiten wir mit Wachsen von Swissvax (im deutschsprachigen Raum früher unter dem Namen Swizöl bekannt) mit einem Carnaubaanteil von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad. Diese Handarbeit gehört zur Premiumpflege „exklusiv“, deren Preis wir persönlich mit Ihnen abstimmen.' },
   ],
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import { bereichVon } from '../data/services';
 import KiMarke from '../components/KiMarke';
+import GanzwortTitel from '../components/GanzwortTitel';
 import { AUFPREIS_SATZ, angeboteInnen, aufbereitungKacheln, paketPreis, zusatzPreis } from '../data/detailing';
 
 /** Bilder der Exklusivleistungen (Backlog 6.2), erzeugt von `npm run fotos` aus der Lieferung vom 20.08.2026. */
@@ -110,12 +111,13 @@ const InnenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Optional buchbar"
           title="Geruchsbehandlung zur Innenaufbereitung dazu."
-          description="Sitzt der Geruch tiefer, als eine Reinigung erreicht, lassen sich diese beiden Verfahren zur Innenaufbereitung dazubuchen."
+          // 6.7 (Andre: „buchbar allein oder zu allen Programmen“): auch einzeln, nicht nur zur Innenaufbereitung.
+          description="Sitzt der Geruch tiefer, als eine Reinigung erreicht, buchen Sie eines dieser beiden Verfahren zur Innenaufbereitung dazu. Beide gibt es auch einzeln."
         />
         <PricingGrid
           items={angeboteInnen.zusatz}
           ctaLabel="Termin anfragen"
-          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer, zusätzlich zur gebuchten Innenaufbereitung."
+          note="Alle Preise inkl. gesetzlicher Mehrwertsteuer."
         />
       </div>
     </section>
@@ -162,7 +164,7 @@ const InnenaufbereitungPage: React.FC = () => (
                 <KiMarke quelle={EXKLUSIV_BILDER.vergleich} className="bottom-2 right-2" />
               </div>
               <figcaption className="mt-5">
-                <h3 className="text-xl font-bold leading-tight text-gray-950">Alcantara-Lenkrad aufarbeiten</h3>
+                <GanzwortTitel text="Alcantara-Lenkrad aufarbeiten" className="font-bold leading-tight text-gray-950 [--titel-max:1.25rem]" />
                 <p className="mt-3 text-sm leading-relaxed text-gray-600">
                   Dasselbe Lenkrad am selben Tag: vorher verdichtet und speckig im Griffbereich, nachher mit wieder
                   aufgerichtetem, gleichmäßigem Flor.
@@ -185,7 +187,7 @@ const InnenaufbereitungPage: React.FC = () => (
                 <KiMarke quelle={EXKLUSIV_BILDER.schaum} className="bottom-2 right-2" />
               </div>
               <figcaption className="mt-5">
-                <h3 className="text-xl font-bold leading-tight text-gray-950">Schaum-/Tornador-Verfahren</h3>
+                <GanzwortTitel text="Schaum-/Tornador-Verfahren" className="font-bold leading-tight text-gray-950 [--titel-max:1.25rem]" />
                 <p className="mt-3 text-sm leading-relaxed text-gray-600">
                   Der Reinigungsschaum wird mit der Bürste in den Flor eingearbeitet, die Mitte des Lenkrads ist dabei
                   abgeklebt.

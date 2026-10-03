@@ -3,7 +3,9 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BackdropLayout, FeatureGrid, PageCTA, PageFAQ, PageHero, PageMeta, PricingGrid, ProcessList, SectionIntro } from '../components/PageBlocks';
 import { bereichVon } from '../data/services';
 import DetailingGallery from '../components/DetailingGallery';
+import GanzwortTitel from '../components/GanzwortTitel';
 import { AUFPREIS_SATZ, carePackages, detailingScopes, detailingSteps, disinfectionServices, zusatzAngebote, zusatzPreis } from '../data/detailing';
+import { regelSaetze } from '../data/zusatzregeln';
 
 /**
  * Hub-Seite des Aufbereitungs-Strangs.
@@ -97,13 +99,16 @@ const VehicleDetailingPage: React.FC = () => (
       der Desinfektion: Backlog 1.10 verlangt Ozon und Heissvernebelung direkt unter den Paketen.
       Name, Preis, Text und Vorauswahl aus `data/zusatzleistungen.ts`, derselben Liste wie im Formular.
       Diese Seite zeigt ALLE Aufbereitungsleistungen, die Unterseiten nur ihre (User, 2026-09-28).
+      Seit 6.7 (Andres Buchungsregeln, 2026-10-02) nennt die Einleitung die Regel fuer Keramik und Nano, abgeleitet
+      aus `data/zusatzregeln.ts`; wozu die uebrigen buchbar sind, steht auf jeder Kachel. Bis dahin hiess es pauschal
+      „die Sie zu Ihrem Paket buchen oder direkt anfragen“ — fuer die Motorreinigung stimmte das nicht mehr.
     */}
     <section id="zusatzleistungen" className="bg-gray-50/70 px-6 py-20 md:py-28">
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Exklusiv- und Zusatzleistungen"
           title="Was kosten Keramikversiegelung und Zusatzleistungen?"
-          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. Dazu kommen die Frontscheibenversiegelung und Pflege-Extras zum Festpreis, die Sie zu Ihrem Paket buchen oder direkt anfragen.`}
+          description={`Die Keramikversiegelung kostet ${zusatzPreis('keramik')}, die Nanoversiegelung ${zusatzPreis('nano')}. ${regelSaetze(['keramik', 'nano'], 'Beide')} Dazu kommen die Frontscheibenversiegelung und Pflege-Extras zum Festpreis. Wozu Sie welche Leistung buchen können, steht auf der jeweiligen Kachel.`}
         />
         <PricingGrid items={zusatzAngebote} ctaLabel="Termin anfragen" note="Alle Preise inkl. gesetzlicher Mehrwertsteuer." />
       </div>
@@ -146,7 +151,7 @@ const VehicleDetailingPage: React.FC = () => (
                 decoding="async"
                 className="mb-5 aspect-[16/10] w-full rounded-xl object-cover"
               />
-              <h3 className="text-xl font-bold leading-tight text-gray-950">{scope.title}</h3>
+              <GanzwortTitel text={scope.title} className="font-bold leading-tight text-gray-950 [--titel-max:1.25rem]" />
               <p className="mt-3 text-sm leading-relaxed text-gray-600">{scope.intro}</p>
               {/*
                 Die Detaillisten stehen seit 2026-09-02 auf den eigenen Seiten

@@ -17,8 +17,9 @@ Object.assign(process.env, {
 });
 const base = { name: 'OALAB Funktionstest', company: 'OALAB Testbetrieb', contact: 'OALAB Testkontakt', phone: '0341 000000', email: 'test@example.com', description: 'TEST — keine echte Kundenanfrage.\nBitte ignorieren. <script>alert(1)</script> & Grüße', partnerType: 'rahmenvertrag' };
 // Seit 2026-09-28 ist die Leistung bei der Terminanfrage Pflicht (bis dahin schlug dieser Test deshalb fehl).
-// „keramik" prueft zugleich 6.6: Die Versiegelung ist jetzt auch als Leistung gueltig.
-const datenFuer = (art: RequestFormKind) => (art === 'termin' ? { ...base, service: 'keramik' } : base);
+// Bis 2026-10-02 stand hier „keramik“ (6.6, Versiegelung als Leistung). Seit 2026-10-03 ist sie wieder eine Leistung,
+// mit eigenem Fall weiter unten; die Grundfaelle laufen mit einem Paket.
+const datenFuer = (art: RequestFormKind) => (art === 'termin' ? { ...base, service: 'aussen' } : base);
 const zielFuer: Record<RequestFormKind, string> = {
   business: 'business@example.com', termin: 'info@example.com', schaden: 'info@example.com', bewerbung: 'bewerbung@example.com',
 };
@@ -43,14 +44,44 @@ try {
     assert.match((await response.json()).vorgang, /^CC-\d{4}-[A-Z2-9]{5}$/);
   }
   assert.equal(sends, 4);
-  // 6.6: Terminanfrage mit Versiegelung als Leistung steht als Klartext in der Mail; ein unbekannter Wert wird abgewiesen.
+  // Leistung im Klartext; veraltete Werte werden abgewiesen: die gestrichene Verkaufsaufbereitung (5.19) und die
+  // Frontscheibenversiegelung, die seit 6.7 nur noch Zusatzleistung ist.
   await send({ art: 'termin', daten: datenFuer('termin') });
-  assert.match(String(mail.text), /Keramikversiegelung/);
+  assert.match(String(mail.text), /Brillant Außenpflege/);
   assert.equal((await send({ art: 'termin', daten: { ...base, service: 'verkauf' } })).status, 400);
-  // Zusatzleistungen serverseitig: Unvereinbares faellt heraus (Keramik als Leistung UND Zusatz), Unbekanntes wird abgewiesen.
+  assert.equal((await send({ art: 'termin', daten: { ...base, service: 'frontscheibe' } })).status, 400);
+  // 6.6, seit 2026-10-03 wieder: Keramik als Leistung. Das Kaestchen kommt mit, auch wenn das Formular es nicht
+  // schickt, und die Mail sagt, dass das Paket offen ist (Andre: nur zu Brillant oder Lackaufbereitung).
+  assert.equal((await send({ art: 'termin', daten: { ...base, service: 'keramik' } })).status, 200);
+  assert.match(String(mail.text), /Keramikversiegelung \(Paket offen: Brillant Außenpflege oder Lackaufbereitung\)/);
+  assert.match(String(mail.text), /Keramikversiegelung \(ab 849,00 €\)/);
+  // Nano als Leistung: Keramik faellt heraus (nur eine Versiegelung), die Motorreinigung passt zu beiden Paketen.
+  assert.equal((await send({ art: 'termin', daten: { ...base, service: 'nano', zusatzleistungen: ['keramik', 'motor'] } })).status, 200);
+  assert.ok(!String(mail.text).includes('Keramikversiegelung'), 'Keramik neben Nano');
+  assert.match(String(mail.text), /Nanoversiegelung \(ab 299,00 €\)/);
+  assert.match(String(mail.text), /Motorreinigung \(49,00 €\)/);
+  // 6.7 serverseitig, dieselbe Regel wie im Formular. Keramik zur Brillant Außenpflege bleibt, mit Preis:
   assert.equal((await send({ art: 'termin', daten: { ...datenFuer('termin'), zusatzleistungen: ['keramik', 'felgen'] } })).status, 200);
+  assert.match(String(mail.text), /Keramikversiegelung \(ab 849,00 €\)/);
   assert.match(String(mail.text), /Felgenintensivreinigung \(95,20 €\)/);
-  assert.ok(!String(mail.text).includes('Keramikversiegelung (ab 849,00 €)'), 'Keramik darf nicht zusaetzlich als Zusatzleistung stehen');
+  // … zur Intensiv Innenraumreinigung faellt sie heraus, Ozon (zu allen Programmen) bleibt:
+  assert.equal((await send({ art: 'termin', daten: { ...base, service: 'innen', zusatzleistungen: ['keramik', 'ozon'] } })).status, 200);
+  assert.ok(!String(mail.text).includes('Keramikversiegelung'), 'Keramik ist zur Innenraumreinigung nicht buchbar');
+  assert.match(String(mail.text), /Ozonbehandlung \(45,00 €\)/);
+  // Motorreinigung: zur Premiumpflege „exklusiv“ nicht buchbar (nicht in Andres Liste), zur Lackaufbereitung schon.
+  await send({ art: 'termin', daten: { ...base, service: 'exklusiv', zusatzleistungen: ['motor', 'cabrio'] } });
+  assert.ok(!String(mail.text).includes('Motorreinigung') && String(mail.text).includes('Cabrio-Verdeckimprägnierung'));
+  await send({ art: 'termin', daten: { ...base, service: 'lack', zusatzleistungen: ['motor'] } });
+  assert.match(String(mail.text), /Motorreinigung \(49,00 €\)/);
+  // „Nur Zusatzleistungen“: mindestens eine, die allein buchbar ist; Keramik allein zaehlt nicht.
+  const nurZusatz = { ...base, service: 'nur-zusatz' };
+  assert.equal((await send({ art: 'termin', daten: nurZusatz })).status, 400);
+  const ohneEinzelne = await send({ art: 'termin', daten: { ...nurZusatz, zusatzleistungen: ['keramik'] } });
+  assert.equal(ohneEinzelne.status, 400);
+  assert.match((await ohneEinzelne.json()).fehler, /mindestens eine Zusatzleistung/);
+  assert.equal((await send({ art: 'termin', daten: { ...nurZusatz, zusatzleistungen: ['ozon', 'heissvernebelung'] } })).status, 200);
+  assert.match(String(mail.text), /Nur Zusatzleistungen/);
+  assert.match(String(mail.text), /Heißvernebelung \(KC-Refresher\) \(59,00 €\)/);
   assert.equal((await send({ art: 'termin', daten: { ...datenFuer('termin'), zusatzleistungen: ['politur'] } })).status, 400);
   // 6.13: ohne eigenes Postfach gehen Bewerbungen an den allgemeinen Empfaenger, ein ungueltiges schaltet ab.
   delete process.env.ANFRAGE_EMPFAENGER_BEWERBUNG;
@@ -77,7 +108,7 @@ try {
   delete process.env.ANFRAGE_EMPFAENGER_BUSINESS;
   assert.equal((await send({ art: 'business', daten: base })).status, 503);
   assert.equal((await handler(new Request('https://example.com/api/anfrage'))).status, 503);
-  console.log('PASS: four routes (applications to their own inbox, fallback, invalid address), sealing as service, reply-to, escaping, readable values, invalid input, size, SMTP failure, missing routing.');
+  console.log('PASS: four routes (applications to their own inbox, fallback, invalid address), booking rules of the add-on services (6.7) and sealings as service (6.6), reply-to, escaping, readable values, invalid input, size, SMTP failure, missing routing.');
 } finally { nodemailer.createTransport = original; }
 
 // Vercel runs emitted ESM without tsx's forgiving extension resolution.

@@ -6,7 +6,8 @@ import SEOHead, { OpenGraphMeta } from './SEOHead';
 import PhotoBackdrop from './PhotoBackdrop';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
-import type { Bereich } from '../data/services';
+import GanzwortTitel from './GanzwortTitel';
+import type { BereichsAngabe } from '../data/services';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
 
@@ -21,14 +22,7 @@ export interface PageHeroProps {
    * „Care" oder „Repair" neben der Kopfzeile (Backlog 6.8). `ServiceLayout` leitet es aus der Route ab,
    * Seiten mit eigenem Aufbau geben es mit `bereichVon(route)` aus `data/services.ts` herein.
    */
-  bereich?: Bereich | null;
-  /**
-   * Keine automatische Silbentrennung in der H1 (`hyphens: manual`). Nur fuer Titel ohne lange
-   * Komposita: „Jobs und Ausbildung in Leipzig." wurde mobil zu „Ausbil-dung" getrennt, dieselbe
-   * Art Trennung, die bei „Karosserie" auf der Startseite bemaengelt wurde (Backlog 5.5). Woerter wie
-   * „Unfallinstandsetzung" brauchen die Trennung, sonst bricht `break-words` sie ohne Strich.
-   */
-  ohneTrennung?: boolean;
+  bereich?: BereichsAngabe;
 }
 
 /**
@@ -85,7 +79,7 @@ export interface ProcessItem {
 
 export const PageMeta: React.FC<{ canonical?: string; description: string; noindex?: boolean; og?: OpenGraphMeta; title: string }> = (props) => <SEOHead {...props} />;
 
-export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords, bereich, ohneTrennung = false }) => {
+export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords, bereich }) => {
   return (
     // Kein `overflow-hidden` mehr: Innerhalb von `BackdropLayout` wuerde es den Sticky-
     // Kontext beschneiden. Der Farbverlauf bleibt fuer Seiten OHNE Foto-Hintergrund
@@ -97,13 +91,19 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
             <span className="inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
               {eyebrow}
             </span>
-            <BereichsPlakette bereich={bereich} className="py-1.5" />
+            <BereichsPlakette bereich={bereich} plaketteClassName="py-1.5" />
           </div>
-          {/* `[hyphens:auto]` + `break-words`: Ohne das lief „Fahrzeugaufbereitung" auf
-              375 px um 61 px aus dem Kasten und wurde abgeschnitten — lange deutsche
-              Komposita passen dort in keine Zeile. `lang="de"` steht am <html>, die
-              Trennung folgt also deutschen Regeln. Ab `md` greift es praktisch nie. */}
-          <h1 className={`text-4xl font-bold leading-[1.04] tracking-tight text-gray-950 ${ohneTrennung ? '[hyphens:manual]' : '[hyphens:auto]'} break-words md:text-6xl`}>{title}</h1>
+          {/* OHNE SILBENTRENNUNG (User, 2026-10-03: „keine Bindestriche für die Trennung von Wörtern“). Bis dahin
+              `[hyphens:auto] break-words`, weil „Fahrzeugaufbereitung“ auf 375 px um 61 px aus dem Kasten lief. Gemessen
+              trennte die H1 danach aber auch am Desktop („Fahrzeugaufbe-reitung“, „repa-riert“). Jetzt bleibt jedes Wort
+              ganz, und ein zu langes Wort macht nur diesen Titel so weit kleiner, dass es passt (`GanzwortTitel`). Damit
+              entfällt auch die Ausnahme `ohneTrennung` (Karriere, „Ausbil-dung“, Backlog 5.5). */}
+          <GanzwortTitel
+            als="h1"
+            text={title}
+            laufweite={-0.025}
+            className="font-bold leading-[1.04] tracking-tight text-gray-950 [--titel-max:2.25rem] md:[--titel-max:3.75rem]"
+          />
           {/* `gray-700` statt `gray-600` — Reserve, nicht die Reparatur.
               Dieser Absatz ist der einzige laengere Fliesstext, der auf Seiten mit
               `BackdropLayout` ohne Karte direkt auf dem Foto liegt. Behoben ist der
@@ -157,7 +157,13 @@ export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description,
 export const SectionIntro: React.FC<{ eyebrow: string; title: string; description?: string }> = ({ eyebrow, title, description }) => (
   <div className="mb-10 max-w-3xl md:mb-14">
     <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">{eyebrow}</span>
-    <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">{title}</h2>
+    {/* Ohne Silbentrennung und ohne Umbruch an Bindestrichen („Full-/Service“), siehe `GanzwortTitel`. */}
+    <GanzwortTitel
+      als="h2"
+      text={title}
+      laufweite={-0.025}
+      className="font-bold leading-tight tracking-tight text-gray-950 [--titel-max:1.875rem] md:[--titel-max:3rem]"
+    />
     {description && <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg">{description}</p>}
   </div>
 );
@@ -185,7 +191,8 @@ export const FeatureGrid: React.FC<{ items: FeatureItem[]; columns?: 'three' | '
             <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
               <CheckCircle2 size={20} />
             </div>
-            <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
+            {/* Kachelüberschriften ohne Silbentrennung (User, 2026-10-03), siehe `GanzwortTitel`. */}
+            <GanzwortTitel text={item.title} className="font-bold leading-tight text-gray-950 [--titel-max:1.125rem]" />
             <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.description}</p>
             {item.href && (
               <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
@@ -304,7 +311,7 @@ export const ProcessList: React.FC<{ steps: ProcessItem[] }> = ({ steps }) => {
                   className="absolute bottom-full left-1/2 hidden h-9 w-px bg-gray-200 xl:block"
                 />
                 <article className="cc-karte hyphens-auto break-words rounded-2xl border border-gray-100 p-6">
-                  <h3 className="text-lg font-bold leading-snug text-gray-950">{step.title}</h3>
+                  <GanzwortTitel text={step.title} className="font-bold leading-snug text-gray-950 [--titel-max:1.125rem]" />
                   <p className="mt-3 text-sm leading-relaxed text-gray-600">{step.description}</p>
                 </article>
               </motion.div>
@@ -338,12 +345,18 @@ export interface PriceItem {
   anfrageLabel?: string;
   /**
    * Vorauswahl im Terminformular — `id` aus `data/leistungsauswahl.ts` (waehlt die Leistung) oder aus
-   * `data/zusatzleistungen.ts` (hakt die Zusatzleistung an, seit 2026-09-28). Steht die ID in beiden
-   * (Versiegelungen, Backlog 6.6), gewinnt die Leistung. `''` = bewusst keine.
+   * `data/zusatzleistungen.ts` (hakt die Zusatzleistung an, seit 2026-09-28). Seit 6.7 steht keine ID mehr
+   * in beiden Listen (`data/zusatzregeln.ts` prueft das). `''` = bewusst keine.
    * Ohne Angabe leitet der Dialog sie aus der SEITE ab, und dann waehlte jede Karte dasselbe
    * Paket vor (2026-09-16 gefunden, siehe `AnfrageDialog`).
    */
   leistung?: string;
+  /**
+   * Wozu die Leistung buchbar ist, z. B. „Einzeln oder zu jedem Paket buchbar.“ (Backlog 6.7). Nur an
+   * Zusatzleistungen, abgeleitet aus Andres Regeln (`buchbarText` in `data/zusatzregeln.ts`) — dieselbe
+   * Regel, nach der das Formular sperrt. Der Kunde sieht die Bedingung, bevor er anfragt.
+   */
+  buchbar?: string;
 }
 
 /**
@@ -378,8 +391,11 @@ export const PricingGrid: React.FC<{
             item.breit ? 'sm:col-span-2' : ''
           }`}
         >
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="text-lg font-bold leading-tight text-gray-950">{item.title}</h3>
+          {/* Titel und Preis in einer UMBRECHENDEN Zeile: Passt das längste Wort neben dem Preis nicht mindestens in 16 px,
+              rutscht der Preis unter den Titel (`mindestens16px`). `min-w-0 flex-1`: Ohne Wachstum hätte der Container in
+              der Flex-Zeile die Breite 0. */}
+          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+            <GanzwortTitel text={item.title} huelle="min-w-0 flex-1" mindestens16px className="font-bold leading-tight text-gray-950 [--titel-max:1.125rem]" />
             <span className="shrink-0 rounded-full bg-gray-950 px-3 py-1.5 text-xs font-bold tracking-wide text-white">
               {item.price}
               {item.fussnote && fussnote && (
@@ -391,6 +407,7 @@ export const PricingGrid: React.FC<{
             </span>
           </div>
           <p className="mt-3 flex-grow text-sm leading-relaxed text-gray-600">{item.description}</p>
+          {item.buchbar && <p className="mt-4 text-xs font-semibold leading-relaxed text-gray-700">{item.buchbar}</p>}
           <a
             href={ctaHref}
             data-leistung={item.leistung}
@@ -421,7 +438,7 @@ export const PageFAQ: React.FC<{ route: string }> = ({ route }) => (
   <div className="space-y-3">
     {(faqsByRoute[route] ?? []).map((faq) => (
       <article key={faq.id} className="cc-karte rounded-2xl border border-gray-100 p-6">
-        <h3 className="text-lg font-bold leading-tight text-gray-950">{faq.question}</h3>
+        <GanzwortTitel text={faq.question} className="font-bold leading-tight text-gray-950 [--titel-max:1.125rem]" />
         <p className="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">{faq.answer}</p>
       </article>
     ))}
@@ -439,7 +456,12 @@ export const PageCTA: React.FC<{ title: string; description: string; primaryLabe
       <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-white p-6 md:p-10 lg:p-12">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
-            <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">{title}</h2>
+            <GanzwortTitel
+              als="h2"
+              text={title}
+              laufweite={-0.025}
+              className="font-bold leading-tight tracking-tight text-gray-950 [--titel-max:1.875rem] md:[--titel-max:3rem]"
+            />
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">{description}</p>
           </div>
           <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">

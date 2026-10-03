@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { terminLeistungen } from '../../data/leistungsauswahl';
+import { NUR_ZUSATZ, terminLeistungen } from '../../data/leistungsauswahl';
 import { ANDERE_MARKE, ANDERES_MODELL, markenListe, modelleVon } from '../../data/fahrzeugmarken';
-import { enthaeltDummies, sperrgrund, zusatzleistungen } from '../../data/zusatzleistungen';
+import { enthaeltDummies, zusatzleistungen } from '../../data/zusatzleistungen';
+import {
+  FEHLT_ZUSATZLEISTUNG,
+  festAngehakt,
+  fehltZusatzleistung,
+  hinweisVorDerWahl,
+  istZusatzAlsLeistung,
+  paketHinweis,
+  sperrgrund,
+} from '../../data/zusatzregeln';
 import { inputClass, labelClass, type FeldAenderung, type FormFieldsByKind } from './felder';
 
 /**
@@ -16,15 +25,35 @@ interface TerminFelderProps {
   werte: FormFieldsByKind['termin'];
   onChange: FeldAenderung;
   onZusatzleistung: (id: string, aktiv: boolean) => void;
+  /** Beim letzten Wechsel der Leistung herausgefallene Zusatzleistungen, mit Grund (6.7, `RequestForm`). */
+  abgewaehlt: { id: string; label: string; grund: string }[];
 }
 
-const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzleistung }) => {
+/** „Nur zusammen mit …“ mitten im Satz: erster Buchstabe klein. */
+const imSatz = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
+
+const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzleistung, abgewaehlt }) => {
   // `?? []`: Beim Reiterwechsel laeuft genau ein Renderdurchlauf mit den Werten der VORHERIGEN
   // Variante, in denen es dieses Feld nicht gibt. Siehe die Begruendung am Variantenwechsel.
   const gewaehlteZusaetze = werte.zusatzleistungen ?? [];
+  const leistung = werte.service ?? '';
   // Aufklappliste offen, wenn schon etwas gewaehlt ist — etwa ueber die Preiskachel „Keramikversiegelung“.
   const [zusaetzeOffen, setZusaetzeOffen] = useState(() => gewaehlteZusaetze.length > 0);
   const gewaehlteNamen = zusatzleistungen.filter((z) => gewaehlteZusaetze.includes(z.id)).map((z) => z.label);
+  /*
+   * „NUR ZUSATZLEISTUNGEN“ OHNE KAESTCHEN (6.7) ist keine Anfrage. Die Meldung haengt als Gueltigkeit am Auswahlfeld:
+   * Der Browser haelt das Absenden an, zeigt sie dort und sagt sie an — wie bei jedem Pflichtfeld, ohne eigene
+   * Fehlerlogik. Am Auswahlfeld und nicht am ersten Kaestchen, weil die Liste zugeklappt sein kann; ein unsichtbares
+   * ungueltiges Feld blockiert das Absenden ohne jede Meldung. Verbindlich prueft `api/anfrage.ts` dasselbe.
+   */
+  const leistungFeld = useRef<HTMLSelectElement>(null);
+  const fehltZusatz = fehltZusatzleistung(leistung, gewaehlteZusaetze);
+  // Versiegelung als Leistung (6.6, seit 2026-10-03): Andres Regel unter der Auswahl, sonst laese der Kunde
+  // „Keramikversiegelung“ als vollstaendige Buchung. Ohne Versiegelung kein Hinweis und kein `aria-describedby`.
+  const hinweisZumPaket = paketHinweis(leistung);
+  useEffect(() => {
+    leistungFeld.current?.setCustomValidity(fehltZusatz ? FEHLT_ZUSATZLEISTUNG : '');
+  }, [fehltZusatz]);
   return (
     <>
       {/* PFLICHTANGABEN (User, 2026-09-28): Name, gewuenschte Leistung und Telefon ODER E-Mail — eins von
@@ -124,13 +153,32 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
         <div>
           <label className={labelClass} htmlFor="termin-service">Gewünschte Leistung</label>
           {/* Optionen aus `data/leistungsauswahl.ts` — dieselbe Quelle, aus der
-              die Vorauswahl abgeleitet wird (1.19). Seit 2026-09-28 Pflicht. */}
-          <select id="termin-service" name="service" required value={werte.service} onChange={onChange} className={inputClass}>
+              die Vorauswahl abgeleitet wird (1.19). Seit 2026-09-28 Pflicht. „Nur Zusatzleistungen“ (6.7) klappt
+              die Liste darunter auf: Dort wird jetzt gewaehlt. Eine Versiegelung als Leistung (6.6, seit 2026-10-03)
+              ebenso: Dort steht sie fest angehakt, mit ihrem Preis. */}
+          <select
+            ref={leistungFeld}
+            id="termin-service"
+            name="service"
+            required
+            value={werte.service}
+            aria-describedby={hinweisZumPaket ? 'termin-service-hinweis' : undefined}
+            onChange={(e) => {
+              onChange(e);
+              if (e.target.value === NUR_ZUSATZ || istZusatzAlsLeistung(e.target.value)) setZusaetzeOffen(true);
+            }}
+            className={inputClass}
+          >
             <option value="">Bitte wählen</option>
             {terminLeistungen.map((leistung) => (
               <option key={leistung.id} value={leistung.id}>{leistung.label}</option>
             ))}
           </select>
+          {hinweisZumPaket && (
+            <p id="termin-service-hinweis" className="mt-2 text-[11px] leading-relaxed text-gray-600">
+              {hinweisZumPaket}
+            </p>
+          )}
         </div>
         <div>
           <label className={labelClass} htmlFor="termin-date">Wunschtermin (freiwillig)</label>
@@ -150,7 +198,19 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
         GESPERRT statt versteckt: Passt eine Zusatzleistung nicht zur gewaehlten Leistung (Motorreinigung
         steckt in der Premiumpflege), bleibt sie sichtbar, ist inaktiv und nennt den Grund. Verschwaende
         sie, suchte der Kunde sie. Abgewaehlt wird sie beim Wechsel der Leistung in `RequestForm`.
+
+        BUCHUNGSREGELN (6.7, Andres Liste, Auswertung in `data/zusatzregeln.ts`): Solange keine Leistung gewaehlt ist,
+        nennen eingeschraenkte Zusatzleistungen ihre Bedingung als Hinweis, statt gesperrt zu sein — die Preiskachel
+        hakt sie an, bevor das Paket feststeht. Faellt beim Wechsel der Leistung etwas heraus, sagt der Hinweis ueber
+        der Liste, was und warum: Bei zugeklappter Liste verschwaende es sonst unbemerkt.
       */}
+      <p
+        role="status"
+        className={abgewaehlt.length ? 'rounded-lg bg-gray-100 px-3 py-2 text-[11px] leading-relaxed text-gray-800' : 'sr-only'}
+      >
+        {abgewaehlt.length > 0 &&
+          `Abgewählt: ${abgewaehlt.map((a) => (a.grund ? `${a.label} (${imSatz(a.grund)})` : a.label)).join(', ')}.`}
+      </p>
       <details
         open={zusaetzeOffen}
         onToggle={(e) => setZusaetzeOffen(e.currentTarget.open)}
@@ -158,7 +218,9 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
       >
         <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 py-3 [&::-webkit-details-marker]:hidden">
           <span className="min-w-0">
-            <span className="block text-xs font-bold uppercase tracking-[0.15em] text-gray-600">Zusatzleistungen (freiwillig)</span>
+            <span className="block text-xs font-bold uppercase tracking-[0.15em] text-gray-600">
+              {leistung === NUR_ZUSATZ ? 'Zusatzleistungen (mindestens eine)' : 'Zusatzleistungen (freiwillig)'}
+            </span>
             <span className="mt-0.5 block text-sm text-gray-950">
               {gewaehlteNamen.length ? `Gewählt: ${gewaehlteNamen.join(', ')}` : 'Versiegelung, Felgen, Motorraum, Desinfektion und mehr'}
             </span>
@@ -172,38 +234,48 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
               Diese Auswahl ist noch in Abstimmung. Nennen Sie Ihren Wunsch gern zusätzlich in der Nachricht.
             </p>
           )}
+          {fehltZusatz && (
+            <p className="mb-3 text-[11px] font-semibold leading-relaxed text-gray-800">{FEHLT_ZUSATZLEISTUNG}</p>
+          )}
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {zusatzleistungen.map((leistung) => {
-              const gewaehlt = gewaehlteZusaetze.includes(leistung.id);
-              const grund = sperrgrund(leistung, werte.service ?? '', gewaehlteZusaetze);
+            {zusatzleistungen.map((zusatz) => {
+              // Fest angehakt (Zustand 4): Die Zusatzleistung IST die gewaehlte Leistung. Inaktiv wie ein gesperrtes
+              // Kaestchen, aber angehakt und blau wie ein gewaehltes; der Satz darunter sagt, warum.
+              const fest = festAngehakt(zusatz, leistung);
+              const gewaehlt = fest || gewaehlteZusaetze.includes(zusatz.id);
+              const grund = sperrgrund(zusatz, leistung, gewaehlteZusaetze);
+              const hinweis = fest ? 'Als gewünschte Leistung gewählt' : grund ? null : hinweisVorDerWahl(zusatz, leistung);
               return (
                 <label
-                  key={leistung.id}
-                  htmlFor={`termin-${leistung.id}`}
+                  key={zusatz.id}
+                  htmlFor={`termin-${zusatz.id}`}
                   className={`flex min-h-12 gap-3 rounded-lg border p-3 transition-colors ${
                     grund
                       ? 'cursor-not-allowed border-gray-200 bg-gray-50'
-                      : gewaehlt
-                        ? 'cursor-pointer border-blue-600 bg-blue-50'
+                      : fest
+                        ? 'cursor-default border-blue-600 bg-blue-50'
+                        : gewaehlt
+                          ? 'cursor-pointer border-blue-600 bg-blue-50'
                         : 'cursor-pointer border-gray-200 bg-white hover:border-gray-300'
                   }`}
                 >
                   <input
-                    id={`termin-${leistung.id}`}
+                    id={`termin-${zusatz.id}`}
                     type="checkbox"
                     name="zusatzleistungen"
-                    value={leistung.id}
+                    value={zusatz.id}
                     checked={gewaehlt}
-                    disabled={Boolean(grund)}
-                    onChange={(e) => onZusatzleistung(leistung.id, e.target.checked)}
+                    disabled={Boolean(grund) || fest}
+                    onChange={(e) => onZusatzleistung(zusatz.id, e.target.checked)}
                     className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
                   />
                   <span className="min-w-0 flex-1">
                     <span className={`flex items-baseline justify-between gap-2 ${grund ? 'opacity-60' : ''}`}>
-                      <span className="min-w-0 hyphens-auto break-words text-sm font-semibold text-gray-950">{leistung.label}</span>
-                      <span className="shrink-0 text-xs font-bold text-gray-700">{leistung.preis}</span>
+                      <span className="min-w-0 hyphens-auto break-words text-sm font-semibold text-gray-950">{zusatz.label}</span>
+                      <span className="shrink-0 text-xs font-bold text-gray-700">{zusatz.preis}</span>
                     </span>
                     {grund && <span className="mt-0.5 block text-[11px] leading-relaxed text-gray-700">{grund}</span>}
+                    {hinweis && <span className="mt-0.5 block text-[11px] leading-relaxed text-gray-600">{hinweis}</span>}
                   </span>
                 </label>
               );

@@ -9,6 +9,8 @@
  * KI-generiert**. Sobald feststeht, welches Motiv nur aufgewertet wurde (geschärft, freigestellt,
  * Hintergrund getauscht) und welches vollständig erzeugt ist, wird hier je Datei EINE Zeile
  * geändert — sonst nichts. Die Plakette am Bild folgt automatisch.
+ * SEIT 2026-10-03 IST JEDE AUSGELIEFERTE DATEI GEKLÄRT (Herkunftsbogen, Angabe des Users, Block unten): Kein Foto
+ * gilt mehr als vollständig erzeugt. Die Vorgabe `STANDARD` greift nur noch für neue Bilder ohne Eintrag.
  *
  * ⚠️ NICHT NACH AUGENSCHEIN EINTRAGEN. Einem Bild sieht man seine Herkunft nicht an, und eine
  * FALSCHE Kennzeichnung ist derselbe Mangel wie eine fehlende: Ein echtes Foto als „KI-generiert“
@@ -94,9 +96,54 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   // Ein Vorher/Nachher ist nur als echte Aufnahme ehrlich — deshalb „echt“; Bestätigung beim User erbeten (6.2).
   '/assets/kacheln/alcantara-lenkrad-vorher-nachher-leipzig-carcare.webp': 'echt',
   '/assets/kacheln/alcantara-schaumreinigung-leipzig-carcare.webp': 'echt',
+
+  // Bildtausch vom 2026-10-03, vom User als echt bestaetigt („Alle Bilder sind echt“). Aufbereitet mit `npm run fotos`:
+  // nur Zuschnitt, beim Dellenfoto ein Kundenkennzeichen weichgezeichnet, keine KI. Die Dellendatei steht oben schon als
+  // „echt“ (neuer Inhalt unter demselben Namen, Lieferordner „Neue Fotos Schleife September“).
+  '/assets/kacheln/smart-repair-leipzig-carcare.webp': 'echt',
+  '/assets/kacheln/smart-repair-hintergrund-leipzig-carcare.webp': 'echt',
+  '/assets/kacheln/hagelschadenreparatur-leipzig-carcare.webp': 'echt',
+  '/assets/kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp': 'echt',
+
+  // Herkunftsbogen vom 2026-10-03: Der User hat die Herkunft der 16 bis dahin ungeklärten Fotos angegeben, ausdrücklich
+  // „final“. Wortlaut: „echt: Bild 1,2,3,4,7,16 · Der Rest braucht den Batch KI-aufgewertet“ (Nr. aus dem
+  // Bogen hinter jeder Zeile). „KI-aufgewertet“ ist die Kategorie `aufgewertet`. Die Plakette dazu heißt seit dem
+  // 21.09. „KI-bearbeitet“ (HERKUNFT_TEXT).
+  // ⚠️ Die Angabe weicht vom Meeting am 25.09. ab (Backlog 5.9). Dort hieß die Felge „echt“ (Andrés Cupra-Felge).
+  // Schaden melden, Privatkunden und Fahrzeugabgabe hießen dort „KI-generiert“. Es gilt die spätere Angabe des Users.
+  '/assets/hero-leipzig-carcare-desktop.webp': 'echt', // Nr. 1
+  '/assets/hero-leipzig-carcare-mobile.webp': 'echt', // Nr. 2
+  '/assets/footer-leipzig-carcare.webp': 'echt', // Nr. 3
+  '/assets/kacheln/fahrzeugaufbereitung-leipzig-carcare.webp': 'echt', // Nr. 4
+  '/assets/kacheln/leasingrueckgabe-leipzig-carcare.webp': 'echt', // Nr. 7
+  '/assets/kacheln/lackierkabine-leipzig-carcare.webp': 'echt', // Nr. 16
+  '/assets/kacheln/felgenreparatur-leipzig-carcare.webp': 'aufgewertet', // Nr. 5
+  '/assets/kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp': 'aufgewertet', // Nr. 6
+  '/assets/kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp': 'aufgewertet', // Nr. 8
+  '/assets/kacheln/schaden-melden-leipzig-carcare.webp': 'aufgewertet', // Nr. 9
+  '/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp': 'aufgewertet', // Nr. 10
+  '/assets/kacheln/kalkulation-leipzig-carcare.webp': 'aufgewertet', // Nr. 11
+  '/assets/kacheln/versicherungsabwicklung-leipzig-carcare.webp': 'aufgewertet', // Nr. 12
+  '/assets/kacheln/privatkunden-leipzig-carcare.webp': 'aufgewertet', // Nr. 13
+  '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp': 'aufgewertet', // Nr. 14
+  '/assets/kacheln/fahrzeugabgabe-leipzig-carcare.webp': 'aufgewertet', // Nr. 15
+
+  // Porträts der Mitarbeiterstimmen (Backlog 5.28), eingebaut 2026-10-03. Der User: „Es handelt sich hier um echte
+  // Mitarbeiter, die ihr Einverständnis zur Nutzung der Bilder gegeben haben.“ Laut EXIF iPhone-Aufnahmen vom
+  // 02.10.2026 ohne Bearbeitungssoftware. Aufbereitet mit `npm run fotos`: nur Zuschnitt, beim Serviceberater zwei
+  // Schreibtischzettel weichgezeichnet (Datenschutz, keine KI). `components/Stimmen.tsx` verlangt diesen Eintrag.
+  '/assets/team/stimme-fahrzeuglackiererin-leipzig-carcare.webp': 'echt',
+  '/assets/team/stimme-serviceberater-leipzig-carcare.webp': 'echt',
+  '/assets/team/stimme-fahrzeuglackierer-leipzig-carcare.webp': 'echt',
+  '/assets/team/stimme-kfz-aufbereiter-leipzig-carcare.webp': 'echt',
+  '/assets/team/stimme-karosserie-fahrzeugbaumechaniker-leipzig-carcare.webp': 'echt',
 };
 
-/** Vorgabe für alles, was nicht in den Ausnahmen steht (Stand 2026-09-20). */
+/**
+ * Vorgabe für alles, was nicht in den Ausnahmen steht (Stand 2026-09-20). Seit 2026-10-03 steht jede ausgelieferte
+ * Datei in den Ausnahmen; die Vorgabe gilt also nur noch für ein neues Bild, dessen Herkunft noch niemand bestätigt
+ * hat. Es zeigt dann vorsorglich „KI-generiert“, und das Bildinventar führt es als „Vorgabe, ungeklärt“.
+ */
 const STANDARD: Bildherkunft = 'generiert';
 
 /** Marken- und Verbandsgrafiken tragen nie eine Plakette. */

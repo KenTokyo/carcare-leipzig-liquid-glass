@@ -1,5 +1,6 @@
 import type { PriceItem } from '../components/PageBlocks';
 import { zusatzleistungen } from './zusatzleistungen';
+import { buchbarText } from './zusatzregeln';
 
 /**
  * Inhalte des Aufbereitungs-Strangs (`/fahrzeugaufbereitung-leipzig`).
@@ -40,8 +41,12 @@ export const carePackages: PriceItem[] = [
     // Backlog 4.5: „schonende Handoberwäsche" statt „Oberwäsche inkl. Abledern" — Wortlaut des Kunden.
     // Backlog 4.3 (2026-09-16): „Lackreinigung" entfaellt insgesamt, Entscheidung des Kunden.
     // Backlog 6.24 (Mail Andre 2026-09-28): „Intensive Vorreinigung inkl. Entfernung von Ablagerungen".
+    // Backlog 6.7 (Andres Regeln, 2026-10-02): Keramik UND Nano nur zur Brillant Außenpflege oder zur Lackaufbereitung.
+    // Bis dahin hiess es „Dieses Paket ist zugleich die Voraussetzung …“ — als waere es die einzige. Die Trennung aus
+    // 2.10 (enthaltene Lackversiegelung ≠ separat buchbare Keramik) bleibt. ⚠️ Von Hand formuliert: Aendert sich die
+    // Regel in data/zusatzleistungen.ts, diesen Satz mit anpassen (Liste im Kopf der Datei).
     description:
-      'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Dieses Paket ist zugleich die Voraussetzung für eine Keramikversiegelung: Der Lack muss vorher gereinigt und poliert sein. Die Keramikversiegelung selbst ist nicht enthalten und wird zusätzlich beauftragt.',
+      'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Keramik- und Nanoversiegelung sind nicht enthalten. Sie buchen sie zu diesem Paket oder zur Lackaufbereitung dazu, weil der Lack dafür gereinigt und poliert sein muss.',
   },
   {
     id: 'p2',
@@ -101,12 +106,14 @@ export const carePackages: PriceItem[] = [
 /**
  * Zusatzleistung als Preiskachel. Name, Preis und Text kommen aus `data/zusatzleistungen.ts` — derselben
  * Liste wie die Kaestchen im Formular. `leistung` = ID der Zusatzleistung: Der Anfrage-Link der Kachel
- * hakt sie im Formular an (`startwerte` in `components/RequestForm.tsx`).
+ * hakt sie im Formular an (`startwerte` in `components/RequestForm.tsx`). Bei Keramik und Nano ist dieselbe ID
+ * seit 2026-10-03 auch eine Leistung (6.6): Dann waehlt die Kachel die Leistung vor, das Kaestchen kommt fest
+ * angehakt mit. `buchbar` (6.7): die Zeile „… buchbar.“ aus derselben Regel, nach der das Formular sperrt.
  */
 const zusatzKachel = (id: string): PriceItem => {
   const z = zusatzleistungen.find((eintrag) => eintrag.id === id);
   if (!z) throw new Error(`data/detailing.ts: Zusatzleistung „${id}“ fehlt in data/zusatzleistungen.ts`);
-  return { id: `zusatz-${z.id}`, title: z.label, price: z.preis, description: z.beschreibung, leistung: z.id };
+  return { id: `zusatz-${z.id}`, title: z.label, price: z.preis, description: z.beschreibung, leistung: z.id, buchbar: buchbarText(z) };
 };
 
 /**
@@ -158,6 +165,7 @@ export const angeboteInnen = {
  *
  * Betrag aus dem Anzeigepreis: „ab 169,00 €“ → `minPrice` 169.00 (`from`), „95,20 €“ → `price` 95.20,
  * „Preis nach Aufwand/Absprache“ → keine Preisfelder, der Wortlaut steht dann in der Beschreibung.
+ * Die Zeile „… buchbar.“ (6.7) steht sichtbar auf der Kachel und geht deshalb mit in die Beschreibung.
  */
 export const schemaAngebote = (kacheln: PriceItem[]) =>
   kacheln.map((kachel) => {
@@ -165,7 +173,7 @@ export const schemaAngebote = (kacheln: PriceItem[]) =>
     const zusatz = kachel.fussnote ? ` ${AUFPREIS_SATZ}` : treffer ? '' : ` ${kachel.price}.`;
     return {
       name: kachel.title,
-      description: `${kachel.description}${zusatz}`,
+      description: `${kachel.description}${zusatz}${kachel.buchbar ? ` ${kachel.buchbar}` : ''}`,
       ...(treffer ? { price: `${treffer[2].replace(/\./g, '')}.${treffer[3]}`, from: Boolean(treffer[1]) } : {}),
     };
   });

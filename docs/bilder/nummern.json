@@ -1,6 +1,6 @@
 {
   "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
-  "naechste": 142,
+  "naechste": 153,
   "stellen": {
     "alle|ladebildschirm|||bild|desktop|": {
       "nr": 1,
@@ -89,7 +89,7 @@
     "/|leistungen||Hagelschadenreparatur•|bild||": {
       "nr": 14,
       "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Hagelschadenreparatur•“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/|leistungen|bild|"
     },
     "/|leistungen||Felgenreparatur•|bild||": {
@@ -161,7 +161,7 @@
     "/|zielgruppen||Autohäuser & Fuhrparks|bild||": {
       "nr": 26,
       "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Autohäuser & Fuhrparks“",
-      "datei": "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp",
+      "datei": "kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp",
       "rahmen": "/|zielgruppen|bild|"
     },
     "/|autoaufbereitung||Innenaufbereitung•|bild||": {
@@ -248,11 +248,17 @@
       "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/leistungen|unfall-lack|bild|"
     },
-    "/leistungen|unfall-lack||Neu- und Reparaturlackierung Leipzig|bild||": {
+    "/leistungen|unfall-lack||Neu- und Reparaturlackierung Leipzig|standbild||": {
       "nr": 131,
-      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Neu- und Reparaturlackierung Leipzig“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/leistungen|unfall-lack|bild|"
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Neu- und Reparaturlackierung Leipzig“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/leistungen|unfall-lack|standbild|"
+    },
+    "/leistungen|unfall-lack||Neu- und Reparaturlackierung Leipzig|video||": {
+      "nr": 147,
+      "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Neu- und Reparaturlackierung Leipzig“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/leistungen|unfall-lack|video|"
     },
     "/leistungen|unfall-lack||Smart Repair Leipzig|bild||": {
       "nr": 132,
@@ -269,7 +275,7 @@
     "/leistungen|unfall-lack||Hagelschadenreparatur Leipzig|bild||": {
       "nr": 134,
       "ort": "„Von der Schadenaufnahme bis zur fertigen Lackierung“ › Karte „Hagelschadenreparatur Leipzig“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/leistungen|unfall-lack|bild|"
     },
     "/leistungen|rad-glas||Felgenreparatur Leipzig|bild||": {
@@ -308,11 +314,17 @@
       "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
     },
-    "/unfallinstandsetzung-leipzig|reparaturleistungen||Neu- und Reparaturlackierung|bild||": {
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Neu- und Reparaturlackierung|standbild||": {
       "nr": 38,
-      "ort": "„Welche Reparatur Ihr Fahrzeug braucht und was dahintersteckt“ › Karte „Neu- und Reparaturlackierung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht und was dahintersteckt“ › Karte „Neu- und Reparaturlackierung“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|standbild|"
+    },
+    "/unfallinstandsetzung-leipzig|reparaturleistungen||Neu- und Reparaturlackierung|video||": {
+      "nr": 148,
+      "ort": "„Welche Reparatur Ihr Fahrzeug braucht und was dahintersteckt“ › Karte „Neu- und Reparaturlackierung“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|video|"
     },
     "/unfallinstandsetzung-leipzig|reparaturleistungen||Smart Repair|bild||": {
       "nr": 39,
@@ -329,7 +341,7 @@
     "/unfallinstandsetzung-leipzig|reparaturleistungen||Hagelschadenreparatur|bild||": {
       "nr": 41,
       "ort": "„Welche Reparatur Ihr Fahrzeug braucht und was dahintersteckt“ › Karte „Hagelschadenreparatur“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/unfallinstandsetzung-leipzig|reparaturleistungen|bild|"
     },
     "/unfallinstandsetzung-leipzig|reparaturleistungen||Felgenreparatur|bild||": {
@@ -464,11 +476,17 @@
       "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
       "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
     },
-    "/leasingrueckgabe-leipzig|leistungen||Größere Lack- und Karosserieschäden|bild||": {
+    "/leasingrueckgabe-leipzig|leistungen||Größere Lack- und Karosserieschäden|standbild||": {
       "nr": 64,
-      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Größere Lack- und Karosserieschäden“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/leasingrueckgabe-leipzig|leistungen|bild|"
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Größere Lack- und Karosserieschäden“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|standbild|"
+    },
+    "/leasingrueckgabe-leipzig|leistungen||Größere Lack- und Karosserieschäden|video||": {
+      "nr": 149,
+      "ort": "„Von der Parkplatzdelle bis zur Innenraumaufbereitung“ › Karte „Größere Lack- und Karosserieschäden“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/leasingrueckgabe-leipzig|leistungen|video|"
     },
     "/leasingrueckgabe-leipzig|leistungen||Aufbereitung innen und außen|bild||": {
       "nr": 65,
@@ -503,7 +521,7 @@
     "/smart-repair-leipzig|seite|||bild||": {
       "nr": 68,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/smart-repair-leipzig-carcare.webp",
+      "datei": "kacheln/smart-repair-hintergrund-leipzig-carcare.webp",
       "rahmen": "/smart-repair-leipzig|seite|bild|"
     },
     "/autolackierung-leipzig|seite|||standbild||": {
@@ -527,7 +545,7 @@
     "/hagelschadenreparatur-leipzig|seite|||bild||": {
       "nr": 71,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/hagelschadenreparatur-leipzig|seite|bild|"
     },
     "/felgenreparatur-leipzig|seite|||bild||": {
@@ -578,16 +596,22 @@
       "datei": "kacheln/dellenentfernung-leipzig-carcare.webp",
       "rahmen": "/privatkunden|leistungen|bild|"
     },
-    "/privatkunden|leistungen||Neu- und Reparaturlackierung|bild||": {
+    "/privatkunden|leistungen||Neu- und Reparaturlackierung|standbild||": {
       "nr": 80,
-      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Neu- und Reparaturlackierung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/privatkunden|leistungen|bild|"
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Neu- und Reparaturlackierung“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/privatkunden|leistungen|standbild|"
+    },
+    "/privatkunden|leistungen||Neu- und Reparaturlackierung|video||": {
+      "nr": 150,
+      "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Neu- und Reparaturlackierung“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/privatkunden|leistungen|video|"
     },
     "/privatkunden|leistungen||Hagelschaden|bild||": {
       "nr": 81,
       "ort": "„Was wir für Ihr Fahrzeug tun können“ › Karte „Hagelschaden“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/privatkunden|leistungen|bild|"
     },
     "/privatkunden|leistungen||Felgenreparatur|bild||": {
@@ -614,11 +638,17 @@
       "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/geschaeftskunden|angebote|bild|"
     },
-    "/geschaeftskunden|angebote||Neu- und Reparaturlackierung|bild||": {
+    "/geschaeftskunden|angebote||Neu- und Reparaturlackierung|standbild||": {
       "nr": 86,
-      "ort": "„Das komplette Spektrum, auch für gewerbliche Auftraggeber“ › Karte „Neu- und Reparaturlackierung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/geschaeftskunden|angebote|bild|"
+      "ort": "„Das komplette Spektrum, auch für gewerbliche Auftraggeber“ › Karte „Neu- und Reparaturlackierung“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/geschaeftskunden|angebote|standbild|"
+    },
+    "/geschaeftskunden|angebote||Neu- und Reparaturlackierung|video||": {
+      "nr": 151,
+      "ort": "„Das komplette Spektrum, auch für gewerbliche Auftraggeber“ › Karte „Neu- und Reparaturlackierung“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/geschaeftskunden|angebote|video|"
     },
     "/geschaeftskunden|angebote||Smart Repair|bild||": {
       "nr": 87,
@@ -635,7 +665,7 @@
     "/geschaeftskunden|angebote||Hagelschadenreparatur|bild||": {
       "nr": 89,
       "ort": "„Das komplette Spektrum, auch für gewerbliche Auftraggeber“ › Karte „Hagelschadenreparatur“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/geschaeftskunden|angebote|bild|"
     },
     "/geschaeftskunden|angebote||Felgenreparatur|bild||": {
@@ -674,11 +704,17 @@
       "datei": "kacheln/unfallinstandsetzung-leipzig-carcare.webp",
       "rahmen": "/ueber-uns|leistungsspektrum|bild|"
     },
-    "/ueber-uns|leistungsspektrum||Neu- und Reparaturlackierung|bild||": {
+    "/ueber-uns|leistungsspektrum||Neu- und Reparaturlackierung|standbild||": {
       "nr": 96,
-      "ort": "„Alles im eigenen Haus, vom Kratzer bis zum Totalschaden“ › Karte „Neu- und Reparaturlackierung“",
-      "datei": "kacheln/autolackierung-leipzig-carcare.webp",
-      "rahmen": "/ueber-uns|leistungsspektrum|bild|"
+      "ort": "„Alles im eigenen Haus, vom Kratzer bis zum Totalschaden“ › Karte „Neu- und Reparaturlackierung“ › Standbild des Videos",
+      "datei": "carcare-autolackierung-standbild.webp",
+      "rahmen": "/ueber-uns|leistungsspektrum|standbild|"
+    },
+    "/ueber-uns|leistungsspektrum||Neu- und Reparaturlackierung|video||": {
+      "nr": 152,
+      "ort": "„Alles im eigenen Haus, vom Kratzer bis zum Totalschaden“ › Karte „Neu- und Reparaturlackierung“ › Video",
+      "datei": "carcare-autolackierung.mp4",
+      "rahmen": "/ueber-uns|leistungsspektrum|video|"
     },
     "/ueber-uns|leistungsspektrum||Smart Repair & Dellenentfernung|bild||": {
       "nr": 97,
@@ -689,7 +725,7 @@
     "/ueber-uns|leistungsspektrum||Hagelschadenreparatur|bild||": {
       "nr": 98,
       "ort": "„Alles im eigenen Haus, vom Kratzer bis zum Totalschaden“ › Karte „Hagelschadenreparatur“",
-      "datei": "kacheln/hagelschadenreparatur-leipzig.webp",
+      "datei": "kacheln/hagelschadenreparatur-leipzig-carcare.webp",
       "rahmen": "/ueber-uns|leistungsspektrum|bild|"
     },
     "/ueber-uns|leistungsspektrum||Felgen & Autoglas|bild||": {
@@ -841,6 +877,36 @@
       "ort": "„So sieht der Betrieb aus, in dem Sie arbeiten würden“ › Karte „Aufbereitungsbereich“ › Video",
       "datei": "carcare-bereich-aufbereitung.mp4",
       "rahmen": "/karriere|betrieb|video|"
+    },
+    "/karriere|stimmen||Porträt Fahrzeuglackiererin|bild||": {
+      "nr": 142,
+      "ort": "„Was Kolleginnen und Kollegen über die Arbeit sagen“ › Karte „Porträt Fahrzeuglackiererin“",
+      "datei": "team/stimme-fahrzeuglackiererin-leipzig-carcare.webp",
+      "rahmen": "/karriere|stimmen|bild|"
+    },
+    "/karriere|stimmen||Porträt Serviceberater|bild||": {
+      "nr": 143,
+      "ort": "„Was Kolleginnen und Kollegen über die Arbeit sagen“ › Karte „Porträt Serviceberater“",
+      "datei": "team/stimme-serviceberater-leipzig-carcare.webp",
+      "rahmen": "/karriere|stimmen|bild|"
+    },
+    "/karriere|stimmen||Porträt Fahrzeuglackierer|bild||": {
+      "nr": 144,
+      "ort": "„Was Kolleginnen und Kollegen über die Arbeit sagen“ › Karte „Porträt Fahrzeuglackierer“",
+      "datei": "team/stimme-fahrzeuglackierer-leipzig-carcare.webp",
+      "rahmen": "/karriere|stimmen|bild|"
+    },
+    "/karriere|stimmen||Porträt Kfz-Aufbereiter|bild||": {
+      "nr": 145,
+      "ort": "„Was Kolleginnen und Kollegen über die Arbeit sagen“ › Karte „Porträt Kfz-Aufbereiter“",
+      "datei": "team/stimme-kfz-aufbereiter-leipzig-carcare.webp",
+      "rahmen": "/karriere|stimmen|bild|"
+    },
+    "/karriere|stimmen||Porträt Karosserie- und Fahrzeugbaumechaniker|bild||": {
+      "nr": 146,
+      "ort": "„Was Kolleginnen und Kollegen über die Arbeit sagen“ › Karte „Porträt Karosserie- und Fahrzeugbaumechaniker“",
+      "datei": "team/stimme-karosserie-fahrzeugbaumechaniker-leipzig-carcare.webp",
+      "rahmen": "/karriere|stimmen|bild|"
     }
   },
   "entfallen": {
