@@ -119,8 +119,9 @@ export const zusatzleistungen: Zusatzleistung[] = [
     id: 'frontscheibe',
     label: 'Frontscheibenversiegelung',
     preis: '89,00 €',
+    // Andre, 2026-10-05: „Eis haftet weniger an“ ergaenzt.
     beschreibung:
-      'Wir versiegeln die Frontscheibe wasserabweisend. Bei Regen perlt das Wasser während der Fahrt ab, die Sicht bleibt klarer, und Insekten und Schmutz lassen sich leichter entfernen.',
+      'Wir versiegeln die Frontscheibe wasserabweisend. Bei Regen perlt das Wasser während der Fahrt ab und die Sicht bleibt klarer. Eis haftet weniger an, und Insekten und Schmutz lassen sich leichter entfernen.',
     // Andre: „buchbar allein oder zu allen Paketen“
     buchbar: UEBERALL,
   },
@@ -149,7 +150,9 @@ export const zusatzleistungen: Zusatzleistung[] = [
     preis: '49,00 €',
     // Bis 2026-10-02: „…, zu den übrigen Paketen buchen Sie sie einzeln dazu.“ Das stimmt seit 6.7 nicht mehr
     // (nicht zur Premiumpflege „exklusiv“ und zur Leasingrückgabe), die Zeile „… buchbar.“ sagt es jetzt genau.
-    beschreibung: 'Wir reinigen den Motorraum. In der Premiumpflege ist die Motorreinigung bereits enthalten.',
+    // Andre, 2026-10-05: „Wir reinigen den Motorraum und versiegeln diesen mit einer wasserlöslichen Schutzschicht“.
+    beschreibung:
+      'Wir reinigen den Motorraum und versiegeln ihn mit einer wasserlöslichen Schutzschicht. In der Premiumpflege ist die Motorreinigung bereits enthalten.',
     // Andre: „buchbar allein oder mit Intensiv Innenraumreinigung/Brillant Außenpflege/Lackaufbereitung“.
     // Premiumpflege „exklusiv“ und Leasingrueckgabe nennt er nicht → gesperrt, Rueckfrage an Andre (6.7).
     buchbar: { einzeln: true, zu: ['innen', 'aussen', 'lack'] },

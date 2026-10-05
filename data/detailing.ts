@@ -45,8 +45,11 @@ export const carePackages: PriceItem[] = [
     // Bis dahin hiess es „Dieses Paket ist zugleich die Voraussetzung …“ — als waere es die einzige. Die Trennung aus
     // 2.10 (enthaltene Lackversiegelung ≠ separat buchbare Keramik) bleibt. ⚠️ Von Hand formuliert: Aendert sich die
     // Regel in data/zusatzleistungen.ts, diesen Satz mit anpassen (Liste im Kopf der Datei).
+    // Andre, 2026-10-05 (Nachtrag 6.24): „Lackversiegelung entfernen“, und im Ablauf „intensive“ statt „schonende“
+    // Handoberwaesche. Seitdem enthaelt das Paket KEINE Versiegelung mehr; der Satz zu Keramik und Nano bleibt, er sagt
+    // jetzt, wie man zur Versiegelung kommt. Dieselbe Aenderung an: FAQ „umfang“/„paketwahl“, services.ts, Schema, Seite.
     description:
-      'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Scheibenreinigung, Hochglanzpolitur und Lackversiegelung. Keramik- und Nanoversiegelung sind nicht enthalten. Sie buchen sie zu diesem Paket oder zur Lackaufbereitung dazu, weil der Lack dafür gereinigt und poliert sein muss.',
+      'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, Felgenreinigung, Insektenentfernung, intensive Handoberwäsche, Scheibenreinigung und Hochglanzpolitur. Keramik- und Nanoversiegelung sind nicht enthalten. Sie buchen sie zu diesem Paket oder zur Lackaufbereitung dazu, weil der Lack dafür gereinigt und poliert sein muss.',
   },
   {
     id: 'p2',
@@ -273,8 +276,11 @@ export const detailingScopes: DetailingScope[] = [
     imageWidth: 2000,
     imageHeight: 1500,
     title: 'Außenaufbereitung',
+    // Andre, 2026-10-05 (Nachtrag 6.24), in „wir/Sie“ gesetzt: „Felgen werden gereinigt, Insektenablagerungen entfernt,
+    // dazu eine intensive Handoberwäsche bilden die Grundlage für eine anschließende Hochglanzpolitur. Eine
+    // Scheibenreinigung innen-außen sorgt für klaren Durchblick. Für mehr Tiefe kombiniert man mit unserer Lackaufbereitung.“
     intro:
-      'Was die Waschanlage stehen lässt, wird hier gelöst: Rückstände an den Felgen und Insektenrückstände, dazu eine schonende Handoberwäsche. Damit ist die Oberfläche für Politur und Versiegelung vorbereitet.',
+      'Wir reinigen die Felgen und entfernen Insektenablagerungen. Zusammen mit einer intensiven Handoberwäsche bildet das die Grundlage für die anschließende Hochglanzpolitur. Eine Scheibenreinigung innen und außen sorgt für klaren Durchblick. Für mehr Tiefe kombinieren Sie die Außenaufbereitung mit unserer Lackaufbereitung.',
     href: '/aussenaufbereitung-leipzig',
     hrefLabel: 'Zur Außenaufbereitung',
   },

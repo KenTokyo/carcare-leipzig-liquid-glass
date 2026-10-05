@@ -27,9 +27,12 @@ const aussenLeistungen = [
   // Backlog 6.24 (Mail Andre 2026-09-28): „Intensive Vorreinigung inkl. Entfernung von Ablagerungen".
   { title: 'Vorreinigung und Felgen', description: 'Intensive Vorreinigung inklusive Entfernung von Ablagerungen, dazu die Felgenreinigung.' },
   { title: 'Insektenentfernung', description: 'Insektenrückstände werden vor der Oberwäsche gelöst.' },
-  // Backlog 4.5: Wortlaut „Schonende Handoberwäsche" wie im Paket Brillant Außenpflege.
-  { title: 'Schonende Handoberwäsche', description: 'Schonende Oberwäsche von Hand.' },
-  { title: 'Scheibenreinigung', description: 'Scheibenreinigung als Teil der Außenpflege.' },
+  // Backlog 4.5: Wortlaut wie im Paket Brillant Außenpflege. Andre, 2026-10-05 (Nachtrag 6.24): „intensive“ statt
+  // „schonende“, und „der Punkt Hochglanzpolitur sollte noch ergänzt werden“. Reihenfolge aus seinem Paket-Text:
+  // Wäsche als Grundlage, dann Politur, die Scheiben „innen-außen“ zum Schluss.
+  { title: 'Intensive Handoberwäsche', description: 'Intensive Oberwäsche von Hand.' },
+  { title: 'Hochglanzpolitur', description: 'Auf der gereinigten Oberfläche holt die Politur den Glanz des Lackes zurück.' },
+  { title: 'Scheibenreinigung', description: 'Innen und außen, für klaren Durchblick.' },
 ];
 
 // Backlog 5.33 (Meeting 2026-09-25): Die Lackaufbereitung geht tiefer als die Aussenpflege. Swissvax-Wachse
@@ -41,7 +44,8 @@ const lackLeistungen = [
   { title: 'Lacktiefenpolitur', description: 'Spezielle, abrasive Polituren arbeiten in die Tiefe des Lackes, abgestimmt auf seinen Zustand.' },
   { title: 'Oberflächenkratzer entfernen', description: 'Wir arbeiten Oberflächenkratzer, Anhaftungen und matte Stellen aus dem Lack heraus.' },
   { title: 'Antihologramm-Bearbeitung', description: 'Wir entfernen Hologramme, also schimmernde Polierspuren im Lack, und bringen ihn auf Hochglanz.' },
-  { title: 'Versiegelung nach Wunsch', description: 'Nach Absprache erweitern wir die Lackaufbereitung mit Wachs-, Nano- oder Keramikversiegelung.' },
+  // Andre, 2026-10-05: Punkt 4 heißt „Hochglanzpolitur oder Versiegelung nach Wunsch“, der Text bleibt.
+  { title: 'Hochglanzpolitur oder Versiegelung nach Wunsch', description: 'Nach Absprache erweitern wir die Lackaufbereitung mit Wachs-, Nano- oder Keramikversiegelung.' },
 ];
 
 const usp = [
@@ -66,7 +70,8 @@ const AussenaufbereitungPage: React.FC = () => (
       eyebrow="Außenaufbereitung Leipzig"
       bereich={bereichVon('/aussenaufbereitung-leipzig')}
       title="Außen- und Lackaufbereitung in Leipzig."
-      description="Die Außenaufbereitung entfernt Verschmutzungen, die eine gewöhnliche Wäsche stehen lässt, und bereitet den Lack auf Politur und Versiegelung vor. Die Lackaufbereitung arbeitet anschließend die Lackoberfläche selbst auf. Beides lässt sich einzeln oder kombiniert beauftragen."
+      // Andre, 2026-10-05: Intro im Wortlaut, nur „ihrem“ als Anrede groß.
+      description="Die Außenaufbereitung entfernt Verschmutzungen, die eine gewöhnliche Fahrzeugwäsche stehen lässt. Sie reinigt und gibt Ihrem Lack die gewünschte Frische zurück. Die Lackaufbereitung arbeitet die Lackierung selbst auf und dringt auch in tiefere Schichten. Beides lässt sich einzeln beauftragen oder perfekt kombinieren."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Außenaufbereitung Leipzig', 'Lackaufbereitung Leipzig', 'Autopolitur Leipzig', 'Lackversiegelung Leipzig']}
@@ -99,7 +104,8 @@ const AussenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Außenaufbereitung"
           title="Was zur Außenaufbereitung gehört."
-          description={`Die Brillant Außenpflege kostet ab 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte, dazu Hochglanzpolitur und Lackversiegelung. ${AUFPREIS_SATZ}`}
+          // Seit 2026-10-05 steht die Hochglanzpolitur im Ablauf, die Lackversiegelung ist nicht mehr im Paket (Andre).
+          description={`Die Brillant Außenpflege kostet ab 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={aussenLeistungen} />
       </div>

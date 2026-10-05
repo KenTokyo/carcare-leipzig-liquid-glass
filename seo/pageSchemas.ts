@@ -67,7 +67,8 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, schonende Handoberwäsche, Hochglanzpolitur und Lackversiegelung. Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    // Andre, 2026-10-05: Brillant Außenpflege ohne Lackversiegelung, „intensive“ Handoberwaesche (wie data/detailing.ts).
+    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, intensive Handoberwäsche, Hochglanzpolitur und Scheibenreinigung. Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
     // Seit 2026-09-28 mit Preiskacheln — ausgezeichnet werden genau die sichtbaren (Zuordnung in data/detailing.ts).
     offerCatalogSchema('Außen- und Lackaufbereitung, Exklusiv- und Zusatzleistungen', '/aussenaufbereitung-leipzig', schemaAngebote([...angeboteAussen.pakete, ...angeboteAussen.zusatz])),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),

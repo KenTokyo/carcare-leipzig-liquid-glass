@@ -276,7 +276,8 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Außenaufbereitung',
     localTitle: 'Außenaufbereitung Leipzig',
     description: 'Außenreinigung, Politur und Versiegelung.',
-    listDescription: 'Vorreinigung, Felgenreinigung und schonende Handoberwäsche, dazu Hochglanzpolitur und Lackversiegelung.',
+    // Andre, 2026-10-05: Brillant Außenpflege ohne Lackversiegelung, „intensive“ Handoberwaesche.
+    listDescription: 'Vorreinigung, Felgenreinigung und intensive Handoberwäsche, dazu Hochglanzpolitur und Scheibenreinigung.',
     iconName: 'Sparkles',
     href: '/aussenaufbereitung-leipzig',
     cta: 'Außenaufbereitung ansehen',

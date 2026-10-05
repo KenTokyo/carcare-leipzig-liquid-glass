@@ -11,13 +11,18 @@ import { videoPlatz } from '../data/videos';
  * INHALT UNVERAENDERT, nur verbunden. Neu ist allein „Motorradteile": Gegenstand bleibt das Fahrzeug, dazu
  * Motorradteile — andere Objekte bewusst nicht („Trödel, der kommt so schon zur Tür rein").
  *
+ * ANDRES TEXTE VOM 2026-10-05 (Nachtrag 6.11, vom User weitergegeben): Motorradteile wieder gestrichen („Motorrad
+ * lassen wir gekonnt weg!“). Typische Faelle und farbliche Angleichung in seinem Wortlaut, nur grammatisch gefasst
+ * („Front/Heck-Stoßfänger“ → „Front- und Heckstoßfänger“, „Eine notwendige … Angleichung entscheidet …“ → „Über eine
+ * notwendige … Angleichung entscheidet …“). Im dritten Absatz „und einer digitalen Farbtonanalyse“ ergaenzt.
+ *
  * PREIS (6.25, Mail André 2026-09-28): „Einheitliche Angabe — Preis nach Aufwand" fuer Neu- und
  * Reparaturlackierung. Sichtbar unter dem Text und als FAQ (das FAQ-Schema zieht daraus mit).
  */
 const leistungsbeschreibung = [
-  'Wir übernehmen Neu- und Reparaturlackierungen an Fahrzeugen aller Marken und lackieren auch Motorradteile. Bevorzugt arbeiten wir mit Spot-Repair, der möglichst perfekten Lackinstandsetzung mit geringem Aufwand: Dabei bearbeiten wir nur die beschädigte Stelle statt des ganzen Bauteils.',
-  'Reicht Spot-Repair nicht aus, lackieren wir das komplette Bauteil unter modernen Bedingungen mit bestmöglichem Ergebnis. Typische Fälle sind Stoßfänger, Motorhaube und Radlauf nach Kratzern, Steinschlägen oder anderen Lackschäden. Beschädigte Stoßfänger lackieren wir inklusive farblicher Angleichung, damit das Fahrzeug wieder ein einheitliches Erscheinungsbild hat.',
-  'Maßstab jeder Lackierung ist die farbtongenaue Angleichung: Weder Farbton noch Effekt sollen sich für das Auge von der Originallackierung unterscheiden. Dafür arbeiten wir als Glasurit-Lackpartner mit umweltschonenden Wasserbasislacken.',
+  'Wir übernehmen Neu- und Reparaturlackierungen an Fahrzeugen aller Marken. Bevorzugt arbeiten wir mit Spot-Repair, der möglichst perfekten Lackinstandsetzung mit geringem Aufwand: Dabei bearbeiten wir nur die beschädigte Stelle statt des ganzen Bauteils.',
+  'Reicht Spot-Repair nicht aus, lackieren wir das komplette Bauteil unter modernen Bedingungen mit bestmöglichem Ergebnis. Typische Fälle sind Front- und Heckstoßfänger nach Anfahrbeschädigungen, Frontklappen mit Steinschlägen, verkratzte Seitenwände, Radläufe und Außenspiegel. Über eine notwendige farbliche Angleichung entscheidet der jeweilige Auslesewert des Farbtones. Sie erfolgt nach Absprache.',
+  'Maßstab jeder Lackierung ist die farbtongenaue Angleichung: Weder Farbton noch Effekt sollen sich für das Auge von der Originallackierung unterscheiden. Dafür arbeiten wir als Glasurit-Lackpartner mit umweltschonenden Wasserbasislacken und einer digitalen Farbtonanalyse.',
 ];
 
 const usp = [
