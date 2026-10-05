@@ -49,14 +49,14 @@ export const historie: TimelineStation[] = [
     zeit: '2000',
     title: 'Spot- und Smart-Repair',
     // Backlog 4.17, Wortlaut des Kunden.
-    description: 'Erweiterung um das Geschäftsfeld Spot- und Smart-Repair.',
+    description: 'Erweiterung um das Geschäftsfeld Spot-Repair und Smart Repair.',
   },
   {
     zeit: '2013',
-    title: 'Umzug auf über 3.500 m²',
+    title: 'Umzug auf über 3.500 m²',
     // Backlog 4.18, Wortlaut des Kunden. Entsperrt durch die Entscheidung zu 4.2.
     description:
-      'Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des Portfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie komplett neue Arbeitsbereiche.',
+      'Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des Portfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie komplett neue Arbeitsbereiche.',
   },
   {
     zeit: '2017',
@@ -74,7 +74,7 @@ export const historie: TimelineStation[] = [
   },
   {
     zeit: 'Heute',
-    title: 'Über 3.500 m² in Leipzig',
+    title: 'Über 3.500 m² in Leipzig',
     description:
       'Über 50 Mitarbeiter betreuen Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller.',
   },

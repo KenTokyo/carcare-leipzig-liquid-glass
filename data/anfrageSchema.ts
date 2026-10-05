@@ -5,7 +5,7 @@ import { zusatzleistungen } from './zusatzleistungen.js';
 import { paketOffen } from './zusatzregeln.js';
 
 export const PARTNER_TYPEN = {
-  autohaus: 'Autohaus', fuhrpark: 'Fuhrpark', versicherung: 'Versicherung / Versicherungsagentur',
+  autohaus: 'Autohaus', fuhrpark: 'Fuhrpark', versicherung: 'Versicherung/Versicherungsagentur',
   rahmenvertrag: 'Rahmenvertrag / laufende Zusammenarbeit', sonstiges: 'Sonstiges',
 };
 
@@ -73,7 +73,7 @@ export const FELDBESCHRIFTUNG: Record<string, string> = {
   zusatzleistungen: 'Zusatzleistungen',
   preferredDate: 'Wunschtermin',
   wunsch: 'Gewünschter nächster Schritt',
-  ersatzfahrzeug: 'Ersatzfahrzeug gewünscht',
+  ersatzfahrzeug: 'Ersatzwagen gewünscht',
   partnerType: 'Art der Partnerschaft',
   position: 'Bereich',
   description: 'Nachricht',

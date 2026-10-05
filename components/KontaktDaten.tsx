@@ -59,7 +59,7 @@ const KARTEN = [
     titel: 'Öffnungszeiten',
     inhalt: (
       <p className="text-sm leading-relaxed text-gray-600">
-        {OEFFNUNG_ANZEIGE.werktage}: {OEFFNUNG_ANZEIGE.zeit} Uhr
+        {OEFFNUNG_ANZEIGE.werktage}: {OEFFNUNG_ANZEIGE.zeit} Uhr
         <br />
         Sa: {OEFFNUNG_ANZEIGE.samstag}
       </p>

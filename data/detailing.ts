@@ -19,7 +19,7 @@ import { buchbarText } from './zusatzregeln';
  * einbauen, lesen ihn von hier — keine zweite Schreibweise.
  */
 export const AUFPREIS_SATZ =
-  'Für Geländewagen und Großraumlimousinen kommt ein Aufpreis von 20 % hinzu, für Transporter von 50 %.';
+  'Für Geländewagen und Großraumlimousinen kommt ein Aufpreis von 20 % hinzu, für Transporter von 50 %.';
 
 /**
  * Pflegepakete inkl. Preis. Reihenfolge = aufsteigender Leistungsumfang.
@@ -32,7 +32,7 @@ export const carePackages: PriceItem[] = [
   {
     id: 'p1',
     title: 'Brillant Außenpflege',
-    price: 'ab 169,00 €',
+    price: 'ab 169,00 €',
     fussnote: true,
     leistung: 'aussen',
     // Backlog 2.10: Der zweite Satz trennt zwei Dinge, die sonst verwechselt werden —
@@ -55,7 +55,7 @@ export const carePackages: PriceItem[] = [
     id: 'p2',
     // Backlog 4.21: Programmname des Kunden. Bis 2026-09-16 stand hier „Intensiv Innenreinigung".
     title: 'Intensiv Innenraumreinigung',
-    price: 'ab 199,00 €',
+    price: 'ab 199,00 €',
     fussnote: true,
     leistung: 'innen',
     // Backlog 4.6: Teppichreinigung ergaenzt, „Schonende Oberwaesche" statt „inkl. Abledern".
@@ -68,11 +68,11 @@ export const carePackages: PriceItem[] = [
   {
     id: 'p3',
     title: 'Premiumpflege',
-    price: 'ab 299,00 €',
+    price: 'ab 299,00 €',
     fussnote: true,
     leistung: 'komplett',
     description:
-      'Brillant Außenpflege und Intensiv Innenraumreinigung kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.',
+      'Brillant Außenpflege und Intensiv Innenraumreinigung kombiniert, inklusive Motorreinigung und Versiegelung. Fahrzeuge mit extremen Verschmutzungen (z. B. Tierhaare) bedürfen einer gesonderten Absprache.',
   },
   {
     id: 'p4',
@@ -85,7 +85,7 @@ export const carePackages: PriceItem[] = [
     // las sich das Paket wie eine reine Lackbehandlung — die Nennung von Wachs,
     // Carnauba und Glanzgrad zieht den Blick nach aussen. Es umfasst beides.
     description:
-      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien, u. a. Wachsen von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
+      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien, u. a. Wachsen von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
   },
   {
     // Backlog 4.9 (2026-09-16): Die Lackaufbereitung steht jetzt BEI den Paketen, mit

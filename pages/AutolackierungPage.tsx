@@ -28,7 +28,7 @@ const leistungsbeschreibung = [
 const usp = [
   { title: 'Glasurit-Lackpartner', description: 'Farbtongenaue, makellose Reparaturen mit langlebigem Premium-Finish und umweltschonenden Wasserbasislacken.' },
   { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Lackierung ist unser Kernhandwerk.' },
-  { title: 'Full-Service auf über 3.500 m²', description: 'Reicht Spot-Repair nicht aus, folgt die Komplettlackierung in derselben Halle, ohne Ortswechsel.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Reicht Spot-Repair nicht aus, folgt die Komplettlackierung in derselben Halle, ohne Ortswechsel.' },
 ];
 
 /** Seitenhintergrund als Video (Backlog 6.12): derselbe Film wie auf der Startseitenkarte, eigener Querschnitt. */

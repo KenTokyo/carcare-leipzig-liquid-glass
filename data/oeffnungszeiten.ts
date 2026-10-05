@@ -38,15 +38,15 @@ const stunde = (hhmm: string) => {
 };
 
 /** Neutrale Fassung ohne Uhrzeit-Bezug — fuer das statische HTML und vor dem ersten Rechnen. */
-export const OEFFNUNG_NEUTRAL = `Mo–Fr ${stunde(OEFFNUNG.von)}–${stunde(OEFFNUNG.bis)} Uhr`;
+export const OEFFNUNG_NEUTRAL = `Mo–Fr ${stunde(OEFFNUNG.von)}–${stunde(OEFFNUNG.bis)} Uhr`;
 
 /**
  * Sichtbare Angaben fuer Footer und Kontaktkarten. Halbgeviertstrich mit Leerzeichen wie bisher
  * im Footer; `KontaktDaten` und `ContactCTA` hatten bis 2026-09-24 den Bindestrich („Mo - Fr").
  */
 export const OEFFNUNG_ANZEIGE = {
-  werktage: 'Mo – Fr',
-  zeit: `${OEFFNUNG.von} – ${OEFFNUNG.bis}`,
+  werktage: 'Mo–Fr',
+  zeit: `${stunde(OEFFNUNG.von)}–${stunde(OEFFNUNG.bis)}`,
   samstag: 'nach Vereinbarung',
   /** Fuer die schmale Footer-Spalte. */
   samstagKurz: 'n. Vereinbarung',
@@ -70,7 +70,7 @@ export interface OeffnungsStatus {
 /** `'07:00'` → `'7 Uhr'`, `'07:30'` → `'7:30 Uhr'`. */
 const uhr = (hhmm: string) => {
   const [h, m] = hhmm.split(':').map(Number);
-  return m ? `${h}:${String(m).padStart(2, '0')} Uhr` : `${h} Uhr`;
+  return m ? `${h}:${String(m).padStart(2, '0')} Uhr` : `${h} Uhr`;
 };
 
 const minuten = (hhmm: string) => {

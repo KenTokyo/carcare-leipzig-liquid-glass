@@ -26,13 +26,13 @@ export interface PrivatkundenVorteil {
 export const privatkundenVorteile: PrivatkundenVorteil[] = [
   {
     title: 'Ein Betrieb statt drei Werkstätten',
-    beschreibung: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht, und Sie haben einen Ansprechpartner statt drei.',
+    beschreibung: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht, und Sie haben einen Ansprechpartner statt drei.',
     kurz: 'Alles auf über 3.500 m² und ein Ansprechpartner statt drei.',
     startseite: true,
   },
   {
     title: 'Feste Paketpreise bei der Aufbereitung',
-    beschreibung: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege. Für Geländewagen, Großraumlimousinen und Transporter gilt ein fester Aufpreis. Sie wissen vorher, was es kostet.',
+    beschreibung: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege. Für Geländewagen, Großraumlimousinen und Transporter gilt ein fester Aufpreis. Sie wissen vorher, was es kostet.',
     kurz: 'Feste Pflegepakete ab 169,00 €: Sie wissen vorher, was es kostet.',
     startseite: true,
   },
@@ -50,8 +50,8 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
   },
   {
     title: 'Sie bleiben mobil',
-    beschreibung: 'Für die Dauer der Reparatur organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug. Sprechen Sie uns bei der Terminvereinbarung darauf an.',
-    kurz: 'Werkstattersatzfahrzeug nach Verfügbarkeit.',
+    beschreibung: 'Für die Dauer der Reparatur organisieren wir nach Verfügbarkeit einen Ersatzwagen. Sprechen Sie uns bei der Terminvereinbarung darauf an.',
+    kurz: 'Ersatzwagen nach Verfügbarkeit.',
   },
   {
     title: 'Reparatur ohne Wertminderung',

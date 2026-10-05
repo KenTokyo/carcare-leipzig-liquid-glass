@@ -394,17 +394,17 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     path: '/autoaufbereitung-wissen/spot-repair',
     category: 'Smart Repair',
     readTime: '6 Min.',
-    title: 'Was ist Spot Repair?',
-    metaTitle: 'Was ist Spot Repair? Ablauf und Grenzen | CarCare Center',
+    title: 'Was ist Spot-Repair?',
+    metaTitle: 'Was ist Spot-Repair? Ablauf und Grenzen | CarCare Center',
     metaDescription:
-      'Spot Repair erklärt: Was die punktuelle Lackreparatur leistet, wann sie funktioniert, wo ihre Grenzen liegen und wovon die Kosten im Einzelfall abhängen.',
-    cardTitle: 'Was ist Spot Repair?',
+      'Spot-Repair erklärt: Was die punktuelle Lackreparatur leistet, wann sie funktioniert, wo ihre Grenzen liegen und wovon die Kosten im Einzelfall abhängen.',
+    cardTitle: 'Was ist Spot-Repair?',
     cardDescription: 'Punktuelle Lackreparatur statt Komplettlackierung. Wann sie funktioniert und wo ihre Grenzen liegen.',
     introAnswer:
-      'Spot Repair ist die punktuelle Reparatur eines begrenzten Lackschadens: Statt das ganze Bauteil neu zu lackieren, wird nur die beschädigte Stelle bearbeitet und der Übergang in den vorhandenen Lack ausgeblendet. Das spart Material und Zeit und erhält den umgebenden Originallack.',
+      'Spot-Repair ist die punktuelle Reparatur eines begrenzten Lackschadens: Statt das ganze Bauteil neu zu lackieren, wird nur die beschädigte Stelle bearbeitet und der Übergang in den vorhandenen Lack ausgeblendet. Das spart Material und Zeit und erhält den umgebenden Originallack.',
     definition: [
-      'Spot Repair gehört zum Smart Repair, dem Sammelbegriff für reparaturbegrenzte Verfahren. Bearbeitet wird nur der Schaden selbst und ein kleiner Bereich darum herum, nicht die gesamte Tür oder Stoßstange.',
-      'Der Unterschied zur Komplettlackierung liegt in der Fläche, nicht in der Sorgfalt: Auch beim Spot Repair werden Grundierung, Basislack und Klarlack aufgebaut. Entscheidend ist, dass der Übergang zum Altlack unsichtbar ausläuft.',
+      'Spot-Repair gehört zum Smart Repair, dem Sammelbegriff für reparaturbegrenzte Verfahren. Bearbeitet wird nur der Schaden selbst und ein kleiner Bereich darum herum, nicht die gesamte Tür oder Stoßstange.',
+      'Der Unterschied zur Komplettlackierung liegt in der Fläche, nicht in der Sorgfalt: Auch beim Spot-Repair werden Grundierung, Basislack und Klarlack aufgebaut. Entscheidend ist, dass der Übergang zum Altlack unsichtbar ausläuft.',
       'Ob ein Schaden dafür geeignet ist, entscheidet sich an Größe, Lage und Tiefe, nicht am Wunsch. Reicht der Schaden bis aufs blanke Blech oder über eine Kante, ist eine andere Reparaturstrategie richtig.',
     ],
     whenItPays: [
@@ -430,13 +430,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       'Zustand des Altlacks: verwittert oder bereits nachlackiert erschwert den Übergang',
     ],
     tips: [
-      'Schäden früh zeigen: Ein Steinschlag, der bis aufs Blech geht, kann unterrostet werden und ist dann kein Fall mehr für Spot Repair.',
+      'Schäden früh zeigen: Ein Steinschlag, der bis aufs Blech geht, kann unterrostet werden und ist dann kein Fall mehr für Spot-Repair.',
       'Nicht selbst mit Lackstift vorarbeiten. Aufgetragenes Material muss vor der Reparatur wieder entfernt werden.',
       'Mehrere kleine Schäden gemeinsam ansehen lassen. Ab einer gewissen Anzahl auf einem Bauteil ist die Lackierung des ganzen Teils sinnvoller.',
       'Bei Leasingrückgabe früh einplanen: Der Termin entscheidet mit darüber, welche Verfahren überhaupt noch infrage kommen.',
     ],
     mistakes: [
-      'Spot Repair bei Schäden erwarten, die über eine Bauteilkante laufen',
+      'Spot-Repair bei Schäden erwarten, die über eine Bauteilkante laufen',
       'die Fläche unterschätzen, weil der Kratzer schmal, aber lang ist',
       'Rost übersehen und nur die Oberfläche betrachten',
       'den Farbton nach Gefühl statt nach Messung bestimmen lassen',
@@ -444,13 +444,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     faqs: [
       {
         id: 'unterschied',
-        question: 'Was ist der Unterschied zwischen Spot Repair und Smart Repair?',
+        question: 'Was ist der Unterschied zwischen Spot-Repair und Smart Repair?',
         answer:
-          'Smart Repair ist der Oberbegriff für alle reparaturbegrenzten Verfahren, etwa lackschadenfreie Dellenentfernung, Kunststoff- oder Polsterreparatur. Spot Repair meint davon speziell die punktuelle Lackreparatur.',
+          'Smart Repair ist der Oberbegriff für alle reparaturbegrenzten Verfahren, etwa lackschadenfreie Dellenentfernung, Kunststoff- oder Polsterreparatur. Spot-Repair meint davon speziell die punktuelle Lackreparatur.',
       },
       {
         id: 'grenzen',
-        question: 'Wann ist Spot Repair nicht möglich?',
+        question: 'Wann ist Spot-Repair nicht möglich?',
         answer:
           'Wenn der Schaden über eine Kante oder Sicke läuft, sehr großflächig ist, bis aufs blanke Blech reicht und bereits Rost gebildet hat, oder wenn der Altlack so verwittert ist, dass kein unsichtbarer Übergang entsteht. Dann ist die Lackierung des Bauteils der richtige Weg.',
       },

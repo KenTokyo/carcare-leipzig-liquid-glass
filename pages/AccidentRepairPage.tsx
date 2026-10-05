@@ -53,7 +53,7 @@ const repairServices = [
   },
   {
     title: 'Autoglas & Scheibenfolien',
-    description: 'Steinschlagreparatur, Neuverglasung für PKW, LKW und Bus sowie Folierungen aller Art. Als WINTEC-Partner mit 30 Jahren Garantie auf die Reparatur und die Dichtigkeit ausgetauschter Scheiben.',
+    description: 'Steinschlagreparatur, Neuverglasung für Pkw, Lkw und Bus sowie Folierungen aller Art. Als WINTEC-Partner mit 30 Jahren Garantie auf die Reparatur und die Dichtigkeit ausgetauschter Scheiben.',
     href: '/autoglas-leipzig',
   },
 ];
@@ -65,7 +65,7 @@ const caseHandling = [
   { title: 'Versicherungsabwicklung', description: 'Auf Wunsch übernehmen wir Schriftverkehr und Abstimmung mit Versicherern und Agenturen.' },
   // Backlog 2.17: Umbenannt — die Karte deckt Karosserie UND Lack ab.
   { title: 'Karosserie- und Lackierarbeiten', description: 'Fachgerechte Instandsetzung beschädigter Karosserie- und Anbauteile im eigenen Haus, inklusive der zugehörigen Lackierarbeiten.' },
-  { title: 'Ersatzmobilität', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug.' },
+  { title: 'Ersatzmobilität', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen.' },
   { title: 'Dokumentation', description: 'Nachvollziehbare Dokumentation der Schritte und saubere Übergabe nach Abschluss.' },
   // Backlog 3.7: Wortlaut vom Kunden vorgegeben und freigegeben — nicht umformulieren.
   { title: 'Alle Marken', description: 'Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen.' },

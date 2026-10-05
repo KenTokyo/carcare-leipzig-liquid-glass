@@ -60,7 +60,7 @@ const ContactCTA: React.FC = () => {
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Clock size={18} /></span>
                   <h3 className="text-sm font-bold text-gray-950">Öffnungszeiten</h3>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-600">{OEFFNUNG_ANZEIGE.werktage}: {OEFFNUNG_ANZEIGE.zeit} Uhr<br />Sa: {OEFFNUNG_ANZEIGE.samstag}</p>
+                <p className="text-sm leading-relaxed text-gray-600">{OEFFNUNG_ANZEIGE.werktage}: {OEFFNUNG_ANZEIGE.zeit} Uhr<br />Sa: {OEFFNUNG_ANZEIGE.samstag}</p>
               </div>
               <div className="cc-karte-hell rounded-2xl border border-gray-100 p-6 sm:col-span-2">
                 <div className="mb-3 flex items-center gap-3">

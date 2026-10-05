@@ -341,7 +341,7 @@ const SuchDialog: React.FC = () => {
 
                 {hatAnfrage && zustand === 'bereit' && treffer.length === 0 && (
                   <div className="px-3 py-6 text-sm leading-relaxed text-gray-600">
-                    <p className="font-semibold text-gray-950">Keine Treffer für „{anfrage.trim()}".</p>
+                    <p className="font-semibold text-gray-950">Keine Treffer für „{anfrage.trim()}“.</p>
                     <p className="mt-2">
                       Versuchen Sie ein anderes Wort, oder fragen Sie uns direkt:{' '}
                       <a href="tel:+493412617790" className="font-semibold text-gray-950 underline-offset-2 hover:underline">
@@ -409,7 +409,7 @@ const SuchDialog: React.FC = () => {
                 <span><kbd className="font-sans font-semibold">↑ ↓</kbd> auswählen</span>
                 <span><kbd className="font-sans font-semibold">Enter</kbd> öffnen</span>
                 <span><kbd className="font-sans font-semibold">Esc</kbd> schließen</span>
-                <span className="ml-auto"><kbd className="font-sans font-semibold">Strg K</kbd> öffnet die Suche überall</span>
+                <span className="ml-auto"><kbd className="font-sans font-semibold">Strg + K</kbd> öffnet die Suche überall</span>
               </div>
             </motion.div>
           </div>

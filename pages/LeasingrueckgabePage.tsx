@@ -70,7 +70,7 @@ const repairs = [
   },
   {
     title: 'Aufbereitung innen und außen',
-    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenraumreinigung kostet ab 199,00 €, die Premiumpflege mit Außenaufbereitung ab 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer und mit Aufpreis je nach Fahrzeugklasse.',
+    description: 'Der Innenraum fließt in die Bewertung ein. Die Intensiv Innenraumreinigung kostet ab 199,00 €, die Premiumpflege mit Außenaufbereitung ab 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer und mit Aufpreis je nach Fahrzeugklasse.',
     href: '/fahrzeugaufbereitung-leipzig#preise',
   },
 ];
@@ -86,18 +86,18 @@ const privateBenefits = [
   },
   {
     title: 'Alles an einem Standort',
-    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
+    description: 'Lack, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Schritten nicht weitergereicht.',
   },
   {
     title: 'Sie bleiben mobil',
-    description: 'Für die Dauer der Arbeiten organisieren wir nach Verfügbarkeit ein Werkstattersatzfahrzeug. Sprechen Sie uns bei der Terminvereinbarung darauf an.',
+    description: 'Für die Dauer der Arbeiten organisieren wir nach Verfügbarkeit einen Ersatzwagen. Sprechen Sie uns bei der Terminvereinbarung darauf an.',
   },
 ];
 
 const businessBenefits = [
   {
     title: 'Mehrere Fahrzeuge parallel',
-    description: 'Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten. Das hilft, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
+    description: 'Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich auch mehrere Rückläufer gleichzeitig bearbeiten. Das hilft, wenn im Fuhrpark mehrere Verträge zum selben Termin auslaufen.',
   },
   {
     title: 'Fester Ansprechpartner',

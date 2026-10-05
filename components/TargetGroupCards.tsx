@@ -50,7 +50,7 @@ const groups: TargetGroup[] = [
      * quoten oder Durchlaufzeiten — die liegen hier nicht belegt vor.
      */
     description:
-      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand. Instandsetzung statt Tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Werkstattersatzfahrzeug, festem Ansprechpartner und strukturierten Abläufen.',
+      'Schadenaufnahme, Kalkulation und Instandsetzung aus einer Hand. Instandsetzung statt Tauschen, wo es fachlich vertretbar ist. Farbtongenau als Glasurit-Lackpartner, mit Ersatzwagen, festem Ansprechpartner und strukturierten Abläufen.',
     cta: 'Schadenpartner kennenlernen',
     iconName: 'ShieldCheck',
     // Zeigte bis 2026-08-09 auf `/unfallinstandsetzung-leipzig`. Auf Wunsch des Users
@@ -90,7 +90,7 @@ const groups: TargetGroup[] = [
      * keine Adjektive.
      */
     description:
-      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus, auf über 3.500 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
+      'Lack, Karosserie, Smart Repair und Aufbereitung aus einem Haus, auf über 3.500 m², farbtongenau als Glasurit-Lackpartner, inklusive kompletter Unfallabwicklung und festem Ansprechpartner.',
     cta: 'Geschäftskundenservice ansehen',
     iconName: 'Building2',
     href: '/geschaeftskunden',

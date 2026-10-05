@@ -80,6 +80,10 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    „8–17 Uhr") und Wochentagen sowie die Telefonnummer „0341 - 261 77 90". Der Build bricht
    bei einem neuen Strich (`scripts/check-gedankenstriche.mjs` im `postbuild`); Kommentare im
    Code sind nicht betroffen.
+7. **Stilblatt** (seit 2026-10-06, Lektorat): Schreibweisen nach `docs/lektorat/stilblatt.md`,
+   u. a. „Spot-Repair“, „Smart Repair“, „Pkw/Lkw“, „Ersatzwagen“ (nicht „Werkstattersatzfahrzeug“),
+   geschütztes Leerzeichen zwischen Zahl und Einheit (m², €, %, km, Uhr) und in „z. B.“, Komma vor
+   jeder Infinitivgruppe mit „zu“. Prüfen: `npm run lektorat` (Auszug und Vorprüfung je Route).
 
 ## Inhaltliche SEO-Vorgaben des Kunden
 
@@ -130,6 +134,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 | `npm run gedankenstriche` | Gedankenstriche im ausgelieferten Text, in Titeln und Beschreibungen (Textregel 6), mit Umfeld je Fund | läuft als Wächter im `postbuild` mit; von Hand nach Textänderungen |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
+| `npm run lektorat` | Text jeder Route **so, wie der Besucher ihn sieht** (Akkordeons und FAQ aufgeklappt, Desktop + mobil, Bildtexte, Vorlesetexte, Formularfelder, Title/Description, JSON-LD), dazu globale Bausteine, Formulare und Suche; mechanische Vorprüfung gegen Duden 2024, Stilblatt und Textregeln (K/H). Schreibt `output/lektorat/auszuege/*.md` + `uebersicht.md` (Wörter gegen Suchindex). Routen einzeln: `npm run lektorat -- karriere start`; nur global: `-- --global` | bei jeder Textänderung und für das Lektorat (`docs/lektorat/`) |
 
 Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
 selbst — **niemals** `npm run dev` dafür starten.

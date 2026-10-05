@@ -120,6 +120,9 @@ const SYNONYME: Record<string, string[]> = {
   mietwagen: ['ersatzwagen', 'ersatzfahrzeug'],
   leihauto: ['ersatzwagen', 'ersatzfahrzeug'],
   ersatzauto: ['ersatzwagen', 'ersatzfahrzeug'],
+  // Stilblatt 2026-10-06: Die Seite sagt nur noch „Ersatzwagen“ (docs/lektorat/stilblatt.md).
+  ersatzfahrzeug: ['ersatzwagen'],
+  werkstattersatzfahrzeug: ['ersatzwagen'],
   parkschaden: ['parkplatzrempler', 'rempler'],
   parkrempler: ['parkplatzrempler'],
   azubi: ['ausbildung'],

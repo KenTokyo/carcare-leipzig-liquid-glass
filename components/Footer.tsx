@@ -223,7 +223,7 @@ const Footer: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Clock size={16} className="mt-1 shrink-0 text-gray-400" />
                   <div className="leading-snug">
-                    <p><span className="font-semibold text-white">{OEFFNUNG_ANZEIGE.werktage}:</span> {OEFFNUNG_ANZEIGE.zeit}</p>
+                    <p><span className="font-semibold text-white">{OEFFNUNG_ANZEIGE.werktage}:</span> {OEFFNUNG_ANZEIGE.zeit} Uhr</p>
                     <p><span className="font-semibold text-white">Sa:</span> {OEFFNUNG_ANZEIGE.samstagKurz}</p>
                   </div>
                 </div>

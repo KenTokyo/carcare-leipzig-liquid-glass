@@ -82,7 +82,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
             value={werte.phone}
             onChange={onChange}
             className={inputClass}
-            placeholder="0341 - ..."
+            placeholder="0341 - …"
           />
         </div>
         <div>
@@ -121,7 +121,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
         {werte.marke === ANDERE_MARKE ? (
           <div>
             <label className={labelClass} htmlFor="termin-modell-frei">Marke und Modell</label>
-            <input id="termin-modell-frei" name="modellFrei" value={werte.modellFrei ?? ''} onChange={onChange} className={inputClass} placeholder="z. B. Lynk & Co 01" />
+            <input id="termin-modell-frei" name="modellFrei" value={werte.modellFrei ?? ''} onChange={onChange} className={inputClass} placeholder="z. B. Lynk & Co 01" />
           </div>
         ) : (
           <div>
@@ -145,7 +145,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
         {werte.modell === ANDERES_MODELL && (
           <div className="md:col-span-2">
             <label className={labelClass} htmlFor="termin-modell-anderes">Welches Modell?</label>
-            <input id="termin-modell-anderes" name="modellFrei" value={werte.modellFrei ?? ''} onChange={onChange} className={inputClass} placeholder="z. B. Golf Sportsvan" />
+            <input id="termin-modell-anderes" name="modellFrei" value={werte.modellFrei ?? ''} onChange={onChange} className={inputClass} placeholder="z. B. Golf Sportsvan" />
           </div>
         )}
       </div>
@@ -286,7 +286,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
       </details>
       <div>
         <label className={labelClass} htmlFor="termin-description">Nachricht</label>
-        <textarea id="termin-description" name="description" rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Sonderwünsche, Fahrzeugzustand ..." />
+        <textarea id="termin-description" name="description" rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Sonderwünsche, Fahrzeugzustand …" />
       </div>
     </>
   );

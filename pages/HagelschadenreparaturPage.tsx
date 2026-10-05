@@ -12,7 +12,7 @@ const leistungen = [
 ];
 
 const usp = [
-  { title: 'Komplette Versicherungsabwicklung', description: 'Unfall- und Versicherungsabwicklung inklusive Kostenvoranschlag und Werkstattersatzfahrzeug.' },
+  { title: 'Komplette Versicherungsabwicklung', description: 'Unfall- und Versicherungsabwicklung inklusive Kostenvoranschlag und Ersatzwagen.' },
   { title: 'Glasurit-Lackpartner', description: 'Wo lackiert werden muss, arbeiten wir als Glasurit-Lackpartner farbtongenau.' },
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung mit Schäden aller Art seit 1998. Karosserie und Lack aus einer Hand.' },
 ];

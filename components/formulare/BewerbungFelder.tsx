@@ -27,7 +27,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
       </div>
       <div>
         <label className={labelClass} htmlFor="bewerbung-phone">Telefon</label>
-        <input id="bewerbung-phone" name="phone" required type="tel" value={werte.phone} onChange={onChange} className={inputClass} placeholder="0341 - ..." />
+        <input id="bewerbung-phone" name="phone" required type="tel" value={werte.phone} onChange={onChange} className={inputClass} placeholder="0341 - …" />
       </div>
     </div>
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -109,7 +109,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
     </div>
     <div>
       <label className={labelClass} htmlFor="bewerbung-description">Nachricht</label>
-      <textarea id="bewerbung-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Ein paar Sätze zu Ihrer Erfahrung und dazu, ab wann Sie können ..." />
+      <textarea id="bewerbung-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Ein paar Sätze zu Ihrer Erfahrung und dazu, ab wann Sie können …" />
     </div>
   </>
 );

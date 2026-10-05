@@ -36,7 +36,7 @@ const AnhangFeld: React.FC<AnhangFeldProps> = ({ dateien, onChange }) => {
     for (const datei of Array.from(auswahl)) {
       const endung = anhangEndung(datei.name);
       if (!ANHANG_TYPEN[endung]) {
-        hinweis = `„${datei.name}" hat ein anderes Format. Bitte PDF, Word, ODT, JPG oder PNG.`;
+        hinweis = `„${datei.name}“ hat ein anderes Format. Bitte PDF, Word, ODT, JPG oder PNG.`;
         continue;
       }
       const kopf = new Uint8Array(await datei.slice(0, 8).arrayBuffer());

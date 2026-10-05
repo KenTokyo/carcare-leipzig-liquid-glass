@@ -2,16 +2,16 @@ import React from 'react';
 import ServiceLayout from '../components/ServiceLayout';
 
 const scope = [
-  { title: 'Neuverglasung PKW, LKW & Bus', description: 'Fachgerechter Scheibentausch für PKW, LKW und Bus.' },
+  { title: 'Neuverglasung Pkw, Lkw & Bus', description: 'Fachgerechter Scheibentausch für Pkw, Lkw und Bus.' },
   { title: 'Steinschlagreparaturen', description: 'Reparatur von Steinschlägen, bevor sich Risse in der Scheibe ausbreiten.' },
   { title: 'Folienbeschichtungen aller Art', description: 'Scheibenfolierung sowie Schutzfolien für Ihren Lack.' },
-  { title: 'Werkstatt-Ersatzfahrzeug gratis', description: 'Während der Arbeiten stellen wir Ihnen ein Werkstatt-Ersatzfahrzeug kostenlos zur Verfügung.' },
+  { title: 'Ersatzwagen gratis', description: 'Während der Arbeiten stellen wir Ihnen einen Ersatzwagen kostenlos zur Verfügung.' },
 ];
 
 const usp = [
   { title: 'WINTEC-Autoglas-Partner', description: 'Als WINTEC-Partner geben wir 30 Jahre Garantie auf die Autoglas-Reparatur und die Dichtigkeit ausgetauschter Scheiben.' },
   { title: 'ISO 9001 TÜV-zertifiziert', description: 'Unsere Arbeit ist nach ISO 9001 TÜV zertifiziert.' },
-  { title: 'Full-Service auf über 3.500 m²', description: 'Autoglas, Lackierung, Karosserie, Smart/Spot Repair und Fahrzeugaufbereitung aus einer Hand.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Autoglas, Lackierung, Karosserie, Smart Repair, Spot-Repair und Fahrzeugaufbereitung aus einer Hand.' },
 ];
 
 const AutoglasPage: React.FC = () => (
@@ -20,7 +20,7 @@ const AutoglasPage: React.FC = () => (
     meta={{
       title: 'Autoglas Leipzig | WINTEC-Partner | CarCare Center',
       description:
-        'Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Folierung. Als WINTEC-Partner ISO-9001-zertifiziert, mit 30 Jahren Garantie und Ersatzfahrzeug.',
+        'Autoglas in Leipzig: Scheibentausch, Steinschlagreparatur und Folierung. Als WINTEC-Partner ISO-9001-zertifiziert, mit 30 Jahren Garantie und Ersatzwagen.',
     }}
     hero={{
       eyebrow: 'Autoglas & Scheibenfolien Leipzig',
@@ -55,7 +55,7 @@ const AutoglasPage: React.FC = () => (
     cta={{
       title: 'Steinschlag oder Scheibenschaden in Leipzig?',
       description:
-        'Melden Sie sich bei uns. Wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen ein Ersatzfahrzeug bereit.',
+        'Melden Sie sich bei uns. Wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen einen Ersatzwagen bereit.',
       primaryLabel: 'Autoglas anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

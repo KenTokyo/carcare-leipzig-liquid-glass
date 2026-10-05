@@ -49,7 +49,7 @@ export const MIT_VERSICHERUNG = ['haftpflicht', 'kasko'];
 export const schadenFelder: SchadenFeld[] = [
   // ------------------------------------------------------------- Kontakt ----
   { id: 'name', label: 'Name', typ: 'text', pflicht: true, platzhalter: 'Max Mustermann', breite: 'halb' },
-  { id: 'phone', label: 'Telefon', typ: 'tel', pflicht: true, platzhalter: '0341 - ...', breite: 'halb' },
+  { id: 'phone', label: 'Telefon', typ: 'tel', pflicht: true, platzhalter: '0341 - …', breite: 'halb' },
   { id: 'email', label: 'E-Mail', typ: 'email', pflicht: true, platzhalter: 'name@beispiel.de', breite: 'halb' },
 
   // ------------------------------------------------------------ Fahrzeug ----
@@ -58,7 +58,7 @@ export const schadenFelder: SchadenFeld[] = [
     id: 'baujahr',
     label: 'Erstzulassung',
     typ: 'text',
-    platzhalter: 'z. B. 2019',
+    platzhalter: 'z. B. 2019',
     hinweis: 'Bestimmt Ersatzteilpreise und Lackaufbau.',
     breite: 'halb',
   },
@@ -167,7 +167,7 @@ export const schadenFelder: SchadenFeld[] = [
   },
   {
     id: 'ersatzfahrzeug',
-    label: 'Ersatzfahrzeug gewünscht?',
+    label: 'Ersatzwagen gewünscht?',
     typ: 'select',
     breite: 'halb',
     optionen: [

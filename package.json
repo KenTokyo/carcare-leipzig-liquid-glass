@@ -33,6 +33,7 @@
     "aussparung": "node scripts/check-aussparung.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",
     "gedankenstriche": "node scripts/check-gedankenstriche.mjs --liste",
+    "lektorat": "node scripts/lektorat-auszug.mjs",
     "push-stand": "node scripts/push-stand.mjs",
     "video": "node scripts/build-video.mjs",
     "partnerlogos": "node scripts/build-partner-logos.mjs",

@@ -25,7 +25,7 @@ const advantages = privatkundenVorteile.map(({ title, beschreibung }) => ({ titl
 const services = [
   {
     title: 'Fahrzeugaufbereitung',
-    description: 'Innen- und Außenaufbereitung, Politur und Versiegelung, mit festen Paketpreisen ab 169,00 €.',
+    description: 'Innen- und Außenaufbereitung, Politur und Versiegelung, mit festen Paketpreisen ab 169,00 €.',
     href: '/fahrzeugaufbereitung-leipzig',
   },
   {
@@ -66,7 +66,7 @@ const services = [
 ];
 
 const situations = [
-  { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege ab 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
+  { title: 'Vor dem Fahrzeugverkauf', description: 'Ein aufbereitetes Fahrzeug wirkt gepflegter und lässt sich besser präsentieren. Die Premiumpflege ab 299,00 € kombiniert dafür Innen- und Außenaufbereitung.', href: '/fahrzeugaufbereitung-leipzig#preise' },
   { title: 'Vor der Leasingrückgabe', description: 'Der Rückgabegutachter bewertet Dellen, Lackschäden, Felgen und Innenraum nach den Sätzen des Leasinggebers. Vorher instand gesetzt, ist vieles davon günstiger.', href: '/leasingrueckgabe-leipzig' },
   { title: 'Nach einem Unfall', description: 'Wir nehmen den Schaden auf, kalkulieren nachvollziehbar und übernehmen auf Wunsch die komplette Abstimmung mit der Versicherung.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Nach dem Parkplatzrempler', description: 'Kleine Dellen und Kratzer müssen kein Fall für die Komplettlackierung sein. Wir prüfen zuerst die lackfreie Variante und Spot-Repair.', href: '/dellenentfernung-leipzig' },
@@ -85,7 +85,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageMeta
       canonical="/privatkunden"
       title="Privatkunden Leipzig | Ihre Vorteile bei CarCare Center"
-      description="Ihre Vorteile als Privatkunde in Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzfahrzeug."
+      description="Ihre Vorteile als Privatkunde in Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzwagen."
     />
     <PageHero
       eyebrow="Privatkunden"

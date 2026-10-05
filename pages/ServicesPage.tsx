@@ -21,7 +21,7 @@ import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 const vorteile = [
   {
     title: 'Alles an einem Standort',
-    description: 'Aufbereitung, Karosserie, Lackierung, Smart Repair, Felgen und Autoglas liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Arbeitsschritten nicht weitergereicht.',
+    description: 'Aufbereitung, Karosserie, Lackierung, Smart Repair, Felgen und Autoglas liegen auf über 3.500 m² im eigenen Haus. Ihr Fahrzeug wird zwischen den Arbeitsschritten nicht weitergereicht.',
   },
   {
     title: 'Meisterbetrieb seit 1998',
@@ -33,13 +33,13 @@ const vorteile = [
   },
   {
     title: 'Abwicklung mit der Versicherung',
-    description: 'Auf Wunsch übernehmen wir Kalkulation über Audatex, Schriftverkehr und Abstimmung mit Versicherer und Gutachter. Nach Verfügbarkeit stellen wir ein Werkstattersatzfahrzeug.',
+    description: 'Auf Wunsch übernehmen wir Kalkulation über Audatex, Schriftverkehr und Abstimmung mit Versicherer und Gutachter. Nach Verfügbarkeit stellen wir einen Ersatzwagen.',
   },
 ];
 
 /** Beschreibende Einleitung je Gruppe — der Gruppentitel steht im Katalog, der Satz hier. */
 const gruppenText: Record<string, string> = {
-  aufbereitung: 'Innen- und Außenaufbereitung mit festen Paketpreisen ab 169,00 €, Lackaufbereitung nach Aufwand und die Vorbereitung auf die Leasingrückgabe.',
+  aufbereitung: 'Innen- und Außenaufbereitung mit festen Paketpreisen ab 169,00 €, Lackaufbereitung nach Aufwand und die Vorbereitung auf die Leasingrückgabe.',
   'unfall-lack': 'Vom Unfallschaden bis zum kleinen Kratzer: Karosserie, Lackierung, Smart Repair, lackfreie Dellenentfernung und Hagelschäden, mit Versicherungsabwicklung auf Wunsch.',
   'rad-glas': 'Felgenreparatur im TÜV-zertifizierten Verfahren und Autoglas als WINTEC-Partner, ohne Umweg über einen weiteren Betrieb.',
   gewerbe: 'Für Autohäuser, Fuhrparks, Versicherungen und Agenturen: feste Ansprechpartner und planbare Abläufe über viele Fahrzeuge hinweg.',
@@ -48,7 +48,7 @@ const gruppenText: Record<string, string> = {
 const ablauf = [
   { title: 'Anfragen', description: 'Rufen Sie an oder fragen Sie online einen Termin an. Einen Unfallschaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info.' },
   { title: 'Begutachten', description: 'Wir sehen uns das Fahrzeug in Leipzig an und besprechen, welches Verfahren fachlich und wirtschaftlich sinnvoll ist.' },
-  { title: 'Preis klären', description: 'Für die Aufbereitung gelten feste Paketpreise ab 169,00 €. Für Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
+  { title: 'Preis klären', description: 'Für die Aufbereitung gelten feste Paketpreise ab 169,00 €. Für Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
   { title: 'Ausführen und übergeben', description: 'Wir arbeiten das Fahrzeug im eigenen Haus ab und übergeben es gereinigt zurück, mit Erklärung, was gemacht wurde.' },
 ];
 
@@ -64,7 +64,7 @@ const ServicesPage: React.FC = () => (
     <PageHero
       eyebrow="Leistungen"
       title="Alle Leistungen vom CarCare Center Leipzig im Überblick."
-      description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas, auf über 3.500 m² aus einer Hand, als Meisterbetrieb und Glasurit-Lackpartner seit 1998."
+      description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas, auf über 3.500 m² aus einer Hand, als Meisterbetrieb und Glasurit-Lackpartner seit 1998."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Fahrzeugaufbereitung Leipzig', 'Unfallinstandsetzung Leipzig', 'Autolackierung Leipzig', 'Smart Repair Leipzig']}

@@ -93,7 +93,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'keramik',
     label: 'Keramikversiegelung',
-    preis: 'ab 849,00 €',
+    preis: 'ab 849,00 €',
     // Backlog 6.18 (Meeting 2026-09-28): vereinbart ist die EMPFEHLUNG, jaehrlich aufzufrischen — ausdruecklich
     // keine Haltbarkeitsangabe (Andre: sie haelt „maximal ein Jahr“, das soll so nicht auf der Seite stehen).
     // „etwa nach der Brillant Außenpflege“ am 2026-10-02 entfallen: Seit 6.7 nennt die Zeile „… buchbar.“ beide Pakete.
@@ -107,7 +107,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'nano',
     label: 'Nanoversiegelung',
-    preis: 'ab 299,00 €',
+    preis: 'ab 299,00 €',
     beschreibung:
       'Die Nanoversiegelung schützt den Lack mit einer hauchdünnen, wasserabweisenden Schicht. Regen perlt ab, Schmutz lässt sich leichter abwaschen, und der Glanz bleibt länger erhalten. Sie ist die preiswertere Alternative zur Keramikversiegelung.',
     // Andre: „buchbar nur in Verbindung mit Brillant oder Lackaufbereitung“
@@ -118,7 +118,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'frontscheibe',
     label: 'Frontscheibenversiegelung',
-    preis: '89,00 €',
+    preis: '89,00 €',
     // Andre, 2026-10-05: „Eis haftet weniger an“ ergaenzt.
     beschreibung:
       'Wir versiegeln die Frontscheibe wasserabweisend. Bei Regen perlt das Wasser während der Fahrt ab und die Sicht bleibt klarer. Eis haftet weniger an, und Insekten und Schmutz lassen sich leichter entfernen.',
@@ -128,7 +128,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'felgen',
     label: 'Felgenintensivreinigung',
-    preis: '95,20 €',
+    preis: '95,20 €',
     beschreibung:
       'Gründlicher als die Felgenreinigung der Brillant Außenpflege: Wir lösen festsitzenden Bremsstaub und Ablagerungen, auch in den Zwischenräumen der Felgen.',
     // Andre: „buchbar allein oder zu allen Paketen“ — auch zur Premiumpflege. Im Meeting (6.7) klang es anders
@@ -138,7 +138,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'cabrio',
     label: 'Cabrio-Verdeckimprägnierung',
-    preis: '99,00 €',
+    preis: '99,00 €',
     beschreibung:
       'Wir imprägnieren das Stoffverdeck Ihres Cabrios. Wasser perlt ab, und das Gewebe ist besser vor Nässe und Verschmutzung geschützt.',
     // Andre: „buchbar allein oder zu allen Programmen“
@@ -147,7 +147,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'motor',
     label: 'Motorreinigung',
-    preis: '49,00 €',
+    preis: '49,00 €',
     // Bis 2026-10-02: „…, zu den übrigen Paketen buchen Sie sie einzeln dazu.“ Das stimmt seit 6.7 nicht mehr
     // (nicht zur Premiumpflege „exklusiv“ und zur Leasingrückgabe), die Zeile „… buchbar.“ sagt es jetzt genau.
     // Andre, 2026-10-05: „Wir reinigen den Motorraum und versiegeln diesen mit einer wasserlöslichen Schutzschicht“.
@@ -163,7 +163,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
     // Wortlaut unveraendert von der Seite uebernommen (vorher `disinfectionServices` in data/detailing.ts).
     id: 'ozon',
     label: 'Ozonbehandlung',
-    preis: '45,00 €',
+    preis: '45,00 €',
     beschreibung:
       'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.',
     // Andre: „buchbar allein oder zu allen Programmen“
@@ -172,7 +172,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
   {
     id: 'heissvernebelung',
     label: 'Heißvernebelung (KC-Refresher)',
-    preis: '59,00 €',
+    preis: '59,00 €',
     beschreibung:
       'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.',
     // Andre: „buchbar allein oder zu allen Programmen“

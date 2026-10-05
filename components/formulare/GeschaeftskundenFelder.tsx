@@ -19,7 +19,7 @@ const GeschaeftskundenFelder: React.FC<GeschaeftskundenFelderProps> = ({ werte, 
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
         <label className={labelClass} htmlFor="business-company">Firma</label>
-        <input id="business-company" name="company" required value={werte.company} onChange={onChange} className={inputClass} placeholder="Autohaus / Fuhrpark / Agentur" />
+        <input id="business-company" name="company" required value={werte.company} onChange={onChange} className={inputClass} placeholder="Autohaus/Fuhrpark/Agentur" />
       </div>
       <div>
         <label className={labelClass} htmlFor="business-contact">Ansprechpartner</label>
@@ -29,7 +29,7 @@ const GeschaeftskundenFelder: React.FC<GeschaeftskundenFelderProps> = ({ werte, 
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
         <label className={labelClass} htmlFor="business-phone">Telefon</label>
-        <input id="business-phone" name="phone" required type="tel" value={werte.phone} onChange={onChange} className={inputClass} placeholder="0341 - ..." />
+        <input id="business-phone" name="phone" required type="tel" value={werte.phone} onChange={onChange} className={inputClass} placeholder="0341 - …" />
       </div>
       <div>
         <label className={labelClass} htmlFor="business-email">E-Mail</label>
@@ -45,7 +45,7 @@ const GeschaeftskundenFelder: React.FC<GeschaeftskundenFelderProps> = ({ werte, 
     </div>
     <div>
       <label className={labelClass} htmlFor="business-description">Nachricht</label>
-      <textarea id="business-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Umfang, Frequenz, Sonderwünsche ..." />
+      <textarea id="business-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Umfang, Frequenz, Sonderwünsche …" />
     </div>
   </>
 );

@@ -61,13 +61,13 @@ const offerings = [
   { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung ohne Wertminderung, von Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung, auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb statt Neubeschaffung von Originalfelgen.', href: '/felgenreparatur-leipzig' },
-  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für PKW, LKW und Bus, als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },
+  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für Pkw, Lkw und Bus, als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },
   { title: 'Fahrzeugaufbereitung', description: 'Aufbereitung für Präsentation, Übergabe und Werterhalt, auch als wiederkehrender Prozess.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
 
 const collaboration = [
   { title: 'Fester Ansprechpartner', description: 'Kurze Wege und klare Zuständigkeit statt wechselnder Kontakte. Sie wissen, mit wem Sie sprechen.' },
-  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.500 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
+  { title: 'Alles im eigenen Haus', description: 'Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung auf über 3.500 m². Keine Weitergabe an Fremdbetriebe, keine zusätzliche Schnittstelle.' },
   // Backlog 4.12: Kundenwortlaut „Instandsetzung statt Tauschen" — an allen sechs Stellen gleich.
   { title: 'Instandsetzung statt Tauschen', description: 'Wo es fachlich vertretbar ist, wird repariert statt ersetzt. Das senkt Schadenhöhe und Durchlaufzeit.' },
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
@@ -75,7 +75,7 @@ const collaboration = [
   { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive, ohne Medienbruch zwischen den Schritten.' },
   { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und Endabnahme gehören zum Ablauf.' },
   { title: 'Erfahrung mit Premiumfahrzeugen', description: 'Sorgfältiger Umgang mit hochwertigen Fahrzeugen und sensiblen Oberflächen.' },
-  { title: 'Ersatzmobilität', description: 'Werkstattersatzfahrzeug nach Verfügbarkeit, damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },
+  { title: 'Ersatzmobilität', description: 'Ersatzwagen nach Verfügbarkeit, damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },
   { title: 'Flexible Zusammenarbeit', description: 'Einzelauftrag, laufende Betreuung oder perspektivische Rahmenprozesse, je nach Bedarf.' },
 ];
 
@@ -110,7 +110,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageHero
       eyebrow="Geschäftskunden"
       title="Fahrzeugdienstleistungen für Autohäuser, Flotten und Versicherer."
-      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen, mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.500 m² im eigenen Haus."
+      description="Im CarCare Center Leipzig arbeiten wir für Leipziger Autohäuser, gewerbliche Fuhrparks, Versicherungen, Schadensteuerer und Agenturen, mit festem Ansprechpartner, dokumentierten Abläufen und dem gesamten Leistungsspektrum auf über 3.500 m² im eigenen Haus."
       primaryCta={{ label: 'Geschäftskundenanfrage stellen', href: '/kontakt#contact-business' }}
       secondaryCta={{ label: 'Leistungen ansehen', href: '/leistungen' }}
       keywords={['Fuhrparkservice Leipzig', 'Autohäuser Leipzig', 'Schadensteuerung Leipzig', 'Leasingrückgabe Leipzig']}

@@ -227,7 +227,7 @@ const HeroSection: React.FC = () => {
             {...EINBLENDEN}
             className="mt-4 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:mt-5 md:text-xl"
           >
-            Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung, alles aus einer Hand.
+            Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung, alles aus einer Hand.
           </motion.p>
 
           {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.
