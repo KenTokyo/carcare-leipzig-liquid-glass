@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 05.10.2026, 16:39, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 05.10.2026, 17:48, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 05.10.2026, 16:39 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 05.10.2026, 17:48 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `37b8ec2` | `7d9f57a` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-05-karriere-fotos` | `37b8ec2` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `aa51215` | `1753e89` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-05-performance-glas` | `aa51215` | — | neu, 1 Commit(s) noch nicht auf GitHub |
 | 15 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `37b8ec2` | 05.10.2026, 16:39 | oalabhypercode | Karriere: echte Fotos für Bürokaufmann/-frau und Serviceberater | 8 (3 neu) | — | **kommt mit diesem Push** |
+| `aa51215` | 05.10.2026, 17:48 | oalabhypercode | Performance: Glas ohne Sprung, Logo-Video 33 KB, Caching, Videos erst in Sichtweite | 13 (1 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,7 +29,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `37b8ec2` |
+| Konfiguration geändert | `vercel.json` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `aa51215` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -37,7 +38,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 20, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Lokale Branches ohne GitHub-Gegenstück | 21, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
 
@@ -45,7 +46,10 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-Keine offenen Folgepunkte in den berührten Planungsdateien.
+| Punkt | Planung |
+|---|---|
+| Phase 5 — Hydration statt Neuaufbau (größerer Eingriff, eigener Schritt) | `docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md` |
+| Phase 6 — Bilder in passenden Größen, Code-Splitting (später) | `docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md` |
 
 ### Backlog gesamt: 46 offene Punkte
 
