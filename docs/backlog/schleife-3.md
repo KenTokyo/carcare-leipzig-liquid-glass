@@ -18,6 +18,9 @@ Quelle: Kundenreview mit André Bosse, geliefert als Gesamtliste am 2026-09-06
 
 > **Schleife 5 (2026-09-25):** 3.6, 3.10, 3.19, 3.23 und 3.36 sind in Schleife 5 aufgegangen (🔁, hier gestrichen);
 > 3.25 und 3.27 geliefert, 3.28 entfällt, 3.30 freigegeben, 3.32 beantwortet, **3.11 wieder offen** (5.10). Zuordnung: `schleife-5.md`.
+>
+> **Statusabgleich (2026-10-06):** 3.13, 3.16, 3.31 und 3.37 hat der User als erledigt gemeldet. Offen bleibt **3.22**
+> (Wissensdatenbank). Plan: `docs/backlog/tasks/2026-10-06-statusabgleich-user-tasks.md`.
 
 **Aufgabentext ist unverändert aus der Quelle übernommen.** Ergänzungen von uns stehen
 kursiv in der Spalte „Stand im Projekt".
@@ -70,7 +73,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 | 3.10 | ~~Smart-Repair-Foto ersetzen – zeigt Kratzerentfernung/Aufbereitung, nicht Smart Repair~~ | Oalab | 🔁 **in 5.6 aufgegangen** | *2026-09-25 (Schleife 5): Motiv geklärt: der weiße Porsche Macan aus 3.25, geführt als 5.6.* *Motiv kommt über 3.25.* |
 | 3.11 | Dellenentfernung: sauberes Bild hinterlegen | Oalab | ✅ **erledigt 2026-09-21** | *2026-09-25 (Schleife 5): ⚠️ André gefällt das Motiv nicht (Delle nicht erkennbar, Fußabtreter im Hintergrund): neues Bild in 5.10.* *2026-09-21: echtes Foto, Delle unter der Reflexionslampe (B13 und alle Dellenstellen). Motiv aus 3.24.* *Motiv kommt über 3.24.* |
 | 3.12 | Hagelschadenreparatur: BVAT-Logo einbinden + kurzer Hinweis zur Mitgliedschaft | Oalab | ✅ **erledigt** | *✅ 2026-09-16: Offizieller Name **„Bundesverband Ausbeultechnik und Hagelinstandsetzung e.V."** — am Impressum des Verbands geprüft (bvat.de, AG Charlottenburg VR 29872 B), **ohne „für"**; die hier zuvor notierte Fassung mit „für" war falsch, die Langform aus 4.13 ebenso. Offizielles Siegel von bvat.de, **unverändert**, verlinkt, deckend hinterlegt. Hagelseite: Satz mit Namen + Siegel darunter; Über uns: Siegel (4.13). Daten `data/mitgliedschaften.ts`, Vorgehen `docs/partnerlogos/README.md`. Vorher: Hinweissatz ohne Langform, Logo offen.* |
-| 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | offen | *2026-09-25 (Schleife 5): Im Meeting nicht besprochen; zur Autoglasseite allgemein siehe 3.30.* *Hängt mit 3.30 zusammen (Vintech-Klärung).* *Abgleich 2026-09-17: „Neuverglasung für PKW, LKW und Bus" ist der Standard-Leistungstext des WINTEC-Autoglas-Netzes und stammt von der Altseite. Zu bestätigen: Bieten wir LKW und Bus selbst bzw. über den Partner an?* |
+| 3.13 | Autoglas: Angaben PKW/LKW-Neuverglasung inhaltlich prüfen | Oalab / André | ✅ **erledigt** (06.10., User) | **2026-10-06 (User):** als erledigt gemeldet. *2026-09-25 (Schleife 5): Im Meeting nicht besprochen; zur Autoglasseite allgemein siehe 3.30.* *Hängt mit 3.30 zusammen (Vintech-Klärung).* *Abgleich 2026-09-17: „Neuverglasung für PKW, LKW und Bus" ist der Standard-Leistungstext des WINTEC-Autoglas-Netzes und stammt von der Altseite. Zu bestätigen: Bieten wir LKW und Bus selbst bzw. über den Partner an?* |
 | 3.14 | Caravan-Segment nicht bewerben (nur vereinzelt für Bestandskunden) | – | erledigt | *2026-09-25 (Schleife 5): Bestätigt: Caravan weder aufbereiten noch reparieren.* *Entscheidung, keine Aufgabe.* |
 | 3.15 | Leasingrückgabe: Text bleibt; Seite wird von Fuhrpark/Autohaus und Privat angesteuert | – | erledigt | *Bestätigt die Sonderrolle der Seite: sie ist bewusst nicht auf `ServiceLayout` migriert.* |
 
@@ -80,7 +83,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `Prinzip` �
 
 | Nr. | Aufgabe | Verantw. | Status | Stand im Projekt |
 |---|---|---|---|---|
-| 3.16 | Partner nach Freigabe direkt verlinken („geschenkte Leads") | Oalab | 🟨 **teilweise** · 2026-09-27: VW und Audi verlinkt (5.16) | *2026-09-25 (Schleife 5): Dazu Volkswagen Automobile Leipzig und Audi Zentrum Leipzig, nur Link (5.16).* *2026-09-16: Freigaben für **riparo** (Schadensteuerer — Logo + Link) und **Porsche Zentrum Leipzig** (Link; das Logo ist nicht verwendbar, die Wortmarke gehört der Porsche AG — `docs/partnerlogos/README.md`). Weitere Partner folgen mit weiteren Freigaben, Vorgehen dort.* *Vorher:* ⚠️ *„Nr. 78" ist eine Nummer aus der globalen Durchnummerierung der Originalliste und **nicht rekonstruierbar** (die CSV ist umsortiert). Inhaltlich naheliegend gemeint: **3.31** (Freigaben Partner-Logos). Als Lesart gekennzeichnet, nicht als Fakt.* |
+| 3.16 | Partner nach Freigabe direkt verlinken („geschenkte Leads") | Oalab | ✅ **erledigt** (06.10., User) | **2026-10-06 (User):** als erledigt gemeldet. Status vorher: 🟨 **teilweise** · 2026-09-27: VW und Audi verlinkt (5.16). *2026-09-25 (Schleife 5): Dazu Volkswagen Automobile Leipzig und Audi Zentrum Leipzig, nur Link (5.16).* *2026-09-16: Freigaben für **riparo** (Schadensteuerer — Logo + Link) und **Porsche Zentrum Leipzig** (Link; das Logo ist nicht verwendbar, die Wortmarke gehört der Porsche AG — `docs/partnerlogos/README.md`). Weitere Partner folgen mit weiteren Freigaben, Vorgehen dort.* *Vorher:* ⚠️ *„Nr. 78" ist eine Nummer aus der globalen Durchnummerierung der Originalliste und **nicht rekonstruierbar** (die CSV ist umsortiert). Inhaltlich naheliegend gemeint: **3.31** (Freigaben Partner-Logos). Als Lesart gekennzeichnet, nicht als Fakt.* |
 
 ---
 
@@ -139,7 +142,7 @@ Neun Zulieferungen. **Als ein Paket anfordern**, nicht einzeln.
 | 3.28 | Foto: Felge in Reparatur / beim Lackieren (vorhanden nur beschädigte Felgen) | André | ✅ **entfällt** (Meeting 2026-09-25): Das vorhandene Foto der beschädigten Cupra-Felge bleibt, laut André realistisch und „das Maximum" |
 | 3.29 | Bilder Innenaufbereitung: exklusives Fahrzeug, kein Transporter | André | ✅ **geliefert 2026-09-21** — Innenraumfoto an B27, B45, B67 |
 | 3.30 | Klärung Vintech – ob und wie der Autoglaspartner genannt werden darf; Inhalte Autoglas-Subseite zuliefern | André | ✅ **freigegeben** (Meeting 2026-09-25, vom User bestätigt): keine Einwände gegen „ISO 9001 zertifiziert, 30 Jahre Garantie, WINTEC-Partner"; der Name bleibt · *Abgleich 2026-09-17: „Vintech" ist sehr wahrscheinlich **WINTEC** (Autoglas-Partnernetz). Der Name steht bereits **18× in 9 Dateien** — auch in Title, Meta-Description und Schema von `/autoglas-leipzig`, übernommen von der Altseite. Sagt André „nicht nennen", sind alle 18 Stellen zugleich zu ändern.* |
-| 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | André | 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16), siehe `docs/partnerlogos/README.md` · 2026-09-25: dazu VW und Audi, nur Link (5.16) · 2026-09-27: VW und Audi als Link eingebaut |
+| 3.31 | Freigaben Partner-Logos (Autohäuser, Versicherungen, Agenturen) für Logo-Nutzung und Verlinkung einholen | André | ✅ **erledigt 2026-10-06** (User) · vorher: 🟨 teilweise — riparo, Porsche Zentrum Leipzig (2026-09-16), siehe `docs/partnerlogos/README.md` · 2026-09-25: dazu VW und Audi, nur Link (5.16) · 2026-09-27: VW und Audi als Link eingebaut |
 
 *Ergänzung: 3.23–3.29 bedienen direkt 3.10, 3.11, 2.15 und 2.16. Die Fotogrundregel
 (Handyfotos, unbearbeitet, während der Bearbeitung) steht im Block ohne
@@ -152,6 +155,7 @@ Schleifenzuordnung. **3.31 blockiert 3.16** — ohne Freigabe dürfen die Logos 
 Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
 *Stand 2026-09-16: 3.33, 3.34 und 3.35 sind beantwortet — offen bleiben 3.32, 3.36 und 3.37.*
 *Stand 2026-09-25 (Schleife 5): 3.32 beantwortet, 3.36 in 5.4 aufgegangen — offen bleibt 3.37.*
+*Stand 2026-10-06: 3.37 vom User als erledigt gemeldet. Keine der sechs Fragen ist mehr offen.*
 
 | Nr. | Frage | Verantw. | Status | Was daran hängt |
 |---|---|---|---|---|
@@ -160,7 +164,7 @@ Alle sechs sind Entscheidungen, die nur der Kunde treffen kann.
 | 3.34 | reparatur.info / PDR Cloud: Wird aktiv genutzt? Falls nein, kippt die Logik aus „Nr. 66 und 103" | André | ✅ **beantwortet: ja** | *2026-09-16: reparatur.info wird genutzt — der Kunde gibt `https://reparatur.info/bs-carcare-gmbh` als Ziel für „Schaden melden" vor. 2.23 umgesetzt.* *Vorher:* ⚠️ *„Nr. 66/103" nicht rekonstruierbar. Inhaltlich hängen daran sicher **2.23** (Weiterleitung statt eigenem Formular) und **3.33**. Als Lesart gekennzeichnet.* |
 | 3.35 | Preisdarstellung Zusatzleistungen: „nicht bepreisen" vs. „Ab-Preise wären aus Kundensicht wünschenswert" – final entscheiden | André | ✅ **entschieden** | *2026-09-16: Zusatzleistungen werden **bepreist** — Festpreis, wo es einen gibt, sonst **„Preis nach Absprache"**. Umsetzung mit 2.26/2.11 (später). Festgehalten im Kopf von `data/zusatzleistungen.ts`; Schema ohne Festpreis ohne Preisfelder.* *Vorher:* *Betrifft 2.26 und 2.11 — die Liste kommt mit oder ohne Preise. Richtung aus Schleife 4 (2026-09-10): „exklusiv" und Lackaufbereitung künftig „nach Absprache/Aufwand" (4.4, 4.9), Aufpreise für Geländewagen/Transporter noch offen (4.7). Für die Zusatzleistungen selbst ist das **noch keine Entscheidung**.* |
 | 3.36 | ~~Slogan-Wortlaut: Richtung klar, exakte Formulierung noch offen~~ | Oalab / André | 🔁 **in 5.4 aufgegangen** | *2026-09-25 (Schleife 5): André arbeitet einen Slogan zu; Layout und Vorgaben stehen in 5.4.* **Blockiert 2.7 und 2.8.** |
-| 3.37 | „Bildtechnisch noch was ändern" (Teil 1) – unklar, ob Bildgrößen/-formate oder Darstellung gemeint waren | André | Klärung | *2026-09-25 (Schleife 5): Im Meeting nicht besprochen.* *Rückfrage nötig — der Satz ist im Protokoll unvollständig.* |
+| 3.37 | „Bildtechnisch noch was ändern" (Teil 1) – unklar, ob Bildgrößen/-formate oder Darstellung gemeint waren | André | ✅ **erledigt 2026-10-06** (User) · vorher: Klärung | *2026-09-25 (Schleife 5): Im Meeting nicht besprochen.* *Rückfrage nötig — der Satz ist im Protokoll unvollständig.* |
 
 ---
 

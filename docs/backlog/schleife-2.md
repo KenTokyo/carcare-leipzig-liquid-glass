@@ -21,6 +21,9 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 >
 > **Schleife 4 (2026-09-10)** beantwortet hier nichts direkt, gibt aber die Richtung für 2.11 vor —
 > Zuordnung: `schleife-4.md`, Abschnitt „Was Schleife 4 an offenen Punkten beantwortet".
+>
+> **Statusabgleich (2026-10-06):** 2.18 hat der User als erledigt gemeldet. Offen bleibt **2.27**.
+> Plan: `docs/backlog/tasks/2026-10-06-statusabgleich-user-tasks.md`.
 
 > **Schleife 5 (2026-09-25):** 2.2, 2.7, 2.8 und 2.26 sind in Schleife 5 aufgegangen (🔁, hier
 > gestrichen); 2.24 ist bestätigt. Zuordnung: `schleife-5.md`, Abschnitt „Was Schleife 5 in den anderen Listen bewirkt".
@@ -69,7 +72,7 @@ Status je Aufgabe laut Kunde: `offen` · `erledigt` · `Klärung` · `terminiert
 |---|---|---|---|---|
 | 2.16 | Hero-Bild ersetzen – wirkt wie Schadensaufnahme, nicht wie Instandsetzung | Oalab / André | ✅ **erledigt 2026-09-21** | *2026-09-21: echtes Foto aus der Karosserieinstandsetzung (Schweißen) an B36 und allen Stellen des alten Motivs.* *Braucht Motiv von André.* |
 | 2.17 | Karte „Karosseriearbeiten" → „Karosserie- und Lackierarbeiten" | Oalab | ✅ **erledigt** | *Karte auf `/unfallinstandsetzung-leipzig` umbenannt und die Beschreibung um die Lackierarbeiten ergänzt. **Nicht global ersetzt:** Von 8 Fundstellen nannten 6 die Lackierung bereits daneben — dort wäre die Umbenennung eine Dopplung. Mitgezogen wurden `data/services.ts` (nannte Lack nicht) und `components/AccidentFocus.tsx`. 2026-09-06* |
-| 2.18 | Sektion „Schadenaufnahme": Transparenz reduzieren (bei viel Text unübersichtlich) | Oalab | offen | *2026-09-25 (Schleife 5): Im Meeting nicht besprochen, bleibt offen.* *Gleiche Ursache wie der A11y-Befund aus Paket C. Mit 2.1 bündeln.* |
+| 2.18 | Sektion „Schadenaufnahme": Transparenz reduzieren (bei viel Text unübersichtlich) | Oalab | ✅ **erledigt** (06.10., User) | **2026-10-06 (User):** als erledigt gemeldet. *2026-09-25 (Schleife 5): Im Meeting nicht besprochen, bleibt offen.* *Gleiche Ursache wie der A11y-Befund aus Paket C. Mit 2.1 bündeln.* |
 
 ---
 
