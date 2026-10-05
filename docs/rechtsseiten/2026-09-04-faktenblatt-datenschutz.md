@@ -16,6 +16,15 @@ Netcup-Versand an `info@carcare-center.de` — **keine Speicherung** auf dem Ser
 sind besonders schutzbedürftig (Beschäftigtendatenschutz): Die Datenschutzerklärung muss diesen Weg, Zweck und
 Löschfristen im Postfach nennen. Abschnitt 3, „Anhänge", ist entsprechend angepasst.
 
+**Nachtrag 2026-10-04:** Die Datenschutzerklärung steht jetzt als Volltext auf `/datenschutz`, geschrieben aus diesem Blatt
+und den Vorgaben des Users (Plan: `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-tasks.md`). Ihre Prüfung steht aus.
+**Neu gemessen:** Die Seiten kommen aus Frankfurt, die **Formularfunktion läuft aber in den USA** (`X-Vercel-Id: fra1::iad1::…`
+auf `/api/anfrage`, Vercel-Standardregion Washington, D.C., keine `regions` in `vercel.json`). Abschnitt 1 nannte nur die
+Auslieferung. **Später am 04.10. (User):** Die Website wird über die **KUPPER IT GmbH**, Prager Straße 15, 04103 Leipzig,
+gehostet, ebenso Domain und E-Mail-Postfächer; die Erklärung nennt deshalb KUPPER IT als Hoster und Vercel nicht mehr. Die
+Messung oben betrifft die Vorschau auf Vercel. Läuft der Formularversand (`/api/anfrage`, eine Vercel-Funktion) weiter bei
+Vercel, gehört Vercel als Empfänger zurück in die Erklärung.
+
 ---
 
 ## Wozu dieses Blatt

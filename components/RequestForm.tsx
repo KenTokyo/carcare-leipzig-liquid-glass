@@ -402,9 +402,13 @@ Mit freundlichen Grüßen
                 <a href={`mailto:${kontaktMail}`} className="font-semibold text-gray-950 underline">{kontaktMail}</a>.
               </p>
             ) : (
+              /* 2026-10-04: Hinweis statt Einwilligungsformel („stimmen Sie … zu“). Die Datenschutzerklaerung stuetzt
+                 Anfragen und Bewerbungen auf Art. 6 Abs. 1 lit. b/f DSGVO bzw. § 26 BDSG; eine erzwungene Einwilligung
+                 machte die Verarbeitung ohne Not widerruflich. Art. 13 DSGVO verlangt den Hinweis mit Link, mehr nicht. */
               <p className="text-[11px] leading-relaxed text-gray-600">
-                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß{' '}
-                <a href="/datenschutz" className="font-semibold text-gray-950 underline">Datenschutzerklärung</a> zu.
+                Wir verwenden Ihre Angaben nur für {kind === 'bewerbung' ? 'Ihre Bewerbung' : 'die Bearbeitung Ihrer Anfrage'}.
+                Mehr dazu in unserer{' '}
+                <a href="/datenschutz" className="font-semibold text-gray-950 underline">Datenschutzerklärung</a>.
               </p>
             )}
           </div>

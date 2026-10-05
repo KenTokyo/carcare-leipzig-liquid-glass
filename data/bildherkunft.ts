@@ -6,9 +6,13 @@
  * am Bild, nicht nur in einem Hinweis im Fußbereich.
  *
  * ENTSCHEIDUNG DES USERS (2026-09-20): Bis zur Einzelklärung gilt **alles außer den Videos als
- * KI-generiert**. Sobald feststeht, welches Motiv nur aufgewertet wurde (geschärft, freigestellt,
- * Hintergrund getauscht) und welches vollständig erzeugt ist, wird hier je Datei EINE Zeile
- * geändert — sonst nichts. Die Plakette am Bild folgt automatisch.
+ * KI-generiert**. Sobald feststeht, welches Motiv nur aufgewertet wurde und welches mit KI verändert
+ * ist, wird hier je Datei EINE Zeile geändert — sonst nichts. Die Plakette am Bild folgt automatisch.
+ *
+ * WAS DIE KATEGORIEN BEDEUTEN (Definition des Users, 2026-10-04, steht so im KI-Verzeichnis des Impressums):
+ *  - `generiert`  („KI-generiert“): in das Foto wurden mit KI Gegenstände oder Personen hineingeneriert.
+ *  - `aufgewertet` („KI-bearbeitet“): Grundbild unverändert, nur die Lichtverhältnisse mit KI angepasst.
+ * Wer eine Datei einträgt, ordnet sie nach DIESEN Sätzen ein: Ein getauschter Hintergrund ist nicht „aufgewertet“.
  * SEIT 2026-10-03 IST JEDE AUSGELIEFERTE DATEI GEKLÄRT (Herkunftsbogen, Angabe des Users, Block unten): Kein Foto
  * gilt mehr als vollständig erzeugt. Die Vorgabe `STANDARD` greift nur noch für neue Bilder ohne Eintrag.
  *
@@ -35,6 +39,29 @@ export const HERKUNFT_TEXT: Record<Bildherkunft, string> = {
   aufgewertet: 'KI-bearbeitet',
   echt: '',
 };
+
+/**
+ * Was die Kennzeichnungen bedeuten, im Wortlaut des KI-Verzeichnisses (`pages/ImpressumPage.tsx`, Backlog 6.21).
+ * Grundlage ist die Definition des Users vom 2026-10-04 (Kopfkommentar). Ändert sich, was eine Plakette bedeutet,
+ * ändert sich dieser Text mit, sonst verspricht das Verzeichnis etwas anderes als die Plakette am Bild.
+ */
+export const HERKUNFT_ERKLAERUNG: Record<Bildherkunft, string> = {
+  generiert:
+    'Ein Foto, in das wir mit KI Gegenstände oder Personen hineingeneriert haben. Mit KI hinzugefügte Personen sind nicht real und zeigen keine Mitarbeitenden unseres Betriebs.',
+  // Einwilligung der abgebildeten Personen zur KI-Bearbeitung vom User bestätigt (2026-10-04: „Ja“).
+  aufgewertet:
+    'Ein echtes Foto mit unverändertem Bildinhalt. Mit KI haben wir nur die Lichtverhältnisse angepasst. Abgebildete Personen sind real und haben der Bearbeitung zugestimmt.',
+  echt: 'Echte Fotos und Videos ohne KI. Wir haben sie höchstens zugeschnitten oder Details wie Kennzeichen unkenntlich gemacht.',
+};
+
+/**
+ * Für Bilder eingesetzte KI (Angabe des Users, 2026-10-04: „ChatGPT Image 2.5“). Bei OpenAI heißt das Produkt
+ * „ChatGPT Images 2.5“ (Modell GPT Image 2.5, erschienen am 08.09.2026); Vertragspartner im EWR ist OpenAI Ireland.
+ * Gelesen vom KI-Verzeichnis im Impressum und von der Datenschutzerklärung. Kommt ein Werkzeug dazu: eine Zeile hier.
+ */
+export const KI_WERKZEUGE: ReadonlyArray<{ name: string; anbieter: string; gesellschaft: string }> = [
+  { name: 'ChatGPT Images 2.5', anbieter: 'OpenAI', gesellschaft: 'OpenAI Ireland Ltd., Dublin' },
+];
 
 /**
  * Ausnahmen je Datei. Was hier nicht steht, gilt als `STANDARD`.
