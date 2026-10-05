@@ -164,6 +164,13 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/team/stimme-fahrzeuglackierer-leipzig-carcare.webp': 'echt',
   '/assets/team/stimme-kfz-aufbereiter-leipzig-carcare.webp': 'echt',
   '/assets/team/stimme-karosserie-fahrzeugbaumechaniker-leipzig-carcare.webp': 'echt',
+
+  // Ausbildungskarte Bürokaufmann/-frau (Backlog 6.16), eingebaut 2026-10-05. Der User: Bild einer echten Auszubildenden
+  // zur Bürokauffrau im Betrieb. Aufbereitet mit `npm run fotos`: weder Zuschnitt noch Vergrößerung, keine KI.
+  '/assets/kacheln/karriere-buerokauffrau-leipzig-carcare.webp': 'echt',
+  // Karte „Serviceberater“ (B106), eingebaut 2026-10-05: echtes Foto aus unserem Büro, Angabe des Users wie oben.
+  // Nur 4:3-Ausschnitt aus dem Hochformat (`npm run fotos`), keine KI.
+  '/assets/kacheln/karriere-serviceberater-leipzig-carcare.webp': 'echt',
 };
 
 /**

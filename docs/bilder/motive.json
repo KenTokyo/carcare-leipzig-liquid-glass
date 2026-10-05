@@ -231,9 +231,19 @@
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „karriere-aufbereiter-leipzig-carcare.webp.jpeg“, aufgenommen 20.08.2026); laut User weder KI-generiert noch -bearbeitet; zeigt einen Mitarbeiter, Einwilligung liegt laut User vollständig vor",
       "offen": ""
     },
+    "kacheln/karriere-buerokauffrau-leipzig-carcare.webp": {
+      "motiv": "Auszubildende zur Bürokauffrau am Schreibtisch mit Computer und Tastatur in unserem Büro, dahinter Zimmerpflanze und Wandbild",
+      "herkunft": "echtes Foto aus dem Betrieb, vom User am 05.10.2026 als Chat-Anhang geliefert (Original abgelegt als „buerokauffrau-ausbildung-carcare-leipzig.jpeg“, ohne Aufnahmedatum im EXIF); laut User eine echte Auszubildende zur Bürokauffrau; eingebaut 05.10.2026 für Backlog 6.16, ohne Zuschnitt (npm run fotos)",
+      "offen": ""
+    },
     "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp": {
       "motiv": "Karosseriebauer mit Schutzbrille an der Punktschweißzange am Dachrahmen eines Unfallfahrzeugs",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „karriere-fahrzeugbau-leipzig-carcare.webp.jpeg“, aufgenommen 04.09.2026); laut User weder KI-generiert noch -bearbeitet; zeigt einen Mitarbeiter, Einwilligung liegt laut User vollständig vor",
+      "offen": ""
+    },
+    "kacheln/karriere-serviceberater-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiterin von hinten am Laptop in unserem Büro, auf dem Bildschirm unsere Startseite mit „We Care. We Repair.“",
+      "herkunft": "echtes Foto aus dem Betrieb, vom User am 05.10.2026 als Chat-Anhang geliefert (Original abgelegt als „serviceberatung-laptop-carcare-leipzig.jpeg“, ohne Aufnahmedatum im EXIF); eingebaut 05.10.2026 für die Karte Serviceberater, nur 4:3-Ausschnitt aus dem Hochformat (npm run fotos)",
       "offen": ""
     },
     "kacheln/lackaufbereitung-leipzig-carcare.webp": {
@@ -561,8 +571,8 @@
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B106": {
-      "status": "anzupassen",
-      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+      "status": "angepasst",
+      "notiz": "05.10.2026: echtes Foto aus unserem Büro, eigene Datei karriere-serviceberater-…; vorher „Erstmal stehen lassen“ (Kunde, 21.09.2026)"
     },
     "B107": {
       "status": "anzupassen",
@@ -573,8 +583,8 @@
       "notiz": "Karosseriebau-Foto wie B105 (21.09.2026, nach Rückfrage)"
     },
     "B109": {
-      "status": "anzupassen",
-      "notiz": "„Erstmal stehen lassen“ (Kunde, 21.09.2026)"
+      "status": "angepasst",
+      "notiz": "05.10.2026: echtes Foto der Auszubildenden zur Bürokauffrau (6.16), eigene Datei karriere-buerokauffrau-…; vorher „Erstmal stehen lassen“ (Kunde, 21.09.2026)"
     },
     "B112": {
       "status": "angepasst",

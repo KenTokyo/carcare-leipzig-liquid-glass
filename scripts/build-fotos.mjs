@@ -59,6 +59,12 @@ const ORDNER_GESICHTET_AUG26 =
  * des Users. Vorname und Beruf stehen im Dateinamen. ⚠️ Beim Umzug in den Lieferordner diesen Pfad mitziehen.
  */
 const ORDNER_STIMMEN_OKT26 = 'C:/Users/Moham/Downloads/wetransfer_image00001-jpeg_2026-10-02_1001';
+/**
+ * Bürofotos vom 2026-10-05 (Karriere-Karten Bürokaufmann/-frau, Backlog 6.16, und Serviceberater, B106): vom User als
+ * Chat-Anhänge geliefert, dort ohne Dateinamen. Hier als Originale abgelegt und sprechend benannt.
+ * ⚠️ Beim Umzug in den Lieferordner diesen Pfad mitziehen.
+ */
+const ORDNER_BUERO_OKT26 = 'C:/Users/Moham/Downloads/carcare-buero-fotos-2026-10-05';
 
 /** Werte aus `scripts/convert-images.mjs` — das Ursprungskonzept. Nicht hier abweichend drehen. */
 const QUALITAET = 82;
@@ -290,6 +296,37 @@ const FOTOS = [
     titel: 'Karosserie- und Fahrzeugbau im CarCare Center Leipzig',
     beschreibung: 'Karosseriebauer mit Schutzbrille setzt mit der Punktschweißzange Schweißpunkte am Dachrahmen eines Unfallfahrzeugs.',
     stichwoerter: ['Karosserie- und Fahrzeugbaumechaniker', 'Karriere', 'Punktschweißen', 'Karosseriebau', 'Ausbildung Leipzig'],
+  },
+  /*
+   * BACKLOG 6.16 (User, 2026-10-05): echtes Foto einer Auszubildenden zur Bürokauffrau in unserem Büro, für die
+   * Ausbildungskarte Bürokaufmann/-frau. Ersetzt dort `kalkulation-leipzig-carcare.webp`; diese Datei bleibt, sie steht
+   * auch im Unfallbereich (`AccidentDamageSection`). Liegt schon im Format 4:3 (1448 × 1086): kein Ausschnitt, und
+   * `withoutEnlargement` vergrößert nicht auf 2000 px. Kein Kennzeichen, kein Fremdlogo außer dem Gerätelogo.
+   */
+  {
+    ziel: 'kacheln/karriere-buerokauffrau-leipzig-carcare.webp',
+    ordner: ORDNER_BUERO_OKT26,
+    quelle: 'buerokauffrau-ausbildung-carcare-leipzig.jpeg',
+    stellen: 'B109 (Karriere › Ausbildung im Betrieb › Bürokaufmann/-frau)',
+    titel: 'Ausbildung zur Bürokauffrau im CarCare Center Leipzig',
+    beschreibung: 'Auszubildende zur Bürokauffrau am Schreibtisch mit Computer und Tastatur in unserem Büro, dahinter eine Zimmerpflanze und ein Wandbild.',
+    stichwoerter: ['Bürokauffrau', 'Ausbildung', 'Karriere', 'Kaufmännische Ausbildung', 'Ausbildung Leipzig'],
+  },
+  /*
+   * SERVICEBERATER (User, 2026-10-05): echtes Foto aus unserem Büro für die Karte „Serviceberater“ (B106). Ersetzt dort
+   * `autohaus-fuhrpark-service-leipzig-carcare.webp`; diese Datei bleibt, sie steht noch an drei Stellen (Fuhrparkservice,
+   * Titelbild). Hochformat 1086 × 1448 → 4:3-Ausschnitt, Oberkante bei 19 %: vom Haaransatz (rund 22 %) über den
+   * Bildschirm (40–61 %) bis zu Händen und Laptopkante (rund 73 %). Auf dem Bildschirm unsere eigene Startseite.
+   */
+  {
+    ziel: 'kacheln/karriere-serviceberater-leipzig-carcare.webp',
+    ordner: ORDNER_BUERO_OKT26,
+    quelle: 'serviceberatung-laptop-carcare-leipzig.jpeg',
+    stellen: 'B106 (Karriere › Vier Gewerke unter einem Dach › Serviceberater)',
+    oben: 0.19,
+    titel: 'Serviceberatung im CarCare Center Leipzig',
+    beschreibung: 'Mitarbeiterin von hinten am Laptop in unserem Büro, auf dem Bildschirm unsere Website mit dem Slogan „We Care. We Repair.“',
+    stichwoerter: ['Serviceberater', 'Kundenservice', 'Karriere', 'Büro', 'Job Leipzig'],
   },
   /*
    * BACKLOG 6.2 (User, 2026-09-28): Bilder zum Schaum-/Tornador-Verfahren. Aus demselben Lieferordner, vom User

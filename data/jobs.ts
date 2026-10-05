@@ -148,7 +148,9 @@ export const jobPositions: JobPosition[] = [
       'Freude daran, zwischen Werkstatt und Kunde zu vermitteln',
     ],
     status: 'nicht-suchend',
-    backgroundImage: kachel('autohaus-fuhrpark-service-leipzig-carcare'),
+    // User, 2026-10-05: echtes Foto aus unserem Büro (B106). Bis dahin `autohaus-fuhrpark-service-leipzig-carcare`
+    // (KI-bearbeitet); die Datei bleibt, sie steht noch bei Fuhrparkservice und im Titelbild.
+    backgroundImage: kachel('karriere-serviceberater-leipzig-carcare'),
   },
 
   /**
@@ -221,7 +223,9 @@ export const jobPositions: JobPosition[] = [
     ],
     status: 'suchend',
     ausgeschriebenSeit: '2026-09-27',
-    backgroundImage: kachel('kalkulation-leipzig-carcare'),
+    // Backlog 6.16 (User, 2026-10-05): echtes Foto einer Auszubildenden zur Bürokauffrau. Bis dahin
+    // `kalkulation-leipzig-carcare` (KI-bearbeitet); die Datei bleibt, sie steht auch im Unfallbereich.
+    backgroundImage: kachel('karriere-buerokauffrau-leipzig-carcare'),
   },
 ];
 
