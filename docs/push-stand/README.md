@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 03.10.2026, 03:19, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 05.10.2026, 03:24, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 03.10.2026, 03:19 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 05.10.2026, 03:24 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `42a856c` | `008c5ec` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-02-stimmen-zusatzregeln` | `42a856c` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `fcbb625` | `380e728` | 3 vor GitHub (kommt mit dem Push) |
+| `2026-10-04-rechtsseiten-und-texte` | `fcbb625` | — | neu, 3 Commit(s) noch nicht auf GitHub |
 | 15 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +19,9 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `42a856c` | 03.10.2026, 03:19 | oalabhypercode | Stimmen mit Fotos, Buchungsregeln, Bildtausch und Titel ohne Silbentrennung | 62 (20 neu) | — | **kommt mit diesem Push** |
+| `c656524` | 05.10.2026, 03:24 | oalabhypercode | Rechtsseiten: Impressum, Datenschutzerklärung und KI-Verzeichnis | 10 (3 neu) | — | **kommt mit diesem Push** |
+| `d8e0269` | 05.10.2026, 03:24 | oalabhypercode | Karriere: Bürokaufmann/-frau statt Industriekaufmann/-frau | 3 | — | **kommt mit diesem Push** |
+| `fcbb625` | 05.10.2026, 03:24 | oalabhypercode | Aufbereitung und Lackierung: Texte nach Andrés Anmerkungen vom 05.10. | 10 (2 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,8 +31,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Konfiguration geändert | `.gitignore` |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `42a856c` |
+| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `fcbb625`, `d8e0269`, `c656524` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -38,7 +39,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 18, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Lokale Branches ohne GitHub-Gegenstück | 19, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
 
@@ -48,9 +49,12 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| O9 — Rückfragen an André zu 6.7 (umgesetzt ist die wörtliche Fassung) 🟢 | `docs/backlog/tasks/2026-10-02-stimmen-und-zusatzregeln-optimierung-tasks.md` |
+| O1 — Formularversand beim Hosting über KUPPER IT (🟠 hoch) | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-optimierung-tasks.md` |
+| O2 — Kopien im Versandpostfach (🟡 mittel) | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-optimierung-tasks.md` |
+| O3 — „KUPA IT“ heißt KUPPER IT GmbH (🟢 niedrig) | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-optimierung-tasks.md` |
+| Phase 5 — Offene Punkte vor dem Livegang (mit André und KUPPER IT klären) | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-tasks.md` |
 
-### Backlog gesamt: 48 offene Punkte
+### Backlog gesamt: 47 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -116,7 +120,7 @@ Quelle: `docs/backlog/schleife-5.md`
 </details>
 
 <details>
-<summary>Schleife 6: 9 offen</summary>
+<summary>Schleife 6: 8 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
@@ -127,7 +131,6 @@ Quelle: `docs/backlog/schleife-5.md`
 | 6.16 | Karriere › Ausbildung Industriekaufmann/-frau: Foto einer Mitarbeiterin am Computer (Kundenannahme) für die A… | offen · Zulieferung André | André |
 | 6.19 | Livegang › alte Website: Inhalte der alten Website sichern lassen (Backup), bevor umgestellt wird. | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
 | 6.20 | Rechtliches › Analyse und Cookies: Matomo mit KUPA IT klären. Läuft die Analyse auf der neuen Seite weiter, k… | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
-| 6.21 | Rechtliches › KI: Allgemeinen Hinweis zur Nutzung von KI ergänzen („wurde mit künstlicher Intelligenz gearbei… | ⏸️ zurückgestellt (User, 28.09.) | OALAB |
 | 6.22 | Über uns (ggf. Fahrzeugaufbereitung) › Bewertungen: Google-Bewertungen statisch einbinden: ausgewählte, berei… | 🟨 teilweise — Auswahl der Bewertungen offen | OALAB (Auswahl) · André (ok) |
 
 Quelle: `docs/backlog/schleife-6.md`
