@@ -158,7 +158,7 @@ export const jobPositions: JobPosition[] = [
    *
    * ZUSAGE VOM 2026-09-25 (Meeting, Backlog 5.26, beantwortet 3.32): Alle drei werden
    * ausgeschrieben. Lackierung und Karosserie mit dem Hinweis „Beginn Sommer 2027" (Andre:
-   * „keine Nachzuegler mehr"), Industriekaufmann/-frau bewusst OHNE Hinweis — dort waere ein
+   * „keine Nachzuegler mehr"), Buerokaufmann/-frau (bis 2026-10-04 Industriekaufmann/-frau) bewusst OHNE Hinweis — dort waere ein
    * Nachzuegler noch willkommen („lassen wir es mal unkommentiert"). Bis dahin standen alle drei
    * auf `nicht-suchend`, mit Schleier und Initiativ-Aufruf.
    *
@@ -205,11 +205,13 @@ export const jobPositions: JobPosition[] = [
     // das Aufbereiter-Foto aus dem ersten Auftrag — die Karte ist die Karosserie-Ausbildung).
     backgroundImage: kachel('karriere-fahrzeugbau-leipzig-carcare'),
   },
+  // Seit 2026-10-04 Bürokaufmann/-frau statt Industriekaufmann/-frau (Vorgabe des Users). Die ID wechselt mit: Sie steht
+  // als „Bereich“ in der Bewerbungs-Mail (`position` hat keinen Klartext in `data/anfrageSchema.ts`).
   {
-    id: 'ausbildung-industriekaufmann',
+    id: 'ausbildung-buerokaufmann',
     art: 'ausbildung',
-    title: 'Industriekaufmann/-frau',
-    anzeigeTitel: 'Industrie\u00ADkaufmann/-frau',
+    title: 'Bürokaufmann/-frau',
+    anzeigeTitel: 'Büro\u00ADkaufmann/-frau',
     description:
       'Kaufmännische Ausbildung im Werkstattbetrieb: Auftragsabwicklung, Einkauf, Rechnungswesen und die Abstimmung mit Versicherern.',
     anforderungen: [

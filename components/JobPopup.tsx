@@ -48,7 +48,7 @@ const VERZOEGERUNG_MS = 1200;
 
 /**
  * Beginn, den ALLE offenen Ausbildungsplaetze teilen — dann steht er einmal in der Zwischenzeile. Weichen sie ab
- * (Industriekaufmann/-frau hat keinen), steht er je Platz: Sonst laese sich „Beginn Sommer 2027“ auch fuer den Platz
+ * (Bürokaufmann/-frau hat keinen), steht er je Platz: Sonst laese sich „Beginn Sommer 2027“ auch fuer den Platz
  * ohne Angabe.
  */
 const gemeinsamerBeginn =

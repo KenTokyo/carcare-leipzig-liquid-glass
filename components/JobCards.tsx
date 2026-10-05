@@ -130,7 +130,7 @@ const JobCards: React.FC = () => {
               <p className="mt-4 text-base leading-relaxed text-gray-600">
                 Wir bilden aus. In der Fahrzeuglackierung und im Karosserie- und Fahrzeugbau beginnt der
                 nächste Ausbildungsjahrgang im Sommer 2027. Für die kaufmännische Ausbildung zum
-                Industriekaufmann oder zur Industriekauffrau freuen wir uns ebenfalls über Ihre Bewerbung.
+                Bürokaufmann oder zur Bürokauffrau freuen wir uns ebenfalls über Ihre Bewerbung.
               </p>
             </div>
             <ExpandingCardAccordion items={ausbildungsberufe.map(alsKarte)} mobileActiveHeight={430} />
