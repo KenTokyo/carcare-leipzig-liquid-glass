@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { faqsByRoute } from '../data/faqs';
@@ -80,18 +80,27 @@ export interface ProcessItem {
 export const PageMeta: React.FC<{ canonical?: string; description: string; noindex?: boolean; og?: OpenGraphMeta; title: string }> = (props) => <SEOHead {...props} />;
 
 export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, primaryCta, secondaryCta, keywords, bereich }) => {
+  // Die Glas-Plakette blendet erst NACH dem Block ein (2026-10-05): Waehrend der Block-Einblendung saehe sie den
+  // Hintergrund scharf und spraenge am Ende auf Glas (siehe `sichtbar` in BereichsPlakette).
+  const [eingeblendet, setEingeblendet] = useState(false);
   return (
     // Kein `overflow-hidden` mehr: Innerhalb von `BackdropLayout` wuerde es den Sticky-
     // Kontext beschneiden. Der Farbverlauf bleibt fuer Seiten OHNE Foto-Hintergrund
     // stehen; auf Seiten mit `BackdropLayout` nimmt ihn `.cc-backdrop-content` zurueck.
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-white px-6 pb-16 pt-32 md:pb-24 md:pt-40">
       <div className="container relative mx-auto">
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          onAnimationComplete={() => setEingeblendet(true)}
+          className="max-w-4xl"
+        >
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <span className="inline-flex rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
               {eyebrow}
             </span>
-            <BereichsPlakette bereich={bereich} plaketteClassName="py-1.5" />
+            <BereichsPlakette bereich={bereich} plaketteClassName="py-1.5" sichtbar={eingeblendet} />
           </div>
           {/* OHNE SILBENTRENNUNG (User, 2026-10-03: „keine Bindestriche für die Trennung von Wörtern“). Bis dahin
               `[hyphens:auto] break-words`, weil „Fahrzeugaufbereitung“ auf 375 px um 61 px aus dem Kasten lief. Gemessen

@@ -6,6 +6,11 @@ import { navSections } from '../data/navigation';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { oeffneSuche } from '../lib/suche';
 
+/**
+ * Animiertes Markenzeichen, auch in Footer und Zielgruppenkarten. Seit 2026-10-05 160 × 160 px, 30 fps, ohne Tonspur, 33 KB.
+ * Vorher 720 × 720 px, 60 fps, mit Stereoton, 1,6 MB, fuer eine Anzeige von hoechstens 44 px und bis zu fuenf gleichzeitige
+ * Decoder pro Seite. Befehl und Vergleich: docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md.
+ */
 const logoMarkVideoSrc = '/assets/carcare-center-mark-animated.mp4';
 const logoWordmarkSrc = '/assets/carcare-center-wordmark.png';
 

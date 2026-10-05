@@ -133,8 +133,12 @@ const ProcessCard: React.FC<{
 
       {/* Layer 3 – weisse Textbox im ExpandingCardAccordion-Design: Kicker (Schritt-Nr.) +
           Titel mit blauem Punkt + Beschreibung. Unten verankert, Breite gedeckelt -> das Foto
-          bleibt oben/rechts sichtbar. */}
-      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-[rgb(255_255_255/0.92)] p-5 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] backdrop-blur-sm sm:right-auto sm:max-w-[68%] sm:p-6 lg:max-w-[380px]">
+          bleibt oben/rechts sichtbar.
+          OHNE `backdrop-blur` (2026-10-05): Hinter 92 % deckendem Weiss war der Weichzeichner unsichtbar, kostete aber
+          Rechenzeit beim Scrollen. Und weil die Schritt-Karten ueberblenden, sprang er am Ende jeder Ueberblendung an
+          (ein- oder ausblendender Vorfahr schaltet `backdrop-filter` ab). Gefunden per Glas-Pruefung, siehe
+          docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md. */}
+      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-[rgb(255_255_255/0.92)] p-5 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] sm:right-auto sm:max-w-[68%] sm:p-6 lg:max-w-[380px]">
         <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600">
           Schritt {step.n}
         </span>

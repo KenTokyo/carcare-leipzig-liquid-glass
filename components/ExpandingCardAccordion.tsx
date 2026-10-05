@@ -175,6 +175,8 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Aktiv (aufgeklappt): Desktop = horizontales Akkordeon (skiper52),
   // Mobile = vertikales Akkordeon (skiper53).
   const [active, setActive] = useState(0);
+  // Glas-Plaketten erst nach der Einblendung des Akkordeons (2026-10-05, `sichtbar` in BereichsPlakette).
+  const [eingeblendet, setEingeblendet] = useState(false);
 
   // Geraet, Uebergang, Rahmen, Schleier und Logo teilen sich seit 2026-10-03 beide Akkordeons
   // (`akkordeonKarten.tsx`, dort die Begruendungen fuer Framer statt CSS und gegen reduced-motion).
@@ -199,6 +201,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
+      onAnimationComplete={() => setEingeblendet(true)}
       className={`flex flex-col gap-2.5 lg:h-[460px] lg:flex-row lg:gap-3 ${className ?? ''}`}
     >
       {items.map((item, idx) => {
@@ -363,14 +366,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
                 Repair-Label nicht gesehen werden"). Einen Abend lang stand sie auch auf den eingeklappten Streifen,
                 am Desktop senkrecht; das ist zurueckgenommen. Sie blendet mit der Kachel ein und aus (300 ms).
                 Nur Karten mit `bereich` (Startseite); die Stellenkarten der Karriereseite tragen keinen. */}
+            {/* Die Deckkraft steht seit 2026-10-05 an der Plakette, nicht an diesem Halter: Ein ein- oder ausblendender
+                Vorfahr schaltet ihr Glas ab (Sprung am Ende des Uebergangs). */}
             {item.bereich && (
-              <span
-                aria-hidden="true"
-                className={`pointer-events-none absolute left-9 top-3 z-20 -translate-y-1/2 transition-opacity duration-300 ${
-                  isActive ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <BereichsPlakette bereich={item.bereich} />
+              <span aria-hidden="true" className="pointer-events-none absolute left-9 top-3 z-20 -translate-y-1/2">
+                <BereichsPlakette bereich={item.bereich} sichtbar={isActive && eingeblendet} />
               </span>
             )}
 

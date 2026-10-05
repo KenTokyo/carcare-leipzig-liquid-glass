@@ -35,15 +35,29 @@ interface BereichsPlaketteProps {
   className?: string;
   /** Groesse JEDER Plakette, z. B. `py-1.5` im Seitenkopf. Bei einer Plakette dasselbe wie `className`. */
   plaketteClassName?: string;
+  /**
+   * Die Plakette blendet sich SELBST ein und aus (300 ms). `undefined` = immer sichtbar, ohne Uebergang.
+   *
+   * WARUM (2026-10-05): Chrome schaltet `backdrop-filter` aus, solange ein Vorfahr nicht voll deckt. Lag die Plakette in
+   * einem einblendenden Block (Seitenkopf, Abschnitt, Akkordeon), zeigte sie waehrend der Einblendung den Hintergrund
+   * scharf und sprang am Ende auf Glas. Der Aufrufer setzt `sichtbar` deshalb erst, wenn sein Block fertig eingeblendet
+   * ist (`onAnimationComplete`), und blendet NIE einen Vorfahren der Plakette ein. Gemessene Faelle und Plan:
+   * docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md.
+   */
+  sichtbar?: boolean;
 }
 
-const Plakette: React.FC<{ bereich: Bereich; className: string }> = ({ bereich, className }) => (
+/** Inline statt Klasse: `.cc-liquid` setzt eine eigene `transition`-Liste, eine Utility-Klasse wuerde sie ersetzen. */
+const einblendStil = (sichtbar?: boolean): React.CSSProperties =>
+  sichtbar === undefined ? {} : { opacity: sichtbar ? 1 : 0, transition: 'opacity 300ms ease' };
+
+const Plakette: React.FC<{ bereich: Bereich; className: string; sichtbar?: boolean }> = ({ bereich, className, sichtbar }) => (
   <span
     aria-hidden="true"
     data-suche="aus"
     data-bereich={bereich}
     lang="en"
-    style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))` } as React.CSSProperties}
+    style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))`, ...einblendStil(sichtbar) } as React.CSSProperties}
     // 18 px hoch: 2 px Innenabstand plus 2 px Rand oben und unten um die 10-px-Zeile.
     className={`cc-liquid cc-liquid--plakette inline-flex w-fit shrink-0 items-center rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-[0.18em] text-gray-950 ${className}`}
   >
@@ -55,14 +69,14 @@ const Plakette: React.FC<{ bereich: Bereich; className: string }> = ({ bereich, 
  * MEHRERE PLAKETTEN (seit 2026-10-03): nebeneinander mit 4 px Abstand, in der Reihenfolge der Angabe (Care vor Repair
  * wie im Slogan). Die Gruppe bekommt Lage und Abstand (`className`), jede Plakette ihre Groesse (`plaketteClassName`).
  */
-const BereichsPlakette: React.FC<BereichsPlaketteProps> = ({ bereich, className = '', plaketteClassName = '' }) => {
+const BereichsPlakette: React.FC<BereichsPlaketteProps> = ({ bereich, className = '', plaketteClassName = '', sichtbar }) => {
   const liste: Bereich[] = !bereich ? [] : typeof bereich === 'string' ? [bereich] : [...bereich];
   if (!liste.length) return null;
-  if (liste.length === 1) return <Plakette bereich={liste[0]} className={`${className} ${plaketteClassName}`.trim()} />;
+  if (liste.length === 1) return <Plakette bereich={liste[0]} className={`${className} ${plaketteClassName}`.trim()} sichtbar={sichtbar} />;
   return (
     <span aria-hidden="true" data-suche="aus" className={`inline-flex w-fit shrink-0 items-center gap-1 ${className}`}>
       {liste.map((b) => (
-        <Plakette key={b} bereich={b} className={plaketteClassName} />
+        <Plakette key={b} bereich={b} className={plaketteClassName} sichtbar={sichtbar} />
       ))}
     </span>
   );

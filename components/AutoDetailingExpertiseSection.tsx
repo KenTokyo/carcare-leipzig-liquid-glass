@@ -77,6 +77,7 @@ const AutoDetailingExpertiseSection: React.FC = () => {
   // AKTUELL AUFGEKLAPPTEN Karte hoch (auf Desktop ist immer genau eine offen, auf Mobile `null`).
   // Identische Mechanik wie in ServiceGrid.
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [kopfEingeblendet, setKopfEingeblendet] = useState(false);
 
   return (
     // `relative isolate` = eigener Stacking-Context, damit die -z-10-Ebene sauber hinter dem
@@ -124,12 +125,14 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            onAnimationComplete={() => setKopfEingeblendet(true)}
             className="lg:col-span-7"
           >
-            {/* Backlog 6.8: Care-Plakette neben der Kopfzeile, wie an allen Aufbereitungsleistungen. */}
+            {/* Backlog 6.8: Care-Plakette neben der Kopfzeile, wie an allen Aufbereitungsleistungen.
+                Sie blendet erst nach dem Block ein (2026-10-05, `sichtbar` in BereichsPlakette: sonst Glas-Sprung). */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
               <span className="block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Autoaufbereitung als Expertise</span>
-              <BereichsPlakette bereich="care" />
+              <BereichsPlakette bereich="care" sichtbar={kopfEingeblendet} />
             </div>
             <h2 id="detailing-heading" className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
               Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt.

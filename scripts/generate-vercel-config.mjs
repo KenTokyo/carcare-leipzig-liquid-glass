@@ -42,8 +42,30 @@ const rewrites = getRoutes()
   .filter((p) => p !== '/')
   .map((p) => ({ source: p, destination: '/index.html' }));
 
+// CACHING (2026-10-05, Performance-Analyse, Dauer vom User entschieden).
+// Ohne eigene Regeln lieferte Vercel JEDE Datei mit `public, max-age=0, must-revalidate` aus, auch die Vite-Buendel.
+// Der Browser fragte damit bei jeder Seitenladung jede Datei neu an (gemessen: 17 Rueckfragen auf /ueber-uns, 12 nach
+// dem Logo-Klick), lokal kostenlos, live je eine Netzrunde. HTML bleibt beim Vercel-Standard: Es muss frisch sein.
+//  - Vite-Buendel unter /assets/*.js|css tragen den Inhalts-Hash im Namen und aendern ihn bei jeder Aenderung:
+//    ein Jahr, unveraenderlich. In `public/assets` liegen keine .js/.css, die Regel trifft nur Buendel.
+//  - Bilder, Videos, Schriften behalten ihren Namen, auch wenn der Inhalt getauscht wird (Bildnummern-Praxis):
+//    1 Tag frisch, danach bis 7 Tage aus dem Cache mit Aktualisierung im Hintergrund. Ein Bildtausch unter gleichem
+//    Namen erreicht wiederkehrende Besucher also spaetestens nach einem Tag.
+// Pruefen nach dem Deploy: `curl -sI https://carcare-center.vercel.app/assets/<datei>` → Cache-Control.
+const headers = [
+  {
+    source: '/assets/(.*).(js|css)',
+    headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+  },
+  {
+    source: '/assets/(.*).(webp|png|jpg|jpeg|svg|avif|gif|ico|mp4|webm|woff2)',
+    headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
+  },
+];
+
 const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
+  headers,
   rewrites,
 };
 

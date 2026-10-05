@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Film } from 'lucide-react';
 import type { VideoPlatz } from '../data/videos';
+
+/** Vorlauf, mit dem das Video vor dem Sichtbereich zu laden beginnt (Lenis scrollt das Fenster, IO greift normal). */
+const VORLAUF = '300px 0px';
 
 /**
  * Ein Videoplatz auf der Seite — Backlog 3.18, 3.21.
@@ -33,9 +36,38 @@ interface BetriebsVideoProps {
 const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' }) => {
   const rahmen = 'overflow-hidden rounded-[2rem] border border-gray-200/80 bg-gray-50';
 
+  /*
+   * LADEN ERST IN SICHTWEITE (2026-10-05, Performance-Analyse). `autoPlay` hebelt `preload="metadata"` aus: Der Browser
+   * laedt ein Autoplay-Video beim Seitenstart vollstaendig, egal wo es steht. Gemessen auf /ueber-uns: 2,2 MB Titelvideo
+   * plus 3,5 MB Betriebsrundgang weit unten, beides sofort. Jetzt bekommt das Video seine Quelle erst, wenn der Rahmen
+   * auf VORLAUF an den Sichtbereich herankommt; bis dahin steht das Standbild (`poster`). Das Titelvideo oben startet
+   * damit wie bisher sofort. Ohne IntersectionObserver (sehr alte Browser) laedt es gleich.
+   */
+  const rahmenRef = useRef<HTMLElement>(null);
+  const [inSichtweite, setInSichtweite] = useState(false);
+  useEffect(() => {
+    if (!platz.quelle || inSichtweite) return;
+    const el = rahmenRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setInSichtweite(true);
+      return;
+    }
+    const beobachter = new IntersectionObserver(
+      (eintraege) => {
+        if (eintraege.some((e) => e.isIntersecting)) {
+          setInSichtweite(true);
+          beobachter.disconnect();
+        }
+      },
+      { rootMargin: VORLAUF },
+    );
+    beobachter.observe(el);
+    return () => beobachter.disconnect();
+  }, [platz.quelle, inSichtweite]);
+
   if (platz.quelle) {
     return (
-      <figure className={rahmen} style={{ aspectRatio: format }}>
+      <figure ref={rahmenRef} className={rahmen} style={{ aspectRatio: format }}>
         {/*
           KEIN `motion-reduce:hidden` (entfernt 2026-09-07).
 
@@ -55,13 +87,13 @@ const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' })
         */}
         <video
           className="h-full w-full object-cover"
-          src={platz.quelle}
+          src={inSichtweite ? platz.quelle : undefined}
           poster={platz.poster ?? undefined}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload={inSichtweite ? 'metadata' : 'none'}
           aria-label={platz.beschreibung}
         />
       </figure>

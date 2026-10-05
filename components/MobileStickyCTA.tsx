@@ -59,10 +59,24 @@ const MobileStickyCTA: React.FC = () => {
   const glasKlassen =
     'cc-liquid cc-liquid--kachel pointer-events-auto flex flex-col items-center justify-center gap-1 rounded-2xl border py-3';
 
+  /*
+   * DIE LEISTE GLEITET NUR, DIE KNOEPFE BLENDEN SICH SELBST EIN (2026-10-05). Bis dahin blendete der ganze Container
+   * (`opacity` 0 → 1 und beim Footer wieder auf 0). Chrome schaltet `backdrop-filter` aus, solange ein Vorfahr nicht voll
+   * deckt: Die vier Glasknoepfe zeigten waehrend jeder Einblendung den Inhalt scharf und sprangen am Ende auf Glas
+   * (gemessen auf allen Seiten, mobil, Vorfahren-Deckkraft 0,39–0,62). Jetzt traegt jeder Knopf seine eigene Deckkraft,
+   * der Container nur die Bewegung; beim Footer gleitet er wie bisher 120 px nach unten aus dem Bild.
+   * Plan: docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md.
+   */
+  const glasEinblenden = {
+    initial: { opacity: 0 },
+    animate: { opacity: nearBottom ? 0 : 1 },
+    transition: { duration: 0.3, ease: 'easeOut' },
+  } as const;
+
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: nearBottom ? 120 : 0, opacity: nearBottom ? 0 : 1 }}
+      initial={{ y: 100 }}
+      animate={{ y: nearBottom ? 120 : 0 }}
       transition={{ type: 'spring', stiffness: 220, damping: 24 }}
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 pointer-events-none"
     >
@@ -112,7 +126,8 @@ const MobileStickyCTA: React.FC = () => {
             Bis 2026-09-24 stand hier „tel:03412617790" — waehlbar, aber abweichend. */}
         {/* Live-Punkt wie oben rechts in der Aussparung (seit 2026-09-24): gruen = geoeffnet,
             grau = geschlossen; der Satz dazu steht in der Ansage. Styles: styles/aussparung.css. */}
-        <a
+        <motion.a
+          {...glasEinblenden}
           href="tel:+493412617790"
           className={glasKlassen}
           {...glasLicht}
@@ -124,30 +139,31 @@ const MobileStickyCTA: React.FC = () => {
             <span className="cc-aktion__punkt cc-aktion__punkt--leiste" aria-hidden="true" />
           </span>
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Anrufen</span>
-        </a>
+        </motion.a>
         {/* Seit 2026-09-16 ein Link zur Schadenseite auf reparatur.info (Backlog 2.23) —
             ohne Umweg ueber den Dialog. Mit dem Schalter in `data/schadenmeldung.ts` wieder
             der Knopf ins eigene Formular. */}
         {SCHADENMELDUNG_EXTERN ? (
-          <a href={SCHADENMELDUNG_URL} {...externAttribute(SCHADENMELDUNG_URL)} className={glasKlassen} {...glasLicht}>
+          <motion.a {...glasEinblenden} href={SCHADENMELDUNG_URL} {...externAttribute(SCHADENMELDUNG_URL)} className={glasKlassen} {...glasLicht}>
             <AlertTriangle size={18} strokeWidth={2.2} />
             <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
             <ExternMarke href={SCHADENMELDUNG_URL} pfeil={false} />
-          </a>
+          </motion.a>
         ) : (
-          <button type="button" onClick={() => oeffnen('schaden')} className={glasKlassen} {...glasLicht}>
+          <motion.button {...glasEinblenden} type="button" onClick={() => oeffnen('schaden')} className={glasKlassen} {...glasLicht}>
             <AlertTriangle size={18} strokeWidth={2.2} />
             <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Schaden</span>
-          </button>
+          </motion.button>
         )}
         {/* Termin oeffnet den Dialog statt zu scrollen — sonst haetten Mobil- und
             Desktopnutzer zwei verschiedene Wege zum selben Formular. Ueber den Hook
             statt ueber das Link-Abfangen, weil das hier ein <button> ist. */}
-        <button type="button" onClick={() => oeffnen('termin')} className={glasKlassen} {...glasLicht}>
+        <motion.button {...glasEinblenden} type="button" onClick={() => oeffnen('termin')} className={glasKlassen} {...glasLicht}>
           <CalendarClock size={18} strokeWidth={2.2} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Termin</span>
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          {...glasEinblenden}
           type="button"
           onClick={() => setKartenOffen((offen) => !offen)}
           aria-expanded={kartenOffen}
@@ -158,7 +174,7 @@ const MobileStickyCTA: React.FC = () => {
         >
           <Navigation size={18} strokeWidth={2.2} />
           <span className="text-[10px] font-bold uppercase tracking-[0.15em]">Route</span>
-        </button>
+        </motion.button>
       </div>
     </motion.div>
   );

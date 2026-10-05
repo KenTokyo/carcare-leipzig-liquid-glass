@@ -18,6 +18,21 @@ import KiMarke from './KiMarke';
 const PARALLAX_REISE_PROZENT = 6.67;
 
 /**
+ * Einblendung des Kopfblocks (Slogan, Ueberschrift, Text, CTAs).
+ *
+ * DIE DECKKRAFT STEHT AN JEDEM ELEMENT, NICHT AM BLOCK (2026-10-05). Bis dahin blendete der ganze Block von 0 auf 1 ein.
+ * Chrome schaltet `backdrop-filter` aus, solange ein Vorfahr nicht voll deckt (der Vorfahr wird zur „Backdrop Root“,
+ * der Weichzeichner sieht das Foto dahinter nicht mehr). Die Glas-CTAs zeigten deshalb 0,65 s lang das Foto scharf und
+ * sprangen im letzten Bild auf milchiges Glas, sichtbar nach jedem Logo-Klick zurueck zur Startseite. Gemessen:
+ * Block-Deckkraft 0,99 → Auto scharf durch die Buttons, 1 → Glas. Jetzt bewegt sich der Block nur (`y`, ein Transform ist
+ * keine Backdrop Root), und jedes Element blendet sich selbst ein: Das Glas ist ab dem ersten Bild aktiv und wird
+ * stufenlos sichtbar. Plan: docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md.
+ * ⚠️ Kein `opacity` an einen Vorfahren der CTAs haengen, auch nicht an die CTA-Zeile.
+ */
+const HERO_ZEIT = { duration: 0.65, ease: 'easeOut' } as const;
+const EINBLENDEN = { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: HERO_ZEIT } as const;
+
+/**
  * Vertrauensmerkmale an der Hero-Unterkante. Uebernommen aus der frueher eigenstaendigen
  * `TrustBar`-Sektion, die dafuer am 2026-07-22 aufgeloest wurde (User-Vorgabe, Referenz-Layout:
  * Logo-Leiste am Fuss des Heros). Ausschliesslich harte Fakten (SEO-GEO §4.3), Wortlaut aus den
@@ -135,10 +150,11 @@ const HeroSection: React.FC = () => {
           Vertrauensleiste sonst anschneiden — genau das passierte im ersten Entwurf. Ab `lg`
           faellt die Leiste weg, dort reicht `pb-10`. */}
       <div className="container relative z-10 mx-auto flex min-h-[92svh] flex-col px-5 pb-28 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 lg:pb-10 xl:px-10">
+        {/* Nur Bewegung, keine Deckkraft: siehe EINBLENDEN oben. */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: 'easeOut' }}
+          initial={{ y: 24 }}
+          animate={{ y: 0 }}
+          transition={HERO_ZEIT}
           className="flex flex-1 flex-col justify-center py-6 md:items-center md:justify-start md:py-0 md:text-center"
         >
           {/* Bewusst OHNE Badges/Chips (2026-07-22, User-Vorgabe „komplett minimal"):
@@ -186,28 +202,33 @@ const HeroSection: React.FC = () => {
               nur zwischen „We Care." und „We Repair.", nie als „We Care. We / Repair.". Am Desktop eine Zeile.
               `lang="en"`: Vorlesegeraete sprechen den Satz sonst deutsch aus.
               Kein <h1>: Die Ueberschrift muss das Seitenthema nennen (SEO-GEO §3.2), das tut die Zeile darunter. */}
-          <p
+          <motion.p
+            {...EINBLENDEN}
             lang="en"
             // `md:text-5xl`: Bei 56 px stiess der Slogan auf 768 px an die KI-Plakette oben rechts (Bildschirmfoto
             // 2026-09-28); bei 48 px bleibt Abstand. Ab `lg` ist die Zeile breit genug fuer 72/96 px.
             className="max-w-5xl text-[2.6rem] font-bold leading-[1.08] tracking-tight text-white drop-shadow-[0_2px_24px_rgb(0_0_0/0.55)] sm:text-6xl md:text-5xl lg:text-7xl xl:text-8xl"
           >
             We&nbsp;Care. We&nbsp;Repair.
-          </p>
+          </motion.p>
 
           {/* Die bisherige Ueberschrift als Untertitel (6.8) — bleibt das <h1> mit den Suchbegriffen und dem Ort.
               5.5 („Karosserie" nicht trennen): `hyphens-manual` statt `hyphens-auto`. In dieser Groesse passt
               „Unfallinstandsetzung," auch auf 320 px in eine Zeile; die Trennung war nur bei 36 px Schrift noetig. */}
-          <h1
+          <motion.h1
+            {...EINBLENDEN}
             id="home-heading"
             className="mt-6 max-w-3xl break-words text-xl font-bold leading-snug tracking-tight text-white [hyphens:manual] drop-shadow-[0_2px_18px_rgb(0_0_0/0.6)] sm:text-2xl md:mt-7 md:text-3xl"
           >
             Unfallinstandsetzung, Karosserie und Lack in Leipzig.
-          </h1>
+          </motion.h1>
 
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:mt-5 md:text-xl">
+          <motion.p
+            {...EINBLENDEN}
+            className="mt-4 max-w-2xl text-base leading-relaxed text-gray-200 drop-shadow-[0_1px_12px_rgb(0_0_0/0.5)] md:mt-5 md:text-xl"
+          >
             Meisterbetrieb seit 1998. Auf über 3.500 m² übernehmen wir Reparatur, Lackierung und Fahrzeugaufbereitung, alles aus einer Hand.
-          </p>
+          </motion.p>
 
           {/* CTAs erst ab `lg` — bewusst der Gegenpart zur `MobileStickyCTA`, die `lg:hidden` ist.
               Unterhalb 1024 px bietet die fixierte Bottom-Leiste dieselben zwei Ziele
@@ -220,7 +241,9 @@ const HeroSection: React.FC = () => {
               `hidden` statt Entfernen: die `<a href>` bleiben im HTML und damit crawlbar
               (SEO-GEO §4.4 interne Verlinkung), die Sticky-Bar nutzt dagegen JS-`<button>`. */}
           <div className="mt-9 hidden flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex lg:justify-center">
-            <a
+            {/* Die Buttons blenden sich SELBST ein (EINBLENDEN): Ihre eigene Deckkraft laesst den Weichzeichner aktiv. */}
+            <motion.a
+              {...EINBLENDEN}
               href={SCHADEN_ZIEL}
               {...externAttribute(SCHADEN_ZIEL)}
               className="cc-glass-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
@@ -228,14 +251,15 @@ const HeroSection: React.FC = () => {
               <AlertTriangle size={18} />
               Schaden melden
               <ExternMarke href={SCHADEN_ZIEL} groesse={16} />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              {...EINBLENDEN}
               href="/kontakt#contact-termin"
               className="cc-glass-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white"
             >
               <CalendarClock size={18} />
               Termin für Aufbereitung anfragen
-            </a>
+            </motion.a>
           </div>
         </motion.div>
 
