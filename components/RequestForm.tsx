@@ -223,7 +223,7 @@ const RequestFormInhalt: React.FC<RequestFormProps> = ({ kind, vorauswahl }) => 
       setSubmitted(true);
     } catch {
       setFehler(
-        'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung, oder rufen Sie uns an unter 0341 - 261 77 90.'
+        'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung, oder rufen Sie uns unter 0341 - 261 77 90 an.'
       );
     } finally {
       setSendet(false);

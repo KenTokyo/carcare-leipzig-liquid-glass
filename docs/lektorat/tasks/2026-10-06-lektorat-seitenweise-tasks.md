@@ -153,9 +153,20 @@ dieselben Fragen neu stellen.
   „Fuhrpark- & Autohaus-Lösungen“, „Strg + K“), 12 S zur Entscheidung, 3 H. Keine Sachfrage an André.
 * [x] Nachgeprüft (Build 01:43): Build grün, `npm run meta` 0/29 außerhalb, Auszug vorher/nachher verglichen: nur die
   sieben Korrekturen geändert; Vorprüfung global 0 K, 2 H (lange Markenliste, „inkl.“ im Preis-Hinweis, beides gewollt).
-* [ ] **Stopp:** S-Vorschläge L00-08 bis L00-19 entscheiden lassen, Angenommenes umsetzen.
+* [x] **Entscheidung User 06.10.:** 08, 12, 13, 14, 16, 17, 18, 19 umgesetzt (tsc grün); 11 bleibt („Jobangebote“).
+* [ ] **09/10 offen:** User will erst wissen, warum die Fußzeile „Autoaufbereitung Wissen“/„Wissensbereich“ sagt.
+  Antwort in `L00-global.md` (Redesign-Commit a701ce9 vom 03.06., keine Begründung dokumentiert, vermutlich Suchwort).
+* [ ] **15 offen:** User schrieb „nur Vornamen“; Rückfrage, ob das Feld nur den Vornamen abfragen oder nur der
+  Platzhalter einen Vornamen zeigen soll.
 
-### ⬜ Phase 2 — L01 Startseite
+### 🟨 Phase 2 — L01 Startseite (Stopp: S-Vorschläge beim User)
+* [x] Auszug gelesen (rund 1.080 Wörter, 11 Bildtexte, JSON-LD), Befund `docs/lektorat/befunde/L01-startseite.md`:
+  6 K umgesetzt (fünf Versicherernamen in Inhaberschreibweise, auch im FAQ der Geschäftskundenseite; falscher Bezug
+  „Fuhrparks mit langjähriger Erfahrung“), 13 S, 2 F an André (Deutsche Post als Versicherer? „vrk+“?), 3 H.
+  „Instandsetzung statt Tauschen“ ist Kundenwortlaut (4.12) und bleibt.
+* [x] Nachgeprüft (Build 06.10. nach L01-K): Build grün, `meta` 0/29, Auszüge global und Start vorher/nachher verglichen:
+  nur die beschlossenen Änderungen (Zähler „01 / 05“ und drei KI-Plaketten wechseln mit dem Erfassungszeitpunkt).
+* [ ] **Stopp:** S-Liste L01-07 bis L01-19 beim User.
 ### ⬜ Phase 3 — L02 Unfallinstandsetzung, L03 Fahrzeugaufbereitung (je ein Stopp)
 ### ⬜ Phase 4 — L04 Leistungsübersicht
 ### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)

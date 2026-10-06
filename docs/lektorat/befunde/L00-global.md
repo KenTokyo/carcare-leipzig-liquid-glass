@@ -20,7 +20,11 @@
 | L00-06 | Mega-Menü „Geschäftskunden“ | Fuhrpark & Autohaus-Lösungen | Fuhrpark- & Autohaus-Lösungen | Ergänzungsstrich: gemeint sind Fuhrpark-Lösungen und Autohaus-Lösungen | `data/services.ts:400` |
 | L00-07 | Suchdialog, Tastenhinweis | Strg K öffnet die Suche überall | Strg + K öffnet die Suche überall | Tastenkombination mit Pluszeichen | `components/SuchDialog.tsx:412` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (06.10.):** angenommen und umgesetzt: 08, 12, 13, 14, 16, 17, 18, 19. **11 bleibt** („Jobangebote“).
+**09 und 10 offen:** Der User will vorher wissen, warum die Fußzeile so heißt (Antwort unten). **15 offen:** „nur Vornamen“,
+Rückfrage zur Umsetzung läuft.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
@@ -51,3 +55,16 @@ Navigation (Leistungen, Wissen, Über uns, Karriere, Kontakt), Vorlesetexte (`ar
 Aktions-Pillen und der Aktionsleiste, Anfrage-Dialog „Worum geht es?“ mit seinen drei Optionen, Formular-Einleitungen und
 Pflichtangaben, Erfolgsmeldungen („Anfrage übermittelt.“, Vorgangsnummer, Unterlagen nachreichen), Anhang-Hinweise,
 Suchdialog „Häufig gesucht“, EU-Förderhinweis, Copyright und verantwortliche Stelle in der Fußzeile.
+
+## Warum heißt es in der Fußzeile „Autoaufbereitung Wissen“ und „Wissensbereich“? (zu 09/10)
+
+- Beide Bezeichnungen kamen am **03.06.2026** mit dem großen Redesign-Commit `a701ce9` („Apply CarCare site redesign and
+  branding updates“) in die Fußzeile. Weder der Commit noch eine Planung unter `docs/` nennt einen Grund.
+- „Autoaufbereitung Wissen“ folgt erkennbar der Adresse `/autoaufbereitung-wissen`; in der Planung vom 12.07. heißt
+  der Startseitenblock ebenso „Autoaufbereitung-Wissen (Teaser)“. Vermutlich sollte das Suchwort „Autoaufbereitung“
+  im Linktext stehen. Die Navigation (seit 17.05., `86c8cd6`) sagt dagegen schlicht „Wissen“.
+- „Wissensbereich“ ist die Beschreibung, mit der sich die Seite selbst nennt (Einleitung der Wissensseite, FAQ in
+  `data/faqs.ts`). Ihr Seitentitel lautet „Autoaufbereitung: Wissen & Ratgeber“.
+- Für Suchmaschinen bringt ein Fußzeilenlink wenig: Er steht auf jeder Seite gleich und wird entsprechend schwach
+  gewichtet. Der Leerzeichenfehler in „Autoaufbereitung Wissen“ bleibt in jedem Fall ein Fehler.
+

@@ -6,4 +6,5 @@
 
 | Nr | Seite | Frage | Warum es zählt | Antwort |
 |---|---|---|---|---|
-| | | *(noch keine; L00 hatte keine Sachfrage)* | | |
+| L01-20 | Startseite, Geschäftskunden › Versicherer | „Deutsche Post“ steht in der Liste der Versicherer. Ist das ein Versicherer, ein Schadensteuerer oder ein Flottenkunde? | Die Seite zählt „Mit diesen N Versicherern“; ein Nicht-Versicherer macht die Zahl falsch | |
+| L01-21 | dto. | „vrk+“: Gemeint ist vermutlich die VRK (Versicherer im Raum der Kirchen), die sich „VRK“ schreibt. Ist „vrk+“ ein bestimmtes Produkt? | Markenname in der Schreibweise des Inhabers | |

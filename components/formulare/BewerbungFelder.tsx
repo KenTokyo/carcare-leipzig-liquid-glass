@@ -109,7 +109,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
     </div>
     <div>
       <label className={labelClass} htmlFor="bewerbung-description">Nachricht</label>
-      <textarea id="bewerbung-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Ein paar Sätze zu Ihrer Erfahrung und dazu, ab wann Sie können …" />
+      <textarea id="bewerbung-description" name="description" required rows={4} value={werte.description} onChange={onChange} className={inputClass} placeholder="Ein paar Sätze zu Ihrer Erfahrung und dazu, ab wann Sie anfangen können …" />
     </div>
   </>
 );

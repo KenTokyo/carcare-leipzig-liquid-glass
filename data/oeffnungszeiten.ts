@@ -48,8 +48,6 @@ export const OEFFNUNG_ANZEIGE = {
   werktage: 'Mo–Fr',
   zeit: `${stunde(OEFFNUNG.von)}–${stunde(OEFFNUNG.bis)}`,
   samstag: 'nach Vereinbarung',
-  /** Fuer die schmale Footer-Spalte. */
-  samstagKurz: 'n. Vereinbarung',
 } as const;
 
 /**

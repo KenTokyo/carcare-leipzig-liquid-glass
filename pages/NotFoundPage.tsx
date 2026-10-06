@@ -7,7 +7,7 @@ const NotFoundPage: React.FC = () => (
     <PageHero
       eyebrow="404"
       title="Diese Seite wurde nicht gefunden."
-      description="Die gewünschte Adresse existiert aktuell nicht. Über die Startseite oder Kontaktseite finden Sie schnell den passenden Einstieg."
+      description="Diese Adresse gibt es auf unserer Website nicht oder nicht mehr. Über die Startseite oder Kontaktseite finden Sie schnell den passenden Einstieg."
       primaryCta={{ label: 'Zur Startseite', href: '/' }}
       secondaryCta={{ label: 'Kontakt aufnehmen', href: '/kontakt' }}
     />

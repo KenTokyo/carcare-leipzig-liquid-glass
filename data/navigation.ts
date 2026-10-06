@@ -125,7 +125,7 @@ const kontaktKarten: NavCard[] = [
     id: 'kontakt-termin',
     icon: CalendarClock,
     label: 'Termin anfragen',
-    description: 'Aufbereitung & Reparatur buchen',
+    description: 'Aufbereitung & Pflege anfragen',
     href: '/kontakt#contact-termin',
     children: [],
   },

@@ -101,7 +101,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
           />
         </div>
         <p id="termin-kontakt-hinweis" className="text-[11px] leading-relaxed text-gray-600 md:col-span-2">
-          Telefon oder E-Mail genügt. Eins davon brauchen wir, um uns bei Ihnen zu melden.
+          Telefon oder E-Mail genügt. Eine der beiden Angaben brauchen wir, um uns bei Ihnen zu melden.
         </p>
       </div>
       {/* MARKE UND MODELL als zwei Auswahllisten (User, 2026-09-28) statt Freitext „Fahrzeug“. Das Modell

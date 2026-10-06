@@ -224,7 +224,7 @@ const Footer: React.FC = () => {
                   <Clock size={16} className="mt-1 shrink-0 text-gray-400" />
                   <div className="leading-snug">
                     <p><span className="font-semibold text-white">{OEFFNUNG_ANZEIGE.werktage}:</span> {OEFFNUNG_ANZEIGE.zeit} Uhr</p>
-                    <p><span className="font-semibold text-white">Sa:</span> {OEFFNUNG_ANZEIGE.samstagKurz}</p>
+                    <p><span className="font-semibold text-white">Sa:</span> {OEFFNUNG_ANZEIGE.samstag}</p>
                   </div>
                 </div>
               </div>
@@ -265,9 +265,7 @@ const Footer: React.FC = () => {
               <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
                 <li><a href={SCHADEN_ZIEL} {...externAttribute(SCHADEN_ZIEL)} className="inline-flex items-center gap-1 hover:text-white transition-colors">Schaden melden<ExternMarke href={SCHADEN_ZIEL} groesse={12} /></a></li>
                 <li><a href="/kontakt#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
-                <li><a href="/kontakt#contact-business" className="hover:text-white transition-colors">Geschäftskunden</a></li>
-                <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">B2B-Bereich</a></li>
-                <li><a href="/#zielgruppen" className="hover:text-white transition-colors">Zielgruppen</a></li>
+                <li><a href="/kontakt#contact-business" className="hover:text-white transition-colors">Als Geschäftskunde anfragen</a></li>
               </ul>
             </motion.div>
           </div>
