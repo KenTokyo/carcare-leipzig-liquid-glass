@@ -23,8 +23,8 @@
 ## S · Vorschläge
 
 **Entscheidung des Users (06.10.):** angenommen und umgesetzt: 08, 12, 13, 14, 16, 17, 18, 19. **11 bleibt** („Jobangebote“).
-**09 und 10:** nach der Erklärung unten am 07.10. wie vorgeschlagen umgesetzt (beide „Wissen“). **15 offen:** „nur Vornamen“,
-Rückfrage zur Umsetzung läuft.
+**09 und 10:** nach der Erklärung unten am 07.10. wie vorgeschlagen umgesetzt (beide „Wissen“). **15:** am 07.10. als Variante B entschieden: Feld bleibt „Name“, der Platzhalter zeigt nur einen Vornamen („Max“), in allen
+vier Formularen.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

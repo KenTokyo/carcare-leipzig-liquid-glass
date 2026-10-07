@@ -156,7 +156,7 @@ dieselben Fragen neu stellen.
 * [x] **Entscheidung User 06.10.:** 08, 12, 13, 14, 16, 17, 18, 19 umgesetzt (tsc grün); 11 bleibt („Jobangebote“).
 * [x] **09/10** (07.10.): nach der Erklärung wie vorgeschlagen „Wissen“. Vorher: User wollte erst wissen, warum die Fußzeile „Autoaufbereitung Wissen“/„Wissensbereich“ sagt.
   Antwort in `L00-global.md` (Redesign-Commit a701ce9 vom 03.06., keine Begründung dokumentiert, vermutlich Suchwort).
-* [ ] **15 offen:** User schrieb „nur Vornamen“; Rückfrage, ob das Feld nur den Vornamen abfragen oder nur der
+* [x] **15** (07.10.): Variante B, Feld bleibt „Name“, Platzhalter „Max“ in allen vier Formularen. Vorher: User schrieb „nur Vornamen“; Rückfrage, ob das Feld nur den Vornamen abfragen oder nur der
   Platzhalter einen Vornamen zeigen soll.
 
 ### ✅ Phase 2 — L01 Startseite
@@ -177,7 +177,9 @@ dieselben Fragen neu stellen.
 * [x] Nachgeprüft (Build 07.10.): grün, `meta` 0/29, alle 30 Auszüge neu; L02 ohne K. Dabei eine Stelle mit großem
   „Weder“ (`faqs.ts:74`, Smart Repair) gefunden, die die erste Suche (Kleinschreibung) übersehen hatte: nachkorrigiert,
   neu gebaut, Auszug Smart Repair geprüft. Lehre: Suchen über Text immer ohne Groß-/Kleinschreibung.
-* [ ] **Stopp:** L02-S (04–10), F L02-11 an André, Frage 15 (L00) beim User.
+* [x] **Entscheidung User 07.10.:** L02-S 04–10 und die vorsichtige Fassung zu L02-11 übernommen (neun Stellen plus zwei
+  Kartentitel und JSON-LD), dazu 15 = B. Build grün, `meta` 0/29, alle Auszüge neu: geändert nur Unfall, Dellen, Felgen,
+  Leasing, Leistungen, Privatkunden (erwartet), Platzhalter „Max“ in allen Formularen, sechs neue Vorlesetexte auf L02.
 * [ ] L03 Fahrzeugaufbereitung
 ### ⬜ Phase 4 — L04 Leistungsübersicht
 ### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)

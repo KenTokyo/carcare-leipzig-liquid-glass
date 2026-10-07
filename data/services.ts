@@ -228,7 +228,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Felgenreparatur',
     localTitle: 'Felgenreparatur Leipzig',
     description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb.',
-    listDescription: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
+    listDescription: 'TÜV-zertifiziertes Reparaturverfahren für Alufelgen, als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
     iconName: 'CircleDot',
     href: '/felgenreparatur-leipzig',
     cta: 'Felgen reparieren',

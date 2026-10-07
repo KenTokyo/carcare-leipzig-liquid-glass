@@ -153,6 +153,8 @@ const Karte: React.FC<{ karte: LeistungsKarte }> = ({ karte }) => {
       {karte.href && (
         <a
           href={karte.href}
+          // Lektorat L02-10: Ohne eigenen Linktext steht „Mehr erfahren“ oft mehrfach auf der Seite.
+          aria-label={karte.linkLabel ? undefined : `Mehr erfahren: ${karte.title}`}
           className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
         >
           {karte.linkLabel ?? 'Mehr erfahren'} <ArrowRight size={14} />

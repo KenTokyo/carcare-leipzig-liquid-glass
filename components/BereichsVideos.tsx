@@ -81,6 +81,7 @@ const BereichsVideos: React.FC<{ karten: BereichsKarte[]; kicker?: string }> = (
           {k.href && (
             <a
               href={k.href}
+              aria-label={k.linkLabel ? undefined : `Mehr erfahren: ${k.titel}`}
               className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
             >
               {k.linkLabel ?? 'Mehr erfahren'} <ArrowRight size={14} />

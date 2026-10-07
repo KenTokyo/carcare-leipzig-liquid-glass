@@ -45,7 +45,7 @@ const gutachterChecks = [
 const repairs = [
   {
     title: 'Dellen ohne Lackieren',
-    description: 'Parkplatzdellen bei intaktem Lack drücken wir lackfrei aus. Die Methode ist im Nachhinein nicht nachweisbar, verursacht keine Wertminderung und ist von Versicherungen und Gutachtern anerkannt.',
+    description: 'Parkplatzdellen bei intaktem Lack drücken wir lackfrei aus. Der Originallack bleibt erhalten, die reparierte Stelle ist danach nicht zu sehen, und die Methode ist bei Versicherungen und Gutachtern anerkannt.',
     href: '/dellenentfernung-leipzig',
   },
   {

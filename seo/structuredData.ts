@@ -248,7 +248,7 @@ export const homeServiceListSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   itemListElement: [
-    serviceSchema('Unfallinstandsetzung Leipzig', 'Unfallschaden, Schadenskalkulation und Reparaturbegleitung in Leipzig.', '/unfallinstandsetzung-leipzig'),
+    serviceSchema('Unfallinstandsetzung Leipzig', 'Unfallschaden, Schadenkalkulation und Reparaturbegleitung in Leipzig.', '/unfallinstandsetzung-leipzig'),
     serviceSchema('Fahrzeugaufbereitung Leipzig', 'Professionelle Innen- und Außenaufbereitung, Lackpflege und Werterhalt.', '/fahrzeugaufbereitung-leipzig'),
     serviceSchema('Fuhrparkservice Leipzig', 'Planbare Fahrzeugdienstleistungen für gewerbliche Flotten.', '/geschaeftskunden'),
   ].map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })),

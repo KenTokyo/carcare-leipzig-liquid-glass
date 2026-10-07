@@ -23,7 +23,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
         <label className={labelClass} htmlFor="bewerbung-name">Name</label>
-        <input id="bewerbung-name" name="name" required value={werte.name} onChange={onChange} className={inputClass} placeholder="Vor- und Nachname" />
+        <input id="bewerbung-name" name="name" required value={werte.name} onChange={onChange} className={inputClass} placeholder="Max" />
       </div>
       <div>
         <label className={labelClass} htmlFor="bewerbung-phone">Telefon</label>

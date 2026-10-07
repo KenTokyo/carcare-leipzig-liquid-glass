@@ -64,7 +64,7 @@ const TerminFelder: React.FC<TerminFelderProps> = ({ werte, onChange, onZusatzle
       </p>
       <div>
         <label className={labelClass} htmlFor="termin-name">Name</label>
-        <input id="termin-name" name="name" required autoComplete="name" value={werte.name} onChange={onChange} className={inputClass} placeholder="Max Mustermann" />
+        <input id="termin-name" name="name" required autoComplete="name" value={werte.name} onChange={onChange} className={inputClass} placeholder="Max" />
       </div>
       {/* TELEFON ODER E-MAIL: `required` haengt jeweils am LEEREN Gegenstueck. Ist eins ausgefuellt, ist das
           andere frei; sind beide leer, meldet der Browser das erste. Ohne Skriptlogik, mit der ueblichen

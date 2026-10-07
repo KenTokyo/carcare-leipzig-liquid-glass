@@ -48,7 +48,7 @@ export const MIT_VERSICHERUNG = ['haftpflicht', 'kasko'];
 
 export const schadenFelder: SchadenFeld[] = [
   // ------------------------------------------------------------- Kontakt ----
-  { id: 'name', label: 'Name', typ: 'text', pflicht: true, platzhalter: 'Max Mustermann', breite: 'halb' },
+  { id: 'name', label: 'Name', typ: 'text', pflicht: true, platzhalter: 'Max', breite: 'halb' },
   { id: 'phone', label: 'Telefon', typ: 'tel', pflicht: true, platzhalter: '0341 - …', breite: 'halb' },
   { id: 'email', label: 'E-Mail', typ: 'email', pflicht: true, platzhalter: 'name@beispiel.de', breite: 'halb' },
 

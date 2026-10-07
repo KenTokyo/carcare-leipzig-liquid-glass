@@ -37,7 +37,7 @@ const FelgenreparaturPage: React.FC = () => (
       eyebrow: 'Felgenreparatur Leipzig',
       title: 'Felgenreparatur in Leipzig.',
       description:
-        'Einmal versehentlich am Bordstein entlang geschrammt und schon ist die Alufelge beschädigt. Nicht nur die Optik leidet, auch der Wert des Fahrzeugs sinkt. Mit unserem TÜV-zertifizierten Alufelgenreparaturverfahren beheben wir bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig.',
+        'Einmal versehentlich am Bordstein entlang geschrammt und schon ist die Alufelge beschädigt. Nicht nur die Optik leidet, auch der Wert des Fahrzeugs sinkt. Mit unserem TÜV-zertifizierten Reparaturverfahren für Alufelgen beheben wir bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig.',
       primaryCta: { label: 'Felgenreparatur anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Felgenreparatur Leipzig', 'Alufelgen reparieren Leipzig', 'Bordsteinschaden Felge Leipzig'],

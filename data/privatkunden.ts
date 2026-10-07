@@ -54,9 +54,9 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
     kurz: 'Ersatzwagen nach Verfügbarkeit.',
   },
   {
-    title: 'Reparatur ohne Wertminderung',
-    beschreibung: 'Die lackfreie Dellenentfernung ist lackschonend und im Nachhinein nicht nachweisbar. Es entsteht keine Wertminderung, und sie ist von allen Versicherungen und Gutachtern anerkannt.',
-    kurz: 'Lackfreie Dellenentfernung, nicht nachweisbar.',
+    title: 'Originallack bleibt erhalten',
+    beschreibung: 'Die lackfreie Dellenentfernung ist lackschonend: Der Originallack bleibt erhalten, und die reparierte Stelle ist danach nicht zu sehen. Die Methode ist bei Versicherungen und Gutachtern anerkannt.',
+    kurz: 'Lackfreie Dellenentfernung, danach nicht zu sehen.',
   },
   {
     title: 'Farbtongenau als Glasurit-Lackpartner',

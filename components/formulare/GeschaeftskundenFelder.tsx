@@ -23,7 +23,7 @@ const GeschaeftskundenFelder: React.FC<GeschaeftskundenFelderProps> = ({ werte, 
       </div>
       <div>
         <label className={labelClass} htmlFor="business-contact">Ansprechpartner</label>
-        <input id="business-contact" name="contact" required value={werte.contact} onChange={onChange} className={inputClass} placeholder="Vor- und Nachname" />
+        <input id="business-contact" name="contact" required value={werte.contact} onChange={onChange} className={inputClass} placeholder="Max" />
       </div>
     </div>
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

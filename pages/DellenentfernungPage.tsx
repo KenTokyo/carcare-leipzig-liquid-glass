@@ -12,10 +12,10 @@ import ServiceLayout from '../components/ServiceLayout';
 
 const vorteile = [
   { title: 'Kosten- und Zeitersparnis', description: 'Gegenüber herkömmlichen Reparaturverfahren wie Spachteln und Lackieren.' },
-  { title: 'Keine Wertminderung', description: 'Die Methode ist schonend für den Lack und im Nachhinein nicht sicht- bzw. nachweisbar.' },
+  { title: 'Originallack bleibt erhalten', description: 'Die Methode ist schonend für den Lack, die reparierte Stelle ist danach nicht zu sehen.' },
   { title: 'Keine Farbunterschiede', description: 'Da nicht lackiert wird, entstehen keine Farbunterschiede zum übrigen Fahrzeug.' },
   { title: 'Keine Belastung der Umwelt', description: 'Ein umweltschonendes Verfahren ohne Spachtel- und Lackieraufwand.' },
-  { title: 'Von Versicherungen anerkannt', description: 'Anerkannt von allen Versicherungen und Gutachtern.' },
+  { title: 'Von Versicherungen anerkannt', description: 'Die Methode ist bei Versicherungen und Gutachtern anerkannt.' },
 ];
 
 const usp = [

@@ -16,7 +16,11 @@
 
 „weder Farbton noch Effekt zur Originallackierung abweichen“ (`ServicesPage.tsx:32`) ist richtig und bleibt.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (07.10.): alle angenommen und umgesetzt.** 06 und 07 auch in den geteilten Quellen (Felgenseite,
+Leistungsliste, FAQ, JSON-LD), 10 in `LeistungsKarten` und `BereichsVideos` (Vorlesetext nur, wo kein eigener
+Linktext gesetzt ist).
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
@@ -29,6 +33,11 @@
 | L02-10 | Neun Links „Mehr erfahren“ | Mehr erfahren (neunmal, verschiedene Ziele) | sichtbar gleich lassen, aber Vorlesetext je Ziel, z. B. „Mehr erfahren: Neu- und Reparaturlackierung“ | Vorlesegeräte listen Links ohne Umfeld; neunmal „Mehr erfahren“ ist dort nicht unterscheidbar (Ebene 7) | Karten in `AccidentRepairPage.tsx`, Zielgruppen-Kacheln |
 
 ## F · Frage an André (mit Vorschlag)
+
+**07.10.:** Der User hat den Vorschlag übernommen. Die vorsichtige Fassung steht jetzt an allen neun Stellen, dazu die
+beiden Kartentitel „Keine Wertminderung“ (Dellenseite) und „Reparatur ohne Wertminderung“ (Privatkunden), beide jetzt
+„Originallack bleibt erhalten“, und die Beschreibung im JSON-LD der Dellenentfernung. Antworten mit Wertminderung
+sagen jetzt „in der Regel nicht“. Belegt André die Absolutaussagen, lassen sie sich wieder schärfen.
 
 | Nr | Stelle | Frage | Vorschlag, falls die Aussagen nicht belegt sind |
 |---|---|---|---|

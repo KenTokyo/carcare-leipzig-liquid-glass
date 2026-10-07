@@ -33,22 +33,22 @@ const repairServices = [
   },
   {
     title: 'Smart Repair',
-    description: 'Punktuelle Lackinstandsetzung mit geringem Aufwand. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet, unsere bevorzugte Methode bei kleineren Lack- und Kunststoffschäden.',
+    description: 'Punktuelle Lackinstandsetzung mit geringem Aufwand. Statt das ganze Bauteil zu lackieren, bearbeiten wir gezielt nur den betroffenen Bereich. Bei kleineren Lack- und Kunststoffschäden ist das unsere bevorzugte Methode.',
     href: '/smart-repair-leipzig',
   },
   {
     title: 'Dellenentfernung',
-    description: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hageldellen. Voraussetzung ist ein unbeschädigter Lack. Die Methode ist von allen Versicherungen und Gutachtern anerkannt und im Nachhinein nicht nachweisbar. Es entsteht keine Wertminderung.',
+    description: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hageldellen. Voraussetzung ist ein unbeschädigter Lack. Die Methode ist bei Versicherungen und Gutachtern anerkannt. Die reparierte Stelle ist danach nicht zu sehen, der Originallack bleibt erhalten.',
     href: '/dellenentfernung-leipzig',
   },
   {
     title: 'Hagelschadenreparatur',
-    description: 'Strukturierte Hilfe nach Hagelereignissen: Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung. Bei intaktem Lack werden die Dellen lackfrei entfernt.',
+    description: 'Strukturierte Hilfe nach Hagelschäden: Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex, komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung. Bei intaktem Lack entfernen wir die Dellen lackfrei.',
     href: '/hagelschadenreparatur-leipzig',
   },
   {
     title: 'Felgenreparatur',
-    description: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben, auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
+    description: 'TÜV-zertifiziertes Reparaturverfahren für Alufelgen, als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben, auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
     href: '/felgenreparatur-leipzig',
   },
   {
@@ -60,15 +60,15 @@ const repairServices = [
 
 const caseHandling = [
   { title: 'Schadenaufnahme', description: 'Erfassung des Schadens vor Ort oder anhand Ihrer Fotos, inklusive Dokumentation von Umfang und Hergang.' },
-  { title: 'Schadenskalkulation', description: 'Nachvollziehbare Kalkulation als Grundlage für Reparatur, Freigabe und weitere Abstimmung.' },
+  { title: 'Schadenkalkulation', description: 'Nachvollziehbare Kalkulation als Grundlage für Reparatur, Freigabe und weitere Abstimmung.' },
   { title: 'Gutachterservice', description: 'Koordination und Kommunikation mit Gutachtern, sofern das für den Schadenfall sinnvoll ist.' },
   { title: 'Versicherungsabwicklung', description: 'Auf Wunsch übernehmen wir Schriftverkehr und Abstimmung mit Versicherern und Agenturen.' },
   // Backlog 2.17: Umbenannt — die Karte deckt Karosserie UND Lack ab.
   { title: 'Karosserie- und Lackierarbeiten', description: 'Fachgerechte Instandsetzung beschädigter Karosserie- und Anbauteile im eigenen Haus, inklusive der zugehörigen Lackierarbeiten.' },
-  { title: 'Ersatzmobilität', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen.' },
+  { title: 'Ersatzwagen', description: 'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen.' },
   { title: 'Dokumentation', description: 'Nachvollziehbare Dokumentation der Schritte und saubere Übergabe nach Abschluss.' },
   // Backlog 3.7: Wortlaut vom Kunden vorgegeben und freigegeben — nicht umformulieren.
-  { title: 'Alle Marken', description: 'Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate unter Verwendung von ausschließlich Originalersatzteilen.' },
+  { title: 'Alle Marken', description: 'Als markenunabhängiger Meisterbetrieb bearbeiten wir alle Fabrikate und verwenden dabei ausschließlich Originalersatzteile.' },
 ];
 
 /**
