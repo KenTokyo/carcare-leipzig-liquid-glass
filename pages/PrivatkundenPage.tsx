@@ -40,7 +40,7 @@ const services = [
   },
   {
     title: 'Dellen ohne Lackieren',
-    description: 'Parkplatzdellen bei intaktem Lack entfernen wir lackfrei. Von Versicherungen und Gutachtern anerkannt, ohne Wertminderung.',
+    description: 'Parkplatzdellen bei intaktem Lack entfernen wir lackfrei. Der Originallack bleibt erhalten, die Methode ist bei Versicherungen und Gutachtern anerkannt.',
     href: '/dellenentfernung-leipzig',
   },
   {
@@ -90,7 +90,7 @@ const PrivatkundenPage: React.FC = () => (
     <PageHero
       eyebrow="Privatkunden"
       title="Ihr Auto in Leipzig, gepflegt, repariert und wieder wie neu."
-      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort, als Meisterbetrieb und Glasurit-Lackpartner seit 1998, für alle Marken."
+      description="Ob Aufbereitung, Parkplatzdelle, Steinschlag oder Unfallschaden: Im CarCare Center Leipzig übernehmen wir Pflege, Reparatur und Lackierung an einem Standort, als Meisterbetrieb seit 1998 und Glasurit-Lackpartner, für alle Marken."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Autoaufbereitung Leipzig', 'Autoreparatur Leipzig', 'Smart Repair Leipzig', 'Leasingrückgabe Leipzig']}

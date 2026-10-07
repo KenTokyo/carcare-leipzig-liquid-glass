@@ -195,7 +195,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Dellenentfernung',
     localTitle: 'Dellenentfernung Leipzig',
     description: 'Lackierfreie Instandsetzung bei Dellen und kleinen Karosserieschäden.',
-    listDescription: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hagelschäden, von Versicherungen und Gutachtern anerkannt, ohne Wertminderung.',
+    listDescription: 'Lackierfreie Instandsetzung bei Parkplatzdellen und Hagelschäden, bei Versicherungen und Gutachtern anerkannt, der Originallack bleibt erhalten.',
     iconName: 'Hammer',
     href: '/dellenentfernung-leipzig',
     cta: 'Dellen entfernen',

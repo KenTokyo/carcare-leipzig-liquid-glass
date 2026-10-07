@@ -18,7 +18,7 @@ import { regelSaetze } from '../data/zusatzregeln';
  */
 
 const leasingChecks = [
-  { title: 'Was der Rückgabegutachter bewertet', description: 'Lackschäden, Diverses an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe sowie der Zustand des Innenraums fließen in das Rückgabeprotokoll ein.' },
+  { title: 'Was der Rückgabegutachter bewertet', description: 'Lackschäden, Schäden an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe sowie der Zustand des Innenraums fließen in das Rückgabeprotokoll ein.' },
   { title: 'Was sich vorher beheben lässt', description: 'Parkplatzdellen bei intaktem Lack lackfrei entfernen, kleinere Lackschäden per Spot-Repair, Bordsteinschäden an Felgen bis 1 mm Tiefe und Steinschläge in der Scheibe reparieren.' },
   { title: 'Warum das vorab günstiger ist', description: 'Der Leasinggeber rechnet Schäden nach eigenen Sätzen ab. Eine vorherige Instandsetzung im Fachbetrieb reduziert vermeidbare Nachbelastungen.' },
   { title: 'Wann Sie starten sollten', description: 'Planen Sie den Termin einige Wochen vor der Rückgabe. So bleibt Zeit für Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin eng wird.' },
@@ -61,7 +61,7 @@ const VehicleDetailingPage: React.FC = () => (
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
           // Backlog 6.24 (Mail Andre 2026-09-28): die letzten beiden Saetze in Andres Fassung, in „Sie/wir“ umformuliert.
-          description="Vier aufeinander aufbauende Pakete, von der Brillant Außenpflege ab 169 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, passt die Intensiv Innenraumreinigung. Wünschen Sie beides für sich und Ihr Fahrzeug oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand."
+          description="Vier aufeinander aufbauende Pakete, von der Brillant Außenpflege ab 169 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, passt die Intensiv Innenraumreinigung. Wünschen Sie beides, oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand."
         />
         {/* Backlog 4.7: Aufpreise als Fussnote — Entscheidung des Kunden vom 2026-09-16.
             Der Satz kommt aus `AUFPREIS_SATZ`, dieselbe Quelle wie die Preis-FAQ. */}
@@ -219,8 +219,8 @@ const VehicleDetailingPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Expertise"
-          title="Für Premiumfahrzeuge, Autohäuser, Fuhrparks und hohe Qualitätsstandards."
-          description="Wir arbeiten neutral, professionell und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern."
+          title="Für Premiumfahrzeuge, Autohäuser und Fuhrparks, mit hohen Qualitätsstandards."
+          description="Wir arbeiten markenunabhängig, sorgfältig und mit dem Anspruch, Fahrzeugzustand und Wert sichtbar zu verbessern."
         />
         <FeatureGrid items={expertPoints} columns="four" />
       </div>

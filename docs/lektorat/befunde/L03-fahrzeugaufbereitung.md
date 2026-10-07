@@ -21,7 +21,9 @@ Die Vorprüfung meldete „Anhaftungen, **die die** Wäsche stehen lässt“ als
 (Relativpronomen plus Artikel); die Regel nimmt Artikel und Pronomen seitdem aus. Reine Preiskacheln meldet die
 Preisregel nicht mehr.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt.** L03-11 (Motorreinigung) bleibt Frage an André.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

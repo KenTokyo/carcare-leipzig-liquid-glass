@@ -64,7 +64,7 @@ const ServicesPage: React.FC = () => (
     <PageHero
       eyebrow="Leistungen"
       title="Alle Leistungen vom CarCare Center Leipzig im Überblick."
-      description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas, auf über 3.500 m² aus einer Hand, als Meisterbetrieb und Glasurit-Lackpartner seit 1998."
+      description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas, auf über 3.500 m² aus einer Hand, als Meisterbetrieb seit 1998 und Glasurit-Lackpartner."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       keywords={['Fahrzeugaufbereitung Leipzig', 'Unfallinstandsetzung Leipzig', 'Autolackierung Leipzig', 'Smart Repair Leipzig']}

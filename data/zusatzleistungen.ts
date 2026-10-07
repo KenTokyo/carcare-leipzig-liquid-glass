@@ -174,7 +174,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
     label: 'Heißvernebelung (KC-Refresher)',
     preis: '59,00 €',
     beschreibung:
-      'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Die Wirksamkeit gegenüber Bakterien und Schimmel wurde vom Institut für Biochemie der Universität Mannheim bestätigt.',
+      'Der KC-Refresher bekämpft Bakterien, behüllte Viren und Schimmelpilze wirkungsvoll und lang anhaltend. Laut Hersteller Koch-Chemie hat das Institut für Biochemie der Universität Mannheim die Wirksamkeit gegenüber Bakterien und Schimmel bestätigt.',
     // Andre: „buchbar allein oder zu allen Programmen“
     buchbar: UEBERALL,
   },

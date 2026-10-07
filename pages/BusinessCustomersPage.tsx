@@ -58,7 +58,7 @@ const offerings = [
   { title: 'Unfallinstandsetzung', description: 'Kompletter Schadenfall inklusive Karosserie, Lack und Abstimmung mit Versicherung und Gutachter.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Neu- und Reparaturlackierung', description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, auf Wunsch für ganze Fahrzeugserien.', href: '/autolackierung-leipzig' },
   { title: 'Smart Repair', description: 'Punktuelle Instandsetzung kleinerer Schäden, bei Flotten und Rückläufern der wirtschaftlichste Weg.', href: '/smart-repair-leipzig' },
-  { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung ohne Wertminderung, von Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
+  { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung, der Originallack bleibt erhalten. Bei Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung, auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb statt Neubeschaffung von Originalfelgen.', href: '/felgenreparatur-leipzig' },
   { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für Pkw, Lkw und Bus, als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },

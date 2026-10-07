@@ -170,7 +170,7 @@ dieselben Fragen neu stellen.
   19 FAQ-Kundensicht als Stilblatt 10 und Textregel 2, Ausnahme 3). Build grün, Auszüge vorher/nachher: nur das
   Beschlossene. Überlaufprüfung Startseite und L02 (ad hoc, Desktop + mobil): keine neuen Überläufe; ein älterer
   (Überschrift „Versicherungen & Agenturen“ mobil 6 px) als L02-14 vorgemerkt.
-### 🟨 Phase 3 — L02 Unfallinstandsetzung, L03 Fahrzeugaufbereitung (je ein Stopp)
+### ✅ Phase 3 — L02 Unfallinstandsetzung, L03 Fahrzeugaufbereitung (je ein Stopp)
 * [x] L02 gelesen, Befund `docs/lektorat/befunde/L02-unfallinstandsetzung.md`: 3 K (Ergänzungsstrich „Farbton- noch
   Effektunterschiede“ an 7 Stellen auf 6 Seiten, Großschreibung nach Doppelpunkt, „1 mm“ an 11 Stellen; Stilblatt 5
   und Vorprüfung um mm/cm/kg und um eine Preis-Regel (Stilblatt 9) erweitert), 7 S, 1 F (Dellen-Aussagen, 5 Seiten), 3 H.
@@ -185,8 +185,14 @@ dieselben Fragen neu stellen.
   34 Fließtextpreise ohne Cent plus Helfer `fliesstextPreis`), 6 S, 1 F (Motorreinigung „wasserlöslich“?), 3 H.
   Vorprüfung geschärft: Wortdoppelung ohne Artikel/Pronomen („die die“), Preisregel ohne reine Kacheln. Build grün,
   `meta` 0/29, Auszüge: geändert nur die sieben Seiten mit Fließtextpreisen und L03; Kacheln behalten den Cent-Betrag.
-* [ ] **Stopp:** L03-S (05–10) und F 11 beim User.
-### ⬜ Phase 4 — L04 Leistungsübersicht
+* [x] **Entscheidung User 08.10.:** L03-S 05–10 umgesetzt; F 11 bleibt bei André.
+
+### 🟨 Phase 4 — L04 Leistungsübersicht (Stopp: S beim User)
+* [x] L04 gelesen (rund 815 Wörter), Befund `docs/lektorat/befunde/L04-leistungen.md`: 2 K, beide seitenübergreifend
+  („Meisterbetrieb seit 1998 und Glasurit-Lackpartner“ statt „… Glasurit-Lackpartner seit 1998“, Lackierung erst seit 2013;
+  „ohne Wertminderung“ an drei weiteren Stellen nach L02-11), 4 S, 2 H. Build grün, `meta` 0/29, alle Auszüge neu:
+  geändert nur Fahrzeugaufbereitung (L03-S), Innenaufbereitung (KC-Refresher), Leistungen, Privat- und Geschäftskunden.
+* [ ] **Stopp:** L04-S (03–06) beim User.
 ### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
