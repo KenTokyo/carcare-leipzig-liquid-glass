@@ -237,7 +237,7 @@ const Footer: React.FC = () => {
                 <li><a href="/" className="hover:text-white transition-colors">Startseite</a></li>
                 <li><a href="/ueber-uns" className="hover:text-white transition-colors">Über uns</a></li>
                 <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
-                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Autoaufbereitung Wissen</a></li>
+                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissen</a></li>
                 <li><a href="/karriere" className="hover:text-white transition-colors">Jobangebote</a></li>
                 <li><a href="/impressum" className="hover:text-white transition-colors">Impressum</a></li>
                 <li><a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a></li>
@@ -252,7 +252,7 @@ const Footer: React.FC = () => {
                 <li><a href="/unfallinstandsetzung-leipzig" className="hover:text-white transition-colors">Unfall & Schaden</a></li>
                 <li><a href="/fahrzeugaufbereitung-leipzig" className="hover:text-white transition-colors">Autoaufbereitung</a></li>
                 <li><a href="/leasingrueckgabe-leipzig" className="hover:text-white transition-colors">Leasingrückgabe</a></li>
-                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissensbereich</a></li>
+                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissen</a></li>
                 <li><a href="/privatkunden" className="hover:text-white transition-colors">Privatkunden</a></li>
                 <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">Geschäftskunden</a></li>
                 <li><a href="/kontakt" className="hover:text-white transition-colors">Kontakt</a></li>

@@ -28,7 +28,7 @@ const repairServices = [
   },
   {
     title: 'Neu- und Reparaturlackierung',
-    description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner. Ziel ist die unsichtbare Reparatur: weder Farbton noch Effektunterschiede zur Originallackierung sollen erkennbar sein. Wo Spot-Repair nicht ausreicht, folgt die Komplettlackierung des Bauteils.',
+    description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner. Ziel ist die unsichtbare Reparatur: Weder Farbton- noch Effektunterschiede zur Originallackierung sollen erkennbar sein. Wo Spot-Repair nicht ausreicht, folgt die Komplettlackierung des Bauteils.',
     href: '/autolackierung-leipzig',
   },
   {
@@ -48,7 +48,7 @@ const repairServices = [
   },
   {
     title: 'Felgenreparatur',
-    description: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben, auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
+    description: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe im Grundmetall lassen sich beheben, auch an glanzgedrehten Felgen. Eingriffe ins Materialgefüge lehnen wir ab.',
     href: '/felgenreparatur-leipzig',
   },
   {

@@ -146,7 +146,7 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             className="lg:col-span-5"
           >
             <p className="text-base leading-relaxed text-gray-600 md:text-lg">
-              Mit langjähriger Erfahrung bereiten wir Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks auf und erklären transparent, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Sie bei Lack, Innenraum und Leasingrückgabe achten sollten.
+              Mit langjähriger Erfahrung bereiten wir Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks auf. Wir erklären, welche Pflege- und Aufbereitungsleistungen sinnvoll sind, wann sie sich lohnen und worauf Sie bei Lack, Innenraum und Leasingrückgabe achten sollten.
             </p>
           </motion.div>
         </div>

@@ -83,7 +83,7 @@ const AccidentDamageSection: React.FC = () => (
     badgeLabel="Unfall & Schaden Leipzig"
     // Backlog 6.8: Repair an allem zu Unfallinstandsetzung und Lackierung.
     bereich="repair"
-    heading="Unfallschaden? Wir übernehmen Reparatur, Gutachten und Abstimmung mit der Versicherung."
+    heading="Unfallschaden? Wir übernehmen Reparatur, Kalkulation und die Abstimmung mit Gutachter und Versicherung."
     intro="Von der Schadenmeldung bis zum Ersatzwagen in fünf klaren Schritten, aus einer Hand."
     steps={steps}
     ctas={[

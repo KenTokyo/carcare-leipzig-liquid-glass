@@ -138,7 +138,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     listDescription: 'Schadenaufnahme, Kalkulation, Karosserie- und Lackierarbeiten sowie Reparaturbegleitung, inklusive Abstimmung mit Versicherung und Gutachter.', // Backlog 2.17
     iconName: 'Wrench',
     href: '/unfallinstandsetzung-leipzig',
-    cta: 'Unfall melden',
+    cta: 'Zur Unfallinstandsetzung',
     // Seit 2026-09-21 echtes Foto (Backlog 2.16: das alte Motiv wirkte wie Schadenaufnahme,
     // nicht wie Instandsetzung). Das alte Bild bleibt als Datei im Bestand, siehe motive.json.
     backgroundImage: kachel('unfallinstandsetzung-leipzig-carcare'),
@@ -211,7 +211,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     group: 'unfall-lack',
     title: 'Hagelschadenreparatur',
     localTitle: 'Hagelschadenreparatur Leipzig',
-    description: 'Strukturierte Hilfe nach Hagelereignissen und Dellenfeldern.',
+    description: 'Strukturierte Hilfe nach Hagelschäden, auch bei vielen Dellen.',
     listDescription: 'Kalkulation über das anerkannte System Audatex und komplette Abwicklung mit Ihrer Versicherung, ohne Anzahlung.',
     iconName: 'CloudHail',
     href: '/hagelschadenreparatur-leipzig',
@@ -228,7 +228,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Felgenreparatur',
     localTitle: 'Felgenreparatur Leipzig',
     description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb.',
-    listDescription: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
+    listDescription: 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.',
     iconName: 'CircleDot',
     href: '/felgenreparatur-leipzig',
     cta: 'Felgen reparieren',
@@ -240,7 +240,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
   {
     id: 'glas',
     group: 'rad-glas',
-    title: 'Autoglas / Scheibenfolien',
+    title: 'Autoglas & Scheibenfolien',
     localTitle: 'Autoglas & Scheibenfolien Leipzig',
     description: 'Steinschlagreparatur, Scheibentausch und Folien über WINTEC.',
     listDescription: 'Steinschlagreparatur, Neuverglasung für Pkw, Lkw und Bus sowie Folierungen aller Art, als WINTEC-Partner mit 30 Jahren Garantie.',
@@ -300,7 +300,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     listDescription: 'Begutachtung und Instandsetzung vor der Rückgabe, um vermeidbare Nachbelastungen durch Gebrauchsspuren zu reduzieren.',
     iconName: 'KeyRound',
     href: '/leasingrueckgabe-leipzig',
-    cta: 'Leasing vorbereiten',
+    cta: 'Leasingrückgabe vorbereiten',
     // User 2026-10-03: Care UND Repair, ueberall wo die Leasingrueckgabe steht (Karten, Seitenkopf, Startseite).
     bereiche: ['care', 'repair'],
     backgroundImage: kachel('leasingrueckgabe-leipzig-carcare'),
@@ -317,7 +317,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     listDescription: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, planbare Abläufe für gewerbliche Flotten.',
     iconName: 'TruckIcon',
     href: '/fuhrparkservice-leipzig',
-    cta: 'Fuhrparkservice',
+    cta: 'Zum Fuhrparkservice',
     backgroundImage: kachel('autohaus-fuhrpark-service-leipzig-carcare'),
     imageAlt: 'Firmenfahrzeuge im Fuhrparkservice des CarCare Center Leipzig',
     imageWidth: 1400,

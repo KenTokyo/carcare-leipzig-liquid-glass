@@ -61,6 +61,9 @@ Gelten für alle Seiten, auch für neu erstellte. Ergänzend zu @SEO-GEO-STANDAR
    Selbstbeschreibung im Fließtext; dort ist die dritte Person die
    konventionelle Form. Sichtbarer Seitentext fällt nicht darunter.
    Entschieden am 2026-09-02, nicht neu aufmachen.
+   Ausnahme 3 – FAQ-Fragen (seit 2026-10-07, Lektorat): Die Frage ist Kundenstimme und darf den
+   Firmennamen als Subjekt tragen („Arbeitet das CarCare Center auch für Autohäuser …?“). Die
+   Antwort steht in der Wir-Form und beginnt, wo möglich, mit „Ja.“ oder „Nein.“
 3. **Gründungsjahr:** „seit 1998". Nicht 1993, nicht 1996.
 4. **Betriebsfläche:** „über 3.500 m²" bzw. „über 3.500 Quadratmeter".
    **Geändert am 2026-09-14** von 3.000 auf 3.500. André nennt die Zahl in Schleife 4

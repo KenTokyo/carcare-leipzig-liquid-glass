@@ -55,7 +55,7 @@ const services = [
   },
   {
     title: 'Felgenreparatur',
-    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe im TÜV-zertifizierten Verfahren, auch an glanzgedrehten Felgen.',
+    description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe im TÜV-zertifizierten Verfahren, auch an glanzgedrehten Felgen.',
     href: '/felgenreparatur-leipzig',
   },
   {

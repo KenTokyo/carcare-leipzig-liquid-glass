@@ -16,7 +16,7 @@ interface FAQSectionProps {
 
 const FAQSection: React.FC<FAQSectionProps> = ({
   className = 'bg-gray-50/70',
-  description = 'Kurz beantwortet: Schadenmeldung, Aufbereitung, Geschäftskunden und Ersatzmobilität.',
+  description = 'Kurz beantwortet: Schadenmeldung, Aufbereitung, Geschäftskunden und Ersatzwagen.',
   eyebrow = 'FAQ',
   faqs = faqsByRoute['/'],
   id = 'faq',

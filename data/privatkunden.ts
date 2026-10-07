@@ -33,7 +33,7 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
   {
     title: 'Feste Paketpreise bei der Aufbereitung',
     beschreibung: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege. Für Geländewagen, Großraumlimousinen und Transporter gilt ein fester Aufpreis. Sie wissen vorher, was es kostet.',
-    kurz: 'Feste Pflegepakete ab 169,00 €: Sie wissen vorher, was es kostet.',
+    kurz: 'Feste Pflegepakete ab 169 €: Sie wissen vorher, was es kostet.',
     startseite: true,
   },
   {
@@ -60,7 +60,7 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
   },
   {
     title: 'Farbtongenau als Glasurit-Lackpartner',
-    beschreibung: 'Ziel jeder Lackreparatur ist, dass weder Farbton noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.',
+    beschreibung: 'Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.',
     kurz: 'Kein erkennbarer Unterschied zur Originallackierung.',
   },
   {

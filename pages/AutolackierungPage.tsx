@@ -46,7 +46,7 @@ const AutolackierungPage: React.FC = () => (
       eyebrow: 'Neu- und Reparaturlackierung Leipzig',
       title: 'Neu- und Reparaturlackierung in Leipzig.',
       description:
-        'Zu einer fachgerechten Lackierung gehört, dass weder Farbton noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind. Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges.',
+        'Zu einer fachgerechten Lackierung gehört, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind. Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges.',
       primaryCta: { label: 'Lackierung anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Autolackierung Leipzig', 'Reparaturlackierung Leipzig', 'Spot-Repair Leipzig'],

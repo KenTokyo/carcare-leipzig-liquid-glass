@@ -27,10 +27,10 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
   // Startseite
   '/': [
     { id: 'unfall', question: 'Kann ich beim CarCare Center einen Unfallschaden in Leipzig melden?', answer: 'Ja. Sie können Ihren Unfallschaden online über unsere Schadenseite auf reparatur.info oder telefonisch melden. Wir unterstützen Sie bei Schadenaufnahme, Kalkulation und Reparatur.' },
-    { id: 'versicherung', question: 'Unterstützt das CarCare Center bei der Abstimmung mit Versicherung oder Gutachter?', answer: 'Auf Wunsch begleiten wir die Abstimmung mit Gutachtern und Versicherern und halten Sie während der Reparatur persönlich auf dem Laufenden.' },
+    { id: 'versicherung', question: 'Unterstützen Sie mich bei der Abstimmung mit Versicherung oder Gutachter?', answer: 'Ja. Auf Wunsch begleiten wir die Abstimmung mit Gutachtern und Versicherern und halten Sie während der Reparatur persönlich auf dem Laufenden.' },
     { id: 'aufbereitung', question: 'Kann ich einen Termin für Fahrzeugaufbereitung online anfragen?', answer: 'Ja. Über das Formular „Termin anfragen“ können Sie Fahrzeug, Wunschleistung und bevorzugten Termin übermitteln.' },
     { id: 'business', question: 'Arbeitet das CarCare Center auch für Autohäuser, Fuhrparks und Agenturen?', answer: 'Ja. Geschäftskunden erhalten strukturierte Abläufe, feste Ansprechpartner und planbare Fahrzeugdienstleistungen.' },
-    { id: 'ersatzwagen', question: 'Gibt es während der Reparatur Ersatzmobilität?', answer: 'Ersatzmobilität wird kommuniziert und organisiert, sofern ein passendes Fahrzeug verfügbar ist und die Rahmenbedingungen stimmen.' },
+    { id: 'ersatzwagen', question: 'Bekomme ich während der Reparatur einen Ersatzwagen?', answer: 'Ja, nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen für die Dauer der Reparatur. Sprechen Sie uns bei der Schadenmeldung darauf an.' },
   ],
 
   // Leistungsuebersicht
@@ -71,13 +71,13 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
   // Smart Repair
   '/smart-repair-leipzig': [
     { id: 'was', question: 'Was ist Smart bzw. Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand und unsere bevorzugte Reparaturmethode bei kleineren Schäden. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet.' },
-    { id: 'unsichtbar', question: 'Sieht man die reparierte Stelle?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Weder Farbton noch Effektunterschiede zur Originallackierung sollen für das menschliche Auge erkennbar sein.' },
+    { id: 'unsichtbar', question: 'Sieht man die reparierte Stelle?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Weder Farbton- noch Effektunterschiede zur Originallackierung sollen für das menschliche Auge erkennbar sein.' },
     { id: 'grenzen', question: 'Wann reicht Smart Repair nicht aus?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Bei größeren Schäden bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
   ],
 
   // Neu- und Reparaturlackierung
   '/autolackierung-leipzig': [
-    { id: 'unsichtbar', question: 'Sieht man die Lackreparatur später?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Zu einer fachgerechten Lackierung gehört, dass weder Farbton noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind.' },
+    { id: 'unsichtbar', question: 'Sieht man die Lackreparatur später?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Zu einer fachgerechten Lackierung gehört, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das menschliche Auge zu erkennen sind.' },
     { id: 'spot', question: 'Was ist Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand. Sie ist unsere bevorzugte Reparaturmethode, weil nur der betroffene Bereich bearbeitet wird.' },
     { id: 'komplett', question: 'Wann ist eine Komplettlackierung nötig?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Dann bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
     // Backlog 6.25 (Mail Andre 2026-09-28): „Einheitliche Angabe — Preis nach Aufwand“ im Bereich Neu- und Reparaturlackierung.
@@ -102,7 +102,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
 
   // Felgenreparatur
   '/felgenreparatur-leipzig': [
-    { id: 'welche', question: 'Welche Felgenschäden dürfen repariert werden?', answer: 'Behoben werden dürfen Bordstein- und Korrosionsschäden bis zu 1 mm Tiefe im Grundmetall der Felge. Eingriffe in das Materialgefüge wie Schweißarbeiten und Rückverformungen sind gesetzlich grundsätzlich abzulehnen.' },
+    { id: 'welche', question: 'Welche Felgenschäden dürfen repariert werden?', answer: 'Behoben werden dürfen Bordstein- und Korrosionsschäden bis zu 1 mm Tiefe im Grundmetall der Felge. Eingriffe in das Materialgefüge wie Schweißarbeiten und Rückverformungen sind gesetzlich grundsätzlich abzulehnen.' },
     { id: 'sicher', question: 'Ist die Reparatur TÜV-konform und sicher?', answer: 'Wir arbeiten mit einem TÜV-zertifizierten Alufelgenreparaturverfahren als zertifizierter Wheel-Doctor-Fachbetrieb und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien. Nicht in jedem Fall ist eine Felgenreparatur erlaubt.' },
     { id: 'poliert', question: 'Repariert ihr auch polierte bzw. glanzgedrehte Felgen?', answer: 'Ja. Auch glanzgedrehte, im Volksmund polierte Alufelgen können wir wieder optisch wie neu erscheinen lassen.' },
     { id: 'anteil', question: 'Wie viele Felgenschäden lassen sich beheben?', answer: 'Mit unserem Verfahren können bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben werden, statt teure neue Originalfelgen anzuschaffen.' },
@@ -172,7 +172,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'wann', question: 'Wie früh vor der Rückgabe sollte ich mich melden?', answer: 'Planen Sie einige Wochen Vorlauf ein. Dann bleibt genug Zeit für Begutachtung, Kostenvoranschlag, Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin knapp wird. Bei mehreren Fuhrparkfahrzeugen sollte der Vorlauf entsprechend größer sein.' },
     { id: 'was', question: 'Was bewertet der Rückgabegutachter?', answer: 'Bewertet werden unter anderem Lackschäden, Beschädigungen an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe und der Zustand des Innenraums. Normale Abnutzung bei vertragsgemäßer Nutzung ist in der Regel abgedeckt; wo genau die Grenze liegt, legt Ihr Leasingvertrag fest.' },
     { id: 'kosten', question: 'Was kostet die Vorbereitung auf die Leasingrückgabe?', answer: `Für die Reparaturen gibt es keinen Listenpreis, weil der Aufwand vom Schadenbild abhängt. Sie erhalten dafür einen Kostenvoranschlag. Für die Aufbereitung gelten feste Paketpreise: Intensiv Innenraumreinigung ab 199,00 €, Premiumpflege mit Innen- und Außenaufbereitung ab 299,00 €, jeweils inklusive gesetzlicher Mehrwertsteuer. ${AUFPREIS_SATZ}` },
-    { id: 'wertminderung', question: 'Entsteht durch die Reparatur eine Wertminderung?', answer: 'Bei der lackfreien Dellenentfernung nicht: Sie ist lackschonend und im Nachhinein nicht nachweisbar. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur. Als Glasurit-Lackpartner arbeiten wir farbtongenau, sodass weder Farbton noch Effektunterschiede für das Auge erkennbar sind.' },
+    { id: 'wertminderung', question: 'Entsteht durch die Reparatur eine Wertminderung?', answer: 'Bei der lackfreien Dellenentfernung nicht: Sie ist lackschonend und im Nachhinein nicht nachweisbar. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur. Als Glasurit-Lackpartner arbeiten wir farbtongenau, sodass weder Farbton- noch Effektunterschiede für das Auge erkennbar sind.' },
     { id: 'fuhrpark', question: 'Bereitet das CarCare Center auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?', answer: 'Ja. Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.' },
     { id: 'ersatz', question: 'Bekomme ich während der Arbeiten einen Ersatzwagen?', answer: 'Nach Verfügbarkeit stellen wir einen Ersatzwagen zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir ihn einplanen können.' },
     { id: 'marken', question: 'Gilt das für alle Fahrzeugmarken?', answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk und bearbeiten alle Fabrikate, vom Kleinwagen bis zum Premiumfahrzeug.' },

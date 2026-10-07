@@ -110,7 +110,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/felgenreparatur-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Felgenreparatur Leipzig', path: '/felgenreparatur-leipzig' }]),
-    serviceSchema('Felgenreparatur Leipzig', 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.', '/felgenreparatur-leipzig'),
+    serviceSchema('Felgenreparatur Leipzig', 'TÜV-zertifiziertes Alufelgenreparaturverfahren als Wheel-Doctor-Fachbetrieb. Bordstein- und Korrosionsschäden bis 1 mm Tiefe.', '/felgenreparatur-leipzig'),
     faqSchema(faqsByRoute['/felgenreparatur-leipzig']),
   ],
   '/fuhrparkservice-leipzig': [

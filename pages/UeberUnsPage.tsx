@@ -43,9 +43,9 @@ const facts = [
 // Backlog 4.11: Bezeichnung „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk" (Kundenwortlaut).
 const qualifications = [
   { title: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk', description: 'Handwerkliche Qualifikation als Grundlage jeder Reparatur, mit Ausbildung im eigenen Betrieb und fachlicher Verantwortung für das Ergebnis.' },
-  { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.' },
+  { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.' },
   { title: 'WINTEC-Partner für Autoglas', description: 'Scheibentausch und Steinschlagreparatur nach ISO 9001, TÜV-zertifiziert, mit 30 Jahren Garantie auf die Verglasung.' },
-  { title: 'TÜV-zertifizierte Felgenreparatur', description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe werden im geprüften Verfahren instand gesetzt, auch an glanzgedrehten Felgen.' },
+  { title: 'TÜV-zertifizierte Felgenreparatur', description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe werden im geprüften Verfahren instand gesetzt, auch an glanzgedrehten Felgen.' },
   // Backlog 4.13: „Autotex/DAT-Kalkulationen" — „Autotex" ist Audatex (ein Kalkulationssystem
   // dieses Namens gibt es nicht; marktueblich sind Audatex, DAT und GT Motive). DAT neu.
   { title: 'Audatex- und DAT-Kalkulation', description: 'Schadenkalkulation mit den von Versicherern und Gutachtern anerkannten Systemen Audatex und DAT. Das macht Aufwand und Kosten für alle Beteiligten nachvollziehbar.' },

@@ -19,7 +19,10 @@
 | L01-05 | dto. | freeyou ag | freeyou | Rechtsform klein geschrieben; die übrigen Einträge stehen ohne Rechtsform | `data/partners.ts:79` |
 | L01-06 | Aufbereitung, Einleitung | Wir bereiten Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks mit langjähriger Erfahrung auf … | Mit langjähriger Erfahrung bereiten wir Fahrzeuge für Privatkunden, Autohäuser und Fuhrparks auf … | falscher Bezug: „mit langjähriger Erfahrung“ hing an „Fuhrparks“ | `components/AutoDetailingExpertiseSection.tsx:149` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (07.10.): alle angenommen und umgesetzt** („Setze deine Vorschläge um“). 18 und 19 stehen
+seitdem als Entscheidungen 9 und 10 im Stilblatt; 19 als Ausnahme 3 von Textregel 2 in `CLAUDE.md`.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

@@ -8,3 +8,4 @@
 |---|---|---|---|---|
 | L01-20 | Startseite, Geschäftskunden › Versicherer | „Deutsche Post“ steht in der Liste der Versicherer. Ist das ein Versicherer, ein Schadensteuerer oder ein Flottenkunde? | Die Seite zählt „Mit diesen N Versicherern“; ein Nicht-Versicherer macht die Zahl falsch | |
 | L01-21 | dto. | „vrk+“: Gemeint ist vermutlich die VRK (Versicherer im Raum der Kirchen), die sich „VRK“ schreibt. Ist „vrk+“ ein bestimmtes Produkt? | Markenname in der Schreibweise des Inhabers | |
+| L02-11 | Unfallinstandsetzung, Dellenentfernung, Leasingrückgabe, Privatkunden, FAQ | Lackfreie Dellenentfernung: Sind „von allen Versicherungen und Gutachtern anerkannt“, „im Nachhinein nicht nachweisbar“ und „es entsteht keine Wertminderung“ so belegbar? | Absolutaussagen in der Werbung müssen stimmen (UWG); „nicht nachweisbar“ klingt nach Verbergen. Vorschlag in L02-11 | |

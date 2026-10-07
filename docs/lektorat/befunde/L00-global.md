@@ -23,7 +23,7 @@
 ## S · Vorschläge
 
 **Entscheidung des Users (06.10.):** angenommen und umgesetzt: 08, 12, 13, 14, 16, 17, 18, 19. **11 bleibt** („Jobangebote“).
-**09 und 10 offen:** Der User will vorher wissen, warum die Fußzeile so heißt (Antwort unten). **15 offen:** „nur Vornamen“,
+**09 und 10:** nach der Erklärung unten am 07.10. wie vorgeschlagen umgesetzt (beide „Wissen“). **15 offen:** „nur Vornamen“,
 Rückfrage zur Umsetzung läuft.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |

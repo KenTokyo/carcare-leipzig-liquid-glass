@@ -37,7 +37,7 @@ const highlights = [
     items: [
       'Begutachtung von Lack, Dellen, Felgen, Verglasung und Innenraum',
       'Lackfreie Dellenentfernung und Spot-Repair, wo fachlich ausreichend',
-      'Felgeninstandsetzung bei Bordsteinschäden bis 1 mm Tiefe',
+      'Felgeninstandsetzung bei Bordsteinschäden bis 1 mm Tiefe',
       'Aufbereitung innen und außen vor der Übergabe',
     ],
   },

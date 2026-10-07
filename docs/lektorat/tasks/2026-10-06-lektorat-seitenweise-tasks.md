@@ -154,20 +154,31 @@ dieselben Fragen neu stellen.
 * [x] Nachgeprüft (Build 01:43): Build grün, `npm run meta` 0/29 außerhalb, Auszug vorher/nachher verglichen: nur die
   sieben Korrekturen geändert; Vorprüfung global 0 K, 2 H (lange Markenliste, „inkl.“ im Preis-Hinweis, beides gewollt).
 * [x] **Entscheidung User 06.10.:** 08, 12, 13, 14, 16, 17, 18, 19 umgesetzt (tsc grün); 11 bleibt („Jobangebote“).
-* [ ] **09/10 offen:** User will erst wissen, warum die Fußzeile „Autoaufbereitung Wissen“/„Wissensbereich“ sagt.
+* [x] **09/10** (07.10.): nach der Erklärung wie vorgeschlagen „Wissen“. Vorher: User wollte erst wissen, warum die Fußzeile „Autoaufbereitung Wissen“/„Wissensbereich“ sagt.
   Antwort in `L00-global.md` (Redesign-Commit a701ce9 vom 03.06., keine Begründung dokumentiert, vermutlich Suchwort).
 * [ ] **15 offen:** User schrieb „nur Vornamen“; Rückfrage, ob das Feld nur den Vornamen abfragen oder nur der
   Platzhalter einen Vornamen zeigen soll.
 
-### 🟨 Phase 2 — L01 Startseite (Stopp: S-Vorschläge beim User)
+### ✅ Phase 2 — L01 Startseite
 * [x] Auszug gelesen (rund 1.080 Wörter, 11 Bildtexte, JSON-LD), Befund `docs/lektorat/befunde/L01-startseite.md`:
   6 K umgesetzt (fünf Versicherernamen in Inhaberschreibweise, auch im FAQ der Geschäftskundenseite; falscher Bezug
   „Fuhrparks mit langjähriger Erfahrung“), 13 S, 2 F an André (Deutsche Post als Versicherer? „vrk+“?), 3 H.
   „Instandsetzung statt Tauschen“ ist Kundenwortlaut (4.12) und bleibt.
 * [x] Nachgeprüft (Build 06.10. nach L01-K): Build grün, `meta` 0/29, Auszüge global und Start vorher/nachher verglichen:
   nur die beschlossenen Änderungen (Zähler „01 / 05“ und drei KI-Plaketten wechseln mit dem Erfassungszeitpunkt).
-* [ ] **Stopp:** S-Liste L01-07 bis L01-19 beim User.
-### ⬜ Phase 3 — L02 Unfallinstandsetzung, L03 Fahrzeugaufbereitung (je ein Stopp)
+* [x] **Entscheidung User 07.10.:** alle S angenommen und umgesetzt (07–17 im Text, 18 Preisformat als Stilblatt 9,
+  19 FAQ-Kundensicht als Stilblatt 10 und Textregel 2, Ausnahme 3). Build grün, Auszüge vorher/nachher: nur das
+  Beschlossene. Überlaufprüfung Startseite und L02 (ad hoc, Desktop + mobil): keine neuen Überläufe; ein älterer
+  (Überschrift „Versicherungen & Agenturen“ mobil 6 px) als L02-14 vorgemerkt.
+### 🟨 Phase 3 — L02 Unfallinstandsetzung, L03 Fahrzeugaufbereitung (je ein Stopp)
+* [x] L02 gelesen, Befund `docs/lektorat/befunde/L02-unfallinstandsetzung.md`: 3 K (Ergänzungsstrich „Farbton- noch
+  Effektunterschiede“ an 7 Stellen auf 6 Seiten, Großschreibung nach Doppelpunkt, „1 mm“ an 11 Stellen; Stilblatt 5
+  und Vorprüfung um mm/cm/kg und um eine Preis-Regel (Stilblatt 9) erweitert), 7 S, 1 F (Dellen-Aussagen, 5 Seiten), 3 H.
+* [x] Nachgeprüft (Build 07.10.): grün, `meta` 0/29, alle 30 Auszüge neu; L02 ohne K. Dabei eine Stelle mit großem
+  „Weder“ (`faqs.ts:74`, Smart Repair) gefunden, die die erste Suche (Kleinschreibung) übersehen hatte: nachkorrigiert,
+  neu gebaut, Auszug Smart Repair geprüft. Lehre: Suchen über Text immer ohne Groß-/Kleinschreibung.
+* [ ] **Stopp:** L02-S (04–10), F L02-11 an André, Frage 15 (L00) beim User.
+* [ ] L03 Fahrzeugaufbereitung
 ### ⬜ Phase 4 — L04 Leistungsübersicht
 ### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)

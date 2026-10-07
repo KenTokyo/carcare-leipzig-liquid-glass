@@ -107,9 +107,9 @@ const KontaktDaten: React.FC<{ eingebettet?: boolean }> = ({ eingebettet = false
             Sprechen Sie uns an.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg">
-            Schadenmeldung, Aufbereitungstermin oder Anfrage als Geschäftskunde: Ihre Anfrage
-            öffnet sich direkt hier auf der Seite. Für akute Fälle erreichen Sie uns am
-            schnellsten telefonisch.
+            Aufbereitungstermin oder Anfrage als Geschäftskunde: Das Formular öffnet sich direkt
+            hier auf der Seite. Einen Schaden melden Sie online über reparatur.info. Für akute
+            Fälle erreichen Sie uns am schnellsten telefonisch.
           </p>
           <a
             href="#contact-termin"

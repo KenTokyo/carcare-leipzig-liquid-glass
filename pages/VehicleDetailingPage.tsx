@@ -19,7 +19,7 @@ import { regelSaetze } from '../data/zusatzregeln';
 
 const leasingChecks = [
   { title: 'Was der Rückgabegutachter bewertet', description: 'Lackschäden, Diverses an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe sowie der Zustand des Innenraums fließen in das Rückgabeprotokoll ein.' },
-  { title: 'Was sich vorher beheben lässt', description: 'Parkplatzdellen bei intaktem Lack lackfrei entfernen, kleinere Lackschäden per Spot-Repair, Bordsteinschäden an Felgen bis 1 mm Tiefe und Steinschläge in der Scheibe reparieren.' },
+  { title: 'Was sich vorher beheben lässt', description: 'Parkplatzdellen bei intaktem Lack lackfrei entfernen, kleinere Lackschäden per Spot-Repair, Bordsteinschäden an Felgen bis 1 mm Tiefe und Steinschläge in der Scheibe reparieren.' },
   { title: 'Warum das vorab günstiger ist', description: 'Der Leasinggeber rechnet Schäden nach eigenen Sätzen ab. Eine vorherige Instandsetzung im Fachbetrieb reduziert vermeidbare Nachbelastungen.' },
   { title: 'Wann Sie starten sollten', description: 'Planen Sie den Termin einige Wochen vor der Rückgabe. So bleibt Zeit für Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin eng wird.' },
 ];
