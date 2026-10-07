@@ -176,7 +176,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Smart Repair',
     localTitle: 'Smart Repair Leipzig',
     description: 'Punktgenaue Lack- und Kunststoffreparatur für kleinere Schäden.',
-    listDescription: 'Spot-Repair bearbeitet gezielt nur den beschädigten Bereich statt des ganzen Bauteils, die bevorzugte Methode bei kleineren Schäden.',
+    listDescription: 'Spot-Repair bearbeitet gezielt nur den beschädigten Bereich statt des ganzen Bauteils. Bei kleineren Schäden ist das unsere bevorzugte Methode.',
     iconName: 'ScanLine',
     href: '/smart-repair-leipzig',
     cta: 'Smart Repair ansehen',

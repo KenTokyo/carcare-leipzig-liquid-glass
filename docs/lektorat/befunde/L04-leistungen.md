@@ -13,7 +13,9 @@
 | L04-01 | Titelbild, **G:** Privatkunden-Titelbild | … als Meisterbetrieb und Glasurit-Lackpartner seit 1998. | … als Meisterbetrieb seit 1998 und Glasurit-Lackpartner. | falscher Bezug mit sachlicher Folge: „seit 1998“ galt für beide. Lackierung und Karosserie kamen laut Zeitstrahl erst 2013 dazu (4.18), die Glasurit-Partnerschaft kann nicht von 1998 sein | `pages/ServicesPage.tsx:67`, `pages/PrivatkundenPage.tsx:93` |
 | L04-02 | Karte Dellenentfernung, **G:** Geschäftskunden, Privatkunden | … von Versicherungen und Gutachtern anerkannt, ohne Wertminderung. | … bei Versicherungen und Gutachtern anerkannt, der Originallack bleibt erhalten. | Folge der Entscheidung zu L02-11 (vorsichtige Fassung der Dellen-Aussagen); diese drei Stellen hatte die erste Suche nach „keine Wertminderung“ nicht erfasst | `data/services.ts:198`, `pages/BusinessCustomersPage.tsx:61`, `pages/PrivatkundenPage.tsx:43` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.):** 03, 05 und 06 umgesetzt; **04 bleibt** („Hagelschäden“).
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

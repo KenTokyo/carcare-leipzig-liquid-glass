@@ -39,7 +39,7 @@ const BREITE_EM: Record<string, number> = {
   0: 0.65, 1: 0.45, 2: 0.59, 3: 0.61, 4: 0.64, 5: 0.6, 6: 0.62, 7: 0.55, 8: 0.6, 9: 0.62,
   '-': 0.43, '/': 0.39, '(': 0.4, ')': 0.39, '.': 0.3, ',': 0.29, ':': 0.3, ';': 0.3, '?': 0.58, '!': 0.3, '&': 0.59,
   '„': 0.51, '“': 0.51, '"': 0.51, "'": 0.29, '•': 0.4, '+': 0.62, '*': 0.54, '–': 0.58, '…': 0.8, '%': 0.76, '€': 0.68,
-  ' ': 0.254,
+  ' ': 0.254, '\u00A0': 0.254,
 };
 const UNBEKANNT_EM = 0.7;
 /** Spielraum für Rundung und Kantenglättung. */
@@ -54,8 +54,10 @@ const breiteEm = (text: string, laufweite: number) =>
 /** Wörter (Regel 1), Einzelzeichen am Wort davor (Regel 2). */
 const woerterVon = (text: string): string[] =>
   text
-    .replace(/­/g, '')
-    .split(/\s+/)
+    .replace(/\u00AD/g, '')
+    // Nicht am geschützten Leerzeichen (U+00A0) trennen: „3.500 m²“ bleibt ein Wort (Stilblatt 5, Lektorat 2026-10-08).
+    // \s allein schließt U+00A0 ein; vorher zerfiel „3.500 m²“ hier in zwei Wörter.
+    .split(/[^\S\u00A0]+/)
     .filter(Boolean)
     .reduce<string[]>((liste, wort) => {
       if (liste.length && wort.length === 1 && !/[\p{L}\p{N}]/u.test(wort)) liste[liste.length - 1] += ` ${wort}`;

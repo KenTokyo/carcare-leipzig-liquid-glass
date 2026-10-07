@@ -49,7 +49,7 @@ const ablauf = [
   { title: 'Anfragen', description: 'Rufen Sie an oder fragen Sie online einen Termin an. Einen Unfallschaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info.' },
   { title: 'Begutachten', description: 'Wir sehen uns das Fahrzeug in Leipzig an und besprechen, welches Verfahren fachlich und wirtschaftlich sinnvoll ist.' },
   { title: 'Preis klären', description: 'Für die Aufbereitung gelten feste Paketpreise ab 169 €. Für Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
-  { title: 'Ausführen und übergeben', description: 'Wir arbeiten das Fahrzeug im eigenen Haus ab und übergeben es gereinigt zurück, mit Erklärung, was gemacht wurde.' },
+  { title: 'Ausführen und übergeben', description: 'Wir erledigen alle Arbeiten im eigenen Haus und geben Ihnen das Fahrzeug gereinigt zurück, mit einer Erklärung, was wir gemacht haben.' },
 ];
 
 const ServicesPage: React.FC = () => (
@@ -63,7 +63,7 @@ const ServicesPage: React.FC = () => (
     />
     <PageHero
       eyebrow="Leistungen"
-      title="Alle Leistungen vom CarCare Center Leipzig im Überblick."
+      title="Alle Leistungen des CarCare Center Leipzig im Überblick."
       description="Fahrzeugaufbereitung, Unfallinstandsetzung, Lackierung, Smart Repair, Felgen und Autoglas, auf über 3.500 m² aus einer Hand, als Meisterbetrieb seit 1998 und Glasurit-Lackpartner."
       primaryCta={{ label: 'Termin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}

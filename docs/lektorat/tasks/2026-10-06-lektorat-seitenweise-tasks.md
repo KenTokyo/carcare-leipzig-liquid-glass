@@ -142,7 +142,7 @@ dieselben Fragen neu stellen.
   die das Schreibwerkzeug aus `\u200b`/`\u00ad` gemacht hatte, wieder als sichtbare Escapes.
 * [x] Rückfragenliste `docs/lektorat/rueckfragen-andre.md` angelegt. `npm run lektorat` in die Messwerkzeug-Tabelle von `CLAUDE.md`.
 
-### 🟨 Phase 1 — L00 Globale Bausteine (Stopp: S-Vorschläge beim User)
+### ✅ Phase 1 — L00 Globale Bausteine
 **Ziel:** Texte, die auf jeder Seite stehen, einmal sauber, damit sie in den Seitenbefunden nicht 29-mal auftauchen.
 * [x] Navigation, Mega-Menü, Mobilmenü, Fußzeile, Aktionsleiste, Aktions-Pillen
 * [x] Anfrage-Dialog: alle Formulararten, Feldbeschriftungen, Platzhalter, Hilfetexte, Fehler- und Erfolgsmeldungen
@@ -187,13 +187,20 @@ dieselben Fragen neu stellen.
   `meta` 0/29, Auszüge: geändert nur die sieben Seiten mit Fließtextpreisen und L03; Kacheln behalten den Cent-Betrag.
 * [x] **Entscheidung User 08.10.:** L03-S 05–10 umgesetzt; F 11 bleibt bei André.
 
-### 🟨 Phase 4 — L04 Leistungsübersicht (Stopp: S beim User)
+### ✅ Phase 4 — L04 Leistungsübersicht
 * [x] L04 gelesen (rund 815 Wörter), Befund `docs/lektorat/befunde/L04-leistungen.md`: 2 K, beide seitenübergreifend
   („Meisterbetrieb seit 1998 und Glasurit-Lackpartner“ statt „… Glasurit-Lackpartner seit 1998“, Lackierung erst seit 2013;
   „ohne Wertminderung“ an drei weiteren Stellen nach L02-11), 4 S, 2 H. Build grün, `meta` 0/29, alle Auszüge neu:
   geändert nur Fahrzeugaufbereitung (L03-S), Innenaufbereitung (KC-Refresher), Leistungen, Privat- und Geschäftskunden.
-* [ ] **Stopp:** L04-S (03–06) beim User.
-### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
+* [x] **Entscheidung User 08.10.:** 03, 05, 06 umgesetzt, 04 bleibt.
+### 🟨 Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
+* [x] L05 gelesen (rund 1.080 Wörter), Befund `docs/lektorat/befunde/L05-aussenaufbereitung.md`: 1 K mit Codefehler
+  (`GanzwortTitel` trennte am geschützten Leerzeichen, weil `\s` in JavaScript U+00A0 einschließt; behoben, wirkt auf
+  alle Überschriften), 3 S, 3 H. Einleitung und Außenpflege-Schritte sind Andrés Wortlaut.
+* [x] Nachgeprüft (Build 08.10., 01:44): grün, `meta` 0/29, alle Auszüge neu: elf Überschriften auf neun Seiten tragen
+  jetzt das geschützte Leerzeichen (K über alle Seiten 25 → 14, keine Einheit mehr ohne). Überlaufprüfung Außen, Felgen,
+  Über uns: nur 1-px-Vorlesetexte. Notiert für L17: Zeitstrahl „2000: Spot- und Smart-Repair“ (Stilblatt 2).
+* [ ] **Stopp:** L05-S (02–04) beim User.
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
