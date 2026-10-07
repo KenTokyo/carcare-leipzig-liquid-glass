@@ -51,7 +51,7 @@ export const pageSchemas: Record<string, unknown[]> = {
   ],
   '/fahrzeugaufbereitung-leipzig': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' }]),
-    serviceSchema('Fahrzeugaufbereitung Leipzig', 'Professionelle Innenaufbereitung, Außenaufbereitung, Politur, Versiegelung, Geruchsentfernung und Leasingrückgabe-Vorbereitung mit festen Paketpreisen ab 169,00 €.', '/fahrzeugaufbereitung-leipzig'),
+    serviceSchema('Fahrzeugaufbereitung Leipzig', 'Professionelle Innenaufbereitung, Außenaufbereitung, Politur, Versiegelung, Geruchsentfernung und Leasingrückgabe-Vorbereitung mit festen Paketpreisen ab 169 €.', '/fahrzeugaufbereitung-leipzig'),
     // Die Preise stehen sichtbar auf der Seite; als `Offer` sind sie zusaetzlich
     // maschinenlesbar und damit fuer KI-Antworten zitierbar. Abgeleitet aus genau den Kacheln der Seite.
     offerCatalogSchema(
@@ -68,7 +68,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Außenaufbereitung Leipzig', path: '/aussenaufbereitung-leipzig' },
     ]),
     // Andre, 2026-10-05: Brillant Außenpflege ohne Lackversiegelung, „intensive“ Handoberwaesche (wie data/detailing.ts).
-    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, intensive Handoberwäsche, Hochglanzpolitur und Scheibenreinigung. Brillant Außenpflege ab 169,00 €.', '/aussenaufbereitung-leipzig'),
+    serviceSchema('Außenaufbereitung Leipzig', 'Außen- und Lackaufbereitung in Leipzig: Vorreinigung, Felgenreinigung, Insektenentfernung, intensive Handoberwäsche, Hochglanzpolitur und Scheibenreinigung. Brillant Außenpflege ab 169 €.', '/aussenaufbereitung-leipzig'),
     // Seit 2026-09-28 mit Preiskacheln — ausgezeichnet werden genau die sichtbaren (Zuordnung in data/detailing.ts).
     offerCatalogSchema('Außen- und Lackaufbereitung, Exklusiv- und Zusatzleistungen', '/aussenaufbereitung-leipzig', schemaAngebote([...angeboteAussen.pakete, ...angeboteAussen.zusatz])),
     faqSchema(faqsByRoute['/aussenaufbereitung-leipzig']),
@@ -79,7 +79,7 @@ export const pageSchemas: Record<string, unknown[]> = {
       { name: 'Fahrzeugaufbereitung Leipzig', path: '/fahrzeugaufbereitung-leipzig' },
       { name: 'Innenaufbereitung Leipzig', path: '/innenaufbereitung-leipzig' },
     ]),
-    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung. Intensiv Innenraumreinigung ab 199,00 €.', '/innenaufbereitung-leipzig'),
+    serviceSchema('Innenaufbereitung Leipzig', 'Innenaufbereitung in Leipzig: Reinigung des gesamten Innenraumes inklusive Cockpit, Polstershampoonierung oder Lederpflege, Teppichreinigung, Scheibenreinigung und Geruchsentfernung. Intensiv Innenraumreinigung ab 199 €.', '/innenaufbereitung-leipzig'),
     offerCatalogSchema('Innenaufbereitung und Desinfektion', '/innenaufbereitung-leipzig', schemaAngebote([...angeboteInnen.pakete, ...angeboteInnen.zusatz])),
     faqSchema(faqsByRoute['/innenaufbereitung-leipzig']),
   ],

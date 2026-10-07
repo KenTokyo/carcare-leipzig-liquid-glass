@@ -32,7 +32,7 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
   },
   {
     title: 'Feste Paketpreise bei der Aufbereitung',
-    beschreibung: 'Die Pflegepakete haben feste Paketpreise: ab 169,00 € für die Brillant Außenpflege, ab 199,00 € für die Intensiv Innenraumreinigung, ab 299,00 € für beides als Premiumpflege. Für Geländewagen, Großraumlimousinen und Transporter gilt ein fester Aufpreis. Sie wissen vorher, was es kostet.',
+    beschreibung: 'Die Pflegepakete haben feste Paketpreise: ab 169 € für die Brillant Außenpflege, ab 199 € für die Intensiv Innenraumreinigung, ab 299 € für beides als Premiumpflege. Für Geländewagen, Großraumlimousinen und Transporter gilt ein fester Aufpreis. Sie wissen vorher, was es kostet.',
     kurz: 'Feste Pflegepakete ab 169 €: Sie wissen vorher, was es kostet.',
     startseite: true,
   },

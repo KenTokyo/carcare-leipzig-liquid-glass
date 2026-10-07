@@ -180,7 +180,12 @@ dieselben Fragen neu stellen.
 * [x] **Entscheidung User 07.10.:** L02-S 04–10 und die vorsichtige Fassung zu L02-11 übernommen (neun Stellen plus zwei
   Kartentitel und JSON-LD), dazu 15 = B. Build grün, `meta` 0/29, alle Auszüge neu: geändert nur Unfall, Dellen, Felgen,
   Leasing, Leistungen, Privatkunden (erwartet), Platzhalter „Max“ in allen Formularen, sechs neue Vorlesetexte auf L02.
-* [ ] L03 Fahrzeugaufbereitung
+* [x] L03 Fahrzeugaufbereitung gelesen (rund 1.700 Wörter), Befund `docs/lektorat/befunde/L03-fahrzeugaufbereitung.md`:
+  4 K (Ergänzungsstrich „Innenraum- und Außenpflege“, „unter anderem“, „Rund 30 Minuten“, **Stilblatt 9 auf allen Seiten**:
+  34 Fließtextpreise ohne Cent plus Helfer `fliesstextPreis`), 6 S, 1 F (Motorreinigung „wasserlöslich“?), 3 H.
+  Vorprüfung geschärft: Wortdoppelung ohne Artikel/Pronomen („die die“), Preisregel ohne reine Kacheln. Build grün,
+  `meta` 0/29, Auszüge: geändert nur die sieben Seiten mit Fließtextpreisen und L03; Kacheln behalten den Cent-Betrag.
+* [ ] **Stopp:** L03-S (05–10) und F 11 beim User.
 ### ⬜ Phase 4 — L04 Leistungsübersicht
 ### ⬜ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)

@@ -47,7 +47,7 @@ const VehicleDetailingPage: React.FC = () => (
       eyebrow="Fahrzeugaufbereitung Leipzig"
       bereich={bereichVon('/fahrzeugaufbereitung-leipzig')}
       title="Professionelle Fahrzeugaufbereitung in Leipzig mit festen Paketpreisen."
-      description="Innenraum und Außenpflege, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169,00 €, ausgeführt im Meisterbetrieb auf über 3.500 m²."
+      description="Innenraum- und Außenpflege, Politur, Versiegelung, Geruchsentfernung und die Vorbereitung auf Verkauf oder Leasingrückgabe. Vier aufeinander aufbauende Pflegepakete ab 169 €, ausgeführt im Meisterbetrieb auf über 3.500 m²."
       primaryCta={{ label: 'Aufbereitungstermin anfragen', href: '/kontakt#contact-termin' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Autoaufbereitung Leipzig', 'Lackpolitur Leipzig', 'Innenreinigung Leipzig', 'Leasingrückgabe Leipzig']}
@@ -61,7 +61,7 @@ const VehicleDetailingPage: React.FC = () => (
           eyebrow="Pflegepakete & Preise"
           title="Was kostet eine Autoaufbereitung in Leipzig?"
           // Backlog 6.24 (Mail Andre 2026-09-28): die letzten beiden Saetze in Andres Fassung, in „Sie/wir“ umformuliert.
-          description="Vier aufeinander aufbauende Pakete, von der Brillant Außenpflege ab 169,00 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, passt die Intensiv Innenraumreinigung. Wünschen Sie beides für sich und Ihr Fahrzeug oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand."
+          description="Vier aufeinander aufbauende Pakete, von der Brillant Außenpflege ab 169 € bis zur Premiumpflege „exklusiv“ in Handarbeit mit Swissvax-Carnaubawachs, deren Preis wir persönlich mit Ihnen abstimmen. Zur Orientierung: Geht es um Glanz und Lackschutz von außen, reicht die Brillant Außenpflege. Steht der Innenraum mit Polstern, Leder oder Gerüchen im Vordergrund, passt die Intensiv Innenraumreinigung. Wünschen Sie beides für sich und Ihr Fahrzeug oder stehen Verkauf oder Leasingrückgabe an, wählen Sie die Premiumpflege. Die Lackaufbereitung geht mit speziellen und abrasiven Polituren in die Tiefe des Lackes, wir berechnen sie nach Aufwand."
         />
         {/* Backlog 4.7: Aufpreise als Fussnote — Entscheidung des Kunden vom 2026-09-16.
             Der Satz kommt aus `AUFPREIS_SATZ`, dieselbe Quelle wie die Preis-FAQ. */}

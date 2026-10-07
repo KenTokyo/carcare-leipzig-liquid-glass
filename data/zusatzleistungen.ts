@@ -165,7 +165,7 @@ export const zusatzleistungen: Zusatzleistung[] = [
     label: 'Ozonbehandlung',
     preis: '45,00 €',
     beschreibung:
-      'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Ca. 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.',
+      'Ozon ist eines der stärksten Desinfektionsmittel und verteilt sich als Gas gleichmäßig bis in unzugängliche Bereiche. Es zerstört zuverlässig die Zellwände von Mikroorganismen. Rund 30 Minuten Einwirkzeit, danach etwa 30 Minuten sorgfältiges Ablüften.',
     // Andre: „buchbar allein oder zu allen Programmen“
     buchbar: UEBERALL,
   },

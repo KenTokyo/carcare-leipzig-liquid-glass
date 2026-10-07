@@ -85,7 +85,7 @@ export const carePackages: PriceItem[] = [
     // las sich das Paket wie eine reine Lackbehandlung — die Nennung von Wachs,
     // Carnauba und Glanzgrad zieht den Blick nach aussen. Es umfasst beides.
     description:
-      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien, u. a. Wachsen von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
+      'Aufbereitung von außen und innen in liebevoller Handarbeit mit ausgesuchten Produktlinien, unter anderem Wachsen von Swissvax mit Carnaubaanteilen von 30 bis 60 %. Je höher der Anteil, desto höher der Glanzgrad Ihres Lackes. Der Innenraum wird dabei ebenso behandelt wie der Lack. Den Preis stimmen wir nach Aufwand persönlich mit Ihnen ab.',
   },
   {
     // Backlog 4.9 (2026-09-16): Die Lackaufbereitung steht jetzt BEI den Paketen, mit
@@ -123,7 +123,9 @@ const zusatzKachel = (id: string): PriceItem => {
  * Anzeigepreis einer Zusatzleistung fuer Fliesstext (Einleitungen, FAQ) — keine zweite Schreibweise des Preises.
  * Mit geschuetzten Leerzeichen: Im Fliesstext brach mobil sonst „169,00 / €“ zwischen Betrag und Waehrung um.
  */
-const fliesstextPreis = (preis: string) => preis.replace(/ /g, '\u00A0');
+const fliesstextPreis = (preis: string) =>
+  // Stilblatt 9 (Lektorat 2026-10-07): im Fliesstext ganze Euro ohne „,00“; „95,20 €“ bleibt.
+  preis.replace(/,00(?=\s?€)/, '').replace(/ /g, '\u00A0');
 export const zusatzPreis = (id: string): string => fliesstextPreis(zusatzKachel(id).price);
 
 /** Desinfektions- und Hygieneleistungen inkl. Preis (Backlog 1.10 / 1.11). */

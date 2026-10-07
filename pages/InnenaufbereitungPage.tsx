@@ -54,7 +54,7 @@ const InnenaufbereitungPage: React.FC = () => (
     <PageMeta
       canonical="/innenaufbereitung-leipzig"
       title="Innenaufbereitung Leipzig | Polster & Leder | CarCare Center"
-      description="Innenaufbereitung Leipzig: Cockpit, Polster oder Leder, Scheiben und Geruchsentfernung. Intensiv Innenraumreinigung ab 199,00 € im Meisterbetrieb."
+      description="Innenaufbereitung Leipzig: Cockpit, Polster oder Leder, Scheiben und Geruchsentfernung. Intensiv Innenraumreinigung ab 199 € im Meisterbetrieb."
     />
     <PageHero
       eyebrow="Innenaufbereitung Leipzig"
@@ -93,7 +93,7 @@ const InnenaufbereitungPage: React.FC = () => (
         <SectionIntro
           eyebrow="Innenaufbereitung"
           title="Was zur Innenaufbereitung gehört."
-          description={`Die Intensiv Innenraumreinigung kostet ab 199,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
+          description={`Die Intensiv Innenraumreinigung kostet ab 199 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={innenLeistungen} />
       </div>

@@ -64,7 +64,7 @@ const AussenaufbereitungPage: React.FC = () => (
     <PageMeta
       canonical="/aussenaufbereitung-leipzig"
       title="Außenaufbereitung Leipzig | Politur & Lack | CarCare Center"
-      description="Außenaufbereitung in Leipzig: Vorreinigung, Handoberwäsche, Felgen, Hochglanzpolitur und Versiegelung. Brillant Außenpflege ab 169,00 € im Meisterbetrieb."
+      description="Außenaufbereitung in Leipzig: Vorreinigung, Handoberwäsche, Felgen, Hochglanzpolitur und Versiegelung. Brillant Außenpflege ab 169 € im Meisterbetrieb."
     />
     <PageHero
       eyebrow="Außenaufbereitung Leipzig"
@@ -105,7 +105,7 @@ const AussenaufbereitungPage: React.FC = () => (
           eyebrow="Außenaufbereitung"
           title="Was zur Außenaufbereitung gehört."
           // Seit 2026-10-05 steht die Hochglanzpolitur im Ablauf, die Lackversiegelung ist nicht mehr im Paket (Andre).
-          description={`Die Brillant Außenpflege kostet ab 169,00 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
+          description={`Die Brillant Außenpflege kostet ab 169 € inklusive gesetzlicher Mehrwertsteuer und enthält die folgenden Schritte. ${AUFPREIS_SATZ}`}
         />
         <ProcessList steps={aussenLeistungen} />
       </div>

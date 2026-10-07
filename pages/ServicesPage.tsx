@@ -39,7 +39,7 @@ const vorteile = [
 
 /** Beschreibende Einleitung je Gruppe — der Gruppentitel steht im Katalog, der Satz hier. */
 const gruppenText: Record<string, string> = {
-  aufbereitung: 'Innen- und Außenaufbereitung mit festen Paketpreisen ab 169,00 €, Lackaufbereitung nach Aufwand und die Vorbereitung auf die Leasingrückgabe.',
+  aufbereitung: 'Innen- und Außenaufbereitung mit festen Paketpreisen ab 169 €, Lackaufbereitung nach Aufwand und die Vorbereitung auf die Leasingrückgabe.',
   'unfall-lack': 'Vom Unfallschaden bis zum kleinen Kratzer: Karosserie, Lackierung, Smart Repair, lackfreie Dellenentfernung und Hagelschäden, mit Versicherungsabwicklung auf Wunsch.',
   'rad-glas': 'Felgenreparatur im TÜV-zertifizierten Verfahren und Autoglas als WINTEC-Partner, ohne Umweg über einen weiteren Betrieb.',
   gewerbe: 'Für Autohäuser, Fuhrparks, Versicherungen und Agenturen: feste Ansprechpartner und planbare Abläufe über viele Fahrzeuge hinweg.',
@@ -48,7 +48,7 @@ const gruppenText: Record<string, string> = {
 const ablauf = [
   { title: 'Anfragen', description: 'Rufen Sie an oder fragen Sie online einen Termin an. Einen Unfallschaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info.' },
   { title: 'Begutachten', description: 'Wir sehen uns das Fahrzeug in Leipzig an und besprechen, welches Verfahren fachlich und wirtschaftlich sinnvoll ist.' },
-  { title: 'Preis klären', description: 'Für die Aufbereitung gelten feste Paketpreise ab 169,00 €. Für Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
+  { title: 'Preis klären', description: 'Für die Aufbereitung gelten feste Paketpreise ab 169 €. Für Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
   { title: 'Ausführen und übergeben', description: 'Wir arbeiten das Fahrzeug im eigenen Haus ab und übergeben es gereinigt zurück, mit Erklärung, was gemacht wurde.' },
 ];
 

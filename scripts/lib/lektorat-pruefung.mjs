@@ -28,7 +28,7 @@ const REGELN = [
   { art: 'K', regel: 'Doppeltes Satzzeichen', re: /[,;:]{2,}|\.,|,\.|!!|\?\?/g },
   // Stilblatt 5: geschuetztes Leerzeichen
   { art: 'K', regel: 'Zahl und Einheit: geschütztes Leerzeichen (Stilblatt 5)', re: /\d (?:m²|€|%|km|mm|cm|kg|Uhr)(?![\p{L}²])/gu },
-  { art: 'H', regel: 'Preis mit Cent im Fließtext? Nur Kacheln und Preis-Hinweise mit „,00 €“ (Stilblatt 9)', re: /\d,00[ \u00a0]€/g },
+  { art: 'H', regel: 'Preis mit Cent im Fließtext? Nur Kacheln und Preis-Hinweise mit „,00 €“ (Stilblatt 9)', re: /\d,00[ \u00a0]€/g, minLaenge: 25 },
   { art: 'K', regel: '„z. B.“ mit geschütztem Leerzeichen (Stilblatt 5)', re: /\bz\. B\.|\bz\.B\./g },
   // Stilblatt 1–4, Kfz, E-Mail
   { art: 'K', regel: '„Spot-Repair“ mit Bindestrich (Stilblatt 1)', re: /Spot Repair/g },
@@ -45,7 +45,7 @@ const REGELN = [
   { art: 'K', regel: 'Wir-Form: Firmenname nicht als Subjekt in dritter Person (Textregel 2)', re: /CarCare Center(?: Leipzig)? (?:ist|bietet|hat|kümmert|steht|arbeitet|übernimmt|repariert|sorgt|verfügt|setzt|garantiert|legt|gehört|führt|betreut|vereint|liefert|stellt|bereitet|beschäftigt|bildet)\b/g, nurSichtbar: true },
   { art: 'H', regel: 'Ansprache: „Sie“, nicht „du“ (Zitat?)', re: /\b(?:du|dein|deine|deinen|deinem|deiner|dich|dir)\b/g },
   // Grammatik und Zeichensetzung (nur sichere Muster)
-  { art: 'K', regel: 'Wortdoppelung', re: /(?<!\p{L})(\p{L}{2,})\s+\1(?!\p{L})/giu, ausser: /\bSie sie\b/ },
+  { art: 'K', regel: 'Wortdoppelung', re: /(?<!\p{L})(\p{L}{2,})\s+\1(?!\p{L})/giu, ausser: /(?<!\p{L})(die die|der der|das das|den den|dem dem|des des|Sie sie)(?!\p{L})/iu },
   { art: 'K', regel: 'Komma vor „um/ohne/statt … zu“ (Regelwerk 2024)', re: /(?<![,;:(–\s])\s(?:um|ohne|statt|anstatt|außer)\s(?:[^,.;:!?()]{1,80}?\s)?zu\s\p{Ll}+/gu },
   // Ebene 6: sprachliche Risiken (nur Hinweis)
   { art: 'H', regel: 'Werbe- oder Garantieaussage: belegbar? (Ebene 6)', re: /\b(?:beste[nrms]?|einzige[nrms]?|garantiert|kostenlos|gratis|perfekt|makellos|unschlagbar|günstigste[nrms]?)\b/giu },
@@ -60,6 +60,7 @@ export function pruefe(eintraege) {
     if (!text) continue;
     for (const r of REGELN) {
       if (r.nurSichtbar && jsonld) continue; // Textregel 2, Ausnahme 2: JSON-LD darf dritte Person
+      if (r.minLaenge && text.length < r.minLaenge) continue; // z. B. reine Preiskachel „ab 169,00 €*“
       r.re.lastIndex = 0;
       for (const m of text.matchAll(r.re)) {
         const umfeld = text.slice(Math.max(0, m.index - 12), m.index + m[0].length + 12);
