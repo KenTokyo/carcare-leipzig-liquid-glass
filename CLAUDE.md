@@ -157,7 +157,9 @@ was nur lokal liegt, was inhaltlich offen ist. Früheres steht in `docs/push-sta
 **Wunsch des Users vom 2026-09-18: bei jedem Push, nicht nur einmal.**
 
 1. Commits fertig, Branches gemergt
-2. `npm run push-stand` — erzeugt beide Dateien aus git und dem Backlog, nichts von Hand
+2. `npm run push-stand` — erzeugt beide Dateien aus git und dem Backlog, nichts von Hand.
+   Wird nur ein Branch gepusht und `main` bleibt stehen: `npm run push-stand -- --nur <branch>`,
+   sonst stehen ungepushte Commits paralleler Branches als „kommt mit diesem Push" darin
 3. `git add docs/push-stand && git commit -m "Docs: Push-Stand <Datum>"`
 4. pushen
 
