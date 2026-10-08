@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 08.10.2026, 22:26 | `2026-10-06-lektorat`, `main` | `c450222` `fba8f31` `3549114` `2016719` `3653ae6` `7d8a3ae` `8d5b760` `a1cc396` `0b92e4a` `fbbbcfa` `ef86f79` `5e19ed7` `808ef4d` `3da6ce0` `cd29ae1` `d2d64e5` `d93ef68` `1134127` `cdd68e7` `ce14fc4` (20) | nein | neue Skripte: lektorat |
 | 05.10.2026, 17:48 | `2026-10-05-performance-glas`, `main` | `aa51215` (1) | nein | Konfiguration: vercel.json |
 | 05.10.2026, 16:39 | `2026-10-05-karriere-fotos`, `main` | `37b8ec2` (1) | nein | — |
 | 05.10.2026, 03:24 | `2026-10-04-rechtsseiten-und-texte`, `main` | `c656524` `d8e0269` `fcbb625` (3) | nein | — |
