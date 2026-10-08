@@ -18,7 +18,10 @@
 | L22-01 | Seitentitel Innenaufbereitung | … \| CarCare Wissen | … \| CarCare Center (53) | Textregel 1 | `data/knowledgeArticles.ts:110` |
 | L23-01 | Seitentitel Lackaufbereitung | … \| CarCare | … \| CarCare Center (59) | Textregel 1 | `data/knowledgeArticles.ts:182` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Zurückgestellt (User 08.10.):** Der Wissensbereich wird noch grundsätzlich ausgebaut. Die Vorschläge sind nicht
+umgesetzt und dienen als Vorlage für die Überarbeitung; L24–L27 werden erst danach gelesen.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

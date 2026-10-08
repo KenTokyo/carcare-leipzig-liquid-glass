@@ -259,14 +259,17 @@ dieselben Fragen neu stellen.
 * [ ] Offen beim User: Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig unter etwa 420 px, bis dahin so gelassen.
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
-### 🟨 Phase 9 — L20–L27 Wissensbereich (zwei Stopps)
+### ⏸ Phase 9 — L20–L27 Wissensbereich (zurückgestellt)
+**Entscheidung User 08.10.:** Der Wissensbereich wird noch grundsätzlich ausgebaut; das Lektorat dort ruht bis dahin.
+Die vier K aus Stopp 1 bleiben (Artikelzahl aus den Daten, drei Titel nach Textregel 1). Die 18 S aus Stopp 1 sind nicht
+umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 * [x] Stopp 1: Übersicht, „Was ist Autoaufbereitung?“, Innen-, Lackaufbereitung gelesen (je rund 420–480 Wörter), Befund
   `docs/lektorat/befunde/L20-L23-wissen-hub-grundlagen.md`: 4 K (Hub „Fünf Artikel“ bei sieben, jetzt aus den Daten;
   drei Seitentitel mit „| CarCare“ bzw. „| CarCare Wissen“, Textregel 1), 18 S (u. a. geteilter Abschlusssatz aller
   Artikel, Plakette „Smart Repair“ am Farbton-Artikel, FAQ-Antworten zuerst), 4 H (kein Datum an den Artikeln, auch nicht
   im JSON-LD, für L30). Build grün, `meta` 0/29, Auszüge: nur die vier K (und L19 im globalen Auszug).
-* [ ] **Stopp 1:** L20–L23-S beim User.
-* [ ] Stopp 2: Leasingrückgabe vorbereiten, Dellen ohne Lackieren, Spot-Repair, Farbtongenauigkeit (L24–L27).
+* [ ] ~~Stopp 1: L20–L23-S beim User~~ zurückgestellt (User 08.10.).
+* [ ] ~~Stopp 2: L24–L27~~ zurückgestellt (User 08.10.).
 **Achtung:** Ratgebertexte sind informativ (SEO-GEO 4.1); Fachbegriffe hier besonders auf richtige Erklärung prüfen.
 ### ⬜ Phase 10 — L28–L29 Impressum und Datenschutz
 **Achtung:** nur Korrektorat. Jede Änderung markieren, sie geht mit in die anwaltliche Prüfung (R6).
