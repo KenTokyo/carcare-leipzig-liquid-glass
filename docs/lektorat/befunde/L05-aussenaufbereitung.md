@@ -16,7 +16,9 @@
 
 Dabei auch das unsichtbare Trennzeichen (U+00AD) in derselben Funktion als sichtbares Escape `\u00AD` geschrieben.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt** (04 auf allen vier Seiten).
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

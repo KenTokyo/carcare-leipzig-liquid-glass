@@ -45,12 +45,12 @@ const lackLeistungen = [
   { title: 'Oberflächenkratzer entfernen', description: 'Wir arbeiten Oberflächenkratzer, Anhaftungen und matte Stellen aus dem Lack heraus.' },
   { title: 'Antihologramm-Bearbeitung', description: 'Wir entfernen Hologramme, also schimmernde Polierspuren im Lack, und bringen ihn auf Hochglanz.' },
   // Andre, 2026-10-05: Punkt 4 heißt „Hochglanzpolitur oder Versiegelung nach Wunsch“, der Text bleibt.
-  { title: 'Hochglanzpolitur oder Versiegelung nach Wunsch', description: 'Nach Absprache erweitern wir die Lackaufbereitung mit Wachs-, Nano- oder Keramikversiegelung.' },
+  { title: 'Hochglanzpolitur oder Versiegelung nach Wunsch', description: 'Nach Absprache erweitern wir die Lackaufbereitung um eine Wachs-, Nano- oder Keramikversiegelung.' },
 ];
 
 const usp = [
-  { title: 'Meisterbetrieb seit 1998', description: 'Meisterbetrieb seit 1998. Das Lackwissen aus der Reparatur kommt der Pflege zugute.' },
-  { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart Repair, Spot-Repair und Felgen aus einer Hand.' },
+  { title: 'Meisterbetrieb seit 1998', description: 'Das Lackwissen aus der Reparatur kommt der Pflege zugute.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart Repair und Felgen aus einer Hand.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Einzelfahrzeuge ebenso wie ganze Flotten von Autohäusern und Firmenfuhrparks.' },
 ];
 

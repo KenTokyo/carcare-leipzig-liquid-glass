@@ -42,7 +42,7 @@ const innenLeistungen = [
 
 const usp = [
   { title: 'Meisterbetrieb seit 1998', description: 'Erfahrung im Kfz-Handwerk seit 1998. Aufbereitung, Karosserie und Lack aus einer Hand.' },
-  { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart Repair, Spot-Repair und Felgen an einem Standort.' },
+  { title: 'Full-Service auf über 3.500 m²', description: 'Aufbereitung, Lackierung, Karosserie, Smart Repair und Felgen an einem Standort.' },
   { title: 'Privat-, Geschäfts- und Flottenkunden', description: 'Vom Privatfahrzeug bis zum vielgenutzten Poolwagen aus dem Firmenfuhrpark.' },
 ];
 

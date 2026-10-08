@@ -200,7 +200,11 @@ dieselben Fragen neu stellen.
 * [x] Nachgeprüft (Build 08.10., 01:44): grün, `meta` 0/29, alle Auszüge neu: elf Überschriften auf neun Seiten tragen
   jetzt das geschützte Leerzeichen (K über alle Seiten 25 → 14, keine Einheit mehr ohne). Überlaufprüfung Außen, Felgen,
   Über uns: nur 1-px-Vorlesetexte. Notiert für L17: Zeitstrahl „2000: Spot- und Smart-Repair“ (Stilblatt 2).
-* [ ] **Stopp:** L05-S (02–04) beim User.
+* [x] **Entscheidung User 08.10.:** L05-S 02–04 umgesetzt (04 auf vier Seiten).
+* [x] L06 gelesen (rund 725 Wörter), Befund `docs/lektorat/befunde/L06-innenaufbereitung.md`: keine K (Preise, Einheiten
+  und geteilte Texte schon mit L03/L05 bereinigt), 3 S, 2 H (Alcantara ohne Text und Preis, offen seit 28.09.).
+* [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur die L05-Änderungen auf Außen, Innen, Felgen, Autoglas.
+* [ ] **Stopp:** L06-S (01–03) beim User.
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
