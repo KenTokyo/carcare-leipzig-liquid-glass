@@ -362,8 +362,7 @@
     "stimmen": "5.28 erledigt am 03.10.2026: alle fünf Porträts geliefert und eingebaut (B142 bis B146), mit Vornamen auf Wunsch des Users; Einwilligung laut User erteilt. Widerruf: in data/stimmen.ts `foto: null` und `vorname: null`, der Platz zeigt dann wieder das Symbol des Gewerks"
   },
   "bekannt": {
-    "carcare-hero-workshop.webp": "Ersatzbild: DEFAULT_CARD_BG in ExpandingCardAccordion und TargetGroupCards, Rückfall in UeberUnsPage. Greift nur, wenn einer Karte das Motiv fehlt, und ist deshalb derzeit nirgends sichtbar.",
-    "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2500&auto=format&fit=crop": "Steht nur im toten components/Hero.tsx, das laut Vorgabe ohne Import unangetastet bleibt (offene-punkte-konsolidiert.md, Paket G)."
+    "carcare-hero-workshop.webp": "Ersatzbild: DEFAULT_CARD_BG in ExpandingCardAccordion und TargetGroupCards, Rückfall in UeberUnsPage. Greift nur, wenn einer Karte das Motiv fehlt, und ist deshalb derzeit nirgends sichtbar."
   },
   "stellen": {
     "B4": {

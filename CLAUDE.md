@@ -130,6 +130,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
 | `npm run gedankenstriche` | Gedankenstriche im ausgelieferten Text, in Titeln und Beschreibungen (Textregel 6), mit Umfeld je Fund | läuft als Wächter im `postbuild` mit; von Hand nach Textänderungen |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
+| `npm run tote-dateien` | Quelldateien, die von keinem Einstieg erreichbar sind (Importgraph über den TS-Compiler, auch transitive Waisen). Dateien mit „BEWUSST GEPARKT“ im Kopf werden genannt, aber nicht gezählt (derzeit `components/Jobs.tsx`). Braucht **kein** `dist/` | bevor eine Komponente als „ungenutzt“ gilt oder gelöscht wird; nach Umbauten, die Sektionen ersetzen |
 
 Alle brauchen ein aktuelles `dist/` (`npm run build`). Sie starten `vite preview`
 selbst — **niemals** `npm run dev` dafür starten.
