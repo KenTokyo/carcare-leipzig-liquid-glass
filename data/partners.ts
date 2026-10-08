@@ -81,7 +81,7 @@ export const insurancePartners: TargetGroupPartner[] = [
   { name: 'GVV' },
   { name: 'Helvetia' },
   { name: 'Itzehoer' },
-  { name: 'Nexible' },
+  { name: 'nexible' },
   { name: 'Nürnberger' },
   { name: 'Provinzial' },
   { name: 'R+V' },
@@ -89,6 +89,6 @@ export const insurancePartners: TargetGroupPartner[] = [
   { name: 'Signal Iduna' },
   { name: 'Verti' },
   { name: 'Volkswohl Bund' },
-  { name: 'Wefox' },
+  { name: 'wefox' },
   { name: 'Württembergische Versicherung' },
 ];

@@ -60,7 +60,7 @@ export const privatkundenVorteile: PrivatkundenVorteil[] = [
   },
   {
     title: 'Farbtongenau als Glasurit-Lackpartner',
-    beschreibung: 'Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.',
+    beschreibung: 'Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind. Wir arbeiten dafür mit umweltschonenden Wasserbasislacken.',
     kurz: 'Kein erkennbarer Unterschied zur Originallackierung.',
   },
   {

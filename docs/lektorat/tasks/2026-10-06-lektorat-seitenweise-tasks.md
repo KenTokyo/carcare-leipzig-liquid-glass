@@ -226,8 +226,22 @@ dieselben Fragen neu stellen.
 * [x] L15 gelesen (rund 1.085 Wörter), Befund `docs/lektorat/befunde/L15-privatkunden.md`: 1 K (Folge von L07-07), 3 S, 2 H.
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L11–L14-S (Hagel, Felgen, Autoglas, Fuhrpark,
   Geschäftskunden, Leistungen, Privatkunden) und L15-01.
-* [ ] **Stopp:** L15-S (02–04) beim User.
-### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
+* [x] **Entscheidung User 08.10.:** L15-S 03, 04 umgesetzt; 02 als „Privatkunden | Ihre Vorteile beim CarCare Center in
+  Leipzig“ (59 Zeichen; der Wunsch mit vorderem „Leipzig“ hätte 67 Zeichen und „Leipzig“ doppelt).
+* [x] L16 gelesen (rund 1.060 Wörter), Befund `docs/lektorat/befunde/L16-geschaeftskunden.md`: 1 K (nexible, wefox in
+  Inhaberschreibweise, auch Startseite), 12 S (u. a. „Vier Arten“ gegen „drei Logiken“, Fragment aus früherem Gedankenstrich
+  auch auf der Fuhrparkseite, FAQ Premium mit Referenz statt Floskel, Knopf „Partneranfrage“), 1 F (nexible und wefox
+  haben das Kfz-Geschäft eingestellt bzw. Deutschland verlassen), 3 H.
+* [x] Nachgeprüft (Build 08.10., zweimal): grün, `meta` 0/29 (Privatkunden-Titel 59), alle Auszüge: geändert nur L15-S,
+  L17-K und die zwei Versicherernamen (Geschäftskunden, Startseite). Überlaufprüfung Über uns, Privat-, Geschäftskunden:
+  nur 1-px-Vorlesetexte.
+* [ ] **Stopp:** L16-S (02–13) beim User, F L16-14 an André.
+### 🟨 Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
+* [x] L17 gelesen (rund 1.350 Wörter), Befund `docs/lektorat/befunde/L17-ueber-uns.md`: 3 K (Zeitstrahl „Spot-Repair und
+  Smart Repair“, Glasurit-Satz wie L15-04, falscher Bezug „Diese“), 10 S (davon drei in Andrés Zeitstrahl-Wortlaut,
+  „Erfahrung im Lackierhandwerk seit 1998“ gegen den Zeitstrahl, „ohne Bindung an eine Vertragswerkstatt“), 4 H
+  (u. a. `components/Hero.tsx` ungenutzt).
+* [ ] **Stopp:** L17-S (04–13) beim User.
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⬜ Phase 9 — L20–L27 Wissensbereich (zwei Stopps)

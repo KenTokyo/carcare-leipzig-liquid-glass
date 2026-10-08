@@ -43,7 +43,7 @@ const facts = [
 // Backlog 4.11: Bezeichnung „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk" (Kundenwortlaut).
 const qualifications = [
   { title: 'Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk', description: 'Handwerkliche Qualifikation als Grundlage jeder Reparatur, mit Ausbildung im eigenen Betrieb und fachlicher Verantwortung für das Ergebnis.' },
-  { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind, mit umweltschonenden Wasserbasislacken.' },
+  { title: 'Glasurit-Lackpartner', description: 'Zugang zur Farbtontechnologie von Glasurit. Ziel jeder Lackreparatur ist, dass weder Farbton- noch Effektunterschiede zur Originallackierung für das Auge erkennbar sind. Wir arbeiten dafür mit umweltschonenden Wasserbasislacken.' },
   { title: 'WINTEC-Partner für Autoglas', description: 'Scheibentausch und Steinschlagreparatur nach ISO 9001, TÜV-zertifiziert, mit 30 Jahren Garantie auf die Reparatur und die Dichtigkeit ausgetauschter Scheiben.' },
   { title: 'TÜV-zertifizierte Felgenreparatur', description: 'Bordstein- und Korrosionsschäden bis 1 mm Tiefe werden im geprüften Verfahren instand gesetzt, auch an glanzgedrehten Felgen.' },
   // Backlog 4.13: „Autotex/DAT-Kalkulationen" — „Autotex" ist Audatex (ein Kalkulationssystem
@@ -171,7 +171,7 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Qualifikation & Partnerschaften"
           title="Woran sich die Arbeitsqualität festmachen lässt."
-          description="Zertifizierungen, Partnerschaften und Mitgliedschaften sind überprüfbar, anders als Qualitätsversprechen. Diese stehen hinter jeder Reparatur."
+          description="Zertifizierungen, Partnerschaften und Mitgliedschaften stehen hinter jeder Reparatur. Anders als Qualitätsversprechen sind sie überprüfbar."
         />
         <FeatureGrid items={qualifications} columns="three" />
         {/* Backlog 4.13: „Mitglied im BVAT" — als Siegel unter den sechs Karten statt als

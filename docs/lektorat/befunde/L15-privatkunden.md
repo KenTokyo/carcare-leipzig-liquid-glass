@@ -13,7 +13,12 @@
 |---|---|---|---|---|---|
 | L15-01 | FAQ „Bleibe ich während der Reparatur mobil?“ | Nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen zur Verfügung. | Nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen bereit. | wie L07-07 (vom User angenommen): „Verfügbarkeit … zur Verfügung“ im selben Satz | `data/faqs.ts:135` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.):** 03 und 04 wie vorgeschlagen; 02 als „… beim CarCare Center in Leipzig“.
+Umgesetzt als **„Privatkunden | Ihre Vorteile beim CarCare Center in Leipzig“ (59 Zeichen)**: Mit dem vorderen
+„Leipzig“ wären es 67 Zeichen (Korridor 50–60) und „Leipzig“ stünde zweimal im Titel. Die Glasurit-Kachel steht wortgleich
+auf Über uns und ist dort mitgezogen (L17-02).
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

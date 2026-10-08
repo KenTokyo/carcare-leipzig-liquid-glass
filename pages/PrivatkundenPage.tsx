@@ -84,8 +84,8 @@ const PrivatkundenPage: React.FC = () => (
   <BackdropLayout image="/assets/kacheln/privatkunden-leipzig-carcare.webp">
     <PageMeta
       canonical="/privatkunden"
-      title="Privatkunden Leipzig | Ihre Vorteile bei CarCare Center"
-      description="Ihre Vorteile als Privatkunde in Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung inklusive und Ersatzwagen."
+      title="Privatkunden | Ihre Vorteile beim CarCare Center in Leipzig"
+      description="Ihre Vorteile als Privatkunde in Leipzig: alles an einem Standort, feste Aufbereitungspreise ab 169 €, Versicherungsabwicklung und Ersatzwagen inklusive."
     />
     <PageHero
       eyebrow="Privatkunden"

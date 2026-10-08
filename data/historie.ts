@@ -47,7 +47,7 @@ export const historie: TimelineStation[] = [
   },
   {
     zeit: '2000',
-    title: 'Spot- und Smart-Repair',
+    title: 'Spot-Repair und Smart Repair',
     // Backlog 4.17, Wortlaut des Kunden.
     description: 'Erweiterung um das Geschäftsfeld Spot-Repair und Smart Repair.',
   },
