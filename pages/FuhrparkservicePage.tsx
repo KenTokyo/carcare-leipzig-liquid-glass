@@ -26,7 +26,7 @@ const FuhrparkservicePage: React.FC = () => (
       eyebrow: 'Fuhrparkservice Leipzig',
       title: 'Fuhrparkservice in Leipzig.',
       description:
-        'Gern stehen wir Ihnen in der Betreuung Ihres Firmenfuhrparks zur Seite. Wir übernehmen von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge. Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein.',
+        'Gern stehen wir Ihnen bei der Betreuung Ihres Firmenfuhrparks zur Seite. Wir übernehmen von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge. Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein.',
       primaryCta: { label: 'Fuhrparkservice anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Mehr für Geschäftskunden', href: '/geschaeftskunden' },
       keywords: ['Fuhrparkservice Leipzig', 'Firmenfuhrpark Leipzig', 'Flottenservice Leipzig'],

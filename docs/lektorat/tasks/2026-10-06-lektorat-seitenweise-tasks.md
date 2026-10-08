@@ -215,8 +215,13 @@ dieselben Fragen neu stellen.
   3 K („Smart Repair bzw. Spot-Repair“, „ohne Lackieren“, „wiederhergestellt“), 4 S (u. a. „möglichst perfekt“ an fünf
   Stellen), 4 H (Leistungsumfang Lackierung ist Andrés Wortlaut).
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29 (Leasing-Titel 55), Auszüge: nur L07-S und die drei K auf L08/L10.
-* [ ] **Stopp:** L08–L10-S beim User.
-* [ ] L11–L14 (Hagel, Felgen, Autoglas mit Garantie-Umfang, Fuhrpark)
+* [x] **Entscheidung User 08.10.:** L08-03, L09-01, L10-03 umgesetzt; L08-02 bleibt.
+* [x] L11–L14 gelesen (Hagel, Felgen, Autoglas, Fuhrpark), Befund `docs/lektorat/befunde/L11-L14-hagel-felgen-autoglas-fuhrpark.md`:
+  2 K („TÜV-zertifiziert“, „bei der Betreuung … zur Seite“), 11 S (u. a. „ihr“ in zwei FAQ-Fragen, „gesetzlich abzulehnen“,
+  Garantie-Umfang an drei Stellen, „Schadenfall“ statt „Schadensfall“), 4 H. Vorprüfung: Abkürzung vor Komma („e.V.,“)
+  aus der Regel „Doppeltes Satzzeichen“ ausgenommen.
+* [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L08–L10-S und die zwei K auf Autoglas/Fuhrpark.
+* [ ] **Stopp:** L11–L14-S beim User.
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen

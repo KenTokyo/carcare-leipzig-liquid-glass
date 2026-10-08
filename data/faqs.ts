@@ -81,13 +81,13 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'spot', question: 'Was ist Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand. Sie ist unsere bevorzugte Reparaturmethode, weil nur der betroffene Bereich bearbeitet wird.' },
     { id: 'komplett', question: 'Wann ist eine Komplettlackierung nötig?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Dann bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
     // Backlog 6.25 (Mail Andre 2026-09-28): „Einheitliche Angabe — Preis nach Aufwand“ im Bereich Neu- und Reparaturlackierung.
-    { id: 'preis', question: 'Was kostet eine Lackierung?', answer: 'Neu- und Reparaturlackierungen berechnen wir nach Aufwand, weil der Aufwand vom Schadenbild abhängt. Den Preis nennen wir Ihnen nach der Besichtigung im Kostenvoranschlag. Im Versicherungsfall stimmen wir uns auf Wunsch mit Versicherung und Gutachter ab.' },
+    { id: 'preis', question: 'Was kostet eine Lackierung?', answer: 'Neu- und Reparaturlackierungen berechnen wir nach Aufwand, weil er vom Schadenbild abhängt. Den Preis nennen wir Ihnen nach der Besichtigung im Kostenvoranschlag. Im Versicherungsfall stimmen wir uns auf Wunsch mit Versicherung und Gutachter ab.' },
   ],
 
   // Dellenentfernung
   '/dellenentfernung-leipzig': [
     { id: 'wann', question: 'Bei welchen Schäden funktioniert die lackfreie Dellenentfernung?', answer: 'Die lackierfreie Reparaturmethode gilt heute als Standard bei Parkplatzdellen oder Hagelschäden. Voraussetzung ist, dass der Lack keine Beschädigungen aufweist.' },
-    { id: 'wie', question: 'Wie funktioniert die Methode?', answer: 'Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil unter Verwendung spezieller Werkzeuge so weit bearbeitet, bis der Originalzustand wiederhergestellt ist.' },
+    { id: 'wie', question: 'Wie funktioniert die Methode?', answer: 'Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil mit speziellen Werkzeugen so lange bearbeitet, bis der Originalzustand wiederhergestellt ist.' },
     { id: 'wert', question: 'Bleibt der Wert des Fahrzeugs erhalten?', answer: 'In der Regel ja. Die Methode ist schonend für den Lack, der Originallack bleibt erhalten, und die reparierte Stelle ist danach nicht zu sehen.' },
     { id: 'versicherung', question: 'Erkennen Versicherungen die Methode an?', answer: 'Ja, die lackfreie Dellenentfernung ist bei Versicherungen und Gutachtern anerkannt.' },
   ],

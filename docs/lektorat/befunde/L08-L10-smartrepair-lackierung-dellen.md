@@ -16,7 +16,9 @@
 | L10-01 | Dellenentfernung | H1 | Dellenentfernung (ohne lackieren) in Leipzig. | Dellenentfernung (ohne Lackieren) in Leipzig. | Nach einer Präposition ist der Infinitiv ein Substantiv und wird großgeschrieben; so steht es auch im Seitentitel | `pages/DellenentfernungPage.tsx:37` |
 | L10-02 | Dellenentfernung | Einleitung und FAQ „Wie funktioniert die Methode?“ | … bis der Originalzustand wieder hergestellt ist. | … bis der Originalzustand wiederhergestellt ist. | „wiederherstellen“ wird zusammengeschrieben | `pages/DellenentfernungPage.tsx:39`, `data/faqs.ts:90` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.):** L08-03, L09-01, L10-03 umgesetzt; **L08-02 bleibt** („möglichst perfekte“).
 
 | Nr | Seite | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|---|

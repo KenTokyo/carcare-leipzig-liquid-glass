@@ -25,7 +25,7 @@ const REGELN = [
   { art: 'K', regel: 'Leerzeichen nach Satzzeichen fehlt', re: /\p{Ll}[,;](?=\p{L})|\p{Ll}{2}[.!?](?=\p{Lu}\p{Ll})/gu, ausser: /\.(de|com|info|cloud|html)\b|www\./ },
   { art: 'K', regel: 'Bis-Strich: Halbgeviertstrich ohne Leerzeichen („1–2“)', re: /(?<!\d[ .])\b\d{1,4} ?- ?\d{1,4}\b(?![.\d-])/g, ausser: /0341 - 261|\d{3,} ?- ?\d{3,}|ISO|DIN|\d{4}-\d{2}-\d{2}/ },
   { art: 'K', regel: 'Bis-Strich ohne Leerzeichen („8–17 Uhr“)', re: /\d [–‒] \d/g },
-  { art: 'K', regel: 'Doppeltes Satzzeichen', re: /[,;:]{2,}|\.,|,\.|!!|\?\?/g },
+  { art: 'K', regel: 'Doppeltes Satzzeichen', re: /[,;:]{2,}|\.,|,\.|!!|\?\?/g, ausser: /(e\.\s?V|z\.\s?B|u\.\s?a|d\.\s?h|bzw|ca|inkl|usw|etc|ggf|evtl|Nr|Str|Co)\.,/ },
   // Stilblatt 5: geschuetztes Leerzeichen
   { art: 'K', regel: 'Zahl und Einheit: geschütztes Leerzeichen (Stilblatt 5)', re: /\d (?:m²|€|%|km|mm|cm|kg|Uhr)(?![\p{L}²])/gu },
   { art: 'H', regel: 'Preis mit Cent im Fließtext? Nur Kacheln und Preis-Hinweise mit „,00 €“ (Stilblatt 9)', re: /\d,00[ \u00a0]€/g, minLaenge: 25 },
