@@ -39,7 +39,7 @@ const KARTEN = [
             Link: Bis zum Klick verbindet die Seite nichts mit Google (Begruendung in data/anfahrt.ts). Google Maps
             zuerst, weil so gewuenscht; Apple Karten daneben wie in der mobilen Leiste. 48 px Trefferflaeche. */}
         <div className="mt-2 flex flex-wrap gap-x-5">
-          {[{ label: 'Route mit Google Maps', href: GOOGLE_MAPS_ROUTE }, { label: 'Apple Karten', href: APPLE_KARTEN_ROUTE }].map((ziel) => (
+          {[{ label: 'Route mit Google Maps', href: GOOGLE_MAPS_ROUTE }, { label: 'Route mit Apple Karten', href: APPLE_KARTEN_ROUTE }].map((ziel) => (
             <a
               key={ziel.href}
               href={ziel.href}

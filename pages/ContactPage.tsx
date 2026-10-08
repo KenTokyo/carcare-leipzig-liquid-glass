@@ -5,9 +5,9 @@ import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 const contactWays = [
   // Seit 2026-09-16 direkt zur Schadenseite auf reparatur.info (Backlog 2.23).
-  { title: 'Schaden melden', description: 'Für Unfall-, Hagel-, Lack- oder Glasschäden: Schadendaten und Fotos über unsere Schadenseite auf reparatur.info übermitteln.', href: SCHADEN_ZIEL },
-  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackaufbereitung oder die Vorbereitung auf die Leasingrückgabe.', href: '#contact-termin' },
-  { title: 'Geschäftskundenanfrage', description: 'Für Autohäuser, Fuhrparks, Versicherungen und Versicherungsagenturen.', href: '#contact-business' },
+  { title: 'Schaden melden', description: 'Für Unfall-, Hagel-, Lack- oder Glasschäden: Schadendaten und Fotos über unsere Schadenseite auf reparatur.info übermitteln.', href: SCHADEN_ZIEL, linkLabel: 'Zur Schadenmeldung' },
+  { title: 'Aufbereitungstermin anfragen', description: 'Für Innenaufbereitung, Außenaufbereitung, Lackaufbereitung oder die Vorbereitung auf die Leasingrückgabe.', href: '#contact-termin', linkLabel: 'Zum Formular' },
+  { title: 'Geschäftskundenanfrage', description: 'Für Autohäuser, Fuhrparks, Versicherungen und Versicherungsagenturen.', href: '#contact-business', linkLabel: 'Zum Formular' },
 ];
 
 const ContactPage: React.FC = () => (
@@ -15,7 +15,7 @@ const ContactPage: React.FC = () => (
     <PageMeta canonical="/kontakt" title="Kontakt, Anfahrt & Öffnungszeiten | CarCare Center Leipzig" description="Kontakt zum CarCare Center Leipzig: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. An den Tierkliniken 42, 04103 Leipzig." />
     <PageHero
       eyebrow="Kontakt"
-      title="Kontakt zum CarCare Center Leipzig"
+      title="Kontakt zum CarCare Center Leipzig."
       description="Wählen Sie die passende Anfrageart: Schaden melden, Aufbereitungstermin anfragen oder Geschäftskundenanfrage senden. Wir melden uns persönlich zurück."
       primaryCta={{ label: 'Schaden melden', href: SCHADEN_ZIEL }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}

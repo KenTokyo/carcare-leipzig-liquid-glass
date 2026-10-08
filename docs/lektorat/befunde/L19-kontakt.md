@@ -6,7 +6,9 @@
 >
 > **Arten:** S = Vorschlag · H = Hinweis.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt.** 03 wirkt auch auf die Startseite (`KontaktDaten`).
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

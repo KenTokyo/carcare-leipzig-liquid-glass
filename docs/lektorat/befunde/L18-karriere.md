@@ -27,7 +27,11 @@ Mitarbeiterstimmen, „Fahrzeug lackierer/in“ in den Vorlesetexten). Auf der S
 wird von `GanzwortTitel` leicht kleiner gesetzt (Desktop 22,6 statt 24 px, mobil 18,7 statt 20 px), dreizeilig, ohne
 Überlauf. `meta` 0/29.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.):** 08–14 umgesetzt. **07 bleibt** „Bürokaufmann (m/w/d)“ („auch wenn es das schon
+lange nicht mehr so gibt, bitte stehen lassen, aber mit m/w/d ergänzen“); als Hinweis **R20** in
+`docs/backlog/nice-to-have.md`. Die FAQ-Antwort aus 12 nennt deshalb „zum Bürokaufmann“.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

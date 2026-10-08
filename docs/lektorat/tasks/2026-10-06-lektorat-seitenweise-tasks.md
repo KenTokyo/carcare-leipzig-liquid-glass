@@ -222,7 +222,7 @@ dieselben Fragen neu stellen.
   aus der Regel „Doppeltes Satzzeichen“ ausgenommen.
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L08–L10-S und die zwei K auf Autoglas/Fuhrpark.
 * [x] **Entscheidung User 08.10.:** L11–L14-S alle umgesetzt (L11-03 mit Audatex), „Schadenfall“ an allen sieben Stellen.
-### 🟨 Phase 7 — L15 Privatkunden, L16 Geschäftskunden
+### ✅ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 * [x] L15 gelesen (rund 1.085 Wörter), Befund `docs/lektorat/befunde/L15-privatkunden.md`: 1 K (Folge von L07-07), 3 S, 2 H.
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L11–L14-S (Hagel, Felgen, Autoglas, Fuhrpark,
   Geschäftskunden, Leistungen, Privatkunden) und L15-01.
@@ -237,7 +237,7 @@ dieselben Fragen neu stellen.
   nur 1-px-Vorlesetexte.
 * [x] **Entscheidung User 08.10.:** L16-S 02–13 umgesetzt (05 auch auf der Fuhrparkseite); F L16-14 bleibt bei André.
   Nebenwirkung: Abschluss-Knopf „Geschäftskundenanfrage stellen“ bricht unter etwa 420 px zweizeilig um, beim User.
-### 🟨 Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
+### ✅ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
 * [x] L17 gelesen (rund 1.350 Wörter), Befund `docs/lektorat/befunde/L17-ueber-uns.md`: 3 K (Zeitstrahl „Spot-Repair und
   Smart Repair“, Glasurit-Satz wie L15-04, falscher Bezug „Diese“), 10 S (davon drei in Andrés Zeitstrahl-Wortlaut,
   „Erfahrung im Lackierhandwerk seit 1998“ gegen den Zeitstrahl, „ohne Bindung an eine Vertragswerkstatt“), 4 H
@@ -253,8 +253,10 @@ dieselben Fragen neu stellen.
   längster Kartentitel passt (GanzwortTitel 22,6/18,7 px statt 24/20 px).
 * [x] L19 Kontakt gelesen (rund 250 Wörter, laut Plan mit L18), Befund `docs/lektorat/befunde/L19-kontakt.md`: keine K,
   4 S (Punkt hinter der H1, Linktexte der Karten, „Route mit Apple Karten“, „gern“), 2 H.
-* [ ] **Stopp:** L18-S (07–14) und L19-S (01–04) beim User, dazu Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig
-  unter etwa 420 px: so lassen oder kürzer.
+* [x] **Entscheidung User 08.10.:** L18-S 08–14 und L19-S 01–04 umgesetzt; L18-07 bleibt „Bürokaufmann (m/w/d)“, Hinweis
+  als R20 in `docs/backlog/nice-to-have.md`. Build grün, `meta` 0/29, Auszüge Karriere, Kontakt, Start: nur das Beschlossene.
+  Überlauf Kontakt und Start: nur der bekannte L02-14.
+* [ ] Offen beim User: Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig unter etwa 420 px, bis dahin so gelassen.
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⬜ Phase 9 — L20–L27 Wissensbereich (zwei Stopps)

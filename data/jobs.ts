@@ -117,7 +117,7 @@ export const jobPositions: JobPosition[] = [
     title: 'Karosserie- und Fahrzeugbaumechaniker',
     anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker',
     description:
-      'Instandsetzung nach Unfallschäden, Karosseriearbeiten und Richtbank. Wir setzen instand, wo es fachlich vertretbar ist.',
+      'Instandsetzung nach Unfallschäden, Karosseriearbeiten und Arbeit an der Richtbank. Wir setzen instand, wo es fachlich vertretbar ist.',
     anforderungen: [
       'Abgeschlossene Ausbildung im Karosserie- oder Fahrzeugbau',
       'Erfahrung mit Instandsetzung nach Unfallschäden',

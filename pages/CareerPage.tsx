@@ -11,7 +11,7 @@ import Stimmen from '../components/Stimmen';
 import { videoPlatz } from '../data/videos';
 
 const benefits = [
-  { title: 'Professionelles Umfeld', description: 'Arbeiten mit Fahrzeugen, Qualität und klaren Abläufen.' },
+  { title: 'Professionelles Umfeld', description: 'Arbeit an hochwertigen Fahrzeugen, mit klaren Abläufen.' },
   { title: 'Starkes Team', description: 'Kollegen, die saubere Arbeit und gegenseitige Unterstützung schätzen.' },
   { title: 'Abwechslungsreiche Aufgaben', description: 'Aufbereitung, Reparatur, Lack, Service und Kundenkontakt.' },
   { title: 'Qualitätsanspruch', description: 'Sichtbare Ergebnisse und Arbeit, auf die man stolz sein kann.' },
@@ -41,10 +41,10 @@ const bereiche: BereichsKarte[] = [
 ];
 
 const process = [
-  { title: 'Kontakt aufnehmen', description: 'Kurze Bewerbung oder Initiativkontakt über die Kontaktseite senden.' },
+  { title: 'Kontakt aufnehmen', description: 'Kurze Bewerbung über das Formular auf dieser Seite, per E-Mail oder telefonisch.' },
   { title: 'Rückmeldung erhalten', description: 'Wir prüfen den passenden Bereich und melden uns persönlich.' },
   { title: 'Kennenlernen', description: 'Gemeinsames Gespräch über Erfahrung, Stärken und Aufgabenbereich.' },
-  { title: 'Start im Team', description: 'Wenn es passt, beginnt der Einstieg in einem professionellen Umfeld.' },
+  { title: 'Start im Team', description: 'Wenn es passt, starten Sie in Ihrem neuen Team.' },
 ];
 
 const CareerPage: React.FC = () => (
@@ -57,7 +57,7 @@ const CareerPage: React.FC = () => (
       eyebrow="Karriere"
       title="Jobs und Ausbildung in Leipzig."
       description="Ihr Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecken Sie unsere Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
-      primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
+      primaryCta={{ label: 'Initiativ bewerben', href: BEWERBUNGS_ZIEL }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
       keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie-Jobs Leipzig']}
     />
@@ -124,7 +124,7 @@ const CareerPage: React.FC = () => (
       </div>
     </section>
     <JobPopup href={BEWERBUNGS_ZIEL} />
-    <PageCTA title="Sie wollen Teil unseres Teams werden?" description="Senden Sie uns eine kurze Initiativbewerbung oder melden Sie sich direkt. Wir prüfen gemeinsam mit Ihnen den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref="/kontakt" />
+    <PageCTA title="Sie wollen Teil unseres Teams werden?" description="Senden Sie uns eine kurze Initiativbewerbung oder melden Sie sich direkt. Wir prüfen gemeinsam mit Ihnen den passenden Bereich." primaryLabel="Initiativbewerbung starten" primaryHref={BEWERBUNGS_ZIEL} />
   </>
 );
 

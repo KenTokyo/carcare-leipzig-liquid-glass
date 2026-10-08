@@ -155,8 +155,8 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'initiativ', question: 'Kann ich mich initiativ bewerben?', answer: 'Ja. Initiativbewerbungen sind willkommen, besonders für Aufbereitung, Lackierung, Karosserie und Service.' },
     // Antwort nennt die derzeit AUSGESCHRIEBENEN Stellen. Der Serviceberater gehoert zum
     // Betrieb, ist aber nicht ausgeschrieben (data/jobs.ts) — deshalb steht er hier nicht.
-    { id: 'bereiche', question: 'Welche Stellen sind aktuell ausgeschrieben?', answer: 'Aktuell suchen wir Kfz-Aufbereiter, Fahrzeuglackierer sowie Karosserie- und Fahrzeugbaumechaniker. Weitere Berufsbilder wie den Serviceberater besetzen wir zurzeit nicht neu. Eine Initiativbewerbung ist trotzdem willkommen.' },
-    { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über die Kontaktseite oder telefonisch. Wir melden uns anschließend persönlich zurück.' },
+    { id: 'bereiche', question: 'Welche Stellen sind aktuell ausgeschrieben?', answer: 'Aktuell suchen wir Kfz-Aufbereiter, Fahrzeuglackierer sowie Karosserie- und Fahrzeugbaumechaniker (jeweils m/w/d). Ausbildungsplätze bieten wir zum Fahrzeuglackierer, zum Karosserie- und Fahrzeugbaumechaniker und zum Bürokaufmann an (jeweils m/w/d). Die Stelle als Serviceberater besetzen wir zurzeit nicht neu, eine Initiativbewerbung ist trotzdem willkommen.' },
+    { id: 'kontakt', question: 'Wie starte ich die Bewerbung?', answer: 'Am einfachsten über das Bewerbungsformular auf dieser Seite, per E-Mail an bewerbung@carcare-center.de oder telefonisch unter 0341 - 261 77 90. Wir melden uns anschließend persönlich.' },
   ],
 
   // Wissensbereich

@@ -54,7 +54,7 @@ const ContactSection: React.FC = () => {
             Ihre Anfrage in wenigen Schritten.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-gray-600 md:text-lg">
-            Wählen Sie das passende Anliegen. Wir kümmern uns um den Rest. Für sofortige Hilfe rufen Sie uns gerne unter <span className="font-semibold text-gray-950">0341 - 261 77 90</span> an.
+            Wählen Sie das passende Anliegen. Wir kümmern uns um den Rest. Für sofortige Hilfe rufen Sie uns gern unter <span className="font-semibold text-gray-950">0341 - 261 77 90</span> an.
           </p>
         </div>
 
