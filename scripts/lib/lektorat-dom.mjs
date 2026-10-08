@@ -27,7 +27,7 @@ export async function sammleImBrowser(opt) {
   const sichtbar = (el) => (el.checkVisibility
     ? el.checkVisibility({ visibilityProperty: true, contentVisibilityAuto: true })
     : el.getClientRects().length > 0);
-  const norm = (t) => t.replace(/[ \t\r\n\f\u200b\u00ad]+/g, ' ').replace(/ ?\u2028 ?/g, '\n').trim();
+  const norm = (t) => t.replace(/[\u200b\u00ad]/g, '').replace(/[ \t\r\n\f]+/g, ' ').replace(/ ?\u2028 ?/g, '\n').trim();
 
   const gruppeVon = (el) => {
     if (el.closest('[role="dialog"]')) return 'Dialog';

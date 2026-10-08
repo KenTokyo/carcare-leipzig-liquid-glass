@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { BEWERBUNGS_ZIEL, ausbildungsberufe, berufsbilder, offeneBerufe, type JobPosition } from '../data/jobs';
+import { BEWERBUNGS_ZIEL, ausbildungsberufe, berufsbilder, offeneBerufe, stellenTitel, type JobPosition } from '../data/jobs';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import PhotoBackdrop from './PhotoBackdrop';
 
@@ -51,7 +51,7 @@ const alsKarte = (job: JobPosition): ExpandingCardItem => {
   return {
     id: job.id,
     // 5.25: mit weichen Trennstellen, damit lange Titel an der Wortfuge umbrechen.
-    title: job.anzeigeTitel ?? job.title,
+    title: stellenTitel(job, job.anzeigeTitel ?? job.title),
     description: job.description,
     href: BEWERBUNGS_ZIEL,
     cta: offen ? 'Jetzt bewerben' : 'Initiativ bewerben',

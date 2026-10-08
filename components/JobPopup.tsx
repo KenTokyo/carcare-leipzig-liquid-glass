@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, BriefcaseBusiness, X } from 'lucide-react';
-import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker } from '../data/jobs';
+import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker, stellenTitel } from '../data/jobs';
 
 /**
  * Pop-up mit den offenen Stellen auf `/karriere` (Backlog 1.23).
@@ -141,7 +141,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
                 {offeneBerufe.map((job) => (
                   <li key={job.id} className="flex items-center gap-2 text-[15px] font-bold leading-snug text-gray-950">
                     <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
-                    {job.title}
+                    {stellenTitel(job)}
                   </li>
                 ))}
               </ul>
@@ -157,8 +157,8 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
                   {offeneAusbildungen.map((job) => (
                     <li key={job.id} className="flex items-center gap-2 text-sm font-semibold leading-snug text-gray-800">
                       <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-blue-600" />
-                      {job.title}
-                      {!gemeinsamerBeginn && job.hinweis && ` (${job.hinweis})`}
+                      {stellenTitel(job)}
+                      {!gemeinsamerBeginn && job.hinweis && `, ${job.hinweis}`}
                     </li>
                   ))}
                 </ul>

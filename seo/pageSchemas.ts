@@ -10,7 +10,7 @@ import {
   serviceSchema,
 } from './structuredData';
 import { faqsByRoute } from '../data/faqs';
-import { offeneStellen } from '../data/jobs';
+import { offeneStellen, stellenTitel } from '../data/jobs';
 import { knowledgeArticles } from '../data/knowledgeArticles';
 import { angeboteAussen, angeboteInnen, carePackages, disinfectionServices, schemaAngebote, zusatzAngebote } from '../data/detailing';
 
@@ -153,10 +153,10 @@ export const pageSchemas: Record<string, unknown[]> = {
    */
   '/karriere': [
     breadcrumbSchema([{ name: 'Startseite', path: '/' }, { name: 'Karriere', path: '/karriere' }]),
-    // Backlog 5.26: Ausbildungsplaetze als solche benannt („Ausbildung Fahrzeuglackierer/in"), der
+    // Backlog 5.26: Ausbildungsplaetze als solche benannt („Ausbildung Fahrzeuglackierer (m/w/d)“, seit Stilblatt 8), der
     // Beginn steht in der Beschreibung — nicht im Titel (Google: keine Daten im Stellentitel).
     ...offeneStellen.map((job) => {
-      const titel = job.art === 'ausbildung' ? `Ausbildung ${job.title}` : job.title;
+      const titel = job.art === 'ausbildung' ? `Ausbildung ${stellenTitel(job)}` : stellenTitel(job);
       return jobPostingSchema({
         title: titel,
         description: `${titel} beim CarCare Center Leipzig. ${job.description}${job.hinweis ? ` ${job.hinweis}.` : ''}`,

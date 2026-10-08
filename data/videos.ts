@@ -80,7 +80,7 @@ export const videoPlaetze: VideoPlatz[] = [
   {
     id: 'karriere-betrieb',
     titel: 'Videoplatz Arbeitsplatz',
-    beschreibung: 'Zeigt den Betrieb, in dem gearbeitet wird, nicht nur eine Liste von Vorteilen.',
+    beschreibung: 'Ausschnitt aus dem Betriebsrundgang: Lackierkabine, Teilevorbereitung, Politur, Hebebühne und Reifenraum.',
     zweck:
       'Derselbe Rundgang wie auf „Über uns", hier auf den Arbeitsplatz hin geschnitten: Hallen, Ausstattung, Arbeitsplätze im Betrieb.',
     // Geliefert am 2026-09-07, Ausschnitt 46,3–75,9 s aus derselben Quelle: Lackierkabine,

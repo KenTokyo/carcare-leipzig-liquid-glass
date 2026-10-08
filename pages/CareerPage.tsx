@@ -59,7 +59,7 @@ const CareerPage: React.FC = () => (
       description="Ihr Job bei uns: Fahrzeuge, Qualität und ein starkes Team. Entdecken Sie unsere Jobbereiche in Aufbereitung, Lackierung, Karosserie und Service."
       primaryCta={{ label: 'Initiativ bewerben', href: '/kontakt' }}
       secondaryCta={{ label: 'Jobbereiche ansehen', href: '#jobbereiche' }}
-      keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie Jobs Leipzig']}
+      keywords={['Kfz-Aufbereiter Leipzig', 'Fahrzeuglackierer Leipzig', 'Karosserie-Jobs Leipzig']}
     />
     <JobBanner href={BEWERBUNGS_ZIEL} />
     <JobCards />

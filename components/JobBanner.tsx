@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, BriefcaseBusiness } from 'lucide-react';
-import { BEWERBEN_BANNER_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker } from '../data/jobs';
+import { BEWERBEN_BANNER_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker, stellenZeile } from '../data/jobs';
 
 /**
  * „Jetzt bewerben"-Banner oben auf `/karriere` (Backlog 1.23).
@@ -44,12 +44,12 @@ const JobBanner: React.FC<JobBannerProps> = ({ href }) => {
                   neben „Fahrzeuglackierer/in" in einer Zeile, ohne dass man sieht, was was ist. */}
               {offeneBerufe.length > 0 && (
                 <p className="mt-1.5 text-lg font-bold leading-tight tracking-tight text-gray-950 md:text-xl">
-                  {offeneBerufe.map((job) => job.title).join(' · ')}
+                  {stellenZeile(offeneBerufe)}
                 </p>
               )}
               {offeneAusbildungen.length > 0 && (
                 <p className="mt-1.5 text-sm font-semibold leading-snug text-gray-800 md:text-base">
-                  Ausbildung: {offeneAusbildungen.map((job) => job.title).join(' · ')}
+                  Ausbildung: {stellenZeile(offeneAusbildungen)}
                 </p>
               )}
               <p className="mt-2 text-sm leading-relaxed text-gray-600">

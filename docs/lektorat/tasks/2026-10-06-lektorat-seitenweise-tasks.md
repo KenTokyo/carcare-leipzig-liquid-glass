@@ -244,6 +244,13 @@ dieselben Fragen neu stellen.
   (u. a. `components/Hero.tsx` ungenutzt).
 * [x] **Entscheidung User 08.10.:** L17-S 04–13 umgesetzt (07 Hauptfassung, 04 auch im JSON-LD). Build grün, `meta`
   0/29, Auszüge: geändert nur Geschäftskunden, Fuhrpark, Über uns, wie beschlossen. Überlauf: nur 1-px-Vorlesetexte.
+* [x] L18 gelesen (rund 970 Wörter), Befund `docs/lektorat/befunde/L18-karriere.md`: 6 K, darunter **Stilblatt 8**
+  („(m/w/d)“ an allen Stellentiteln über den Helfer `stellenTitel` in `data/jobs.ts`: Karten, Banner, Pop-up, Formular,
+  `JobPosting`), drei gerade Anführungszeichen in Formularmeldungen, Video-Vorlesetext, MB/KB geschützt (Stilblatt 5
+  erweitert); 8 S (u. a. „Bürokaufmann“ heißt seit 2014 „Kaufmann für Büromanagement“, Bewerbungsweg Kontaktseite gegen
+  Formular auf der Seite), 4 H. Auszugswerkzeug: weiche Trennstelle wurde zu Leerzeichen, behoben.
+* [x] Nachgeprüft (Build 08.10. 18:15): grün, `meta` 0/29, Auszüge: geändert nur Karriere (und die Werkzeugkorrektur),
+  längster Kartentitel passt (GanzwortTitel 22,6/18,7 px statt 24/20 px).
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⬜ Phase 9 — L20–L27 Wissensbereich (zwei Stopps)

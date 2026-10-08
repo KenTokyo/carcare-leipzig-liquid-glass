@@ -41,7 +41,7 @@ export type JobArt = 'beruf' | 'ausbildung';
 
 export interface JobPosition {
   id: string;
-  /** Berufsbild, wie es auf der Karte und im Schema steht. */
+  /** Reine Berufsbezeichnung; Karte, Pop-up, Formular und Schema setzen „(m/w/d)“ ueber `stellenTitel` dazu. */
   title: string;
   /**
    * Derselbe Titel mit weichen Trennstellen (U+00AD) an den Wortfugen — NUR fuer den schmalen
@@ -173,8 +173,8 @@ export const jobPositions: JobPosition[] = [
   {
     id: 'ausbildung-lackierer',
     art: 'ausbildung',
-    title: 'Fahrzeuglackierer/in',
-    anzeigeTitel: 'Fahrzeug\u00ADlackierer/in',
+    title: 'Fahrzeuglackierer',
+    anzeigeTitel: 'Fahrzeug\u00ADlackierer',
     description:
       'Ausbildung im Lackierhandwerk: Untergrund, Farbtonbestimmung, Applikation und Finish, bei einem Glasurit-Lackpartner.',
     anforderungen: [
@@ -191,8 +191,8 @@ export const jobPositions: JobPosition[] = [
   {
     id: 'ausbildung-karosserie',
     art: 'ausbildung',
-    title: 'Karosserie- und Fahrzeugbaumechaniker/in',
-    anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker/in',
+    title: 'Karosserie- und Fahrzeugbaumechaniker',
+    anzeigeTitel: 'Karosserie- und Fahrzeugbau\u00ADmechaniker',
     description:
       'Ausbildung in Karosserie und Instandsetzung: Schadenbeurteilung, Richten, Fügen und der Umgang mit modernen Fahrzeugstrukturen.',
     anforderungen: [
@@ -212,8 +212,8 @@ export const jobPositions: JobPosition[] = [
   {
     id: 'ausbildung-buerokaufmann',
     art: 'ausbildung',
-    title: 'Bürokaufmann/-frau',
-    anzeigeTitel: 'Büro\u00ADkaufmann/-frau',
+    title: 'Bürokaufmann',
+    anzeigeTitel: 'Büro\u00ADkaufmann',
     description:
       'Kaufmännische Ausbildung im Werkstattbetrieb: Auftragsabwicklung, Einkauf, Rechnungswesen und die Abstimmung mit Versicherern.',
     anforderungen: [
@@ -228,6 +228,16 @@ export const jobPositions: JobPosition[] = [
     backgroundImage: kachel('karriere-buerokauffrau-leipzig-carcare'),
   },
 ];
+
+/**
+ * Stilblatt 8 (Lektorat 2026-10-08, AGG): Jede ausgeschriebene Stelle heisst „<Beruf> (m/w/d)“, auf der Karte, im
+ * Pop-up, im Formular und im `JobPosting`. Fliesstext (FAQ, Meta, Ueber uns) nennt die Berufe ohne Zusatz. `title`
+ * bleibt die reine Berufsbezeichnung, damit der Zusatz an EINER Stelle haengt und nie doppelt erscheint.
+ */
+export const MWD = '(m/w/d)';
+export const stellenTitel = (job: Pick<JobPosition, 'title'>, titel: string = job.title): string => `${titel} ${MWD}`;
+/** Mehrere Stellen in einer Zeile (Banner): der Zusatz einmal mit „jeweils“, statt dreimal hintereinander. */
+export const stellenZeile = (jobs: JobPosition[]): string => `${jobs.map((job) => job.title).join(' · ')} (jeweils m/w/d)`;
 
 /** Die vier Berufsbilder — erste Reihe auf `/karriere`. */
 export const berufsbilder = jobPositions.filter((job) => job.art === 'beruf');

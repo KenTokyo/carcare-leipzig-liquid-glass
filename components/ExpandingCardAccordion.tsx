@@ -214,7 +214,7 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
           <motion.a
             key={item.id}
             href={item.href}
-            aria-label={`${item.title}: ${item.cta ?? 'Mehr ansehen'}`}
+            aria-label={`${item.title.replace(/\u00AD/g, '')}: ${item.cta ?? 'Mehr ansehen'}`}
             aria-expanded={isActive}
             onMouseEnter={hoverCapable ? () => setActive(idx) : undefined}
             onFocus={hoverCapable ? () => setActive(idx) : undefined}

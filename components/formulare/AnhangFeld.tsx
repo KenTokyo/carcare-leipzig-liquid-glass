@@ -17,8 +17,8 @@ import { labelClass } from './felder';
  * Fokus (`peer-focus-visible`).
  */
 
-const mb = (bytes: number) => `${(bytes / 1_000_000).toFixed(1).replace(/\.0$/, '').replace('.', ',')} MB`;
-const groesse = (bytes: number) => (bytes >= 1_000_000 ? mb(bytes) : `${Math.max(1, Math.round(bytes / 1000))} KB`);
+const mb = (bytes: number) => `${(bytes / 1_000_000).toFixed(1).replace(/\.0$/, '').replace('.', ',')}\u00A0MB`;
+const groesse = (bytes: number) => (bytes >= 1_000_000 ? mb(bytes) : `${Math.max(1, Math.round(bytes / 1000))}\u00A0KB`);
 
 interface AnhangFeldProps {
   dateien: File[];
@@ -41,7 +41,7 @@ const AnhangFeld: React.FC<AnhangFeldProps> = ({ dateien, onChange }) => {
       }
       const kopf = new Uint8Array(await datei.slice(0, 8).arrayBuffer());
       if (!passtSignatur(kopf, endung)) {
-        hinweis = `„${datei.name}" passt nicht zu seiner Dateiendung und wurde nicht angehängt.`;
+        hinweis = `„${datei.name}“ passt nicht zu seiner Dateiendung und wurde nicht angehängt.`;
         continue;
       }
       if (neu.some((d) => d.name === datei.name && d.size === datei.size)) continue;
@@ -50,7 +50,7 @@ const AnhangFeld: React.FC<AnhangFeldProps> = ({ dateien, onChange }) => {
         break;
       }
       if (neu.reduce((s, d) => s + d.size, 0) + datei.size > ANHANG_MAX_BYTES) {
-        hinweis = `„${datei.name}" passt nicht mehr hinein: zusammen höchstens ${mb(ANHANG_MAX_BYTES)}. Größere Unterlagen bitte nach dem Absenden per E-Mail.`;
+        hinweis = `„${datei.name}“ passt nicht mehr hinein: zusammen höchstens ${mb(ANHANG_MAX_BYTES)}. Größere Unterlagen bitte nach dem Absenden per E-Mail.`;
         continue;
       }
       neu.push(datei);

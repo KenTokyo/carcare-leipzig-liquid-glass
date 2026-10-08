@@ -27,7 +27,7 @@ const REGELN = [
   { art: 'K', regel: 'Bis-Strich ohne Leerzeichen („8–17 Uhr“)', re: /\d [–‒] \d/g },
   { art: 'K', regel: 'Doppeltes Satzzeichen', re: /[,;:]{2,}|\.,|,\.|!!|\?\?/g, ausser: /(e\.\s?V|z\.\s?B|u\.\s?a|d\.\s?h|bzw|ca|inkl|usw|etc|ggf|evtl|Nr|Str|Co)\.,/ },
   // Stilblatt 5: geschuetztes Leerzeichen
-  { art: 'K', regel: 'Zahl und Einheit: geschütztes Leerzeichen (Stilblatt 5)', re: /\d (?:m²|€|%|km|mm|cm|kg|Uhr)(?![\p{L}²])/gu },
+  { art: 'K', regel: 'Zahl und Einheit: geschütztes Leerzeichen (Stilblatt 5)', re: /\d (?:m²|€|%|km|mm|cm|kg|MB|KB|Uhr)(?![\p{L}²])/gu },
   { art: 'H', regel: 'Preis mit Cent im Fließtext? Nur Kacheln und Preis-Hinweise mit „,00 €“ (Stilblatt 9)', re: /\d,00[ \u00a0]€/g, minLaenge: 25 },
   { art: 'K', regel: '„z. B.“ mit geschütztem Leerzeichen (Stilblatt 5)', re: /\bz\. B\.|\bz\.B\./g },
   // Stilblatt 1–4, Kfz, E-Mail

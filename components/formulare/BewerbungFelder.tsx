@@ -1,5 +1,5 @@
 import React from 'react';
-import { ausbildungsberufe, berufsbilder } from '../../data/jobs';
+import { ausbildungsberufe, berufsbilder, stellenTitel } from '../../data/jobs';
 import { inputClass, labelClass, type FeldAenderung, type FormFieldsByKind } from './felder';
 import AnhangFeld from './AnhangFeld';
 
@@ -59,7 +59,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
           <optgroup label="Berufsbilder">
             {berufsbilder.map((job) => (
               <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
-                {job.title}
+                {stellenTitel(job)}
                 {job.status === 'suchend' ? '' : ', zurzeit keine offene Stelle'}
               </option>
             ))}
@@ -67,7 +67,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
           <optgroup label="Ausbildung">
             {ausbildungsberufe.map((job) => (
               <option key={job.id} value={job.id} disabled={job.status !== 'suchend'}>
-                {job.title}
+                {stellenTitel(job)}
                 {/* Backlog 5.26: Beginn mitnennen, wo es einen gibt („Beginn Sommer 2027"). */}
                 {job.status === 'suchend' ? (job.hinweis ? `, ${job.hinweis}` : '') : ', zurzeit keine offene Stelle'}
               </option>
@@ -77,7 +77,7 @@ const BewerbungFelder: React.FC<BewerbungFelderProps> = ({ werte, onChange, anha
         </select>
         <p id="bewerbung-position-hinweis" className="mt-2 text-[11px] leading-relaxed text-gray-600">
           Ausgegraute Bereiche gehören zum Betrieb, sind aber gerade nicht ausgeschrieben.
-          Wählen Sie dafür „Anderer Bereich / Initiativbewerbung" und nennen Sie den Beruf in der Nachricht.
+          Wählen Sie dafür „Anderer Bereich / Initiativbewerbung“ und nennen Sie den Beruf in der Nachricht.
         </p>
       </div>
     </div>
