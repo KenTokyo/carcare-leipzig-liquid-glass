@@ -251,6 +251,10 @@ dieselben Fragen neu stellen.
   Formular auf der Seite), 4 H. Auszugswerkzeug: weiche Trennstelle wurde zu Leerzeichen, behoben.
 * [x] Nachgeprüft (Build 08.10. 18:15): grün, `meta` 0/29, Auszüge: geändert nur Karriere (und die Werkzeugkorrektur),
   längster Kartentitel passt (GanzwortTitel 22,6/18,7 px statt 24/20 px).
+* [x] L19 Kontakt gelesen (rund 250 Wörter, laut Plan mit L18), Befund `docs/lektorat/befunde/L19-kontakt.md`: keine K,
+  4 S (Punkt hinter der H1, Linktexte der Karten, „Route mit Apple Karten“, „gern“), 2 H.
+* [ ] **Stopp:** L18-S (07–14) und L19-S (01–04) beim User, dazu Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig
+  unter etwa 420 px: so lassen oder kürzer.
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⬜ Phase 9 — L20–L27 Wissensbereich (zwei Stopps)
