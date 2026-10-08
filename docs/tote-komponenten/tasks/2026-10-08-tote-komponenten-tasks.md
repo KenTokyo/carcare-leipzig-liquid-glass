@@ -1,6 +1,6 @@
 # Tote Komponenten aufräumen
 
-**Angelegt:** 2026-10-08 · **Branch:** `2026-10-08-tote-komponenten` (von `main` @ `c8454b9`), nicht gepusht
+**Angelegt:** 2026-10-08 · **Branch:** `2026-10-08-tote-komponenten` (von `main` @ `c8454b9`), gepusht am 2026-10-08 auf Anweisung des Users
 **Auslöser:** Lektorat L17-17 (`docs/lektorat/befunde/L17-ueber-uns.md` auf `2026-10-06-lektorat`):
 `components/Hero.tsx` wird seit dem Redesign `a701ce9` nirgends eingebunden und stört mit dem alten
 „Premium-Anbieter“-Satz die Textsuchen im Lektorat.
@@ -74,8 +74,8 @@ sondern über den Importgraphen, und den mit unabhängigen Verfahren gegenprüfe
   Sitemap 29 URLs), `tsc --noEmit`, Vite, **Prerender 29/29**, FAQ-HTML 29/29, Dummies 0, Gedankenstriche 0
 * [x] `npm run tote-dateien`: 163 Quelldateien, 162 erreichbar, nur `Jobs.tsx` (geparkt), Exit 0
 * [x] `npm run bilder` gegen diesen Build: Hero-Zeile verschwindet, keine Warnung zu veralteten bekannten
-  Fällen. Der Lauf endet aber mit Exit 1 aus einem älteren Grund (Kommentare, Punkt 2)
-* [x] Zwei Commits auf `2026-10-08-tote-komponenten`, nicht gepusht
+  Fällen. Den übrigen Lauf nicht übernommen; laut User kein Handlungsbedarf (Kommentare, Punkt 2)
+* [x] Zwei Commits auf `2026-10-08-tote-komponenten`, am 2026-10-08 auf Anweisung des Users mit Push-Stand gepusht
 
 **Referenzen:**
 `components/Hero.tsx` (gelöscht)
@@ -90,7 +90,7 @@ sondern über den Importgraphen, und den mit unabhängigen Verfahren gegenprüfe
 **Eingehalten:** Importgraph statt Pfad-Grep ✅, zweites unabhängiges Verfahren (Vite-Bundle) ✅, frühere
 Vorgaben vor dem Löschen gelesen ✅, geparkte Datei respektiert ✅, Folgestellen (Bildinventar, Backlog,
 DESIGN.md) mitgezogen ✅, Negativproben fürs neue Werkzeug ✅, Build und Wächter grün ✅, unter 700 Zeilen je
-Datei ✅, kein Mojibake ✅, Dev-Server nicht gestartet ✅, Bildnummern nicht angetastet ✅, nicht gepusht ✅.
+Datei ✅, kein Mojibake ✅, Dev-Server nicht gestartet ✅, Bildnummern nicht angetastet ✅, erst auf Anweisung gepusht ✅.
 
 **Auffälligkeiten/Findings (nach Schwere):**
 1. 🟠 **Hoch, Entscheidung beim User: `Jobs.tsx` ist inhaltlich überholt.** Geparkt am 2026-07-19 „für die
@@ -99,12 +99,10 @@ Datei ✅, kein Mojibake ✅, Dev-Server nicht gestartet ✅, Bildnummern nicht 
    „Serviceberater (m/w/d)“ (per 1.24 entfernt), Du-Ansprache „Werde Teil des Teams“ (Textregel: „Sie“) und
    „an 10 Standorten“ (ein Standort). Stört Lektorats-Suchen genau wie
    `Hero.tsx`. Wenn die Parkung erledigt ist: `git rm components/Jobs.tsx`, §5.5 in `DESIGN.md` mitnehmen.
-2. 🟠 **Hoch, älter als diese Änderung, als eigene Aufgabe abgelegt: `npm run bilder` endet mit Exit 1 und will
-   drei Kundennummern verlieren.** B102 und B111 (Videos Rundgang/Arbeitsplatz) sieht der Rundgang nicht mehr,
-   seit die Videos erst in Sichtweite laden (`aa51215`, 05.10.); B109 („Industriekaufmann/-frau“) wird nach der
-   Umbenennung in „Bürokaufmann/-frau“ (`37b8ec2`, 05.10.) als neue Stelle B153 geführt, `motive.json` trägt
-   noch einen Vermerk auf B109. Seit dem 03.10. lief das Inventar nicht mehr. **Lauf hier bewusst nicht
-   übernommen**, `nummern.json` unverändert. Folgesession vorgeschlagen („Bildinventar reparieren“).
+2. 🟢 **Kein Handlungsbedarf (Entscheidung User 2026-10-08):** Der Lauf von `npm run bilder` am 08.10. weicht
+   an fünf Stellen vom Stand 03.10. ab (B102, B106, B109, B111, B153). Laut User passt das: B109 ist bewusst
+   durch die Karte „Bürokaufmann/-frau“ ersetzt (B153), B102, B106 und B111 stimmen. Inventar nicht angefasst,
+   `nummern.json` unverändert, der vorgeschlagene Reparaturauftrag ist zurückgezogen.
 3. 🟢 **Niedrig: `DESIGN.md` §5 beschreibt den ersten Entwurf**, nicht die heutige Seite (auch 5.2
    „Telefon-Button“, 5.6 „4-Spalten-Grid“, heute 6 Spalten). Hinweis gesetzt; Neufassung ist eine eigene Aufgabe.
 4. 🟢 **Niedrig: `npm run tote-dateien` als Build-Wächter?** Unter 1 s, würde neue Waisen sofort melden. Nicht
