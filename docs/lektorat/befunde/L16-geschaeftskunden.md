@@ -13,7 +13,12 @@
 |---|---|---|---|---|---|
 | L16-01 | **G:** Referenzen › Versicherer, Startseite › Zielgruppen | Nexible · Wefox | nexible · wefox | Markennamen wie der Inhaber (Stilblatt); beide schreiben sich klein („nexible GmbH“, „wefox Insurance AG“), wie „janitos“ und „freeyou“ in derselben Liste (L01-05) | `data/partners.ts:84/92` |
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt** (L16-10 als „eine langfristige Rahmenvereinbarung“).
+**Nebenwirkung L16-13:** „Geschäftskundenanfrage stellen“ braucht 246 px; im Abschluss-Band stehen bei 390 px nur 218 px
+zur Verfügung (bis etwa 420 px Fensterbreite), der Knopf bricht dort zweizeilig um. Im Titelbild passt er ab 375 px
+(bei 360 px brach er schon vorher um). Dem User zur Wahl vorgelegt: zweizeilig lassen oder kürzer für beide Knöpfe.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

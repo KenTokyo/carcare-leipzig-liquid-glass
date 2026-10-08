@@ -33,7 +33,7 @@ const highlights = [
   {
     title: 'Leasingrückgabe',
     href: '/leasingrueckgabe-leipzig',
-    intro: 'Fahrzeuge vor der Rückgabe begutachten und instand setzen, bevor der Rückgabegutachter sie nach den Sätzen des Leasinggebers bewertet.',
+    intro: 'Wir begutachten Fahrzeuge und setzen sie instand, bevor der Rückgabegutachter sie nach den Sätzen des Leasinggebers bewertet.',
     items: [
       'Begutachtung von Lack, Dellen, Felgen, Verglasung und Innenraum',
       'Lackfreie Dellenentfernung und Spot-Repair, wo fachlich ausreichend',
@@ -44,10 +44,10 @@ const highlights = [
   {
     title: 'Fuhrparkservice',
     href: '/fuhrparkservice-leipzig',
-    intro: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.',
+    intro: 'Wir übernehmen sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge, von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf.',
     items: [
       'Wiederkehrende Pflege- und Reparaturprozesse nach vereinbartem Ablauf',
-      'Im Schadenfall halten wir Sie mobil und leiten die Schritte ein',
+      'Im Schadenfall halten wir Sie mobil und leiten alle weiteren Schritte ein',
       'Aufarbeitung vor Rückgabe, Verkauf oder Weitervermietung',
       'Zusammenarbeit mit langjährigen Kooperationspartnern der Automobilbranche',
     ],
@@ -55,9 +55,9 @@ const highlights = [
 ];
 
 const offerings = [
-  { title: 'Unfallinstandsetzung', description: 'Kompletter Schadenfall inklusive Karosserie, Lack und Abstimmung mit Versicherung und Gutachter.', href: '/unfallinstandsetzung-leipzig' },
+  { title: 'Unfallinstandsetzung', description: 'Abwicklung des kompletten Schadenfalls, inklusive Karosserie, Lack und Abstimmung mit Versicherung und Gutachter.', href: '/unfallinstandsetzung-leipzig' },
   { title: 'Neu- und Reparaturlackierung', description: 'Farbtongenaue Lackierung als Glasurit-Lackpartner, auf Wunsch für ganze Fahrzeugserien.', href: '/autolackierung-leipzig' },
-  { title: 'Smart Repair', description: 'Punktuelle Instandsetzung kleinerer Schäden, bei Flotten und Rückläufern der wirtschaftlichste Weg.', href: '/smart-repair-leipzig' },
+  { title: 'Smart Repair', description: 'Punktuelle Instandsetzung kleinerer Schäden, bei Flotten und Rückläufern oft der wirtschaftlichste Weg.', href: '/smart-repair-leipzig' },
   { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung, der Originallack bleibt erhalten. Bei Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung, auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb statt Neubeschaffung von Originalfelgen.', href: '/felgenreparatur-leipzig' },
@@ -73,10 +73,10 @@ const collaboration = [
   { title: 'Nachvollziehbare Kalkulation', description: 'Kalkulation über das von Versicherern und Gutachtern anerkannte System Audatex.' },
   // Backlog 1.16: Programmname vom Kunden bestaetigt — "Data Motive", nicht "Beta Motive".
   { title: 'Volldigitale Abwicklung', description: 'Auftragsannahme, Dokumentation und Rückmeldung laufen über unser eigenes Programm Data Motive, ohne Medienbruch zwischen den Schritten.' },
-  { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und Endabnahme gehören zum Ablauf.' },
+  { title: 'Dokumentierte Prozesse', description: 'Nachvollziehbare Schritte, saubere Übergaben und eine Endabnahme gehören zum Ablauf.' },
   { title: 'Erfahrung mit Premiumfahrzeugen', description: 'Sorgfältiger Umgang mit hochwertigen Fahrzeugen und sensiblen Oberflächen.' },
-  { title: 'Ersatzmobilität', description: 'Ersatzwagen nach Verfügbarkeit, damit Fahrzeugausfall nicht zum Betriebsausfall wird.' },
-  { title: 'Flexible Zusammenarbeit', description: 'Einzelauftrag, laufende Betreuung oder perspektivische Rahmenprozesse, je nach Bedarf.' },
+  { title: 'Ersatzmobilität', description: 'Ersatzwagen nach Verfügbarkeit, damit ein Fahrzeugausfall nicht zum Betriebsausfall wird.' },
+  { title: 'Flexible Zusammenarbeit', description: 'Einzelauftrag, laufende Betreuung oder eine langfristige Rahmenvereinbarung, je nach Bedarf.' },
 ];
 
 const steps = [
@@ -121,7 +121,7 @@ const BusinessCustomersPage: React.FC = () => (
         <SectionIntro
           eyebrow="Wen wir betreuen"
           title="Vier Arten von Geschäftskunden mit unterschiedlichen Anforderungen."
-          description="Autohäuser brauchen Präsentationsqualität, Flotten brauchen Planbarkeit, Versicherer und Schadensteuerer brauchen nachvollziehbare Kalkulation. Wir bedienen alle drei Logiken."
+          description="Autohäuser brauchen Präsentationsqualität, Flotten brauchen Planbarkeit, Versicherer und Schadensteuerer brauchen eine nachvollziehbare Kalkulation, Agenturen einen festen Ansprechpartner. Unsere Abläufe sind auf alle vier ausgelegt."
         />
         <FeatureGrid items={audiences} columns="four" />
       </div>
@@ -132,7 +132,7 @@ const BusinessCustomersPage: React.FC = () => (
         <SectionIntro
           eyebrow="Schwerpunkte"
           title="Leasingrückgabe und Fuhrparkservice im Detail."
-          description="Zwei Angebote, die für gewerbliche Kunden den größten Unterschied machen, weil sie wiederkehrend anfallen und direkt auf die Kosten durchschlagen."
+          description="Zwei Angebote, die für gewerbliche Kunden am stärksten ins Gewicht fallen, weil sie wiederkehrend anfallen und direkt auf die Kosten durchschlagen."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {highlights.map((highlight) => (
@@ -223,7 +223,7 @@ const BusinessCustomersPage: React.FC = () => (
     <PageCTA
       title="Sie betreuen Fahrzeuge gewerblich?"
       description="Sprechen Sie mit uns über feste Ansprechpartner, wiederkehrende Abläufe und passende Prozesse."
-      primaryLabel="Partneranfrage stellen"
+      primaryLabel="Geschäftskundenanfrage stellen"
       primaryHref="/kontakt#contact-business"
     />
   </BackdropLayout>

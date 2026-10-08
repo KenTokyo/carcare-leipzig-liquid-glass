@@ -34,10 +34,10 @@ import { videoPlatz } from '../data/videos';
  */
 
 const facts = [
-  { title: 'Seit 1998 am Markt', description: 'Erfahrung im Kfz-Lackier- und Karosseriehandwerk seit 1998, gewachsen mit den Fahrzeugen, Materialien und Reparaturverfahren, die heute Standard sind.' },
+  { title: 'Seit 1998 am Markt', description: 'Seit 1998 in Leipzig, gewachsen von der Fahrzeugaufbereitung zum Karosserie- und Lackierbetrieb und mit den Fahrzeugen, Materialien und Reparaturverfahren, die heute Standard sind.' },
   { title: 'Über 3.500 m² Betriebsfläche', description: 'Lackierung, Karosserie, Smart Repair, Felgen, Glas und Aufbereitung liegen unter einem Dach. Fahrzeuge werden zwischen den Arbeitsschritten nicht an Fremdbetriebe weitergereicht.' },
   { title: 'Über 50 Mitarbeiter', description: 'Eingespielte Teams mit klaren Abläufen. Die Betriebsgröße erlaubt es, mehrere Fahrzeuge parallel zu bearbeiten, auch bei größeren Aufträgen aus Fuhrparks und Autohäusern.' },
-  { title: 'Alle Fabrikate', description: 'Markenunabhängiger Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, vom Kleinwagen bis zum Premiumfahrzeug, ohne Bindung an eine Vertragswerkstatt.' },
+  { title: 'Alle Fabrikate', description: 'Markenunabhängiger Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, vom Kleinwagen bis zum Premiumfahrzeug, ohne Bindung an einen Hersteller.' },
 ];
 
 // Backlog 4.11: Bezeichnung „Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk" (Kundenwortlaut).
@@ -132,7 +132,7 @@ const UeberUnsPage: React.FC = () => (
     <PageHero
       eyebrow="Über uns"
       title="Einer der größten Karosserie- und Lackierbetriebe in Leipzig."
-      description="Wir sind Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Auf über 3.500 m² bearbeiten über 50 Mitarbeiter Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung, für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
+      description="Wir sind Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt. Auf über 3.500 m² arbeiten über 50 Mitarbeiter in den Bereichen Karosserie, Lack, Smart Repair, Felgen, Glas und Aufbereitung, für Privatkunden, Autohäuser, Fuhrparks, Versicherungen und Werksniederlassungen deutscher Premiumhersteller."
       primaryCta={{ label: 'Kontakt aufnehmen', href: '/kontakt' }}
       secondaryCta={{ label: 'Direkt anrufen', href: 'tel:+493412617790' }}
       keywords={['Karosseriebetrieb Leipzig', 'Lackiererei Leipzig', 'Meisterbetrieb Leipzig', 'Glasurit-Lackpartner']}
@@ -213,7 +213,7 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Für wen wir arbeiten"
           title="Premiumhersteller, Fuhrparks, Versicherer und Ihr Auto."
-          description="Wir verstehen uns als Premium-Anbieter mit Fokus auf Dienstleistung auf qualitativ höchstem Niveau. Nicht ohne Grund betreuen wir vor allem Werksniederlassungen der deutschen Premiumhersteller."
+          description="Wir verstehen uns als Premiumanbieter: Dienstleistung auf höchstem Niveau steht bei uns im Mittelpunkt. Nicht ohne Grund betreuen wir vor allem Werksniederlassungen der deutschen Premiumhersteller."
         />
         <FeatureGrid items={customers} columns="four" />
       </div>
@@ -228,7 +228,7 @@ const UeberUnsPage: React.FC = () => (
         <SectionIntro
           eyebrow="Arbeiten im CarCare Center"
           title="Warum Handwerker hier anfangen und bleiben."
-          description="Ein Betrieb dieser Größe bietet, was der Kleinbetrieb nicht kann: Spezialisierung, moderne Technik und Kollegen, die dasselbe Handwerk beherrschen."
+          description="Ein Betrieb dieser Größe bietet, was ein Kleinbetrieb nicht bieten kann: Spezialisierung, moderne Technik und Kollegen, die dasselbe Handwerk beherrschen."
         />
         <FeatureGrid items={employer} columns="four" />
         <div className="mt-8">

@@ -49,7 +49,7 @@ const FuhrparkservicePage: React.FC = () => (
       eyebrow: 'Leistungsumfang',
       title: 'Rundum-Betreuung für Ihren Firmenfuhrpark.',
       description:
-        'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge aus einer Hand.',
+        'Sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge aus einer Hand, von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf.',
       items: leistungen,
     }}
     usp={{ title: 'Full-Service-Partner für Ihren Fuhrpark.', items: usp }}

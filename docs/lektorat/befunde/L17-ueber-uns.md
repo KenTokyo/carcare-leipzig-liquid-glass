@@ -19,7 +19,10 @@
 Der längere Zeitstrahl-Titel läuft nirgends über (Prüfung Desktop 1440 und mobil 390, Build 08.10. 17:40: nur die
 1-px-Vorlesetexte).
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt**, L17-07 in der Hauptfassung (Satzstück gestrichen).
+Der Kopfkommentar in `data/historie.ts` nennt die grammatische Fassung von Andrés Wortlaut.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

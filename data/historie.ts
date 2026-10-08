@@ -12,7 +12,8 @@ import type { TimelineStation } from '../components/Timeline';
  *
  * STAND 2026-09-14: Die Chronik hat Andre am 2026-09-10 geliefert (Schleife 4, 4.16–4.20).
  * Wortlaut der Stationen 1998, 2000, 2013 und 2026 unveraendert aus seiner Liste; die
- * kurzen Titel sind daraus abgeleitet.
+ * kurzen Titel sind daraus abgeleitet. Lektorat 2026-10-08 (L17-01, L17-07–09, vom User
+ * angenommen): 1998, 2013 und 2017 nur grammatisch gefasst, Titel 2000 nach Stilblatt 2.
  *
  *   Meilenstein 2 (2013) — am 2026-09-14 eingesetzt (4.18). Er war ALLEIN durch die
  *     Flaechenfrage blockiert: Sein Text nennt „über 3.500 m²", die Seite sagte damals
@@ -43,7 +44,7 @@ export const historie: TimelineStation[] = [
     // Backlog 4.16, Wortlaut des Kunden. Er ersetzt „Start als Betrieb des Kfz-Lackierhandwerks.
     // Der Meisterbrief ist von Anfang an die fachliche Grundlage." — siehe offene Frage R13.
     description:
-      'Start als Kfz-Aufbereitungsbetrieb und Anbieter/Dienstleister für Premiumhersteller in Leipzig und im gesamten Bundesgebiet, von Anfang an fachliche Grundlage.',
+      'Start als Kfz-Aufbereitungsbetrieb und Dienstleister für Premiumhersteller in Leipzig und im gesamten Bundesgebiet.',
   },
   {
     zeit: '2000',
@@ -56,7 +57,7 @@ export const historie: TimelineStation[] = [
     title: 'Umzug auf über 3.500 m²',
     // Backlog 4.18, Wortlaut des Kunden. Entsperrt durch die Entscheidung zu 4.2.
     description:
-      'Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des Portfolios um Komplettreparatur, Neuteillackierung und gesamte Karosserieinstandsetzung sowie komplett neue Arbeitsbereiche.',
+      'Umzug in ein neues Objekt auf über 3.500 m² Fläche mit modernster Ausstattung. Erweiterung des Portfolios um Komplettreparatur, Neuteillackierung und die gesamte Karosserieinstandsetzung sowie komplett neue Arbeitsbereiche.',
   },
   {
     zeit: '2017',
@@ -64,7 +65,7 @@ export const historie: TimelineStation[] = [
     // Backlog 4.19 (Wortlaut des Kunden, erster Teil) + 5.24 (Jahr und Titel aus dem Meeting 2026-09-25).
     // Der zweite Satz ist die kurze Erklaerung, warum der Schritt wichtig ist (Wunsch aus dem Meeting).
     description:
-      'Beginn der Zusammenarbeit im Schadens- und Versicherungsbereich durch großflächige Partnerschaften mit der Versicherungswirtschaft. Seitdem steuern Versicherer und Schadensteuerer Schadenfälle direkt zu uns. Reparatur und Abwicklung aus einer Hand.',
+      'Beginn der Zusammenarbeit im Schaden- und Versicherungsbereich durch umfangreiche Partnerschaften mit der Versicherungswirtschaft. Seitdem steuern Versicherer und Schadensteuerer Schadenfälle direkt zu uns. Reparatur und Abwicklung aus einer Hand.',
   },
   {
     zeit: '2026',

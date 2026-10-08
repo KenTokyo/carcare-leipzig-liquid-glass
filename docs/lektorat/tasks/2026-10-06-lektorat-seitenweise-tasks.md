@@ -235,13 +235,15 @@ dieselben Fragen neu stellen.
 * [x] Nachgeprüft (Build 08.10., zweimal): grün, `meta` 0/29 (Privatkunden-Titel 59), alle Auszüge: geändert nur L15-S,
   L17-K und die zwei Versicherernamen (Geschäftskunden, Startseite). Überlaufprüfung Über uns, Privat-, Geschäftskunden:
   nur 1-px-Vorlesetexte.
-* [ ] **Stopp:** L16-S (02–13) beim User, F L16-14 an André.
+* [x] **Entscheidung User 08.10.:** L16-S 02–13 umgesetzt (05 auch auf der Fuhrparkseite); F L16-14 bleibt bei André.
+  Nebenwirkung: Abschluss-Knopf „Geschäftskundenanfrage stellen“ bricht unter etwa 420 px zweizeilig um, beim User.
 ### 🟨 Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
 * [x] L17 gelesen (rund 1.350 Wörter), Befund `docs/lektorat/befunde/L17-ueber-uns.md`: 3 K (Zeitstrahl „Spot-Repair und
   Smart Repair“, Glasurit-Satz wie L15-04, falscher Bezug „Diese“), 10 S (davon drei in Andrés Zeitstrahl-Wortlaut,
   „Erfahrung im Lackierhandwerk seit 1998“ gegen den Zeitstrahl, „ohne Bindung an eine Vertragswerkstatt“), 4 H
   (u. a. `components/Hero.tsx` ungenutzt).
-* [ ] **Stopp:** L17-S (04–13) beim User.
+* [x] **Entscheidung User 08.10.:** L17-S 04–13 umgesetzt (07 Hauptfassung, 04 auch im JSON-LD). Build grün, `meta`
+  0/29, Auszüge: geändert nur Geschäftskunden, Fuhrpark, Über uns, wie beschlossen. Überlauf: nur 1-px-Vorlesetexte.
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⬜ Phase 9 — L20–L27 Wissensbereich (zwei Stopps)
