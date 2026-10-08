@@ -4,14 +4,14 @@ import ServiceLayout from '../components/ServiceLayout';
 const leistungen = [
   { title: 'Regelmäßige Pflege', description: 'Wir übernehmen die laufende Pflege und Aufbereitung Ihrer Fahrzeuge.' },
   { title: 'Aufarbeitung vor Rückgabe oder Verkauf', description: 'Aufbereitung der Fahrzeuge, bevor sie zurückgegeben oder verkauft werden.' },
-  { title: 'Im Schadensfall mobil', description: 'Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein.' },
+  { title: 'Im Schadenfall mobil', description: 'Im Schadenfall halten wir Sie mobil und leiten die notwendigen Schritte ein.' },
   { title: 'Starke Kooperationspartner', description: 'Profitieren Sie von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
 ];
 
 const usp = [
   { title: 'Full-Service auf über 3.500 m²', description: 'Pflege, Lack, Karosserie und Aufbereitung für ganze Flotten an einem Standort statt bei vier Dienstleistern.' },
   { title: 'Erfahrung mit Flottenkunden', description: 'Langjährige Erfahrung mit Autohäusern, Firmenfuhrparks und Geschäftskunden.' },
-  { title: 'Komplette Versicherungsabwicklung', description: 'Im Schadensfall inklusive Kostenvoranschlag und Ersatzwagen.' },
+  { title: 'Komplette Versicherungsabwicklung', description: 'Im Schadenfall inklusive Kostenvoranschlag und Ersatzwagen.' },
 ];
 
 const FuhrparkservicePage: React.FC = () => (
@@ -26,7 +26,7 @@ const FuhrparkservicePage: React.FC = () => (
       eyebrow: 'Fuhrparkservice Leipzig',
       title: 'Fuhrparkservice in Leipzig.',
       description:
-        'Gern stehen wir Ihnen bei der Betreuung Ihres Firmenfuhrparks zur Seite. Wir übernehmen von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge. Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein.',
+        'Gern stehen wir Ihnen bei der Betreuung Ihres Firmenfuhrparks zur Seite. Wir übernehmen von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge. Im Schadenfall halten wir Sie mobil und leiten die notwendigen Schritte ein.',
       primaryCta: { label: 'Fuhrparkservice anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Mehr für Geschäftskunden', href: '/geschaeftskunden' },
       keywords: ['Fuhrparkservice Leipzig', 'Firmenfuhrpark Leipzig', 'Flottenservice Leipzig'],

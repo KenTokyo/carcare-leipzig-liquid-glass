@@ -47,7 +47,7 @@ const highlights = [
     intro: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf, sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.',
     items: [
       'Wiederkehrende Pflege- und Reparaturprozesse nach vereinbartem Ablauf',
-      'Im Schadensfall halten wir Sie mobil und leiten die Schritte ein',
+      'Im Schadenfall halten wir Sie mobil und leiten die Schritte ein',
       'Aufarbeitung vor Rückgabe, Verkauf oder Weitervermietung',
       'Zusammenarbeit mit langjährigen Kooperationspartnern der Automobilbranche',
     ],
@@ -61,7 +61,7 @@ const offerings = [
   { title: 'Dellenentfernung', description: 'Lackfreie Instandsetzung, der Originallack bleibt erhalten. Bei Versicherungen und Gutachtern anerkannt.', href: '/dellenentfernung-leipzig' },
   { title: 'Hagelschadenreparatur', description: 'Audatex-Kalkulation und komplette Versicherungsabwicklung, auch bei mehreren Fahrzeugen gleichzeitig.', href: '/hagelschadenreparatur-leipzig' },
   { title: 'Felgenreparatur', description: 'TÜV-zertifiziertes Verfahren als Wheel-Doctor-Fachbetrieb statt Neubeschaffung von Originalfelgen.', href: '/felgenreparatur-leipzig' },
-  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für Pkw, Lkw und Bus, als WINTEC-Partner mit 30 Jahren Garantie.', href: '/autoglas-leipzig' },
+  { title: 'Autoglas & Scheibenfolien', description: 'Steinschlagreparatur und Neuverglasung für Pkw, Lkw und Bus, als WINTEC-Partner mit 30 Jahren Garantie auf Reparatur und Dichtigkeit.', href: '/autoglas-leipzig' },
   { title: 'Fahrzeugaufbereitung', description: 'Aufbereitung für Präsentation, Übergabe und Werterhalt, auch als wiederkehrender Prozess.', href: '/fahrzeugaufbereitung-leipzig' },
 ];
 

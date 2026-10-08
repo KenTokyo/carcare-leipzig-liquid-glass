@@ -95,23 +95,23 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
   // Hagelschadenreparatur
   '/hagelschadenreparatur-leipzig': [
     { id: 'anzahlung', question: 'Muss ich eine Anzahlung leisten?', answer: 'Nein. Eine Anzahlung ist nicht nötig, wir rechnen direkt mit der Versicherung ab.' },
-    { id: 'abwicklung', question: 'Übernehmt ihr die Abstimmung mit Versicherung und Gutachter?', answer: 'Auf Wunsch sprechen wir mit Ihrem Gutachter bzw. Ihrer Versicherung und wickeln das gesamte Schadensereignis für Sie ab.' },
-    { id: 'audatex', question: 'Wie wird der Hagelschaden kalkuliert?', answer: 'Die Kalkulation erfolgt mit dem durch Versicherer und Gutachter anerkannten System Audatex.' },
-    { id: 'zustand', question: 'Wird das Fahrzeug wieder wie vorher?', answer: 'Wir helfen Ihnen dabei, dass Ihr Fahrzeug wieder in den Originalzustand versetzt wird. Bei intaktem Lack werden die Hageldellen lackfrei entfernt.' },
+    { id: 'abwicklung', question: 'Übernehmen Sie die Abstimmung mit Versicherung und Gutachter?', answer: 'Ja. Auf Wunsch sprechen wir mit Ihrem Gutachter bzw. Ihrer Versicherung und wickeln den gesamten Schadenfall für Sie ab.' },
+    { id: 'audatex', question: 'Wie wird der Hagelschaden kalkuliert?', answer: 'Die Kalkulation erfolgt mit dem von Versicherern und Gutachtern anerkannten System Audatex.' },
+    { id: 'zustand', question: 'Wird das Fahrzeug wieder wie vorher?', answer: 'Ja, in aller Regel. Bei intaktem Lack entfernen wir die Hageldellen lackfrei.' },
   ],
 
   // Felgenreparatur
   '/felgenreparatur-leipzig': [
-    { id: 'welche', question: 'Welche Felgenschäden dürfen repariert werden?', answer: 'Behoben werden dürfen Bordstein- und Korrosionsschäden bis zu 1 mm Tiefe im Grundmetall der Felge. Eingriffe in das Materialgefüge wie Schweißarbeiten und Rückverformungen sind gesetzlich grundsätzlich abzulehnen.' },
+    { id: 'welche', question: 'Welche Felgenschäden dürfen repariert werden?', answer: 'Behoben werden dürfen Bordstein- und Korrosionsschäden bis zu 1 mm Tiefe im Grundmetall der Felge. Eingriffe in das Materialgefüge wie Schweißarbeiten und Rückverformungen sind nicht zulässig.' },
     { id: 'sicher', question: 'Ist die Reparatur TÜV-konform und sicher?', answer: 'Wir arbeiten mit einem TÜV-zertifizierten Reparaturverfahren für Alufelgen als zertifizierter Wheel-Doctor-Fachbetrieb und kennen alle gesetzlichen Vorgaben und strengen TÜV-Richtlinien. Nicht in jedem Fall ist eine Felgenreparatur erlaubt.' },
-    { id: 'poliert', question: 'Repariert ihr auch polierte bzw. glanzgedrehte Felgen?', answer: 'Ja. Auch glanzgedrehte, im Volksmund polierte Alufelgen können wir wieder optisch wie neu erscheinen lassen.' },
+    { id: 'poliert', question: 'Reparieren Sie auch polierte bzw. glanzgedrehte Felgen?', answer: 'Ja. Auch glanzgedrehte, im Volksmund polierte Alufelgen können wir wieder optisch wie neu erscheinen lassen.' },
     { id: 'anteil', question: 'Wie viele Felgenschäden lassen sich beheben?', answer: 'Mit unserem Verfahren können bis zu 90 % der Bordstein- und Korrosionsschäden kostengünstig behoben werden, statt teure neue Originalfelgen anzuschaffen.' },
   ],
 
   // Fuhrparkservice
   '/fuhrparkservice-leipzig': [
     { id: 'umfang', question: 'Welche Arbeiten übernimmt der Fuhrparkservice?', answer: 'Von der regelmäßigen Pflege bis zur Aufarbeitung vor Rückgabe oder Verkauf übernehmen wir sämtliche anfallenden Arbeiten rund um Ihre Fahrzeuge.' },
-    { id: 'schaden', question: 'Was passiert im Schadensfall?', answer: 'Im Schadensfall halten wir Sie mobil und leiten die notwendigen Schritte ein, damit Ihr Betrieb weiterläuft.' },
+    { id: 'schaden', question: 'Was passiert im Schadenfall?', answer: 'Im Schadenfall halten wir Sie mobil und leiten die notwendigen Schritte ein, damit Ihr Betrieb weiterläuft.' },
     { id: 'partner', question: 'Arbeitet das CarCare Center mit Partnern aus der Branche zusammen?', answer: 'Ja. Sie profitieren von unseren langjährigen Kooperationspartnern aus der Automobilbranche.' },
   ],
 
@@ -132,7 +132,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'versicherung', question: 'Muss ich den Schaden selbst mit der Versicherung klären?', answer: 'Nein. Auf Wunsch übernehmen wir die komplette Abwicklung: Kostenvoranschlag, Abstimmung mit Versicherern und Gutachtern sowie die Kommunikation während der Reparatur. Bei einem Hagelschaden rechnen wir direkt mit der Versicherung ab, eine Anzahlung ist nicht nötig.' },
     { id: 'klein', question: 'Lohnt sich eine Reparatur auch bei kleinen Schäden?', answer: 'Häufig ja. Bei kleineren Lackschäden ist Spot-Repair unsere bevorzugte Methode, weil nur der betroffene Bereich bearbeitet wird. Bei Dellen mit intaktem Lack entfällt das Lackieren sogar ganz. Beides ist deutlich weniger aufwendig als eine Komplettlackierung.' },
     { id: 'leasing', question: 'Kann das CarCare Center mein Auto auf die Leasingrückgabe vorbereiten?', answer: 'Ja. Wir begutachten das Fahrzeug vor der Rückgabe und setzen Gebrauchsspuren fachgerecht instand, um vermeidbare Nachbelastungen durch den Rückgabegutachter zu reduzieren.' },
-    { id: 'mobil', question: 'Bleibe ich während der Reparatur mobil?', answer: 'Nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir ihn einplanen können.' },
+    { id: 'mobil', question: 'Bleibe ich während der Reparatur mobil?', answer: 'Nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen bereit. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir ihn einplanen können.' },
   ],
 
   // Geschaeftskunden

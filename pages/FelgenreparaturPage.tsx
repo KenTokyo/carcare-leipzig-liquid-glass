@@ -11,12 +11,12 @@ import ServiceLayout from '../components/ServiceLayout';
  */
 
 const scope = [
-  { title: 'TÜV-zertifiziertes Verfahren', description: 'Als zertifizierter Wheel-Doctor-Fachbetrieb arbeiten wir nach den strengen gesetzlichen TÜV-Richtlinien.' },
+  { title: 'TÜV-zertifiziertes Verfahren', description: 'Als zertifizierter Wheel-Doctor-Fachbetrieb arbeiten wir nach den strengen TÜV-Richtlinien.' },
   { title: 'Bis zu 90 % der Schäden', description: 'Bis zu 90 % der Bordstein- und Korrosionsschäden lassen sich kostengünstig beheben.' },
   { title: 'Bis 1 mm Tiefe zulässig', description: 'Beschädigungen bis zu 1 mm Tiefe im Grundmetall der Felge dürfen behoben werden.' },
-  { title: 'Keine Eingriffe ins Materialgefüge', description: 'Schweißarbeiten und Rückverformungen sind gesetzlich abzulehnen und werden nicht durchgeführt.' },
+  { title: 'Keine Eingriffe ins Materialgefüge', description: 'Schweißarbeiten und Rückverformungen sind nicht zulässig, deshalb führen wir sie nicht durch.' },
   { title: 'Glanzgedrehte Felgen', description: 'Auch glanzgedrehte, im Volksmund polierte Alufelgen lassen wir wieder optisch wie neu erscheinen.' },
-  { title: 'Werterhalt statt Neukauf', description: 'Statt der teuren Anschaffung neuer Originalfelgen bleibt der Wert des Fahrzeugs erhalten.' },
+  { title: 'Werterhalt statt Neukauf', description: 'Sie sparen die teure Anschaffung neuer Originalfelgen, und der Wert des Fahrzeugs bleibt erhalten.' },
 ];
 
 const usp = [

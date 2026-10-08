@@ -26,7 +26,7 @@ const AutoglasPage: React.FC = () => (
       eyebrow: 'Autoglas & Scheibenfolien Leipzig',
       title: 'Autoglas und Scheibenfolien in Leipzig.',
       description:
-        'Ob Scheibentausch oder Steinschlagreparatur, ob Scheibenfolierung oder Schutzfolien für Ihren Lack, bei unserem WINTEC-Autoglas-Partner sind Sie in den besten Händen.',
+        'Ob Scheibentausch oder Steinschlagreparatur, ob Scheibenfolierung oder Schutzfolien für Ihren Lack, bei uns als WINTEC-Autoglas-Partner sind Sie in guten Händen.',
       primaryCta: { label: 'Autoglas anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Autoglas Leipzig', 'Steinschlagreparatur Leipzig', 'Scheibenfolierung Leipzig'],
@@ -55,7 +55,7 @@ const AutoglasPage: React.FC = () => (
     cta={{
       title: 'Steinschlag oder Scheibenschaden in Leipzig?',
       description:
-        'Melden Sie sich bei uns. Wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht wird, und stellen einen Ersatzwagen bereit.',
+        'Melden Sie sich bei uns. Wir prüfen, ob eine Steinschlagreparatur reicht oder die Scheibe getauscht werden muss, und stellen einen Ersatzwagen bereit.',
       primaryLabel: 'Autoglas anfragen',
       primaryHref: '/kontakt#contact-termin',
     }}

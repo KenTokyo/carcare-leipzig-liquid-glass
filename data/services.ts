@@ -243,7 +243,7 @@ export const serviceCatalog: ServiceCatalogEntry[] = [
     title: 'Autoglas & Scheibenfolien',
     localTitle: 'Autoglas & Scheibenfolien Leipzig',
     description: 'Steinschlagreparatur, Scheibentausch und Folien über WINTEC.',
-    listDescription: 'Steinschlagreparatur, Neuverglasung für Pkw, Lkw und Bus sowie Folierungen aller Art, als WINTEC-Partner mit 30 Jahren Garantie.',
+    listDescription: 'Steinschlagreparatur, Neuverglasung für Pkw, Lkw und Bus sowie Folierungen aller Art, als WINTEC-Partner mit 30 Jahren Garantie auf Reparatur und Dichtigkeit.',
     iconName: 'Glasses',
     href: '/autoglas-leipzig',
     cta: 'Zum Autoglas',

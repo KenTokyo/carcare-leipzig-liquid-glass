@@ -210,7 +210,7 @@ dieselben Fragen neu stellen.
   Verglasung“ → genauer Umfang, auch Über uns), 2 H („30 Jahre Garantie“ ohne Umfang an fünf Stellen, mit L13 klären).
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L06-S auf Innen und die Folgekorrektur auf Privatkunden.
 * [x] **Entscheidung User 08.10.:** L07-S 02, 04–07 umgesetzt, 03 bleibt.
-### 🟨 Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
+### ✅ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
 * [x] L08–L10 gelesen (Smart Repair, Lackierung, Dellen), Befund `docs/lektorat/befunde/L08-L10-smartrepair-lackierung-dellen.md`:
   3 K („Smart Repair bzw. Spot-Repair“, „ohne Lackieren“, „wiederhergestellt“), 4 S (u. a. „möglichst perfekt“ an fünf
   Stellen), 4 H (Leistungsumfang Lackierung ist Andrés Wortlaut).
@@ -221,8 +221,12 @@ dieselben Fragen neu stellen.
   Garantie-Umfang an drei Stellen, „Schadenfall“ statt „Schadensfall“), 4 H. Vorprüfung: Abkürzung vor Komma („e.V.,“)
   aus der Regel „Doppeltes Satzzeichen“ ausgenommen.
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L08–L10-S und die zwei K auf Autoglas/Fuhrpark.
-* [ ] **Stopp:** L11–L14-S beim User.
-### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
+* [x] **Entscheidung User 08.10.:** L11–L14-S alle umgesetzt (L11-03 mit Audatex), „Schadenfall“ an allen sieben Stellen.
+### 🟨 Phase 7 — L15 Privatkunden, L16 Geschäftskunden
+* [x] L15 gelesen (rund 1.085 Wörter), Befund `docs/lektorat/befunde/L15-privatkunden.md`: 1 K (Folge von L07-07), 3 S, 2 H.
+* [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L11–L14-S (Hagel, Felgen, Autoglas, Fuhrpark,
+  Geschäftskunden, Leistungen, Privatkunden) und L15-01.
+* [ ] **Stopp:** L15-S (02–04) beim User.
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.

@@ -60,7 +60,7 @@ const services = [
   },
   {
     title: 'Autoglas & Scheibenfolien',
-    description: 'Steinschlagreparatur, Scheibentausch und Folierungen als WINTEC-Partner, mit 30 Jahren Garantie.',
+    description: 'Steinschlagreparatur, Scheibentausch und Folierungen als WINTEC-Partner, mit 30 Jahren Garantie auf Reparatur und Dichtigkeit.',
     href: '/autoglas-leipzig',
   },
 ];

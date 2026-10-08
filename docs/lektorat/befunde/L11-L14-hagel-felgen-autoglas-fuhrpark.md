@@ -17,7 +17,10 @@
 Die Vorprüfung meldete auf der Hagelseite „e.V., und“ als doppeltes Satzzeichen. Das ist richtig (Komma nach dem
 Abkürzungspunkt); die Regel nimmt Abkürzungen seitdem aus. „e.V.“ bleibt in der Schreibweise des Verbands (3.12).
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt** (L11-03 behält „System Audatex“). Die FAQ-Antwort
+zu L11-04 („Übernehmen Sie die Abstimmung …?“) beginnt dabei nach Textregel 2, Ausnahme 3 mit „Ja.“.
 
 | Nr | Seite | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|---|

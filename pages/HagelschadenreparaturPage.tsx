@@ -5,8 +5,8 @@ import { bvat } from '../data/mitgliedschaften';
 import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 
 const leistungen = [
-  { title: 'Kalkulation mit Audatex', description: 'Kalkulation des Schadens mit dem durch Versicherer und Gutachter anerkannten System Audatex.' },
-  { title: 'Komplette Schadenabwicklung', description: 'Auf Wunsch sprechen wir mit Ihrem Gutachter bzw. Ihrer Versicherung und wickeln das gesamte Schadensereignis für Sie ab.' },
+  { title: 'Kalkulation mit Audatex', description: 'Kalkulation des Schadens mit dem von Versicherern und Gutachtern anerkannten System Audatex.' },
+  { title: 'Komplette Schadenabwicklung', description: 'Auf Wunsch sprechen wir mit Ihrem Gutachter bzw. Ihrer Versicherung und wickeln den gesamten Schadenfall für Sie ab.' },
   { title: 'Keine Anzahlung nötig', description: 'Wir rechnen direkt mit der Versicherung ab. Sie müssen nicht in Vorleistung gehen.' },
   { title: 'Lackfreie Instandsetzung', description: 'Hageldellen werden bei intaktem Lack lackfrei entfernt und in den Originalzustand versetzt.', href: '/dellenentfernung-leipzig' },
 ];
@@ -29,7 +29,7 @@ const HagelschadenreparaturPage: React.FC = () => (
       eyebrow: 'Hagelschadenreparatur Leipzig',
       title: 'Hagelschadenreparatur in Leipzig.',
       description:
-        'Sie sind mit Ihrem Fahrzeug in einen Hagelschauer gekommen? Kein Problem! Wir helfen Ihnen dabei, dass Ihr Fahrzeug wieder in den Originalzustand versetzt wird, inklusive Kalkulation und Abwicklung mit Ihrer Versicherung.',
+        'Ihr Fahrzeug ist in einen Hagelschauer geraten? Wir bringen es wieder in den Originalzustand, inklusive Kalkulation und Abwicklung mit Ihrer Versicherung.',
       primaryCta: { label: 'Hagelschaden melden', href: SCHADEN_ZIEL },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Hagelschadenreparatur Leipzig', 'Hagelschaden Auto Leipzig', 'Hageldellen entfernen Leipzig'],
