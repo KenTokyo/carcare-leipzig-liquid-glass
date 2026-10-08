@@ -60,7 +60,7 @@ const repairs = [
   },
   {
     title: 'Steinschlag und Scheibenschäden',
-    description: 'Steinschläge reparieren wir, wo es fachlich vertretbar ist; sonst tauschen wir die Scheibe. Als WINTEC-Partner mit 30 Jahren Garantie auf die Verglasung.',
+    description: 'Steinschläge reparieren wir, wo es fachlich vertretbar ist; sonst tauschen wir die Scheibe. Als WINTEC-Partner mit 30 Jahren Garantie auf die Reparatur und die Dichtigkeit ausgetauschter Scheiben.',
     href: '/autoglas-leipzig',
   },
   {
@@ -118,7 +118,7 @@ const steps = [
   { title: 'Fahrzeug begutachten', description: 'Wir sehen uns Lack, Karosserie, Felgen, Glas und Innenraum an und gleichen den Zustand mit dem ab, was bei der Rückgabe bewertet wird.' },
   { title: 'Aufstellung erhalten', description: 'Sie bekommen einen Kostenvoranschlag mit klarer Empfehlung: was sich vorher lohnt und was Sie getrost dem Rückgabeprotokoll überlassen können.' },
   { title: 'Instandsetzen und aufbereiten', description: 'Wir arbeiten die freigegebenen Punkte zu Dellen, Lack, Felgen und Glas ab und bereiten das Fahrzeug innen und außen auf.' },
-  { title: 'Fahrzeug übernehmen', description: 'Sie erhalten das Fahrzeug gereinigt zurück, mit Erklärung, was gemacht wurde. Danach geht es in die Rückgabe.' },
+  { title: 'Fahrzeug übernehmen', description: 'Sie erhalten das Fahrzeug gereinigt zurück, mit einer Erklärung, was wir gemacht haben. Danach geht es in die Rückgabe.' },
 ];
 
 
@@ -127,7 +127,7 @@ const LeasingrueckgabePage: React.FC = () => (
   <BackdropLayout image="/assets/kacheln/leasingrueckgabe-leipzig-carcare.webp">
     <PageMeta
       canonical="/leasingrueckgabe-leipzig"
-      title="Leasingrückgabe Leipzig | vorbereiten | CarCare Center"
+      title="Leasingrückgabe vorbereiten in Leipzig | CarCare Center"
       description="Fahrzeug vor der Leasingrückgabe prüfen und instand setzen lassen: Dellen, Lack, Felgen, Glas und Aufbereitung in Leipzig, für Privatkunden und Fuhrparks."
     />
     <PageHero

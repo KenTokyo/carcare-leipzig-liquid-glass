@@ -15,7 +15,9 @@
 
 Auf L07 selbst keine Korrektur nötig; die Vorprüfung meldete nichts, beim Lesen fand sich kein Regelverstoß.
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.):** 02, 04, 05, 06, 07 umgesetzt (04 auch auf Über uns); **03 bleibt**.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|

@@ -53,7 +53,7 @@ const SmartRepairPage: React.FC = () => (
       eyebrow: 'Leistungsumfang',
       title: 'Kleine Schäden gezielt statt Komplettlackierung.',
       description:
-        'Smart bzw. Spot-Repair bearbeitet nur den betroffenen Bereich. Reicht das nicht aus, folgt die Komplettlackierung. Dazu beraten wir Sie ehrlich.',
+        'Smart Repair bzw. Spot-Repair bearbeitet nur den betroffenen Bereich. Reicht das nicht aus, folgt die Komplettlackierung. Dazu beraten wir Sie ehrlich.',
       items: scope,
     }}
     usp={{ title: 'Glasurit-Lackpartner und Meisterbetrieb seit 1998.', items: usp }}

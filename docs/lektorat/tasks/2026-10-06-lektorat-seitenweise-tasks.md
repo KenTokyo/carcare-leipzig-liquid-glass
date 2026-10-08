@@ -193,7 +193,7 @@ dieselben Fragen neu stellen.
   „ohne Wertminderung“ an drei weiteren Stellen nach L02-11), 4 S, 2 H. Build grün, `meta` 0/29, alle Auszüge neu:
   geändert nur Fahrzeugaufbereitung (L03-S), Innenaufbereitung (KC-Refresher), Leistungen, Privat- und Geschäftskunden.
 * [x] **Entscheidung User 08.10.:** 03, 05, 06 umgesetzt, 04 bleibt.
-### 🟨 Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
+### ✅ Phase 5 — L05 Außen-, L06 Innenaufbereitung, L07 Leasingrückgabe (je ein Stopp)
 * [x] L05 gelesen (rund 1.080 Wörter), Befund `docs/lektorat/befunde/L05-aussenaufbereitung.md`: 1 K mit Codefehler
   (`GanzwortTitel` trennte am geschützten Leerzeichen, weil `\s` in JavaScript U+00A0 einschließt; behoben, wirkt auf
   alle Überschriften), 3 S, 3 H. Einleitung und Außenpflege-Schritte sind Andrés Wortlaut.
@@ -209,8 +209,14 @@ dieselben Fragen neu stellen.
   Folgekorrektur auf der Privatkundenseite (wörtlich der Satz aus L04-06), 6 S (u. a. Titel, WINTEC-Garantie „auf die
   Verglasung“ → genauer Umfang, auch Über uns), 2 H („30 Jahre Garantie“ ohne Umfang an fünf Stellen, mit L13 klären).
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L06-S auf Innen und die Folgekorrektur auf Privatkunden.
-* [ ] **Stopp:** L07-S (02–07) beim User.
-### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
+* [x] **Entscheidung User 08.10.:** L07-S 02, 04–07 umgesetzt, 03 bleibt.
+### 🟨 Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
+* [x] L08–L10 gelesen (Smart Repair, Lackierung, Dellen), Befund `docs/lektorat/befunde/L08-L10-smartrepair-lackierung-dellen.md`:
+  3 K („Smart Repair bzw. Spot-Repair“, „ohne Lackieren“, „wiederhergestellt“), 4 S (u. a. „möglichst perfekt“ an fünf
+  Stellen), 4 H (Leistungsumfang Lackierung ist Andrés Wortlaut).
+* [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29 (Leasing-Titel 55), Auszüge: nur L07-S und die drei K auf L08/L10.
+* [ ] **Stopp:** L08–L10-S beim User.
+* [ ] L11–L14 (Hagel, Felgen, Autoglas mit Garantie-Umfang, Fuhrpark)
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen

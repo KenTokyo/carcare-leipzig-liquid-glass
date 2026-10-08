@@ -34,9 +34,9 @@ const DellenentfernungPage: React.FC = () => (
     }}
     hero={{
       eyebrow: 'Dellenentfernung Leipzig',
-      title: 'Dellenentfernung (ohne lackieren) in Leipzig.',
+      title: 'Dellenentfernung (ohne Lackieren) in Leipzig.',
       description:
-        'Die lackierfreie Reparaturmethode der Dellenentfernung gilt heute als Standard bei Parkplatzdellen oder Hagelschäden. Voraussetzung ist, dass der Lack keine Beschädigungen aufweist. Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil mit speziellen Werkzeugen bearbeitet, bis der Originalzustand wieder hergestellt ist.',
+        'Die lackierfreie Reparaturmethode der Dellenentfernung gilt heute als Standard bei Parkplatzdellen oder Hagelschäden. Voraussetzung ist, dass der Lack keine Beschädigungen aufweist. Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil mit speziellen Werkzeugen bearbeitet, bis der Originalzustand wiederhergestellt ist.',
       primaryCta: { label: 'Dellenentfernung anfragen', href: '/kontakt#contact-termin' },
       secondaryCta: { label: 'Direkt anrufen', href: 'tel:+493412617790' },
       keywords: ['Dellenentfernung Leipzig', 'lackfreie Dellenentfernung Leipzig', 'Parkdelle reparieren Leipzig'],

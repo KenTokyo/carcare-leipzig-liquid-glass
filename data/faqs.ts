@@ -70,7 +70,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
 
   // Smart Repair
   '/smart-repair-leipzig': [
-    { id: 'was', question: 'Was ist Smart bzw. Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand und unsere bevorzugte Reparaturmethode bei kleineren Schäden. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet.' },
+    { id: 'was', question: 'Was ist Smart Repair bzw. Spot-Repair?', answer: 'Spot-Repair ist die möglichst perfekte Lackinstandsetzung mit geringem Aufwand und unsere bevorzugte Reparaturmethode bei kleineren Schäden. Statt das ganze Bauteil zu lackieren, wird gezielt nur der betroffene Bereich bearbeitet.' },
     { id: 'unsichtbar', question: 'Sieht man die reparierte Stelle?', answer: 'Unser Ziel ist die unsichtbare Reparatur Ihres Fahrzeuges. Weder Farbton- noch Effektunterschiede zur Originallackierung sollen für das menschliche Auge erkennbar sein.' },
     { id: 'grenzen', question: 'Wann reicht Smart Repair nicht aus?', answer: 'Nicht immer kann Spot-Repair angewendet werden. Bei größeren Schäden bleibt die Komplettlackierung des Bauteils, die unter modernen Bedingungen mit bestmöglichem Ergebnis ausgeführt wird.' },
   ],
@@ -87,7 +87,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
   // Dellenentfernung
   '/dellenentfernung-leipzig': [
     { id: 'wann', question: 'Bei welchen Schäden funktioniert die lackfreie Dellenentfernung?', answer: 'Die lackierfreie Reparaturmethode gilt heute als Standard bei Parkplatzdellen oder Hagelschäden. Voraussetzung ist, dass der Lack keine Beschädigungen aufweist.' },
-    { id: 'wie', question: 'Wie funktioniert die Methode?', answer: 'Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil unter Verwendung spezieller Werkzeuge so weit bearbeitet, bis der Originalzustand wieder hergestellt ist.' },
+    { id: 'wie', question: 'Wie funktioniert die Methode?', answer: 'Durch eigens entwickelte Druck- bzw. Ziehtechniken wird das Fahrzeugteil unter Verwendung spezieller Werkzeuge so weit bearbeitet, bis der Originalzustand wiederhergestellt ist.' },
     { id: 'wert', question: 'Bleibt der Wert des Fahrzeugs erhalten?', answer: 'In der Regel ja. Die Methode ist schonend für den Lack, der Originallack bleibt erhalten, und die reparierte Stelle ist danach nicht zu sehen.' },
     { id: 'versicherung', question: 'Erkennen Versicherungen die Methode an?', answer: 'Ja, die lackfreie Dellenentfernung ist bei Versicherungen und Gutachtern anerkannt.' },
   ],
@@ -168,13 +168,13 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
 
   // Leasingrueckgabe (nachgezogen 2026-09-02; kam mit 0b666d1 als eigene Kopie)
   '/leasingrueckgabe-leipzig': [
-    { id: 'lohnt', question: 'Lohnt es sich, vor der Leasingrückgabe reparieren zu lassen?', answer: 'In der Regel ja, wenn erkennbare Schäden vorliegen. Der Leasinggeber rechnet festgestellte Schäden nach seinen eigenen Sätzen ab, die meist über den Kosten einer Reparatur im Fachbetrieb liegen. Bei reiner Gebrauchsspur ohne Substanzschaden raten wir dagegen häufig ab. Wir sagen Ihnen bei der Begutachtung, was in Ihrem Fall sinnvoll ist.' },
+    { id: 'lohnt', question: 'Lohnt es sich, vor der Leasingrückgabe reparieren zu lassen?', answer: 'In der Regel ja, wenn erkennbare Schäden vorliegen. Der Leasinggeber rechnet festgestellte Schäden nach seinen eigenen Sätzen ab, die meist über den Kosten einer Reparatur im Fachbetrieb liegen. Bei reinen Gebrauchsspuren ohne Substanzschaden raten wir dagegen häufig ab. Wir sagen Ihnen bei der Begutachtung, was in Ihrem Fall sinnvoll ist.' },
     { id: 'wann', question: 'Wie früh vor der Rückgabe sollte ich mich melden?', answer: 'Planen Sie einige Wochen Vorlauf ein. Dann bleibt genug Zeit für Begutachtung, Kostenvoranschlag, Reparatur und Aufbereitung, ohne dass es zum Rückgabetermin knapp wird. Bei mehreren Fuhrparkfahrzeugen sollte der Vorlauf entsprechend größer sein.' },
     { id: 'was', question: 'Was bewertet der Rückgabegutachter?', answer: 'Bewertet werden unter anderem Lackschäden, Beschädigungen an Stoßfängern, Dellen, Felgenschäden, Steinschläge in der Scheibe und der Zustand des Innenraums. Normale Abnutzung bei vertragsgemäßer Nutzung ist in der Regel abgedeckt; wo genau die Grenze liegt, legt Ihr Leasingvertrag fest.' },
     { id: 'kosten', question: 'Was kostet die Vorbereitung auf die Leasingrückgabe?', answer: `Für die Reparaturen gibt es keinen Listenpreis, weil der Aufwand vom Schadenbild abhängt. Sie erhalten dafür einen Kostenvoranschlag. Für die Aufbereitung gelten feste Paketpreise: Intensiv Innenraumreinigung ab 199 €, Premiumpflege mit Innen- und Außenaufbereitung ab 299 €, jeweils inklusive gesetzlicher Mehrwertsteuer. ${AUFPREIS_SATZ}` },
     { id: 'wertminderung', question: 'Entsteht durch die Reparatur eine Wertminderung?', answer: 'Bei der lackfreien Dellenentfernung in der Regel nicht: Der Originallack bleibt erhalten, und die reparierte Stelle ist danach nicht zu sehen. Bei Lackarbeiten ist unser Ziel die unsichtbare Reparatur. Als Glasurit-Lackpartner arbeiten wir farbtongenau, sodass weder Farbton- noch Effektunterschiede für das Auge erkennbar sind.' },
     { id: 'fuhrpark', question: 'Bereitet das CarCare Center auch mehrere Fuhrparkfahrzeuge gleichzeitig vor?', answer: 'Ja. Auf über 3.500 m² mit über 50 Mitarbeitern lassen sich mehrere Rückläufer parallel bearbeiten. Sie erhalten einen festen Ansprechpartner und je Fahrzeug eine nachvollziehbare Aufstellung, sodass sich Reparaturkosten gegen die erwartete Nachbelastung abwägen lassen.' },
-    { id: 'ersatz', question: 'Bekomme ich während der Arbeiten einen Ersatzwagen?', answer: 'Nach Verfügbarkeit stellen wir einen Ersatzwagen zur Verfügung. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir ihn einplanen können.' },
+    { id: 'ersatz', question: 'Bekomme ich während der Arbeiten einen Ersatzwagen?', answer: 'Nach Verfügbarkeit stellen wir Ihnen einen Ersatzwagen bereit. Sprechen Sie uns bei der Terminvereinbarung darauf an, damit wir ihn einplanen können.' },
     { id: 'marken', question: 'Gilt das für alle Fahrzeugmarken?', answer: 'Ja. Wir sind ein markenunabhängiger Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk und bearbeiten alle Fabrikate, vom Kleinwagen bis zum Premiumfahrzeug.' },
   ],
 
