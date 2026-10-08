@@ -256,7 +256,7 @@ dieselben Fragen neu stellen.
 * [x] **Entscheidung User 08.10.:** L18-S 08–14 und L19-S 01–04 umgesetzt; L18-07 bleibt „Bürokaufmann (m/w/d)“, Hinweis
   als R20 in `docs/backlog/nice-to-have.md`. Build grün, `meta` 0/29, Auszüge Karriere, Kontakt, Start: nur das Beschlossene.
   Überlauf Kontakt und Start: nur der bekannte L02-14.
-* [ ] Offen beim User: Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig unter etwa 420 px, bis dahin so gelassen.
+* [x] Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig unter etwa 420 px: **bleibt so** (User 08.10.).
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
 ### ⏸ Phase 9 — L20–L27 Wissensbereich (zurückgestellt)
@@ -279,7 +279,11 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 * [ ] Alle Titles und Descriptions nebeneinander: einzigartig, Muster nach SEO-GEO 3.1, `npm run meta`
 * [ ] JSON-LD-Beschreibungen und Bildbeschreibungen über alle Seiten
 * [ ] Stilblatt-Gegenprobe über den ganzen Code: jede verworfene Schreibweise 0-mal
-* [ ] Text kann Umbrüche verschieben: `npm run zielgruppen`, `npm run aussparung`, `npm run kontrast`, `npm run shots`
+* [x] **Vor dem Push auf main (User 08.10.: „nur Prüfläufe, dann pushen“), Build 08.10. 21:28:** `kontrast` 6.279 Textstellen,
+  kein Text unter AA · `aussparung` 29 Routen × 3 Fenster, keine Überdeckung, Geometrie an 23 Breiten in Ordnung ·
+  `zielgruppen` alle Karten auf allen Fenstern in Ordnung · `shots` 505 Aufnahmen in `output/shots/`.
+  Noch offen für den Abschluss: L28–L29, Titel nebeneinander, JSON-LD, Bildtexte, Stilblatt-Gegenprobe.
+* [ ] (ursprünglich) Text kann Umbrüche verschieben: `npm run zielgruppen`, `npm run aussparung`, `npm run kontrast`, `npm run shots`
   gegen den letzten Build
 * [ ] Kommentare und Optimierungsplan, Rückfragen an André bündeln, Push-Stand
 

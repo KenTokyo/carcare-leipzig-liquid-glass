@@ -18,7 +18,7 @@
 **Entscheidung des Users (08.10.): alle angenommen und umgesetzt** (L16-10 als „eine langfristige Rahmenvereinbarung“).
 **Nebenwirkung L16-13:** „Geschäftskundenanfrage stellen“ braucht 246 px; im Abschluss-Band stehen bei 390 px nur 218 px
 zur Verfügung (bis etwa 420 px Fensterbreite), der Knopf bricht dort zweizeilig um. Im Titelbild passt er ab 375 px
-(bei 360 px brach er schon vorher um). Dem User zur Wahl vorgelegt: zweizeilig lassen oder kürzer für beide Knöpfe.
+(bei 360 px brach er schon vorher um). Entscheidung des Users (08.10.): zweizeilig lassen.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
