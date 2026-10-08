@@ -76,7 +76,7 @@ const steps = [
   { title: 'Melden', description: 'Rufen Sie an oder schildern Sie Ihr Anliegen online. Einen Schaden melden Sie samt Fotos über unsere Schadenseite auf reparatur.info. Das hilft uns bei der ersten Einschätzung.' },
   { title: 'Fahrzeug ansehen', description: 'Wir begutachten das Fahrzeug vor Ort in Leipzig und besprechen, welcher Weg fachlich und wirtschaftlich sinnvoll ist.' },
   { title: 'Preis klären', description: 'Bei der Aufbereitung gelten die festen Paketpreise. Bei Reparaturen erhalten Sie einen Kostenvoranschlag; im Versicherungsfall übernehmen wir auf Wunsch die Abstimmung.' },
-  { title: 'Reparatur & Übergabe', description: 'Wir arbeiten das Fahrzeug ab und übergeben es gereinigt zurück, mit Erklärung, was gemacht wurde.' },
+  { title: 'Reparatur & Übergabe', description: 'Wir erledigen alle Arbeiten im eigenen Haus und geben Ihnen das Fahrzeug gereinigt zurück, mit einer Erklärung, was wir gemacht haben.' },
 ];
 
 const PrivatkundenPage: React.FC = () => (

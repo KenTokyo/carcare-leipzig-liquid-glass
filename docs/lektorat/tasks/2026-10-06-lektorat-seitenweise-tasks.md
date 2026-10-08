@@ -204,7 +204,12 @@ dieselben Fragen neu stellen.
 * [x] L06 gelesen (rund 725 Wörter), Befund `docs/lektorat/befunde/L06-innenaufbereitung.md`: keine K (Preise, Einheiten
   und geteilte Texte schon mit L03/L05 bereinigt), 3 S, 2 H (Alcantara ohne Text und Preis, offen seit 28.09.).
 * [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur die L05-Änderungen auf Außen, Innen, Felgen, Autoglas.
-* [ ] **Stopp:** L06-S (01–03) beim User.
+* [x] **Entscheidung User 08.10.:** L06-S 01–03 umgesetzt.
+* [x] L07 gelesen (rund 1.190 Wörter), Befund `docs/lektorat/befunde/L07-leasingrueckgabe.md`: auf L07 keine K; eine
+  Folgekorrektur auf der Privatkundenseite (wörtlich der Satz aus L04-06), 6 S (u. a. Titel, WINTEC-Garantie „auf die
+  Verglasung“ → genauer Umfang, auch Über uns), 2 H („30 Jahre Garantie“ ohne Umfang an fünf Stellen, mit L13 klären).
+* [x] Nachgeprüft (Build 08.10.): grün, `meta` 0/29, Auszüge: nur L06-S auf Innen und die Folgekorrektur auf Privatkunden.
+* [ ] **Stopp:** L07-S (02–07) beim User.
 ### ⬜ Phase 6 — L08–L14 Reparaturleistungen und Fuhrpark (zwei Stopps)
 ### ⬜ Phase 7 — L15 Privatkunden, L16 Geschäftskunden
 ### ⬜ Phase 8 — L17 Über uns, L18 Karriere, L19 Kontakt

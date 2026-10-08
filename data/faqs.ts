@@ -211,7 +211,7 @@ export const faqsByRoute: Record<string, FAQItem[]> = {
     { id: 'geruch', question: 'Lassen sich Gerüche dauerhaft entfernen?', answer: 'Oft ja, wenn die Ursache mitbehandelt wird. Zur Innenaufbereitung kommen bei Bedarf Ozonbehandlung für 45 € oder Heißvernebelung mit dem KC-Refresher für 59 € dazu. Sitzt die Ursache in durchfeuchtetem Material, klären wir das vorab bei der Begutachtung.' },
     // Seit 2026-09-28 einzeln buchbar (Mail Andre, Backlog 5.20); Preis aus data/zusatzleistungen.ts.
     { id: 'motorreinigung', question: 'Ist die Motorreinigung enthalten?', answer: `Nicht in der Intensiv Innenraumreinigung. Sie buchen sie für ${zusatzPreis('motor')} dazu. In der Premiumpflege ab 299 €, die Innen- und Außenaufbereitung kombiniert, ist sie bereits enthalten.` },
-    { id: 'tierhaare', question: 'Was ist bei starker Verschmutzung oder Tierhaaren?', answer: 'Fahrzeuge mit extremen Verschmutzungen, etwa Tierhaaren, bedürfen einer gesonderten Absprache. Der Aufwand liegt dort über dem Paketumfang. Wir schätzen ihn vorab ein und stimmen ihn mit Ihnen ab.' },
+    { id: 'tierhaare', question: 'Was gilt bei starker Verschmutzung oder Tierhaaren?', answer: 'Fahrzeuge mit extremen Verschmutzungen, etwa Tierhaaren, bedürfen einer gesonderten Absprache. Der Aufwand liegt dort über dem Paketumfang. Wir schätzen ihn vorab ein und stimmen ihn mit Ihnen ab.' },
   ],
 };
 

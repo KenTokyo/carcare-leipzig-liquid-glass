@@ -110,7 +110,7 @@ const InnenaufbereitungPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Optional buchbar"
-          title="Geruchsbehandlung zur Innenaufbereitung dazu."
+          title="Geruchsbehandlung zur Innenaufbereitung buchen."
           // 6.7 (Andre: „buchbar allein oder zu allen Programmen“): auch einzeln, nicht nur zur Innenaufbereitung.
           description="Sitzt der Geruch tiefer, als eine Reinigung erreicht, buchen Sie eines dieser beiden Verfahren zur Innenaufbereitung dazu. Beide gibt es auch einzeln."
         />
@@ -232,7 +232,7 @@ const InnenaufbereitungPage: React.FC = () => (
     </section>
 
     <PageCTA
-      title="Innenraum stark genutzt, verschmutzt oder riecht?"
+      title="Innenraum stark genutzt, verschmutzt oder geruchsbelastet?"
       description="Beschreiben Sie uns den Zustand. Wir sagen Ihnen, ob die Intensiv Innenraumreinigung reicht oder ob eine Geruchsbehandlung sinnvoll dazukommt."
       primaryLabel="Aufbereitungstermin anfragen"
       primaryHref="/kontakt#contact-termin"

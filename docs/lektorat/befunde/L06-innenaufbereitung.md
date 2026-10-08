@@ -11,7 +11,9 @@
 Keine. Die Seite ist sprachlich sauber; Preise, Einheiten und geteilte Texte waren schon mit L03 und L05 bereinigt
 („ab 199 €“ im Fließtext, „Smart Repair und Felgen“ in der Kachel „Full-Service“).
 
-## S · Vorschläge (bitte entscheiden)
+## S · Vorschläge
+
+**Entscheidung des Users (08.10.): alle angenommen und umgesetzt.**
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
