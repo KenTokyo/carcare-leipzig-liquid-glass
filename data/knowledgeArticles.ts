@@ -35,7 +35,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Grundlagen',
     readTime: '6 Min.',
     title: 'Was ist Autoaufbereitung?',
-    metaTitle: 'Was ist Autoaufbereitung? Definition & Ablauf | CarCare',
+    metaTitle: 'Autoaufbereitung: Definition & Ablauf | CarCare Center',
     metaDescription:
       'Was Autoaufbereitung bedeutet, wann sie sich lohnt, wie der Ablauf aussieht und welche Fehler Sie vermeiden sollten. Fachlicher Ratgeber vom CarCare Center.',
     cardTitle: 'Was ist Autoaufbereitung?',
@@ -107,7 +107,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Innenraum',
     readTime: '7 Min.',
     title: 'Was gehört zu einer professionellen Innenaufbereitung?',
-    metaTitle: 'Innenaufbereitung: Ablauf und Kosten | CarCare Wissen',
+    metaTitle: 'Innenaufbereitung: Ablauf und Kosten | CarCare Center',
     metaDescription:
       'Innenaufbereitung verständlich erklärt: Polster, Leder, Cockpit und Gerüche. Ablauf, Kostenfaktoren, Profi-Tipps und die häufigsten Fehler im Überblick.',
     cardTitle: 'Innenaufbereitung',
@@ -179,7 +179,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: 'Lackpflege',
     readTime: '8 Min.',
     title: 'Wie funktioniert eine professionelle Lackaufbereitung?',
-    metaTitle: 'Lackaufbereitung: Politur und Versiegelung | CarCare',
+    metaTitle: 'Lackaufbereitung: Politur und Versiegelung | CarCare Center',
     metaDescription:
       'Lackaufbereitung fachlich erklärt: Lackreinigung, Hochglanzpolitur und Versiegelung. Wann sie sich lohnt, was sie kostet und welche Fehler teuer werden.',
     cardTitle: 'Lackaufbereitung',

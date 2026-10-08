@@ -5,6 +5,10 @@ import KnowledgeCategoryGrid from '../components/KnowledgeCategoryGrid';
 import { PageFAQ, PageHero, PageMeta, SectionIntro } from '../components/PageBlocks';
 import { knowledgeArticles, knowledgeCategories } from '../data/knowledgeArticles';
 
+// Lektorat L20-01 (2026-10-08): Die Zahl kommt aus den Daten. Sie stand fest als „Fünf“, als es schon sieben Artikel gab.
+const ZAHLWORT = ['Kein', 'Ein', 'Zwei', 'Drei', 'Vier', 'Fünf', 'Sechs', 'Sieben', 'Acht', 'Neun', 'Zehn', 'Elf', 'Zwölf'];
+const artikelZahl = (n: number): string => ZAHLWORT[n] ?? String(n);
+
 const KnowledgeHubPage: React.FC = () => (
   <>
     <PageMeta
@@ -36,7 +40,7 @@ const KnowledgeHubPage: React.FC = () => (
       <div className="container mx-auto">
         <SectionIntro
           eyebrow="Erste Ratgeber"
-          title="Fünf Artikel für bessere Entscheidungen rund ums Fahrzeug."
+          title={`${artikelZahl(knowledgeArticles.length)} Artikel für bessere Entscheidungen rund ums Fahrzeug.`}
           description="Die Texte sind bewusst fachlich gehalten: klare Antworten, realistische Grenzen und konkrete Hinweise für Vorbereitung, Pflege und Reparatur."
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
