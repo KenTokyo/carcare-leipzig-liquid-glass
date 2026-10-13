@@ -208,7 +208,7 @@ const DatenschutzPage: React.FC = () => (
           <Absatz>
             Über unsere Karriereseite können Sie sich online bewerben. Wir verarbeiten dabei Ihren Namen, Ihre
             Kontaktdaten, den gewünschten Bereich, Ihre Nachricht und die Unterlagen, die Sie anhängen (bis zu drei
-            Dateien, zusammen höchstens 3 MB). Die Bewerbung gelangt auf demselben Weg wie eine Anfrage als E-Mail mit
+            Dateien, zusammen höchstens 3 MB). Die Bewerbung gelangt auf demselben Weg wie eine Anfrage als E-Mail mit
             Anhängen in unser Bewerbungspostfach. Auf der Website wird nichts gespeichert.
           </Absatz>
           <Absatz>

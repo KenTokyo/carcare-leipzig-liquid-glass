@@ -271,8 +271,23 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 * [ ] ~~Stopp 1: L20–L23-S beim User~~ zurückgestellt (User 08.10.).
 * [ ] ~~Stopp 2: L24–L27~~ zurückgestellt (User 08.10.).
 **Achtung:** Ratgebertexte sind informativ (SEO-GEO 4.1); Fachbegriffe hier besonders auf richtige Erklärung prüfen.
-### ⬜ Phase 10 — L28–L29 Impressum und Datenschutz
+### 🟨 Phase 10 — L28–L29 Impressum und Datenschutz (Stopp: S beim User)
 **Achtung:** nur Korrektorat. Jede Änderung markieren, sie geht mit in die anwaltliche Prüfung (R6).
+* [x] 14.10.: Branch `2026-10-06-lektorat` auf `main` vorgespult (nach dem Merge der toten Komponenten), Build, frische
+  Auszüge beider Seiten (303 + 1.485 Wörter) ganz gelesen.
+* [x] Sachangaben gegen Code, HTML und Quellen geprüft: fünf Anschriften (SDTB seit April 2025 Maternistraße 17), 147
+  externe Links alle `noreferrer`, kein Cookie/`localStorage`, Anhanggrenze. Abweichung: Speicherwert `1` statt „bereits
+  gesehen“ (L29-03).
+* [x] Befund `docs/lektorat/befunde/L28-L29-impressum-datenschutz.md`: 2 K umgesetzt („§ 27a“, „3 MB“ geschützt; Stand-Datum
+  bleibt, kein Inhalt geändert), 8 S, 9 H (u. a. § 26 BDSG nach EuGH C-34/21 für die Anwaltsprüfung). Keine neue Frage an
+  André: DSB und Berufsbezeichnung sind schon im Rechtsseiten-Plan geführt.
+* [x] Vorprüfung: Fehlalarm „Ltd., Dublin“ behoben (`Ltd|Inc|Corp` als Abkürzung in `scripts/lib/lektorat-pruefung.mjs`).
+* [x] Build grün, `meta` 0/29, Gedankenstriche 0, Auszüge vorher/nachher: nur die zwei K, Vorprüfung 2 K → 0 K.
+* [ ] Stopp: S L28-02/03, L29-02 bis 07 beim User; bei 03, 05 oder 06 Stand-Datum der Erklärung mitziehen.
+**Referenzen:**
+`docs/lektorat/befunde/L28-L29-impressum-datenschutz.md`
+`pages/DatenschutzPage.tsx`
+`pages/ImpressumPage.tsx`
 
 ### ⬜ Phase 11 — L30 Querschnitt und Abschluss
 **Ziel:** Was erst im Ganzen sichtbar wird.
@@ -325,6 +340,17 @@ allen drei Skripten ✅, Vorher/Nachher-Vergleich statt Annahme ✅, Build + `me
    `OEFFNUNG_ANZEIGE` „Mo – Fr: 07:00 – 18:00“). Jetzt beide aus `stunde()`; `samstagKurz` hängt an L00-08.
 3. 🔵 **Niedrig:** Der Formularhinweis „Online-Versand wird gerade eingerichtet“ ist im lokalen Build sichtbar und
    könnte bei einer Sichtprüfung lokal für einen Fehler gehalten werden (L00-21).
+
+### Phase 10
+**Eingehalten:** nur Korrektorat ✅, jede Änderung mit Vorher/Nachher markiert ✅, Sachangaben gegen Code und Quellen statt
+Annahme ✅, Ersetzungen mit erwarteter Trefferzahl (je 1) ✅, U+00A0 per Byteprüfung belegt ✅, Build + `meta` +
+Auszugsvergleich gegen den neuen Build ✅, Dateien unter 700 Zeilen ✅
+
+**Auffälligkeiten (nach Schwere):**
+1. 🟡 **Mittel:** Die Erklärung nennt einen Speicherwert, den der Code nicht schreibt (L29-03). Ändert sich
+   `usePreloader.ts`, merkt das niemand: Wort und Code sind nicht verbunden. Mit L29-03 („vermerkt nur, dass …“) entfällt
+   die Kopplung an den Wert.
+2. 🔵 **Niedrig:** Die Vorprüfung hielt „Ltd., Dublin“ für einen Fehler. Behoben (L29-11).
 
 ## Quellen
 

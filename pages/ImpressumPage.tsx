@@ -113,7 +113,7 @@ const ImpressumPage: React.FC = () => (
           <Angabe label="Umsatzsteuer-ID">
             DE 257 851 313
             <span className="mt-1 block text-sm text-gray-600">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz
+              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz
             </span>
           </Angabe>
         </dl>
