@@ -29,6 +29,7 @@
     "nummern": "node scripts/check-nummernraeume.mjs",
     "meta": "node scripts/check-meta.mjs",
     "nav": "node scripts/check-navigation.mjs",
+    "tote-dateien": "node scripts/check-tote-dateien.mjs",
     "zielgruppen": "node scripts/check-zielgruppen.mjs",
     "aussparung": "node scripts/check-aussparung.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",

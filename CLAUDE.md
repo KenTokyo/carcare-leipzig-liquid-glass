@@ -135,6 +135,7 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
 | `npm run aussparung` | Aktions-Aussparung oben rechts (beschriftete Pillen „Aufbereitung anfragen" + „Schaden melden", ab 1024 px; bis 2026-09-28 Telefon): liegt irgendwo Text oder ein Bedienelement **dauerhaft** darunter (z. B. etwas, das höher als die Navbar gepinnt ist)? 29 Routen × 3 Fenster, je Route Sichtbarkeit (muss 100 % sein) und Pixelprobe je Pille. Dazu **Geometrie an 23 Breiten**: Lücke zum Navbar-Reiter ≥ 20 px, Beschriftungen vollständig, Navbar-Links ≥ 12 px im Reiter, sichtbarer Text in der Ansage | nach jeder Änderung an gepinnten Flächen (`position: sticky`), an `AktionsAussparung`, an der Navbar-Höhe oder an Reiterbreite/Link-Abständen (`--cc-nav-*` in `styles/aussparung.css`) |
 | `npm run nummern` | Backlog-Nummern gegen die Kundenräume | läuft im `prebuild` mit |
+| `npm run tote-dateien` | Quelldateien, die von keinem Einstieg erreichbar sind (Importgraph über den TS-Compiler, auch transitive Waisen). Dateien mit „BEWUSST GEPARKT“ im Kopf werden genannt, aber nicht gezählt (derzeit `components/Jobs.tsx`). Braucht **kein** `dist/` | bevor eine Komponente als „ungenutzt“ gilt oder gelöscht wird; nach Umbauten, die Sektionen ersetzen |
 | `npm run gedankenstriche` | Gedankenstriche im ausgelieferten Text, in Titeln und Beschreibungen (Textregel 6), mit Umfeld je Fund | läuft als Wächter im `postbuild` mit; von Hand nach Textänderungen |
 | `npm run bilder` | Jede Bildstelle der ausgelieferten Seite mit **fester Nummer B<n>**, Ort (Seite › Sektion › Karte), Datei, Git-Datum; je Datei alle Stellen; Platzhalter; Gegenprobe gegen Ordner und Code. Schreibt `docs/bilder/README.md` + Kontaktbogen `output/bilder/bilder-uebersicht.html` | nach jedem Bildtausch und bevor der User Bildwünsche des Kunden durchgibt |
 | `npm run lektorat` | Text jeder Route **so, wie der Besucher ihn sieht** (Akkordeons und FAQ aufgeklappt, Desktop + mobil, Bildtexte, Vorlesetexte, Formularfelder, Title/Description, JSON-LD), dazu globale Bausteine, Formulare und Suche; mechanische Vorprüfung gegen Duden 2024, Stilblatt und Textregeln (K/H). Schreibt `output/lektorat/auszuege/*.md` + `uebersicht.md` (Wörter gegen Suchindex). Routen einzeln: `npm run lektorat -- karriere start`; nur global: `-- --global` | bei jeder Textänderung und für das Lektorat (`docs/lektorat/`) |
@@ -164,7 +165,9 @@ was nur lokal liegt, was inhaltlich offen ist. Früheres steht in `docs/push-sta
 **Wunsch des Users vom 2026-09-18: bei jedem Push, nicht nur einmal.**
 
 1. Commits fertig, Branches gemergt
-2. `npm run push-stand` — erzeugt beide Dateien aus git und dem Backlog, nichts von Hand
+2. `npm run push-stand` — erzeugt beide Dateien aus git und dem Backlog, nichts von Hand.
+   Wird nur ein Branch gepusht und `main` bleibt stehen: `npm run push-stand -- --nur <branch>`,
+   sonst stehen ungepushte Commits paralleler Branches als „kommt mit diesem Push" darin
 3. `git add docs/push-stand && git commit -m "Docs: Push-Stand <Datum>"`
 4. pushen
 

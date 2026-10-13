@@ -46,6 +46,8 @@ Die App nutzt extensiv **Framer Motion** für ein flüssiges "App-Feeling", wodu
 
 ## 5. Komponenten-Architektur im Detail
 
+> **Stand 2026-10-08:** 5.1, 5.3 und 5.4 beschreiben Komponenten des ersten Entwurfs, die es nicht mehr gibt (`Hero.tsx`, `About.tsx`, `Services.tsx`). Die Startseiten-Hero ist heute `HeroSection.tsx`. `Jobs.tsx` (5.5) ist bewusst geparkt und nirgends eingebunden.
+
 ### 5.1. Hero-Sektion (`Hero.tsx`)
 *   **Layout:** Fullscreen (`h-screen`) mit stark verdunkeltem Overlay auf einem Hintergrundbild, um extremen Kontrast zur weißen Typografie herzustellen.
 *   **Typografie:** Riesige "PREMIUM CARE"-Hauptschrift mit einem markanten transparenten Text-Gradienten (`from-gray-200 to-gray-500`).

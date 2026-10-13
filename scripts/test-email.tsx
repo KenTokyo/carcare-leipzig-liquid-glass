@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
-import React from 'react';
 import nodemailer from 'nodemailer';
 import { render, toPlainText } from 'react-email';
 import { handler } from '../api/anfrage';

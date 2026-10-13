@@ -4,6 +4,8 @@
 //   npm run push-stand                    Uebersicht erzeugen (holt vorher den Remote-Stand)
 //   npm run push-stand -- --seit <ref>    zusaetzlich alle Commits ab <ref> aufnehmen
 //                                         (rueckwirkend, z. B. fuer einen schon erfolgten Push)
+//   npm run push-stand -- --nur <branch>  Push nur dieses Branches (mehrere mit Komma): Commits,
+//                                         Pull-Anleitung und Verlauf nennen nur, was er bringt
 //   npm run push-stand -- --pruefen       nur pruefen: nennt die committete Uebersicht alle
 //                                         Commits, die auf GitHub noch fehlen? Exit 1 wenn nicht
 //   node scripts/push-stand.mjs --hook    PreToolUse-Hook von Claude Code (Eingabe per stdin)
@@ -29,6 +31,11 @@
 //     Fassung (HEAD) und sperrt auch bei uncommitteten Aenderungen an ihr.
 //  6. Ein Fehler in diesem Skript sperrt keinen Push — sonst legte ein Werkzeugfehler das Team
 //     lahm. Er erscheint als Warnung, der Push laeuft dann UNGEPRUEFT.
+//  7. Ohne `--nur` stehen ALLE lokalen Branches in der Uebersicht, auch die eines parallel
+//     laufenden Pakets, das gar nicht mitgepusht wird (2026-10-08: 18 Lektorat-Commits standen
+//     faelschlich als „kommt mit diesem Push"). `--nur` beschreibt dagegen den Push, den man
+//     vorhat: Wer danach mehr pusht, hat eine zu kurze Uebersicht. Das faengt der Hook, denn er
+//     prueft jeden Push gegen seine echten Refs und sperrt dann.
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -178,7 +185,8 @@ function holeRemote() {
   }
 }
 
-function branchTabelle(dokumentiert) {
+function branchTabelle(dokumentiert, nur) {
+  const imPush = (name) => !nur || nur.includes(name);
   const lokal = zeilen(git('for-each-ref', '--format=%(refname:short)\t%(objectname)', 'refs/heads')).map((z) => z.split('\t'));
   const remote = new Map(
     zeilen(git('for-each-ref', '--format=%(refname:short)\t%(objectname)', `refs/remotes/${REMOTE}`))
@@ -196,14 +204,14 @@ function branchTabelle(dokumentiert) {
     let stand;
     if (r) {
       const [vor, hinter] = git('rev-list', '--left-right', '--count', `${name}...${REMOTE}/${name}`).split(/\s+/).map(Number);
-      stand = !vor && !hinter ? 'gleich' : [vor && `${vor} vor GitHub (kommt mit dem Push)`, hinter && `${hinter} hinter GitHub (erst pullen)`].filter(Boolean).join(', ');
+      stand = !vor && !hinter ? 'gleich' : [vor && `${vor} vor GitHub (${imPush(name) ? 'kommt mit dem Push' : 'Branch wird nicht gepusht'})`, hinter && `${hinter} hinter GitHub (erst pullen)`].filter(Boolean).join(', ');
     } else {
       const neu = fehlendAufGitHub([name]).length;
       if (!neu) {
         nurLokal.push(name);
         continue;
       }
-      stand = `neu, ${neu} Commit(s) noch nicht auf GitHub`;
+      stand = `neu, ${neu} Commit(s) noch nicht auf GitHub${imPush(name) ? '' : ', Branch wird nicht gepusht'}`;
     }
     const wichtig = name === HAUPT || name === aktuell || !r || stand !== 'gleich' || beruehrt.has(name);
     if (wichtig) zeilenOut.push({ name, lokal: kurz(hash), gh: r ? kurz(r) : '—', stand, haupt: name === HAUPT });
@@ -383,10 +391,10 @@ function nurLokalDaten() {
   return { unversioniert, geaendert, worktrees, stash };
 }
 
-function erzeuge(seit) {
+function erzeuge(seit, nur) {
   const remoteStand = holeRemote();
   const vorherOben = new Set(zeilen(gitOder('', 'rev-list', `--remotes=${REMOTE}`)));
-  const liste = fehlendAufGitHub('alle');
+  const liste = fehlendAufGitHub(nur ?? 'alle');
   if (seit) {
     for (const h of zeilen(git('rev-list', '--reverse', '--topo-order', `${seit}..HEAD`))) if (!liste.includes(h)) liste.push(h);
   }
@@ -395,7 +403,9 @@ function erzeuge(seit) {
   const dokumentiert = liste.filter((h) => !istUebersichtsCommit(h)).map((h) => commitDaten(h, vorherOben));
   const neu = dokumentiert.filter((c) => !c.schonOben);
 
-  const b = branchTabelle(dokumentiert);
+  const b = branchTabelle(dokumentiert, nur);
+  // Wohin die Kollegen wechseln: ohne `--nur` (oder mit dem Hauptbranch darin) wie bisher `main`.
+  const ziel = !nur || nur.includes(HAUPT) ? HAUPT : nur[0];
   // „Dieser Push" und „frueher gepusht" (nur mit --seit) getrennt auswerten: Wer den vorigen Stand
   // schon hat, braucht nur die Hinweise zum neuen Teil — sonst stuende „npm install" bei jedem
   // Push, sobald irgendwann im rueckwirkenden Bereich die Lockfile geaendert wurde.
@@ -458,7 +468,8 @@ function erzeuge(seit) {
   }
 
   md.push('## 3. Nach dem Pull an anderen Standorten', '', '| Schritt | Warum |', '|---|---|');
-  md.push(`| \`git fetch --prune\`, \`git checkout ${HAUPT}\`, \`git pull\` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |`);
+  if (ziel === HAUPT) md.push(`| \`git fetch --prune\`, \`git checkout ${HAUPT}\`, \`git pull\` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |`);
+  else md.push(`| \`git fetch --prune\`, \`git checkout ${ziel}\` | holt den Branch; \`${HAUPT}\` ändert sich mit diesem Push nicht |`);
   if (!npmNoetig(diesmal)) md.push('| kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |');
   for (const [schritt, warum] of hinweise(diesmal)) md.push(`| ${schritt} | ${warum} |`);
   const frueherHinweise = hinweise(frueher);
@@ -467,7 +478,7 @@ function erzeuge(seit) {
   }
   if (dokumentiert.length) {
     const erwartet = [...dokumentiert].reverse().slice(0, 8).map((c) => `\`${kurz(c.hash)}\``).join(', ');
-    md.push(`| Kontrolle | \`git log --oneline -${Math.min(dokumentiert.length, 8) + 1} ${HAUPT}\`: oben „Docs: Push-Stand …", darunter ${erwartet} |`);
+    md.push(`| Kontrolle | \`git log --oneline -${Math.min(dokumentiert.length, 8) + 1} ${ziel}\`: oben „Docs: Push-Stand …", darunter ${erwartet} |`);
   }
   md.push('');
 
@@ -513,7 +524,7 @@ function erzeuge(seit) {
   const alt = fs.existsSync(verlaufPfad) ? fs.readFileSync(verlaufPfad, 'utf8').split(/\r?\n/) : kopf;
   const zeilenAlt = alt.slice(alt.findIndex((z) => z.startsWith('|---')) + 1).filter((z) => z.startsWith('|'));
   const neuHashes = neu.map((c) => `\`${kurz(c.hash)}\``).join(' ');
-  const branchesPush = [...new Set(neu.flatMap((c) => c.branches))].map((n) => `\`${n}\``).join(', ') || '—';
+  const branchesPush = (nur ?? [...new Set(neu.flatMap((c) => c.branches))]).map((n) => `\`${n}\``).join(', ') || '—';
   const verlaufHinweise =
     [
       diesmal.konfig.length && `Konfiguration: ${diesmal.konfig.join(', ')}`,
@@ -536,16 +547,20 @@ function erzeuge(seit) {
 
 const args = process.argv.slice(2);
 try {
+  const iNur = args.indexOf('--nur');
+  const nur = iNur >= 0 ? (args[iNur + 1] ?? '').split(',').filter(Boolean) : null;
+  if (nur && !nur.length) throw new Error('--nur braucht einen Branch, z. B. --nur 2026-10-08-tote-komponenten');
+  for (const n of nur ?? []) git('rev-parse', '--verify', '--quiet', `refs/heads/${n}`); // Tippfehler -> Abbruch
   if (args.includes('--hook')) process.exitCode = await hook();
   else if (args.includes('--pruefen')) {
-    const ergebnis = pruefe('alle');
+    const ergebnis = pruefe(nur ?? 'alle');
     if (ergebnis.ungenannt.length || ergebnis.uncommittet.length) {
       console.error(meldung(ergebnis));
       process.exitCode = 1;
     } else console.log('[push-stand] ok: Die committete Übersicht nennt alle Commits, die auf GitHub fehlen.');
   } else {
     const i = args.indexOf('--seit');
-    erzeuge(i >= 0 ? args[i + 1] : null);
+    erzeuge(i >= 0 ? args[i + 1] : null, nur);
   }
 } catch (fehler) {
   // Punkt 6 im Kopf: Ein Werkzeugfehler sperrt keinen Push. Exit 1 = Warnung, kein Block.
