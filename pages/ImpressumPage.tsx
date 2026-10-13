@@ -48,12 +48,12 @@ const ImpressumPage: React.FC = () => (
     <PageMeta
       canonical="/impressum"
       title="Impressum der BS CarCare GmbH | CarCare Center Leipzig"
-      description="Impressum der BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig: Angaben nach § 5 DDG, Handelsregister, Kontakt und KI-Verzeichnis unserer Bilder."
+      description="Impressum der BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig: Angaben nach § 5 DDG, Handelsregister, Kontakt und KI-Verzeichnis unserer Bilder."
     />
     <PageHero
       eyebrow="Impressum"
       title="Impressum"
-      description="Angaben nach § 5 DDG zur BS CarCare GmbH in Leipzig: Anschrift, Vertretung, Registereintrag, Kammer und Kontakt, dazu unser KI-Verzeichnis."
+      description="Angaben nach § 5 DDG zur BS CarCare GmbH in Leipzig: Anschrift, Vertretung, Registereintrag, Kammer und Kontakt, dazu unser KI-Verzeichnis."
     />
 
     <RechtstextRahmen>
@@ -113,7 +113,7 @@ const ImpressumPage: React.FC = () => (
           <Angabe label="Umsatzsteuer-ID">
             DE 257 851 313
             <span className="mt-1 block text-sm text-gray-600">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz
+              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz
             </span>
           </Angabe>
         </dl>
@@ -191,8 +191,7 @@ const ImpressumPage: React.FC = () => (
         </dl>
         <Absatz>
           Mit KI hinzugefügte Bildteile dienen der Veranschaulichung unserer Leistungen. Sie zeigen keine konkreten, von
-          uns ausgeführten Arbeiten und keine Vorher-Nachher-Ergebnisse. Wie wir dabei mit personenbezogenen Daten
-          umgehen, steht in unserer <Verweis href="/datenschutz#ki">Datenschutzerklärung</Verweis>.
+          uns ausgeführten Arbeiten und keine Vorher-Nachher-Ergebnisse.
         </Absatz>
       </Abschnitt>
 

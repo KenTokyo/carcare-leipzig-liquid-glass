@@ -38,7 +38,7 @@ import { KI_WERKZEUGE } from '../data/bildherkunft';
  * STAND-DATUM bei jeder inhaltlichen Aenderung mitziehen.
  */
 
-const STAND = '04.10.2026';
+const STAND = '14.10.2026';
 
 const AUFSICHT_URL = 'https://www.datenschutz.sachsen.de';
 
@@ -103,12 +103,12 @@ const DatenschutzPage: React.FC = () => (
         <Abschnitt id="hosting" title="Hosting und E-Mail">
           <Absatz>
             Diese Website, unsere Domain carcare-center.de und unsere E-Mail-Postfächer hostet die KUPPER IT GmbH, Prager
-            Straße 15, 04103 Leipzig. Sie verarbeitet in unserem Auftrag (Art. 28 DSGVO) die Daten, die beim Aufruf der
+            Straße 15, 04103 Leipzig. Sie verarbeitet in unserem Auftrag (Art. 28 DSGVO) die Daten, die beim Aufruf der
             Website anfallen, die Inhalte abgesendeter Formulare und die E-Mails, die Sie uns schreiben.
           </Absatz>
           <Absatz>
             Rechtsgrundlage für das Hosting ist unser berechtigtes Interesse an einer sicheren und zuverlässigen
-            Bereitstellung der Website (Art. 6 Abs. 1 lit. f DSGVO).
+            Bereitstellung der Website (Art. 6 Abs. 1 lit. f DSGVO).
           </Absatz>
         </Abschnitt>
 
@@ -117,11 +117,11 @@ const DatenschutzPage: React.FC = () => (
             <Absatz>
               Bei jedem Seitenaufruf erfasst unser Hoster automatisch Daten, die Ihr Browser übermittelt: IP-Adresse,
               Datum und Uhrzeit, aufgerufene Seite oder Datei, die zuvor besuchte Seite (Referrer), Browsertyp und
-              Version, Betriebssystem, Statuscode und übertragene Datenmenge.
+              -version, Betriebssystem, Statuscode und übertragene Datenmenge.
             </Absatz>
             <Absatz>
               Wir brauchen diese Daten, um die Website auszuliefern, ihre Sicherheit zu gewährleisten und Fehler zu
-              beheben. Wir führen sie nicht mit anderen Datenquellen zusammen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f
+              beheben. Wir führen sie nicht mit anderen Datenquellen zusammen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f
               DSGVO. Die Protokolle werden gelöscht, sobald sie für diese Zwecke nicht mehr erforderlich sind.
             </Absatz>
           </Unterabschnitt>
@@ -130,15 +130,15 @@ const DatenschutzPage: React.FC = () => (
           <Unterabschnitt title="Keine Cookies, ein Eintrag für die Startanimation">
             <Absatz>
               Wir setzen keine Cookies. Damit die Startanimation nur beim ersten Aufruf läuft, legen wir im
-              Sitzungsspeicher Ihres Browsers (sessionStorage) einen Eintrag mit dem Wert „bereits gesehen“ ab. Er enthält
+              Sitzungsspeicher Ihres Browsers (sessionStorage) einen Eintrag ab, der nur vermerkt, dass die Animation schon gelaufen ist. Er enthält
               keine Kennung, über die Sie sich wiedererkennen ließen, und verschwindet, sobald Sie das Browserfenster
               schließen. Wir speichern ihn nur, um Ihnen die aufgerufene Website ohne Wiederholung der Animation
-              anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG).
+              anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG).
             </Absatz>
           </Unterabschnitt>
           <Unterabschnitt title="Schriften, Bilder und Videos">
             <Absatz>
-              Schriftarten, Bilder und Videos laden vom selben Server wie die Seite. Eine Verbindung zu Google Fonts,
+              Schriftarten, Bilder und Videos werden vom selben Server geladen wie die Seite. Eine Verbindung zu Google Fonts,
               Kartendiensten, Videoplattformen oder sozialen Netzwerken entsteht beim Aufruf nicht.
             </Absatz>
           </Unterabschnitt>
@@ -153,8 +153,8 @@ const DatenschutzPage: React.FC = () => (
         <Abschnitt id="kontakt" title="Kontakt per E-Mail oder Telefon">
           <Absatz>
             Wenn Sie uns per E-Mail oder telefonisch kontaktieren, verarbeiten wir Ihre Angaben, um Ihr Anliegen zu
-            bearbeiten. Geht es um einen Auftrag oder dessen Vorbereitung, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO,
-            sonst unser berechtigtes Interesse an der Beantwortung Ihrer Anfrage (Art. 6 Abs. 1 lit. f DSGVO). Wir löschen
+            bearbeiten. Geht es um einen Auftrag oder dessen Vorbereitung, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO,
+            sonst unser berechtigtes Interesse an der Beantwortung Ihrer Anfrage (Art. 6 Abs. 1 lit. f DSGVO). Wir löschen
             die Daten, sobald Ihr Anliegen erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
           </Absatz>
           {/* Sicherheitshinweis der alten Erklaerung, Eigenaussage des Kunden. */}
@@ -169,7 +169,7 @@ const DatenschutzPage: React.FC = () => (
             Über unsere Formulare können Sie eine Fahrzeugaufbereitung anfragen oder als Geschäftskunde Kontakt aufnehmen.
             Wir verarbeiten dabei die Angaben, die Sie eintragen: bei der Terminanfrage Ihren Namen, Ihre Telefonnummer
             oder E-Mail-Adresse, Marke und Modell Ihres Fahrzeugs, die gewünschte Leistung und Zusatzleistungen, einen
-            Wunschtermin und Ihre Nachricht, bei Geschäftskunden Firma, Ansprechpartner, Telefonnummer, E-Mail-Adresse,
+            Wunschtermin und Ihre Nachricht; bei Geschäftskunden Firma, Ansprechpartner, Telefonnummer, E-Mail-Adresse,
             Art der Zusammenarbeit und Ihre Nachricht. Pflichtfelder sind gekennzeichnet.
           </Absatz>
           <Absatz>
@@ -180,7 +180,7 @@ const DatenschutzPage: React.FC = () => (
           </Absatz>
           <Absatz>
             Wir verwenden Ihre Angaben ausschließlich, um Ihre Anfrage zu bearbeiten und Rückfragen mit Ihnen zu klären.
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf einen Auftrag zielt, sonst Art. 6
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf einen Auftrag zielt, sonst Art. 6
             Abs. 1 lit. f DSGVO. Wir löschen die Anfrage, sobald sie erledigt ist und keine gesetzlichen
             Aufbewahrungspflichten, etwa nach Handels- oder Steuerrecht, entgegenstehen.
           </Absatz>
@@ -198,8 +198,8 @@ const DatenschutzPage: React.FC = () => (
             Angaben machen Sie erst auf der Schadenseite.
           </Absatz>
           <Absatz>
-            Die PDR.cloud GmbH verarbeitet diese Daten in unserem Auftrag (Art. 28 DSGVO). Wir nutzen sie für die
-            Schadenaufnahme, den Kostenvoranschlag und die Abwicklung der Reparatur (Art. 6 Abs. 1 lit. b DSGVO). Bitte
+            Die PDR.cloud GmbH verarbeitet diese Daten in unserem Auftrag (Art. 28 DSGVO). Wir nutzen die Daten für die
+            Schadenaufnahme, den Kostenvoranschlag und die Abwicklung der Reparatur (Art. 6 Abs. 1 lit. b DSGVO). Bitte
             beachten Sie, dass Fotos von Unfallschäden oft das Kennzeichen und manchmal auch Personen zeigen.
           </Absatz>
         </Abschnitt>
@@ -212,7 +212,7 @@ const DatenschutzPage: React.FC = () => (
             Anhängen in unser Bewerbungspostfach. Auf der Website wird nichts gespeichert.
           </Absatz>
           <Absatz>
-            Rechtsgrundlagen sind § 26 Abs. 1 BDSG und Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines
+            Rechtsgrundlagen sind § 26 Abs. 1 BDSG und Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines
             Beschäftigungsverhältnisses). Kommt es zu einer Einstellung, nehmen wir Ihre Unterlagen in die Personalakte
             auf. Andernfalls löschen wir sie spätestens sechs Monate nach Abschluss des Bewerbungsverfahrens.
           </Absatz>
@@ -236,7 +236,7 @@ const DatenschutzPage: React.FC = () => (
           </div>
           <Absatz>
             Matomo ist eine Open-Source-Software zur Webanalyse. Setzen wir sie ein, dann nur mit Ihrer Einwilligung
-            (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG), die Sie jederzeit mit Wirkung für die Zukunft widerrufen
+            (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG), die Sie jederzeit mit Wirkung für die Zukunft widerrufen
             können. Matomo erfasst dann, welche Seiten Sie wann aufrufen, von welcher Seite Sie kommen und welchen Browser,
             welches Betriebssystem und welche Bildschirmgröße Sie nutzen. Dafür kann Matomo Cookies auf Ihrem Gerät
             speichern.
@@ -252,7 +252,7 @@ const DatenschutzPage: React.FC = () => (
           <Absatz>
             Einige Bilder auf dieser Website haben wir mit künstlicher Intelligenz (KI) bearbeitet. Eingesetzt haben wir
             dafür {KI_EINGESETZT}. Personen, die auf so bearbeiteten Fotos zu sehen sind, haben der Bearbeitung zugestimmt
-            (Art. 6 Abs. 1 lit. a DSGVO, § 22 KUG).
+            (Art. 6 Abs. 1 lit. a DSGVO, § 22 KUG).
           </Absatz>
           <Absatz>
             Beim Besuch dieser Website werden keine Daten an KI-Dienste übermittelt. Die Bildbearbeitung ist ein
@@ -266,27 +266,27 @@ const DatenschutzPage: React.FC = () => (
           <Aufzaehlung
             punkte={[
               <>
-                <strong className="text-gray-950">Auskunft</strong> (Art. 15 DSGVO) über die Daten, die wir über Sie
+                <strong className="text-gray-950">Auskunft</strong> (Art. 15 DSGVO) über die Daten, die wir über Sie
                 verarbeiten, ihre Zwecke, Empfänger und Speicherdauer.
               </>,
               <>
-                <strong className="text-gray-950">Berichtigung</strong> (Art. 16 DSGVO) unrichtiger und Vervollständigung
+                <strong className="text-gray-950">Berichtigung</strong> (Art. 16 DSGVO) unrichtiger und Vervollständigung
                 unvollständiger Daten.
               </>,
               <>
-                <strong className="text-gray-950">Löschung</strong> (Art. 17 DSGVO), soweit keine gesetzliche
+                <strong className="text-gray-950">Löschung</strong> (Art. 17 DSGVO), soweit keine gesetzliche
                 Aufbewahrungspflicht entgegensteht.
               </>,
               <>
-                <strong className="text-gray-950">Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO), etwa solange
+                <strong className="text-gray-950">Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO), etwa solange
                 die Richtigkeit Ihrer Daten geprüft wird.
               </>,
               <>
-                <strong className="text-gray-950">Datenübertragbarkeit</strong> (Art. 20 DSGVO) der Daten, die Sie uns
+                <strong className="text-gray-950">Datenübertragbarkeit</strong> (Art. 20 DSGVO) der Daten, die Sie uns
                 bereitgestellt haben, in einem gängigen, maschinenlesbaren Format.
               </>,
               <>
-                <strong className="text-gray-950">Widerruf einer Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) jederzeit
+                <strong className="text-gray-950">Widerruf einer Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) jederzeit
                 mit Wirkung für die Zukunft. Die bis dahin erfolgte Verarbeitung bleibt rechtmäßig.
               </>,
             ]}
@@ -298,9 +298,9 @@ const DatenschutzPage: React.FC = () => (
 
           {/* Art. 21 Abs. 4 DSGVO: getrennt von anderen Informationen hervorheben, deshalb eigener Kasten. */}
           <div className="mt-8 rounded-2xl border border-gray-950 p-5 md:p-6">
-            <h3 className="mb-3 text-lg font-bold tracking-tight text-gray-950">Widerspruchsrecht nach Art. 21 DSGVO</h3>
+            <h3 className="mb-3 text-lg font-bold tracking-tight text-gray-950">Widerspruchsrecht nach Art. 21 DSGVO</h3>
             <p className="text-base leading-relaxed text-gray-950">
-              Verarbeiten wir Ihre Daten auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO), können
+              Verarbeiten wir Ihre Daten auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO), können
               Sie dieser Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen.
               Wir verarbeiten die Daten dann nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe nachweisen,
               die Ihre Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung,
@@ -310,7 +310,7 @@ const DatenschutzPage: React.FC = () => (
 
           <Unterabschnitt title="Beschwerde bei der Aufsichtsbehörde">
             <Absatz>
-              Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist:
+              Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist:
             </Absatz>
             {/* Anschrift seit April 2025 (Umzug aus der Devrientstrasse), am 04.10.2026 recherchiert. */}
             <Anschrift>
@@ -335,7 +335,7 @@ const DatenschutzPage: React.FC = () => (
         <Abschnitt id="weitere-hinweise" title="Weitere Hinweise">
           <Unterabschnitt title="Keine automatisierten Entscheidungen">
             <Absatz>
-              Wir treffen keine automatisierten Entscheidungen und betreiben kein Profiling im Sinne von Art. 22 DSGVO.
+              Wir treffen keine automatisierten Entscheidungen und betreiben kein Profiling im Sinne von Art. 22 DSGVO.
             </Absatz>
           </Unterabschnitt>
           <Unterabschnitt title="Pflicht zur Angabe">

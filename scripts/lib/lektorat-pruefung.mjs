@@ -30,6 +30,7 @@ const REGELN = [
   { art: 'K', regel: 'Zahl und Einheit: geschütztes Leerzeichen (Stilblatt 5)', re: /\d (?:m²|€|%|km|mm|cm|kg|MB|KB|Uhr)(?![\p{L}²])/gu },
   { art: 'H', regel: 'Preis mit Cent im Fließtext? Nur Kacheln und Preis-Hinweise mit „,00 €“ (Stilblatt 9)', re: /\d,00[ \u00a0]€/g, minLaenge: 25 },
   { art: 'K', regel: '„z. B.“ mit geschütztem Leerzeichen (Stilblatt 5)', re: /\bz\. B\.|\bz\.B\./g },
+  { art: 'K', regel: 'Normzitat: geschütztes Leerzeichen nach „§“ und „Art.“ (Stilblatt 11)', re: /§ ?\d|(?<!\p{L})Art\. \d/gu },
   // Stilblatt 1–4, Kfz, E-Mail
   { art: 'K', regel: '„Spot-Repair“ mit Bindestrich (Stilblatt 1)', re: /Spot Repair/g },
   { art: 'K', regel: '„Smart Repair“ allein getrennt, nur in Zusammensetzungen durchgekoppelt (Stilblatt 2)', re: /Smart-Repair(?!-)/g },

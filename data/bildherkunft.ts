@@ -10,7 +10,7 @@
  * ist, wird hier je Datei EINE Zeile geändert — sonst nichts. Die Plakette am Bild folgt automatisch.
  *
  * WAS DIE KATEGORIEN BEDEUTEN (Definition des Users, 2026-10-04, steht so im KI-Verzeichnis des Impressums):
- *  - `generiert`  („KI-generiert“): in das Foto wurden mit KI Gegenstände oder Personen hineingeneriert.
+ *  - `generiert`  („KI-generiert“): dem Foto wurden mit KI erzeugte Gegenstände oder Personen hinzugefügt.
  *  - `aufgewertet` („KI-bearbeitet“): Grundbild unverändert, nur die Lichtverhältnisse mit KI angepasst.
  * Wer eine Datei einträgt, ordnet sie nach DIESEN Sätzen ein: Ein getauschter Hintergrund ist nicht „aufgewertet“.
  * SEIT 2026-10-03 IST JEDE AUSGELIEFERTE DATEI GEKLÄRT (Herkunftsbogen, Angabe des Users, Block unten): Kein Foto
@@ -47,7 +47,7 @@ export const HERKUNFT_TEXT: Record<Bildherkunft, string> = {
  */
 export const HERKUNFT_ERKLAERUNG: Record<Bildherkunft, string> = {
   generiert:
-    'Ein Foto, in das wir mit KI Gegenstände oder Personen hineingeneriert haben. Mit KI hinzugefügte Personen sind nicht real und zeigen keine Mitarbeitenden unseres Betriebs.',
+    'Ein Foto, dem wir mit KI erzeugte Gegenstände oder Personen hinzugefügt haben. Mit KI hinzugefügte Personen sind nicht real und zeigen keine Mitarbeitenden unseres Betriebs.',
   // Einwilligung der abgebildeten Personen zur KI-Bearbeitung vom User bestätigt (2026-10-04: „Ja“).
   aufgewertet:
     'Ein echtes Foto mit unverändertem Bildinhalt. Mit KI haben wir nur die Lichtverhältnisse angepasst. Abgebildete Personen sind real und haben der Bearbeitung zugestimmt.',

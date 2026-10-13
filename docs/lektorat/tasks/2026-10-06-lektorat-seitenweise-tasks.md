@@ -271,7 +271,7 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 * [ ] ~~Stopp 1: L20–L23-S beim User~~ zurückgestellt (User 08.10.).
 * [ ] ~~Stopp 2: L24–L27~~ zurückgestellt (User 08.10.).
 **Achtung:** Ratgebertexte sind informativ (SEO-GEO 4.1); Fachbegriffe hier besonders auf richtige Erklärung prüfen.
-### 🟨 Phase 10 — L28–L29 Impressum und Datenschutz (Stopp: S beim User)
+### ✅ Phase 10 — L28–L29 Impressum und Datenschutz
 **Achtung:** nur Korrektorat. Jede Änderung markieren, sie geht mit in die anwaltliche Prüfung (R6).
 * [x] 14.10.: Branch `2026-10-06-lektorat` auf `main` vorgespult (nach dem Merge der toten Komponenten), Build, frische
   Auszüge beider Seiten (303 + 1.485 Wörter) ganz gelesen.
@@ -283,7 +283,11 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
   André: DSB und Berufsbezeichnung sind schon im Rechtsseiten-Plan geführt.
 * [x] Vorprüfung: Fehlalarm „Ltd., Dublin“ behoben (`Ltd|Inc|Corp` als Abkürzung in `scripts/lib/lektorat-pruefung.mjs`).
 * [x] Build grün, `meta` 0/29, Gedankenstriche 0, Auszüge vorher/nachher: nur die zwei K, Vorprüfung 2 K → 0 K.
-* [ ] Stopp: S L28-02/03, L29-02 bis 07 beim User; bei 03, 05 oder 06 Stand-Datum der Erklärung mitziehen.
+* [x] **Entscheidung User 14.10.: alle 8 S angenommen und umgesetzt.** Stand-Datum Datenschutz 14.10.2026; L29-07 nach
+  „§“/„Art.“ (Impressum 3, Datenschutz 26, Kommentare unberührt), dazu Stilblatt-Zeile 11 und Vorprüfungsregel „Normzitat“.
+* [x] Build 14.10. 01:41: grün, Gedankenstriche 0, `meta` 0/29, `lektorat` alle 30 Auszüge 0 K (auch die neue Regel),
+  Auszüge vorher/nachher nur das Beschlossene · `kontrast` 6.280 Textstellen, kein Text unter AA · `aussparung` 29 Routen
+  × 3 Fenster ohne Überdeckung, Geometrie an 23 Breiten in Ordnung.
 **Referenzen:**
 `docs/lektorat/befunde/L28-L29-impressum-datenschutz.md`
 `pages/DatenschutzPage.tsx`

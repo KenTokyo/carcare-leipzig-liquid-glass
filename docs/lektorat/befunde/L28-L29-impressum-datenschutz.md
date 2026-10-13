@@ -9,17 +9,21 @@
 
 ## K · Korrekturen (umgesetzt am 14.10.)
 
-Beide ändern keinen Inhalt; das Stand-Datum der Erklärung (04.10.2026) bleibt deshalb.
+Beide ändern keinen Inhalt; das Stand-Datum blieb dafür bei 04.10.2026 (mit den S unten dann auf 14.10.2026 gesetzt).
 
 | Nr | Stelle | Vorher | Nachher | Regel | Quelle |
 |---|---|---|---|---|---|
 | L28-01 | Impressum › Registereintrag, Umsatzsteuer-ID | gemäß § 27 a Umsatzsteuergesetz | gemäß § 27a Umsatzsteuergesetz | amtliche Bezeichnung der Vorschrift („§ 27a UStG“), Buchstabe ohne Leerzeichen an der Zahl | `pages/ImpressumPage.tsx:116` |
 | L29-01 | Datenschutz › Bewerbungen | zusammen höchstens 3 MB (normales Leerzeichen) | zusammen höchstens 3 MB (geschützt) | Stilblatt 5; das Formular selbst schreibt die Grenze schon geschützt (`AnhangFeld.tsx:20`) | `pages/DatenschutzPage.tsx:211` |
 
-## S · Vorschläge (Entscheidung des Users)
+## S · Vorschläge
 
-Wird 03, 05 oder 06 übernommen, ändert sich der Wortlaut der Erklärung: dann das Stand-Datum (`STAND` in
-`DatenschutzPage.tsx`) auf den Tag der Änderung setzen.
+**Entscheidung des Users (14.10.): alle angenommen und umgesetzt.** Stand-Datum der Erklärung auf 14.10.2026 gesetzt,
+weil 03, 05 und 06 den Wortlaut ändern. L29-07 wie vorgeschlagen nur nach „§“ und „Art.“ (Impressum 3, Datenschutz 26
+Stellen; Kommentare im Code unberührt), „Abs.“, „Nr.“, „lit.“ bleiben. Daraus Stilblatt-Zeile 11 und eine neue Regel der
+Vorprüfung, die ungeschützte Normzitate auf allen Routen meldet (Lauf 14.10.: 0 auf 30 Auszügen). Mit L28-02 entfällt
+der Sprung vom KI-Verzeichnis direkt zum KI-Abschnitt der Erklärung (`/datenschutz#ki`); der Abschnitt „Datenschutz“
+darunter verlinkt die ganze Erklärung.
 
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
@@ -30,7 +34,7 @@ Wird 03, 05 oder 06 übernommen, ändert sich der Wortlaut der Erklärung: dann 
 | L29-04 | Datenschutz › Schriften, Bilder und Videos | Schriftarten, Bilder und Videos laden vom selben Server wie die Seite. | Schriftarten, Bilder und Videos werden vom selben Server geladen wie die Seite. | „laden“ ohne Objekt ist Technikjargon (Duden: transitiv); „Auf einen Blick“ sagt „kommen vom selben Server“ | `pages/DatenschutzPage.tsx:141` |
 | L29-05 | Datenschutz › Anfrageformulare (44 Wörter, Vorprüfung H) | … einen Wunschtermin und Ihre Nachricht, bei Geschäftskunden Firma, Ansprechpartner, … | … einen Wunschtermin und Ihre Nachricht; bei Geschäftskunden Firma, Ansprechpartner, … | Zwei Aufzählungen nur durch Komma getrennt; man sieht nicht, wo die erste endet. Das Semikolon gliedert Aufzählungsgruppen (Duden, Regel zum Semikolon) | `pages/DatenschutzPage.tsx:172` |
 | L29-06 | Datenschutz › Schadenmeldung über reparatur.info | Die PDR.cloud GmbH verarbeitet diese Daten in unserem Auftrag (Art. 28 DSGVO). Wir nutzen sie für die Schadenaufnahme, … | … Wir nutzen die Daten für die Schadenaufnahme, … | „sie“ kann sich auf „die PDR.cloud GmbH“ oder auf „diese Daten“ beziehen; gemeint sind die Daten | `pages/DatenschutzPage.tsx:201` |
-| L29-07 | **G:** Normzitate in beiden Texten | § 5 DDG, Art. 6 Abs. 1 lit. f DSGVO (normale Leerzeichen) | Geschütztes Leerzeichen nach „§“ und „Art.“ (§ 5, Art. 6); auf Wunsch auch nach „Abs.“, „Nr.“, „lit.“ | Verhindert Umbrüche wie „§ ⏎ 5“ (Duden empfiehlt das wie bei „z. B.“). Neue Stilblatt-Zeile 9, Gegenprobe dann in L30. Sichtbar: § 2-mal im Impressum und 4-mal im Datenschutz, Art. 22-mal, Abs./Nr./lit. 27-mal | `pages/ImpressumPage.tsx`, `pages/DatenschutzPage.tsx`, Beschreibung Impressum in `seo/` |
+| L29-07 | **G:** Normzitate in beiden Texten | § 5 DDG, Art. 6 Abs. 1 lit. f DSGVO (normale Leerzeichen) | Geschütztes Leerzeichen nach „§“ und „Art.“ (§ 5, Art. 6); auf Wunsch auch nach „Abs.“, „Nr.“, „lit.“ | Verhindert Umbrüche wie „§ ⏎ 5“ (Duden empfiehlt das wie bei „z. B.“). Neue Stilblatt-Zeile 11 (9 und 10 waren schon vergeben), Gegenprobe dann in L30. Sichtbar: § 2-mal im Impressum und 4-mal im Datenschutz, Art. 22-mal, Abs./Nr./lit. 27-mal | `pages/ImpressumPage.tsx`, `pages/DatenschutzPage.tsx`, Beschreibung Impressum in `seo/` |
 
 ## H · Hinweise (keine Änderung)
 

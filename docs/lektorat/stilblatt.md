@@ -43,3 +43,9 @@
 |---|---|---|---|---|---|
 | 9 | Preisformat | **Preiskacheln, Preistabellen und Preis-Hinweise mit Cent** („ab 169,00 €“), **Fließtext, FAQ-Antworten, Titel und Beschreibungen ohne** („ab 169 €“) | „169,00 €“ im Fließtext | ein Format je Textsorte; ganze Euro lesen sich im Satz leichter, in der Kachel zeigt der Cent-Betrag den genauen Preis | 07.10.: Startseite (Privatkunden-Vorteil), dann mit L03 alle Seiten: 34 feste Stellen in 10 Dateien und der Helfer `fliesstextPreis` (`data/detailing.ts`), der FAQ- und Einleitungspreise aus den Kacheldaten bildet |
 | 10 | FAQ-Fragen | in **Kundensicht** erlaubt, auch mit Firmenname als Subjekt („Arbeitet das CarCare Center auch für Autohäuser …?“) | – | Die Frage ist Kundenstimme, nicht Selbstbeschreibung; der Name in der Frage hilft KI-Suchmaschinen (SEO-GEO 4.3). Antworten bleiben in der Wir-Form und beginnen, wo möglich, mit „Ja.“/„Nein.“ | 07.10.: Textregel 2, Ausnahme 3 in `CLAUDE.md` |
+
+## Entscheidungen vom 2026-10-14 (Lektorat L28–L29)
+
+| # | Thema | So schreiben wir | Nicht | Grund | Umgesetzt |
+|---|---|---|---|---|---|
+| 11 | Normzitate | **geschütztes Leerzeichen nach „§“ und „Art.“** vor der Zahl: „§ 5 DDG“, „Art. 6 Abs. 1 lit. f DSGVO“; Buchstaben am Paragrafen ohne Leerzeichen („§ 27a“) | „§ ⏎ 5“ am Zeilenende, „§ 27 a“ | Zeichen und Zahl gehören zusammen (Duden-Empfehlung wie bei „z. B.“). „Abs.“, „Nr.“, „lit.“ bleiben mit normalem Leerzeichen | 14.10.: Impressum 3, Datenschutz 26 Stellen; Vorprüfung meldet neue Fälle |
