@@ -60,7 +60,7 @@ Ausgeschlossen: `react-grab` läuft nur im Dev-Modus (`import.meta.env.DEV`), ni
 ### ✅ Phase 3 — Caching auf Vercel
 * [x] Regeln im Generator `scripts/generate-vercel-config.mjs` (sonst überschreibt `npm run vercel-config` sie), `vercel.json` neu erzeugt: `/assets/(.*).(js|css)` → `public, max-age=31536000, immutable`; `/assets/(.*).(webp|png|jpg|jpeg|svg|avif|gif|ico|mp4|webm|woff2)` → `public, max-age=86400, stale-while-revalidate=604800`. HTML bleibt beim Vercel-Standard.
 * [x] `check-vercel-config` vergleicht nur Rewrites: weiter grün, nichts mitzuziehen.
-* [ ] Nach dem Deploy prüfen: `curl -sI https://carcare-center.vercel.app/assets/<datei>` zeigt die neuen Werte (lokal nicht prüfbar, `vite preview` liest `vercel.json` nicht).
+* [x] Nach dem Deploy geprüft (05.10., Push `19647ec`, live nach rund 5 min): HTML `max-age=0, must-revalidate` (unverändert, richtig), `/assets/index-*.js` `max-age=31536000, immutable`, Bilder, Videos und Schrift `max-age=86400, stale-while-revalidate=604800`, Logo-Video live 33.140 Byte.
 **Referenzen:**
 `vercel.json`
 
