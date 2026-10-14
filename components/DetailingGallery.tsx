@@ -1,33 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-  type MotionValue,
-} from 'framer-motion';
+import React from 'react';
 import { Car, Droplets, Gauge, ShieldCheck, Sparkles, Wrench } from 'lucide-react';
 import { SectionIntro } from './PageBlocks';
 import GanzwortTitel from './GanzwortTitel';
+import CoverflowKarussell from './CoverflowKarussell';
 
 /**
- * DetailingGallery — Mehrspalten-Parallax-Galerie (inspiriert von skiper-ui
- * skiper30 / olivierlarose). Mehrere Bild-Spalten wandern beim Scrollen mit
- * unterschiedlicher Geschwindigkeit -> Tiefen-/Parallax-Effekt.
+ * DetailingGallery: Sektion „Einblicke · Ergebnisse, die man sieht.“ auf /fahrzeugaufbereitung-leipzig.
  *
- * Nur Framer Motion (bereits im Projekt). Die globale `scroll-behavior: smooth`
- * (index.css) ersetzt Lenis, daher KEINE zusaetzliche Dependency.
+ * SEIT 2026-10-14 EIN KARUSSELL nach skiper49 (User: „genau in der Art und Weise wie im Link“): drei Karten nebeneinander,
+ * die mittlere flach, die seitlichen nach hinten gekippt, Ziehen/Wischen, Endlosschleife, Punkte darunter. Mechanik in
+ * `components/CoverflowKarussell.tsx`, Vorlage, Messwerte und Entscheidung in `docs/einblicke-karussell/tasks/`. Bis dahin
+ * eine Parallax-Galerie in vier Spalten (skiper30) mit ruhigem Raster bei reduzierter Bewegung; beides ist entfallen.
  *
- * Bilder sind Marken-Platzhalter (Verlaufskacheln mit Icon + Label), bis echte Fotos kommen (seit 2026-10-14 nach und
- * nach, B48–B58). Zum Austausch bei einem Eintrag `src` (+ `alt`) setzen -> es wird dann ein <img> statt des
- * Platzhalters gerendert. Die Fotos entstehen mit `npm run fotos` (Eintraege „GALERIE“ in `scripts/lib/fotos-liste.mjs`).
+ * DIE KARTEN BLEIBEN, WIE SIE SIND (User): abgerundet, Foto mit Vignette im Galerie-Blau, Symbol und Name weiss unten
+ * links (`Tile`). Sie sind nur groesser: Drei Karten fuellen die Breite, auf dem Smartphone steht die mittlere gross, die
+ * Nachbarn sind angeschnitten.
  *
- * Mechanik (gap-frei per Konstruktion): Jede Spalte ist hoeher als das
- * `overflow-hidden`-Band und wird ueber ihren gesamten Ueberhang verschoben.
- * Spalten mit mehr Kacheln haben mehr Ueberhang -> driften schneller -> Parallax.
- *
- * Mobile-First: 2 Spalten (Mobile) -> 3 (md) -> 4 (lg). Bei prefers-reduced-motion
- * wird eine ruhige statische Galerie ohne Parallax gerendert.
+ * Fotos: `src` (+ `alt`) je Eintrag, erzeugt mit `npm run fotos` (Eintraege „GALERIE“ in `scripts/lib/fotos-liste.mjs`).
+ * Ohne `src` rendert die Kachel den Platzhalter (Verlauf, „Beispiel“); seit 2026-10-14 hat jede Kachel ein Foto.
  */
 
 const ICONS = { Sparkles, Car, Droplets, Wrench, Gauge, ShieldCheck } as const;
@@ -50,8 +40,7 @@ const GRADIENTS = [
   'from-gray-950 via-gray-900 to-blue-800',
 ];
 
-// Platzhalter-Motive rund um die Fahrzeugaufbereitung. `src` je Eintrag ergaenzen,
-// sobald echte Fotos vorliegen (z. B. src: '/assets/galerie/innenraum.jpg').
+// Motive rund um die Fahrzeugaufbereitung, in dieser Reihenfolge im Karussell (das erste steht beim Laden in der Mitte).
 //
 // NICHT WIEDER AUFNEHMEN: „Scheinwerfer-Politur“ wurde am 2026-09-02 entfernt
 // (Backlog 1.12, rechtlich heikel). Es war die einzige Fundstelle im ganzen Projekt.
@@ -146,33 +135,21 @@ const ITEMS: GalleryItem[] = [
   },
 ];
 
-// Kachel-Anzahl je Spalte -> unterschiedliche Ueberhaenge = unterschiedliche
-// Drift-Geschwindigkeit. Offsets streuen die Motive ueber die Spalten.
-const COLUMNS: { count: number; offset: number; visibility: string }[] = [
-  { count: 4, offset: 0, visibility: '' },
-  { count: 5, offset: 4, visibility: '' },
-  { count: 4, offset: 9, visibility: 'hidden md:flex' },
-  { count: 5, offset: 1, visibility: 'hidden lg:flex' },
-];
-
-const buildColumn = (count: number, offset: number): GalleryItem[] =>
-  Array.from({ length: count }, (_, i) => ITEMS[(offset + i) % ITEMS.length]);
-
 /* ------------------------------------------------------------------ */
-/* Einzelne Kachel — Platzhalter-Verlauf oder echtes Foto              */
+/* Einzelne Kachel: echtes Foto oder Platzhalter-Verlauf               */
 /* ------------------------------------------------------------------ */
-const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, heightPx }) => {
+const Tile: React.FC<{ item: GalleryItem }> = ({ item }) => {
   const Icon = ICONS[item.iconName];
   // Symbol und Name unten links, weiss: auf dem Platzhalter UND auf dem Foto (User 2026-10-14, nach dem ersten Foto B54:
   // Name und Symbol fehlten dort). Eine Quelle, damit beide Kachelarten gleich beschriftet bleiben.
   //
-  // NAME OHNE TRENNSTRICH (`GanzwortTitel` als `span`): Mobil ist die Kachel rund 145 px breit, „Innenaufbereitung“ lief
-  // bis 2026-10-14 über den Rand und wurde abgeschnitten („Innenaufbereitu“). Silbentrennung scheidet aus (User 03.10.:
-  // keine Bindestriche zur Worttrennung in Kacheln). Jetzt bleibt jedes Wort ganz; nur wenn es nicht passt, wird die
-  // Schrift so weit kleiner. Dafuer mobil (2 Spalten, unter `md`) etwas weniger Innenabstand und ein kleineres Symbolfeld.
+  // NAME OHNE TRENNSTRICH (`GanzwortTitel` als `span`): Silbentrennung scheidet aus (User 03.10.: keine Bindestriche zur
+  // Worttrennung in Kacheln). Jedes Wort bleibt ganz; nur wenn es nicht passt, wird die Schrift so weit kleiner. Bis
+  // 2026-10-14 wurde „Innenaufbereitung“ in der 145 px schmalen Mobilkachel abgeschnitten („Innenaufbereitu“).
+  // Die Groesse waechst mit der Karte (Karussell seit 2026-10-14): 13 px mobil, 16 px ab `md`.
   const beschriftung = (
-    <div className="flex items-center gap-1.5 text-white md:gap-2">
-      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 md:h-8 md:w-8">
+    <div className="flex items-center gap-1.5 text-white md:gap-2.5">
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 md:h-9 md:w-9">
         <Icon size={16} />
       </span>
       <GanzwortTitel
@@ -180,26 +157,13 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
         text={item.label}
         laufweite={-0.025}
         huelle="min-w-0 flex-1"
-        className="block font-bold leading-tight tracking-tight [--titel-max:0.75rem]"
+        className="block font-bold leading-tight tracking-tight [--titel-max:0.8125rem] md:[--titel-max:1rem]"
       />
     </div>
   );
   return (
     <div
-      /*
-       * `h-full` OHNE `heightPx` ist Pflicht, nicht Kosmetik: Im `StaticGrid`
-       * (prefers-reduced-motion) steckt die Kachel in einem `aspect-[3/4]`-Wrapper und
-       * bekommt KEINE Pixelhoehe. Ohne `h-full` blieb die Hoehe hier `auto` und richtete
-       * sich nach dem Inhalt — der innere Verlauf mit `h-full` fand dann eine
-       * auto-hohe Elternbox vor und kollabierte mit. Gemessen bei 1200 px Breite:
-       * Wrapper 291x388, Kachel 291x80. Sichtbar als flache Kacheln mit grossen Luecken.
-       *
-       * ACHTUNG bei Aenderungen: Der animierte Zweig setzt `heightPx` und liegt in einem
-       * Flex-Column-Container — dort waere `h-full` falsch und wuerde die Pixelhoehe
-       * ueberschreiben. Deshalb genau eines von beidem, nie beides.
-       */
-      className={`group relative w-full shrink-0 overflow-hidden rounded-2xl shadow-lg shadow-black/20 ring-1 ring-white/10 ${heightPx ? '' : 'h-full'}`}
-      style={heightPx ? { height: `${heightPx}px` } : undefined}
+      className="group relative h-full w-full overflow-hidden rounded-2xl shadow-lg shadow-black/20 ring-1 ring-white/10"
       // Platzname fuer `npm run bilder` (seit 2026-10-02): Kommt das Foto, behaelt es die Nummer des Platzhalters
       // mit demselben Namen (B48 ff.). Ohne das Merkmal entstuende eine neue Nummer, die alte entfiele.
       data-bild-ort={item.label}
@@ -210,6 +174,9 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
             src={item.src}
             alt={item.alt ?? item.label}
             loading="lazy"
+            decoding="async"
+            // Kein natives Bild-Ziehen: Es wuerde das Wischen des Karussells abfangen.
+            draggable={false}
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
           {/*
@@ -219,24 +186,17 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
           */}
           <div aria-hidden="true" className="cc-galerie-vignette absolute inset-0" />
           {/* Leichter Textschatten: Die Vignette ist an der Unterkante schwaecher als in der Ecke; helle Bildstellen bleiben so lesbar. */}
-          <div className="absolute inset-x-0 bottom-0 p-3 [text-shadow:0_1px_6px_rgb(var(--cc-carbon-rgb)/0.65)] md:p-4">{beschriftung}</div>
+          <div className="absolute inset-x-0 bottom-0 p-3 [text-shadow:0_1px_6px_rgb(var(--cc-carbon-rgb)/0.65)] md:p-5">{beschriftung}</div>
         </>
       ) : (
         <div
           // Markiert die Stelle fuer `npm run bilder` als „hier fehlt ein Foto“ (Backlog 3.23).
           // Ein Verlauf ist fuer den Rundgang sonst nicht von Dekoration zu unterscheiden.
           data-bild-platzhalter={item.label}
-          className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-3 transition-transform md:p-4 duration-700 ease-out group-hover:scale-[1.04]`}
+          className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-3 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-5`}
         >
-          {/*
-            KEIN `backdrop-blur` auf Badge und Icon-Feld (entfernt 2026-08-10). Beide
-            liegen auf einem gleichmaessigen Verlauf — ein Blur davon ist visuell kaum
-            wahrnehmbar. Kosten dagegen erheblich: Bei aktivem Parallax bewegen sich rund
-            18 Kacheln pro Frame, jede mit zwei `backdrop-filter`-Flaechen, die dabei
-            ihren Hintergrund neu abtasten muessen. Das ist im kompositierten
-            `.site-main-shell` (`transform: translateZ(0)`) eine typische Quelle fuer
-            Flimmern und Schlieren.
-          */}
+          {/* KEIN `backdrop-blur` auf Badge und Icon-Feld (entfernt 2026-08-10): auf einem gleichmaessigen Verlauf kaum
+              sichtbar, in bewegten Kacheln aber eine typische Quelle fuer Flimmern und Schlieren. */}
           <span className="self-end rounded-full bg-white/10 px-2 py-[3px] text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70">
             Beispiel
           </span>
@@ -248,128 +208,32 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
 };
 
 /* ------------------------------------------------------------------ */
-/* Eine driftende Spalte                                               */
+/* Sektion                                                             */
 /* ------------------------------------------------------------------ */
-const Column: React.FC<{
-  items: GalleryItem[];
-  y: MotionValue<number>;
-  gapPx: number;
-  tileHpx: number;
-  visibility: string;
-}> = ({ items, y, gapPx, tileHpx, visibility }) => (
-  <motion.div
-    aria-hidden="true"
-    className={`relative flex min-w-0 flex-1 flex-col ${visibility}`}
-    style={{ y, gap: `${gapPx}px` }}
-  >
-    {items.map((item, i) => (
-      <Tile key={`${item.label}-${i}`} item={item} heightPx={tileHpx} />
-    ))}
-  </motion.div>
+const DetailingGallery: React.FC = () => (
+  <section id="einblicke" className="bg-white px-6 py-20 md:py-28">
+    <div className="container mx-auto">
+      <SectionIntro
+        eyebrow="Einblicke"
+        title="Ergebnisse, die man sieht."
+        description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung."
+      />
+      {/*
+        KARTENBREITE `--karte` in `cqi` der Karussell-Huelle (= Containerbreite). Drei Karten fuellen die Breite, wenn die
+        mittlere rund 34 % misst: Die gekippten Nachbarn reichen nach der Coverflow-Projektion bis rund 1,43 Kartenbreiten
+        aus der Mitte (an der Vorlage gemessen: 300-px-Karten in einer 856 px breiten Buehne). Obergrenze 30rem, damit die
+        Karten auf grossen Bildschirmen nicht hoeher werden als das Fenster. Mobil 62 %: Die mittlere Karte steht gross, die
+        Nachbarn sind angeschnitten.
+      */}
+      <CoverflowKarussell
+        eintraege={ITEMS}
+        karte={(item) => <Tile item={item} />}
+        name={(item) => item.label}
+        bezeichnung="Einblicke in unsere Fahrzeugaufbereitung"
+        className="[--karte:62cqi] md:[--karte:min(34cqi,30rem)]"
+      />
+    </div>
+  </section>
 );
-
-/* ------------------------------------------------------------------ */
-/* Statischer Fallback (prefers-reduced-motion)                        */
-/* ------------------------------------------------------------------ */
-const StaticGrid: React.FC = () => (
-  <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-    {ITEMS.map((item, i) => (
-      <div key={`${item.label}-${i}`} className="aspect-[3/4]">
-        <Tile item={item} />
-      </div>
-    ))}
-  </div>
-);
-
-/* ------------------------------------------------------------------ */
-/* Galerie                                                             */
-/* ------------------------------------------------------------------ */
-const DetailingGallery: React.FC = () => {
-  const bandRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-
-  const [viewport, setViewport] = useState(() => ({
-    w: typeof window !== 'undefined' ? window.innerWidth : 1280,
-    h: typeof window !== 'undefined' ? window.innerHeight : 800,
-  }));
-
-  useEffect(() => {
-    const onResize = () => setViewport({ w: window.innerWidth, h: window.innerHeight });
-    window.addEventListener('resize', onResize);
-    onResize();
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: bandRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Massgaben skalieren mit der Viewport-Hoehe; auf Mobile flacher/kompakter.
-  const isMobile = viewport.w < 768;
-  const tileHpx = Math.round((isMobile ? 0.34 : 0.42) * viewport.h);
-  const gapPx = Math.round((isMobile ? 0.02 : 0.028) * viewport.h);
-  const bandHpx = Math.round((isMobile ? 1.05 : 1.4) * viewport.h);
-
-  const overflow = (count: number) =>
-    Math.max(count * tileHpx + (count - 1) * gapPx - bandHpx, 0);
-
-  // 4 feste Transforms (Hooks duerfen nicht in Schleifen laufen).
-  const y0 = useTransform(scrollYProgress, [0, 1], [0, -overflow(COLUMNS[0].count)]);
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -overflow(COLUMNS[1].count)]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -overflow(COLUMNS[2].count)]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -overflow(COLUMNS[3].count)]);
-  const ys = [y0, y1, y2, y3];
-
-  return (
-    <section id="einblicke" className="bg-white px-6 py-20 md:py-28">
-      <div className="container mx-auto">
-        <SectionIntro
-          eyebrow="Einblicke"
-          title="Ergebnisse, die man sieht."
-          description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung."
-        />
-
-        {/*
-          `bandRef` haengt am AEUSSEREN Container und damit in BEIDEN Zweigen.
-          Vorher trug ihn nur der Animations-Zweig: Bei aktiviertem
-          `prefers-reduced-motion` rendert `StaticGrid`, der Ref blieb leer und
-          `useScroll({ target: bandRef })` warf „Target ref is defined but not hydrated" —
-          ein ungefangener Fehler, der React die GESAMTE Seite abraeumen liess
-          (/fahrzeugaufbereitung-leipzig blieb komplett weiss).
-
-          Das traf real: Windows meldet reduced-motion systemweit (siehe Projektnotiz),
-          und der Prerender bemerkt es nicht, weil Headless-Chrome es nicht meldet —
-          das statische HTML war vollstaendig, erst der Client-Mount brach ab.
-        */}
-        <div ref={bandRef}>
-          {prefersReducedMotion ? (
-            <StaticGrid />
-          ) : (
-            <div
-              className="relative flex items-start gap-3 overflow-hidden rounded-[2rem] bg-gray-950 p-3 shadow-[0_34px_90px_-62px_rgb(var(--cc-carbon-rgb)/0.58)] ring-1 ring-white/10 sm:gap-4 sm:p-4"
-              style={{ height: `${bandHpx}px` }}
-            >
-              {COLUMNS.map((col, i) => (
-                <Column
-                  key={i}
-                  items={buildColumn(col.count, col.offset)}
-                  y={ys[i]}
-                  gapPx={gapPx}
-                  tileHpx={tileHpx}
-                  visibility={col.visibility}
-                />
-              ))}
-
-              {/* Weiche Kaschierung oben/unten, damit Kacheln am Bandrand einfaden */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-gray-950 to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-gray-950 to-transparent" />
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 export default DetailingGallery;
