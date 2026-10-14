@@ -1,6 +1,6 @@
 {
   "_hinweis": "Von `npm run bilder` gepflegt. NICHT von Hand umnummerieren: Die Nummern sind Absprachen mit dem Kunden. Eine Nummer wird nie neu vergeben.",
-  "naechste": 153,
+  "naechste": 154,
   "stellen": {
     "alle|ladebildschirm|||bild|desktop|": {
       "nr": 1,
@@ -98,9 +98,9 @@
       "datei": "kacheln/felgenreparatur-leipzig-carcare.webp",
       "rahmen": "/|leistungen|bild|"
     },
-    "/|leistungen||Autoglas / Scheibenfolien•|bild||": {
+    "/|leistungen||Autoglas & Scheibenfolien•|bild||": {
       "nr": 16,
-      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Autoglas / Scheibenfolien•“",
+      "ort": "„Unsere Leistungen rund ums Fahrzeug“ › Karte „Autoglas & Scheibenfolien•“",
       "datei": "kacheln/autoglas-scheibenreparatur-leipzig-carcare.webp",
       "rahmen": "/|leistungen|bild|"
     },
@@ -118,31 +118,31 @@
     },
     "/|unfall-schaden||Schaden melden|bild||": {
       "nr": 19,
-      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Schaden melden“",
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Kalkulation und …“ › Karte „Schaden melden“",
       "datei": "kacheln/schaden-melden-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
     "/|unfall-schaden||Schadenaufnahme|bild||": {
       "nr": 20,
-      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Schadenaufnahme“",
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Kalkulation und …“ › Karte „Schadenaufnahme“",
       "datei": "kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
     "/|unfall-schaden||Gutachten & Kalkulation|bild||": {
       "nr": 21,
-      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Gutachten & Kalkulation“",
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Kalkulation und …“ › Karte „Gutachten & Kalkulation“",
       "datei": "kacheln/kalkulation-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
     "/|unfall-schaden||Versicherungsabwicklung|bild||": {
       "nr": 22,
-      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Versicherungsabwicklung“",
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Kalkulation und …“ › Karte „Versicherungsabwicklung“",
       "datei": "kacheln/versicherungsabwicklung-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
     "/|unfall-schaden||Ersatzwagen nach Verfügbarkeit|bild||": {
       "nr": 23,
-      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Gutachten und …“ › Karte „Ersatzwagen nach Verfügbarkeit“",
+      "ort": "„Unfallschaden? Wir übernehmen Reparatur, Kalkulation und …“ › Karte „Ersatzwagen nach Verfügbarkeit“",
       "datei": "kacheln/ersatzwagen-leipzig-carcare.webp",
       "rahmen": "/|unfall-schaden|bild|"
     },
@@ -788,46 +788,46 @@
       "datei": "carcare-bereich-aufbereitung.mp4",
       "rahmen": "/ueber-uns|betriebsrundgang|video|"
     },
-    "/karriere|jobbereiche||Kfz-Aufbereiter•|bild||": {
+    "/karriere|jobbereiche||Kfz-Aufbereiter (m/w/d)•|bild||": {
       "nr": 103,
-      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Kfz-Aufbereiter•“",
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Kfz-Aufbereiter (m/w/d)•“",
       "datei": "kacheln/karriere-aufbereiter-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche||Fahrzeuglackierer•|bild||": {
+    "/karriere|jobbereiche||Fahrzeuglackierer (m/w/d)•|bild||": {
       "nr": 104,
-      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Fahrzeuglackierer•“",
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Fahrzeuglackierer (m/w/d)•“",
       "datei": "kacheln/lackierkabine-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche||Karosserie- und Fahrzeugbaumechaniker•|bild||": {
+    "/karriere|jobbereiche||Karosserie- und Fahrzeugbaumechaniker (m/w/d)•|bild||": {
       "nr": 105,
-      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Karosserie- und Fahrzeugbaumechaniker•“",
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Karosserie- und Fahrzeugbaumechaniker (m/w/d)•“",
       "datei": "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche||Serviceberater•|bild||": {
+    "/karriere|jobbereiche||Serviceberater (m/w/d)•|bild||": {
       "nr": 106,
-      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Serviceberater•“",
-      "datei": "kacheln/autohaus-fuhrpark-service-leipzig-carcare.webp",
+      "ort": "„Vier Gewerke unter einem Dach“ › Karte „Serviceberater (m/w/d)•“",
+      "datei": "kacheln/karriere-serviceberater-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche|Ausbildung im Betrieb.|Fahrzeuglackierer/in•|bild||": {
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Fahrzeuglackierer (m/w/d)•|bild||": {
       "nr": 107,
-      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Fahrzeuglackierer/in•“",
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Fahrzeuglackierer (m/w/d)•“",
       "datei": "kacheln/lackierkabine-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche|Ausbildung im Betrieb.|Karosserie- und Fahrzeugbaumechaniker/in•|bild||": {
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Karosserie- und Fahrzeugbaumechaniker (m/w/d)•|bild||": {
       "nr": 108,
-      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Karosserie- und Fahrzeugbaumechaniker/in•“",
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Karosserie- und Fahrzeugbaumechaniker (m/w/d)•“",
       "datei": "kacheln/karriere-fahrzeugbau-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
-    "/karriere|jobbereiche|Ausbildung im Betrieb.|Industriekaufmann/-frau•|bild||": {
-      "nr": 109,
-      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Industriekaufmann/-frau•“",
-      "datei": "kacheln/kalkulation-leipzig-carcare.webp",
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Bürokaufmann (m/w/d)•|bild||": {
+      "nr": 153,
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Bürokaufmann (m/w/d)•“",
+      "datei": "kacheln/karriere-buerokauffrau-leipzig-carcare.webp",
       "rahmen": "/karriere|jobbereiche|bild|"
     },
     "/karriere|betrieb|||standbild||": {
@@ -915,6 +915,12 @@
       "ort": "„Autoaufbereitung ist mehr als Reinigung. Es ist Werterhalt“ › Karte „Mehr über Aufbereitung erfahren“",
       "datei": "kacheln/wissensdatenbank-leipzig-carcare.webp",
       "seit": "2026-09-27"
+    },
+    "/karriere|jobbereiche|Ausbildung im Betrieb.|Industriekaufmann/-frau•|bild||": {
+      "nr": 109,
+      "ort": "„Vier Gewerke unter einem Dach“ › „Ausbildung im Betrieb“ › Karte „Industriekaufmann/-frau•“",
+      "datei": "kacheln/kalkulation-leipzig-carcare.webp",
+      "seit": "2026-10-14"
     }
   }
 }

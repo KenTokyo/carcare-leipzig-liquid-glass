@@ -95,6 +95,9 @@ const BetriebsVideo: React.FC<BetriebsVideoProps> = ({ platz, format = '16/9' })
           playsInline
           preload={inSichtweite ? 'metadata' : 'none'}
           aria-label={platz.beschreibung}
+          // Fuer `npm run bilder`: Der Rundgang scrollt nicht, `src` fehlt also ausserhalb der Sichtweite.
+          // Ohne diesen Hinweis verloren B102/B111 beim Lauf vom 2026-10-14 ihre Nummern.
+          data-video-quelle={platz.quelle}
         />
       </figure>
     );

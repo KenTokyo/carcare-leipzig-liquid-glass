@@ -71,7 +71,9 @@ export function sammleImBrowser() {
     if (el.tagName === 'IMG') { const u = quelle(el); if (u) melde(el, 'bild', u); }
     if (el.tagName === 'VIDEO') {
       const poster = el.getAttribute('poster');
-      const src = el.currentSrc || el.getAttribute('src') || el.querySelector('source[src]')?.getAttribute('src');
+      // `data-video-quelle`: BetriebsVideo setzt `src` erst in Sichtweite (seit 2026-10-05), der Rundgang scrollt nicht.
+      const src = el.currentSrc || el.getAttribute('src') || el.querySelector('source[src]')?.getAttribute('src')
+        || el.getAttribute('data-video-quelle');
       if (poster) melde(el, 'standbild', poster);
       if (src) melde(el, 'video', src, { standbild: poster || '' });
     }
