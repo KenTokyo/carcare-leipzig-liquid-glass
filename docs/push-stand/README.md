@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 20:04, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 23:40, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 20:03 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 23:40 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `74b18fb` | `36fc985` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `74b18fb` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `b805a8f` | `dd0ef22` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `b805a8f` | — | neu, 1 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `74b18fb` | 14.10.2026, 20:03 | oalabhypercode | Fahrzeugaufbereitung: Galerie Einblicke als Coverflow-Karussell nach skiper49 | 5 (2 neu) | — | **kommt mit diesem Push** |
+| `b805a8f` | 14.10.2026, 23:40 | oalabhypercode | Statusabgleich 14.10.: Entscheidungen des Users eingetragen | 10 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,7 +29,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `74b18fb` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `b805a8f` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -47,7 +47,7 @@ Dazu als oberster Commit: diese Übersicht.
 
 Keine offenen Folgepunkte in den berührten Planungsdateien.
 
-### Backlog gesamt: 24 offene Punkte
+### Backlog gesamt: 21 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -113,15 +113,12 @@ Quelle: `docs/backlog/schleife-6.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 11 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 8 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
 | R5 | Impressumsangaben vervollständigen. Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer… | offen · Berufsbezeichnung geliefert (4.11: „Meisterbetrieb… | André |
 | R6 | Datenschutzerklärung schreiben. `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nach… | offen · Zeitpunkt: zum Schluss (User 2026-09-16) · neues Pf… | André + Datenschutzbeauftragt… |
-| R3 | Erklärtexte für sieben Leistungsseiten, je 2–3 Absätze „Was ist X?" | offen · im Meeting 2026-09-25 nicht besprochen | André |
-| R4 | Ausbildung bestätigen (wird im kommenden Jahrgang ausgebildet?) plus je Beruf Beginn, Dauer, Voraussetzungen,… | 🟨 bestätigt 2026-09-25 — Ausbildung aktiv, Karosserie und… | André |
-| 1.26 | Benefits + Mitarbeiterstimmen für die Karriereseite | offen · Mitarbeiterstimmen → 🔁 5.28 (neu: Foto optional; S… | André |
 | – | Anhalte-Möglichkeit für die drei automatisch laufenden Videos (WCAG 2.2.2: Bewegung über 5 s braucht Pause/St… | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/20… | OALAB |
 | – | Drohnen- und Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte 3.23… | 🟨 teilweise — am 2026-09-23 sind 3 der 12 Drohnenclips als… | OALAB |
 | R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
