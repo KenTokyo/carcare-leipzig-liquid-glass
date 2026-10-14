@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 14.10.2026, 17:59 | `2026-10-06-lektorat`, `main` | `1d98adf` (1) | nein | — |
 | 14.10.2026, 02:39 | `2026-10-06-lektorat`, `main` | `4b875c7` (1) | nein | — |
 | 14.10.2026, 02:12 | `2026-10-06-lektorat`, `main` | `b2a2609` `dbee2ee` (2) | nein | — |
 | 14.10.2026, 02:00 | `2026-10-06-lektorat`, `main` | `7189ac2` `168ec66` `411e7fe` `2d0befd` `bd1f65f` (5) | nein | neue Skripte: tote-dateien |
