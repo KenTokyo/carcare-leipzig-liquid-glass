@@ -151,7 +151,7 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/versicherung-schadenabwicklung-leipzig-carcare.webp': 'aufgewertet', // Nr. 10
   '/assets/kacheln/kalkulation-leipzig-carcare.webp': 'aufgewertet', // Nr. 11
   '/assets/kacheln/versicherungsabwicklung-leipzig-carcare.webp': 'aufgewertet', // Nr. 12
-  '/assets/kacheln/privatkunden-leipzig-carcare.webp': 'aufgewertet', // Nr. 13
+  // Nr. 13 (`privatkunden-leipzig-carcare.webp`) am 2026-10-14 abgelöst und archiviert, siehe Kundenempfang unten.
   '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp': 'aufgewertet', // Nr. 14
   '/assets/kacheln/fahrzeugabgabe-leipzig-carcare.webp': 'aufgewertet', // Nr. 15
 
@@ -171,6 +171,14 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   // Karte „Serviceberater“ (B106), eingebaut 2026-10-05: echtes Foto aus unserem Büro, Angabe des Users wie oben.
   // Nur 4:3-Ausschnitt aus dem Hochformat (`npm run fotos`), keine KI.
   '/assets/kacheln/karriere-serviceberater-leipzig-carcare.webp': 'echt',
+  // Kundenempfang (B24, B32, B75), eingebaut 2026-10-14, ersetzt Nr. 13. Der User: mit „Chat GPT Image 2.5 Sunburst“
+  // aufgewertet, Ursprungsdatei und Motiv original, Zustimmungen aller abgebildeten Personen liegen vor. In der Datei
+  // maschinenlesbar als IPTC `compositeWithTrainedAlgorithmicMedia` (`scripts/lib/fotos-liste.mjs`).
+  // Nachgefragt am 14.10.: Genutzt über die Plattform Higgsfield, Engine wie genannt; das Urbild ist „nahezu sehr gering
+  // verändert“ (Scheinschrift auf Namensschild und Aufsteller fällt darunter). `KI_WERKZEUGE` nennt bisher nur OpenAI.
+  '/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp': 'aufgewertet',
+  // Derselbe Kundenempfang als Ausschnitt für den Seitenhintergrund von /privatkunden (B75), nur zugeschnitten.
+  '/assets/kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp': 'aufgewertet',
 };
 
 /**

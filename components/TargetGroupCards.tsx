@@ -34,7 +34,8 @@ const groups: TargetGroup[] = [
     // vor `/privatkunden` (Seite kam erst mit 78c3893). Dadurch war die Privatkundenseite
     // von der Startseite aus nur ueber das Navbar-Menue erreichbar.
     href: '/privatkunden',
-    backgroundImage: '/assets/kacheln/privatkunden-leipzig-carcare.webp',
+    // Seit 2026-10-14 das Empfangsfoto (B24; dieselbe Datei an B32 und B75, `scripts/lib/fotos-liste.mjs`).
+    backgroundImage: '/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp',
   },
   {
     id: 'versicherungen',

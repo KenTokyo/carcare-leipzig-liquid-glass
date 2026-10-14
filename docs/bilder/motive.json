@@ -266,9 +266,14 @@
       "herkunft": "echt laut Herkunftsbogen 03.10.2026, Angabe des Users („final“), Nr. 7; deckt sich mit dem Meeting 25.09.2026 (18:25). Vorher: nicht dokumentiert (16.07.2026)",
       "offen": ""
     },
-    "kacheln/privatkunden-leipzig-carcare.webp": {
-      "motiv": "Empfangstresen mit CarCare-Center-Logo, Mitarbeiterin berät einen Kunden",
-      "herkunft": "echtes Foto, mit KI bearbeitet („KI-aufgewertet“) laut Herkunftsbogen 03.10.2026, Angabe des Users („final“), Nr. 13; ⚠️ im Meeting 25.09.2026 „KI-generiert“ (30:40), es gilt die spätere Angabe. Vorher: laut Commit acfcd0c „echte Fotos“ (22.07.2026)",
+    "kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp": {
+      "motiv": "Kunde übergibt am Empfangstresen mit CarCare-Center-Logo seinen Fahrzeugschlüssel an unsere Mitarbeiterin, dahinter das Büro, vorn links unscharf ein Fahrzeug",
+      "herkunft": "echtes Foto, mit KI bearbeitet („aufgewertet“ mit der Engine „Chat GPT Image 2.5 Sunburst“ über die Plattform Higgsfield; laut User nur sehr gering verändert), Motiv und Ursprungsdatei original, Zustimmungen aller Abgebildeten liegen vor: Angabe des Users 14.10.2026. Ersetzt privatkunden-leipzig-carcare.webp (archiviert)",
+      "offen": ""
+    },
+    "kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp": {
+      "motiv": "Ausschnitt desselben Empfangsfotos für den Seitenhintergrund von /privatkunden: Kunde im Profil reicht den Fahrzeugschlüssel über den Tresen mit unserem Logo",
+      "herkunft": "echtes Foto, mit KI bearbeitet („aufgewertet“ mit der Engine „Chat GPT Image 2.5 Sunburst“ über die Plattform Higgsfield; laut User nur sehr gering verändert), Motiv und Ursprungsdatei original, Zustimmungen aller Abgebildeten liegen vor: Angabe des Users 14.10.2026; nur zugeschnitten (scripts/lib/fotos-liste.mjs)",
       "offen": ""
     },
     "kacheln/schaden-melden-leipzig-carcare.webp": {
@@ -418,8 +423,8 @@
       "notiz": "Bleibt, wie es ist (Kunde, 21.09.2026)"
     },
     "B33": {
-      "status": "ok",
-      "notiz": "Bleibt, wie es ist (Kunde, 21.09.2026)"
+      "status": "anzupassen",
+      "notiz": "User liefert ein neues Foto (angekündigt 14.10.2026), damit Schritt 03 nicht wie B32 eine Schlüsselübergabe am Tresen wiederholt; vorher „Bleibt, wie es ist“ (Kunde, 21.09.2026)"
     },
     "B34": {
       "status": "angepasst",
@@ -708,6 +713,18 @@
     "B146": {
       "status": "angepasst",
       "notiz": "03.10.2026: Porträt geliefert (5.28), Karte mit Vorname und Aussage (User)"
+    },
+    "B24": {
+      "status": "angepasst",
+      "notiz": "14.10.2026: neues Empfangsfoto (Kunde übergibt am Tresen den Schlüssel), eigene Datei kundenempfang-schluesseluebergabe-…, KI-bearbeitet laut User; an B24, B32 und B75 zugleich („überall“)"
+    },
+    "B32": {
+      "status": "angepasst",
+      "notiz": "14.10.2026: neues Empfangsfoto (Kunde übergibt am Tresen den Schlüssel), eigene Datei kundenempfang-schluesseluebergabe-…, KI-bearbeitet laut User; an B24, B32 und B75 zugleich („überall“)"
+    },
+    "B75": {
+      "status": "angepasst",
+      "notiz": "14.10.2026: neues Empfangsfoto (Kunde übergibt am Tresen den Schlüssel), eigene Datei kundenempfang-schluesseluebergabe-…, KI-bearbeitet laut User; an B24, B32 und B75 zugleich („überall“)"
     }
   },
   "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."

@@ -80,8 +80,9 @@ const steps = [
 ];
 
 const PrivatkundenPage: React.FC = () => (
-  // Motiv der Kachel „Privatkunden" aus „Fuer wen wir arbeiten" (Startseite).
-  <BackdropLayout image="/assets/kacheln/privatkunden-leipzig-carcare.webp">
+  // Motiv der Kachel „Privatkunden" aus „Fuer wen wir arbeiten" (Startseite), seit 2026-10-14 das Empfangsfoto (B75).
+  // Eigener Ausschnitt, der die Schluesseluebergabe aus dem Textschutz ins Bildfenster rueckt (`scripts/lib/fotos-liste.mjs`).
+  <BackdropLayout image="/assets/kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp">
     <PageMeta
       canonical="/privatkunden"
       title="Privatkunden | Ihre Vorteile beim CarCare Center in Leipzig"

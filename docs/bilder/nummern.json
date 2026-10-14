@@ -149,7 +149,7 @@
     "/|zielgruppen||Privatkunden|bild||": {
       "nr": 24,
       "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Privatkunden“",
-      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "datei": "kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp",
       "rahmen": "/|zielgruppen|bild|"
     },
     "/|zielgruppen||Versicherungen & Agenturen|bild||": {
@@ -191,7 +191,7 @@
     "/|autoaufbereitung-ablauf||Termin anfragen|bild||": {
       "nr": 32,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Termin anfragen“",
-      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "datei": "kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/|autoaufbereitung-ablauf||Fahrzeug abgeben|bild||": {
@@ -569,7 +569,7 @@
     "/privatkunden|seite|||bild||": {
       "nr": 75,
       "ort": "Titelbild und Seitenhintergrund (bleibt beim Scrollen stehen)",
-      "datei": "kacheln/privatkunden-leipzig-carcare.webp",
+      "datei": "kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp",
       "rahmen": "/privatkunden|seite|bild|"
     },
     "/privatkunden|leistungen||Fahrzeugaufbereitung|bild||": {

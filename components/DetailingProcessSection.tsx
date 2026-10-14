@@ -28,9 +28,10 @@ const bilder: Array<Pick<ProcessStepCard, 'image' | 'imageAlt' | 'cta'>> = [
     imageAlt: 'Fahrzeugaufbereitung im CarCare Center Leipzig: Ein Fahrzeug wird fachgerecht gepflegt.',
   },
   {
-    image: kachel('privatkunden-leipzig-carcare'),
+    // Seit 2026-10-14 das Empfangsfoto (B32, wie B24 und B75): Der Kunde übergibt am Tresen den Schlüssel.
+    image: kachel('kundenempfang-schluesseluebergabe-leipzig-carcare'),
     imageAlt:
-      'Kunde bespricht am Empfangstresen des CarCare Center Leipzig den Wunschtermin für die Fahrzeugaufbereitung.',
+      'Kunde übergibt am Empfangstresen des CarCare Center Leipzig seinen Fahrzeugschlüssel an unsere Mitarbeiterin.',
     cta: { label: 'Termin anfragen', href: '#contact-termin' },
   },
   {
