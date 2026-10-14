@@ -97,7 +97,7 @@ export const pruefeAnhaenge = (roh: unknown): { anhaenge: Anhang[] } | { fehler:
     const inhalt = Buffer.from(eintrag.daten, 'base64');
     if (!inhalt.length) return { fehler: `Die Datei ist leer: ${name}.`, status: 400 };
     gesamt += inhalt.length;
-    if (gesamt > ANHANG_MAX_BYTES) return { fehler: 'Die Anhänge sind zusammen größer als 3 MB.', status: 413 };
+    if (gesamt > ANHANG_MAX_BYTES) return { fehler: 'Die Anhänge sind zusammen größer als 3 MB.', status: 413 };
     if (!passtSignatur(inhalt.subarray(0, 8), endung)) return { fehler: `Die Datei passt nicht zu ihrer Endung: ${name}.`, status: 400 };
     anhaenge.push({ filename: name, content: inhalt, contentType: typ.mime });
   }
@@ -150,7 +150,7 @@ export async function handler(request: Request): Promise<Response> {
       return antwort({ fehler: 'Ungültiger Feldwert.' }, 400);
     }
     const text = (Array.isArray(wert) ? wert.join(', ') : wert as string).trim();
-    if (text.length > MAX_LAENGE) return antwort({ fehler: `Feld "${feld}" ist zu lang.` }, 400);
+    if (text.length > MAX_LAENGE) return antwort({ fehler: `Feld „${feld}“ ist zu lang.` }, 400);
     if (text) daten[feld] = text;
   }
   const fehlend = PFLICHTFELDER[art].filter((feld) => !daten[feld]);

@@ -293,11 +293,17 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 `pages/DatenschutzPage.tsx`
 `pages/ImpressumPage.tsx`
 
-### ⬜ Phase 11 — L30 Querschnitt und Abschluss
+### 🟨 Phase 11 — L30 Querschnitt und Abschluss (Stopp: S beim User)
 **Ziel:** Was erst im Ganzen sichtbar wird.
-* [ ] Alle Titles und Descriptions nebeneinander: einzigartig, Muster nach SEO-GEO 3.1, `npm run meta`
-* [ ] JSON-LD-Beschreibungen und Bildbeschreibungen über alle Seiten
-* [ ] Stilblatt-Gegenprobe über den ganzen Code: jede verworfene Schreibweise 0-mal
+* [x] 14.10.: Alle 29 Titles und Descriptions nebeneinander: einzigartig, `meta` 0/29, OG/Twitter gleich; Abweichungen
+  beim Markenteil sind entschieden (L02-12, L15-02, L16), Wissensartikel mit dem Ausbau (L30-08/09).
+* [x] JSON-LD (127 Zeilen) und Bildbeschreibungen (32 Texte, Bilder angesehen): 3 Bildtexte passen nicht zum Bild bzw.
+  sagen nichts (L30-03 bis 05), „lackierfrei“ neben 31-mal „lackfrei“ (L30-06), ISO-Formulierung im JSON-LD (L30-07).
+* [x] Stilblatt-Gegenprobe über den ganzen Code inkl. `api/`, `emails/`, `lib/`: alles 0 bis auf zwei Fehlermeldungen
+  des Formularservers, beide als K korrigiert (L30-01 „3 MB“, L30-02 Anführungszeichen).
+* [x] Befund `docs/lektorat/befunde/L30-querschnitt.md`: 2 K, 5 S, 8 H. Rückfragen an André als Text zum Weitergeben
+  gebündelt (`docs/lektorat/rueckfragen-andre.md`, fünf Fragen).
+* [ ] Stopp: S L30-03 bis 07 beim User; danach Build und alle Messläufe.
 * [x] **Vor dem Push auf main (User 08.10.: „nur Prüfläufe, dann pushen“), Build 08.10. 21:28:** `kontrast` 6.279 Textstellen,
   kein Text unter AA · `aussparung` 29 Routen × 3 Fenster, keine Überdeckung, Geometrie an 23 Breiten in Ordnung ·
   `zielgruppen` alle Karten auf allen Fenstern in Ordnung · `shots` 505 Aufnahmen in `output/shots/`.
