@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 14.10.2026, 02:00 | `2026-10-06-lektorat`, `main` | `7189ac2` `168ec66` `411e7fe` `2d0befd` `bd1f65f` (5) | nein | neue Skripte: tote-dateien |
 | 08.10.2026, 22:26 | `2026-10-06-lektorat`, `main` | `c450222` `fba8f31` `3549114` `2016719` `3653ae6` `7d8a3ae` `8d5b760` `a1cc396` `0b92e4a` `fbbbcfa` `ef86f79` `5e19ed7` `808ef4d` `3da6ce0` `cd29ae1` `d2d64e5` `d93ef68` `1134127` `cdd68e7` `ce14fc4` (20) | nein | neue Skripte: lektorat |
 | 08.10.2026, 21:49 | `2026-10-08-tote-komponenten` | `c8454b9` `afbb08a` `07324e1` `c90c20f` `c14365a` `c23ce86` (6) | nein | neue Skripte: tote-dateien |
 | 05.10.2026, 17:48 | `2026-10-05-performance-glas`, `main` | `aa51215` (1) | nein | Konfiguration: vercel.json |

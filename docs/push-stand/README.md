@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 08.10.2026, 22:26, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 02:00, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 08.10.2026, 22:26 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 02:00 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `ce14fc4` | `19647ec` | 21 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `ce14fc4` | — | neu, 20 Commit(s) noch nicht auf GitHub |
+| `main` | `bd1f65f` | `b88695f` | 11 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `bd1f65f` | — | neu, 5 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,26 +19,11 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `c450222` | 06.10.2026, 01:45 | oalabhypercode | Lektorat: Stilblatt, Auszugsskript und L00 (globale Bausteine) | 48 (7 neu) | package.json | **kommt mit diesem Push** |
-| `fba8f31` | 06.10.2026, 23:52 | oalabhypercode | Lektorat: L00-Entscheidungen umgesetzt, L01 Startseite korrigiert | 15 (1 neu) | — | **kommt mit diesem Push** |
-| `3549114` | 07.10.2026, 23:13 | oalabhypercode | Lektorat: L01-Vorschlaege und L00-09/10 umgesetzt, L02 Unfallinstandsetzung | 27 (1 neu) | — | **kommt mit diesem Push** |
-| `2016719` | 07.10.2026, 23:42 | oalabhypercode | Lektorat: L02-Vorschlaege, vorsichtige Dellen-Aussagen, Platzhalter "Max" | 19 | — | **kommt mit diesem Push** |
-| `3653ae6` | 07.10.2026, 23:48 | oalabhypercode | Lektorat: L03 Fahrzeugaufbereitung, Preise im Fliesstext ohne Cent | 17 (1 neu) | — | **kommt mit diesem Push** |
-| `7d8a3ae` | 08.10.2026, 00:33 | oalabhypercode | Lektorat: L03-Vorschlaege umgesetzt, L04 Leistungsuebersicht korrigiert | 11 (1 neu) | — | **kommt mit diesem Push** |
-| `8d5b760` | 08.10.2026, 01:47 | oalabhypercode | Lektorat: L04-Vorschlaege, L05 Aussenaufbereitung, geschuetzte Leerzeichen in Ueberschriften | 6 (1 neu) | — | **kommt mit diesem Push** |
-| `a1cc396` | 08.10.2026, 02:01 | oalabhypercode | Lektorat: L05-Vorschlaege umgesetzt, L06 Innenaufbereitung geprueft | 7 (1 neu) | — | **kommt mit diesem Push** |
-| `0b92e4a` | 08.10.2026, 03:25 | oalabhypercode | Lektorat: L06-Vorschlaege umgesetzt, L07 Leasingrueckgabe geprueft | 6 (1 neu) | — | **kommt mit diesem Push** |
-| `fbbbcfa` | 08.10.2026, 03:43 | oalabhypercode | Lektorat: L07-Vorschlaege umgesetzt, L08-L10 korrigiert | 8 (1 neu) | — | **kommt mit diesem Push** |
-| `ef86f79` | 08.10.2026, 17:09 | oalabhypercode | Lektorat: L08-L10-Vorschlaege umgesetzt, L11-L14 korrigiert | 8 (1 neu) | — | **kommt mit diesem Push** |
-| `5e19ed7` | 08.10.2026, 17:16 | oalabhypercode | Lektorat: L11-L14-Vorschlaege umgesetzt, L15 Privatkunden geprueft | 11 (1 neu) | — | **kommt mit diesem Push** |
-| `808ef4d` | 08.10.2026, 17:48 | oalabhypercode | Lektorat: L15-Vorschlaege umgesetzt, L16 Geschaeftskunden und L17 Ueber uns geprueft | 10 (2 neu) | — | **kommt mit diesem Push** |
-| `3da6ce0` | 08.10.2026, 18:07 | oalabhypercode | Lektorat: L16- und L17-Vorschlaege umgesetzt | 9 | — | **kommt mit diesem Push** |
-| `cd29ae1` | 08.10.2026, 18:19 | oalabhypercode | Lektorat: L18 Karriere geprueft, Stilblatt 8 (m/w/d) umgesetzt | 15 (1 neu) | — | **kommt mit diesem Push** |
-| `d2d64e5` | 08.10.2026, 18:21 | oalabhypercode | Lektorat: L19 Kontakt geprueft (4 S, keine K) | 2 (1 neu) | — | **kommt mit diesem Push** |
-| `d93ef68` | 08.10.2026, 21:25 | oalabhypercode | Lektorat: L18- und L19-Vorschlaege umgesetzt | 12 | — | **kommt mit diesem Push** |
-| `1134127` | 08.10.2026, 21:31 | oalabhypercode | Lektorat: L20-L23 Wissensbereich (Uebersicht + 3 Artikel) geprueft | 4 (1 neu) | — | **kommt mit diesem Push** |
-| `cdd68e7` | 08.10.2026, 21:53 | oalabhypercode | Lektorat: Wissensbereich zurueckgestellt (wird noch ausgebaut) | 2 | — | **kommt mit diesem Push** |
-| `ce14fc4` | 08.10.2026, 22:26 | oalabhypercode | Lektorat: Pruefaeufe vor dem Push (Kontrast, Aussparung, Zielgruppen, Shots gruen), Knopf L16-13 bleibt | 2 | — | **kommt mit diesem Push** |
+| `7189ac2` | 13.10.2026, 23:58 | oalabhypercode | Merge: tote Komponenten (Hero.tsx entfernt, npm run tote-dateien, push-stand --nur) | 13 (2 neu) | package.json | **kommt mit diesem Push** |
+| `168ec66` | 13.10.2026, 23:58 | oalabhypercode | Docs: Caching-Prüfung nach dem Deploy (Performance Phase 3) nachgetragen | 1 | — | **kommt mit diesem Push** |
+| `411e7fe` | 14.10.2026, 00:08 | oalabhypercode | Lektorat: L28-L29 Impressum und Datenschutz korrigiert (2 K), Vorschlaege beim User | 5 (1 neu) | — | **kommt mit diesem Push** |
+| `2d0befd` | 14.10.2026, 01:54 | oalabhypercode | Lektorat: L28-L29-Vorschlaege umgesetzt, Stilblatt 11 (Normzitate) | 7 | — | **kommt mit diesem Push** |
+| `bd1f65f` | 14.10.2026, 02:00 | oalabhypercode | Bilder: Inventar neu erzeugt, Betriebsvideos B102/B111 im Rundgang wieder erfasst | 5 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -48,15 +33,15 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run lektorat` |
-| Kontrolle | `git log --oneline -9 main`: oben „Docs: Push-Stand …", darunter `ce14fc4`, `cdd68e7`, `1134127`, `d93ef68`, `d2d64e5`, `cd29ae1`, `3da6ce0`, `808ef4d` |
+| npm-Skripte | neu: `npm run tote-dateien` |
+| Kontrolle | `git log --oneline -6 main`: oben „Docs: Push-Stand …", darunter `bd1f65f`, `2d0befd`, `411e7fe`, `168ec66`, `7189ac2` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
-| Uncommittete Änderungen | 1 Datei(en): `docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md` |
+| Uncommittete Änderungen | keine |
 | Lokale Branches ohne GitHub-Gegenstück | 23, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
@@ -67,8 +52,9 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| Phase 10 — L28–L29 Impressum und Datenschutz | `docs/lektorat/tasks/2026-10-06-lektorat-seitenweise-tasks.md` |
 | Phase 11 — L30 Querschnitt und Abschluss | `docs/lektorat/tasks/2026-10-06-lektorat-seitenweise-tasks.md` |
+| Phase 5 — Hydration statt Neuaufbau (größerer Eingriff, eigener Schritt) | `docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md` |
+| Phase 6 — Bilder in passenden Größen, Code-Splitting (später) | `docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md` |
 
 ### Backlog gesamt: 24 offene Punkte
 
