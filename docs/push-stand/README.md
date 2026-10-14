@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 17:59, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 20:04, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 17:59 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 20:03 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `1d98adf` | `6cfadda` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `1d98adf` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `74b18fb` | `36fc985` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `74b18fb` | — | neu, 1 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `1d98adf` | 14.10.2026, 17:59 | oalabhypercode | Bilder: B26, Ablauf Aufbereitung, B46 und Galerie Einblicke (B48-B58) mit echten Fotos | 32 (15 neu) | — | **kommt mit diesem Push** |
+| `74b18fb` | 14.10.2026, 20:03 | oalabhypercode | Fahrzeugaufbereitung: Galerie Einblicke als Coverflow-Karussell nach skiper49 | 5 (2 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,7 +29,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `1d98adf` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `74b18fb` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
