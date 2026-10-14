@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 02:12, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 02:39, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 02:12 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 02:39 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `dbee2ee` | `31f1003` | 2 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `dbee2ee` | — | neu, 2 Commit(s) noch nicht auf GitHub |
+| `main` | `4b875c7` | `e214dd2` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `4b875c7` | — | neu, 1 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,8 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `b2a2609` | 14.10.2026, 02:06 | oalabhypercode | Lektorat: L30 Querschnitt geprueft (2 K im Formularserver), Rueckfragen an Andre gebuendelt | 4 (1 neu) | — | **kommt mit diesem Push** |
-| `dbee2ee` | 14.10.2026, 02:11 | oalabhypercode | Lektorat: L30-Vorschlaege abgelehnt (User), Phase 11 abgeschlossen | 2 | — | **kommt mit diesem Push** |
+| `4b875c7` | 14.10.2026, 02:39 | oalabhypercode | Bilder: B24 ueberall durch das neue Empfangsfoto ersetzt (B24, B32, B75) | 14 (4 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -30,14 +29,14 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `dbee2ee`, `b2a2609` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `4b875c7` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
-| Unversioniert | `docs/bilder/archiv/privatkunden-leipzig-carcare_bis-2026-10-14.webp`, `docs/bilder/tasks/2026-10-14-b24-kundenempfang-tasks.md`, `parallax-scroll-kit/`, `public/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp`, `scripts/lib/fotos-liste.mjs` |
-| Uncommittete Änderungen | 8 Datei(en): `components/DetailingProcessSection.tsx`, `components/TargetGroupCards.tsx`, `data/bildherkunft.ts`, `docs/bilder/archiv/README.md`, `docs/bilder/motive.json`, `pages/PrivatkundenPage.tsx`, `public/assets/kacheln/privatkunden-leipzig-carcare.webp`, `scripts/build-fotos.mjs` |
+| Unversioniert | `parallax-scroll-kit/` |
+| Uncommittete Änderungen | keine |
 | Lokale Branches ohne GitHub-Gegenstück | 23, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
