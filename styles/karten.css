@@ -35,3 +35,22 @@
     inset 0 0 0 1px rgb(var(--cc-cta-blue-rgb) / 0.55),
     inset 0 0 22px 2px rgb(var(--cc-cta-blue-rgb) / 0.58);
 }
+
+/* VIGNETTE DER GALERIE-FOTOS „Ergebnisse, die man sieht“ (DetailingGallery, B48–B58).
+   Wunsch des Users 2026-10-14: statt des Blauverlaufs von unten eine Vignette ringsum „mit dem gleichen Blau“. Das ist
+   das Blau der leeren Galeriekacheln (`blue-900` = `--cc-trust-blue`), nicht das Grau-Blau `--cc-cta-blue` der
+   Bildkarten oben. Aufbau wie `.cc-karten-vignette` (Ellipse plus Innensaum), etwas kraeftiger zum Rand hin: Die weisse
+   Beschriftung sitzt unten links in der Ecke, dort ist die Ellipse am dunkelsten. */
+.cc-galerie-vignette {
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse farthest-corner at 50% 45%,
+    rgb(var(--cc-trust-blue-rgb) / 0) 48%,
+    rgb(var(--cc-trust-blue-rgb) / 0.34) 76%,
+    rgb(var(--cc-trust-blue-rgb) / 0.78) 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cc-trust-blue-rgb) / 0.5),
+    inset 0 0 26px 3px rgb(var(--cc-trust-blue-rgb) / 0.55);
+}

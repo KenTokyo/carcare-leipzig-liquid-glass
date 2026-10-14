@@ -130,7 +130,7 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/smart-repair-leipzig-carcare.webp': 'echt',
   '/assets/kacheln/smart-repair-hintergrund-leipzig-carcare.webp': 'echt',
   '/assets/kacheln/hagelschadenreparatur-leipzig-carcare.webp': 'echt',
-  '/assets/kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp': 'echt',
+  // Das Anhängerfoto (`autohaeuser-geschaeftskunden-haenger-…`, echt) ist am 2026-10-14 abgelöst und archiviert, siehe unten.
 
   // Herkunftsbogen vom 2026-10-03: Der User hat die Herkunft der 16 bis dahin ungeklärten Fotos angegeben, ausdrücklich
   // „final“. Wortlaut: „echt: Bild 1,2,3,4,7,16 · Der Rest braucht den Batch KI-aufgewertet“ (Nr. aus dem
@@ -153,7 +153,7 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/versicherungsabwicklung-leipzig-carcare.webp': 'aufgewertet', // Nr. 12
   // Nr. 13 (`privatkunden-leipzig-carcare.webp`) am 2026-10-14 abgelöst und archiviert, siehe Kundenempfang unten.
   '/assets/kacheln/versicherungen-und-agenturen-leipzig-carcare.webp': 'aufgewertet', // Nr. 14
-  '/assets/kacheln/fahrzeugabgabe-leipzig-carcare.webp': 'aufgewertet', // Nr. 15
+  // Nr. 15 (`fahrzeugabgabe-leipzig-carcare.webp`, nur Ablauf Schritt 03) am 2026-10-14 herausgenommen und archiviert.
 
   // Porträts der Mitarbeiterstimmen (Backlog 5.28), eingebaut 2026-10-03. Der User: „Es handelt sich hier um echte
   // Mitarbeiter, die ihr Einverständnis zur Nutzung der Bilder gegeben haben.“ Laut EXIF iPhone-Aufnahmen vom
@@ -171,7 +171,9 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   // Karte „Serviceberater“ (B106), eingebaut 2026-10-05: echtes Foto aus unserem Büro, Angabe des Users wie oben.
   // Nur 4:3-Ausschnitt aus dem Hochformat (`npm run fotos`), keine KI.
   '/assets/kacheln/karriere-serviceberater-leipzig-carcare.webp': 'echt',
-  // Kundenempfang (B24, B32, B75), eingebaut 2026-10-14, ersetzt Nr. 13. Der User: mit „Chat GPT Image 2.5 Sunburst“
+  // Dasselbe Foto als Ausschnitt nur für Ablauf Schritt 02 „Termin anfragen“ (B32), 2026-10-14: nur zugeschnitten, keine KI.
+  '/assets/kacheln/terminanfrage-buero-laptop-leipzig-carcare.webp': 'echt',
+  // Kundenempfang (B24, B33, B75; bis zum Umbau des Ablaufs am selben Tag B32), eingebaut 2026-10-14, ersetzt Nr. 13. Der User: mit „Chat GPT Image 2.5 Sunburst“
   // aufgewertet, Ursprungsdatei und Motiv original, Zustimmungen aller abgebildeten Personen liegen vor. In der Datei
   // maschinenlesbar als IPTC `compositeWithTrainedAlgorithmicMedia` (`scripts/lib/fotos-liste.mjs`).
   // Nachgefragt am 14.10.: Genutzt über die Plattform Higgsfield, Engine wie genannt; das Urbild ist „nahezu sehr gering
@@ -179,6 +181,29 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   '/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp': 'aufgewertet',
   // Derselbe Kundenempfang als Ausschnitt für den Seitenhintergrund von /privatkunden (B75), nur zugeschnitten.
   '/assets/kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp': 'aufgewertet',
+  // Startseitenkarte „Autohäuser & Fuhrparks“ (B26), eingebaut 2026-10-14. Der User auf Nachfrage: „KI-bearbeitet“, also
+  // echte Aufnahme dieser Szene, mit KI gering aufgewertet. Das KI-System hat er für dieses Bild nicht genannt.
+  '/assets/kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp': 'aufgewertet',
+  // Ablauf der Aufbereitung, Schritt 05 „Gepflegt zurückerhalten“ (B35, nur dort), eingebaut 2026-10-14. Der User:
+  // „KI-bearbeitet, nämlich die Lichtverhältnisse“. Dieselben Personen wie beim Kundenempfang, System nicht genannt.
+  '/assets/kacheln/fahrzeugrueckgabe-kundenannahme-leipzig-carcare.webp': 'aufgewertet',
+  // Überblickskarte „Außenaufbereitung“ (B46, Backlog 5.36), eingebaut 2026-10-14. Der User: „natürlich ein echtes Bild“;
+  // EXIF iPhone 17 Pro vom 16.07.2026 ohne Bearbeitungssoftware. Aufbereitet mit `npm run fotos`: nur verkleinert.
+  '/assets/kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp': 'echt',
+
+  // Galerie „Ergebnisse, die man sieht“ (B48–B58), ab 2026-10-14. Der User: „Alle Fotos, die ich dir anhängen werde, sind
+  // echt.“ Aufbereitet mit `npm run fotos`: nur Ausschnitt und Verkleinerung, keine KI.
+  '/assets/galerie/lederpflege-sportsitz-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/innenaufbereitung-fussraum-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/cockpit-detailpinsel-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/keramikversiegelung-auftragen-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/politur-finish-lackglanz-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/aussenreinigung-sportwagen-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/lackpolitur-poliermaschine-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/felgenreinigung-buerste-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/motorraumpflege-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/endkontrolle-lackpruefung-leipzig-carcare.webp': 'echt',
+  '/assets/galerie/versiegelung-cabriodach-leipzig-carcare.webp': 'echt',
 };
 
 /**

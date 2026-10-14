@@ -67,8 +67,11 @@ const woerterVon = (text: string): string[] =>
 
 interface GanzwortTitelProps {
   text: string;
-  /** Überschriftenebene, Standard `h3`. */
-  als?: 'h1' | 'h2' | 'h3' | 'h4';
+  /**
+   * Überschriftenebene, Standard `h3`. `span` (seit 2026-10-14) für Beschriftungen, die keine Überschrift sind, etwa die
+   * Kachelnamen der Galerie „Einblicke“: dieselben Regeln ohne Eintrag in die Überschriftenstruktur der Seite.
+   */
+  als?: 'h1' | 'h2' | 'h3' | 'h4' | 'span';
   /**
    * Klassen der Überschrift: Gewicht, Farbe, Zeilenhöhe, Laufweite und die Normalgröße als Variable, z. B.
    * `[--titel-max:1.125rem]` oder `[--titel-max:1.25rem] md:[--titel-max:1.5rem]`. KEINE `text-…`-Größe: Die Größe

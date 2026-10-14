@@ -161,7 +161,7 @@
     "/|zielgruppen||Autohäuser & Fuhrparks|bild||": {
       "nr": 26,
       "ort": "„Der richtige Ansprechpartner für Ihr Fahrzeug“ › Karte „Autohäuser & Fuhrparks“",
-      "datei": "kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp",
+      "datei": "kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp",
       "rahmen": "/|zielgruppen|bild|"
     },
     "/|autoaufbereitung||Innenaufbereitung•|bild||": {
@@ -191,13 +191,13 @@
     "/|autoaufbereitung-ablauf||Termin anfragen|bild||": {
       "nr": 32,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Termin anfragen“",
-      "datei": "kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp",
+      "datei": "kacheln/terminanfrage-buero-laptop-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/|autoaufbereitung-ablauf||Fahrzeug abgeben|bild||": {
       "nr": 33,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Fahrzeug abgeben“",
-      "datei": "kacheln/fahrzeugabgabe-leipzig-carcare.webp",
+      "datei": "kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/|autoaufbereitung-ablauf||Professionelle Aufbereitung|bild||": {
@@ -209,7 +209,7 @@
     "/|autoaufbereitung-ablauf||Gepflegt zurückerhalten|bild||": {
       "nr": 35,
       "ort": "„Fahrzeug aufbereiten lassen? Wir übernehmen Innenraum …“ › Karte „Gepflegt zurückerhalten“",
-      "datei": "kacheln/leasingrueckgabe-leipzig-carcare.webp",
+      "datei": "kacheln/fahrzeugrueckgabe-kundenannahme-leipzig-carcare.webp",
       "rahmen": "/|autoaufbereitung-ablauf|bild|"
     },
     "/leistungen|seite|||bild||": {
@@ -371,7 +371,7 @@
     "/fahrzeugaufbereitung-leipzig|umfang||Außenaufbereitung|bild||": {
       "nr": 46,
       "ort": "„Die drei Bereiche Innen, Außen und Lack im Überblick“ › Karte „Außenaufbereitung“",
-      "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
+      "datei": "kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
     "/fahrzeugaufbereitung-leipzig|umfang||Lackaufbereitung|bild||": {
@@ -380,71 +380,71 @@
       "datei": "kacheln/lackaufbereitung-leipzig-carcare.webp",
       "rahmen": "/fahrzeugaufbereitung-leipzig|umfang|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Innenaufbereitung|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Innenaufbereitung|bild||": {
       "nr": 48,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Innenaufbereitung“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Innenaufbereitung“",
+      "datei": "galerie/innenaufbereitung-fussraum-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Außenreinigung|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Außenreinigung|bild||": {
       "nr": 49,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Außenreinigung“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Außenreinigung“",
+      "datei": "galerie/aussenreinigung-sportwagen-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Lackpolitur|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Lackpolitur|bild||": {
       "nr": 50,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Lackpolitur“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Lackpolitur“",
+      "datei": "galerie/lackpolitur-poliermaschine-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Cockpit-Detail|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Cockpit-Detail|bild||": {
       "nr": 51,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Cockpit-Detail“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Cockpit-Detail“",
+      "datei": "galerie/cockpit-detailpinsel-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Versiegelung|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Versiegelung|bild||": {
       "nr": 52,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Versiegelung“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Versiegelung“",
+      "datei": "galerie/versiegelung-cabriodach-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Felgenreinigung|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Felgenreinigung|bild||": {
       "nr": 53,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Felgenreinigung“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Felgenreinigung“",
+      "datei": "galerie/felgenreinigung-buerste-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Lederpflege|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Lederpflege|bild||": {
       "nr": 54,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Lederpflege“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Lederpflege“",
+      "datei": "galerie/lederpflege-sportsitz-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Motorraumpflege|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Motorraumpflege|bild||": {
       "nr": 55,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Motorraumpflege“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Motorraumpflege“",
+      "datei": "galerie/motorraumpflege-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Keramikschutz|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Keramikschutz|bild||": {
       "nr": 56,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Keramikschutz“ (Foto fehlt)",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Keramikschutz“",
+      "datei": "galerie/keramikversiegelung-auftragen-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Politur-Finish|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Politur-Finish|bild||": {
       "nr": 57,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Politur-Finish“ (Foto fehlt) · nur Desktop",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Politur-Finish“ · nur Desktop",
+      "datei": "galerie/politur-finish-lackglanz-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
-    "/fahrzeugaufbereitung-leipzig|einblicke||Endkontrolle|platzhalter||": {
+    "/fahrzeugaufbereitung-leipzig|einblicke||Endkontrolle|bild||": {
       "nr": 58,
-      "ort": "„Ergebnisse, die man sieht“ › Platzhalter „Endkontrolle“ (Foto fehlt) · nur Desktop",
-      "datei": "",
-      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|platzhalter|"
+      "ort": "„Ergebnisse, die man sieht“ › Karte „Endkontrolle“ · nur Desktop",
+      "datei": "galerie/endkontrolle-lackpruefung-leipzig-carcare.webp",
+      "rahmen": "/fahrzeugaufbereitung-leipzig|einblicke|bild|"
     },
     "/leasingrueckgabe-leipzig|seite|||bild||": {
       "nr": 59,

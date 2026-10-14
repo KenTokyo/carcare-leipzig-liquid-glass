@@ -8,6 +8,7 @@ import {
 } from 'framer-motion';
 import { Car, Droplets, Gauge, ShieldCheck, Sparkles, Wrench } from 'lucide-react';
 import { SectionIntro } from './PageBlocks';
+import GanzwortTitel from './GanzwortTitel';
 
 /**
  * DetailingGallery — Mehrspalten-Parallax-Galerie (inspiriert von skiper-ui
@@ -17,9 +18,9 @@ import { SectionIntro } from './PageBlocks';
  * Nur Framer Motion (bereits im Projekt). Die globale `scroll-behavior: smooth`
  * (index.css) ersetzt Lenis, daher KEINE zusaetzliche Dependency.
  *
- * Bilder sind aktuell Marken-Platzhalter (Verlaufskacheln mit Icon + Label).
- * Zum Austausch bei einem Eintrag `src` (+ optional `alt`) setzen -> es wird dann
- * ein <img> statt des Platzhalters gerendert. Sonst nichts weiter noetig.
+ * Bilder sind Marken-Platzhalter (Verlaufskacheln mit Icon + Label), bis echte Fotos kommen (seit 2026-10-14 nach und
+ * nach, B48–B58). Zum Austausch bei einem Eintrag `src` (+ `alt`) setzen -> es wird dann ein <img> statt des
+ * Platzhalters gerendert. Die Fotos entstehen mit `npm run fotos` (Eintraege „GALERIE“ in `scripts/lib/fotos-liste.mjs`).
  *
  * Mechanik (gap-frei per Konstruktion): Jede Spalte ist hoeher als das
  * `overflow-hidden`-Band und wird ueber ihren gesamten Ueberhang verschoben.
@@ -55,17 +56,94 @@ const GRADIENTS = [
 // NICHT WIEDER AUFNEHMEN: „Scheinwerfer-Politur“ wurde am 2026-09-02 entfernt
 // (Backlog 1.12, rechtlich heikel). Es war die einzige Fundstelle im ganzen Projekt.
 const ITEMS: GalleryItem[] = [
-  { label: 'Innenaufbereitung', iconName: 'Sparkles', gradient: GRADIENTS[0] },
-  { label: 'Außenreinigung', iconName: 'Droplets', gradient: GRADIENTS[1] },
-  { label: 'Lackpolitur', iconName: 'Gauge', gradient: GRADIENTS[2] },
-  { label: 'Cockpit-Detail', iconName: 'Car', gradient: GRADIENTS[3] },
-  { label: 'Versiegelung', iconName: 'ShieldCheck', gradient: GRADIENTS[4] },
-  { label: 'Felgenreinigung', iconName: 'Wrench', gradient: GRADIENTS[5] },
-  { label: 'Lederpflege', iconName: 'Sparkles', gradient: GRADIENTS[1] },
-  { label: 'Motorraumpflege', iconName: 'Wrench', gradient: GRADIENTS[0] },
-  { label: 'Keramikschutz', iconName: 'ShieldCheck', gradient: GRADIENTS[3] },
-  { label: 'Politur-Finish', iconName: 'Droplets', gradient: GRADIENTS[4] },
-  { label: 'Endkontrolle', iconName: 'Car', gradient: GRADIENTS[5] },
+  {
+    label: 'Innenaufbereitung',
+    iconName: 'Sparkles',
+    gradient: GRADIENTS[0],
+    // B48, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/innenaufbereitung-fussraum-leipzig-carcare.webp',
+    alt: 'Frisch gereinigter Fahrerfußraum mit sauberer Velours-Fußmatte nach der Innenaufbereitung',
+  },
+  {
+    label: 'Außenreinigung',
+    iconName: 'Droplets',
+    gradient: GRADIENTS[1],
+    // B49, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/aussenreinigung-sportwagen-leipzig-carcare.webp',
+    alt: 'Frisch gereinigter hellblauer Sportwagen mit Heckflügel in unserer Halle',
+  },
+  {
+    label: 'Lackpolitur',
+    iconName: 'Gauge',
+    gradient: GRADIENTS[2],
+    // B50, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/lackpolitur-poliermaschine-leipzig-carcare.webp',
+    alt: 'Rotationspoliermaschine mit Lammfellpad bei der Lackpolitur auf dunklem Lack',
+  },
+  {
+    label: 'Cockpit-Detail',
+    iconName: 'Car',
+    gradient: GRADIENTS[3],
+    // B51, echtes Foto seit 2026-10-14 (Backlog 5.38), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/cockpit-detailpinsel-leipzig-carcare.webp',
+    alt: 'Reinigung der Mittelkonsole rund um den Wählhebel mit einem weichen Detailpinsel',
+  },
+  {
+    label: 'Versiegelung',
+    iconName: 'ShieldCheck',
+    gradient: GRADIENTS[4],
+    // B52, echtes Foto seit 2026-10-14 (User; die Kachel bleibt neben „Keramikschutz“ bestehen, 5.41 nicht umgesetzt).
+    src: '/assets/galerie/versiegelung-cabriodach-leipzig-carcare.webp',
+    alt: 'Versiegelung wird auf das Stoffverdeck eines Cabrios gesprüht',
+  },
+  {
+    label: 'Felgenreinigung',
+    iconName: 'Wrench',
+    gradient: GRADIENTS[5],
+    // B53, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/felgenreinigung-buerste-leipzig-carcare.webp',
+    alt: 'Felgenbürste in den eingeschäumten Speichen eines Vorderrades',
+  },
+  {
+    label: 'Lederpflege',
+    iconName: 'Sparkles',
+    gradient: GRADIENTS[1],
+    // B54, echtes Foto seit 2026-10-14 (Backlog 5.40), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/lederpflege-sportsitz-leipzig-carcare.webp',
+    alt: 'Mitarbeiter trägt mit Handschuh und Tuch Lederpflege auf die Lehne eines Ledersportsitzes auf',
+  },
+  {
+    label: 'Motorraumpflege',
+    iconName: 'Wrench',
+    gradient: GRADIENTS[0],
+    // B55, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/motorraumpflege-leipzig-carcare.webp',
+    alt: 'Mitarbeiter reinigt die Abdeckungen im geöffneten Motorraum mit einem Mikrofasertuch',
+  },
+  {
+    label: 'Keramikschutz',
+    iconName: 'ShieldCheck',
+    gradient: GRADIENTS[3],
+    // B56, echtes Foto seit 2026-10-14 (Backlog 5.39), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/keramikversiegelung-auftragen-leipzig-carcare.webp',
+    alt: 'Keramikversiegelung wird mit dem Applikator auf den Lack aufgetragen',
+  },
+  {
+    label: 'Politur-Finish',
+    iconName: 'Droplets',
+    gradient: GRADIENTS[4],
+    // B57, echtes Foto seit 2026-10-14 (Backlog 5.37), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/politur-finish-lackglanz-leipzig-carcare.webp',
+    alt: 'Frisch polierter Lack an Haube und Kotflügel, die Hallenbeleuchtung spiegelt sich klar',
+  },
+  {
+    label: 'Endkontrolle',
+    iconName: 'Car',
+    gradient: GRADIENTS[5],
+    // B58, echtes Foto seit 2026-10-14 (Backlog 5.42), Ausschnitt in `scripts/lib/fotos-liste.mjs`.
+    src: '/assets/galerie/endkontrolle-lackpruefung-leipzig-carcare.webp',
+    alt: 'Mitarbeiter prüft bei der Endkontrolle den Lack einer Fahrzeugtür aus nächster Nähe',
+  },
 ];
 
 // Kachel-Anzahl je Spalte -> unterschiedliche Ueberhaenge = unterschiedliche
@@ -85,6 +163,27 @@ const buildColumn = (count: number, offset: number): GalleryItem[] =>
 /* ------------------------------------------------------------------ */
 const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, heightPx }) => {
   const Icon = ICONS[item.iconName];
+  // Symbol und Name unten links, weiss: auf dem Platzhalter UND auf dem Foto (User 2026-10-14, nach dem ersten Foto B54:
+  // Name und Symbol fehlten dort). Eine Quelle, damit beide Kachelarten gleich beschriftet bleiben.
+  //
+  // NAME OHNE TRENNSTRICH (`GanzwortTitel` als `span`): Mobil ist die Kachel rund 145 px breit, „Innenaufbereitung“ lief
+  // bis 2026-10-14 über den Rand und wurde abgeschnitten („Innenaufbereitu“). Silbentrennung scheidet aus (User 03.10.:
+  // keine Bindestriche zur Worttrennung in Kacheln). Jetzt bleibt jedes Wort ganz; nur wenn es nicht passt, wird die
+  // Schrift so weit kleiner. Dafuer mobil (2 Spalten, unter `md`) etwas weniger Innenabstand und ein kleineres Symbolfeld.
+  const beschriftung = (
+    <div className="flex items-center gap-1.5 text-white md:gap-2">
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 md:h-8 md:w-8">
+        <Icon size={16} />
+      </span>
+      <GanzwortTitel
+        als="span"
+        text={item.label}
+        laufweite={-0.025}
+        huelle="min-w-0 flex-1"
+        className="block font-bold leading-tight tracking-tight [--titel-max:0.75rem]"
+      />
+    </div>
+  );
   return (
     <div
       /*
@@ -106,18 +205,28 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
       data-bild-ort={item.label}
     >
       {item.src ? (
-        <img
-          src={item.src}
-          alt={item.alt ?? item.label}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        />
+        <>
+          <img
+            src={item.src}
+            alt={item.alt ?? item.label}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+          {/*
+            Vignette ringsum im Blau der leeren Kacheln (`.cc-galerie-vignette`, styles/karten.css), seit 2026-10-14 statt
+            eines Verlaufs von unten (User). Liegt ueber dem Bild und skaliert beim Hover nicht mit, damit Rand und Schrift
+            ruhig stehen. Keine „Beispiel“-Plakette: Das ist ein echtes Foto, kein Beispielmotiv.
+          */}
+          <div aria-hidden="true" className="cc-galerie-vignette absolute inset-0" />
+          {/* Leichter Textschatten: Die Vignette ist an der Unterkante schwaecher als in der Ecke; helle Bildstellen bleiben so lesbar. */}
+          <div className="absolute inset-x-0 bottom-0 p-3 [text-shadow:0_1px_6px_rgb(var(--cc-carbon-rgb)/0.65)] md:p-4">{beschriftung}</div>
+        </>
       ) : (
         <div
           // Markiert die Stelle fuer `npm run bilder` als „hier fehlt ein Foto“ (Backlog 3.23).
           // Ein Verlauf ist fuer den Rundgang sonst nicht von Dekoration zu unterscheiden.
           data-bild-platzhalter={item.label}
-          className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
+          className={`flex h-full w-full flex-col justify-between bg-gradient-to-br ${item.gradient} p-3 transition-transform md:p-4 duration-700 ease-out group-hover:scale-[1.04]`}
         >
           {/*
             KEIN `backdrop-blur` auf Badge und Icon-Feld (entfernt 2026-08-10). Beide
@@ -131,12 +240,7 @@ const Tile: React.FC<{ item: GalleryItem; heightPx?: number }> = ({ item, height
           <span className="self-end rounded-full bg-white/10 px-2 py-[3px] text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70">
             Beispiel
           </span>
-          <div className="flex items-center gap-2 text-white">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10">
-              <Icon size={16} />
-            </span>
-            <span className="text-xs font-bold leading-tight tracking-tight">{item.label}</span>
-          </div>
+          {beschriftung}
         </div>
       )}
     </div>

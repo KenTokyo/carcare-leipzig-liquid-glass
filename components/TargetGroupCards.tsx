@@ -34,7 +34,7 @@ const groups: TargetGroup[] = [
     // vor `/privatkunden` (Seite kam erst mit 78c3893). Dadurch war die Privatkundenseite
     // von der Startseite aus nur ueber das Navbar-Menue erreichbar.
     href: '/privatkunden',
-    // Seit 2026-10-14 das Empfangsfoto (B24; dieselbe Datei an B32 und B75, `scripts/lib/fotos-liste.mjs`).
+    // Seit 2026-10-14 das Empfangsfoto (B24; dieselbe Datei an B33 und B75, `scripts/lib/fotos-liste.mjs`).
     backgroundImage: '/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp',
   },
   {
@@ -97,7 +97,8 @@ const groups: TargetGroup[] = [
     href: '/geschaeftskunden',
     // Seit 2026-10-03 eigenes Motiv NUR fuer diese Startseitenkarte (User, Backlog 5.14/5.15): unser Transporter mit
     // Anhaenger. Die Unterseiten (/geschaeftskunden, /leistungen) behalten `autohaeuser-und-fuhrparks-…`.
-    backgroundImage: '/assets/kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp',
+    // Seit 2026-10-14 das neue Transporterfoto (B26, nur hier): Fahrzeugtransport fuer Autohaus-Partner.
+    backgroundImage: '/assets/kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp',
     secondaryCta: { label: 'Partnerschaft anfragen', href: '/kontakt#contact-business' },
     partners: dealerPartners,
   },

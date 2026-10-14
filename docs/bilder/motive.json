@@ -161,9 +161,14 @@
       "herkunft": "echtes Foto, mit KI bearbeitet („KI-aufgewertet“) laut Herkunftsbogen 03.10.2026, Angabe des Users („final“), Nr. 6; Meeting 25.09.2026: roter SLS echt, die zwei Personen erzeugt (18:03). Vorher: nicht dokumentiert (16.07.2026)",
       "offen": ""
     },
-    "kacheln/autohaeuser-geschaeftskunden-haenger-leipzig-carcare.webp": {
-      "motiv": "Unser Autotransporter mit Anhänger, darauf ein grüner und ein schwarzer Porsche, im Hintergrund die Werkstatthalle",
-      "herkunft": "echtes Foto aus dem Betrieb (gesichtete Fotos „CarCare Fotos Aug 26_0“; Original „Autohaueser und Geschaeftskunden Haenger.jpeg“, aufgenommen 27.07.2026), eingebaut 03.10.2026; laut User echt; Fahrer nur von hinten, eigenes Kennzeichen „L CC 300“ bleibt",
+    "kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp": {
+      "motiv": "Unser Fahrzeugtransporter „L CC 300“ mit Anhänger bringt zwei weiße Sportwagen, Fahrer im Führerhaus, im Hintergrund unser Betriebsgebäude mit Fassadenschildern",
+      "herkunft": "echte Aufnahme, mit KI gering aufgewertet („KI-bearbeitet“): Angabe des Users auf Nachfrage 14.10.2026; Quelle hf_20261013_234333_….png (Higgsfield), KI-System nicht genannt. Ersetzt das echte Anhängerfoto vom 03.10.2026 (archiviert)",
+      "offen": ""
+    },
+    "kacheln/fahrzeugrueckgabe-kundenannahme-leipzig-carcare.webp": {
+      "motiv": "Unsere Mitarbeiterin übergibt einem Kunden vor der Kundenannahme den Fahrzeugschlüssel, daneben ein weißer Mietwagen mit CarCare-Center-Beschriftung",
+      "herkunft": "echtes Foto, Lichtverhältnisse mit KI bearbeitet („KI-bearbeitet“): Angabe des Users 14.10.2026; Quelle hf_20261013_222814_….png (Higgsfield), KI-System nicht genannt; dieselben Personen wie beim Kundenempfang",
       "offen": ""
     },
     "kacheln/autohaeuser-und-fuhrparks-leipzig-carcare.webp": {
@@ -194,11 +199,6 @@
     "kacheln/ersatzwagen-leipzig-carcare.webp": {
       "motiv": "Unsere Mietwagenflotte: Reihe weißer VW Polo mit Beschriftung des CarCare Center vor der Halle (4:3 aus Hochformat)",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „ersatzwagen-leipzig-carcare.webp.jpeg“, aufgenommen 11.06.2026); laut User weder KI-generiert noch -bearbeitet",
-      "offen": ""
-    },
-    "kacheln/fahrzeugabgabe-leipzig-carcare.webp": {
-      "motiv": "Mitarbeiter übergibt einer Kundin den Schlüssel, silberner Kleinwagen vor der Halle",
-      "herkunft": "echtes Foto, mit KI bearbeitet („KI-aufgewertet“) laut Herkunftsbogen 03.10.2026, Angabe des Users („final“), Nr. 15; ⚠️ im Meeting 25.09.2026 „KI-generiert“ (30:40), es gilt die spätere Angabe. Vorher: nicht dokumentiert (22.07.2026); bis 21.09.2026 als ersatzwagen-leipzig-carcare.webp, Motiv unverändert",
       "offen": ""
     },
     "kacheln/fahrzeugaufbereitung-leipzig-carcare.webp": {
@@ -246,10 +246,20 @@
       "herkunft": "echtes Foto aus dem Betrieb, vom User am 05.10.2026 als Chat-Anhang geliefert (Original abgelegt als „serviceberatung-laptop-carcare-leipzig.jpeg“, ohne Aufnahmedatum im EXIF); eingebaut 05.10.2026 für die Karte Serviceberater, nur 4:3-Ausschnitt aus dem Hochformat (npm run fotos)",
       "offen": ""
     },
+    "kacheln/terminanfrage-buero-laptop-leipzig-carcare.webp": {
+      "motiv": "Ausschnitt des Serviceberater-Bürofotos: Laptop mit unserer Website („We Care. We Repair.“) oben im Bild, Hände an der Tastatur, rechts Haare der Mitarbeiterin",
+      "herkunft": "echtes Foto aus dem Betrieb, vom User am 05.10.2026 als Chat-Anhang geliefert (Original abgelegt als „serviceberatung-laptop-carcare-leipzig.jpeg“, ohne Aufnahmedatum im EXIF); eingebaut 05.10.2026 für die Karte Serviceberater, nur 4:3-Ausschnitt aus dem Hochformat (npm run fotos); Ausschnitt nur für Ablauf Schritt 02 (B32), 14.10.2026",
+      "offen": ""
+    },
     "kacheln/lackaufbereitung-leipzig-carcare.webp": {
       "motiv": "Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Radlauf abgeklebt",
       "herkunft": "echtes Foto aus dem Betrieb (Lieferung „Neue Fotos Schleife September“, eingebaut 21.09.2026; Original „Lackaufbereitung-leipzig-carcare.webp.jpeg“, aufgenommen 16.07.2026); laut User weder KI-generiert noch -bearbeitet",
       "offen": "5.36: B46 (Außen) bekommt die Ferrari-Wäsche, B47 (Lack) behält dieses Foto; B28 und B66 prüfen"
+    },
+    "kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp": {
+      "motiv": "Zwei Mitarbeiter bei der Außenwäsche eines gelben Ferrari in der Waschhalle, einer mit dem Hochdruckreiniger, einer kniend an der Front; dahinter ein gelber Opel im offenen Hallentor",
+      "herkunft": "echt: Angabe des Users 14.10.2026 („natürlich ein echtes Bild“); Original Gesichtet/Fotos 3/image00051.jpeg, iPhone 17 Pro, 16.07.2026, ohne Bearbeitungssoftware",
+      "offen": ""
     },
     "kacheln/lackierkabine-leipzig-carcare.webp": {
       "motiv": "Lackierer mit Atemschutz lackiert in der Kabine ein mit Folie abgedecktes Fahrzeug",
@@ -360,6 +370,61 @@
       "motiv": "Serviceberater im Firmenshirt am Schreibtisch im Büro, Hände auf der Tastatur",
       "herkunft": "echtes Foto aus dem Betrieb (WeTransfer-Lieferung vom 02.10.2026, Original „Marko-Serviceberater-Carcare-leipzig.jpeg“, laut EXIF iPhone-Aufnahme vom 02.10.2026 ohne Bearbeitungssoftware), eingebaut 03.10.2026; laut User echte Mitarbeitende mit Einverständnis zur Nutzung der Bilder; nur Zuschnitt (npm run fotos); Zettel auf dem Schreibtisch und Auftragsblätter am Klemmbrett weichgezeichnet",
       "offen": ""
+    },
+    "galerie/lederpflege-sportsitz-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter trägt mit blauem Handschuh und Tuch Lederpflege auf die Lehne eines schwarzen Porsche-Sportsitzes auf, in der Hand die Flasche Lederpflege",
+      "herkunft": "echt: Angabe des Users 14.10.2026 („Alle Fotos … sind echt“); Original „CarCare Innenaufbereitung Exklusiv mit Leder/image00006.jpeg“, iPhone 17 Pro, 08.10.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/innenaufbereitung-fussraum-leipzig-carcare.webp": {
+      "motiv": "Frisch gereinigter Fahrerfußraum eines türkisfarbenen Porsche: Velours-Fußmatte mit Wappen, links der Ledersitz, oben das Armaturenbrett",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „CarCare Innenaufbereitung Exklusiv mit Leder/image00002.jpeg“, iPhone 17 Pro, 08.10.2026, ohne Bearbeitungssoftware; Ausschnitt ohne den Aufkleber mit Fahrgestellnummer",
+      "offen": ""
+    },
+    "galerie/cockpit-detailpinsel-leipzig-carcare.webp": {
+      "motiv": "Behandschuhte Hand reinigt mit Detailpinsel die Mittelkonsole am Wählhebel eines Porsche 911 (türkis), oben Tastenleiste und Lüftung",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „CarCare Innenaufbereitung und Keramikversiegelung/image00007.jpeg“, iPhone 17 Pro, 08.10.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/keramikversiegelung-auftragen-leipzig-carcare.webp": {
+      "motiv": "Behandschuhte Hand mit Keramik-Applikator auf türkisfarbenem Lack, dahinter die Flasche Keramikversiegelung auf einem blauen Mikrofasertuch",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „CarCare Innenaufbereitung und Keramikversiegelung/image00003.jpeg“, iPhone 17 Pro, 08.10.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/politur-finish-lackglanz-leipzig-carcare.webp": {
+      "motiv": "Polierte Fronthaube und Kotflügel eines kupferfarbenen Porsche Taycan mit klaren Spiegelungen der Hallenbeleuchtung, rechts der Scheinwerfer",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/Nahaufnahme - Porscheaufbereitung - Front.jpeg“, iPhone 17 Pro, 19.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/aussenreinigung-sportwagen-leipzig-carcare.webp": {
+      "motiv": "Frisch gereinigter hellblauer Porsche Taycan Turbo GT (Weissach) in der Halle, Heck und Hinterrad im Dreiviertelprofil, Fahrertür offen; Kennzeichen des schwarzen SUV im Hintergrund weichgezeichnet",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/Weissach Porsche Total Image.jpeg“, iPhone 17 Pro, 20.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/lackpolitur-poliermaschine-leipzig-carcare.webp": {
+      "motiv": "Rote Rotationspoliermaschine mit Lammfellpad in Bewegung auf dunklem Lack, Hand am Gerät, Polierspuren im Licht",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/dynamischen Polieren- nahaufnahme.jpeg“, iPhone 17 Pro, 20.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/felgenreinigung-buerste-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter reinigt mit Felgenbürste die eingeschäumten Speichen am Vorderrad eines gelben Ferrari",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/Felgenreinigung.jpeg“, iPhone 17 Pro, 16.07.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/motorraumpflege-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter wischt im geöffneten Motorraum eines kupferfarbenen Porsche die Abdeckung mit gelbem Mikrofasertuch",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/Motorreinigung - Porsche.jpeg“, iPhone 17 Pro, 19.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/endkontrolle-lackpruefung-leipzig-carcare.webp": {
+      "motiv": "Mitarbeiter im CarCare-Shirt prüft den Lack einer dunkelgrauen Porsche-Tür aus nächster Nähe, Spiegelbild im Lack, unten Rad und Pinsel in der Hand (Ausschnitt desselben Fotos wie karriere-aufbereiter-…)",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/karriere-aufbereiter-leipzig-carcare.webp.jpeg“, iPhone 17 Pro, 20.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
+    },
+    "galerie/versiegelung-cabriodach-leipzig-carcare.webp": {
+      "motiv": "Hand sprüht Cabriodach-Versiegelung aus der Dose auf das schwarze Stoffverdeck, Sprühnebel sichtbar, Karosserie mit Folie abgedeckt",
+      "herkunft": "echt: Angabe des Users 14.10.2026; Original „Neue Fotos Schleife September/Cabriodachversiegelung.jpeg“, iPhone 17 Pro, 20.08.2026, ohne Bearbeitungssoftware",
+      "offen": ""
     }
   },
   "platzhalter": {
@@ -404,7 +469,7 @@
     },
     "B26": {
       "status": "angepasst",
-      "notiz": "03.10.2026: Anhängerfoto nur hier (User, 5.14/5.15)"
+      "notiz": "14.10.2026: neues Transporterfoto (Fahrzeugtransport für Autohaus-Partner), eigene Datei autohaus-partner-fahrzeugtransport-…, KI-bearbeitet laut User; nur hier. Vorher 03.10.2026: Anhängerfoto (5.14/5.15)"
     },
     "B27": {
       "status": "angepasst",
@@ -423,8 +488,8 @@
       "notiz": "Bleibt, wie es ist (Kunde, 21.09.2026)"
     },
     "B33": {
-      "status": "anzupassen",
-      "notiz": "User liefert ein neues Foto (angekündigt 14.10.2026), damit Schritt 03 nicht wie B32 eine Schlüsselübergabe am Tresen wiederholt; vorher „Bleibt, wie es ist“ (Kunde, 21.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: Empfangsfoto (vorher in Schritt 02), auf Wunsch des Users; das frühere Motiv fahrzeugabgabe-… ist archiviert"
     },
     "B34": {
       "status": "angepasst",
@@ -451,56 +516,56 @@
       "notiz": "Echtes Foto (Lieferung 21.09.2026)"
     },
     "B46": {
-      "status": "anzupassen",
-      "notiz": "5.36: Außenaufbereitung bekommt das Foto „gelber Ferrari bei der Wäsche“ (neue Datei) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: eigenes Foto „gelber Ferrari bei der Wäsche“ (aussenaufbereitung-fahrzeugwaesche-…), nur hier; Backlog 5.36 damit auch im Code erledigt. Das Politurfoto bleibt an B28, B47, B66, B128"
     },
     "B47": {
       "status": "ok",
       "notiz": "Behält das Politurfoto – passt laut André zur Lackaufbereitung (5.36) (Schleife 5, 25.09.2026)"
     },
     "B48": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Fußraum nach der Innenaufbereitung (galerie/innenaufbereitung-fussraum-…), Backlog 5.37"
     },
     "B49": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Außenreinigung (galerie/aussenreinigung-sportwagen-…), Backlog 5.37"
     },
     "B50": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Lackpolitur (galerie/lackpolitur-poliermaschine-…), Backlog 5.37"
     },
     "B51": {
-      "status": "anzupassen",
-      "notiz": "5.38: Foto angefragt – Wischen über das Cockpit, mit Schaum oder Dampf (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Cockpit-Detail mit Pinsel (galerie/cockpit-detailpinsel-…), Backlog 5.38"
     },
     "B52": {
-      "status": "anzupassen",
-      "notiz": "5.41: „Versiegelung“ und „Keramikschutz“ werden eine Kachel; Foto 5.39 (Keramik beim Auftragen) liefert André (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Cabriodach-Versiegelung (galerie/versiegelung-cabriodach-…); „Versiegelung“ bleibt als eigene Kachel neben „Keramikschutz“ (B56)"
     },
     "B53": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Felgenreinigung (galerie/felgenreinigung-buerste-…), Backlog 5.37"
     },
     "B54": {
-      "status": "anzupassen",
-      "notiz": "5.40: Foto angefragt – Lederpflege beim Auftragen (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Lederpflege beim Auftragen (galerie/lederpflege-sportsitz-…), Backlog 5.40"
     },
     "B55": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Motorraumpflege (galerie/motorraumpflege-…), Backlog 5.37"
     },
     "B56": {
-      "status": "anzupassen",
-      "notiz": "5.41: „Versiegelung“ und „Keramikschutz“ werden eine Kachel; Foto 5.39 (Keramik beim Auftragen) liefert André (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Keramik beim Auftragen (galerie/keramikversiegelung-auftragen-…), Backlog 5.39; „Versiegelung“ (B52) hat ein eigenes Foto bekommen, die Kacheln bleiben getrennt"
     },
     "B57": {
-      "status": "anzupassen",
-      "notiz": "5.37: Foto liegt vor (Lieferung) (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Politur-Finish (galerie/politur-finish-lackglanz-…), Backlog 5.37"
     },
     "B58": {
-      "status": "anzupassen",
-      "notiz": "5.42: André liefert ein Foto der Endkontrolle (Schleife 5, 25.09.2026)"
+      "status": "angepasst",
+      "notiz": "14.10.2026: echtes Foto Endkontrolle (galerie/endkontrolle-lackpruefung-…), Backlog 5.42; dasselbe Foto wie die Karriere-Karte Kfz-Aufbereiter (B103/B108), eigener Ausschnitt"
     },
     "B60": {
       "status": "angepasst",
@@ -720,11 +785,15 @@
     },
     "B32": {
       "status": "angepasst",
-      "notiz": "14.10.2026: neues Empfangsfoto (Kunde übergibt am Tresen den Schlüssel), eigene Datei kundenempfang-schluesseluebergabe-…, KI-bearbeitet laut User; an B24, B32 und B75 zugleich („überall“)"
+      "notiz": "14.10.2026: Bürofoto der Karriere-Karte Serviceberater (B106 bleibt dort unverändert), hier als eigener Ausschnitt terminanfrage-buero-laptop-… mit dem Laptop oben über dem Textkasten (User: „weniger Kopf, mehr Laptop“)"
     },
     "B75": {
       "status": "angepasst",
       "notiz": "14.10.2026: neues Empfangsfoto (Kunde übergibt am Tresen den Schlüssel), eigene Datei kundenempfang-schluesseluebergabe-…, KI-bearbeitet laut User; an B24, B32 und B75 zugleich („überall“)"
+    },
+    "B35": {
+      "status": "angepasst",
+      "notiz": "14.10.2026: eigenes Rückgabefoto nur hier (fahrzeugrueckgabe-kundenannahme-…, KI-bearbeitet laut User); leasingrueckgabe-… bleibt an B17, B59, B129"
     }
   },
   "_hinweis_stellen": "stellen: Vermerk je Bildstelle (B-Nummer). Werte: \"anzupassen\" oder {status, notiz} mit status \"anzupassen\" (Kunde will ein anderes Motiv), \"todo\" (später einfügen), \"angepasst\" (in einer Runde getauscht) oder \"ok\" (Kunde will es so behalten). Die Nummern vergibt npm run bilder; hier nur eintragen, nicht umnummerieren."

@@ -17,8 +17,8 @@ import { detailingSteps } from '../data/detailing';
 /** Kachel-Foto je Schritt — gleiche Quelle/Benennung wie Leistungsuebersicht (ServiceGrid). */
 const kachel = (name: string) => `/assets/kacheln/${name}.webp`;
 
-// ⚠️ TEILWEISE NOCH INTERIM-FOTOS: Schritt 04 zeigt seit 2026-09-21 ein echtes Foto (B34), die
-// uebrigen sind vorhandene CarCare-Kacheln — bewusst FUENF UNTERSCHIEDLICHE, denn Karten- und
+// ⚠️ TEILWEISE NOCH INTERIM-FOTOS: Schritt 04 zeigt seit 2026-09-21 ein echtes Foto (B34), Schritte 02, 03 und 05 seit
+// 2026-10-14 eigene Motive (User), Schritt 01 eine vorhandene Kachel — bewusst FUENF UNTERSCHIEDLICHE, denn Karten- und
 // Hintergrund-Crossfade leben vom Bildwechsel. Beim Tausch bitte `image` UND `imageAlt` gemeinsam
 // aktualisieren (der Alt-Text beschreibt jeweils das tatsaechlich gezeigte Motiv, SEO §3.3).
 // REIHENFOLGE = Reihenfolge von `detailingSteps`: Eintrag i gehoert zu Schritt i.
@@ -28,17 +28,19 @@ const bilder: Array<Pick<ProcessStepCard, 'image' | 'imageAlt' | 'cta'>> = [
     imageAlt: 'Fahrzeugaufbereitung im CarCare Center Leipzig: Ein Fahrzeug wird fachgerecht gepflegt.',
   },
   {
-    // Seit 2026-10-14 das Empfangsfoto (B32, wie B24 und B75): Der Kunde übergibt am Tresen den Schlüssel.
-    image: kachel('kundenempfang-schluesseluebergabe-leipzig-carcare'),
+    // Seit 2026-10-14 (User) das echte Bürofoto der Karriere-Karte „Serviceberater“ (B32; dort B106, bleibt), hier als
+    // eigener Ausschnitt mit dem Laptop oben, damit er über dem Textkasten der Karte steht (`scripts/lib/fotos-liste.mjs`).
+    image: kachel('terminanfrage-buero-laptop-leipzig-carcare'),
     imageAlt:
-      'Kunde übergibt am Empfangstresen des CarCare Center Leipzig seinen Fahrzeugschlüssel an unsere Mitarbeiterin.',
+      'Unsere Mitarbeiterin am Laptop in unserem Büro in Leipzig, auf dem Bildschirm unsere Website.',
     cta: { label: 'Termin anfragen', href: '#contact-termin' },
   },
   {
-    // Motiv unveraendert (vom Kunden als „in Ordnung" bestaetigt, B33). Die Datei hiess bis
-    // 2026-09-21 `ersatzwagen-…`; der Name gehoert jetzt dem Foto unserer Mietwagenflotte (B23).
-    image: kachel('fahrzeugabgabe-leipzig-carcare'),
-    imageAlt: 'Fahrzeugschlüssel wird vor der Werkstatt des CarCare Center Leipzig persönlich übergeben.',
+    // Seit 2026-10-14 (User) das Empfangsfoto, das bis dahin Schritt 02 zeigte (B33, wie B24 und B75). Das fruehere
+    // Motiv `fahrzeugabgabe-…` stand nur hier und liegt jetzt in `docs/bilder/archiv/`.
+    image: kachel('kundenempfang-schluesseluebergabe-leipzig-carcare'),
+    imageAlt:
+      'Kunde übergibt am Empfangstresen des CarCare Center Leipzig seinen Fahrzeugschlüssel an unsere Mitarbeiterin.',
   },
   {
     // Seit 2026-09-21 echtes Foto (B34, nur diese Stelle).
@@ -46,8 +48,10 @@ const bilder: Array<Pick<ProcessStepCard, 'image' | 'imageAlt' | 'cta'>> = [
     imageAlt: 'Unser Mitarbeiter reinigt kniend die Scheibe der geöffneten Fahrertür eines kupferfarbenen SUV in unserer Aufbereitungshalle in Leipzig.',
   },
   {
-    image: kachel('leasingrueckgabe-leipzig-carcare'),
-    imageAlt: 'Gepflegtes Fahrzeug nach der Aufbereitung im CarCare Center Leipzig.',
+    // Seit 2026-10-14 (User) eigenes Rueckgabefoto NUR hier (B35). `leasingrueckgabe-…` bleibt an B17, B59 und B129.
+    image: kachel('fahrzeugrueckgabe-kundenannahme-leipzig-carcare'),
+    imageAlt:
+      'Unsere Mitarbeiterin übergibt einem Kunden vor unserer Kundenannahme in Leipzig den Fahrzeugschlüssel.',
   },
 ];
 

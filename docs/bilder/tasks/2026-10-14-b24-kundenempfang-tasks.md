@@ -81,6 +81,129 @@ Die Nummern hängen am Ort, nicht an der Datei (`docs/bilder/nummern.json`, Schl
 `scripts/lib/fotos-liste.mjs`
 `output/b24/b24-sichtpruefung.jpg`
 
+### ✅ Phase 4 — B26 nur Startseite: neues Transporterfoto (gleicher Ablauf, ohne Prüfläufe)
+**Auftrag des Users (14.10.):** „B26 nur mit dem angehangenen Bild anpassen. Keine unnötig langen Prüfungen, lediglich
+ersetzen; sauberer Name und Metadaten.“ Herkunft auf Nachfrage: **KI-bearbeitet**. Fassadenschild („Lackschutzfolien“,
+„Oldtimer-Pflege“) soll unbeachtet bleiben; gezeigt wird der Schlepper für Zusammenarbeit und Mobilitätsgarantie gegenüber
+Autohaus-Partnern.
+* [x] Quelle: `Downloads/hf_20261013_234333_….png` (bildgleich, Abweichung 4,2) → Kopie
+  `Downloads/carcare-transporter-foto-2026-10-14/autotransporter-anhaenger-sportwagen-carcare-leipzig.png`.
+* [x] `npm run fotos -- --nur autohaus-partner` → `kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp`,
+  1344 × 752, 102 KB (alt 2000 × 1500, 400 KB); XMP mit `compositeWithTrainedAlgorithmicMedia`, **ohne** `AISystemUsed`
+  (System für dieses Bild nicht genannt).
+* [x] `TargetGroupCards` (B26) umgestellt, Herkunft `aufgewertet`, altes Anhängerfoto archiviert (sein Eintrag und der nur
+  dafür genutzte Lieferordner `ORDNER_GESICHTET_AUG26` aus der Fotoliste entfernt), Motiv und Vermerk B26 in `motive.json`.
+* [ ] Bewusst nicht gelaufen (Wunsch des User): Build, `npm run bilder` (README zeigt für B26 bis zum nächsten Lauf noch die
+  alte Datei), Kontrast, Aufnahmen. Nur geprüft: Fotoliste lädt, alle Pfade in Karte und Herkunft existieren.
+**Referenzen:**
+`scripts/lib/fotos-liste.mjs`
+`components/TargetGroupCards.tsx`
+`data/bildherkunft.ts`
+
+### ✅ Phase 5 — Ablauf der Aufbereitung (Startseite): Schritte 02, 03, 05 neu belegt, ohne Prüfläufe
+**Auftrag des Users (14.10.):** Schritt 02 (B32) bekommt das Serviceberater-Foto der Karriereseite (dort bleibt es), Schritt 03
+(B33) das bisherige Bild aus Schritt 02, das alte Bild von Schritt 03 komplett raus; Schritt 05 (B35) bekommt NUR dort ein
+neues Foto (KI-bearbeitet, Lichtverhältnisse). „Mach keine Wächterprüfungen, das machen wir später.“
+* [x] Mehrfachnutzung vorab geprüft: `fahrzeugabgabe-…` stand nur an B33 → archiviert
+  (`docs/bilder/archiv/fahrzeugabgabe-leipzig-carcare_bis-2026-10-14.webp`, Herkunftszeile Nr. 15 als abgelöst vermerkt).
+  `leasingrueckgabe-…` steht an B17, B35, B59, B129 → nur an B35 ersetzt, Datei bleibt.
+* [x] Quelle des neuen Fotos: `Downloads/hf_20261013_222814_….png` (bildgleich, Abweichung 3,8) → Kopie
+  `Downloads/carcare-rueckgabe-foto-2026-10-14/fahrzeugrueckgabe-kundenannahme-carcare-leipzig.png`;
+  `npm run fotos -- --nur fahrzeugrueckgabe` → `kacheln/fahrzeugrueckgabe-kundenannahme-leipzig-carcare.webp`, 1344 × 752,
+  72 KB, XMP mit `compositeWithTrainedAlgorithmicMedia`, ohne `AISystemUsed` (System nicht genannt).
+* [x] `components/DetailingProcessSection.tsx`: Bilder und Alternativtexte der Schritte 02, 03, 05 neu (der Text beschreibt
+  jeweils das gezeigte Motiv). Weiter fünf unterschiedliche Bilder (Crossfade). Plaketten folgen `bildherkunft.ts`:
+  Schritt 02 echt (keine), 03 und 05 „KI-bearbeitet“.
+* [x] Verweise nachgezogen: `stellen` des Empfangsfotos jetzt B24, B33, B75; Kommentare in `TargetGroupCards`,
+  `AccidentDamageSection`, `bildherkunft.ts`; `motive.json` (Datei-Eintrag neu, `fahrzeugabgabe` entfernt, Vermerke B32, B33,
+  B35 „angepasst“, der B33-Vermerk „neues Foto kommt“ ist damit erledigt).
+* [ ] Bewusst nicht gelaufen (Wunsch des Users): Build, `npm run bilder`, Kontrast, Aufnahmen. Nur geprüft: alle fünf Bildpfade
+  des Ablaufs existieren in `public/`.
+**Referenzen:**
+`components/DetailingProcessSection.tsx`
+`scripts/lib/fotos-liste.mjs`
+`docs/bilder/motive.json`
+
+### ✅ Phase 6 — Schritt 02 (B32): weniger Kopf, mehr Laptop, nur dort
+**Auftrag des Users (14.10.):** Im Bild von Schritt 02 zu viel Kopf rechts; nach rechts verschieben oder Richtung Laptop
+(links unten) heranzoomen. „Bitte auch wirklich nur dort.“
+* [x] Befund: In der Ablaufkarte liegt der Textkasten unten links über dem Laptop (Desktop frei: oberes Drittel und rechte
+  40 %, mobil nur das obere Viertel; gemessen an `output/b24/B32-1440.png` und `B32-390.png`). Deshalb sah man den Kopf.
+* [x] Drei Ausschnitte mit eingezeichnetem Kasten verglichen (aktuell, Laptop links unten, Laptop oben). Gewählt: Laptop
+  oben, ohne das rechte Viertel des Originals (`ausschnitt` x 0–0,76, y 0,39–0,714, Format 1,76 wie die Desktop-Karte).
+  Ergebnis: Bildschirm mit „We Care. We Repair.“ über dem Kasten, rechts Hände und nur noch Haare statt Hinterkopf.
+* [x] Eigene Datei `kacheln/terminanfrage-buero-laptop-leipzig-carcare.webp` (825 × 469, 42 KB, `digitalCapture` wie das
+  Original, Herkunft `echt`), nur in `DetailingProcessSection` Schritt 02. Karriere (B106) zeigt unverändert
+  `karriere-serviceberater-…` (`data/jobs.ts`).
+* [ ] Wie gewünscht keine Prüfläufe; nach dem nächsten Build lohnt ein Blick auf Schritt 02 mobil (nur das obere Viertel frei).
+**Referenzen:**
+`scripts/lib/fotos-liste.mjs`
+`components/DetailingProcessSection.tsx`
+
+### ✅ Phase 7 — B46 eins zu eins ersetzt: Ferrari-Waschfoto (Backlog 5.36)
+**Auftrag des Users (14.10.):** „B46 eins zu eins mit dem Anhang ersetzen, saubere Benennung und Metadaten; echtes Bild.“
+* [x] Original statt Anhang (2000 × 1500 ohne EXIF): per Bildvergleich über 908 Lieferfotos gefunden,
+  `Fotos/Gesichtet/Fotos 3/image00051.jpeg` (Abweichung 1,1; 5712 × 4284, iPhone 17 Pro, 16.07.2026, keine Software).
+* [x] Kein Kennzeichen (beide Wagen vorn ohne, vergrößert geprüft).
+* [x] `kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp`, 1200 × 900 (`breite: 1200`, nur Karte im
+  Dreierraster), 159 KB statt 410 KB bei 2000 px; XMP `digitalCapture`, Aufnahmedatum aus dem EXIF, kein GPS/Gerät.
+* [x] NUR B46: `data/detailing.ts` › `detailingScopes` › Außenaufbereitung bekommt den Pfad direkt (Alternativtext und
+  Maße neu). `aufbereitungKacheln.aussen` bleibt beim Politurfoto, das weiter B28, B47, B66, B128 speist.
+* [x] Herkunft `echt` (keine Plakette), `motive.json` (Datei, Vermerk B46 „angepasst“), Backlog 5.36: Code-Vermerk ergänzt.
+* [x] `tsc --noEmit` ohne Fehler. Kein Build, kein `npm run bilder`.
+* [x] **Nachgebessert (User: „etwas heranzoomen, mehr Fokus auf das gelbe Auto und die Waschung“):** Ausschnitt rund 1,35-fach
+  direkt im Kartenformat 16:10 (`ausschnitt` x 0,17–0,91, ab y 0,315), verglichen mit 1,28 und 1,41. Ergebnis 1200 × 750,
+  150 KB; `imageHeight` in `data/detailing.ts` auf 750. Nur B46 (die Karte rendert `scope.image` allein auf
+  `VehicleDetailingPage`).
+**Referenzen:**
+`data/detailing.ts`
+`scripts/lib/fotos-liste.mjs`
+`docs/backlog/schleife-5.md`
+
+### ✅ Phase 8 — Galerie „Ergebnisse, die man sieht“ (B48–B58): je Platzhalter ein echtes Foto
+**Auftrag des Users (14.10.):** Je Anhang eine Nummer aus B48–B58, saubere Benennung und Metadaten; alle Fotos echt.
+**Ablauf je Foto:** Original per Bildvergleich in den Lieferordnern suchen → Hochformat-Ausschnitt 3:4 (Kachel Desktop
+rund 3:4, mobil rund 0,54:1, mittig beschnitten) → Eintrag „GALERIE“ in `scripts/lib/fotos-liste.mjs`, 900 px breit →
+`src`/`alt` in `components/DetailingGallery.tsx` → `bildherkunft.ts` echt → `motive.json` → Backlog-Vermerk.
+* [x] **B54 Lederpflege** (5.40): `galerie/lederpflege-sportsitz-leipzig-carcare.webp`, 900 × 1200, 180 KB; Original
+  „CarCare Innenaufbereitung Exklusiv mit Leder/image00006.jpeg“ (iPhone 17 Pro, 08.10.2026). Ausschnitt x 0,06–0,5775,
+  y 0–0,92 (Desktop mit Gesicht, mobil Hand, Tuch und Pflegemittel mittig). `tsc` ohne Fehler.
+* [x] **Nachgebessert (User: Symbol und Name fehlten auf der Fotokachel):** `Tile` in `DetailingGallery.tsx` legt über
+  das Foto den Blauübergang als Verlauf von unten (`from-gray-950/90 via-blue-900/45 to-transparent`, untere zwei Drittel)
+  und setzt Symbol und Namen weiß unten links, aus EINER Quelle wie beim Platzhalter. Keine „Beispiel“-Plakette auf Fotos.
+* [x] Dabei behoben (bestand schon vorher): Mobil wurde „Innenaufbereitung“ abgeschnitten („Innenaufbereitu“). Erst mit
+  `hyphens-auto` versucht, verworfen (trennte auch „Außenreini-gung“, gegen die Vorgabe des Users vom 03.10.: keine
+  Trennstriche in Kacheln). Jetzt `GanzwortTitel` mit neuer Variante `als="span"` (keine Überschrift, sonst 18
+  zusätzliche h-Elemente), mobil `p-3`, Symbolfeld 28 px, Abstand 6 px. Aufnahmen `output/b24/galerie-1440.png` und
+  `galerie-390.png` (Build 14.10., 17:25): alle Namen ganz, Desktop unverändert 12 px.
+* [x] **Umgestellt (User: „Blauübergang raus, daraus mit dem gleichen Blau eine Vignette“):** neue Klasse
+  `.cc-galerie-vignette` in `styles/karten.css` im Blau der leeren Kacheln (`blue-900` = `--cc-trust-blue`, nicht das
+  Grau-Blau `--cc-cta-blue` der Bildkarten), Aufbau wie `.cc-karten-vignette` (Ellipse plus Innensaum). Beschriftung mit
+  leichtem Textschatten, weil die Vignette an der Unterkante schwächer ist als in der Ecke. Aufnahmen Build 17:29.
+* [x] **B48 Innenaufbereitung** (5.37): `galerie/innenaufbereitung-fussraum-leipzig-carcare.webp`, 900 × 1200, 101 KB;
+  Original „CarCare Innenaufbereitung Exklusiv mit Leder/image00002.jpeg“ (iPhone 17 Pro, 08.10.2026). Ausschnitt x 0,2–0,7625,
+  volle Höhe: Matte mittig, Sitzecke, Armaturenbrett; endet vor dem Aufkleber mit der Fahrgestellnummer (rechter Rand).
+  Backlog 5.37 bleibt „offen“ (Fortschritt vermerkt), bis alle Kacheln Fotos haben. `tsc` ohne Fehler.
+* [x] **B51 Cockpit-Detail** (5.38): `galerie/cockpit-detailpinsel-leipzig-carcare.webp`, 900 × 1200, 110 KB; Original
+  „CarCare Innenaufbereitung und Keramikversiegelung/image00007.jpeg“ (iPhone 17 Pro, 08.10.2026). Der Anhang kam als
+  Zwischennachricht und lag nicht als Datei vor: per Kontaktbogen zugeordnet (00007 Pinsel am Wählhebel, nicht 00008).
+  Ausschnitt x 0,12–0,62625, y 0,1–1. Hinweis an den User: 5.38 wünschte „Wischen über das Cockpit“; das zeigen 00009–00012.
+* [x] **B56 Keramikschutz** (5.39): `galerie/keramikversiegelung-auftragen-leipzig-carcare.webp`, 900 × 1200, 96 KB;
+  Original „… Keramikversiegelung/image00003.jpeg“ (iPhone 17 Pro, 08.10.2026, 14:15:42). Anhang nur im Chat: per Vergleich
+  der fünf Keramikfotos zugeordnet (gelbes Tuch oben links, Flasche aufrecht). Ausschnitt x 0,24–0,8025, volle Höhe.
+  Offen dazu: 5.41 („Versiegelung“ B52 und „Keramikschutz“ B56 werden eine Kachel), nicht beauftragt, beim User erwähnt.
+* [x] **B57 Politur-Finish**, **B55 Motorraumpflege**, **B49 Außenreinigung**, **B53 Felgenreinigung**, **B50 Lackpolitur**,
+  **B58 Endkontrolle**, **B52 Versiegelung**: alle aus dem Standard-Lieferordner „Neue Fotos Schleife September“ (iPhone 17 Pro,
+  Juli/August 2026, unbearbeitet), per Kontaktbogen zugeordnet (Anhänge kamen als Zwischennachrichten, nur im Chat).
+  B49: Kennzeichen des schwarzen SUV im Hintergrund weichgezeichnet (`unkenntlich`, im Prüfbogen unlesbar). B58 ist ein
+  Ausschnitt desselben Fotos wie die Karriere-Karte Kfz-Aufbereiter (B103/B108). B52: User gibt „Versiegelung“ ein eigenes
+  Foto, die Kacheln bleiben getrennt (5.41 vermerkt). B53/B52 Ausschnitt nach Sichtung nachgerückt (Bürste, Sprühnebel).
+* [x] Build 14.10., 17:5x; `npm run bilder`: 151 Bildstellen, **0 Platzhalter**, B48–B58 „umbenannt (Nummer behalten)“, keine
+  weitere Nummer entfallen. Gesamtansicht `output/b24/galerie-raster-1440.png` (ruhige Rasterfassung). `tsc` ohne Fehler.
+**Referenzen:**
+`components/DetailingGallery.tsx`
+`scripts/lib/fotos-liste.mjs`
+
 ---
 
 ## Kommentare

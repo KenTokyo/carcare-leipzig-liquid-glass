@@ -204,11 +204,12 @@ export const schemaAngebote = (kacheln: PriceItem[]) =>
  * LIEFERUNG VOM 2026-09-21 (echte Fotos, Bildliste `docs/bilder/README.md`):
  *   innen   <- neues Foto unter demselben Namen (B27, B45, B67)
  *   leasing <- eigenes Motiv `leasingrueckgabe-aufbereitung-…` (B29, Backlog 2.14/R2)
- *   aussen  <- Lackaufbereitungsfoto (Mitarbeiterin mit Poliermaschine): B28, B46, B66.
+ *   aussen  <- Lackaufbereitungsfoto (Mitarbeiterin mit Poliermaschine): B28, B66.
  *              Damit endet die Leihgabe von `fahrzeugaufbereitung-…` an dieser Stelle (R2).
- *   lack    <- dasselbe Foto (B47). Auf Wunsch des Users vom 2026-09-21 — bewusst in Kauf
- *              genommen: Auf `/fahrzeugaufbereitung-leipzig` stehen die Karten „Außen" und
- *              „Lack" nebeneinander mit demselben Bild, bis ein zweites Politurmotiv kommt.
+ *              Die Überblickskarte B46 zeigt seit 2026-10-14 ein eigenes Waschfoto (Backlog 5.36),
+ *              direkt in `umfang` unten statt über diesen Eintrag.
+ *   lack    <- dasselbe Foto (B47). Auf Wunsch des Users vom 2026-09-21; bis 2026-10-14 standen
+ *              auf `/fahrzeugaufbereitung-leipzig` die Karten „Außen" und „Lack" mit demselben Bild nebeneinander.
  *   Die fruehere Lackierkabine (`lackierkabine-…`) steht nur noch auf der Karriereseite.
  */
 export const aufbereitungKacheln = {
@@ -273,10 +274,12 @@ export const detailingScopes: DetailingScope[] = [
   },
   {
     id: 'aussenaufbereitung',
-    image: aufbereitungKacheln.aussen,
-    imageAlt: 'Mitarbeiterin poliert mit der Poliermaschine den Kotflügel eines dunkelblauen SUV, Außen- und Lackaufbereitung im CarCare Center Leipzig',
-    imageWidth: 2000,
-    imageHeight: 1500,
+    // Seit 2026-10-14 eigenes Foto NUR hier (B46, Backlog 5.36): Wäsche des gelben Sportwagens. Bewusst nicht
+    // `aufbereitungKacheln.aussen`, das speist auch die Startseite (B28) und die Außenaufbereitungsseite (B66).
+    image: '/assets/kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp',
+    imageAlt: 'Zwei Mitarbeiter waschen in unserer Waschhalle einen gelben Sportwagen, einer mit dem Hochdruckreiniger, Außenaufbereitung im CarCare Center Leipzig',
+    imageWidth: 1200,
+    imageHeight: 750,
     title: 'Außenaufbereitung',
     // Andre, 2026-10-05 (Nachtrag 6.24), in „wir/Sie“ gesetzt: „Felgen werden gereinigt, Insektenablagerungen entfernt,
     // dazu eine intensive Handoberwäsche bilden die Grundlage für eine anschließende Hochglanzpolitur. Eine

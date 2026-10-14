@@ -67,8 +67,8 @@ const steps: ProcessStepCard[] = [
     description:
       'Damit Sie mobil bleiben, organisieren wir nach Verfügbarkeit einen Ersatzwagen für die Dauer der Reparatur.',
     // Seit 2026-09-21 unsere eigene Mietwagenflotte statt Symbolbild (Backlog 2.21/3.4, B23).
-    // Das fruehere Motiv (Schluesseluebergabe) steht weiter bei „Fahrzeug abgeben" als
-    // `fahrzeugabgabe-leipzig-carcare.webp`.
+    // Das fruehere Motiv (Schluesseluebergabe) stand danach bei „Fahrzeug abgeben" als
+    // `fahrzeugabgabe-leipzig-carcare.webp` und ist seit 2026-10-14 archiviert (`docs/bilder/archiv/`).
     image: kachel('ersatzwagen-leipzig-carcare'),
     imageAlt:
       'Unsere Ersatzwagen: eine Reihe weißer Kleinwagen mit der Beschriftung des CarCare Center vor unserer Werkstatt in Leipzig.',
