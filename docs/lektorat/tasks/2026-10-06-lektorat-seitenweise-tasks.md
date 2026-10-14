@@ -293,7 +293,7 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
 `pages/DatenschutzPage.tsx`
 `pages/ImpressumPage.tsx`
 
-### 🟨 Phase 11 — L30 Querschnitt und Abschluss (Stopp: S beim User)
+### ✅ Phase 11 — L30 Querschnitt und Abschluss
 **Ziel:** Was erst im Ganzen sichtbar wird.
 * [x] 14.10.: Alle 29 Titles und Descriptions nebeneinander: einzigartig, `meta` 0/29, OG/Twitter gleich; Abweichungen
   beim Markenteil sind entschieden (L02-12, L15-02, L16), Wissensartikel mit dem Ausbau (L30-08/09).
@@ -303,14 +303,17 @@ umgesetzt und dienen als Vorlage, wenn die Artikel überarbeitet werden.
   des Formularservers, beide als K korrigiert (L30-01 „3 MB“, L30-02 Anführungszeichen).
 * [x] Befund `docs/lektorat/befunde/L30-querschnitt.md`: 2 K, 5 S, 8 H. Rückfragen an André als Text zum Weitergeben
   gebündelt (`docs/lektorat/rueckfragen-andre.md`, fünf Fragen).
-* [ ] Stopp: S L30-03 bis 07 beim User; danach Build und alle Messläufe.
+* [x] **Entscheidung User 14.10.: alle 5 S abgelehnt**, nichts geändert. Damit keine Textänderung an gerenderten Seiten
+  seit dem Build 14.10. 01:41; dessen Läufe gelten (`kontrast` 6.280 Textstellen ohne Befund, `aussparung` grün,
+  `lektorat` 30 Auszüge 0 K, `meta` 0/29). Die beiden K betreffen nur den Formularserver (`tsc` grün).
 * [x] **Vor dem Push auf main (User 08.10.: „nur Prüfläufe, dann pushen“), Build 08.10. 21:28:** `kontrast` 6.279 Textstellen,
   kein Text unter AA · `aussparung` 29 Routen × 3 Fenster, keine Überdeckung, Geometrie an 23 Breiten in Ordnung ·
   `zielgruppen` alle Karten auf allen Fenstern in Ordnung · `shots` 505 Aufnahmen in `output/shots/`.
   Noch offen für den Abschluss: L28–L29, Titel nebeneinander, JSON-LD, Bildtexte, Stilblatt-Gegenprobe.
-* [ ] (ursprünglich) Text kann Umbrüche verschieben: `npm run zielgruppen`, `npm run aussparung`, `npm run kontrast`, `npm run shots`
-  gegen den letzten Build
-* [ ] Kommentare und Optimierungsplan, Rückfragen an André bündeln, Push-Stand
+* [x] (ursprünglich) Text kann Umbrüche verschieben: `kontrast` und `aussparung` gegen den Build 14.10. 01:41 grün;
+  `zielgruppen` und `shots` entfallen, weil Startseite und Layout seit dem Lauf vom 08.10. textlich unverändert sind.
+* [x] Kommentare (unten), Rückfragen an André gebündelt. Kein Optimierungsplan nötig: keine offenen Funde außer den
+  Fragen an André und dem zurückgestellten Wissensbereich (Phase 9).
 
 **Referenzen:**
 `CLAUDE.md` (Textregeln 1–6)
@@ -359,8 +362,16 @@ Auszugsvergleich gegen den neuen Build ✅, Dateien unter 700 Zeilen ✅
 **Auffälligkeiten (nach Schwere):**
 1. 🟡 **Mittel:** Die Erklärung nennt einen Speicherwert, den der Code nicht schreibt (L29-03). Ändert sich
    `usePreloader.ts`, merkt das niemand: Wort und Code sind nicht verbunden. Mit L29-03 („vermerkt nur, dass …“) entfällt
-   die Kopplung an den Wert.
+   die Kopplung an den Wert. **Behoben** (L29-03 am 14.10. umgesetzt).
 2. 🔵 **Niedrig:** Die Vorprüfung hielt „Ltd., Dublin“ für einen Fehler. Behoben (L29-11).
+
+### Phase 11
+**Eingehalten:** Stilblatt-Gegenprobe über Quelltext statt nur Auszug ✅, Bilder vor dem Urteil angesehen ✅, frühere
+Entscheidungen (Titel L02-12, L15-02, L16; KC-Refresher L03-10) nicht neu aufgemacht ✅, K vor dem Stopp, S erst nach Ja ✅
+
+**Auffälligkeiten (nach Schwere):**
+1. 🔵 **Niedrig:** Fehlermeldungen des Formularservers erscheinen in keinem Auszug (`npm run lektorat` sieht nur die
+   gerenderte Seite). Hier lagen beide K dieser Phase. Bei neuen Meldungen in `api/` von Hand gegen das Stilblatt lesen.
 
 ## Quellen
 

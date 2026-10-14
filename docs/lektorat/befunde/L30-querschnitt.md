@@ -18,6 +18,9 @@ Beide Texte zeigt das Formular, wenn der Server eine Anfrage ablehnt; im Auszug 
 
 ## S · Vorschläge
 
+**Entscheidung des Users (14.10.): alle abgelehnt, nichts geändert** („Lass bitte alles so, wie es ist“). Bildtexte,
+„lackierfrei“ und die ISO-Formulierung bleiben; nicht erneut vorschlagen.
+
 | Nr | Stelle | Vorher | Vorschlag | Begründung | Quelle |
 |---|---|---|---|---|---|
 | L30-03 | Bild `fahrzeugaufbereitung-leipzig-carcare.webp`, **G:** Leistungskarten (5 Seiten) und Ablauf Aufbereitung, Schritt 1 (Startseite) | Fahrzeug nach der Aufbereitung im CarCare Center Leipzig · Fahrzeugaufbereitung im CarCare Center Leipzig: Ein Fahrzeug wird fachgerecht gepflegt. | Mitarbeiter poliert mit der Poliermaschine die Fahrertür eines silbergrauen Fahrzeugs, die Fensterrahmen sind abgeklebt. Fahrzeugaufbereitung im CarCare Center Leipzig | **Sachlich falsch:** Das Bild zeigt das Polieren, nicht ein fertiges Fahrzeug. Zwei verschiedene Texte für dasselbe Bild; SEO-GEO 3.3 verlangt den konkreten Bildinhalt | `data/services.ts:127`, `components/DetailingProcessSection.tsx:28` |
