@@ -227,7 +227,8 @@ und personenbezogene Schrift ✅, Kopie statt Verschieben der Nutzerdatei ✅.
 **Antworten des Users (14.10.2026, nach Phase 3):**
 - zu 1: „Ja Higgsfield, aber die Engine, die ich genannt habe, wurde genutzt.“ → Plattform in `motive.json` und
   `data/bildherkunft.ts` vermerkt. Die Metadaten bleiben bei der Engine (`AISystemUsed` fragt nach System/Modell).
-  ⚠️ OFFEN: `KI_WERKZEUGE` (KI-Verzeichnis im Impressum, Datenschutzerklärung) nennt nur OpenAI; Higgsfield als Plattform,
+  ✅ ENTSCHIEDEN (User, 14.10. abends): „Higgsfield braucht nicht als Plattform erwähnt werden, es reicht die Engine.“
+  `KI_WERKZEUGE` bleibt unverändert. Vorher offen: `KI_WERKZEUGE` nannte nur OpenAI; Higgsfield als Plattform,
   über die Fotos realer Personen liefen, ist dort nicht aufgeführt. Dem User vorgeschlagen, nicht eigenmächtig geändert.
 - zu 2: „Das passt schon, das Urbild wurde nahezu sehr gering verändert.“ → `aufgewertet` bleibt, erledigt.
 - zu 3: Höher aufgelöstes Bild angeboten, Frage nach der Performance (Antwort im Chat: bis 2000 px Breite, voraussichtlich

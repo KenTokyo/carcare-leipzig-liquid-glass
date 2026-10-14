@@ -86,5 +86,6 @@ Touch-Ereignisse zeigten den tatsächlichen Fehler (Kartenwechsel beim Scrollen)
 **Auffälligkeiten (nach Schwere):**
 1. ✅ **Behoben (hoch):** senkrechtes Scrollen auf dem Handy wechselte die Karte (siehe Phase 2).
 2. ✅ **Behoben (mittel):** Streifen der übernächsten Karten in Full HD.
-3. 🟢 **Niedrig (beim User):** Die Beschreibung der Sektion sagt noch „Beispielhafte Eindrücke …“; seit 14.10. sind es echte
+3. ✅ **Erledigt (User 14.10.: „Ja, es sind nun echte Fotos“):** Untertitel jetzt „Eindrücke aus unserer Innen-, Außen-
+   und Lackaufbereitung.“ Vorher: Die Beschreibung der Sektion sagte noch „Beispielhafte Eindrücke …“; seit 14.10. sind es echte
    Fotos. Textänderung nicht eigenmächtig (Lektorat abgeschlossen), vorgeschlagen.

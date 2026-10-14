@@ -216,7 +216,8 @@ const DetailingGallery: React.FC = () => (
       <SectionIntro
         eyebrow="Einblicke"
         title="Ergebnisse, die man sieht."
-        description="Beispielhafte Eindrücke aus Innen-, Außen- und Lackaufbereitung."
+        // Bis 2026-10-14 „Beispielhafte Eindrücke …“ (Platzhalter); seit alle Kacheln echte Fotos zeigen, ohne „Beispielhafte“ (User).
+        description="Eindrücke aus unserer Innen-, Außen- und Lackaufbereitung."
       />
       {/*
         KARTENBREITE `--karte` in `cqi` der Karussell-Huelle (= Containerbreite). Drei Karten fuellen die Breite, wenn die

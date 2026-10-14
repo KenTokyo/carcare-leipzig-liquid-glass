@@ -177,12 +177,13 @@ const AUSNAHMEN: Record<string, Bildherkunft> = {
   // aufgewertet, Ursprungsdatei und Motiv original, Zustimmungen aller abgebildeten Personen liegen vor. In der Datei
   // maschinenlesbar als IPTC `compositeWithTrainedAlgorithmicMedia` (`scripts/lib/fotos-liste.mjs`).
   // Nachgefragt am 14.10.: Genutzt über die Plattform Higgsfield, Engine wie genannt; das Urbild ist „nahezu sehr gering
-  // verändert“ (Scheinschrift auf Namensschild und Aufsteller fällt darunter). `KI_WERKZEUGE` nennt bisher nur OpenAI.
+  // verändert“ (Scheinschrift auf Namensschild und Aufsteller fällt darunter). ENTSCHEIDUNG USER (14.10.): Higgsfield wird
+  // nicht als Plattform genannt, „es reicht die Engine“; `KI_WERKZEUGE` bleibt bei ChatGPT Images 2.5 (OpenAI).
   '/assets/kacheln/kundenempfang-schluesseluebergabe-leipzig-carcare.webp': 'aufgewertet',
   // Derselbe Kundenempfang als Ausschnitt für den Seitenhintergrund von /privatkunden (B75), nur zugeschnitten.
   '/assets/kacheln/kundenempfang-schluesseluebergabe-hintergrund-leipzig-carcare.webp': 'aufgewertet',
   // Startseitenkarte „Autohäuser & Fuhrparks“ (B26), eingebaut 2026-10-14. Der User auf Nachfrage: „KI-bearbeitet“, also
-  // echte Aufnahme dieser Szene, mit KI gering aufgewertet. Das KI-System hat er für dieses Bild nicht genannt.
+  // echte Aufnahme dieser Szene, mit KI gering aufgewertet. KI-System laut User (14.10.): „auch Chat GPT Image 2.5“.
   '/assets/kacheln/autohaus-partner-fahrzeugtransport-leipzig-carcare.webp': 'aufgewertet',
   // Ablauf der Aufbereitung, Schritt 05 „Gepflegt zurückerhalten“ (B35, nur dort), eingebaut 2026-10-14. Der User:
   // „KI-bearbeitet, nämlich die Lichtverhältnisse“. Dieselben Personen wie beim Kundenempfang, System nicht genannt.

@@ -259,6 +259,9 @@ dieselben Fragen neu stellen.
 * [x] Knopf „Geschäftskundenanfrage stellen“ (L16-13) zweizeilig unter etwa 420 px: **bleibt so** (User 08.10.).
 **Achtung:** Mitarbeiterstimmen sind Zitate, nur eindeutige Tippfehler und nur nach Rücksprache. Stellenanzeigen
 zusätzlich auf AGG-neutrale Formulierung prüfen.
+> **2026-10-14 (User): „Lektorat fertig.“** Das Lektorat gilt damit als abgeschlossen. Der Wissensbereich (Phase 9)
+> wird mit der Neugestaltung der Wissensdatenbank (Backlog 3.22) neu geschrieben und dann dort geprüft, nicht hier.
+
 ### ⏸ Phase 9 — L20–L27 Wissensbereich (zurückgestellt)
 **Entscheidung User 08.10.:** Der Wissensbereich wird noch grundsätzlich ausgebaut; das Lektorat dort ruht bis dahin.
 Die vier K aus Stopp 1 bleiben (Artikelzahl aus den Daten, drei Titel nach Textregel 1). Die 18 S aus Stopp 1 sind nicht

@@ -435,8 +435,8 @@ export const FOTOS = [
    * Startseitenkarte „Autohaeuser & Fuhrparks“; ersetzt das Anhaengerfoto vom 03.10. (archiviert). Gezeigt werden soll
    * laut User der Schlepper fuer Zusammenarbeit und Mobilitaetsgarantie gegenueber Autohaus-Partnern.
    * HERKUNFT laut User: KI-bearbeitet (echte Aufnahme, gering aufgewertet). Quelle wie bei B24 eine verlustfreie PNG des
-   * Bildwerkzeugs (`Downloads/hf_20261013_234333_….png`, bildgleich mit dem Chat-Anhang). KEIN `ki`: Das System hat der
-   * User fuer dieses Bild nicht genannt, `AISystemUsed` bleibt deshalb leer statt geraten.
+   * Bildwerkzeugs (`Downloads/hf_20261013_234333_….png`, bildgleich mit dem Chat-Anhang). KI-System auf Nachfrage
+   * (14.10., abends): „auch Chat GPT Image 2.5“, also wie B24; bis dahin blieb `ki` leer statt geraten.
    * „L CC 300“ ist unser Transporter und bleibt (wie beim Vorgaenger); die Sportwagen tragen kein Kennzeichen.
    * Fassadenschild: auf Wunsch des Users unbeachtet (Leistungsbegriffe dort sind nicht Gegenstand der Karte).
    */
@@ -447,6 +447,7 @@ export const FOTOS = [
     stellen: 'B26 (nur Startseite)',
     format: 1344 / 752,
     quelltyp: QUELLTYP_KI_BEARBEITET,
+    ki: { system: 'ChatGPT Images (OpenAI)', version: '2.5' },
     titel: 'Fahrzeugtransport für Autohaus-Partner, CarCare Center Leipzig',
     beschreibung: 'Unser Fahrzeugtransporter mit Anhänger bringt zwei weiße Sportwagen, im Hintergrund unser Betriebsgebäude in Leipzig. Echtes Foto, mit KI bearbeitet.',
     stichwoerter: ['Autohäuser', 'Fahrzeugtransport', 'Autotransporter', 'Mobilitätsgarantie', 'Geschäftskunden'],
