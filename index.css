@@ -13,6 +13,8 @@
 @import './styles/aussparung.css';
 /* Liquid Glass mit Kartenvignette (2026-09-24) — NACH aussparung.css: gewinnt bei gleicher Spezifitaet. */
 @import './styles/glas.css';
+/* Fusszeile im Seitenfluss, wenn sie nicht ins Fenster passt (2026-10-14, Mobile-Check). */
+@import './styles/fusszeile.css';
 
 @tailwind base;
 @tailwind components;

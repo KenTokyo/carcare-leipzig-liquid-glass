@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2, ChevronRight, MapPin, Phone } from 'lucide-react';
 import { KnowledgeArticle } from '../data/knowledgeArticles';
 import FAQSection from './FAQSection';
+import GanzwortTitel from './GanzwortTitel';
 
 interface ArticleLayoutProps {
   article: KnowledgeArticle;
@@ -72,7 +73,14 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({ article, relatedArticles 
             </span>
             <span className="rounded-full bg-gray-100 px-4 py-2 text-xs font-bold text-gray-600">{article.readTime} Lesezeit</span>
           </div>
-          <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-gray-950 md:text-6xl">{article.title}</h1>
+          {/* `GanzwortTitel` seit 2026-10-14 (Mobile-Check): Bei 360 px ragten „Innenaufbereitung?“ und
+              „Farbtongenauigkeit“ in 36 px um 7–11 px ueber den Rand, das Fragezeichen fehlte. Groesse wie bisher. */}
+          <GanzwortTitel
+            als="h1"
+            text={article.title}
+            laufweite={-0.025}
+            className="font-bold leading-[1.05] tracking-tight text-gray-950 [--titel-max:2.25rem] md:[--titel-max:3.75rem]"
+          />
           <p className="mt-6 max-w-4xl text-lg leading-relaxed text-gray-700 md:text-xl">{article.introAnswer}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href="/kontakt#contact-termin" className="cc-gradient-button inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-bold text-white">

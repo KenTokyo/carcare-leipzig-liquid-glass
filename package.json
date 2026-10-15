@@ -32,6 +32,7 @@
     "tote-dateien": "node scripts/check-tote-dateien.mjs",
     "zielgruppen": "node scripts/check-zielgruppen.mjs",
     "aussparung": "node scripts/check-aussparung.mjs",
+    "mobil": "node scripts/check-mobil.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",
     "gedankenstriche": "node scripts/check-gedankenstriche.mjs --liste",
     "lektorat": "node scripts/lektorat-auszug.mjs",

@@ -1,0 +1,14 @@
+/* FUSSZEILE IM SEITENFLUSS (2026-10-14, Mobile-Check). Eingebunden per @import oben in index.css.
+   Die Fusszeile ist normalerweise `fixed` am unteren Rand (`.site-footer-shell`, index.css) und wird beim Scrollen
+   freigelegt. Passt sie nicht ins Fenster (`components/Footer.tsx`, PASST_RESERVE), steht sie mit
+   `.site-footer-shell--im-fluss` normal im Fluss. Dann gelten `left`, `right` und `bottom` der fixierten Fassung nicht:
+   Bei `position: relative` wuerden sie die Box nur verschieben. Den gleichen Rand zum Fenster geben stattdessen Aussen-
+   abstaende, damit sie genauso aussieht wie fixiert.
+   ZWEI KLASSEN im Selektor: Diese Datei steht per @import VOR der Regel `.site-footer-shell` in index.css; bei gleicher
+   Spezifitaet gewaenne die spaetere Regel und `left/right/bottom` blieben stehen. */
+.site-footer-shell.site-footer-shell--im-fluss {
+  bottom: auto;
+  left: auto;
+  margin: 0 var(--cc-shell-gap) var(--cc-shell-gap);
+  right: auto;
+}

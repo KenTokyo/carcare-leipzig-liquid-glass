@@ -24,9 +24,18 @@
 //     Sorte Befund, an der die naechste Sitzung etwas repariert, das nicht kaputt ist.
 //     `BERUHIGUNG` liegt deshalb ueber der laengsten Animation, mit Reserve.
 //
+//  5. ALTE AUFNAHMEN MISCHEN SICH UNTER. Bis 2026-10-15 blieben Bilder frueherer Laeufe liegen; wurde eine Seite
+//     kuerzer, standen ihre alten hinteren Aufnahmen neben den neuen. Jetzt werden je Route und Breite die alten
+//     Bilder vor dem Lauf entfernt, und der Kontaktbogen nennt je Gruppe den Zeitpunkt.
+//  6. MOBIL HEISST TOUCH. Die 390er-Aufnahmen laufen seit 2026-10-15 als Touch-Geraet (`isMobile`, `hasTouch`) wie
+//     `npm run mobil`; vorher sah die Seite eine schmale Maus-Ansicht.
+//
+// KONTAKTBOGEN: `output/shots/kontaktbogen.html` zeigt alle vorhandenen Aufnahmen je Seite und Breite auf einer Seite
+// (lokal im Browser oeffnen). Fuer die Sichtpruefung mit dem User (Mobile-Check 2026-10-15).
+//
 // ⚠️ Was diese Pruefung besteht, ohne dass die Sache in Ordnung ist: Sie macht Bilder,
 // sie bewertet nichts. Ein schiefes Layout faellt nur auf, wenn jemand hinsieht.
-// Fuer die messbare Aussage ist `npm run kontrast` zustaendig.
+// Fuer die messbare Aussage sind `npm run kontrast` und `npm run mobil` zustaendig.
 //
 // ⚠️ ROUTENFILTER UNTER GIT BASH: `npm run shots -- /ueber-uns` kommt dort als
 // `C:/Program Files/Git/ueber-uns` an — MSYS wandelt fuehrende Schraegstriche in
@@ -57,8 +66,8 @@ const nurRoute = args.find((a) => a.startsWith('/'));
 const nurBreite = args.map(Number).find((n) => Number.isFinite(n) && n > 100);
 
 const BREITEN = [
-  { name: 'desktop', breite: 1440, hoehe: 900 },
-  { name: 'mobil', breite: 390, hoehe: 844 },
+  { name: 'desktop', breite: 1440, hoehe: 900, touch: false },
+  { name: 'mobil', breite: 390, hoehe: 844, touch: true },
 ].filter((b) => !nurBreite || b.breite === nurBreite);
 
 /** Sektionsgrenzen aus dem DOM — das sind die Stellen, die man sehen will. */
@@ -100,7 +109,7 @@ try {
   for (const route of routen) {
     for (const b of BREITEN) {
       const seite = await browser.newPage();
-      await seite.setViewport({ width: b.breite, height: b.hoehe, deviceScaleFactor: 1 });
+      await seite.setViewport({ width: b.breite, height: b.hoehe, deviceScaleFactor: 1, isMobile: b.touch, hasTouch: b.touch });
       await seite.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
       await seite.evaluateOnNewDocument(HALTE_SCROLL);
       await seite.goto(basis + route, { waitUntil: 'networkidle0', timeout: 45000 });
@@ -110,6 +119,8 @@ try {
       const name = (route === '/' ? 'start' : route.replace(/^\//, '').replace(/\//g, '_'));
       const ordner = path.join(AUSGABE, name);
       fs.mkdirSync(ordner, { recursive: true });
+      // Alte Aufnahmen dieser Route und Breite weg (Punkt 5 im Kopf).
+      for (const alt of fs.readdirSync(ordner)) if (alt.startsWith(`${b.name}-`) && alt.endsWith('.png')) fs.rmSync(path.join(ordner, alt));
 
       for (let i = 0; i < grenzen.length; i++) {
         const y = grenzen[i];
@@ -129,4 +140,32 @@ try {
   stopp();
 }
 
-console.log(`\n[shots] ${anzahl} Aufnahmen in ${path.relative(wurzel, AUSGABE)}/ abgelegt.`);
+/** Kontaktbogen aus ALLEN vorhandenen Aufnahmen (auch frueherer Laeufe mit Routenfilter), je Gruppe mit Zeitpunkt. */
+function schreibeKontaktbogen() {
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const ordner = fs.readdirSync(AUSGABE, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+    .sort((a, b) => (a === 'start' ? -1 : b === 'start' ? 1 : a.localeCompare(b, 'de')));
+  const teile = [];
+  for (const name of ordner) {
+    const dateien = fs.readdirSync(path.join(AUSGABE, name)).filter((f) => f.endsWith('.png')).sort();
+    for (const b of ['mobil', 'desktop']) {
+      const eigene = dateien.filter((f) => f.startsWith(`${b}-`));
+      if (!eigene.length) continue;
+      const stand = new Date(Math.max(...eigene.map((f) => fs.statSync(path.join(AUSGABE, name, f)).mtimeMs))).toLocaleString('de-DE');
+      const route = name === 'start' ? '/' : `/${name.replace(/_/g, '/')}`;
+      const bilder = eigene.map((f) => `<a href="${esc(`${name}/${f}`)}"><img loading="lazy" src="${esc(`${name}/${f}`)}" alt="${esc(`${route} ${f}`)}"></a>`).join('');
+      teile.push(`<section><h2>${esc(route)} <small>${b}, ${eigene.length} Aufnahmen, ${stand}</small></h2><div class="reihe ${b}">${bilder}</div></section>`);
+    }
+  }
+  const stil = 'body{font:14px system-ui,sans-serif;margin:16px;background:#f4f6fa;color:#111}h1{font-size:20px;margin:0 0 4px}'
+    + 'h2{font-size:15px;margin:28px 0 8px}small{color:#555;font-weight:400}.reihe{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}'
+    + '.mobil img{width:195px}.desktop img{width:480px}img{display:block;border:1px solid #ccd;border-radius:6px;background:#fff}';
+  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">`
+    + `<title>Bildschirmfotos</title><style>${stil}</style></head><body><h1>Bildschirmfotos je Seite</h1>`
+    + `<p>Erzeugt von <code>npm run shots</code> am ${new Date().toLocaleString('de-DE')}. Je Gruppe der Zeitpunkt der Aufnahmen; Klick öffnet ein Bild in voller Größe.</p>`
+    + `${teile.join('')}</body></html>`;
+  fs.writeFileSync(path.join(AUSGABE, 'kontaktbogen.html'), html);
+}
+schreibeKontaktbogen();
+
+console.log(`\n[shots] ${anzahl} Aufnahmen in ${path.relative(wurzel, AUSGABE)}/ abgelegt, Übersicht: ${path.relative(wurzel, path.join(AUSGABE, 'kontaktbogen.html'))}`);

@@ -4,6 +4,8 @@
 
 **Statusabgleich 2026-10-14 (User):** R3, R4 und 1.26 erledigt. Eine eigene Seite „Versicherungen & Agenturen“
 wird nicht gebraucht (Vorgabe aus dem Juli damit hinfällig). 5.42 bleibt offen, 5.21 kommt beim Mobile-Check dran.
+**Mobile-Check 2026-10-15:** 5.21 umgesetzt (`docs/mobile-check/tasks/2026-10-14-mobile-check-tasks.md`), damit auch
+die Footer-Icons entschieden (sichtbar, gemessen ab 5,35 : 1). Zähltabelle unten um den 14. und 15.10. nachgezogen.
 **2026-09-10** (Netcup-Versand, Videos — `docs/backlog/tasks/2026-09-10-abgleich-offene-aufgaben-tasks.md`);
 Abschnitt 1 und 2 am **2026-09-10** mit den Antworten aus **Schleife 4** (`schleife-4.md`, 4.1–4.21)
 
@@ -160,7 +162,7 @@ offenen Kundenfrage **3.34** (wird reparatur.info überhaupt genutzt?).
 | **R14** | Darstellung | **Partner in den Zielgruppenkarten auf Full HD unsichtbar** (Sichtprüfung User 2026-09-17). Ab 1024 px Breite blendete eine Höhen-Query die Listen unter 860 px Fensterhöhe aus — ein maximierter Full-HD-Browser mit Zoom liegt darunter. Dazu: Mausrad erreichte innere Scrollbereiche nicht (Lenis) | OALAB | — | ✅ **erledigt 2026-09-17.** Liste nimmt den Restplatz und scrollt, drei Höhenstufen, breitere Karte, Verweilstrecke; `allowNestedScroll` behebt nebenbei die Karriere-Karten und den Dialog in niedrigen Fenstern. Gemessen über 15 Fenster: `npm run zielgruppen` |
 | **T4** | Verlinkung | **Zweiter Knopf auf den Aufbereitungskarten → Wissensbereich** | OALAB | — | ✅ **erledigt** (2026-09-27) durch 5.17: Ratgeber-Zeile unter den Aufbereitungskarten statt eines zweiten Knopfes (die Karte ist selbst ein Link) |
 | *(ohne Nr.)* | Paket B | **`ITEMS` gegen `serviceCatalog` prüfen**, ableiten oder bewusst trennen; Wächter erwägen | OALAB | — | offen |
-| *(ohne Nr.)* | Design | **Footer-Icons stehen bei Kontrast 1,00:1** auf dunklem Grund | André *(Gestaltungsfrage)* | — | offen · mit 5.21 (Fußzeile verkleinern) mitentscheiden |
+| *(ohne Nr.)* | Design | **Footer-Icons stehen bei Kontrast 1,00:1** auf dunklem Grund | André *(Gestaltungsfrage)* | — | ✅ **erledigt 2026-10-15** mit 5.21: Eisblau 60 % statt `text-gray-400` (Graphit 42 % auf Graphit), gemessen 5,35 bis 9,45 : 1 am Bildschirmfoto (`components/Footer.tsx`) · vorher: offen · mit 5.21 (Fußzeile verkleinern) mitentscheiden |
 | *(ohne Nr.)* | Scrollytelling | **Visueller Nachweis des gepinnten Zustands** wurde nie erbracht | OALAB | — | offen |
 
 ---
@@ -202,8 +204,8 @@ sie erneut als offen — genau das ist mir heute passiert.
 | | Anzahl |
 |---|---|
 | Blockiert den Livegang | **3** *(davon R10 seit 2026-09-08 nur noch Live-Test)* |
-| Wartet auf André | **~~9~~ ~~10~~ ~~8~~ ~~10~~ ~~11~~ ~~10~~ ~~9~~ ~~8~~ ~~6~~ ~~5~~ 3** *(2026-10-06: − R7 und − Partnerlogos, vom User abgehakt (R12 ruhte und zählte schon nicht); offen R3, R4, 1.26. 2026-10-03: − R15, alle Fotos geklärt. 2026-09-25: − 1.18/2.26, in Schleife 5 aufgegangen (5.20); − R1, letztes Jahr geliefert (5.24). 2026-09-16: R13 erledigt, R12 ruht mit abgeschaltetem Schadenformular; Partnerlogos teilweise; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung. 2026-09-18: + R15, R16 aus dem Bildinventar. 2026-09-21: + R18 Bereichsvideos, − R16 und R2 erledigt. 2026-09-23: − R18, vom User aus dem vorhandenen Drohnenmaterial zugeordnet)* |
-| Ohne Zulieferung umsetzbar | **~~10~~ ~~6~~ ~~8~~ 6** *(2026-10-06: − R9 und − R11, vom User abgehakt; nachgezählt: Video-Pause, Drohnenclips, R17, `ITEMS`, Footer-Icons, gepinnter Zustand. nachgezählt 2026-09-10: 7 offene Zeilen — die Drohnenclip-Zeile war in der 6 nicht mitgezählt — plus WCAG 2.2.2)* |
-| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ ~~21~~ ~~19~~ ~~21~~ ~~22~~ ~~23~~ ~~22~~ ~~21~~ ~~20~~ ~~18~~ ~~17~~ 12** *(ohne Schleife 4 bis 6 — die führen ihre Punkte selbst; 2026-10-06: Statusabgleich mit dem User, nachgezählt 3 + 3 + 6 (`tasks/2026-10-06-statusabgleich-user-tasks.md`); 2026-10-03: − R15; 2026-09-25: − 1.18/2.26 (5.20), − R1 (5.24); 2026-09-18: + R15, R16; 2026-09-21: + R17, + R18, − R16, − R2; 2026-09-23: − R18)* |
+| Wartet auf André | **~~9~~ ~~10~~ ~~8~~ ~~10~~ ~~11~~ ~~10~~ ~~9~~ ~~8~~ ~~6~~ ~~5~~ ~~3~~ 0** *(2026-10-14: − R3, − R4, − 1.26, vom User abgehakt (Statusabgleich). 2026-10-06: − R7 und − Partnerlogos, vom User abgehakt (R12 ruhte und zählte schon nicht); offen R3, R4, 1.26. 2026-10-03: − R15, alle Fotos geklärt. 2026-09-25: − 1.18/2.26, in Schleife 5 aufgegangen (5.20); − R1, letztes Jahr geliefert (5.24). 2026-09-16: R13 erledigt, R12 ruht mit abgeschaltetem Schadenformular; Partnerlogos teilweise; R1 bis auf ein Jahr geliefert; Fotopunkte in Sichtung. 2026-09-18: + R15, R16 aus dem Bildinventar. 2026-09-21: + R18 Bereichsvideos, − R16 und R2 erledigt. 2026-09-23: − R18, vom User aus dem vorhandenen Drohnenmaterial zugeordnet)* |
+| Ohne Zulieferung umsetzbar | **~~10~~ ~~6~~ ~~8~~ ~~6~~ 5** *(2026-10-15: − Footer-Icons, mit 5.21 erledigt. 2026-10-06: − R9 und − R11, vom User abgehakt; nachgezählt: Video-Pause, Drohnenclips, R17, `ITEMS`, Footer-Icons, gepinnter Zustand. nachgezählt 2026-09-10: 7 offene Zeilen — die Drohnenclip-Zeile war in der 6 nicht mitgezählt — plus WCAG 2.2.2)* |
+| **Summe echt offen** | **~~22~~ ~~18~~ ~~20~~ ~~21~~ ~~19~~ ~~21~~ ~~22~~ ~~23~~ ~~22~~ ~~21~~ ~~20~~ ~~18~~ ~~17~~ ~~12~~ 8** *(ohne Schleife 4 bis 6 — die führen ihre Punkte selbst; 2026-10-15: nachgezählt 3 + 0 + 5 (− R3, − R4, − 1.26 am 14.10., − Footer-Icons am 15.10.); 2026-10-06: Statusabgleich mit dem User, nachgezählt 3 + 3 + 6 (`tasks/2026-10-06-statusabgleich-user-tasks.md`); 2026-10-03: − R15; 2026-09-25: − 1.18/2.26 (5.20), − R1 (5.24); 2026-09-18: + R15, R16; 2026-09-21: + R17, + R18, − R16, − R2; 2026-09-23: − R18)* |
 | In den Dokumenten offen, tatsächlich erledigt oder überholt | 10 Kästchen |
 | Außerhalb des Projekts (Parallax-Kit) | 11 Kästchen |

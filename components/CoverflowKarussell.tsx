@@ -142,6 +142,8 @@ function CoverflowKarussell<T>({ eintraege, karte, name, bezeichnung, className 
   return (
     <div role="region" aria-roledescription="Karussell" aria-label={bezeichnung} className={`[container-type:inline-size] ${className}`}>
       <div
+        // Fuer `npm run mobil`: Die Nachbarkarten sind hier absichtlich angeschnitten (wie in der Vorlage).
+        data-mobil-anschnitt="Nachbarkarten im Karussell bewusst angeschnitten"
         tabIndex={0}
         onKeyDown={taste}
         onPointerDown={runter}

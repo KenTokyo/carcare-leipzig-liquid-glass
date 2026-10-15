@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import { SCHADEN_ZIEL } from '../data/schadenmeldung';
 import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
 import { GOOGLE_MAPS_ROUTE } from '../data/anfahrt';
 import { ExternMarke, externAttribute } from './ExternerLink';
@@ -26,11 +25,48 @@ function useReveal(progress: MotionValue<number>, start: number, end: number, li
   return { y, opacity };
 }
 
+/**
+ * FIXIERT NUR, WENN SIE INS FENSTER PASST (2026-10-14, Mobile-Check). Die Fusszeile ist `fixed` am unteren Rand und wird
+ * beim Scrollen hinter dem Inhalt freigelegt. Ist sie hoeher als das Fenster, ragt ihr oberer Teil dauerhaft hinaus und
+ * ist nie erreichbar: gemessen 1117–1160 px Fusszeile auf 640–932 px hohen Smartphones (oben 193–528 px weg, Logo und
+ * Kontakt), 782 px bei 1024 × 700. Dann steht sie im Seitenfluss, ohne Freilegen. `npm run mobil` prueft das.
+ * RESERVE 24 px: Der Inhalt beginnt erst nach dem oberen Innenabstand (64/80 px), der die Navbar-Zone schon abdeckt.
+ */
+const PASST_RESERVE = 24;
+
+/**
+ * BACKLOG 5.21 (Meeting 2026-09-25, umgesetzt im Mobile-Check 2026-10-15): „auf das Wesentliche reduziert“.
+ * Vorher 1117 px bei 390 und 761 px bei 1440 (dort rutschte „Anfragen“ als siebte Spalte allein in eine zweite Zeile).
+ * ENTFALLEN, weil doppelt: die Spalte „Bereiche“ alter Art (Startseite, Ueber uns, Leistungen, Wissen, Jobangebote stehen
+ * vorgerendert in der Navbar), „Anfragen“ (Navbar-Pillen und mobile Leiste), „Verantwortliche Stelle“ (= Kontakt darueber).
+ * GEBLIEBEN die fuenf Saeulenseiten: Im vorgerenderten HTML ist die Fusszeile ihr EINZIGER seitenweiter Link, denn die
+ * Untermenues der Navbar entstehen erst im Browser (gezaehlt auf /kontakt: je ein Link, und der steht hier). Wer hier
+ * kuerzt, nimmt diesen Seiten die interne Verlinkung (SEO-GEO-STANDARDS 4.4).
+ */
+const BEREICHE = [
+  { href: '/unfallinstandsetzung-leipzig', label: 'Unfall & Schaden' },
+  { href: '/fahrzeugaufbereitung-leipzig', label: 'Autoaufbereitung' },
+  { href: '/leasingrueckgabe-leipzig', label: 'Leasingrückgabe' },
+  { href: '/privatkunden', label: 'Privatkunden' },
+  { href: '/geschaeftskunden', label: 'Geschäftskunden' },
+];
+
+/**
+ * Symbole in Eisblau 60 %: Bis 2026-10-15 standen sie in `text-gray-400` (Graphit 42 %) auf Graphit, Kontrast 1,00 : 1,
+ * also unsichtbar (konsolidierter Backlog, Querschnitt; mit 5.21 entschieden). Jetzt gemessen 5,35 bis 9,45 : 1
+ * (Bildschirmfoto auf /kontakt, 390 und 1440 px, hellster Strichpixel gegen den Grund daneben, 2026-10-15), also ueber
+ * den 3 : 1 fuer Grafiken, und eine Stufe leiser als der Text daneben.
+ */
+const SYMBOL = 'shrink-0 text-blue-300/60';
+
 const Footer: React.FC = () => {
   const footerRef = useRef<HTMLElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const [footerHeight, setFooterHeight] = useState<number>(720);
+  const [fixiert, setFixiert] = useState(true);
   const prefersReducedMotion = useReducedMotion();
+  // Freilegen nur im fixierten Zustand; im Seitenfluss steht der Inhalt sofort ganz da.
+  const bewegt = fixiert && !prefersReducedMotion;
 
   // Footerhöhe live messen → Spacer hält genau diese Höhe als Reveal-Reserve im Scroll-Flow.
   // Rundung auf ganze px verhindert Sub-Pixel-Layout-Jitter.
@@ -42,7 +78,11 @@ const Footer: React.FC = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const h = Math.round(node.getBoundingClientRect().height);
-        if (h > 0) setFooterHeight((prev) => (prev === h ? prev : h));
+        if (h > 0) {
+          setFooterHeight((prev) => (prev === h ? prev : h));
+          const passt = h <= window.innerHeight - PASST_RESERVE;
+          setFixiert((prev) => (prev === passt ? prev : passt));
+        }
       });
     };
     measure();
@@ -81,24 +121,30 @@ const Footer: React.FC = () => {
   const contact = useReveal(smoothProgress, 0.08, 0.4, 52);
   const hours = useReveal(smoothProgress, 0.14, 0.46, 48);
   const areas = useReveal(smoothProgress, 0.2, 0.52, 44);
-  const sitemap = useReveal(smoothProgress, 0.26, 0.58, 44);
-  const requests = useReveal(smoothProgress, 0.32, 0.64, 40);
-  const legal = useReveal(smoothProgress, 0.55, 0.92, 30);
+  const legal = useReveal(smoothProgress, 0.5, 0.9, 30);
 
+  // OHNE FREILEGEN AUSDRUECKLICH DIE ENDWERTE, nicht `undefined`: Der erste Render ist immer fixiert (Prerender, vor der
+  // Messung) und setzt Deckkraft 0 und Versatz. Entfaellt danach das `style`, laesst Framer Motion diese Werte einfach
+  // stehen. So war die Fusszeile im Seitenfluss am 2026-10-15 komplett leer (Aufnahme 390 px, `npm run mobil` meldet
+  // das seitdem als „Fußzeile unsichtbar“).
   const reveal = (m: { y: MotionValue<number>; opacity: MotionValue<number> }) =>
-    prefersReducedMotion ? undefined : { y: m.y, opacity: m.opacity, willChange: 'transform, opacity' as const };
+    bewegt ? { y: m.y, opacity: m.opacity, willChange: 'transform, opacity' as const } : { y: 0, opacity: 1 };
 
   return (
     <>
-      {/* Spacer reserviert vertikalen Scroll-Raum, damit der fixed-Footer beim Scrollen freigelegt wird */}
-      <div ref={spacerRef} aria-hidden style={{ height: footerHeight }} />
+      {/* Spacer reserviert vertikalen Scroll-Raum, damit der fixed-Footer beim Scrollen freigelegt wird.
+          Im Seitenfluss (passt nicht ins Fenster) entfaellt er. */}
+      <div ref={spacerRef} aria-hidden style={{ height: fixiert ? footerHeight : 0 }} />
 
       <motion.footer
         ref={footerRef}
         id="contact"
         // fixed + z-0: liegt hinter dem Main-Content (relative z-10 bg-white). Reveal entsteht, sobald Main nach oben weggescrollt ist.
         // translateZ(0) + will-change zwingt eigene Composite-Layer → kein Repaint pro Scrollframe.
-        className="site-footer-shell fixed z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden"
+        // Kein Extra-Abstand unten fuer die mobile Aktionsleiste: Sie blendet sich am Seitenende selbst aus
+        // (`useNaheSeitenende`). Die „verdeckt“-Befunde vom 2026-10-14 kamen von der Navbar ueber der zu hohen fixierten
+        // Fusszeile, nicht von der Leiste.
+        className={`site-footer-shell ${fixiert ? 'fixed' : 'site-footer-shell--im-fluss relative'} z-0 bg-gray-900 text-gray-200 px-6 pt-16 pb-8 md:pt-20 md:pb-10 overflow-hidden`}
         style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', backfaceVisibility: 'hidden' }}
       >
         {/* Hintergrundfoto (2026-07-23). Liegt als UNTERSTE Ebene, damit die bestehenden
@@ -133,16 +179,18 @@ const Footer: React.FC = () => {
 
         <motion.div
           style={
-            prefersReducedMotion
-              ? undefined
-              : { y: contentY, opacity: contentOpacity, scale: contentScale, willChange: 'transform, opacity' }
+            bewegt
+              ? { y: contentY, opacity: contentOpacity, scale: contentScale, willChange: 'transform, opacity' }
+              : { y: 0, opacity: 1, scale: 1 }
           }
           className="relative container mx-auto"
         >
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-10 lg:gap-8 mb-10 md:mb-16">
+          {/* Raster ohne Waisenzeile (5.21): mobil Marke, Kontakt, dann Oeffnungszeiten neben Bereichen; ab md drei
+              Spalten unter der Marke; ab lg eine Zeile 4-3-2-3 auf zwoelf Spalten. */}
+          <div className="mb-10 grid grid-cols-2 gap-x-6 gap-y-9 md:mb-14 md:grid-cols-3 md:gap-10 lg:grid-cols-12 lg:gap-8">
 
             {/* Brand */}
-            <motion.div style={reveal(brand)} className="col-span-2 lg:col-span-2 space-y-5">
+            <motion.div style={reveal(brand)} className="col-span-2 space-y-5 md:col-span-3 lg:col-span-4">
               <div className="inline-flex items-center gap-3">
                 {/* Animiertes Markenzeichen behaelt bewusst sein weisses Badge: Das MP4 hat
                     KEINEN Alphakanal (H.264 kann das nicht), sein weisser Hintergrund waere auf
@@ -179,11 +227,11 @@ const Footer: React.FC = () => {
             </motion.div>
 
             {/* Contact */}
-            <motion.div style={reveal(contact)} className="space-y-4">
+            <motion.div style={reveal(contact)} className="col-span-2 space-y-4 md:col-span-1 lg:col-span-3">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Kontakt</h4>
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
-                  <MapPin size={16} className="mt-1 shrink-0 text-gray-400" />
+                  <MapPin size={16} className={`mt-0.5 ${SYMBOL}`} />
                   <div>
                     <p className="leading-snug">An den Tierkliniken 42<br />04103 Leipzig</p>
                     {/* Backlog 6.23: Routenlink an der Adresse — ein gewoehnlicher Link, bis zum Klick keine Verbindung
@@ -199,13 +247,13 @@ const Footer: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone size={16} className="text-gray-400 shrink-0" />
+                  <Phone size={16} className={SYMBOL} />
                   <a href="tel:+493412617790" className="hover:text-white transition-colors">0341 - 261 77 90</a>
                 </div>
                 {/* Backlog 5.30 (2026-09-25): Die Faxnummer 0341 - 962 74 87 ist entfallen — André:
                     „braucht ja heute sowieso kein Mensch mehr", die Telefonnummer reicht. */}
                 <div className="flex items-center gap-3">
-                  <Mail size={16} className="text-gray-400 shrink-0" />
+                  <Mail size={16} className={SYMBOL} />
                   {/* `tracking-tight` haelt die Adresse in der schmalen 1/6-Footerspalte auf EINER
                       Zeile: Space Grotesk laeuft breiter als das fruehere Inter und kippte sie ab
                       ~1440px in einen Umbruch mitten in der Domain ("carcare-" / "center.de").
@@ -217,11 +265,11 @@ const Footer: React.FC = () => {
             </motion.div>
 
             {/* Hours */}
-            <motion.div style={reveal(hours)} className="space-y-4">
+            <motion.div style={reveal(hours)} className="space-y-4 lg:col-span-2">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Öffnungszeiten</h4>
               <div className="space-y-2 text-sm text-gray-300">
                 <div className="flex items-start gap-3">
-                  <Clock size={16} className="mt-1 shrink-0 text-gray-400" />
+                  <Clock size={16} className={`mt-0.5 ${SYMBOL}`} />
                   <div className="leading-snug">
                     <p><span className="font-semibold text-white">{OEFFNUNG_ANZEIGE.werktage}:</span> {OEFFNUNG_ANZEIGE.zeit} Uhr</p>
                     <p><span className="font-semibold text-white">Sa:</span> {OEFFNUNG_ANZEIGE.samstag}</p>
@@ -230,42 +278,14 @@ const Footer: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Navigation */}
-            <motion.div style={reveal(areas)} className="space-y-4">
+            {/* Bereiche: die fuenf Saeulenseiten (Begruendung bei `BEREICHE`). Bis 5.21 hiess die Liste am Desktop
+                „Sitemap“ und fehlte mobil ganz (`hidden lg:block`); jetzt steht sie ueberall. */}
+            <motion.div style={reveal(areas)} className="space-y-4 lg:col-span-3">
               <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Bereiche</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/" className="hover:text-white transition-colors">Startseite</a></li>
-                <li><a href="/ueber-uns" className="hover:text-white transition-colors">Über uns</a></li>
-                <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
-                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissen</a></li>
-                <li><a href="/karriere" className="hover:text-white transition-colors">Jobangebote</a></li>
-                <li><a href="/impressum" className="hover:text-white transition-colors">Impressum</a></li>
-                <li><a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a></li>
-              </ul>
-            </motion.div>
-
-            {/* Sitemap — Leistungen */}
-            <motion.div style={reveal(sitemap)} className="space-y-4 hidden lg:block">
-              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Sitemap</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/leistungen" className="hover:text-white transition-colors">Leistungen</a></li>
-                <li><a href="/unfallinstandsetzung-leipzig" className="hover:text-white transition-colors">Unfall & Schaden</a></li>
-                <li><a href="/fahrzeugaufbereitung-leipzig" className="hover:text-white transition-colors">Autoaufbereitung</a></li>
-                <li><a href="/leasingrueckgabe-leipzig" className="hover:text-white transition-colors">Leasingrückgabe</a></li>
-                <li><a href="/autoaufbereitung-wissen" className="hover:text-white transition-colors">Wissen</a></li>
-                <li><a href="/privatkunden" className="hover:text-white transition-colors">Privatkunden</a></li>
-                <li><a href="/geschaeftskunden" className="hover:text-white transition-colors">Geschäftskunden</a></li>
-                <li><a href="/kontakt" className="hover:text-white transition-colors">Kontakt</a></li>
-              </ul>
-            </motion.div>
-
-            {/* Anfragen */}
-            <motion.div style={reveal(requests)} className="space-y-4 col-span-2 md:col-span-1">
-              <h4 className="font-bold text-white text-sm uppercase tracking-[0.15em]">Anfragen</h4>
-              <ul className="grid grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4 text-sm text-gray-300">
-                <li><a href={SCHADEN_ZIEL} {...externAttribute(SCHADEN_ZIEL)} className="inline-flex items-center gap-1 hover:text-white transition-colors">Schaden melden<ExternMarke href={SCHADEN_ZIEL} groesse={12} /></a></li>
-                <li><a href="/kontakt#contact-termin" className="hover:text-white transition-colors">Termin anfragen</a></li>
-                <li><a href="/kontakt#contact-business" className="hover:text-white transition-colors">Als Geschäftskunde anfragen</a></li>
+                {BEREICHE.map((b) => (
+                  <li key={b.href}><a href={b.href} className="hover:text-white transition-colors">{b.label}</a></li>
+                ))}
               </ul>
             </motion.div>
           </div>
@@ -301,15 +321,20 @@ const Footer: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-6">
               {/* 2026-07-23: von gray-500 auf gray-300 aufgehellt. Auf dem neuen Hintergrundfoto
                   lag gray-500 bei Kontrast 2.77 und damit klar unter WCAG-AA — die Zeilen waren
-                  praktisch unlesbar. gray-300 entspricht den uebrigen Footer-Texten. */}
-              <p className="text-xs text-gray-300">
-                © {new Date().getFullYear()} BS CarCare GmbH.
-              </p>
-              <div className="max-w-2xl text-[10px] text-gray-300 leading-relaxed space-y-2">
-                <p><span className="font-semibold text-gray-300">Verantwortliche Stelle:</span> BS CarCare GmbH, An den Tierkliniken 42, 04103 Leipzig.</p>
+                  praktisch unlesbar. gray-300 entspricht den uebrigen Footer-Texten.
+                  5.21: Impressum und Datenschutz stehen seitdem hier neben dem Copyright statt in der alten
+                  Spalte „Bereiche“, auf jeder Seite und mit 24 px Trefferhoehe (`min-h-6`). */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-gray-300">
+                <p>© {new Date().getFullYear()} BS CarCare GmbH.</p>
+                <a href="/impressum" className="inline-flex min-h-6 items-center underline decoration-white/20 underline-offset-4 transition-colors hover:text-white">Impressum</a>
+                <a href="/datenschutz" className="inline-flex min-h-6 items-center underline decoration-white/20 underline-offset-4 transition-colors hover:text-white">Datenschutz</a>
+              </div>
+              {/* 5.21: „Verantwortliche Stelle“ entfallen, sie stand als Kontakt zwei Bloecke darueber und steht im
+                  Impressum. 12 statt 10 px: Der Satz ist die einzige Feinschrift, die bleibt. */}
+              <div className="max-w-2xl text-xs text-gray-300 leading-relaxed">
                 {/*
                   2026-09-04 KORRIGIERT. Hier stand: „Anonymisierte Webanalyse via Matomo,
                   gemäß DSGVO. Aufsichtsbehörde: Der Sächsische Datenschutzbeauftragte, Dresden."

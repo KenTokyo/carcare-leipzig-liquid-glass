@@ -5,6 +5,7 @@ import { claimsPartners, dealerPartners, insurancePartners } from '../data/partn
 import ZielgruppenPartner from './ZielgruppenPartner';
 import ZielgruppenKacheln from './ZielgruppenKacheln';
 import KiMarke from './KiMarke';
+import GanzwortTitel from './GanzwortTitel';
 import { privatkundenKacheln } from '../data/privatkunden';
 
 /**
@@ -330,17 +331,20 @@ const TargetGroupCards: React.FC = () => {
                       Breite einzeilig (`--karte-b` mindestens 25rem).
                       Kurze Titel ("Privatkunden") bleiben einzeilig und sitzen mittig. */}
                   <div className="flex h-[var(--kopf)] shrink-0 items-center gap-3 border-b border-gray-100 px-5 md:px-6">
-                    <h3
+                    {/* SEIT 2026-10-14 `GanzwortTitel` (Mobile-Check): Bei 360/390 px passte „Versicherungen“ neben der
+                        Plakette „Foto: KI-bearbeitet“ nicht mehr in die Zeile, `line-clamp-2` schnitt es ab (37/7 px,
+                        bei 360 px auch „Privatkunden“ um 10 px). Jetzt bleibt jedes Wort ganz, nur ein zu langes wird
+                        kleiner, ohne Trennstrich (User 03.10.). Groessen wie bisher (24/30 px, flach 24 px).
+                        Blauer Akzentpunkt: `punkt` setzt ihn inline ans letzte Wort, derselbe wie an den Titeln der
+                        Leistungsuebersicht (ExpandingCardAccordion); er rutscht nie allein in eine neue Zeile. */}
+                    <GanzwortTitel
                       id={`zielgruppe-${group.id}`}
-                      className="line-clamp-2 text-2xl font-bold leading-tight tracking-tight text-gray-950 [hyphens:none] md:text-3xl [@media(min-width:1024px)_and_(max-height:859px)]:text-2xl [@media(min-width:1024px)_and_(max-height:859px)]:leading-tight"
-                    >
-                      {group.title}
-                      {/* Blauer Akzentpunkt — seitenweites Motiv, steht so auch an den Titeln der
-                          Leistungsuebersicht (ExpandingCardAccordion). Bewusst INLINE im h3 und
-                          nicht als Flex-Geschwister: Als eigenes Element driftete er bei
-                          zweizeiligen Titeln weit nach rechts weg und wirkte wie ein Fehler. */}
-                      <span aria-hidden="true" className="ml-1.5 inline-block h-2 w-2 rounded-full bg-blue-600 align-top" />
-                    </h3>
+                      text={group.title}
+                      punkt
+                      laufweite={-0.025}
+                      huelle="min-w-0 flex-1"
+                      className="line-clamp-2 font-bold leading-tight tracking-tight text-gray-950 [--titel-max:1.5rem] md:[--titel-max:1.875rem] [@media(min-width:1024px)_and_(max-height:859px)]:[--titel-max:1.5rem]"
+                    />
                     {/* Unterhalb `lg` deckt diese Karte das Foto bis auf einen 20-px-Rahmen ab —
                         eine Plakette auf dem Bild laege dort auf der Partnerliste. Deshalb hier,
                         in derselben Kachel, mit Vorsatz „Foto:“: Neben einer Ueberschrift waere

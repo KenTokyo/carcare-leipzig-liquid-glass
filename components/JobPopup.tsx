@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, BriefcaseBusiness, X } from 'lucide-react';
 import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, offeneStellenKicker, stellenTitel } from '../data/jobs';
+import { useNaheSeitenende } from '../hooks/useNaheSeitenende';
 
 /**
  * Pop-up mit den offenen Stellen auf `/karriere` (Backlog 1.23).
@@ -23,7 +24,10 @@ import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, o
  *     einmal je Aufruf nervt dort nicht.
  *  2. DEN WEG VERSTELLEN. Es sitzt unten rechts und ist schmal; auf Mobile unten mit
  *     Abstand zur festen Aktionsleiste. Kein Vollbild-Overlay, keine Sperre des
- *     Hintergrunds — die Seite bleibt bedienbar.
+ *     Hintergrunds — die Seite bleibt bedienbar. AM SEITENENDE weicht es aus wie die mobile
+ *     Leiste (`useNaheSeitenende`) und kommt beim Hochscrollen wieder; das gilt nicht als
+ *     Schliessen. Bis 2026-10-15 lag es dort ueber der Fusszeile, mobil wie am Desktop
+ *     (Mobile-Check, Bildschirmfotos aus `npm run shots`).
  *  3. NICHT WEGGEHEN. Schliessen per Knopf UND per Escape. Der Schliessknopf bekommt
  *     beim Erscheinen den Fokus, damit Tastaturnutzer nicht erst durch die Seite
  *     wandern muessen.
@@ -34,6 +38,17 @@ import { STELLEN_POPUP_AKTIV, offeneAusbildungen, offeneBerufe, offeneStellen, o
  * war ausserhalb des sichtbaren Bereichs. Empirisch belegt: im DOM vorhanden, im
  * Screenshot nicht zu sehen. `MobileStickyCTA` umgeht das, indem es in `Layout` neben
  * `<main>` steht; hier tut es ein Portal an `document.body`.
+ *
+ * KOMPAKT, WO DIE VOLLE FASSUNG NICHT SINNVOLL PASST (Mobile-Check 2026-10-15): schmaler ODER niedriger als 640 px.
+ * Gemessen verdeckte die volle Fassung 66 % des Fensters bei 360 × 640 (ihre Oberkante lag dort unter der Navbar),
+ * 51 % bei 390 × 844 und 42 % bei 430 × 932. Im Querformat (844 × 390) laege der Schliessknopf ueber dem oberen Rand.
+ * Google zaehlt Dialoge, die den Inhalt verdecken, zu den aufdringlichen Einblendungen; Banner sollen nur einen
+ * kleinen Teil des Bildschirms belegen (Search Central, „Avoid intrusive interstitials and dialogs“). Kompakt bleiben
+ * Kopf (Zaehler, „Wir suchen Verstaerkung.“) und „Jetzt bewerben“; die Stellen selbst stehen direkt unter dem Hero im
+ * Stellen-Banner (`JobBanner`), das die volle Fassung bisher selbst verdeckte. Ab 640 × 640 bleibt alles wie in 6.15
+ * abgenommen. `npm run mobil` misst den Anteil am Fenster (hoechstens 30 % der Hoehe) und ob der Schliessknopf wirkt.
+ * Die Bedingung steht als Tailwind-Variante `[@media(min-width:640px)_and_(min-height:640px)]` ausgeschrieben im
+ * Markup (Tailwind findet nur vollstaendige Klassennamen).
  *
  * NICHT IM VORGERENDERTEN HTML: Es erscheint erst nach einer Verzoegerung im Client.
  * Damit taucht es weder im Snapshot noch bei Crawlern auf — eine Stellenanzeige, die
@@ -63,6 +78,8 @@ interface JobPopupProps {
 
 const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
   const [sichtbar, setSichtbar] = useState(false);
+  // Am Seitenende nur ausgeblendet, nicht geschlossen (Punkt 2 oben); der Fokus springt beim Wiederkommen nicht.
+  const naheEnde = useNaheSeitenende();
   const schliessenRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -88,7 +105,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
 
   return createPortal(
     <AnimatePresence>
-      {sichtbar && (
+      {sichtbar && !naheEnde && (
         <motion.aside
           role="dialog"
           aria-label="Offene Stellen"
@@ -107,7 +124,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
             Beginn. Weisse Schrift auf dem Verlauf: gleiche Flaeche wie die CTA-Knoepfe, dort gemessen AA.
             Der Ring um das Symbol pulsiert dreimal und steht dann — Aufmerksamkeit beim Erscheinen, keine Dauerbewegung.
           */}
-          <div className="cc-gradient-fill relative px-5 pb-5 pt-5">
+          <div className="cc-gradient-fill relative p-4 [@media(min-width:640px)_and_(min-height:640px)]:p-5">
             <button
               ref={schliessenRef}
               type="button"
@@ -117,7 +134,7 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
             >
               <X size={17} />
             </button>
-            <div className="flex items-center gap-3 pr-10">
+            <div className="flex items-center gap-3 pr-8 [@media(min-width:640px)_and_(min-height:640px)]:pr-10">
               <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white">
                 <motion.span
                   aria-hidden="true"
@@ -130,44 +147,47 @@ const JobPopup: React.FC<JobPopupProps> = ({ href }) => {
               </span>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/85">{offeneStellenKicker()}</p>
-                <p className="mt-1 text-xl font-bold leading-tight tracking-tight text-white">Wir suchen Verstärkung.</p>
+                <p className="mt-1 text-lg font-bold leading-tight tracking-tight text-white [@media(min-width:640px)_and_(min-height:640px)]:text-xl">Wir suchen Verstärkung.</p>
               </div>
             </div>
           </div>
 
-          <div className="px-5 pb-5 pt-4">
-            {offeneBerufe.length > 0 && (
-              <ul className="space-y-1.5">
-                {offeneBerufe.map((job) => (
-                  <li key={job.id} className="flex items-center gap-2 text-[15px] font-bold leading-snug text-gray-950">
-                    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
-                    {stellenTitel(job)}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {/* Backlog 5.26: Ausbildungsplaetze als solche kenntlich, sonst stuende „Fahrzeuglackierer/in"
-                ohne Erklaerung neben „Fahrzeuglackierer". */}
-            {offeneAusbildungen.length > 0 && (
-              <>
-                <p className={`${offeneBerufe.length ? 'mt-4' : ''} text-[10px] font-bold uppercase tracking-[0.2em] text-gray-600`}>
-                  Ausbildung{gemeinsamerBeginn ? ` · ${gemeinsamerBeginn}` : ''}
-                </p>
-                <ul className="mt-1.5 space-y-1">
-                  {offeneAusbildungen.map((job) => (
-                    <li key={job.id} className="flex items-center gap-2 text-sm font-semibold leading-snug text-gray-800">
-                      <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-blue-600" />
+          <div className="px-4 pb-4 pt-3 [@media(min-width:640px)_and_(min-height:640px)]:px-5 [@media(min-width:640px)_and_(min-height:640px)]:pb-5 [@media(min-width:640px)_and_(min-height:640px)]:pt-4">
+            {/* Nur in der vollen Fassung (siehe KOMPAKT oben); kompakt stehen die Stellen im Banner unter dem Hero. */}
+            <div className="mb-5 hidden [@media(min-width:640px)_and_(min-height:640px)]:block">
+              {offeneBerufe.length > 0 && (
+                <ul className="space-y-1.5">
+                  {offeneBerufe.map((job) => (
+                    <li key={job.id} className="flex items-center gap-2 text-[15px] font-bold leading-snug text-gray-950">
+                      <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
                       {stellenTitel(job)}
-                      {!gemeinsamerBeginn && job.hinweis && `, ${job.hinweis}`}
                     </li>
                   ))}
                 </ul>
-              </>
-            )}
+              )}
+              {/* Backlog 5.26: Ausbildungsplaetze als solche kenntlich, sonst stuende „Fahrzeuglackierer/in"
+                  ohne Erklaerung neben „Fahrzeuglackierer". */}
+              {offeneAusbildungen.length > 0 && (
+                <>
+                  <p className={`${offeneBerufe.length ? 'mt-4' : ''} text-[10px] font-bold uppercase tracking-[0.2em] text-gray-600`}>
+                    Ausbildung{gemeinsamerBeginn ? ` · ${gemeinsamerBeginn}` : ''}
+                  </p>
+                  <ul className="mt-1.5 space-y-1">
+                    {offeneAusbildungen.map((job) => (
+                      <li key={job.id} className="flex items-center gap-2 text-sm font-semibold leading-snug text-gray-800">
+                        <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-blue-600" />
+                        {stellenTitel(job)}
+                        {!gemeinsamerBeginn && job.hinweis && `, ${job.hinweis}`}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
             <a
               href={href}
               onClick={schliessen}
-              className="cc-gradient-button mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-3.5 text-sm font-bold text-white"
+              className="cc-gradient-button inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold text-white [@media(min-width:640px)_and_(min-height:640px)]:py-3.5"
             >
               Jetzt bewerben
               <ArrowRight size={15} />
