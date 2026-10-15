@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 15.10.2026, 02:14 | `2026-10-06-lektorat` | `283f1c1` `2abde47` (2) | nein | neue Skripte: mobil |
 | 14.10.2026, 23:40 | `2026-10-06-lektorat`, `main` | `b805a8f` (1) | nein | — |
 | 14.10.2026, 20:04 | `2026-10-06-lektorat`, `main` | `74b18fb` (1) | nein | — |
 | 14.10.2026, 17:59 | `2026-10-06-lektorat`, `main` | `1d98adf` (1) | nein | — |

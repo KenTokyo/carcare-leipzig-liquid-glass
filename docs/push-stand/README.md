@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 14.10.2026, 23:40, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 15.10.2026, 02:14, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 14.10.2026, 23:40 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 15.10.2026, 02:14 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `b805a8f` | `dd0ef22` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `b805a8f` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `35e435b` | `35e435b` | gleich |
+| `2026-10-06-lektorat` | `2abde47` | — | neu, 2 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +19,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `b805a8f` | 14.10.2026, 23:40 | oalabhypercode | Statusabgleich 14.10.: Entscheidungen des Users eingetragen | 10 | — | **kommt mit diesem Push** |
+| `283f1c1` | 15.10.2026, 02:13 | oalabhypercode | Mobile-Check: Fußzeile verkleinert (5.21), Stellen-Pop-up kompakt, Messwerkzeug npm run mobil | 15 (3 neu) | package.json | **kommt mit diesem Push** |
+| `2abde47` | 15.10.2026, 02:14 | oalabhypercode | Docs: Mobile-Check Phase 5 als offen markiert (Sichtabnahme User) | 1 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,7 +30,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `b805a8f` |
+| npm-Skripte | neu: `npm run mobil` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `2abde47`, `283f1c1` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -45,9 +47,11 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-Keine offenen Folgepunkte in den berührten Planungsdateien.
+| Punkt | Planung |
+|---|---|
+| Phase 5 — Sichtprüfung mit dem User (Bildschirmfotos je Seite) | `docs/mobile-check/tasks/2026-10-14-mobile-check-tasks.md` |
 
-### Backlog gesamt: 21 offene Punkte
+### Backlog gesamt: 19 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -82,14 +86,13 @@ Quelle: `docs/backlog/schleife-4.md`
 </details>
 
 <details>
-<summary>Schleife 5: 8 offen</summary>
+<summary>Schleife 5: 7 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
 | 5.1 | Projekt: Livegang in der Woche ab 28.09.2026 vorbereiten. Dieses Meeting ist die letzte Abstimmung davor; KUP… | offen | OALAB |
 | 5.11 | Alle Seiten › Fuhrparkservice: Fuhrparkfoto ohne die generierte Person. Links im Bild wurde eine Person hinzu… | offen | OALAB |
 | 5.12 | Startseite › Schadenreise, Schritt 02: Eine echte Schadenaufnahme fotografieren. André: „Ich kann auch eine s… | offen | André |
-| 5.21 | Alle Seiten › Fußzeile: Fußzeile verkleinern. Sie ist „sehr breit" und wird auf das Wesentliche reduziert. | offen | OALAB |
 | 5.35 | Fahrzeugaufbereitung: Foto einer Heißvernebelung mit sichtbarem Dampf. André: Das „kann ich auch noch mal ver… | offen | André |
 | 5.37 | Fahrzeugaufbereitung › „Ergebnisse, die man sieht": Die Galerie mit den gelieferten Fotos füllen: Innenaufber… | offen | OALAB |
 | 5.42 | Fahrzeugaufbereitung › Galerie: Foto Endkontrolle: ein Mitarbeiter prüft den Lack eines fertigen Fahrzeugs. A… | offen | André |
@@ -113,7 +116,7 @@ Quelle: `docs/backlog/schleife-6.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 8 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 7 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
@@ -123,7 +126,6 @@ Quelle: `docs/backlog/schleife-6.md`
 | – | Drohnen- und Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte 3.23… | 🟨 teilweise — am 2026-09-23 sind 3 der 12 Drohnenclips als… | OALAB |
 | R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
 | – | `ITEMS` gegen `serviceCatalog` prüfen, ableiten oder bewusst trennen; Wächter erwägen | offen | OALAB |
-| – | Footer-Icons stehen bei Kontrast 1,00:1 auf dunklem Grund | offen · mit 5.21 (Fußzeile verkleinern) mitentscheiden | André (Gestaltungsfrage) |
 | – | Visueller Nachweis des gepinnten Zustands wurde nie erbracht | offen | OALAB |
 
 Quelle: `docs/backlog/offene-punkte-konsolidiert.md`
