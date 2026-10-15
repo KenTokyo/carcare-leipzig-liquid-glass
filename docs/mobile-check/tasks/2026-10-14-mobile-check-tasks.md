@@ -113,7 +113,7 @@ wird auf das Wesentliche reduziert“) wollte er ausdrücklich dabei prüfen.
 `scripts/check-mobil.mjs`
 `scripts/shots.mjs`
 
-### 🔄 Phase 5 — Sichtprüfung mit dem User (Bildschirmfotos je Seite)
+### ⬜ Phase 5 — Sichtprüfung mit dem User (Bildschirmfotos je Seite)
 * [x] `npm run shots` mobil (Build 01:02) und Desktop (Build 01:02, die alten vom 08.10. ersetzt), `/karriere` beide
   Breiten neu gegen Build 01:37 (Pop-up am Seitenende). Übersicht `output/shots/kontaktbogen.html`. Die übrigen
   Seiten sind vom Pop-up-Nachtrag nicht betroffen (es erscheint nur auf `/karriere`).
