@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/build-email.mjs && node scripts/check-faq.mjs && node scripts/check-nummernraeume.mjs && node scripts/check-vercel-config.mjs && node scripts/generate-sitemap.mjs && node scripts/ensure-chromium.mjs",
+    "prebuild": "node scripts/build-email.mjs && node scripts/check-faq.mjs && node scripts/check-nummernraeume.mjs && node scripts/check-vercel-config.mjs && node scripts/check-weiterleitungen.mjs && node scripts/generate-sitemap.mjs && node scripts/ensure-chromium.mjs",
     "build": "tsc --noEmit && vite build",
     "postbuild": "node scripts/prerender.mjs && node scripts/check-faq-html.mjs && node scripts/check-dummies.mjs && node scripts/check-gedankenstriche.mjs",
     "preview": "vite preview",
@@ -23,6 +23,8 @@
     "eu-emblem": "node scripts/build-eu-emblem.mjs",
     "verify-preloader": "node scripts/verify-preloader.mjs",
     "smoke": "node scripts/check-deployment.mjs",
+    "weiterleitungen": "node scripts/check-weiterleitungen.mjs",
+    "altseite": "node scripts/altseite-inventar.mjs",
     "dummies": "node scripts/check-dummies.mjs",
     "kontrast": "node scripts/check-kontrast.mjs",
     "shots": "node scripts/shots.mjs",

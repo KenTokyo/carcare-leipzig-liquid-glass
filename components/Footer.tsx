@@ -313,12 +313,24 @@ const Footer: React.FC = () => {
                   Kursivschrift, Unterstreichungen und Schrifteffekte, deshalb hier auch kein
                   drop-shadow wie an anderen Stellen des Footers. `text-white` fuer maximalen
                   Kontrast auf dem Hintergrundfoto. */}
-              <p
-                className="text-sm leading-snug text-white md:text-base"
-                style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
-              >
-                Kofinanziert von der Europäischen Union.
-              </p>
+              <div>
+                <p
+                  className="text-sm leading-snug text-white md:text-base"
+                  style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+                >
+                  Kofinanziert von der Europäischen Union.
+                </p>
+                {/* 2026-10-16: Vorhabensbeschreibung nach Art. 50 VO (EU) 2021/1060, unveraendert von der Altseite
+                    uebernommen (`public/images/EU_POS.pdf`, gleiche Adresse wie dort; `BEHALTEN` in
+                    scripts/lib/weiterleitungen.mjs). Eigenes Element NEBEN dem Pflichtsatz: Fuer den Satz selbst sind
+                    Unterstreichungen unzulaessig, fuer diesen Link sind sie die uebliche Kennzeichnung im Footer. */}
+                <a
+                  href="/images/EU_POS.pdf"
+                  className="inline-flex min-h-6 items-center text-xs text-gray-300 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white"
+                >
+                  Unser Digitalisierungsvorhaben (PDF)
+                </a>
+              </div>
             </div>
 
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 lg:gap-6">

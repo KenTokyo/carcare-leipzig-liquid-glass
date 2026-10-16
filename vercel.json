@@ -20,6 +20,268 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/carcarecenter.html",
+      "destination": "/ueber-uns",
+      "statusCode": 301
+    },
+    {
+      "source": "/carcarecenter/referenzen.html",
+      "destination": "/geschaeftskunden",
+      "statusCode": 301
+    },
+    {
+      "source": "/carcarecenter/bildergalerie.html",
+      "destination": "/ueber-uns",
+      "statusCode": 301
+    },
+    {
+      "source": "/carcarecenter/videos.html",
+      "destination": "/ueber-uns",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden.html",
+      "destination": "/leistungen",
+      "statusCode": 301
+    },
+    {
+      "source": "/pflegepakete.html",
+      "destination": "/fahrzeugaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/pflegepakete.html",
+      "destination": "/fahrzeugaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/fahrzeugdesinfektion.html",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/pflegepakete/fahrzeugdesinfektion.html",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/fahrzeugdesinfektion.html",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/neu-und-reparaturlackierung.html",
+      "destination": "/autolackierung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/neu-reparaturlackierung-leipzig.html",
+      "destination": "/autolackierung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/neu-und-reparaturlackierung.html",
+      "destination": "/autolackierung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/lackreparatur.html",
+      "destination": "/smart-repair-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/reparaturloesungen-mit-system.html",
+      "destination": "/smart-repair-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/reparaturloesungen-mit-system.html",
+      "destination": "/smart-repair-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/kunststoffreparatur.html",
+      "destination": "/smart-repair-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/lederreparatur.html",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/stoffreparatur.html",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/felgenreparatur.html",
+      "destination": "/felgenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/felgenreparatur.html",
+      "destination": "/felgenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/dellenentfernung-leipzig.html",
+      "destination": "/dellenentfernung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/dellen-entfernung-leipzig.html",
+      "destination": "/dellenentfernung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/dellenentfernung.html",
+      "destination": "/dellenentfernung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/hagelschadenreparatur-leipzig.html",
+      "destination": "/hagelschadenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/hagelschadenreparatur.html",
+      "destination": "/hagelschadenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/autoglas-scheibenfolien.html",
+      "destination": "/autoglas-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/autoglas-scheibenfolien.html",
+      "destination": "/autoglas-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/unfallinstandsetzung.html",
+      "destination": "/unfallinstandsetzung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/unfallinstandsetzung.html",
+      "destination": "/unfallinstandsetzung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/leasingbegleitung.html",
+      "destination": "/leasingrueckgabe-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/leasingbegleitung.html",
+      "destination": "/leasingrueckgabe-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/fuhrparkservice.html",
+      "destination": "/fuhrparkservice-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/privat-geschaeftskunden/fuhrparkservice.html",
+      "destination": "/fuhrparkservice-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/autohaeuser-fuhrparks.html",
+      "destination": "/geschaeftskunden",
+      "statusCode": 301
+    },
+    {
+      "source": "/jobangebote.html",
+      "destination": "/karriere",
+      "statusCode": 301
+    },
+    {
+      "source": "/jobangebote/serviceberater.html",
+      "destination": "/karriere",
+      "statusCode": 301
+    },
+    {
+      "source": "/jobangebote/karosserie-und-fahrzeugbaumechaniker.html",
+      "destination": "/karriere",
+      "statusCode": 301
+    },
+    {
+      "source": "/jobangebote/fahrzeuglackierer.html",
+      "destination": "/karriere",
+      "statusCode": 301
+    },
+    {
+      "source": "/jobangebote/kfz-aufbereiter.html",
+      "destination": "/karriere",
+      "statusCode": 301
+    },
+    {
+      "source": "/kontakt.html",
+      "destination": "/kontakt",
+      "statusCode": 301
+    },
+    {
+      "source": "/kontakt/anfahrt.html",
+      "destination": "/kontakt",
+      "statusCode": 301
+    },
+    {
+      "source": "/standorte/leipzig.html",
+      "destination": "/kontakt",
+      "statusCode": 301
+    },
+    {
+      "source": "/kontakt/impressum.html",
+      "destination": "/impressum",
+      "statusCode": 301
+    },
+    {
+      "source": "/kontakt/datenschutzerklaerung.html",
+      "destination": "/datenschutz",
+      "statusCode": 301
+    },
+    {
+      "source": "/datenschutz.html",
+      "destination": "/datenschutz",
+      "statusCode": 301
+    },
+    {
+      "source": "/kontakt/sitemap.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/carcare-center/CarCareFlyer_2022.pdf",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/carcare-center/fahrzeugdesinfektion/Fahrzeugdesinfektion_CarCare-Center.pdf",
+      "destination": "/innenaufbereitung-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/carcare-center/felgenreparatur/Zertifikat-Alufelgenaufbereitung.pdf",
+      "destination": "/felgenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/carcare-center/felgenreparatur/Zertifikat-glanzgedrehte-Felgen.pdf",
+      "destination": "/felgenreparatur-leipzig",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/datenschutz/Datenschutzhinweise_Allg_20200908.pdf",
+      "destination": "/datenschutz",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/leistungen",

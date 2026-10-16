@@ -1,0 +1,533 @@
+{
+  "quelle": "https://www.carcare-center.de",
+  "erfasst": "2026-10-16",
+  "hinweis": "Erzeugt mit npm run altseite (scripts/altseite-inventar.mjs). Nicht von Hand bearbeiten.",
+  "seiten": [
+    {
+      "pfad": "/autoglas-scheibenfolien.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Autoglas / Scheibenfolien",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/autohaeuser-fuhrparks.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Autohäuser & Fuhrparks",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/carcarecenter.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - CarCare-Center",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/carcarecenter/bildergalerie.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Bildergalerie",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/carcarecenter/referenzen.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Referenzen",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/carcarecenter/videos.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Videos",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/datenschutz.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Datenschutz",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/dellen-entfernung-leipzig.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Dellenentfernung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/dellenentfernung-leipzig.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Dellenentfernung",
+      "gefundenAuf": [
+        "/dellen-entfernung-leipzig.html",
+        "/privat-geschaeftskunden/dellenentfernung.html"
+      ]
+    },
+    {
+      "pfad": "/fahrzeugdesinfektion.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fahrzeugdesinfektion",
+      "gefundenAuf": [
+        "/index.html"
+      ]
+    },
+    {
+      "pfad": "/felgenreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Felgenreparatur",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/fuhrparkservice.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fuhrparkservice",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/hagelschadenreparatur-leipzig.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Hagelschadenreparatur",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/index.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fahrzeugpflege und -aufbereitung, Smart Repair",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/jobangebote.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Jobangebote",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/jobangebote/fahrzeuglackierer.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fahrzeuglackierer",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/jobangebote/karosserie-und-fahrzeugbaumechaniker.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Karosserie / Fahrzeugbaumechaniker",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/jobangebote/kfz-aufbereiter.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Kfz-Aufbereiter",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/jobangebote/serviceberater.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Serviceberater (m/w/d)",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kontakt.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Ihr direkter Kontakt zu uns",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kontakt/anfahrt.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Anfahrt zu uns",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kontakt/datenschutzerklaerung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Datenschutzerklärung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kontakt/impressum.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Impressum",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kontakt/sitemap.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Sitemap",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/kunststoffreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Kunststoffreparatur",
+      "gefundenAuf": [
+        "/privat-geschaeftskunden/reparaturloesungen-mit-system.html",
+        "/reparaturloesungen-mit-system.html"
+      ]
+    },
+    {
+      "pfad": "/lackreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Lackreparatur",
+      "gefundenAuf": [
+        "/neu-und-reparaturlackierung.html",
+        "/privat-geschaeftskunden/neu-und-reparaturlackierung.html",
+        "/privat-geschaeftskunden/reparaturloesungen-mit-system.html"
+      ]
+    },
+    {
+      "pfad": "/leasingbegleitung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Wir kümmern uns um Ihr Leasingfahrzeug",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/lederreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Lederreparatur",
+      "gefundenAuf": [
+        "/privat-geschaeftskunden/reparaturloesungen-mit-system.html",
+        "/reparaturloesungen-mit-system.html"
+      ]
+    },
+    {
+      "pfad": "/neu-reparaturlackierung-leipzig.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Neu- und Reparaturlackierung",
+      "gefundenAuf": [
+        "/neu-und-reparaturlackierung.html",
+        "/privat-geschaeftskunden/neu-und-reparaturlackierung.html"
+      ]
+    },
+    {
+      "pfad": "/neu-und-reparaturlackierung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Neu- und Reparaturlackierung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/pflegepakete.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Pflegepakete",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/pflegepakete/fahrzeugdesinfektion.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fahrzeugdesinfektion",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Privatkunden",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/autoglas-scheibenfolien.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Autoglas / Scheibenfolien",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/dellenentfernung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Dellenentfernung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/fahrzeugdesinfektion.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fahrzeugdesinfektion",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/felgenreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Felgenreparatur",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/fuhrparkservice.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Fuhrparkservice",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/hagelschadenreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Hagelschadenreparatur",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/leasingbegleitung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Wir kümmern uns um Ihr Leasingfahrzeug",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/neu-und-reparaturlackierung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Neu- und Reparaturlackierung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/pflegepakete.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Pflegepakete",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/reparaturloesungen-mit-system.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Unsere Reparaturlösungen mit System",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/privat-geschaeftskunden/unfallinstandsetzung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Unfallinstandsetzung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/reparaturloesungen-mit-system.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Unsere Reparaturlösungen mit System",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/standorte/leipzig.html",
+      "status": 500,
+      "titel": "",
+      "gefundenAuf": [
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/stoffreparatur.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Stoffreparatur",
+      "gefundenAuf": [
+        "/privat-geschaeftskunden/reparaturloesungen-mit-system.html",
+        "/reparaturloesungen-mit-system.html"
+      ]
+    },
+    {
+      "pfad": "/unfallinstandsetzung.html",
+      "status": 200,
+      "titel": "CarCare - Leipzig - Unfallinstandsetzung",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    }
+  ],
+  "dokumente": [
+    {
+      "pfad": "/images/carcare-center/CarCareFlyer_2022.pdf",
+      "gefundenAuf": [
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/images/carcare-center/fahrzeugdesinfektion/Fahrzeugdesinfektion_CarCare-Center.pdf",
+      "gefundenAuf": [
+        "/fahrzeugdesinfektion.html",
+        "/pflegepakete/fahrzeugdesinfektion.html",
+        "/privat-geschaeftskunden/fahrzeugdesinfektion.html"
+      ]
+    },
+    {
+      "pfad": "/images/carcare-center/felgenreparatur/Zertifikat-Alufelgenaufbereitung.pdf",
+      "gefundenAuf": [
+        "/felgenreparatur.html",
+        "/privat-geschaeftskunden/felgenreparatur.html"
+      ]
+    },
+    {
+      "pfad": "/images/carcare-center/felgenreparatur/Zertifikat-glanzgedrehte-Felgen.pdf",
+      "gefundenAuf": [
+        "/felgenreparatur.html",
+        "/privat-geschaeftskunden/felgenreparatur.html"
+      ]
+    },
+    {
+      "pfad": "/images/datenschutz/Datenschutzhinweise_Allg_20200908.pdf",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    },
+    {
+      "pfad": "/images/EU_POS.pdf",
+      "gefundenAuf": [
+        "/autoglas-scheibenfolien.html",
+        "/autohaeuser-fuhrparks.html",
+        "/carcarecenter.html"
+      ]
+    }
+  ],
+  "nichtErfasst": {
+    "css": 10,
+    "gif": 7,
+    "ico": 1,
+    "jpg": 56,
+    "js": 16,
+    "mp4": 5,
+    "png": 33
+  }
+}

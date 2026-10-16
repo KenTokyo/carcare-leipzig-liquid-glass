@@ -29,10 +29,16 @@
 // laeuft dieses Skript NICHT im prebuild, sondern wird bei Routenaenderungen von Hand
 // aufgerufen (`npm run vercel-config`) und das Ergebnis mitcommittet.
 
-import { writeFileSync } from 'node:fs';
+//
+// WEITERLEITUNGEN DER ALTSEITE (2026-10-16, Backlog R22): `redirects` kommen aus `scripts/lib/weiterleitungen.mjs`.
+// Dasselbe Skript schreibt die Regeln auch fuer Apache und nginx (Uebergabe an KUPPER IT, falls das Hosting
+// wechselt), damit alle drei aus EINER Liste stammen. `npm run weiterleitungen` prueft, ob sie synchron sind.
+
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { getRoutes } from './routes.mjs';
+import { UEBERGABE, fuerApache, fuerNginx, fuerVercel } from './lib/weiterleitungen.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -63,11 +69,21 @@ const headers = [
   },
 ];
 
+// Reihenfolge bei Vercel: Redirects vor Dateisystem und Rewrites. Keine Quelle darf deshalb eine echte Route oder
+// Datei sein, sie wuerde sie verdecken (prueft `scripts/check-weiterleitungen.mjs`).
+const redirects = fuerVercel();
+
 const config = {
   $schema: 'https://openapi.vercel.sh/vercel.json',
   headers,
+  redirects,
   rewrites,
 };
 
 writeFileSync(resolve(root, 'vercel.json'), `${JSON.stringify(config, null, 2)}\n`);
-console.log(`vercel.json erzeugt: ${rewrites.length} Rewrite-Regeln (Fallback fuer den Fall, dass der Prerender aussetzt).`);
+for (const [datei, inhalt] of [[UEBERGABE.apache, fuerApache()], [UEBERGABE.nginx, fuerNginx()]]) {
+  mkdirSync(dirname(resolve(root, datei)), { recursive: true });
+  writeFileSync(resolve(root, datei), inhalt);
+}
+console.log(`vercel.json erzeugt: ${rewrites.length} Rewrite-Regeln (Fallback fuer den Fall, dass der Prerender aussetzt),`);
+console.log(`  ${redirects.length} Weiterleitungen der Altseite (301), dieselben fuer Apache und nginx unter ${dirname(UEBERGABE.apache)}/.`);

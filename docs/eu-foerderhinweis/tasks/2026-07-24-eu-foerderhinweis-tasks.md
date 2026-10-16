@@ -119,5 +119,14 @@ schon, und sie bleibt reproduzierbar.
 2. 🟠 **Weitere Publizitätspflichten:** Für geförderte Vorhaben ist oft zusätzlich eine
    **Projektbeschreibung auf der Website** und ein **Poster (mind. A3) am Standort**
    vorgeschrieben. Beides liegt außerhalb dieser Aufgabe.
+   **2026-10-16, Projektbeschreibung gefunden und verlinkt:** Die Altseite verlinkte auf jeder Seite
+   `/images/EU_POS.pdf`, die Vorhabensbeschreibung des Betriebs (Förderrichtlinie „Digitalisierungszuschuss“ des
+   **EFRE 2021–2027**, normierte Datenschnittstelle für das ERP-System DATACAR2; Word, 01.09.2025). Für Punkt 1 ist
+   damit klar, um welchen Fonds es geht (EFRE); ob er neben dem Emblem genannt werden muss, sagt weiterhin der
+   Zuwendungsbescheid. Die Datei liegt unverändert unter `public/images/EU_POS.pdf` (gleiche
+   Adresse wie auf der Altseite) und ist im Förderhinweis der Fußzeile verlinkt („Unser Digitalisierungsvorhaben
+   (PDF)“), siehe `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-tasks.md`. Offen bleibt nur,
+   ob die Bewilligungsbehörde zusätzlich ein Programmlogo des Freistaats verlangt (Zuwendungsbescheid) und das Poster
+   am Standort (nicht Teil der Website).
 3. 🟢 **Logo-Hierarchie:** Werden weitere Förderlogos ergänzt, darf das EU-Emblem nicht
    kleiner dargestellt werden als das größte der anderen Logos.
