@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
@@ -118,92 +118,138 @@ export interface PhotoBackdropProps {
    *             Querformatfoto, formatfuellend ueber 393 × 1.500 px, waere nur ein stark vergroesserter Mittelstreifen.
    * `flaeche` — fuer Flaechen, die selbst schon fensterhoch stehen (gepinnte Buehne von `ScrollPinnedProcess`).
    *
-   * Beide nutzen unter 1024 px den Textschutz `.cc-guard-mobil` (styles/textschutz.css) statt der drei Desktop-Ebenen:
-   * Deren Vignette (`closest-side`) liesse auf einem Hochformat nur einen schmalen Streifen in der Mitte frei, genau
-   * hinter den Karten. Ab 1024 px aendert sich nichts.
+   * Unter 1024 px gelten statt der drei Desktop-Ebenen eigene, denn deren Vignette (`closest-side`) liesse auf einem
+   * Hochformat nur einen schmalen Streifen in der Mitte frei, genau hinter den Karten. Ab 1024 px aendert sich nichts.
+   *  - `flaeche`: `.cc-guard-mobil` (styles/textschutz.css). Kopf oben, Karte unten, beides steht mit der Buehne still;
+   *    der Textschutz darf also an der Flaeche haengen.
+   *  - `stehend` (seit 2026-10-16 abends, Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund
+   *    mit einem Übergang … soll raus“): Am stehenden Foto haengt nur ein leichter, gleichmaessiger Schleier
+   *    (`.cc-guard-mobil-licht`). Bis dahin trug es auch den Textschutz fuer den Sektionskopf und die Auslaeufe ins
+   *    Weiss; beim Durchscrollen der zehn Leistungen stand beides hinter den Karten. Jetzt haengt der Textschutz am Kopf
+   *    selbst (`.cc-kopfschutz` am Kopf-Element der Sektion, scrollt mit) und die Auslaeufe an Ober- und Unterkante
+   *    der SEKTION (unten, ausserhalb der stehenden Flaeche).
    */
   mobil?: 'stehend' | 'flaeche';
 }
 
-const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom, video, mobil }) => (
-  // `overflow-clip` statt `-hidden` bei `stehend`: Ein Behaelter mit `overflow: hidden` ist ein Scroll-Container, und
-  // `sticky` haftete dann an ihm statt am Fenster (dieselbe Lehre wie beim `main`, siehe Memory site-shell-breaks-sticky).
-  <div aria-hidden="true" className={`pointer-events-none absolute inset-0 -z-10 ${mobil === 'stehend' ? 'overflow-clip' : 'overflow-hidden'} ${className}`}>
-    <div className={mobil === 'stehend' ? 'sticky top-0 h-[100svh] w-full lg:static lg:h-full' : 'absolute inset-0'}>
-    <AnimatePresence>
-      {image && (
-        <motion.div
-          key={image}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="absolute inset-0"
-        >
-          {zoom === undefined && video ? (
-            /*
-             * KEIN `motion-reduce:hidden` (entfernt 2026-09-07).
-             *
-             * Es stand hier und hat genau das bewirkt, was niemand wollte: Windows meldet
-             * `prefers-reduced-motion: reduce`, sobald in den Systemeinstellungen
-             * „Animationen anzeigen" aus ist — das ist eine verbreitete Einstellung und
-             * keine Aussage ueber Videos. Auf solchen Rechnern war das Video komplett
-             * ausgeblendet und es stand dauerhaft nur das Standbild da. Der Kunde hat
-             * genau das gemeldet: „Ich wollte doch ein Video und kein statisches Foto."
-             *
-             * Deckt sich mit der bereits bestehenden Projektentscheidung, Marken-
-             * Animationen nicht an dieses Flag zu haengen.
-             *
-             * ⚠️ OFFEN: WCAG 2.2.2 verlangt fuer automatisch startende Bewegung ueber
-             * 5 Sekunden eine Moeglichkeit zum Anhalten. Das Flag war bisher diese
-             * Moeglichkeit. Ersatz muss ein sichtbares Bedienelement sein — hier
-             * schwierig, weil diese Ebene `pointer-events: none` und `-z-10` traegt.
-             * Notiert in `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.
-             */
-            <video
-              className="h-full w-full object-cover"
-              src={video}
-              poster={image}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+/**
+ * Bild erst zeigen, wenn es dekodiert ist (2026-10-16 abends). Beim Wechsel blendete die neue Ebene sofort ein, waehrend
+ * das Foto noch dekodierte: Sichtbar waren fuer einige Bilder nur ihre weissen Schleier, und der Hintergrund blitzte
+ * hell auf, auf dem Telefon laenger als am Rechner. Jetzt bleibt das alte Foto stehen, bis das neue bereit ist.
+ * Schlaegt das Dekodieren fehl, wird trotzdem gewechselt (Verhalten wie vorher).
+ */
+const useDekodiert = (bild: string | null): string | null => {
+  const [bereit, setBereit] = useState<string | null>(null);
+  useEffect(() => {
+    if (!bild) {
+      setBereit(null);
+      return;
+    }
+    let gueltig = true;
+    const vorlauf = new Image();
+    vorlauf.src = bild;
+    const zeigen = () => {
+      if (gueltig) setBereit(bild);
+    };
+    (typeof vorlauf.decode === 'function' ? vorlauf.decode() : Promise.resolve()).then(zeigen, zeigen);
+    return () => {
+      gueltig = false;
+    };
+  }, [bild]);
+  return bereit;
+};
+
+const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image: angefragt, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom, video, mobil }) => {
+  const image = useDekodiert(angefragt);
+  return (
+    // `overflow-clip` statt `-hidden` bei `stehend`: Ein Behaelter mit `overflow: hidden` ist ein Scroll-Container, und
+    // `sticky` haftete dann an ihm statt am Fenster (dieselbe Lehre wie beim `main`, siehe Memory site-shell-breaks-sticky).
+    <div aria-hidden="true" className={`pointer-events-none absolute inset-0 -z-10 ${mobil === 'stehend' ? 'overflow-clip' : 'overflow-hidden'} ${className}`}>
+      <div className={mobil === 'stehend' ? 'sticky top-0 h-[100svh] w-full lg:static lg:h-full' : 'absolute inset-0'}>
+      <AnimatePresence>
+        {image && (
+          <motion.div
+            key={image}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="absolute inset-0"
+          >
+            {zoom === undefined && video ? (
+              /*
+               * KEIN `motion-reduce:hidden` (entfernt 2026-09-07).
+               *
+               * Es stand hier und hat genau das bewirkt, was niemand wollte: Windows meldet
+               * `prefers-reduced-motion: reduce`, sobald in den Systemeinstellungen
+               * „Animationen anzeigen" aus ist — das ist eine verbreitete Einstellung und
+               * keine Aussage ueber Videos. Auf solchen Rechnern war das Video komplett
+               * ausgeblendet und es stand dauerhaft nur das Standbild da. Der Kunde hat
+               * genau das gemeldet: „Ich wollte doch ein Video und kein statisches Foto."
+               *
+               * Deckt sich mit der bereits bestehenden Projektentscheidung, Marken-
+               * Animationen nicht an dieses Flag zu haengen.
+               *
+               * ⚠️ OFFEN: WCAG 2.2.2 verlangt fuer automatisch startende Bewegung ueber
+               * 5 Sekunden eine Moeglichkeit zum Anhalten. Das Flag war bisher diese
+               * Moeglichkeit. Ersatz muss ein sichtbares Bedienelement sein — hier
+               * schwierig, weil diese Ebene `pointer-events: none` und `-z-10` traegt.
+               * Notiert in `docs/betriebsvideo/tasks/2026-09-07-betriebsvideo-tasks.md`.
+               */
+              <video
+                className="h-full w-full object-cover"
+                src={video}
+                poster={image}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              />
+            ) : zoom === undefined ? (
+              <img src={image} alt="" decoding="async" className="h-full w-full object-cover" />
+            ) : (
+              <img
+                src={image}
+                alt=""
+                decoding="async"
+                className="absolute right-0 top-1/2 max-w-none -translate-y-1/2"
+                style={{
+                  // Ueber die Hoehe bemessen, Breite folgt dem Seitenverhaeltnis. Nach unten
+                  // auf 1 begrenzt: darunter waere das Bild niedriger als die Flaeche und
+                  // bekaeme oben/unten sichtbare Kanten.
+                  height: `${Math.max(zoom, 1) * 100}%`,
+                  width: 'auto',
+                  // Linke Kante weich ausblenden — die einzige, die in die Flaeche ragen
+                  // kann. Prozent beziehen sich auf die BILDbreite, nicht auf die Flaeche.
+                  maskImage: EDGE_FADE,
+                  WebkitMaskImage: EDGE_FADE,
+                }}
+              />
+            )}
+            {/* Mit `mobil` gelten die drei Desktop-Ebenen erst ab 1024 px, darunter der mobile Schleier (siehe `mobil`). */}
+            <div className={`absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45 ${mobil ? 'max-lg:hidden' : ''}`} />
+            <div className={`absolute inset-0 ${GUARD[textGuard].klasse} ${mobil ? 'max-lg:hidden' : ''}`} />
+            <div
+              className={`absolute inset-0 ${mobil ? 'max-lg:hidden' : ''}`}
+              style={{ background: `radial-gradient(ellipse closest-side at ${GUARD[textGuard].radialCenter}, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)` }}
             />
-          ) : zoom === undefined ? (
-            <img src={image} alt="" decoding="async" className="h-full w-full object-cover" />
-          ) : (
-            <img
-              src={image}
-              alt=""
-              decoding="async"
-              className="absolute right-0 top-1/2 max-w-none -translate-y-1/2"
-              style={{
-                // Ueber die Hoehe bemessen, Breite folgt dem Seitenverhaeltnis. Nach unten
-                // auf 1 begrenzt: darunter waere das Bild niedriger als die Flaeche und
-                // bekaeme oben/unten sichtbare Kanten.
-                height: `${Math.max(zoom, 1) * 100}%`,
-                width: 'auto',
-                // Linke Kante weich ausblenden — die einzige, die in die Flaeche ragen
-                // kann. Prozent beziehen sich auf die BILDbreite, nicht auf die Flaeche.
-                maskImage: EDGE_FADE,
-                WebkitMaskImage: EDGE_FADE,
-              }}
-            />
-          )}
-          {/* Mit `mobil` gelten die drei Desktop-Ebenen erst ab 1024 px, darunter `.cc-guard-mobil`. */}
-          <div className={`absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45 ${mobil ? 'max-lg:hidden' : ''}`} />
-          <div className={`absolute inset-0 ${GUARD[textGuard].klasse} ${mobil ? 'max-lg:hidden' : ''}`} />
-          <div
-            className={`absolute inset-0 ${mobil ? 'max-lg:hidden' : ''}`}
-            style={{ background: `radial-gradient(ellipse closest-side at ${GUARD[textGuard].radialCenter}, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)` }}
-          />
-          {mobil && <div className="cc-guard-mobil absolute inset-0 lg:hidden" />}
-        </motion.div>
+            {mobil && <div className={`${mobil === 'stehend' ? 'cc-guard-mobil-licht' : 'cc-guard-mobil'} absolute inset-0 lg:hidden`} />}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      </div>
+      {/* `stehend`, unter 1024 px: Auslauf ins Weiss an Ober- und Unterkante der SEKTION. Ausserhalb der stehenden Flaeche,
+          damit er mit der Sektion scrollt und beim Durchscrollen nicht als Band hinter den Karten steht. `white/0` statt
+          `transparent`: Transparent ist transparentes Schwarz und gaebe einen grauen Saum (siehe Kopf dieser Datei). */}
+      {mobil === 'stehend' && (
+        <>
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-white/0 lg:hidden" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white to-white/0 lg:hidden" />
+        </>
       )}
-    </AnimatePresence>
     </div>
-  </div>
-);
+  );
+};
 
 export default PhotoBackdrop;

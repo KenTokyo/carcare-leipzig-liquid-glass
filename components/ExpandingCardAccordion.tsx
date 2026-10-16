@@ -176,9 +176,13 @@ interface ExpandingCardAccordionProps {
  * Rahmen der Karte (Link). Am Desktop wie in `KARTEN_RAHMEN` (akkordeonKarten.tsx): Rundung, Beschnitt, Schatten.
  * MOBIL OHNE BESCHNITT UND SCHATTEN: Dort schneidet das Fenster (`data-akk="fenster"`) zu und traegt den Schatten,
  * denn nur seine Unterkante wandert beim Auf- und Zuklappen (siehe `akkordeonMobil.ts`).
+ * OHNE TIPP-HERVORHEBUNG (2026-10-16 abends, Rueckmeldung vom A56: „die naechste Karte blitzt weiss auf“): `index.css`
+ * gibt jedem Link Signalblau 18 % als Tipp-Farbe. Android zeichnet sie ueber den Kasten des Links, und der ist mobil
+ * sofort so hoch wie die offene Karte, waehrend das Fenster noch aufgeht: Die Hervorhebung lag damit ueber den
+ * naechsten Karten. Rueckmeldung gibt hier das Aufklappen selbst.
  */
 const RAHMEN =
-  'group relative min-w-0 rounded-[1.5rem] outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0 lg:overflow-hidden lg:shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)]';
+  'group relative min-w-0 rounded-[1.5rem] outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0 lg:overflow-hidden lg:shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)]';
 
 /** Props einer Karte. Alles, was sich je Karte unterscheidet oder vom Akkordeon kommt. */
 interface KarteProps {
@@ -271,10 +275,10 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       {/* Kennzeichnung des Kartenmotivs. Am Desktop NUR auf der aufgeklappten Karte:
           Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
           angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer.
-          Auf dem 64 px hohen mobilen Streifen 4 px hoeher (`top-2`) und der Titel unten
-          (siehe dort): Mittig gesetzt lag er bei 360–430 px auf 11 von 96 Streifen unter der
-          Plakette (gemessen 2026-09-27, z. B. „Autoglas / Scheibenfolien", „Industriekaufmann/-frau"). */}
-      {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className={isActive ? 'right-3 top-3' : 'right-3 top-2'} />}
+          Auf dem 64 px hohen mobilen Streifen 4 px unter der Oberkante (`top-1`, bis 2026-10-16 `top-2`): Der Titel steht
+          dort seither groesser und mittig (siehe dort) und braucht den Platz darunter. Die Rundung der Karte (24 px)
+          laesst die Plakette dort noch frei: Ihre Ecke steht 12 px vom Rand, der Bogen auf dieser Hoehe bei 10,7 px. */}
+      {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className={isActive ? 'right-3 top-3' : 'right-3 top-1'} />}
       {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
           eingeklappten Titel (gleicher Stapel, spaeter im DOM) und hinter der
           Textbox (z-10). Deshalb kein z-Index — die DOM-Reihenfolge genuegt. */}
@@ -282,13 +286,18 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
         <div aria-hidden="true" className="absolute inset-0 bg-[rgb(var(--cc-carbon-rgb)/0.45)]" />
       )}
 
-      {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop),
-          faded bei aktiv aus. Mobil am UNTEREN Rand des Streifens statt mittig: Oben rechts
-          steht die KI-Plakette, und unten liegt der dunklere Teil des Verlaufs. Mobil auf die 64 px des
-          Streifens begrenzt (`top-0 h-16`), weil der Inhalt darunter so hoch ist wie die offene Karte. */}
+      {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop), faded bei aktiv aus.
+          MOBIL GROESSER UND MITTIG (User, 2026-10-16: „die Schriften mehr zentrieren … ein bisschen weiter nach unten
+          und größer machen“): `clamp(15px, 4,4vw, 18px)` statt 13 px (390 px Breite: 17,2 px), senkrecht mittig mit
+          `pt-2.5`, also 5 px unter der Streifenmitte. Bis dahin unten buendig (`items-end pb-2.5`, Mitte bei 46 von 64 px),
+          weil die KI-Plakette oben rechts steht: Mittig gesetzt lag der Titel 2026-09-27 auf 11 von 96 Streifen unter
+          ihr. Jetzt steht die Plakette 4 px hoeher (`top-1`), und die 5 px unter der Mitte halten einzeilige Titel bis
+          18 px frei (gemessen 2026-10-16 bei 360–430 px: mindestens 1,8 px zwischen Zeilenbox und Plakette, alle Titel
+          mit Plakette einzeilig; zweizeilig nur Titel ohne Plakette; Werte in docs/mobil-startseite/tasks/, Phase 8).
+          Auf die 64 px des Streifens begrenzt (`top-0 h-16`), weil der Inhalt darunter so hoch ist wie die offene Karte. */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 top-0 flex h-16 items-end lg:inset-0 lg:h-auto justify-center px-4 pb-2.5 text-center text-[13px] font-bold uppercase leading-tight tracking-wide text-white lg:items-center lg:pb-0 lg:leading-normal [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
+        className={`pointer-events-none absolute inset-x-0 top-0 flex h-16 items-center lg:inset-0 lg:h-auto justify-center px-4 pt-2.5 text-center text-[clamp(15px,4.4vw,18px)] font-bold uppercase leading-tight tracking-wide text-white lg:pt-0 lg:leading-normal [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
       >
         {item.title}
       </span>
@@ -431,11 +440,11 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // damit der Tap-Handler nicht durch ein vorab gefeuertes Focus-Event ausgehebelt wird.
   const { isDesktop, hoverCapable } = useAkkordeonGeraet();
   // Mobil: Hoehe springt, sichtbar bewegt sich nur `transform` (akkordeonMobil.ts). Am Desktop tut der Hook nichts.
-  const { huelle, karten, messen } = useMobilAkkordeon(!isDesktop, mobileActiveHeight, active);
+  const { karten, messen } = useMobilAkkordeon(!isDesktop, mobileActiveHeight, active);
   /** Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt. */
   const oeffnen = (idx: number) => {
     if (idx === active) return;
-    messen();
+    messen(idx);
     setActive(idx);
   };
   const merken = (idx: number, el: HTMLAnchorElement | null) => {
@@ -454,7 +463,6 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
     // Akkordeon: Mobile vertikal (skiper53, Hoehe springt, Bewegung per Transform), Desktop horizontal
     // (flex-grow animiert, skiper52). Kein horizontales Scrollen.
     <motion.div
-      ref={huelle}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}

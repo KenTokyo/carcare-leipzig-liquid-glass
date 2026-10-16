@@ -7,8 +7,25 @@ Autoaufbereitung) „mit Low Performance“ auf, „nicht so schön weich“. Da
 eine größere Textkachel als die Schritte 2 bis 5: angleichen. Den Ratgeber unter „Autoaufbereitung“ mobil komplett
 herausnehmen. Hinter der FAQ (und bei Autoaufbereitung) steht ein anderer Farbton als sonst: durchgehend ein Ton.
 
-**Status:** Phasen 1–4 umgesetzt, Phase 5 (Gegenprobe gegen den Endstand) siehe unten. Sichtabnahme auf dem echten
-Galaxy A56 durch den User steht aus. Optimierungsplan: `2026-10-16-mobil-startseite-optimierung-tasks.md`.
+**Status:** Phasen 1–5 umgesetzt und gepusht (16.10., `963f741`). Rückmeldung vom A56 am selben Abend → Phasen 6–9
+umgesetzt (Abschnitt „Rückmeldung des Users“). Zweite Sichtabnahme auf dem A56 steht aus. Optimierungsplan:
+`2026-10-16-mobil-startseite-optimierung-tasks.md`.
+
+### Phasen 6–9 (Rückmeldung vom A56)
+**Eingehalten:** Ursache je Rückmeldung gemessen statt vermutet (Bahn je Bild, Ablation mit und ohne Foto, mit und
+ohne vorab angelegte Ebenen) ✅, Lösungswege verglichen ✅, Kontrast gerechnet und gemessen samt Gegenprobe ✅, Prüfwerkzeug
+um die neuen Fehlerarten erweitert samt Gegenprobe ✅, Desktop unverändert ✅, unter 700 Zeilen ✅.
+**Auffälligkeiten (nach Schwere):**
+1. 🔴 **Kritisch (behoben):** Meine Phase 1 verließ sich auf die Scroll-Verankerung des Browsers („Koordinaten des
+   Akkordeons“). Die setzt bei Transform-Animationen aus; die getippte Karte wuchs nach oben aus dem Bild. Mein
+   Funktionstest hatte die offene Karte immer im Bild und konnte das nicht sehen. Jetzt eigene Verankerung und ein
+   hartes Kriterium im Werkzeug.
+2. 🟠 **Hoch (behoben):** Projektweite Tipp-Hervorhebung (`index.css`) über dem sofort hohen Link-Kasten.
+3. 🟠 **Hoch (behoben):** Textschutz am stehenden Foto statt am Kopf.
+4. 🟡 **Mittel (behoben):** Der Unterbrechungstest tippte auf ein vorab festgelegtes Ziel, das nach dem Wegschieben
+   außerhalb des Fensters lag (Tipp ins Leere, Test zeigte trotzdem grün an einer anderen Stelle).
+5. 🟢 **Niedrig (Hinweis):** Erster Tipp nach dem Laden im Kopflosen 104–117 ms Bildlücke im GPU-Prozess; auf dem Gerät
+   nicht gemessen.
 
 ---
 
@@ -62,6 +79,8 @@ Compositor; Desktop unverändert.
 * [x] `components/akkordeonMobil.ts` (neu, 120 Zeilen): FLIP per Web Animations API, Messung vor dem Wechsel
   (`messen()` im Ereignis), Start im `useLayoutEffect`, Koordinaten relativ zum Akkordeon (Scroll-Verankerung egal),
   unterbrechbar (misst die laufende Lage), bricht beim Wechsel auf Desktop ab.
+  ⚠️ **Korrigiert in Phase 6:** „Scroll-Verankerung egal“ war falsch. Sie setzt bei Transform-Animationen aus, die
+  getippte Karte wuchs dann nach oben aus dem Bild. Seither Fensterkoordinaten mit eigener Verankerung.
 * [x] **Gemessen (Build 16.10. 18:42, 393 × 851, DPR 2,75, CPU 4×, je 6 Tipps):**
 
   | | vorher | nachher |
@@ -155,6 +174,89 @@ Compositor; Desktop unverändert.
 **Referenzen:**
 `scripts/check-akkordeon.mjs`
 `scripts/check-kontrast.mjs`
+
+---
+
+## Rückmeldung des Users nach der Sichtprüfung auf dem A56 (2026-10-16, abends)
+
+> „immer wenn ich auf eine Karte draufklicke, … dass auf einmal die nächste Karte so ein bisschen weiß aufblitzt.
+> Außerdem ist hinter den Karten anscheinend ein weißer Hintergrund mit einem Übergang … Das soll bitte da einmal raus.“
+> Betrifft die Leistungsübersicht, „unten bei Autoaufbereitung funktioniert es dann wieder ganz gut“. Dazu: Titel der
+> eingeklappten Karten größer und mittiger („ein bisschen weiter nach unten“).
+
+**Analyse (gemessen, Build 19:24):**
+
+| Befund | Messung / Beleg |
+|---|---|
+| **Getippte Karte wächst nach OBEN aus dem Bild**, wenn die offene Karte oberhalb des Fensters liegt (der Normalfall beim Herunterscrollen durch die zehn Leistungen; bei drei Aufbereitungskarten liegt die offene Karte meist noch im Bild) | Bahn je Bild: Oberkante 268 → −8 px, Unterkante fest bei 332, `scrollY` unverändert. Früher glich Chromes Scroll-Verankerung den Höhensprung oberhalb aus; bei laufenden Transform-Animationen setzt sie aus (Suppression bei Transform-Änderung am Anker) |
+| **Tipp-Hervorhebung über den Folgekarten** | `index.css`: `a { -webkit-tap-highlight-color: Signalblau 18 % }`. Android zeichnet sie über den Kasten des Links; der ist mit der neuen Mechanik sofort 340 px hoch und liegt in den ersten Bildern über den nächsten Karten (vorher wuchs er mit). Kopfloses Chrome zeichnet die Hervorhebung nicht, Pixelvergleich daher ohne Ausschlag |
+| **Weißer Schleier hinter den Karten** | `.cc-guard-mobil` hängt am stehenden Foto (Fensterhöhe): oben 12 % Weiß-Auslauf, bis 62 % Weiß 78–82 % (Textschutz), unten 14 % Auslauf. Beim Durchscrollen der langen Kartenspalte bleibt dieser Textschutz hinter den Karten stehen. Bei drei Karten (Autoaufbereitung) steht er hinter dem Kopf, wo er hingehört |
+| Erster Tipp nach dem Laden: 104–117 ms Bildlücke | Auch ohne Hintergrundfoto und mit vorab angelegten Ebenen (`will-change`); Ursache im GPU-Prozess (114 ms Dawn-Worker, Shader-Übersetzung von SwiftShader). Nicht am Code steuerbar, als Hinweis notiert |
+| Titel eingeklappt | 13 px, unten bündig (`items-end pb-2.5`, Mitte bei 46 von 64 px). Breite bei 17 px gemessen: alle Titel mit KI-Plakette passen einzeilig (längster 247 px bei ≥ 264 px Platz) |
+
+**Lösungswege:** Verankerung des Browsers zulassen (setzt bei Transforms aus, nicht steuerbar) · eigene Verankerung
+(gewählt: die getippte Karte bleibt stehen, Scrollposition wird im selben Bild ausgeglichen, FLIP danach in
+Fensterkoordinaten) · Höhe wieder animieren (verworfen, Ursache des Ruckelns).
+
+### ✅ Phase 6 — Getippte Karte bleibt stehen, kein Aufblitzen
+* [x] `akkordeonMobil.ts`: `messen(ziel)` misst in Fensterkoordinaten; nach dem Wechsel wird die Scrollposition um den
+  Versatz der getippten Karte verschoben (Lenis `scrollTo(…, { immediate, force })`), danach FLIP. Liegt die offene Karte
+  unterhalb, ist der Versatz 0 und nichts scrollt.
+* [x] Karten-Links mit `-webkit-tap-highlight-color: transparent` (`RAHMEN` in `ExpandingCardAccordion`).
+* [x] **Gemessen (Bahn der getippten Karte je Bild, 393 × 851):**
+
+  | Fall | vorher (Build 19:24) | nachher |
+  |---|---|---|
+  | A: offene Karte oberhalb des Fensters, Tipp auf 6 | Oberkante 268 → −8 px (wächst nach oben aus dem Bild) | **268 → 268**, Scroll −276 px im selben Bild, Folgekarte gleitet 342 → 618 |
+  | B: offene Karte sichtbar darüber, Tipp auf 2 | 544 → 268 | **544 → 544** |
+  | C: offene Karte darunter, Tipp auf 3 | – | **120 → 120**, kein Scroll |
+**Referenzen:**
+`components/akkordeonMobil.ts`
+`components/ExpandingCardAccordion.tsx`
+
+### ✅ Phase 7 — Kein weißer Schleier hinter den Karten
+* [x] `stehend`: am stehenden Foto nur `.cc-guard-mobil-licht` (Weiß 30 %, gleichmäßig). Textschutz `.cc-kopfschutz`
+  am Kopf von Leistungen und Autoaufbereitung (Pseudo-Element hinter dem Text, Sektionsoberkante bis 6rem unter den Kopf,
+  fensterbreit, scrollt mit). Ausläufe ins Weiß an Ober- und Unterkante der SEKTION (`PhotoBackdrop`, außerhalb der
+  stehenden Fläche). `flaeche` (Abläufe) unverändert.
+* [x] Foto erst wechseln, wenn das neue dekodiert ist (`useDekodiert` in `PhotoBackdrop`, `img.decode()`): sonst stand
+  beim Wechsel für einige Bilder nur der Schleier der neuen Ebene da, der Hintergrund blitzte hell auf.
+* [x] Kontrast gerechnet (schwarzes Foto): Grund rgb(234), `gray-600` 6,29 : 1, `blue-600` 8,32 : 1.
+  `npm run kontrast -- / --sektionen`: **982 Stellen, 0 unter AA. Gegenprobe** (Kopfschutz 10 %): 17 Stellen gemeldet,
+  u. a. „Leistungsübersicht“ 2,68 : 1, Autoaufbereitung 3,05 : 1. Danach zurückgesetzt und neu gebaut.
+* [x] Sichtprüfung 390 px: Kopf lesbar, Kartenspalte vor dem Foto ohne Band, Auslauf am Sektionsende.
+**Referenzen:**
+`components/PhotoBackdrop.tsx`
+`styles/textschutz.css`
+`components/ServiceGrid.tsx`
+
+### ✅ Phase 8 — Eingeklappte Titel größer und mittiger
+* [x] Schrift `clamp(15px, 4,4vw, 18px)` statt 13 px (360: 15,8 · 390: 17,2 · ab 412: 18 px), senkrecht mittig mit
+  `pt-2.5` (Titelmitte 36 von 64 px statt 46), KI-Plakette eingeklappt `top-1` statt `top-2`. Desktop unverändert.
+* [x] **Gemessen (echte Textzeilen gegen Plakette, 360/375/390/412/430 px, Startseite und /karriere):** 0 Überdeckungen,
+  kleinster Abstand 1,8 px (bei 18 px Schrift; mit `top-1.5` waren es −0,2 px an drei Streifen bei 412/430, daher
+  `top-1`). Alle Titel mit Plakette einzeilig; zweizeilig nur „Neu- und Reparaturlackierung“ bei 360 px und die lange
+  Stellenbezeichnung auf /karriere, beide ohne Plakette. Die Plakette bleibt innerhalb der Kartenrundung (Ecke 12 px vom
+  Rand, Bogen auf 4 px Höhe bei 10,7 px).
+**Referenzen:**
+`components/ExpandingCardAccordion.tsx`
+
+### ✅ Phase 9 — Prüfwerkzeug und Gegenprobe
+* [x] `npm run akkordeon`: neu hart „getippte Karte bleibt stehen“ (offene Karte oberhalb, Bahn je Bild, Grenze 2 px)
+  und „keine Tipp-Hervorhebung“; Ziel der Unterbrechung wird im laufenden Bild unter den sichtbaren Karten gewählt (ein
+  festes Ziel lag nach dem Wegschieben außerhalb des Fensters, der Tipp ging ins Leere). Layout-Grenze 15 → 20: jetzt
+  5–13 Läufe je Tipp (Ausgleich der Scrollposition, Fotowechsel, Videostart), alt 29–40, Gegenprobe rund 80.
+  **Ergebnis:** 0 Befunde; getippte Karte wandert 0,0 / 0,0 / 0,0 px. **Gegenprobe:** 3/3 Höhen-Animationen, 3/3
+  Hervorhebungen gemeldet.
+* [x] Funktionstest (Ruhelage, Abstände, Unterbrechung, zweiter Tipp folgt dem Link): grün.
+* [x] **Gegenprobe aller Werkzeuge gegen den Endstand (Build 16.10.2026, 20:45:40):** `npm run kontrast` 29 Routen,
+  6.274 Stellen, 0 unter AA (auch die Unterseiten mit stehendem Foto: `PhotoBackdrop` wechselt dort jetzt erst nach dem
+  Dekodieren); `npm run mobil` 29 × 3, 0 harte Befunde, 257 Hinweise wie zuvor; `npm run aussparung` in Ordnung;
+  `npm run tote-dateien` keine; Anker gleiten weiter (/kontakt, /karriere#bewerbung; eine Pause im langen Anker-Scroll
+  auf /karriere liegt nicht am Hauptthread: 0 Aufgaben über 40 ms, also Rastern im Kopflosen).
+* [ ] **Sichtabnahme auf dem A56 durch den User** (nach Push).
+**Referenzen:**
+`scripts/check-akkordeon.mjs`
 
 ---
 

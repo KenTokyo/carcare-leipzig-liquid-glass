@@ -16,13 +16,22 @@
 // GEMESSEN (393 × 851, Pixeldichte 2,75, Touch, CPU 4-fach gedrosselt, echter Tipp per `touchscreen.tap`):
 //   HART (Exit 1):
 //   - LAYOUT PRO BILD: Layout-Laeufe des Hauptthreads in den 700 ms nach dem Tipp. Der Wechsel selbst braucht einige
-//     (Zustand, Messen vor und nach dem Wechsel, neues Hintergrundfoto, auf der Lackierkarte der Videostart); gemessen
-//     1–8. Ab GRENZE_LAYOUTS gilt es als Layout pro Bild: Mit der alten Hoehen-Animation waren es 29–40 je Tipp.
+//     (Zustand, Messen vor und nach dem Wechsel, Ausgleich der Scrollposition, neues Hintergrundfoto, auf der
+//     Lackierkarte der Videostart); gemessen 5–13. Ab GRENZE_LAYOUTS gilt es als Layout pro Bild: Mit der alten
+//     Hoehen-Animation waren es 29–40 je Tipp, die Gegenprobe (Hoehen-Transition) bringt rund 80.
 //   - COMPOSITOR: jede Animation mit `compositeFailed` ungleich 0 (Chrome rechnet sie auf dem Hauptthread).
 //   - RUHELAGE nach dem Tipp und nach einer Unterbrechung (zweiter Tipp nach 150 ms): genau die getippte Karte offen,
 //     die uebrigen 64 px, Fenster so hoch wie die Karte, keine laufende Skript-Animation, Abstaende 10 px, und die
 //     getippte Karte steht noch im Bild. Letzteres fand am 2026-10-16 einen alten Fehler: Lenis scrollte beim ersten
 //     Tipp auf eine Stellenkarte (/karriere#bewerbung) rund 7.000 px weit (Behebung in `hooks/useSmoothScroll.ts`).
+//   - GETIPPTE KARTE BLEIBT STEHEN (seit 2026-10-16 abends): offene Karte OBERHALB des Fensters (der Normalfall beim
+//     Herunterscrollen), Tipp auf die letzte Karte; deren Oberkante wird in jedem Bild gemessen und darf hoechstens
+//     GRENZE_STEHEN px von der Lage vor dem Tipp abweichen. Bewiesen am echten Fehler (Build 16.10., 19:24): Die
+//     Karte wuchs dort nach oben aus dem Bild, Oberkante 268 → −8 px (Rueckmeldung des Users vom A56).
+//   - TIPP-HERVORHEBUNG: Jede Karte muss `-webkit-tap-highlight-color: transparent` tragen. Android zeichnet die
+//     Hervorhebung ueber den Kasten des Links, der mobil sofort so hoch ist wie die offene Karte: Sie lag ueber den
+//     naechsten Karten („die naechste Karte blitzt weiss auf“, User 16.10.). Kopfloses Chrome zeichnet sie nicht,
+//     darum wird die berechnete Eigenschaft geprueft.
 //   HINWEIS (kein Exit): Hauptthread-Zeit je Bild und Anteile (Stil, Layout, Malen, Ebenen, Skript).
 //
 // ⚠️ WAS DIESE PRUEFUNG BESTEHT, OHNE DASS DIE SACHE IN ORDNUNG IST (Pflichtfrage, CLAUDE.md):
@@ -35,6 +44,10 @@
 //  4. LAYOUT ZAEHLT EREIGNISSE, NICHT DAUER. Eine Animation, die statt Layout in jedem Bild neu MALT (z. B. `clip-path`
 //     auf dem Hauptthread), bleibt unter der Grenze; sie faellt nur ueber COMPOSITOR oder die Zeitwerte auf.
 //  5. DESKTOP NICHT GEPRUEFT: Dort animiert Framer weiter `flexGrow` (unveraendert, kein Befund).
+//  6. STEHEN BLEIBEN wird je Akkordeon in EINER Lage geprueft (offene Karte oben, Tipp auf die letzte). Die Gegenprobe
+//     (`--gegenprobe`) spielt dafuer nichts ein; den Beweis lieferte der echte Fehler (siehe oben). Die erste Bildluecke
+//     nach dem Laden (im Kopflosen rund 100 ms im GPU-Prozess) misst sie nicht.
+//  7. HERVORHEBUNG nur als Eigenschaft: Ob ein Geraet trotzdem etwas zeichnet (z. B. Fokusring), sieht nur ein Telefon.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
@@ -44,15 +57,18 @@ import { startePreview } from './lib/preview-server.mjs';
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GEGENPROBE = process.argv.includes('--gegenprobe');
 const DROSSEL = 4;
-const GRENZE_LAYOUTS = 15;
+const GRENZE_LAYOUTS = 20;
+/** Hoechste erlaubte Abweichung der getippten Karte von ihrer Lage vor dem Tipp, in px, in irgendeinem Bild. */
+const GRENZE_STEHEN = 2;
 const FENSTER = { width: 393, height: 851, deviceScaleFactor: 2.75, isMobile: true, hasTouch: true };
+/** `tipp`: Karte des gemessenen Tipps. Das Ziel der Unterbrechung waehlt der Lauf selbst (sichtbare Karte, siehe 2.). */
 const ZIELE = [
-  { route: '/', sektion: '#leistungen', tipps: [2, 5] },
-  { route: '/', sektion: '#autoaufbereitung', tipps: [2, 1] },
-  { route: '/karriere', sektion: '#jobbereiche', tipps: [1, 2] },
+  { route: '/', sektion: '#leistungen', tipp: 2 },
+  { route: '/', sektion: '#autoaufbereitung', tipp: 2 },
+  { route: '/karriere', sektion: '#jobbereiche', tipp: 1 },
 ];
-/** So ruckelte es bis 2026-10-16: Die Hoehe animiert, Layout in jedem Bild. */
-const FEHLER_CSS = 'a[aria-expanded]{transition:height 600ms ease !important}';
+/** So ruckelte es bis 2026-10-16: Die Hoehe animiert, Layout in jedem Bild. Dazu die Tipp-Hervorhebung von vorher. */
+const FEHLER_CSS = 'a[aria-expanded]{transition:height 600ms ease !important;-webkit-tap-highlight-color:rgb(47 128 237 / 0.18) !important}';
 const KATEGORIEN = { UpdateLayoutTree: 'Stil', Layout: 'Layout', Paint: 'Malen', PrePaint: 'Malen', Layerize: 'Ebenen', Commit: 'Ebenen', FireAnimationFrame: 'Skript', EventDispatch: 'Skript' };
 
 if (!fs.existsSync(path.join(wurzel, 'dist', 'index.html'))) {
@@ -109,7 +125,7 @@ const ruhelageFehler = (karten, offen) => {
 const { basis, stopp } = await startePreview(4187);
 const browser = await puppeteer.launch({ headless: 'new', args: ['--force-prefers-no-reduced-motion'] });
 try {
-  for (const { route, sektion, tipps } of ZIELE) {
+  for (const { route, sektion, tipp: ziel } of ZIELE) {
     const seite = await browser.newPage();
     await seite.evaluateOnNewDocument(() => { try { sessionStorage.setItem('cc-preloader-v1', '1'); } catch { /* egal */ } });
     await seite.evaluateOnNewDocument(KARTEN);
@@ -130,9 +146,19 @@ try {
       await seite.touchscreen.tap(p.x, p.y);
     };
     const cdp = await seite.createCDPSession();
+    const name = `${route} ${sektion}`;
+
+    // 0. Tipp-Hervorhebung: muss an jeder Karte durchsichtig sein
+    const hervorgehoben = await seite.evaluate((sel) => window.__ccKarten(sel).filter((a) => {
+      const farbe = getComputedStyle(a).webkitTapHighlightColor;
+      return farbe && farbe !== 'rgba(0, 0, 0, 0)' && farbe !== 'transparent';
+    }).length, sektion);
+    if (hervorgehoben) befunde.push(`${name}: ${hervorgehoben} Karte(n) mit Tipp-Hervorhebung (blitzt mobil ueber den naechsten Karten auf)`);
+
+    /** Index der offenen Karte. */
+    const offenIndex = () => seite.evaluate((sel) => window.__ccKarten(sel).findIndex((a) => a.getAttribute('aria-expanded') === 'true'), sektion);
 
     // 1. Gemessener Tipp
-    const [ziel, unterbrechung] = tipps;
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: DROSSEL });
     await seite.tracing.start({ categories: ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'devtools.timeline.animation', 'blink.animations'] });
     await tippe(ziel);
@@ -154,22 +180,59 @@ try {
     const summe = Object.values(anteile).reduce((a, b) => a + b, 0);
     const fehlgeschlagen = ereignisse.filter((e) => e.name === 'Animation' && e.args?.data?.compositeFailed > 0).length;
 
-    const name = `${route} ${sektion}`;
     if (layouts >= GRENZE_LAYOUTS) befunde.push(`${name}: ${layouts} Layout-Laeufe in 700 ms nach dem Tipp (Grenze ${GRENZE_LAYOUTS}), also Layout pro Bild`);
     if (fehlgeschlagen) befunde.push(`${name}: ${fehlgeschlagen} Animation(en) nicht auf dem Compositor`);
     await warte(300);
     for (const f of ruhelageFehler(await seite.evaluate(ZUSTAND, sektion), ziel)) befunde.push(`${name}, nach Tipp auf ${ziel}: ${f}`);
 
-    // 2. Unterbrechung: andere Karte, nach 150 ms die naechste
-    const andere = ziel === 0 ? 1 : 0;
+    // 2. Unterbrechung: andere Karte, nach 150 ms eine dritte. Die dritte wird ERST JETZT gewaehlt, unter den Karten, die
+    //    gerade ganz im Bild stehen: Die aufgehende Karte schiebt alles darunter weg, ein vorab festgelegtes Ziel laege
+    //    dann womoeglich ausserhalb des Fensters, und der Tipp ginge ins Leere (so geschehen am 2026-10-16).
+    const anzahlKarten = await seite.evaluate((sel) => window.__ccKarten(sel).length, sektion);
+    const andere = ziel + 1 < anzahlKarten ? ziel + 1 : ziel - 1;
     await tippe(andere);
     await warte(150);
-    await tippe(unterbrechung);
+    const unterbrechung = await seite.evaluate((sel, a) => window.__ccKarten(sel).findIndex((k, i) => {
+      const r = k.getBoundingClientRect();
+      return i !== a && r.top > 100 && r.top + 48 < window.innerHeight - 140;
+    }), sektion, andere);
+    if (unterbrechung < 0) befunde.push(`${name}: keine Karte fuer die Unterbrechung im Bild`);
+    else await tippe(unterbrechung);
     await warte(1100);
     for (const f of ruhelageFehler(await seite.evaluate(ZUSTAND, sektion), unterbrechung)) befunde.push(`${name}, nach Unterbrechung: ${f}`);
 
+    // 3. Offene Karte OBERHALB des Fensters, Tipp auf die letzte Karte: Diese muss in jedem Bild stehen bleiben.
+    const anzahl = await seite.evaluate((sel) => window.__ccKarten(sel).length, sektion);
+    await seite.evaluate((sel) => window.scrollBy(0, window.__ccKarten(sel)[0].getBoundingClientRect().top - 200), sektion);
+    await warte(600);
+    if ((await offenIndex()) !== 0) {
+      await tippe(0);
+      await warte(1100);
+    }
+    await seite.evaluate((sel) => window.scrollBy(0, window.__ccKarten(sel)[1].getBoundingClientRect().top - 100), sektion);
+    await warte(800);
+    const letzte = anzahl - 1;
+    await seite.evaluate((sel, k) => {
+      const karte = window.__ccKarten(sel)[k];
+      window.__ccBahn = [];
+      window.__ccBahnLauf = true;
+      const tick = () => {
+        window.__ccBahn.push(karte.getBoundingClientRect().top);
+        if (window.__ccBahnLauf) requestAnimationFrame(tick);
+      };
+      tick();
+    }, sektion, letzte);
+    await tippe(letzte);
+    await warte(900);
+    const bahn = await seite.evaluate(() => { window.__ccBahnLauf = false; return window.__ccBahn; });
+    const abweichung = Math.max(0, ...bahn.map((y) => Math.abs(y - bahn[0])));
+    if (abweichung > GRENZE_STEHEN) {
+      befunde.push(`${name}: getippte Karte ${letzte} (offene Karte oberhalb) wandert um bis zu ${Math.round(abweichung)} px statt stehen zu bleiben (${Math.round(bahn[0])} → ${Math.round(bahn.at(-1))})`);
+    }
+    for (const f of ruhelageFehler(await seite.evaluate(ZUSTAND, sektion), letzte)) befunde.push(`${name}, offene Karte oberhalb: ${f}`);
+
     const ms = (k) => (anteile[k] ?? 0).toFixed(0);
-    zeilen.push(`| ${name} | ${layouts} | ${fehlgeschlagen} | ${(summe / bilder).toFixed(1)} ms | ${ms('Stil')} / ${ms('Layout')} / ${ms('Malen')} / ${ms('Ebenen')} / ${ms('Skript')} |`);
+    zeilen.push(`| ${name} | ${layouts} | ${fehlgeschlagen} | ${abweichung.toFixed(1)} px | ${(summe / bilder).toFixed(1)} ms | ${ms('Stil')} / ${ms('Layout')} / ${ms('Malen')} / ${ms('Ebenen')} / ${ms('Skript')} |`);
     await seite.close();
     process.stdout.write('.');
   }
@@ -178,18 +241,19 @@ try {
   stopp();
 }
 
-console.log(`\n\n| Akkordeon | Layouts in 700 ms | nicht auf Compositor | Hauptthread je Bild (${DROSSEL}×) | Stil / Layout / Malen / Ebenen / Skript (ms) |`);
-console.log('|---|---|---|---|---|');
+console.log(`\n\n| Akkordeon | Layouts in 700 ms | nicht auf Compositor | getippte Karte wandert | Hauptthread je Bild (${DROSSEL}×) | Stil / Layout / Malen / Ebenen / Skript (ms) |`);
+console.log('|---|---|---|---|---|---|');
 console.log(zeilen.join('\n'));
 
 if (GEGENPROBE) {
   const gemeldet = befunde.filter((b) => b.includes('Layout pro Bild')).length;
-  console.log(`\n[akkordeon] Gegenprobe: ${gemeldet} von ${ZIELE.length} eingespielten Hoehen-Animationen gemeldet.`);
-  process.exit(gemeldet === ZIELE.length ? 0 : 1);
+  const hervor = befunde.filter((b) => b.includes('Tipp-Hervorhebung')).length;
+  console.log(`\n[akkordeon] Gegenprobe: ${gemeldet} von ${ZIELE.length} eingespielten Hoehen-Animationen und ${hervor} von ${ZIELE.length} Tipp-Hervorhebungen gemeldet.`);
+  process.exit(gemeldet === ZIELE.length && hervor === ZIELE.length ? 0 : 1);
 }
 if (befunde.length) {
   console.log(`\n[akkordeon] ${befunde.length} Befund(e):`);
   for (const b of befunde) console.log(`  - ${b}`);
   process.exit(1);
 }
-console.log('\n[akkordeon] ok: kein Layout pro Bild, alle Animationen auf dem Compositor, Ruhelage stimmt.');
+console.log('\n[akkordeon] ok: kein Layout pro Bild, alle Animationen auf dem Compositor, Ruhelage stimmt, getippte Karte bleibt stehen, keine Tipp-Hervorhebung.');

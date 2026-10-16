@@ -95,7 +95,8 @@ const AutoDetailingExpertiseSection: React.FC = () => {
       <PhotoBackdrop image={activeImage} mobil="stehend" />
 
       <div className="container relative mx-auto">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
+        {/* `cc-kopfschutz`: mobil der Textschutz ueber dem stehenden Foto, haengt am Kopf (wie in `ServiceGrid`). */}
+        <div className="cc-kopfschutz grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -84,6 +84,54 @@
     linear-gradient(to right, rgb(255 255 255 / 0.45) 0%, rgb(255 255 255 / 0) 14%, rgb(255 255 255 / 0) 86%, rgb(255 255 255 / 0.45) 100%);
 }
 
+/* ---------------------------------------------------------------------------
+   Mobil `stehend` (Leistungen, Autoaufbereitung): Foto und Textschutz GETRENNT (2026-10-16 abends)
+   ---------------------------------------------------------------------------
+   Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund mit einem Übergang … soll raus“.
+   Ursache war `.cc-guard-mobil` am STEHENDEN Foto: Der Textschutz fuer den Sektionskopf (bis 62 % Weiss 78–82 %) und
+   die Auslaeufe oben und unten standen beim Durchscrollen der zehn Leistungen dauerhaft hinter den Karten.
+
+   `.cc-guard-mobil-licht` — am stehenden Foto nur ein leichter, gleichmaessiger Schleier: kein Verlauf, kein Band.
+     Kein Text liegt dort direkt auf dem Foto (Karten tragen ihren eigenen Grund, die Ratgeber-Zeile ist mobil aus).
+
+   `.cc-kopfschutz` — der Textschutz haengt am Sektionskopf und scrollt mit ihm: eine Flaeche von der Sektionsoberkante
+     (`top` = Innenabstand der Sektion, `py-20` bzw. ab 768 px `py-28`) bis 6rem unter den Kopf, fensterbreit, hinter
+     dem Text (`z-index: -1` im Stapel der Sektion, die per `isolate` einen eigenen bildet; das Foto liegt auf −10).
+     Weiss 88 % bis zum Ende des Kopfes, darunter in 6rem auslaufend. GERECHNET FUER DEN SCHLECHTESTEN FALL (schwarzes
+     Foto, darueber 30 % Schleier): Grund rgb(234), `gray-600` darauf 6,3 : 1, `blue-600` 8,3 : 1, also ueber AA. */
+.cc-guard-mobil-licht {
+  background: rgb(255 255 255 / 0.3);
+}
+
+@media (max-width: 1023px) {
+  .cc-kopfschutz {
+    position: relative;
+  }
+
+  .cc-kopfschutz::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -5rem;
+    bottom: -6rem;
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.88) 0%,
+      rgb(255 255 255 / 0.88) calc(100% - 6rem),
+      rgb(255 255 255 / 0) 100%
+    );
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cc-kopfschutz::before {
+    top: -7rem;
+  }
+}
+
 @media (max-width: 767px) {
   .cc-guard-wide {
     background: linear-gradient(

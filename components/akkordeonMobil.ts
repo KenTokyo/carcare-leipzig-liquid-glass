@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { KARTEN_UEBERGANG } from './akkordeonKarten';
+import { getLenis } from '../hooks/useSmoothScroll';
 
 /**
  * Mobiles Aufklappen der `ExpandingCardAccordion`-Karten OHNE Layout pro Bild (2026-10-16, Galaxy A56 des Users:
@@ -20,8 +21,13 @@ import { KARTEN_UEBERGANG } from './akkordeonKarten';
  *    beim Aufklappen mit. Das Bild steht dabei immer im Format der offenen Karte; der Streifen zeigt es deshalb etwas
  *    näher als früher (`object-cover` auf 64 px), bei 3:2 rund 1,5-fach.
  *
- * GEMESSEN WIRD IN KOORDINATEN DES AKKORDEONS, nicht des Fensters: Schiebt der Browser beim Höhensprung die
- * Scrollposition nach (Scroll-Verankerung), stimmen die Abstände innerhalb des Akkordeons trotzdem.
+ * DIE GETIPPTE KARTE BLEIBT STEHEN (seit 2026-10-16 abends, Rückmeldung des Users vom A56): Liegt die offene Karte
+ * OBERHALB der getippten (beim Herunterscrollen durch die Leistungen der Normalfall), schrumpft sie im Layout um die
+ * Höhendifferenz, und alles darunter rückt hoch. Früher glich Chromes Scroll-Verankerung das in jedem Bild aus; bei
+ * laufenden Transform-Animationen setzt sie aber aus. Gemessen: Die getippte Karte wuchs nach OBEN aus dem Bild
+ * (Oberkante 268 → −8 px). Jetzt wird die Scrollposition im selben Bild um genau diesen Versatz verschoben (über Lenis,
+ * `immediate`), danach gleitet nur, was sich auf dem Bildschirm wirklich bewegt: Die getippte Karte geht an ihrer
+ * Stelle nach unten auf und schiebt die Karten darunter weg. Gemessen wird deshalb in FENSTERKOORDINATEN.
  *
  * UNTERBRECHBAR: Ein Tipp während der Animation misst die Karten so, wie sie gerade zu sehen sind
  * (`getBoundingClientRect` enthält die laufenden Transforms), bricht die Animationen ab und startet von dort.
@@ -49,11 +55,28 @@ const TIMING: KeyframeAnimationOptions = {
 };
 
 interface Lage {
-  /** Oberkante relativ zum Akkordeon, wie gerade zu sehen. */
+  /** Oberkante im Fenster, wie gerade zu sehen. */
   oben: number;
   /** Sichtbare Höhe, wie gerade zu sehen. */
   sichtbar: number;
 }
+
+interface Vorher {
+  /** Index der Karte, die aufgehen soll: Sie bleibt auf dem Bildschirm stehen. */
+  ziel: number;
+  lagen: Lage[];
+}
+
+/**
+ * Scrollposition sofort um `dy` verschieben. Über Lenis, sonst liefe dessen Zustand dem Fenster hinterher (dieselbe
+ * Lehre wie bei „Ablauf überspringen“ in `ScrollPinnedProcess`); `force`, damit es auch bei gestopptem Lenis greift.
+ */
+const scrollenUm = (dy: number) => {
+  const ziel = window.scrollY + dy;
+  const lenis = getLenis();
+  if (lenis) lenis.scrollTo(ziel, { immediate: true, force: true });
+  else window.scrollTo({ top: ziel, behavior: 'instant' });
+};
 
 /**
  * @param aktiv    nur mobil (`!isDesktop`); am Desktop tut der Hook nichts
@@ -61,9 +84,8 @@ interface Lage {
  * @param offen    Index der offenen Karte
  */
 export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) => {
-  const huelle = useRef<HTMLDivElement | null>(null);
   const karten = useRef<(HTMLElement | null)[]>([]);
-  const vorher = useRef<Lage[] | null>(null);
+  const vorher = useRef<Vorher | null>(null);
   const laufend = useRef<Animation[]>([]);
 
   const anhalten = () => {
@@ -71,34 +93,43 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
     laufend.current = [];
   };
 
-  /** Vor dem Wechsel aufrufen (im Ereignis, bevor der Zustand gesetzt wird). */
-  const messen = useCallback(() => {
-    const basis = huelle.current?.getBoundingClientRect().top;
-    if (!aktiv || basis === undefined) return;
-    vorher.current = karten.current.map((karte) => {
-      if (!karte) return { oben: 0, sichtbar: STREIFEN };
-      const rahmen = karte.getBoundingClientRect();
-      const fenster = karte.querySelector<HTMLElement>('[data-akk="fenster"]')?.getBoundingClientRect();
-      return { oben: rahmen.top - basis, sichtbar: fenster ? fenster.bottom - rahmen.top : rahmen.height };
-    });
-  }, [aktiv]);
+  /** Vor dem Wechsel aufrufen (im Ereignis, bevor der Zustand gesetzt wird), mit der Karte, die aufgehen soll. */
+  const messen = useCallback(
+    (ziel: number) => {
+      if (!aktiv) return;
+      vorher.current = {
+        ziel,
+        lagen: karten.current.map((karte) => {
+          if (!karte) return { oben: 0, sichtbar: STREIFEN };
+          const rahmen = karte.getBoundingClientRect();
+          const fenster = karte.querySelector<HTMLElement>('[data-akk="fenster"]')?.getBoundingClientRect();
+          return { oben: rahmen.top, sichtbar: fenster ? fenster.bottom - rahmen.top : rahmen.height };
+        }),
+      };
+    },
+    [aktiv]
+  );
 
   // Nach dem Wechsel, vor dem nächsten Bild: von der gemessenen Lage in die neue Ruhelage gleiten.
   useLayoutEffect(() => {
     const alt = vorher.current;
     vorher.current = null;
-    if (!aktiv || !alt || !huelle.current) return;
+    if (!aktiv || !alt) return;
     anhalten();
-    const basis = huelle.current.getBoundingClientRect().top;
+    // 1. Getippte Karte an ihrer Stelle halten (siehe Kopf: eigene Verankerung). Ohne laufende Animationen gemessen.
+    const zielKarte = karten.current[alt.ziel];
+    const versatz = zielKarte && alt.lagen[alt.ziel] ? zielKarte.getBoundingClientRect().top - alt.lagen[alt.ziel].oben : 0;
+    if (Math.abs(versatz) > 0.5) scrollenUm(versatz);
+    // 2. FLIP in Fensterkoordinaten: Was nach dem Ausgleich woanders steht als vorher, gleitet von dort.
     karten.current.forEach((karte, i) => {
-      if (!karte || !alt[i]) return;
-      const dy = alt[i].oben - (karte.getBoundingClientRect().top - basis);
+      if (!karte || !alt.lagen[i]) return;
+      const dy = alt.lagen[i].oben - karte.getBoundingClientRect().top;
       if (Math.abs(dy) > 0.5) {
         laufend.current.push(karte.animate([{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], TIMING));
       }
       const ziel = i === offen ? hoehe : STREIFEN;
-      if (Math.abs(alt[i].sichtbar - ziel) <= 0.5) return;
-      const von = mobilLage(alt[i].sichtbar, hoehe);
+      if (Math.abs(alt.lagen[i].sichtbar - ziel) <= 0.5) return;
+      const von = mobilLage(alt.lagen[i].sichtbar, hoehe);
       const nach = mobilLage(ziel, hoehe);
       for (const teil of TEILE) {
         const el = karte.querySelector<HTMLElement>(`[data-akk="${teil}"]`);
@@ -113,5 +144,5 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
     return anhalten;
   }, [aktiv]);
 
-  return { huelle, karten, messen };
+  return { karten, messen };
 };

@@ -54,7 +54,10 @@ const ServiceGrid: React.FC = () => {
       <PhotoBackdrop image={activeImage} mobil="stehend" />
 
       <div className="container relative mx-auto">
-        <div className="mb-12 flex flex-col gap-6 md:mb-16 lg:flex-row lg:items-end lg:justify-between">
+        {/* `cc-kopfschutz`: mobil der Textschutz ueber dem stehenden Foto, haengt am Kopf und scrollt mit ihm
+            (styles/textschutz.css). Am Foto selbst liegt mobil nur ein leichter Schleier, damit beim Durchscrollen der
+            Karten kein weisses Band dahinter steht (Rueckmeldung des Users vom A56, 2026-10-16). */}
+        <div className="cc-kopfschutz mb-12 flex flex-col gap-6 md:mb-16 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Leistungsübersicht</span>
             <h2 id="services-heading" className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
