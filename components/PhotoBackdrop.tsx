@@ -123,11 +123,12 @@ export interface PhotoBackdropProps {
    *  - `flaeche`: `.cc-guard-mobil` (styles/textschutz.css). Kopf oben, Karte unten, beides steht mit der Buehne still;
    *    der Textschutz darf also an der Flaeche haengen.
    *  - `stehend` (seit 2026-10-16 abends, Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund
-   *    mit einem Übergang … soll raus“): Am stehenden Foto haengt nur ein leichter, gleichmaessiger Schleier
-   *    (`.cc-guard-mobil-licht`). Bis dahin trug es auch den Textschutz fuer den Sektionskopf und die Auslaeufe ins
-   *    Weiss; beim Durchscrollen der zehn Leistungen stand beides hinter den Karten. Jetzt haengt der Textschutz am Kopf
-   *    selbst (`.cc-kopfschutz` am Kopf-Element der Sektion, scrollt mit) und die Auslaeufe an Ober- und Unterkante
-   *    der SEKTION (unten, ausserhalb der stehenden Flaeche).
+   *    mit einem Übergang … soll raus“): Am stehenden Foto haengt nur ein gleichmaessiger Schleier
+   *    (`.cc-guard-mobil-licht`, Weiss 60 %, Herleitung in styles/textschutz.css). Bis dahin trug es auch den
+   *    Textschutz fuer den Sektionskopf und die Auslaeufe ins Weiss; beim Durchscrollen der zehn Leistungen stand
+   *    beides hinter den Karten. Jetzt haengt der Textschutz am Kopf selbst (`.cc-kopfschutz` am Kopf-Element der
+   *    Sektion, scrollt mit) und die Auslaeufe an Ober- und Unterkante der SEKTION (unten, ausserhalb der stehenden
+   *    Flaeche).
    */
   mobil?: 'stehend' | 'flaeche';
 }

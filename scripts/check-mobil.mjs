@@ -32,6 +32,12 @@
 //   - EINBLENDUNG NICHT SCHLIESSBAR: kein Schliessknopf, Knopf verdeckt oder ausserhalb des Fensters, oder Tippen
 //     darauf laesst sie stehen. Danach bleibt sie geschlossen, wie beim Besucher: „Fußzeile verdeckt“ meldet so nur
 //     Dauerhaftes (bis 2026-10-15 meldete es zehnmal das Stellen-Pop-up).
+//   - ERSTER BILDSCHIRM VERDECKT (seit 2026-10-16): Elemente mit `data-erster-bildschirm` (derzeit die
+//     Vertrauensleiste im Titelbild der Startseite) muessen bei Scrollposition 0 mit jeder Textzeile ganz im Fenster
+//     stehen und duerfen von nichts verdeckt sein (`elementFromPoint`, z. B. die feste Leiste unten). Gemessen in den
+//     drei Fenstern UND zusaetzlich in den niedrigen Fenstern eines iPhone in Safari (FENSTER_ERSTER_BILDSCHIRM):
+//     Der User sah dort die Knoepfe auf der Vertrauensleiste (iPhone 14 Pro, Safari mit Leisten 393 × 659: 84 px
+//     verdeckt), waehrend die Bildschirmmasse 393 × 852 frei waren.
 //   HINWEIS (kein Exit 1):
 //   - Schrift unter 12 px (sichtbarer Text).
 //
@@ -63,6 +69,11 @@
 //     3 s nach dem Laden kommt oder erst beim Scrollen ausgeloest wird und dann wieder geht, faellt durch. Der Anteil ist
 //     die HOEHE im Fenster: Ein schmales Pop-up am Rand eines breiten Fensters waere damit zu streng gemessen; hier
 //     laufen nur Handybreiten.
+// 10. ERSTER BILDSCHIRM nur fuer markierte Elemente (`data-erster-bildschirm`) und nur bei Scrollposition 0, in den
+//     Fensterhoehen dieser Datei. Safari aendert die Hoehe mit seinen Leisten: 659 px beim iPhone 14 Pro mit
+//     eingeblendeten Leisten (so fuehrt es u. a. Rocket Validator), rund 739 px eingeklappt (abgeleitet); beide am
+//     Geraet nicht nachgemessen. 375 × 667 ist das BILDSCHIRMMASS des iPhone SE, in Safari bleibt dort weniger. Kleinere
+//     Fenster (iPhone SE und mini in Safari, kleine Android-Telefone mit Chrome-Leisten) und Querformat prueft sie nicht.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -76,6 +87,16 @@ const FENSTER = [
   { name: '360', width: 360, height: 640 },
   { name: '390', width: 390, height: 844 },
   { name: '430', width: 430, height: 932 },
+];
+/**
+ * Zusaetzliche, NIEDRIGE Fenster nur fuer ERSTER BILDSCHIRM und nur auf Routen mit `data-erster-bildschirm`: so viel
+ * Hoehe bleibt einem iPhone 14 Pro in Safari mit ein- und mit ausgeblendeten Leisten, dazu das Bildschirmmass des
+ * iPhone SE (Herkunft der Werte: Pflichtfrage 10).
+ */
+const FENSTER_ERSTER_BILDSCHIRM = [
+  { name: '393x659 (iPhone 14 Pro, Safari mit Leisten)', width: 393, height: 659 },
+  { name: '393x739 (iPhone 14 Pro, Safari ohne Leisten)', width: 393, height: 739 },
+  { name: '375x667 (iPhone SE, Bildschirmmass)', width: 375, height: 667 },
 ];
 /** Hoechstanteil einer Einblendung an der Fensterhoehe in Prozent (Begruendung im Kopf, EINBLENDUNG ZU GROSS). */
 const EINBLENDUNG_MAX = 30;
@@ -97,7 +118,7 @@ function einspielen() {
     <div style="width:60px;overflow:hidden;white-space:nowrap">GEGENPROBE_ABGESCHNITTEN langer Text</div>
     <div style="display:flex;gap:4px"><button aria-label="GEGENPROBE_ZIEL" style="width:16px;height:16px;padding:0">a</button><button style="width:16px;height:16px;padding:0">b</button></div>
     <p style="font-size:9px">GEGENPROBE_KLEIN</p>
-    <style>footer * { opacity: 0 !important; }</style>`;
+    <style>footer * { opacity: 0 !important; } [data-erster-bildschirm] { margin-top: 60vh !important; }</style>`;
   (document.querySelector('main') || document.body).prepend(box);
   // An <body>, nicht in <main>: `.site-main-shell` traegt einen Transform, `fixed` klebte sonst an <main>.
   const einblendung = document.createElement('div');
@@ -106,6 +127,44 @@ function einspielen() {
   einblendung.style.cssText = 'position:fixed;left:0;right:0;bottom:0;height:45vh;background:#fff;z-index:2147483000';
   einblendung.textContent = 'GEGENPROBE_EINBLENDUNG ohne Schließknopf';
   document.body.append(einblendung);
+}
+
+/**
+ * Laeuft IM Browser, bei Scrollposition 0: Textzeilen in `[data-erster-bildschirm]`, die nicht ganz im Fenster stehen
+ * oder von etwas anderem verdeckt sind (Treffertest an der Zeilenmitte und an beiden Enden).
+ */
+function ersterBildschirm() {
+  const H = innerHeight;
+  const knapp = (t, n = 50) => (t || '').replace(/\s+/g, ' ').trim().slice(0, n);
+  const raus = [];
+  const marken = [...document.querySelectorAll('[data-erster-bildschirm]')];
+  for (const marke of marken) {
+    const gehe = document.createTreeWalker(marke, NodeFilter.SHOW_TEXT);
+    while (gehe.nextNode()) {
+      const knoten = gehe.currentNode;
+      const text = knapp(knoten.nodeValue);
+      if (text.length < 2) continue;
+      const bereich = document.createRange();
+      bereich.selectNodeContents(knoten);
+      for (const z of bereich.getClientRects()) {
+        if (z.width < 4 || z.height < 4) continue;
+        if (z.top < 0 || z.bottom > H) {
+          raus.push({ ort: 'Erster Bildschirm', text, wie: `${Math.round(z.bottom - H)} px unter dem Fenster` });
+          continue;
+        }
+        const y = z.top + z.height / 2;
+        for (const x of [z.left + 2, z.left + z.width / 2, z.right - 2]) {
+          const oben = document.elementFromPoint(x, y);
+          if (oben && !marke.contains(oben)) {
+            const von = oben.closest('[class]');
+            raus.push({ ort: 'Erster Bildschirm', text, wie: `verdeckt von ${knapp(von ? `${von.tagName.toLowerCase()}.${(von.getAttribute('class') || '').split(' ')[0]}` : oben.tagName, 40)}` });
+            break;
+          }
+        }
+      }
+    }
+  }
+  return { marken: marken.length, befunde: raus.filter((b, i, a) => a.findIndex((c) => c.text === b.text) === i) };
 }
 
 /** Laeuft IM Browser: Einblendungen, die ohne Zutun stehen (Dialog-Rolle, fest positioniert, sichtbar). */
@@ -310,6 +369,7 @@ try {
       await s.evaluate(() => window.__ccHalte(0));
       await warte(800);
       const inhalt = await s.evaluate(messe, false);
+      const erster = await s.evaluate(ersterBildschirm);
       // Einblendungen fruehestens 3 s nach dem Laden (das Stellen-Pop-up kommt nach 1,2 s); messen, dann schliessen wie
       // ein Besucher, damit die Fusszeilen-Messung am Ende nur noch Dauerhaftes sieht.
       const rest = 3000 - (Date.now() - geladen);
@@ -322,9 +382,26 @@ try {
       await s.evaluate(() => window.__ccHalte(document.documentElement.scrollHeight));
       await warte(1600);
       const ende = await s.evaluate(messe, true);
-      ergebnisse.push({ route, fenster: f.name, ...inhalt, ...ende, einblendungen, fehler });
+      ergebnisse.push({ route, fenster: f.name, ...inhalt, ...ende, einblendungen, fehler, erster: erster.befunde, marken: erster.marken });
       await s.close();
       process.stdout.write('.');
+    }
+  }
+  // ERSTER BILDSCHIRM zusaetzlich in den niedrigen Fenstern eines iPhone, nur auf Routen mit Markierung.
+  const mitMarke = [...new Set(ergebnisse.filter((r) => r.marken > 0).map((r) => r.route))];
+  for (const route of mitMarke) {
+    for (const f of FENSTER_ERSTER_BILDSCHIRM) {
+      const s = await browser.newPage();
+      await s.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
+      await s.evaluateOnNewDocument(() => { try { sessionStorage.setItem('cc-preloader-v1', '1'); } catch { /* egal */ } });
+      await s.setViewport({ width: f.width, height: f.height, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+      await s.goto(basis + route, { waitUntil: 'networkidle0', timeout: 60000 });
+      await warte(1500);
+      if (gegenprobe) await s.evaluate(einspielen);
+      const erster = await s.evaluate(ersterBildschirm);
+      ergebnisse.push({ route, fenster: f.name, zusatz: true, erster: erster.befunde, marken: erster.marken, abgeschnitten: [], ausserhalb: [], ziele: [], klein: [], einblendungen: [], fehler: [], breite: 0, viewportMeta: 'width=device-width' });
+      await s.close();
+      process.stdout.write(':');
     }
   }
 } finally {
@@ -355,9 +432,10 @@ for (const r of ergebnisse) {
   for (const b of r.verdeckt || []) merke('Fußzeile verdeckt', r, b, `von ${b.von}`);
   for (const b of r.klein) merke('Schrift unter 12 px', r, b, `${b.px} px`);
   for (const e of r.fehler) merke('Skriptfehler', r, { ort: 'Seite', text: e.slice(0, 80) }, 'Fehler');
+  for (const b of r.erster || []) merke('Erster Bildschirm verdeckt', r, b, b.wie);
   if (!/width=device-width/.test(r.viewportMeta)) merke('Viewport-Meta fehlt', r, { ort: 'Seite', text: r.viewportMeta || '(leer)' }, 'fehlt');
 }
-const HART = ['Seite scrollt waagerecht', 'abgeschnitten', 'ragt aus dem Fenster', 'Trefferfläche unter 24 px', 'Einblendung zu groß', 'Einblendung nicht schließbar', 'Fußzeile unsichtbar', 'Fußzeile nicht erreichbar', 'Fußzeile verdeckt', 'Skriptfehler', 'Viewport-Meta fehlt'];
+const HART = ['Seite scrollt waagerecht', 'abgeschnitten', 'ragt aus dem Fenster', 'Trefferfläche unter 24 px', 'Einblendung zu groß', 'Einblendung nicht schließbar', 'Fußzeile unsichtbar', 'Fußzeile nicht erreichbar', 'Fußzeile verdeckt', 'Erster Bildschirm verdeckt', 'Skriptfehler', 'Viewport-Meta fehlt'];
 const alle = [...buendel.values()];
 const harte = alle.filter((b) => HART.includes(b.art));
 
@@ -409,6 +487,7 @@ if (gegenprobe) {
     ['unsichtbare Fußzeile', (b) => b.art === 'Fußzeile unsichtbar'],
     ['zu große Einblendung', (b) => b.art === 'Einblendung zu groß' && b.text.includes('GEGENPROBE_EINBLENDUNG')],
     ['nicht schließbare Einblendung', (b) => b.art === 'Einblendung nicht schließbar' && b.text.includes('GEGENPROBE_EINBLENDUNG')],
+    ['erster Bildschirm verdeckt', (b) => b.art === 'Erster Bildschirm verdeckt'],
   ];
   const fehlt = erwartet.filter(([, trifft]) => !alle.some(trifft));
   console.log(fehlt.length ? `[mobil] GEGENPROBE FEHLGESCHLAGEN, nicht gemeldet: ${fehlt.map(([name]) => name).join(', ')}` : `[mobil] Gegenprobe bestanden: alle ${erwartet.length} eingespielten Fehler gemeldet.`);

@@ -148,14 +148,18 @@ const HeroSection: React.FC = () => {
           Platz brauchen (wichtig auf kleinen Displays). */}
       {/* `pb-28` unterhalb `lg`: Die fixierte MobileStickyCTA (~83 px, `lg:hidden`) wuerde die
           Vertrauensleiste sonst anschneiden — genau das passierte im ersten Entwurf. Ab `lg`
-          faellt die Leiste weg, dort reicht `pb-10`. */}
-      <div className="container relative z-10 mx-auto flex min-h-[92svh] flex-col px-5 pb-28 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 lg:pb-10 xl:px-10">
+          faellt die Leiste weg, dort reicht `pb-10`.
+          NIEDRIGE TELEFONFENSTER (seit 2026-10-16, User: „In der iPhone 14 Pro Ansicht … sind die Buttons auf der
+          Fußzeile der Hero Sektion“): Das reichte nur, solange der Inhalt ins Fenster passt. In Safari mit
+          eingeblendeten Leisten bleiben dem iPhone 14 Pro 659 px, die Knoepfe verdeckten die Vertrauensleiste dort um
+          84 px. Unter 800 px Hoehe ziehen `cc-hero-*` (styles/hero.css) die Abstaende zusammen, ohne etwas auszublenden. */}
+      <div className="cc-hero-rahmen container relative z-10 mx-auto flex min-h-[92svh] flex-col px-5 pb-28 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 lg:pb-10 xl:px-10">
         {/* Nur Bewegung, keine Deckkraft: siehe EINBLENDEN oben. */}
         <motion.div
           initial={{ y: 24 }}
           animate={{ y: 0 }}
           transition={HERO_ZEIT}
-          className="flex flex-1 flex-col justify-center py-6 md:items-center md:justify-start md:py-0 md:text-center"
+          className="cc-hero-kopf flex flex-1 flex-col justify-center py-6 md:items-center md:justify-start md:py-0 md:text-center"
         >
           {/* Bewusst OHNE Badges/Chips (2026-07-22, User-Vorgabe „komplett minimal"):
               Der Hero traegt nur H1, Subline, die zwei CTAs und die Vertrauensleiste unten.
@@ -265,20 +269,23 @@ const HeroSection: React.FC = () => {
 
         {/* Vertrauensleiste am Hero-Fuss (ersetzt die frueher eigenstaendige TrustBar-Sektion).
             Weisse Schrift liegt auf dem Foto -> `drop-shadow` je Zeile + duenne Trennlinie
-            als optischer Halt. Mobile 2x2, ab `md` eine zentrierte Reihe. */}
+            als optischer Halt. Mobile 2x2, ab `md` eine zentrierte Reihe.
+            `data-erster-bildschirm`: muss beim Laden ganz und unverdeckt im Fenster stehen; `npm run mobil` prueft das,
+            auch in den niedrigen Fenstern eines iPhone in Safari (2026-10-16). */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
-          className="mt-8 border-t border-white/15 pt-6"
+          data-erster-bildschirm=""
+          className="cc-hero-vertrauen mt-8 border-t border-white/15 pt-6"
         >
           <p className="text-center text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">
             Dafür steht das CarCare Center Leipzig
           </p>
           {/* Zweite Trennlinie UNTER dem Label — das Label steht damit zwischen zwei Strichen
               (User-Vorgabe 2026-07-22); der obere Strich ist das `border-t` dieses Blocks. */}
-          <div aria-hidden="true" className="mt-6 border-t border-white/15" />
-          <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-5 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-10 md:gap-y-4 lg:gap-x-14">
+          <div aria-hidden="true" className="cc-hero-trenner mt-6 border-t border-white/15" />
+          <ul className="cc-hero-fakten mt-6 grid grid-cols-2 gap-x-5 gap-y-5 md:flex md:flex-wrap md:items-center md:justify-center md:gap-x-10 md:gap-y-4 lg:gap-x-14">
             {trustFacts.map((fakt) => (
               <li key={fakt.label} className="flex items-center gap-2.5">
                 <span className="shrink-0 text-blue-300 drop-shadow-[0_1px_8px_rgb(0_0_0/0.65)]">{fakt.icon}</span>

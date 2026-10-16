@@ -8,7 +8,8 @@ eine größere Textkachel als die Schritte 2 bis 5: angleichen. Den Ratgeber unt
 herausnehmen. Hinter der FAQ (und bei Autoaufbereitung) steht ein anderer Farbton als sonst: durchgehend ein Ton.
 
 **Status:** Phasen 1–5 umgesetzt und gepusht (16.10., `963f741`). Rückmeldung vom A56 am selben Abend → Phasen 6–9
-umgesetzt (Abschnitt „Rückmeldung des Users“). Zweite Sichtabnahme auf dem A56 steht aus. Optimierungsplan:
+umgesetzt und gepusht (`5147fa8`). Dritte Rückmeldung (Foto hinter den Karten, Titelgröße, Hero im iPhone) →
+Phasen 10–13 (Abschnitt „Dritte Rückmeldung“). Sichtabnahme auf A56 und iPhone steht aus. Optimierungsplan:
 `2026-10-16-mobil-startseite-optimierung-tasks.md`.
 
 ### Phasen 6–9 (Rückmeldung vom A56)
@@ -169,8 +170,8 @@ Compositor; Desktop unverändert.
   Anker gleiten weiter (/kontakt, /karriere#bewerbung); Kachelhöhen wie in Phase 3.
 * [x] Bildschirmfotos 390 px: Leistungen (Kopf, Kartenspalte), Unfall Schritt 1, Autoaufbereitung (ohne Ratgeber),
   Aufbereitungsablauf Schritt 2, FAQ; 1440 px: Leistungen (unverändert gegen `output/shots/start`); /karriere Stellen.
-* [ ] **Sichtabnahme auf dem Galaxy A56 durch den User** (nach Push auf die Vorschau). Kopfloses Chrome misst den
-  Hauptthread, nicht GPU und Anzeige des Geräts.
+* [x] **Sichtabnahme auf dem Galaxy A56 durch den User** (nach Push auf die Vorschau): erledigt am 16.10. abends,
+  Rückmeldung führte zu den Phasen 6–9. Kopfloses Chrome misst den Hauptthread, nicht GPU und Anzeige des Geräts.
 **Referenzen:**
 `scripts/check-akkordeon.mjs`
 `scripts/check-kontrast.mjs`
@@ -254,9 +255,120 @@ Fensterkoordinaten) · Höhe wieder animieren (verworfen, Ursache des Ruckelns).
   Dekodieren); `npm run mobil` 29 × 3, 0 harte Befunde, 257 Hinweise wie zuvor; `npm run aussparung` in Ordnung;
   `npm run tote-dateien` keine; Anker gleiten weiter (/kontakt, /karriere#bewerbung; eine Pause im langen Anker-Scroll
   auf /karriere liegt nicht am Hauptthread: 0 Aufgaben über 40 ms, also Rastern im Kopflosen).
-* [ ] **Sichtabnahme auf dem A56 durch den User** (nach Push).
+* [x] **Sichtabnahme auf dem A56 durch den User** (nach Push `5147fa8`): erledigt am 16.10. spät, Rückmeldung führte
+  zu den Phasen 10–13. Zum Ruckeln und Aufblitzen kam keine Klage mehr.
 **Referenzen:**
 `scripts/check-akkordeon.mjs`
+
+---
+
+## Dritte Rückmeldung des Users (2026-10-16, spät)
+
+> „die hintergrundbilder, die bei den akkordeon hinter den karten sind doch etwas weniger prominent sein, also eine
+> höhere Transparenz haben. Außerdem kann die Schrift etwas kleiner weil es zurzeit nicht ästhetisch ausschaut. …
+> In der Iphone 14 Pro ansicht bei der Landingpage sind die Buttons auf der Fußzeile der Hero Sektion. Bitte mach das
+> so, dass es das nicht verdeckt und die fusszeile etwas nach oben verschoben wird.“
+
+**Analyse (gemessen, Build 16.10., 20:45):**
+
+| Befund | Messung |
+|---|---|
+| Foto hinter den Karten zu präsent | Am stehenden Foto lag seit Phase 7 nur `.cc-guard-mobil-licht` mit 30 % Weiß. Verglichen 30/50/60/70 % mit dem dunkelsten Motiv (Leasingrückgabe) als offener Karte: ab 60 % tritt das Foto hinter die dunklen Karten zurück und bleibt erkennbar, 70 % wirkt grau |
+| Titel zu groß | `clamp(15px, 4,4vw, 18px)` aus Phase 8 ergab 17,2 px bei 390 px und füllte den 64-px-Streifen von Rand zu Rand. Die senkrechten Titel am Desktop stehen in 15 px |
+| Knöpfe über der Vertrauensleiste | Die Leiste („Dafür steht …“, vier Fakten) endet bei 668 px, die feste Leiste `MobileStickyCTA` belegt die unteren 75 px des Fensters. 393 × 659 (iPhone 14 Pro in Safari, Leisten eingeblendet): **84 px verdeckt**; 393 × 739 (Leisten ausgeblendet): 4 px; 375 × 667 (iPhone SE): 76 px; 360 × 640: 103 px; 393 × 852 (iPhone-14-Pro-Ansicht der DevTools): frei, 97 px Luft |
+
+Die iPhone-Ansicht der DevTools zeigt das ganze Display (852 px). In Safari nehmen Adress- und Werkzeugleiste bis zu
+193 px davon; `npm run mobil` maß bis dahin nur volle Bildschirmhöhen und meldete nichts (O14).
+
+**Lösungswege:**
+- Foto: Deckkraft des Bildes senken (auf Weiß gleichwertig, aber ein zweiter Regler neben dem Schleier) · Weichzeichner
+  (`filter: blur` auf einer fensterhohen Ebene, kostet mobil bei jedem Fotowechsel) · **Schleier stärker** (gewählt: ein
+  Wert, kein neuer Effekt).
+- Titel: engere `clamp`-Grenzen (bleibt breitenabhängig) · **fest 15 px wie die Desktop-Titel** (gewählt).
+- Hero: unter einer Höhe etwas ausblenden (verworfen, Vorgabe des Users: nie per Höhenabfrage ausblenden) · feste
+  Leiste über dem Hero ausblenden (nicht gewünscht: der User will die Fußzeile nach oben, nicht die Knöpfe weg) ·
+  Schrift verkleinern (ändert das Erscheinungsbild am stärksten) · **Abstände unter 800 px Höhe zusammenziehen**
+  (gewählt, genau der Wunsch „die Fußzeile etwas nach oben“).
+
+### ✅ Phase 10 — Foto hinter den Karten zurückgenommen
+**Ziel:** Das stehende Foto hinter Leistungen und Autoaufbereitung tritt mobil zurück, bleibt aber erkennbar.
+* [x] `.cc-guard-mobil-licht` 30 → **60 % Weiß** (`styles/textschutz.css`, Vergleich und Herleitung im Kommentar). Gilt
+  nur für `mobil="stehend"` unter 1024 px; die Abläufe (`flaeche`) und der Desktop bleiben unverändert.
+* [x] Kontrast gerechnet für den schlechtesten Fall (schwarzes Foto, 60 % Schleier, Kopfschutz 88 %): Grund rgb(243),
+  `gray-600` 6,6 : 1, `blue-600` 9,0 : 1. Der Kopfschutz trägt den Kontrast für sich (mit 30 % Schleier: 6,3 und 8,3 : 1).
+* [x] Gemessen: `npm run kontrast -- / --sektionen` 978 Stellen, 0 unter AA (Build 22:36:53).
+**Referenzen:**
+`styles/textschutz.css`
+`components/PhotoBackdrop.tsx`
+
+### ✅ Phase 11 — Eingeklappte Titel 15 px
+**Ziel:** Titel der eingeklappten Karten ruhiger, weiter mittig.
+* [x] Fest `text-[15px]` statt `clamp(15px, 4,4vw, 18px)` (390 px: 17,2 → 15 px), senkrecht `pt-1.5` statt `pt-2.5`
+  (Titelmitte bei 34 von 64 px; Versalien sitzen optisch hoch in ihrer Zeile). Desktop unverändert (dort schon 15 px).
+* [x] Gemessen (Startseite und /karriere, 360/375/390/412/430 px, echte Textzeilen gegen die KI-Plakette):
+  0 Überdeckungen, kleinster Abstand 1,6 px; auf der Startseite alle Titel einzeilig.
+**Referenzen:**
+`components/ExpandingCardAccordion.tsx`
+
+### ✅ Phase 12 — Hero: Vertrauensleiste nicht mehr unter den Knöpfen
+**Ziel:** Beim Laden steht die Vertrauensleiste auch in Safari ganz über der festen Leiste, ohne etwas auszublenden.
+* [x] `styles/hero.css` (neu, per `@import` in `index.css`), nur unter 800 px Höhe und unter 1024 px Breite: Rahmen oben
+  112 → 88 px, Kopfblock oben und unten 24 → 8 px (zusammen −56 px); Vertrauensleiste Abstand 32 → 16, Innenabstand
+  24 → 16, um die Trennlinie 24 → 12, Zeilenabstand der Fakten 20 → 12 px (−56 px). Selektoren mit `#home`, damit sie die
+  Tailwind-Klassen am Element unabhängig von der Reihenfolge schlagen.
+* [x] `HeroSection`: Klassen `cc-hero-*`, Vertrauensleiste trägt `data-erster-bildschirm` (Prüfung in Phase 13).
+* [x] **Gemessen (Build 22:36:53, Startseite, Scrollposition 0, Abstand Leistenende zu den Knöpfen):**
+
+  | Fenster | vorher | nachher |
+  |---|---|---|
+  | 393 × 659 (iPhone 14 Pro, Safari, Leisten eingeblendet) | 84 px verdeckt | **28 px frei** |
+  | 393 × 739 (Leisten ausgeblendet) | 4 px verdeckt | **88 px frei** |
+  | 375 × 667 (iPhone SE) | 76 px verdeckt | **36 px frei** |
+  | 360 × 640 (kleines Android) | 103 px verdeckt | **9 px frei** |
+  | 393 × 852 (DevTools-Ansicht) | 97 px frei | 97 px frei (über 800 px, unverändert) |
+**Referenzen:**
+`styles/hero.css`
+`components/HeroSection.tsx`
+
+### ✅ Phase 13 — Prüfwerkzeuge: erster Bildschirm, Akkordeon-Prüfer belastbar
+* [x] `npm run mobil`: neue harte Art **„Erster Bildschirm verdeckt“**. Textzeilen in `[data-erster-bildschirm]` müssen bei
+  Scrollposition 0 ganz im Fenster stehen und unverdeckt sein (Treffertest an drei Punkten je Zeile); zusätzlich zu
+  360/390/430 in 393 × 659, 393 × 739 und 375 × 667, nur auf Routen mit Markierung. **Beweis am echten Fehler:** ohne
+  `hero.css` 4 Meldungen, mit 0. Gegenprobe jetzt 8 eingespielte Fehler, alle gemeldet. Pflichtfrage: Punkt 10 im Kopf.
+* [x] `npm run akkordeon` unter Rechnerlast belastbar gemacht (Messrechner nebenher rund 50 % ausgelastet):
+  - Layout pro Bild als **Anteil** der Bilder 150–650 ms nach dem Klick (ab 60 %, mindestens 3 Läufe) statt fester
+    Anzahl: Unter Last schaffte eine Höhen-Animation zu wenige Bilder für die alte Grenze.
+  - Treffertest vor jedem Tipp, nie ein Tipp auf eine offene Karte (folgte ihrem Link), Pop-up auf /karriere abwarten
+    und schließen, Unterbrechung per Klick auf das Element (ein zweiter Tipp traf die schon gewachsene Karte), vor jeder
+    Ruhelage auf das Ende der Animationen warten (höchstens 3 s, stockende Bilder im Kopflosen).
+  - **Ereignisse von vor dem Start:** Ein Renderer, der während der vorigen Messung entstand, lieferte seinen Puffer mit
+    (Laden der Seite, Schließklick des Pop-ups). Das Fenster lag am Schließklick 1,5 s vor dem Start, die 18 beim Laden
+    gestarteten Animationen (Scroll-Verlauf der Kartentexte, Glas der festen Leiste) zählten als Compositor-Fehler.
+    /karriere war davon als dritte Seite in 9 von 14 vollen Läufen betroffen, allein nie; die Gegenprobe fand dort die
+    eingespielte Höhen-Animation nicht. Gefunden an der abgelegten Spur (`--protokoll`). Jetzt: nur Ereignisse ab
+    `TracingStartedInBrowser`, Hauptthread aus dem Prozess des Hauptframes, Fenster an einer Marke, die der Klick auf die
+    Zielkarte setzt (`console.timeStamp`). Fehlt sie: Messfehler (Exit 2) statt eines Urteils. Und jede Seite läuft in
+    einem eigenen Browser: Im gemeinsamen fehlte die Marke danach noch in 2 von 4 Läufen ganz (Renderer zeichnete nach
+    dem Start nicht auf); seitdem 7 von 7 Läufen verwertbar.
+  - `-- /karriere` misst nur diese Route, `-- --protokoll` gibt jeden Schritt aus und legt die Spuren unter
+    `output/akkordeon/` ab.
+* [x] **Ergebnis, alle Werkzeuge gegen den Endstand (Build 16.10.2026, 23:30:35; Build grün, 29/29 Routen, 0 Gedankenstriche,
+  `tsc` ohne Fehler):**
+  - `npm run akkordeon`: 2 von 2 Läufen ohne Befund (dazu 5 von 5 gegen Build 22:36:53 mit eigenem Browser je Seite).
+    Spät 1–3 Layouts in 5–72 Bildern, 0 Animationen abseits des Compositors, getippte Karte 0,0 px. **Gegenprobe 2 von 2:**
+    je 3 von 3 Höhen-Animationen und 3 von 3 Hervorhebungen gemeldet, auch unter Last mit nur 5–7 Bildern im Fenster.
+  - `npm run mobil`: 29 Routen × 3 Fenster plus die drei Safari-Fenster auf `/`, 0 harte Befunde, 257 Hinweise „Schrift
+    unter 12 px“ wie zuvor. **Gegenprobe:** alle 8 eingespielten Fehler gemeldet.
+  - `npm run kontrast`: 6.271 Textstellen auf 29 Routen, 0 unter AA. `-- / --sektionen`: 978 Stellen, 0 unter AA.
+  - `npm run aussparung`: 29 Routen × 3 Fenster ohne dauerhafte Überdeckung, Geometrie an 23 Breiten in Ordnung.
+    `npm run tote-dateien`: keine.
+  - Hero (Scratchpad `hero-leiste.mjs`): alle Zielfenster frei (Tabelle Phase 12; A56 97 px, Pro Max 104 px, Tablet
+    61 px). Darunter bleibt R29 (siehe Optimierungsplan).
+  - Bildschirmfotos (Scratchpad `fotos/r3-*.png`): Hero bei 393 × 659 mit freier Vertrauensleiste, Leistungen und
+    Autoaufbereitung bei 390 px mit 15-px-Titeln und zurückgenommenem Foto.
+**Referenzen:**
+`scripts/check-akkordeon.mjs`
+`scripts/check-mobil.mjs`
 
 ---
 
@@ -287,3 +399,22 @@ Gegenprobe 3/3 ✅, Altfehler gefunden und an der Ursache behoben statt an der K
 **Auffälligkeiten:** 1. 🔴 Lenis-Anker ohne `defaultPrevented` (O1, behoben). 2. 🟠 Mitarbeiterstimmen animieren mobil
 noch die Höhe (R25). 3. 🟡 Lenis-Dauerschleife (R26). 4. 🟢 FAQ-Höhe (R27).
 Optimierungsplan: `2026-10-16-mobil-startseite-optimierung-tasks.md`.
+
+### Phasen 10–13 (dritte Rückmeldung)
+**Eingehalten:** gemessen statt geschätzt (Fensterhöhen, Abstände, Kontrast, Titel gegen Plakette) ✅, Lösungswege
+verglichen ✅, nichts per Höhenabfrage ausgeblendet (Vorgabe des Users) ✅, Desktop unverändert (alles unter 1024 px) ✅,
+Pflichtfrage für das neue Kriterium in `check-mobil` (Punkt 10) und für die Prüferkorrektur in `check-akkordeon`
+(Punkt 8) beantwortet ✅, Prüferfehler an der Ursache behoben statt Grenzen gelockert ✅, Herkunft der Safari-Höhe
+genannt und Abgeleitetes gekennzeichnet ✅, unter 700 Zeilen (`check-mobil` 496, `ExpandingCardAccordion` 492,
+`check-akkordeon` 415, `index.css` 687) ✅, Encoding ✅.
+**Auffälligkeiten (nach Schwere):**
+1. 🟠 **Hoch (behoben, O13):** Der Akkordeon-Prüfer wertete Ereignisse von vor dem Spurstart aus und verankerte sein
+   Fenster am falschen Klick. Auf /karriere hätte er eine echte Höhen-Animation übersehen (Gegenprobe dort 2 von 3).
+2. 🟠 **Hoch (behoben, O14):** `npm run mobil` maß nur volle Bildschirmhöhen; die Fenster von Safari fehlten.
+3. 🟡 **Mittel (behoben, O12):** Weitere Schwächen des Akkordeon-Prüfers unter Rechnerlast (siehe Phase 13).
+4. 🟢 **Niedrig (Hinweis):** 659 px stammen aus einer Geräteliste (Rocket Validator), 739 px sind abgeleitet; beides am
+   echten iPhone nicht nachgemessen.
+5. 🟡 **Mittel (offen, R29):** Unter rund 631 px Fensterhöhe (iPhone SE und mini in Safari, kleine Android-Telefone mit
+   Chrome-Leisten, alle abgeleitet) liegt die Vertrauensleiste beim Laden weiter teils unter den Knöpfen. Lösbar nur
+   mit einer Gestaltungsentscheidung (Leiste ganz unter den Rand oder kleinere Schrift), deshalb dem User vorgelegt.
+Optimierungsplan: `2026-10-16-mobil-startseite-optimierung-tasks.md` (O12–O14, R29).

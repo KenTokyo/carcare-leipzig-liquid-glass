@@ -15,6 +15,8 @@
 @import './styles/glas.css';
 /* Fusszeile im Seitenfluss, wenn sie nicht ins Fenster passt (2026-10-14, Mobile-Check). */
 @import './styles/fusszeile.css';
+/* Hero der Startseite auf niedrigen Telefonfenstern (2026-10-16, iPhone in Safari). */
+@import './styles/hero.css';
 
 @tailwind base;
 @tailwind components;

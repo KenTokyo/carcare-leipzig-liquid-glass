@@ -1,7 +1,8 @@
 # Optimierung zu „Startseite mobil“ (Befunde aus den Phasen)
 
 **Angelegt:** 2026-10-16 · **Bezug:** `docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-tasks.md`
-**Nummern:** Repo-Befunde `R<n>` (CLAUDE.md, Abschnitt Backlog). Höchste vorher: R24.
+**Nummern:** Repo-Befunde `R<n>` (CLAUDE.md, Abschnitt Backlog). Höchste vorher: R24. R28 vergibt die parallele
+Sitzung zur Fußzeile (Branch `2026-10-16-r23-fusszeile-cls`), deshalb hier weiter mit R29.
 
 | Nr. | Schwere | Befund | Messung | Stand |
 |---|---|---|---|---|
@@ -16,10 +17,17 @@
 | O9 | 🟡 | Fotowechsel vor dem Dekodieren: kurz nur der Schleier der neuen Ebene sichtbar | Ableitung, Gerät langsamer als Messrechner | ✅ behoben (`useDekodiert`) |
 | O10 | 🟡 | Unterbrechungstest tippte ins Leere (festes Ziel außerhalb des Fensters) | Fehlersuche im Werkzeug | ✅ behoben (Ziel im laufenden Bild) |
 | O11 | 🟢 | Erster Tipp nach dem Laden: 104–117 ms Bildlücke im GPU-Prozess (Kopflos, Dawn/SwiftShader) | Ablation: bleibt ohne Foto und mit `will-change` | ⬜ Hinweis; nur auf dem Gerät beurteilbar |
+| O12 | 🟠 | `npm run akkordeon` unter Rechnerlast unzuverlässig: feste Layout-Grenze (Gegenprobe fiel darunter), Fenster am ersten Touch statt am Klick, Pop-up auf /karriere zu früh geschlossen, Tipp auf eine schon gewachsene oder offene Karte (folgte dem Link), Ruhelage vor dem Ende stockender Animationen | Gegenprobe 1–2 von 3, Messfehler, falsche Ruhelage-Befunde | ✅ behoben (Anteil statt Anzahl, Treffertest, Warten auf Pop-up und Animationsende, Unterbrechung per Element-Klick, Messfehler mit Exit 2) |
+| O13 | 🟠 | `npm run akkordeon` wertete Ereignisse von VOR dem Spurstart aus: Ein vorgehaltener Renderer liefert seinen Puffer mit. Fenster am Schließklick des Pop-ups, 18 Ladeanimationen als Compositor-Fehler; die Gegenprobe übersah dort die Höhen-Animation | /karriere als dritte Seite in 9 von 14 vollen Läufen, allein nie; nachgewiesen an der abgelegten Spur (`unload`, neue Anfrage an /karriere, Spurbeginn 17,8 s vor dem Start) | ✅ behoben (nur Ereignisse ab `TracingStartedInBrowser`; Thread und Fenster aus einer Klick-Marke per `console.timeStamp`) |
+| O14 | 🟠 | `npm run mobil` maß nur volle Bildschirmhöhen. In Safari bleiben dem iPhone 14 Pro 659 px statt 852, die Knöpfe der festen Leiste lagen 84 px über der Vertrauensleiste | Hero bei 659 px Fenster; bei 852 px grün | ✅ behoben (harte Art „Erster Bildschirm verdeckt“, drei niedrige Fenster, Gegenprobe 8 Fehler) |
 | **R25** | 🟠 | **Mitarbeiterstimmen** auf /karriere („Aus dem Team“, `Stimmen.tsx`) animieren mobil weiter die Höhe (Framer `height`), also Layout pro Bild wie vorher die Startseitenkarten | gleicher Mechanismus wie vor Phase 1 (16–18 ms je Bild bei 4×) | ⬜ offen, eigener Schritt: Fenster/Inhalt wie `akkordeonMobil.ts`; Kachel sitzt dort UNTEN, Bildebene und Kachel brauchen eigene Ruhelagen; danach `npm run akkordeon` um /karriere #stimmen erweitern |
 | **R26** | 🟡 | **Lenis-Schleife läuft dauerhaft** (`requestAnimationFrame` in jedem Bild, auch ohne Scrollen). Dadurch rechnet Chrome auch Compositor-Animationen in jedem Bild auf dem Hauptthread nach (Stil der animierten Teilbäume, gemessen rund 125 Elemente und 0,9 ms je Bild ungedrosselt) | Trace der Akkordeon-Animation: Stil 70–230 ms je Tipp bei 4× trotz 0 Layout | ⬜ offen: Schleife nur bei Bewegung laufen lassen (Rad, Touch, Taste, `scrollTo`, Anker), Risiko: Anker und programmatisches Scrollen; danach `npm run akkordeon`, `npm run zielgruppen`, `npm run nav` |
+| **R29** | 🟡 | **Hero auf noch niedrigeren Fenstern:** Unter 800 px Höhe endet die Vertrauensleiste bei 556 px (Mindesthöhe des Inhalts, gleich bei 360, 375 und 393 px Breite), passt also erst ab rund 631 px Fensterhöhe über die Knöpfe | Build 23:30:35, abgeleitete Fenster (nicht am Gerät gemessen): iPhone 13 mini in Safari 375 × 629: 1,8 px verdeckt; 375 × 600: 31 px; kleines Android mit Chrome-Leisten 360 × 560: 71 px; iPhone SE in Safari 375 × 548: 83 px | ⬜ offen, Entscheidung des Users: (a) unter rund 630 px Höhe die Leiste beim Laden ganz unter den Rand schieben (nie angeschnitten, erscheint beim ersten Scrollen, nichts ausgeblendet) oder (b) Überschrift und Abstände dort kleiner (nötig rund 85 px, nur mit spürbar kleinerer Schrift). Danach die Fenster in `FENSTER_ERSTER_BILDSCHIRM` ergänzen |
 | **R27** | 🟢 | **FAQ** animiert die Höhe (`height: auto`, 0,24 s): Layout pro Bild | 8–24 Layouts je Tipp, rund 4–5 ms je Bild bei 4× (wenig Seite darunter) | ⬜ offen, niedrig: erst angehen, wenn der User dort Ruckeln sieht |
 
 ## Kommentare
 **Eingehalten:** gemessen statt geschätzt ✅, Ursache vor der Lösung bewiesen ✅, gewählte Lösung gegen vier Alternativen
 geprüft ✅, Gegenproben (Kontrast, Akkordeon) ✅, unter 700 Zeilen ✅, keine Kundennummern vergeben ✅, Encoding ✅.
+**O12–O14 (Phasen 10–13):** Prüferfehler an der Ursache behoben statt Grenzen gelockert ✅; jede Korrektur an einem
+abgelegten Lauf belegt (Spur, Protokoll) ✅. Lehre aus O13: Ein grüner Lauf allein beweist nichts, solange nicht feststeht,
+dass das Messfenster das gemessene Ereignis überhaupt enthält; deshalb die Klick-Marke als Pflichtbeleg.

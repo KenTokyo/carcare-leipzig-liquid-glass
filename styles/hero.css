@@ -1,0 +1,48 @@
+/* Hero der Startseite auf NIEDRIGEN Telefonfenstern (2026-10-16). Eingebunden per @import oben in index.css.
+
+   RUECKMELDUNG DES USERS: „In der iPhone 14 Pro Ansicht bei der Landingpage sind die Buttons auf der Fußzeile der
+   Hero Sektion. Bitte mach das so, dass es das nicht verdeckt und die Fußzeile etwas nach oben verschoben wird.“
+
+   GEMESSEN (Build 16.10., 20:45; Startseite, Scrollposition 0): Die Vertrauensleiste („Dafür steht …“, vier Fakten)
+   endet bei 668 px. Die feste Leiste `MobileStickyCTA` (unter 1024 px) belegt die unteren 75 px des Fensters
+   (Knoepfe 63 px, 12 px Rand). Ergebnis je Fenster:
+     iPhone 14 Pro in Safari, Leisten eingeblendet   393 × 659   Knoepfe ab 584, 84 px verdeckt
+     iPhone 14 Pro in Safari, Leisten ausgeblendet   393 × 739   Knoepfe ab 664,  4 px verdeckt
+     iPhone SE                                       375 × 667   76 px verdeckt
+     kleines Android                                 360 × 640   103 px verdeckt
+     iPhone 14 Pro in der DevTools-Ansicht           393 × 852   frei, 97 px Luft
+   Die Bildschirmmasse sind also nicht das Fenster: Safari zieht Adress- und Werkzeugleiste ab (dieselbe Lehre wie
+   „Full HD heisst nicht 1080 px“, CLAUDE.md).
+
+   LOESUNG: nur Abstaende, NICHTS AUSBLENDEN (Wunsch des Users: nie per Hoehenabfrage ausblenden). Unter 800 px Hoehe:
+     - weniger Luft unter der Navigation: Rahmen oben 112 → 88 px, Kopfblock oben und unten 24 → 8 px   (−56 px)
+     - kompaktere Vertrauensleiste: Abstand davor 32 → 16, Innenabstand oben 24 → 16, um die Trennlinie
+       je 24 → 12, Zeilenabstand der Fakten 20 → 12 px                                                (−56 px)
+   Zusammen 112 px: Die Leiste endet dann bei 556 px, 28 px ueber den Knoepfen bei 659 px Fenster, 9 px bei 640.
+   Ab 800 px Hoehe und ab 1024 px Breite (dort gibt es keine feste Leiste) bleibt alles wie vorher.
+   Selektoren mit `#home`: schlagen die Tailwind-Klassen am Element unabhaengig von der Reihenfolge im Stylesheet.
+   Geprueft von `npm run mobil` (Vertrauensleiste traegt `data-erster-bildschirm`). */
+@media (max-width: 1023px) and (max-height: 800px) {
+  #home .cc-hero-rahmen {
+    padding-top: 5.5rem;
+  }
+
+  #home .cc-hero-kopf {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  #home .cc-hero-vertrauen {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  #home .cc-hero-trenner {
+    margin-top: 0.75rem;
+  }
+
+  #home .cc-hero-fakten {
+    margin-top: 0.75rem;
+    row-gap: 0.75rem;
+  }
+}

@@ -276,7 +276,7 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
           Die eingeklappten Streifen sind rund 82 px breit, die Plakette wuerde dort
           angeschnitten. Mobil ist jede Karte volle Breite, dort steht sie immer.
           Auf dem 64 px hohen mobilen Streifen 4 px unter der Oberkante (`top-1`, bis 2026-10-16 `top-2`): Der Titel steht
-          dort seither groesser und mittig (siehe dort) und braucht den Platz darunter. Die Rundung der Karte (24 px)
+          dort seither mittig (siehe dort) und braucht den Platz darunter. Die Rundung der Karte (24 px)
           laesst die Plakette dort noch frei: Ihre Ecke steht 12 px vom Rand, der Bogen auf dieser Hoehe bei 10,7 px. */}
       {(isActive || !isDesktop) && <KiMarke quelle={cardImage} className={isActive ? 'right-3 top-3' : 'right-3 top-1'} />}
       {/* Schleier NUR ueber dem Foto: liegt vor Bild und Verlauf, aber hinter dem
@@ -287,17 +287,18 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       )}
 
       {/* Kollabiert: Kartenname – horizontal (Mobile) bzw. vertikal (Desktop), faded bei aktiv aus.
-          MOBIL GROESSER UND MITTIG (User, 2026-10-16: „die Schriften mehr zentrieren … ein bisschen weiter nach unten
-          und größer machen“): `clamp(15px, 4,4vw, 18px)` statt 13 px (390 px Breite: 17,2 px), senkrecht mittig mit
-          `pt-2.5`, also 5 px unter der Streifenmitte. Bis dahin unten buendig (`items-end pb-2.5`, Mitte bei 46 von 64 px),
-          weil die KI-Plakette oben rechts steht: Mittig gesetzt lag der Titel 2026-09-27 auf 11 von 96 Streifen unter
-          ihr. Jetzt steht die Plakette 4 px hoeher (`top-1`), und die 5 px unter der Mitte halten einzeilige Titel bis
-          18 px frei (gemessen 2026-10-16 bei 360–430 px: mindestens 1,8 px zwischen Zeilenbox und Plakette, alle Titel
-          mit Plakette einzeilig; zweizeilig nur Titel ohne Plakette; Werte in docs/mobil-startseite/tasks/, Phase 8).
+          MOBIL 15 PX UND MITTIG. Verlauf mit dem User am 2026-10-16: zuerst „mehr zentrieren … größer machen“ (13 px,
+          unten buendig, Mitte bei 46 von 64 px → `clamp(15px, 4,4vw, 18px)`, mittig), am selben Abend „die Schrift kann
+          etwas kleiner, weil es zurzeit nicht ästhetisch ausschaut“ (17,2 px bei 390 px fuellten den Streifen von Rand zu
+          Rand) → feste 15 px, wie die senkrechten Titel am Desktop. Senkrecht mittig mit `pt-1.5` (Mitte bei 35 px, also
+          knapp unter der Streifenmitte: Versalien sitzen optisch hoch in ihrer Zeile).
+          Die KI-Plakette oben rechts steht dafuer 4 px unter der Oberkante (`top-1`); mittig gesetzt lag der Titel
+          2026-09-27 auf 11 von 96 Streifen unter ihr. Abstand zwischen Zeilenbox und Plakette gemessen in
+          docs/mobil-startseite/tasks/ (Phasen 8 und 11).
           Auf die 64 px des Streifens begrenzt (`top-0 h-16`), weil der Inhalt darunter so hoch ist wie die offene Karte. */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 top-0 flex h-16 items-center lg:inset-0 lg:h-auto justify-center px-4 pt-2.5 text-center text-[clamp(15px,4.4vw,18px)] font-bold uppercase leading-tight tracking-wide text-white lg:pt-0 lg:leading-normal [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:text-[15px] lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
+        className={`pointer-events-none absolute inset-x-0 top-0 flex h-16 items-center lg:inset-0 lg:h-auto justify-center px-4 pt-1.5 text-center text-[15px] font-bold uppercase leading-tight tracking-wide text-white lg:pt-0 lg:leading-normal [text-shadow:0_1px_10px_rgb(var(--cc-carbon-rgb)/0.85)] transition-opacity duration-300 lg:rotate-180 lg:[writing-mode:vertical-rl] ${isActive ? 'opacity-0' : 'opacity-100'}`}
       >
         {item.title}
       </span>
