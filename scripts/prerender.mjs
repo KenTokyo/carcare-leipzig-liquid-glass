@@ -209,6 +209,28 @@ async function run() {
         // Eintrag garantiert zur Pruefung unten.
         suchSeiten.push({ ...(await page.evaluate(SUCH_AUSZUG)), u: route });
 
+        // NUR DIE VORLAGE IN <body> (2026-10-16, Backlog R28). Portale rendern ausserhalb von #root direkt in <body>
+        // (Stellen-Pop-up auf /karriere). Der Snapshot hielt das Pop-up mitten in seiner Einblend-Animation fest
+        // (Deckkraft 0,22), und weil der Flash-Guard unten nur #root leert, blieb die Kopie beim Besucher fuer immer
+        // stehen: nicht schliessbar, fing Taps ab, Layout-Sprung 0,14 bei 1024 × 700 (`npm run cls`). Deshalb uebernimmt
+        // der Snapshot aus <body> nur, was die Vorlage `index.html` dort hat (`#cc-boot`, `#root`), dazu Skripte ohne
+        // Guard-Kennung. Alte Guards fliegen mit raus: Ab der zweiten Route laedt der Prerender den Startseiten-Snapshot
+        // als SPA-Ersatz und serialisierte dessen Guard mit (bis 2026-10-16 auf 28 Seiten doppelt). Wer der Vorlage ein
+        // weiteres Element direkt in <body> gibt, traegt seine id hier ein, sonst fehlt es im ausgelieferten HTML.
+        const entfernt = await page.evaluate(() => {
+          const VORLAGE = new Set(['root', 'cc-boot']);
+          const weg = [];
+          for (const el of [...document.body.children]) {
+            if (VORLAGE.has(el.id)) continue;
+            const istGuard = el.hasAttribute('data-prerender-guard');
+            if (el.tagName === 'SCRIPT' && !istGuard) continue;
+            if (!istGuard) weg.push(`${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? `[${el.getAttribute('aria-label')}]` : el.id ? `#${el.id}` : ''}`);
+            el.remove();
+          }
+          return weg;
+        });
+        if (entfernt.length) console.log(`[prerender] ${route}: ausserhalb von #root entfernt (Laufzeit-Reste): ${entfernt.join(', ')}`);
+
         let html = await page.content();
         // Flash-Guard: leert #root synchron VOR dem Client-Mount. Sonst sehen Nutzer
         // (JS an) kurz das prerenderte DOM, das createRoot danach komplett verwirft und

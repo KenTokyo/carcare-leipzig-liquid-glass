@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, MotionValue } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { OEFFNUNG_ANZEIGE } from '../data/oeffnungszeiten';
@@ -68,31 +68,40 @@ const Footer: React.FC = () => {
   // Freilegen nur im fixierten Zustand; im Seitenfluss steht der Inhalt sofort ganz da.
   const bewegt = fixiert && !prefersReducedMotion;
 
-  // Footerhöhe live messen → Spacer hält genau diese Höhe als Reveal-Reserve im Scroll-Flow.
-  // Rundung auf ganze px verhindert Sub-Pixel-Layout-Jitter.
-  useEffect(() => {
+  // Footerhöhe live messen → Spacer hält genau diese Höhe als Reveal-Reserve im Scroll-Flow, und daraus folgt, ob sie
+  // fixiert ins Fenster passt. Rundung auf ganze px verhindert Sub-Pixel-Layout-Jitter.
+  //
+  // VOR DEM ERSTEN BILD (2026-10-16, Backlog R23): `useLayoutEffect`, erste Messung synchron. Bis dahin lief sie in
+  // `useEffect` und erst einen Frame spaeter per rAF. Malte der Browser dazwischen, stand die fixierte Fassung einmal im
+  // Bild, und die ganze Fusszeile sprang danach in den Seitenfluss: CLS 1,0 auf Handys (gemessen auf der Vorschau, lokal
+  // mit CPU 4× nachgestellt, `npm run cls`). Jetzt korrigiert React den Zustand, bevor der Browser malt. Folgemessungen
+  // (ResizeObserver, Fenstergroesse) bleiben per rAF gebuendelt.
+  // ⚠️ Wer auf `hydrateRoot` umstellt (Performance-Plan 2026-10-05): Dann muss der erste Render zum vorgerenderten HTML
+  // passen, das die Fassung des Prerender-Fensters festhaelt; sonst springt sie auf einem bestehenden Knoten.
+  useLayoutEffect(() => {
     if (!footerRef.current) return;
     const node = footerRef.current;
     let raf = 0;
-    const measure = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const h = Math.round(node.getBoundingClientRect().height);
-        if (h > 0) {
-          setFooterHeight((prev) => (prev === h ? prev : h));
-          const passt = h <= window.innerHeight - PASST_RESERVE;
-          setFixiert((prev) => (prev === passt ? prev : passt));
-        }
-      });
+    const messen = () => {
+      const h = Math.round(node.getBoundingClientRect().height);
+      if (h > 0) {
+        setFooterHeight((prev) => (prev === h ? prev : h));
+        const passt = h <= window.innerHeight - PASST_RESERVE;
+        setFixiert((prev) => (prev === passt ? prev : passt));
+      }
     };
-    measure();
-    const ro = new ResizeObserver(measure);
+    const spaeterMessen = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(messen);
+    };
+    messen();
+    const ro = new ResizeObserver(spaeterMessen);
     ro.observe(node);
-    window.addEventListener('resize', measure);
+    window.addEventListener('resize', spaeterMessen);
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
-      window.removeEventListener('resize', measure);
+      window.removeEventListener('resize', spaeterMessen);
     };
   }, []);
 
