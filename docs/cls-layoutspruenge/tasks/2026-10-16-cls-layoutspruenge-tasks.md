@@ -87,7 +87,18 @@ SPA-Ersatz und serialisierte dessen Guard mit): 57 Guards auf 29 Seiten. Harmlos
   fixiert) · Aussparung ohne Überdeckung, Geometrie an 23 Breiten · Zielgruppen „alle Karten auf allen Fenstern in
   Ordnung“ · Kontrast 6.282 Textstellen ohne Befund · Meta 0 von 29 · tote Dateien 0 (173 Quelldateien, 51 Einstiege)
 * [x] Backlog: R23 und R28 als umgesetzt (🟨 bis zum Nachweis auf der Vorschau), Zähler nachgezogen
-* [ ] Commit, Push und Nachweis auf der Vorschau nur nach Freigabe des Users (Optimierung O2)
+* [x] Freigabe des Users zum Push (17.10.). Committet (`dec3477`) und auf den inzwischen weitergezogenen `main`
+  aufgesetzt (`f38bc2b`, „Startseite mobil“ der parallelen Sitzung; Konflikt nur in `package.json`, beide Skripte
+  behalten). Zusammengeführten Stand neu gebaut (16.10., 23:56:06): Fußzeile weiter 0, Prerender entfernt die
+  Pop-up-Kopie. **Neu im Parallellauf:** 2 harte Befunde am Desktop (`/leasingrueckgabe-leipzig` 0,134 und
+  `/smart-repair-leipzig` 0,115, Quelle `div.absolute` bzw. `body`, dazu Hinweise mit dem Glasknopf „Schaden melden“).
+  Gegengeprüft: einzeln je drei Läufe höchstens 0,01, auf der Vorschau (ohne diese Änderungen) 0. Also Lastspitzen.
+  `npm run cls` bestätigt harte Befunde seitdem einzeln (bis zu zwei Nachmessungen, Kopf des Skripts, Pflichtfrage
+  Punkt 6). Danach: **0 harte Befunde**, 25 Hinweise (meist 0,010 `body` am Desktop; eine Lastspitze 0,170 auf `/` bei
+  1024, einzeln 0,000 und 0,000). Gegenprobe weiter bestanden.
+* [x] Nebenbei live gemessen, **vor** dem Push: `/karriere` auf der Vorschau 0,078 bis 0,088 bei 1366 und **0,130**
+  bei 1024, jedes Mal durch `aside.fixed` (das Pop-up-Gespenst, R28). Live lag `/karriere` am Desktop also über 0,1.
+* [ ] Push und Nachweis auf der Vorschau (Optimierung O2)
 
 ---
 

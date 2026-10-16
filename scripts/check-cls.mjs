@@ -18,7 +18,13 @@
 // den anderen Werkzeugen. Ein PerformanceObserver (`layout-shift`, vor allen Seitenskripten) sammelt die Spruenge ohne
 // vorherige Eingabe, vom Laden bis 2,5 s nach Netzwerkruhe. CLS wie in web-vitals: groesstes Sitzungsfenster (Luecke
 // unter 1 s, hoechstens 5 s). Gemeldet mit Verursacher (Element und Text).
-//   HART (Exit 1): CLS ab 0,1.   HINWEIS: ab 0,01.
+//   HART (Exit 1): CLS ab 0,1, in der Einzelmessung bestaetigt.   HINWEIS: ab 0,01, oder ab 0,1 nur unter Last.
+//
+// BESTAETIGUNG (2026-10-16): Drei Tabs laufen parallel, das verschaerft die Drossel zusaetzlich. Nach dem Zusammen-
+// fuehren mit „Startseite mobil“ meldete der Parallellauf zwei harte Befunde am Desktop (0,134 und 0,115), die einzeln
+// in je drei Laeufen bei hoechstens 0,01 lagen und auf der Vorschau bei 0. Deshalb wird jeder harte Befund einzeln
+// (ein Tab, sonst gleich) bis zu zweimal nachgemessen. Hart bleibt, was dabei wieder ab 0,1 liegt; sonst steht er als
+// Hinweis „nur unter Last“ im Bericht. Der Fusszeilenfehler (R23) traf einzeln jeden zweiten Lauf und waere geblieben.
 //
 // ⚠️ WAS DIESE PRUEFUNG BESTEHT, OHNE DASS DIE SACHE IN ORDNUNG IST (Pflichtfrage, CLAUDE.md)
 //  1. TIMING: Spruenge, die nur entstehen, wenn der Browser zwischen zwei Renderschritten malt, sind auch mit CPU 4×
@@ -33,6 +39,8 @@
 //  4. VIER FENSTER. Tablets hochkant, Querformat und grosse Bildschirme nicht.
 //  5. Preloader aus: Beim ersten Besuch deckt er die ersten Sekunden ab. Spruenge dahinter zaehlen fuer Google trotzdem
 //     und werden hier gemessen; nur das Timing weicht vom ersten Besuch ab.
+//  6. BESTAETIGUNG: Ein echter Timing-Fehler, der einzeln seltener als in jedem dritten Lauf auftritt, kann in den zwei
+//     Nachmessungen ausbleiben und landet dann als „nur unter Last“ bei den Hinweisen. Diese Hinweise also lesen.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -136,6 +144,17 @@ try {
     }
   };
   await Promise.all(Array.from({ length: PARALLEL }, arbeiter));
+  // Bestaetigung (Begruendung im Kopf): jeder harte Befund einzeln, bis zu zweimal.
+  for (const e of ergebnisse.filter((x) => x.cls >= HART_AB)) {
+    const f = FENSTER.find((x) => x.name === e.fenster);
+    e.nachmessung = [];
+    while (e.nachmessung.length < 2 && !e.bestaetigt) {
+      const wieder = await messe(browser, basis, e.route, f);
+      e.nachmessung.push(wieder.cls);
+      e.bestaetigt = wieder.cls >= HART_AB;
+    }
+    process.stdout.write(e.bestaetigt ? '!' : '·');
+  }
 } finally {
   await browser.close();
   stopp();
@@ -144,11 +163,12 @@ process.stdout.write('\n');
 
 const ordnung = (a, b) => routen.indexOf(a.route) - routen.indexOf(b.route) || FENSTER.findIndex((f) => f.name === a.fenster) - FENSTER.findIndex((f) => f.name === b.fenster);
 ergebnisse.sort(ordnung);
-const harte = ergebnisse.filter((e) => e.cls >= HART_AB);
-const hinweise = ergebnisse.filter((e) => e.cls >= HINWEIS_AB && e.cls < HART_AB);
+const harte = ergebnisse.filter((e) => e.cls >= HART_AB && e.bestaetigt);
+const hinweise = ergebnisse.filter((e) => e.cls >= HINWEIS_AB && !(e.cls >= HART_AB && e.bestaetigt));
 
 fs.mkdirSync(AUSGABE, { recursive: true });
-const zeile = (e) => `| \`${e.route}\` | ${e.fenster} | ${e.cls.toFixed(3)} | ${e.quelle.replace(/\|/g, '/')} |`;
+const nach = (e) => (e.nachmessung ? ` · einzeln: ${e.nachmessung.map((w) => w.toFixed(3)).join(', ')}${e.bestaetigt ? '' : ' (nur unter Last)'}` : '');
+const zeile = (e) => `| \`${e.route}\` | ${e.fenster} | ${e.cls.toFixed(3)} | ${e.quelle.replace(/\|/g, '/')}${nach(e)} |`;
 const md = [
   '# Layout-Sprünge beim Laden (CLS)', '',
   `> Erzeugt von \`npm run cls\` am ${new Date().toLocaleString('de-DE')}, ${routen.length} Routen × ${FENSTER.map((f) => `${f.width} × ${f.height}`).join(', ')}, CPU ${DROSSEL}×. Nicht von Hand bearbeiten.`, '',
@@ -160,7 +180,7 @@ const md = [
 fs.writeFileSync(path.join(AUSGABE, gegenprobe ? 'gegenprobe.md' : 'bericht.md'), md.join('\n'));
 
 console.log(`[cls] ${routen.length} Routen × ${FENSTER.length} Fenster, CPU ${DROSSEL}×. ${harte.length} harte Befunde (ab ${HART_AB}), ${hinweise.length} Hinweise. Bericht: output/cls/${gegenprobe ? 'gegenprobe' : 'bericht'}.md`);
-for (const e of [...harte, ...hinweise]) console.log(`  ${e.cls >= HART_AB ? 'HART' : 'Hinweis'} ${e.route} @${e.fenster}: ${e.cls.toFixed(3)} · ${e.quelle}`);
+for (const e of [...harte, ...hinweise]) console.log(`  ${e.bestaetigt ? 'HART' : 'Hinweis'} ${e.route} @${e.fenster}: ${e.cls.toFixed(3)} · ${e.quelle}${nach(e)}`);
 
 if (gegenprobe) {
   const getroffen = harte.some((e) => e.route === '/');
