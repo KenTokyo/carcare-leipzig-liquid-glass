@@ -35,9 +35,13 @@
 //   - ERSTER BILDSCHIRM VERDECKT (seit 2026-10-16): Elemente mit `data-erster-bildschirm` (derzeit die
 //     Vertrauensleiste im Titelbild der Startseite) muessen bei Scrollposition 0 mit jeder Textzeile ganz im Fenster
 //     stehen und duerfen von nichts verdeckt sein (`elementFromPoint`, z. B. die feste Leiste unten). Gemessen in den
-//     drei Fenstern UND zusaetzlich in den niedrigen Fenstern eines iPhone in Safari (FENSTER_ERSTER_BILDSCHIRM):
+//     drei Fenstern UND zusaetzlich in den niedrigen Fenstern von Safari und Chrome (FENSTER_ERSTER_BILDSCHIRM):
 //     Der User sah dort die Knoepfe auf der Vertrauensleiste (iPhone 14 Pro, Safari mit Leisten 393 × 659: 84 px
 //     verdeckt), waehrend die Bildschirmmasse 393 × 852 frei waren.
+//     ODER GANZ UNTERHALB (seit 2026-10-17, R29): Unter 640 px Hoehe beginnt die Leiste auf Wunsch des Users erst unter
+//     dem Fensterrand (styles/hero.css). Das gilt als in Ordnung, wenn Kasten und Text ganz unter dem Rand liegen und
+//     hoechstens UNTER_RAND_MAX px tief beginnen; tiefer meldet sie als ERSTER BILDSCHIRM ZU TIEF. Angeschnitten (teils
+//     im Fenster, teils darunter) oder verdeckt ist nie erlaubt.
 //   HINWEIS (kein Exit 1):
 //   - Schrift unter 12 px (sichtbarer Text).
 //
@@ -61,9 +65,10 @@
 //  6. `data-mobil-anschnitt` ist ein Freibrief. Wer es setzt, schreibt die Begruendung als Wert dazu.
 //  7. NUR WAAGERECHT: Abgeschnitten heisst hier „seitlich ueber den Rand“. Text, den `line-clamp` oder eine feste
 //     Hoehe UNTEN abschneidet (dritte Zeile eines zweizeiligen Titels), meldet sie nicht.
-//  8. GEGENPROBE (`--gegenprobe`) prueft die vier harten Inhaltsarten, die unsichtbare Fusszeile und eine eingespielte,
-//     zu grosse Einblendung ohne Schliessknopf; nicht „nicht erreichbar“ und „verdeckt“. Diese beiden haben sich am
-//     2026-10-14 am echten Fehler bewiesen (Fusszeile 1117 px auf 844 px Fenster, oben 281 px unerreichbar; Copyright
+//  8. GEGENPROBE (`--gegenprobe`) prueft die vier harten Inhaltsarten, die unsichtbare Fusszeile, eine eingespielte,
+//     zu grosse Einblendung ohne Schliessknopf und den ersten Bildschirm dreifach (angeschnitten, verdeckt, zu tief;
+//     seit 2026-10-17), zusammen zehn Fehler; nicht „Fusszeile nicht erreichbar“ und „Fusszeile verdeckt“. Diese
+//     beiden haben sich am 2026-10-14 am echten Fehler bewiesen (Fusszeile 1117 px auf 844 px Fenster, oben 281 px unerreichbar; Copyright
 //     unter der mobilen Leiste), „zu groß“ am 2026-10-15 am Stellen-Pop-up (66 % bei 360 × 640).
 //  9. EINBLENDUNGEN zaehlen nur mit Dialog-Rolle und `position: fixed`. Ein Overlay ohne Rolle, eines, das spaeter als
 //     3 s nach dem Laden kommt oder erst beim Scrollen ausgeloest wird und dann wieder geht, faellt durch. Der Anteil ist
@@ -71,9 +76,19 @@
 //     laufen nur Handybreiten.
 // 10. ERSTER BILDSCHIRM nur fuer markierte Elemente (`data-erster-bildschirm`) und nur bei Scrollposition 0, in den
 //     Fensterhoehen dieser Datei. Safari aendert die Hoehe mit seinen Leisten: 659 px beim iPhone 14 Pro mit
-//     eingeblendeten Leisten (so fuehrt es u. a. Rocket Validator), rund 739 px eingeklappt (abgeleitet); beide am
-//     Geraet nicht nachgemessen. 375 × 667 ist das BILDSCHIRMMASS des iPhone SE, in Safari bleibt dort weniger. Kleinere
-//     Fenster (iPhone SE und mini in Safari, kleine Android-Telefone mit Chrome-Leisten) und Querformat prueft sie nicht.
+//     eingeblendeten Leisten (so fuehrt es u. a. Rocket Validator), rund 739 px eingeklappt; 629 px beim iPhone 13 mini
+//     und 548 px beim iPhone SE in Safari, 560 px bei einem 360 × 640 grossen Android mit Chrome-Leisten (ausser 659
+//     alle abgeleitet, keines am Geraet nachgemessen). 375 × 667 ist das BILDSCHIRMMASS des SE. Querformat prueft sie nicht.
+//     SEIT 2026-10-17 GILT AUCH „GANZ UNTERHALB“ (R29). Was damit durchgeht, ohne in Ordnung zu sein:
+//     a) Der KOPFBLOCK ueber der Leiste ist nicht markiert. Ragt er selbst unter die Knoepfe (bei 320 × 480 die
+//        Unterzeile, Fenster nicht in der Liste), meldet sie nichts.
+//     b) UNTER_RAND_MAX ist eine Annahme, wie weit ein erstes Wischen traegt, keine Messung.
+//     c) Der Treffertest sieht nur, was Zeigerereignisse annimmt: Eine Flaeche mit `pointer-events: none` ueber dem Text
+//        faellt durch (die Knoepfe der festen Leiste nehmen sie an, ihr Behaelter nicht). Er tastet jede Zeile alle 8 px
+//        ab, an Ober- und Unterkante und in der Mitte; bis 2026-10-16 an drei Punkten der Mitte, die bei 375 px Breite
+//        alle in Luecken oder Raender der Leiste fallen konnten (Luecken 10 px, Rand 12 px).
+//     d) Puppeteer setzt `100svh` gleich der Fensterhoehe. Dass Safari beim Laden genau `100svh` zeigt (kleiner Viewport
+//        = Leisten eingeblendet), folgt aus der Definition, ist am Geraet aber nicht nachgemessen.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -91,13 +106,24 @@ const FENSTER = [
 /**
  * Zusaetzliche, NIEDRIGE Fenster nur fuer ERSTER BILDSCHIRM und nur auf Routen mit `data-erster-bildschirm`: so viel
  * Hoehe bleibt einem iPhone 14 Pro in Safari mit ein- und mit ausgeblendeten Leisten, dazu das Bildschirmmass des
- * iPhone SE (Herkunft der Werte: Pflichtfrage 10).
+ * iPhone SE und seit 2026-10-17 (R29) die Fenster unter 640 px, in denen die Leiste unter dem Rand beginnt
+ * (Herkunft der Werte: Pflichtfrage 10).
  */
 const FENSTER_ERSTER_BILDSCHIRM = [
   { name: '393x659 (iPhone 14 Pro, Safari mit Leisten)', width: 393, height: 659 },
   { name: '393x739 (iPhone 14 Pro, Safari ohne Leisten)', width: 393, height: 739 },
   { name: '375x667 (iPhone SE, Bildschirmmass)', width: 375, height: 667 },
+  { name: '375x629 (iPhone 13 mini, Safari mit Leisten)', width: 375, height: 629 },
+  { name: '375x600 (zwischen mini und SE)', width: 375, height: 600 },
+  { name: '360x560 (kleines Android, Chrome mit Leisten)', width: 360, height: 560 },
+  { name: '375x548 (iPhone SE, Safari mit Leisten)', width: 375, height: 548 },
 ];
+/**
+ * Hoechstens so tief darf ein markiertes Element unter dem Fensterrand beginnen, damit es mit dem ersten Wischen ins
+ * Bild kommt (ERSTER BILDSCHIRM, „ganz unterhalb“). Eine Annahme (Pflichtfrage 10 b); die Vertrauensleiste beginnt
+ * 8 px darunter.
+ */
+const UNTER_RAND_MAX = 120;
 /** Hoechstanteil einer Einblendung an der Fensterhoehe in Prozent (Begruendung im Kopf, EINBLENDUNG ZU GROSS). */
 const EINBLENDUNG_MAX = 30;
 const args = process.argv.slice(2);
@@ -109,62 +135,101 @@ const fenster = FENSTER.filter((f) => !nurBreite || f.name === nurBreite);
 const BERICHT = gegenprobe ? 'gegenprobe.md' : 'bericht.md';
 const warte = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Laeuft IM Browser: spielt vier bekannte Fehler oben in <main> ein (nur `--gegenprobe`). */
-function einspielen() {
-  const box = document.createElement('div');
-  box.id = 'mobil-gegenprobe';
-  box.innerHTML = `
-    <div style="width:150vw;white-space:nowrap">GEGENPROBE_UEBERLAUF ragt rechts aus dem Fenster hinaus</div>
-    <div style="width:60px;overflow:hidden;white-space:nowrap">GEGENPROBE_ABGESCHNITTEN langer Text</div>
-    <div style="display:flex;gap:4px"><button aria-label="GEGENPROBE_ZIEL" style="width:16px;height:16px;padding:0">a</button><button style="width:16px;height:16px;padding:0">b</button></div>
-    <p style="font-size:9px">GEGENPROBE_KLEIN</p>
-    <style>footer * { opacity: 0 !important; } [data-erster-bildschirm] { margin-top: 60vh !important; }</style>`;
-  (document.querySelector('main') || document.body).prepend(box);
-  // An <body>, nicht in <main>: `.site-main-shell` traegt einen Transform, `fixed` klebte sonst an <main>.
-  const einblendung = document.createElement('div');
-  einblendung.setAttribute('role', 'dialog');
-  einblendung.setAttribute('aria-label', 'GEGENPROBE_EINBLENDUNG');
-  einblendung.style.cssText = 'position:fixed;left:0;right:0;bottom:0;height:45vh;background:#fff;z-index:2147483000';
-  einblendung.textContent = 'GEGENPROBE_EINBLENDUNG ohne Schließknopf';
-  document.body.append(einblendung);
+/** Laeuft IM Browser (nur `--gegenprobe`): vier bekannte Fehler oben in <main>, eine Einblendung und drei Faelle fuer den
+ * ersten Bildschirm an <body>; mit `nurErsterBildschirm` nur die drei (Zusatzfenster, siehe unten). */
+function einspielen(unterRandMax, nurErsterBildschirm = false) {
+  if (!nurErsterBildschirm) {
+    const box = document.createElement('div');
+    box.id = 'mobil-gegenprobe';
+    box.innerHTML = `
+      <div style="width:150vw;white-space:nowrap">GEGENPROBE_UEBERLAUF ragt rechts aus dem Fenster hinaus</div>
+      <div style="width:60px;overflow:hidden;white-space:nowrap">GEGENPROBE_ABGESCHNITTEN langer Text</div>
+      <div style="display:flex;gap:4px"><button aria-label="GEGENPROBE_ZIEL" style="width:16px;height:16px;padding:0">a</button><button style="width:16px;height:16px;padding:0">b</button></div>
+      <p style="font-size:9px">GEGENPROBE_KLEIN</p>
+      <style>footer * { opacity: 0 !important; }</style>`;
+    (document.querySelector('main') || document.body).prepend(box);
+    // An <body>, nicht in <main>: `.site-main-shell` traegt einen Transform, `fixed` klebte sonst an <main>.
+    const einblendung = document.createElement('div');
+    einblendung.setAttribute('role', 'dialog');
+    einblendung.setAttribute('aria-label', 'GEGENPROBE_EINBLENDUNG');
+    einblendung.style.cssText = 'position:fixed;left:0;right:0;bottom:0;height:45vh;background:#fff;z-index:2147483000';
+    einblendung.textContent = 'GEGENPROBE_EINBLENDUNG ohne Schließknopf';
+    document.body.append(einblendung);
+  }
+  // ERSTER BILDSCHIRM, drei Fehler (seit 2026-10-17; bis dahin schob `margin-top: 60vh` die echte Leiste nach unten, in
+  // niedrigen Fenstern landete sie damit ganz unterhalb und galt seit R29 als in Ordnung): ueber den unteren Rand
+  // ragend, unter der festen Leiste (z-index darunter, links, wo ein Knopf liegt) und zu tief unter dem Rand. In den
+  // Zusatzfenstern ohne die Einblendung oben: Sie belegt die unteren 45 % und haette dort statt der festen Leiste verdeckt.
+  const stil = 'left:24px;font:16px/24px sans-serif;color:#000;background:#fff;padding:0 4px';
+  for (const [text, lage] of [
+    ['GEGENPROBE_ANGESCHNITTEN am Rand', 'position:fixed;bottom:-12px;z-index:2147483000'],
+    ['GEGENPROBE_VERDECKT unter Leiste', 'position:fixed;bottom:30px;z-index:1'],
+    ['GEGENPROBE_ZU_TIEF unter dem Rand', `position:absolute;top:calc(100vh + ${unterRandMax + 200}px)`],
+  ]) {
+    const el = document.createElement('div');
+    el.setAttribute('data-erster-bildschirm', '');
+    el.style.cssText = `${lage};${stil}`;
+    el.textContent = text;
+    document.body.append(el);
+  }
 }
 
 /**
- * Laeuft IM Browser, bei Scrollposition 0: Textzeilen in `[data-erster-bildschirm]`, die nicht ganz im Fenster stehen
- * oder von etwas anderem verdeckt sind (Treffertest an der Zeilenmitte und an beiden Enden).
+ * Laeuft IM Browser, bei Scrollposition 0. Je Element mit `data-erster-bildschirm` muss eines gelten:
+ *  - GANZ SICHTBAR: jede Textzeile ganz im Fenster und von nichts verdeckt (Treffertest alle 8 px entlang der Zeile, an
+ *    Ober- und Unterkante und in der Mitte), oder
+ *  - GANZ UNTERHALB (seit 2026-10-17, R29): Kasten und Text beginnen unter dem Fensterrand, hoechstens `unterRandMax` px.
+ * Angeschnitten, verdeckt oder tiefer wird gemeldet; `zustand` nennt je Element, was gemessen wurde (fuer den Bericht).
  */
-function ersterBildschirm() {
+function ersterBildschirm(unterRandMax) {
   const H = innerHeight;
   const knapp = (t, n = 50) => (t || '').replace(/\s+/g, ' ').trim().slice(0, n);
   const raus = [];
+  const zustand = [];
   const marken = [...document.querySelectorAll('[data-erster-bildschirm]')];
   for (const marke of marken) {
+    const zeilen = [];
     const gehe = document.createTreeWalker(marke, NodeFilter.SHOW_TEXT);
     while (gehe.nextNode()) {
-      const knoten = gehe.currentNode;
-      const text = knapp(knoten.nodeValue);
+      const text = knapp(gehe.currentNode.nodeValue);
       if (text.length < 2) continue;
       const bereich = document.createRange();
-      bereich.selectNodeContents(knoten);
-      for (const z of bereich.getClientRects()) {
-        if (z.width < 4 || z.height < 4) continue;
-        if (z.top < 0 || z.bottom > H) {
-          raus.push({ ort: 'Erster Bildschirm', text, wie: `${Math.round(z.bottom - H)} px unter dem Fenster` });
-          continue;
-        }
-        const y = z.top + z.height / 2;
-        for (const x of [z.left + 2, z.left + z.width / 2, z.right - 2]) {
-          const oben = document.elementFromPoint(x, y);
-          if (oben && !marke.contains(oben)) {
-            const von = oben.closest('[class]');
-            raus.push({ ort: 'Erster Bildschirm', text, wie: `verdeckt von ${knapp(von ? `${von.tagName.toLowerCase()}.${(von.getAttribute('class') || '').split(' ')[0]}` : oben.tagName, 40)}` });
-            break;
+      bereich.selectNodeContents(gehe.currentNode);
+      for (const z of bereich.getClientRects()) if (z.width >= 4 && z.height >= 4) zeilen.push({ text, z });
+    }
+    const name = zeilen[0]?.text || knapp(marke.textContent, 40);
+    const box = marke.getBoundingClientRect();
+    const oben = Math.min(box.top, ...zeilen.map(({ z }) => z.top));
+    if (oben >= H) {
+      const tief = Math.round(oben - H);
+      zustand.push({ text: name, wie: `ganz unterhalb, beginnt ${tief} px unter dem Rand` });
+      if (tief > unterRandMax) raus.push({ art: 'Erster Bildschirm zu tief', ort: 'Erster Bildschirm', text: name, wie: `beginnt ${tief} px unter dem Rand (höchstens ${unterRandMax})` });
+      continue;
+    }
+    const vorher = raus.length;
+    for (const { text, z } of zeilen) {
+      if (z.top < 0 || z.bottom > H) {
+        const um = z.top < 0 ? `${Math.round(-z.top)} px über` : `${Math.round(z.bottom - H)} px unter`;
+        raus.push({ art: 'Erster Bildschirm verdeckt', ort: 'Erster Bildschirm', text, wie: `angeschnitten, ${um} dem Fenster` });
+        continue;
+      }
+      const xs = [];
+      for (let x = z.left + 2; x < z.right - 2; x += 8) xs.push(x);
+      xs.push(z.right - 2);
+      treffer: for (const y of [z.top + 2, z.top + z.height / 2, z.bottom - 2]) {
+        for (const x of xs) {
+          const drauf = document.elementFromPoint(x, y);
+          if (drauf && !marke.contains(drauf)) {
+            const von = drauf.closest('[class]');
+            raus.push({ art: 'Erster Bildschirm verdeckt', ort: 'Erster Bildschirm', text, wie: `verdeckt von ${knapp(von ? `${von.tagName.toLowerCase()}.${(von.getAttribute('class') || '').split(' ')[0]}` : drauf.tagName, 40)}` });
+            break treffer;
           }
         }
       }
     }
+    zustand.push({ text: name, wie: raus.length > vorher ? 'angeschnitten oder verdeckt' : `ganz sichtbar, endet ${Math.round(H - box.bottom)} px über dem Rand` });
   }
-  return { marken: marken.length, befunde: raus.filter((b, i, a) => a.findIndex((c) => c.text === b.text) === i) };
+  return { marken: marken.length, zustand, befunde: raus.filter((b, i, a) => a.findIndex((c) => c.text === b.text && c.art === b.art) === i) };
 }
 
 /** Laeuft IM Browser: Einblendungen, die ohne Zutun stehen (Dialog-Rolle, fest positioniert, sichtbar). */
@@ -362,14 +427,14 @@ try {
       await s.goto(basis + route, { waitUntil: 'networkidle0', timeout: 60000 });
       const geladen = Date.now();
       await warte(700);
-      if (gegenprobe) await s.evaluate(einspielen);
+      if (gegenprobe) await s.evaluate(einspielen, UNTER_RAND_MAX);
       // Einmal ganz durchscrollen, damit eingeblendete Inhalte stehen; dann oben messen, am Ende die Fusszeile.
       const hoehe = await s.evaluate(() => document.documentElement.scrollHeight);
       for (let y = 0; y < hoehe; y += Math.round(f.height * 0.8)) { await s.evaluate((p) => window.__ccHalte(p), y); await warte(110); }
       await s.evaluate(() => window.__ccHalte(0));
       await warte(800);
       const inhalt = await s.evaluate(messe, false);
-      const erster = await s.evaluate(ersterBildschirm);
+      const erster = await s.evaluate(ersterBildschirm, UNTER_RAND_MAX);
       // Einblendungen fruehestens 3 s nach dem Laden (das Stellen-Pop-up kommt nach 1,2 s); messen, dann schliessen wie
       // ein Besucher, damit die Fusszeilen-Messung am Ende nur noch Dauerhaftes sieht.
       const rest = 3000 - (Date.now() - geladen);
@@ -382,7 +447,7 @@ try {
       await s.evaluate(() => window.__ccHalte(document.documentElement.scrollHeight));
       await warte(1600);
       const ende = await s.evaluate(messe, true);
-      ergebnisse.push({ route, fenster: f.name, ...inhalt, ...ende, einblendungen, fehler, erster: erster.befunde, marken: erster.marken });
+      ergebnisse.push({ route, fenster: f.name, ...inhalt, ...ende, einblendungen, fehler, erster: erster.befunde, zustand: erster.zustand, marken: erster.marken });
       await s.close();
       process.stdout.write('.');
     }
@@ -397,9 +462,9 @@ try {
       await s.setViewport({ width: f.width, height: f.height, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
       await s.goto(basis + route, { waitUntil: 'networkidle0', timeout: 60000 });
       await warte(1500);
-      if (gegenprobe) await s.evaluate(einspielen);
-      const erster = await s.evaluate(ersterBildschirm);
-      ergebnisse.push({ route, fenster: f.name, zusatz: true, erster: erster.befunde, marken: erster.marken, abgeschnitten: [], ausserhalb: [], ziele: [], klein: [], einblendungen: [], fehler: [], breite: 0, viewportMeta: 'width=device-width' });
+      if (gegenprobe) await s.evaluate(einspielen, UNTER_RAND_MAX, true);
+      const erster = await s.evaluate(ersterBildschirm, UNTER_RAND_MAX);
+      ergebnisse.push({ route, fenster: f.name, zusatz: true, erster: erster.befunde, zustand: erster.zustand, marken: erster.marken, abgeschnitten: [], ausserhalb: [], ziele: [], klein: [], einblendungen: [], fehler: [], breite: 0, viewportMeta: 'width=device-width' });
       await s.close();
       process.stdout.write(':');
     }
@@ -432,10 +497,10 @@ for (const r of ergebnisse) {
   for (const b of r.verdeckt || []) merke('Fußzeile verdeckt', r, b, `von ${b.von}`);
   for (const b of r.klein) merke('Schrift unter 12 px', r, b, `${b.px} px`);
   for (const e of r.fehler) merke('Skriptfehler', r, { ort: 'Seite', text: e.slice(0, 80) }, 'Fehler');
-  for (const b of r.erster || []) merke('Erster Bildschirm verdeckt', r, b, b.wie);
+  for (const b of r.erster || []) merke(b.art, r, b, b.wie);
   if (!/width=device-width/.test(r.viewportMeta)) merke('Viewport-Meta fehlt', r, { ort: 'Seite', text: r.viewportMeta || '(leer)' }, 'fehlt');
 }
-const HART = ['Seite scrollt waagerecht', 'abgeschnitten', 'ragt aus dem Fenster', 'Trefferfläche unter 24 px', 'Einblendung zu groß', 'Einblendung nicht schließbar', 'Fußzeile unsichtbar', 'Fußzeile nicht erreichbar', 'Fußzeile verdeckt', 'Erster Bildschirm verdeckt', 'Skriptfehler', 'Viewport-Meta fehlt'];
+const HART = ['Seite scrollt waagerecht', 'abgeschnitten', 'ragt aus dem Fenster', 'Trefferfläche unter 24 px', 'Einblendung zu groß', 'Einblendung nicht schließbar', 'Fußzeile unsichtbar', 'Fußzeile nicht erreichbar', 'Fußzeile verdeckt', 'Erster Bildschirm verdeckt', 'Erster Bildschirm zu tief', 'Skriptfehler', 'Viewport-Meta fehlt'];
 const alle = [...buendel.values()];
 const harte = alle.filter((b) => HART.includes(b.art));
 
@@ -450,6 +515,8 @@ for (const r of ergebnisse) {
     z.je[r.fenster] = `${e.anteil} %${e.geschlossen ? '' : ', bleibt stehen'}`;
   }
 }
+const ersterZeilen = ergebnisse.filter((r) => r.zustand?.length)
+  .flatMap((r) => r.zustand.map((z) => `| \`${r.route}\` | ${r.fenster} | ${z.text.replace(/\|/g, '/')} | ${z.wie} |`));
 const md = [
   '# Mobile-Check', '',
   `> Erzeugt von \`npm run mobil\` am ${new Date().toLocaleString('de-DE')}, ${routen.length} Routen × ${fenster.map((f) => f.name).join('/')} px. Nicht von Hand bearbeiten.`, '',
@@ -459,6 +526,9 @@ const md = [
   ...(einblendZeilen.length
     ? ['| Route | Einblendung | je Fenster |', '|---|---|---|', ...einblendZeilen.map((z) => `| \`${z.route}\` | ${z.text.replace(/\|/g, '/')} | ${Object.entries(z.je).map(([n, w]) => `${n}: ${w}`).join(' · ')} |`)]
     : ['Keine.']),
+  '',
+  `## Erster Bildschirm (\`data-erster-bildschirm\`, Scrollposition 0: ganz sichtbar oder höchstens ${UNTER_RAND_MAX} px unter dem Rand)`, '',
+  ...(ersterZeilen.length ? ['| Route | Fenster | Element | Zustand |', '|---|---|---|---|', ...ersterZeilen] : ['Keine markierten Elemente.']),
   '',
 ];
 for (const art of [...HART, 'Schrift unter 12 px']) {
@@ -474,6 +544,7 @@ console.log(`[mobil] ${routen.length} Routen × ${fenster.length} Fenster. ${har
 for (const art of HART) { const n = alle.filter((b) => b.art === art).length; if (n) console.log(`  ${art}: ${n}`); }
 const klein = alle.filter((b) => b.art === 'Schrift unter 12 px').length;
 if (klein) console.log(`  (Hinweis) Schrift unter 12 px: ${klein}`);
+for (const r of ergebnisse.filter((x) => x.zustand?.length)) console.log(`  Erster Bildschirm ${r.route} ${r.fenster}: ${r.zustand.map((z) => z.wie).join('; ')}`);
 for (const z of einblendZeilen) console.log(`  Einblendung ${z.route} „${z.text}“: ${Object.entries(z.je).map(([n, w]) => `${n}: ${w}`).join(' · ')}`);
 for (const [n, f] of new Map(ergebnisse.filter((r) => r.fuss).map((r) => [r.fenster, r.fuss]))) console.log(`  Fußzeile ${n}: ${f.hoehe} px hoch bei ${f.fenster} px Fenster, ${f.fixiert ? 'fixiert' : 'im Seitenfluss'}${f.fixiert && f.oben < 0 ? `, OBEN ${-f.oben} px NICHT ERREICHBAR` : ''}`);
 
@@ -487,7 +558,9 @@ if (gegenprobe) {
     ['unsichtbare Fußzeile', (b) => b.art === 'Fußzeile unsichtbar'],
     ['zu große Einblendung', (b) => b.art === 'Einblendung zu groß' && b.text.includes('GEGENPROBE_EINBLENDUNG')],
     ['nicht schließbare Einblendung', (b) => b.art === 'Einblendung nicht schließbar' && b.text.includes('GEGENPROBE_EINBLENDUNG')],
-    ['erster Bildschirm verdeckt', (b) => b.art === 'Erster Bildschirm verdeckt'],
+    ['erster Bildschirm angeschnitten', (b) => b.art === 'Erster Bildschirm verdeckt' && b.text.includes('GEGENPROBE_ANGESCHNITTEN')],
+    ['erster Bildschirm verdeckt', (b) => b.art === 'Erster Bildschirm verdeckt' && b.text.includes('GEGENPROBE_VERDECKT')],
+    ['erster Bildschirm zu tief', (b) => b.art === 'Erster Bildschirm zu tief' && b.text.includes('GEGENPROBE_ZU_TIEF')],
   ];
   const fehlt = erwartet.filter(([, trifft]) => !alle.some(trifft));
   console.log(fehlt.length ? `[mobil] GEGENPROBE FEHLGESCHLAGEN, nicht gemeldet: ${fehlt.map(([name]) => name).join(', ')}` : `[mobil] Gegenprobe bestanden: alle ${erwartet.length} eingespielten Fehler gemeldet.`);

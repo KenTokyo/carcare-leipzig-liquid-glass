@@ -60,6 +60,17 @@ const args = process.argv.slice(2);
 const nurRoute = args.find((a) => a.startsWith('/'));
 const strikt = args.includes('--strikt');
 const sektionen = args.includes('--sektionen');
+/**
+ * `--fenster=375x548,375x629` misst STATT der zwei Standardfenster diese (seit 2026-10-17). Anlass R29: Unter 640 px
+ * Hoehe steht der Hero anders (styles/hero.css), und 390 × 844 erreicht diesen Zustand nie.
+ */
+const fensterArg = args.find((a) => a.startsWith('--fenster='));
+const FENSTER = fensterArg
+  ? fensterArg.slice('--fenster='.length).split(',').map((f) => {
+    const [breite, hoehe] = f.split('x').map(Number);
+    return { name: f, breite, hoehe };
+  })
+  : BREITEN;
 /** Abstand des Sektionskopfs vom Fensterrand bei `--sektionen`: unter der schwebenden Navigation (rund 90 px). */
 const KOPF_ABSTAND = 100;
 
@@ -273,7 +284,7 @@ let nachgemessen = 0;
 
 try {
   for (const route of routen) {
-    for (const b of BREITEN) {
+    for (const b of FENSTER) {
       const seite = await browser.newPage();
       await seite.setViewport({ width: b.breite, height: b.hoehe, deviceScaleFactor: 1 });
       await seite.evaluateOnNewDocument('window.__CC_NO_PRELOADER__ = true;');
@@ -327,7 +338,7 @@ try {
   stopp();
 }
 
-console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, 2 Breiten, ${POSITIONEN.length} Positionen${sektionen ? ' plus Sektionskoepfe und Ablaufschritte' : ''}`
+console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, ${FENSTER.length} Fenster, ${POSITIONEN.length} Positionen${sektionen ? ' plus Sektionskoepfe und Ablaufschritte' : ''}`
   + (nachgemessen ? ` (${nachgemessen} Position(en) nach ${NACHMESSEN_MS} ms nachgemessen, Falle 9).` : '.'));
 
 if (!befunde.length) {

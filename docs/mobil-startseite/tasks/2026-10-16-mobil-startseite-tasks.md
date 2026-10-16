@@ -9,7 +9,8 @@ herausnehmen. Hinter der FAQ (und bei Autoaufbereitung) steht ein anderer Farbto
 
 **Status:** Phasen 1–5 umgesetzt und gepusht (16.10., `963f741`). Rückmeldung vom A56 am selben Abend → Phasen 6–9
 umgesetzt und gepusht (`5147fa8`). Dritte Rückmeldung (Foto hinter den Karten, Titelgröße, Hero im iPhone) →
-Phasen 10–13 (Abschnitt „Dritte Rückmeldung“). Sichtabnahme auf A56 und iPhone steht aus. Optimierungsplan:
+Phasen 10–13 (Abschnitt „Dritte Rückmeldung“). R29 (Hero unter 640 px Höhe) am 17.10. nach Wahl des Users umgesetzt
+→ Phase 14. Sichtabnahme auf A56 und iPhone steht aus. Optimierungsplan:
 `2026-10-16-mobil-startseite-optimierung-tasks.md`.
 
 ### Phasen 6–9 (Rückmeldung vom A56)
@@ -370,6 +371,105 @@ Die iPhone-Ansicht der DevTools zeigt das ganze Display (852 px). In Safari nehm
 `scripts/check-akkordeon.mjs`
 `scripts/check-mobil.mjs`
 
+## R29: Hero auf Fenstern unter 640 px (2026-10-17)
+
+**Ausgang (gemessen, Build 17.10., 00:05, gleich dem Stand nach Phase 12):** Unter 800 px Höhe endet die Vertrauensleiste
+immer bei 555,8 px, bei 360, 375 und 393 px Breite. Die Knöpfe der festen Leiste belegen die unteren 75 px.
+
+| Fenster (abgeleitet, nicht am Gerät) | Knöpfe ab | Leiste |
+|---|---|---|
+| 375 × 548 (iPhone SE, Safari mit Leisten) | 473 px | 82,8 px verdeckt |
+| 360 × 560 (kleines Android, Chrome mit Leisten) | 485 px | 70,8 px verdeckt |
+| 375 × 600 | 525 px | 30,8 px verdeckt |
+| 375 × 629 (iPhone 13 mini, Safari mit Leisten) | 554 px | 1,8 px verdeckt |
+| 360 × 640 | 565 px | 9,2 px frei |
+
+**Lösungswege:**
+- (a) Leiste beim Laden ganz unter den Rand, per `min-height` am Kopfblock in `svh` hinter einer Höhenabfrage
+  (**gewählt vom User**). Varianten davon: dieselbe Schwelle ohne Media Query per `clamp()`-Stufe in `svh` (verworfen:
+  schwer lesbar; Chrome hält den Containing Block beim Ein- und Ausblenden der Adressleiste fest und folgt damit nach
+  eigener Aussage Safari, die Höhenabfrage springt also nicht) und per Skript messen, ob die Leiste passt (verworfen:
+  JavaScript für Layout, Risiko für CLS, CLAUDE.md „CSS-native Lösungen vor JavaScript“).
+- (b) Überschrift und Abstände kleiner. Nötig waren bei 548 px rund 95 px (83 verdeckt plus Luft). Gebaut als Stufe 1
+  unter 640 px (nur Abstände und Zeilenabstand der Unterzeile, 52 px) und Stufe 2 unter 600 px (Slogan einzeilig).
+  Ein zweizeiliger Slogan hätte dafür allein von 41,6 auf rund 22 px schrumpfen müssen. Der einzeilige hatte bei
+  `9.4vw` nur 1 bis 3 px Breitenreserve (Umbruch auf dem Gerät möglich), mit `min(2.25rem, calc(10.7vw - 6px))` 4 %.
+  Grenze: unter rund 535 px Höhe passt auch b nicht mehr (320 × 480: 106 px verdeckt).
+- Verworfen ohne Bau: etwas ausblenden (Vorgabe des Users), die feste Leiste über dem Hero ausblenden (nicht gewünscht,
+  siehe dritte Rückmeldung).
+
+### ✅ Phase 14 — R29: Vertrauensleiste unter 640 px Höhe unter dem Fensterrand (Variante a)
+**Ziel:** Auch auf iPhone SE und mini in Safari und kleinen Android-Telefonen liegt beim Laden nichts von der
+Vertrauensleiste unter den Knöpfen, ohne etwas auszublenden.
+* [x] Beide Varianten gebaut (Varianten-CSS ins ausgelieferte HTML eingesetzt, nichts committet) und dem User als
+  Vergleichsbogen vorgelegt: Puppeteer, Startseite oben, nach 2,5 s, 375 × 548 und 375 × 629, je heute, a, a nach dem
+  ersten Wischen (234 px) und b. **Wahl des Users: a.**
+* [x] `styles/hero.css`, unter 640 px Höhe und 768 px Breite: Kopfblock `min-height: calc(100svh - var(--cc-shell-gap) -
+  6rem)`, `padding-bottom: 5.75rem`. Die Leiste beginnt 8 px unter dem Rand (0,5rem Reserve, ihre Trennlinie blitzt nicht
+  hervor), Slogan, Überschrift und Text stehen mittig zwischen Navigation (78 px) und Knöpfen. Keine Schrift kleiner,
+  nichts ausgeblendet. Ab 640 px Höhe (iPhone 14 Pro in Safari 393 × 659) und ab 768 px Breite unverändert.
+* [x] `npm run mobil`: Kriterium „ganz sichtbar oder ganz unterhalb, nie angeschnitten oder verdeckt“. Ganz unterhalb
+  zählt nur bis `UNTER_RAND_MAX` = 120 px, tiefer meldet die neue harte Art „Erster Bildschirm zu tief“ (sonst bestünde
+  eine Leiste die Prüfung, die gar nicht mehr mit dem ersten Wischen kommt). Neue Fenster 375 × 629, 375 × 600,
+  360 × 560, 375 × 548. Treffertest alle 8 px entlang jeder Zeile, an Ober- und Unterkante und in der Mitte, statt an
+  drei Punkten der Mitte. Bericht mit Tabelle „Erster Bildschirm“ je Fenster. Gegenprobe: statt die echte Leiste per
+  `margin-top: 60vh` zu verschieben (in niedrigen Fenstern landete sie damit ganz unterhalb und wäre jetzt in Ordnung
+  gewesen) drei eigene Fälle an `<body>`: angeschnitten, unter der festen Leiste, zu tief. Zusammen 10 statt 8 Fehler.
+  Pflichtfrage 10 a–d im Kopf.
+* [x] `npm run kontrast -- / --fenster=375x548,375x629,…`: misst statt der zwei Standardfenster die angegebenen. 390 × 844
+  erreicht den Hero unter 640 px nie, der Standardlauf hätte die neue Lage nicht gemessen.
+* [x] **Kontrast nach Variante a (gefunden mit `--fenster`, der Standardlauf war grün):** Die erste Zeile der Unterzeile
+  hatte 4,11 : 1 bei 375 × 548 und 4,29 : 1 bei 360 × 560 (Soll 4,5; ohne die R29-Regel in denselben Fenstern mindestens
+  7,81 : 1). Ursache: Schleier und Foto wachsen beide mit der Kartenhöhe, das helle Wandband des Motivs liegt immer bei
+  rund 34 bis 39 % des Schleierradius. Vor R29 stand dort die H1 (groß und fett, Soll 3 : 1), mit dem fensterhohen
+  Kopfblock die Unterzeile. Gemessen mit einem Nachbau des Messverfahrens (zwei Aufnahmen, Glyphenmaske; gibt 4,11 und
+  4,29 exakt wieder) an fünf Kandidaten:
+
+  | Kandidat | 375 × 548 | 360 × 560 | 375 × 600 | 375 × 629 | 320 × 480 |
+  |---|---|---|---|---|---|
+  | a ohne Korrektur | 4,11 | 4,29 | 4,76 | 5,49 | 4,42 |
+  | Kopfblock 16 px höher | 4,44 | 4,49 | nicht gemessen | nicht gemessen | nicht gemessen |
+  | Kopfblock 28 px höher | 4,23 | 4,36 | nicht gemessen | nicht gemessen | nicht gemessen |
+  | Kopfblock bündig oben (wie vor R29) | 4,23 | 4,25 | nicht gemessen | nicht gemessen | nicht gemessen |
+  | Unterzeile weiß | 5,10 | 5,33 | 5,91 | 6,82 | nicht gemessen |
+  | **Schleier-Stopp 0,62 bei 40 % (gewählt)** | **5,08** | **5,31** | **5,76** | **6,54** | **5,22** |
+  | Schleier-Stopp 0,66 bei 40 % | 5,75 | 6,00 | 6,43 | 7,20 | 5,22 |
+
+  Gewählt der kleinste Eingriff mit Reserve, nur unter 640 px Höhe: An der Stelle hatte die Gerade von 0,94 auf 0,4 bisher
+  0,55, darüber und darunter ändert sich der Verlauf kaum (Vergleichsbogen: im Bild praktisch nicht zu sehen). Der Weg
+  passt zur Geschichte des Schleiers (2026-09-07: Stopp „dort verdichtet, wo die Schrift steht“). Die weiße Unterzeile
+  hätte die Typohierarchie nur auf kleinen Telefonen geändert. Vertrauensleiste nach dem ersten Wischen (234 px):
+  mindestens 6,29 : 1, von der Korrektur unberührt.
+* [x] CLAUDE.md: Zeilen zu `npm run mobil` und `npm run kontrast`, Absatz „iPhone 14 Pro heißt nicht 852 px“. Querverweis
+  am Schleier in `index.css` (zweite Fassung in `hero.css`, beim Ändern nachziehen) und in `HeroSection`.
+* [x] **Ergebnis, alle Werkzeuge gegen den Endstand (Build 17.10.2026, 01:01:55; Build grün, 29/29 Routen,
+  0 Gedankenstriche, `tsc` ohne Fehler).** Danach nur noch Kommentare in `index.css` und `HeroSection`; Neubau 01:30:25
+  mit byte-gleichen CSS- und JS-Dateien (gleiche Hashes), die Messungen gelten also unverändert.
+  - `npm run mobil`: 29 Routen × 3 Fenster plus 7 Zusatzfenster auf `/`, 0 harte Befunde, 257 Hinweise „Schrift unter
+    12 px“ wie zuvor. Erster Bildschirm:
+
+    | Fenster | Vertrauensleiste | entspricht |
+    |---|---|---|
+    | 375 × 548 (iPhone SE, Safari mit Leisten) | ganz unterhalb, beginnt 8 px unter dem Rand | vorher 83 px verdeckt |
+    | 360 × 560 (kleines Android, Chrome mit Leisten) | ganz unterhalb, 8 px | vorher 71 px verdeckt |
+    | 375 × 600 | ganz unterhalb, 8 px | vorher 31 px verdeckt |
+    | 375 × 629 (iPhone 13 mini, Safari mit Leisten) | ganz unterhalb, 8 px | vorher 1,8 px verdeckt |
+    | 360 × 640 | ganz sichtbar, endet 84 px über dem Rand | 9 px über den Knöpfen, unverändert |
+    | 393 × 659 (iPhone 14 Pro, Safari mit Leisten) | ganz sichtbar, 103 px | 28 px über den Knöpfen, unverändert |
+    | 375 × 667 · 393 × 739 · 390 × 844 · 430 × 932 | ganz sichtbar, 111 · 163 · 172 · 179 px | unverändert |
+
+  - `npm run mobil -- --gegenprobe`: alle 10 eingespielten Fehler gemeldet; „verdeckt“ in den Zusatzfenstern von der
+    festen Leiste (`a.cc-liquid`), wie beabsichtigt.
+  - `npm run kontrast`: 6.285 Textstellen auf 29 Routen, 0 unter AA. `-- / --fenster=375x548,375x629,360x560,375x600,320x480
+    --strikt`: 247 Stellen, 0 unter AA.
+  - `npm run aussparung`: 29 Routen × 3 Fenster ohne dauerhafte Überdeckung, Geometrie an 23 Breiten in Ordnung.
+  - Bildschirmfotos vom Build (Startseite oben, nach 2,5 s): 375 × 548 und 375 × 629 vorher, nachher und nach dem ersten
+    Wischen, dazu 393 × 659 unverändert. Dem User als Bogen gezeigt (`output/r29/`, nicht versioniert).
+**Referenzen:**
+`styles/hero.css`
+`scripts/check-mobil.mjs`
+`scripts/check-kontrast.mjs`
+
 ---
 
 ## Kommentare
@@ -417,4 +517,31 @@ genannt und Abgeleitetes gekennzeichnet ✅, unter 700 Zeilen (`check-mobil` 496
 5. 🟡 **Mittel (offen, R29):** Unter rund 631 px Fensterhöhe (iPhone SE und mini in Safari, kleine Android-Telefone mit
    Chrome-Leisten, alle abgeleitet) liegt die Vertrauensleiste beim Laden weiter teils unter den Knöpfen. Lösbar nur
    mit einer Gestaltungsentscheidung (Leiste ganz unter den Rand oder kleinere Schrift), deshalb dem User vorgelegt.
+   → Erledigt 2026-10-17 in Phase 14 (Variante a).
 Optimierungsplan: `2026-10-16-mobil-startseite-optimierung-tasks.md` (O12–O14, R29).
+
+### Phase 14 (R29)
+**Eingehalten:** beide Varianten vor jedem Commit als Bildschirmfotos vorgelegt und erst nach der Wahl umgesetzt ✅,
+nichts ausgeblendet und keine Schrift kleiner ✅, gemessen statt geschätzt (Geometrie je Fenster, Breitenreserve des
+einzeiligen Slogans, Kontrast in den neuen Fenstern) ✅, CSS statt JavaScript ✅, Desktop, `md` und alles ab 640 px
+Höhe unverändert ✅, Pflichtfrage für das erweiterte Kriterium beantwortet (Punkt 10 a–d) ✅, jede neue Fehlerart mit
+eigener Gegenprobe ✅, unter 700 Zeilen (`check-mobil` 569, `check-kontrast` 358, `hero.css` 95, `index.css` 691 von 700) ✅, Encoding und
+Zeilenenden ✅, keine neue R-Nummer vergeben ✅.
+**Auffälligkeiten (nach Schwere):**
+1. 🟠 **Hoch (behoben):** Variante a senkte den Kontrast der Unterzeile unter AA (4,11 : 1 bei 375 × 548), weil sie jetzt
+   auf dem hellen Wandband des Fotos liegt. Der Standardlauf von `npm run kontrast` war grün, er misst nur 390 × 844; erst
+   `--fenster` fand es. Behoben mit einem Schleier-Stopp nur unter 640 px (5,08 : 1). Lehre: Höhenabhängige Layouts in
+   den Fenstern messen, in denen sie greifen, auch beim Kontrast.
+2. 🟡 **Mittel (behoben):** Der Treffertest prüfte je Zeile drei Punkte der Mitte. Eine Zeile über die ganze Breite traf
+   bei 375 px mit allen dreien Rand oder Lücke der festen Leiste (2, 187,5 und 373 px gegen Knöpfe bei 12–92, 102–183,
+   193–273 und 283–363 px) und galt als frei, obwohl drei Knöpfe auf ihr lagen. Die echten Zeilen der Vertrauensleiste
+   trafen bisher immer einen Knopf; jetzt wird alle 8 px an drei Höhen geprüft.
+3. 🟡 **Mittel (behoben):** Die bisherige Gegenprobe (`margin-top: 60vh` an der echten Leiste) hätte mit dem neuen
+   Kriterium in niedrigen Fenstern nur „ganz unterhalb“ erzeugt. Jetzt drei eigene Fälle.
+4. 🟡 **Mittel (behoben):** `npm run kontrast` misst nur 1440 × 900 und 390 × 844 und damit nie den Hero unter 640 px.
+   Jetzt `--fenster` (Befund 1 wäre sonst unentdeckt geblieben).
+5. 🟢 **Niedrig (Hinweis, ohne Nummer):** Telefone im Querformat (844 × 390, 932 × 430): Schon die Unterzeile des
+   Kopfblocks liegt unter den Knöpfen. Nicht Teil von R29, `npm run mobil` misst kein Querformat.
+6. 🟢 **Niedrig (Hinweis):** Bei 320 × 480 (iPhone SE der 1. Generation in Safari, abgeleitet) beginnt die Leiste 74 px
+   unter dem Rand, aber die Unterzeile reicht unter die Knöpfe. Der Kopfblock ist nicht markiert (Pflichtfrage 10 a).
+7. 🟢 **Hinweis:** Außer 393 × 659 sind alle Fenster abgeleitet; am Gerät nicht nachgemessen.
