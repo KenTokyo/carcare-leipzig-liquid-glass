@@ -28,7 +28,10 @@
 //  4. „Inhaltlich offen" ist so aktuell wie der Backlog. Das prueft niemand — der Backlog ist
 //     die gepflegte Quelle (CLAUDE.md), die Uebersicht liest nur ab.
 //  5. Uebersicht erzeugt, aber nicht committet → Push ohne sie. → Der Hook liest die committete
-//     Fassung (HEAD) und sperrt auch bei uncommitteten Aenderungen an ihr.
+//     Fassung IM GEPUSHTEN REF (`<ref>:docs/push-stand/README.md`, seit 2026-10-17; vorher immer
+//     HEAD des Projektordners) und sperrt, wenn sie einen der Commits nicht nennt. Bei `git push`
+//     ohne Ref (also HEAD) sperrt er zusaetzlich bei uncommitteten Aenderungen an ihr; bei
+//     `--all`/`--mirror` gilt weiter HEAD.
 //  6. Ein Fehler in diesem Skript sperrt keinen Push — sonst legte ein Werkzeugfehler das Team
 //     lahm. Er erscheint als Warnung, der Push laeuft dann UNGEPRUEFT.
 //  7. Ohne `--nur` stehen ALLE lokalen Branches in der Uebersicht, auch die eines parallel
@@ -128,12 +131,30 @@ function refsVonPush(args) {
     .filter((r) => r && r !== '--tags');
 }
 
+/**
+ * Prueft die Uebersicht, die MIT dem Push auf GitHub kaeme: je gepushtem Ref dessen committete Fassung.
+ * WARUM NICHT HEAD (2026-10-17): Bis dahin las der Hook immer `HEAD` des Projektordners. Das sperrte einen korrekt
+ * vorbereiteten Push von `main` aus einem zweiten Worktree (dort `main` mit Uebersicht, im Projektordner stand der
+ * Branch einer parallelen Sitzung), und umgekehrt haette er einen Push durchgelassen, dessen Ref eine aeltere
+ * Uebersicht traegt als `HEAD`. Bei `--all`/`--mirror` gibt es keinen einzelnen Ref, dort bleibt es bei `HEAD`.
+ */
 function pruefe(refs) {
-  const fehlend = fehlendAufGitHub(refs).filter((h) => !istUebersichtsCommit(h));
-  const uebersicht = gitOder('', 'show', `HEAD:${DATEI}`);
-  const ungenannt = fehlend.filter((h) => !uebersicht.includes(kurz(h)));
-  const uncommittet = porcelain('--', DATEI, VERLAUF).filter((z) => z.code !== '??').map((z) => z.pfad);
-  return { ungenannt, uncommittet };
+  const uncommittetIn = () => porcelain('--', DATEI, VERLAUF).filter((z) => z.code !== '??').map((z) => z.pfad);
+  if (refs === 'alle') {
+    const uebersicht = gitOder('', 'show', `HEAD:${DATEI}`);
+    const ungenannt = fehlendAufGitHub(refs).filter((h) => !istUebersichtsCommit(h) && !uebersicht.includes(kurz(h)));
+    return { ungenannt, uncommittet: uncommittetIn() };
+  }
+  const ungenannt = [];
+  for (const ref of refs) {
+    const uebersicht = gitOder('', 'show', `${ref}:${DATEI}`);
+    for (const h of fehlendAufGitHub([ref])) {
+      if (!istUebersichtsCommit(h) && !uebersicht.includes(kurz(h)) && !ungenannt.includes(h)) ungenannt.push(h);
+    }
+  }
+  // Aus einem Ref gelesen ist die Uebersicht per Definition committet. Uncommittete Aenderungen am Arbeitsordner
+  // zaehlen nur, wenn der Push HEAD betrifft (`git push` ohne Ref), denn nur dann ist es derselbe Stand.
+  return { ungenannt, uncommittet: refs.includes('HEAD') ? uncommittetIn() : [] };
 }
 
 function meldung({ ungenannt, uncommittet }) {
