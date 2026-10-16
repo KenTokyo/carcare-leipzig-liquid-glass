@@ -21,11 +21,16 @@
 //     Wechsel selbst braucht Layout nur am Anfang (Zustand, Messen vor und nach dem Wechsel, Ausgleich der
 //     Scrollposition); spaeter kommen hoechstens einzelne (Hintergrundfoto nach dem Dekodieren, Videostart der
 //     Lackierkarte). Eine Hoehen-Animation rechnet dagegen bis zum Schluss in jedem Bild. Gemessen wird deshalb der
-//     ANTEIL der Bilder dieses Zeitraums, die ein Layout rechnen (Layouts je `FireAnimationFrame`): Ab ANTEIL_LAYOUT und
-//     mindestens MIN_SPAETE_LAYOUTS gilt es als Layout pro Bild.
+//     ANTEIL der Hauptthread-Bilder dieses Zeitraums, die ein Layout rechnen (Layouts je `BeginMainThreadFrame`): Ab
+//     ANTEIL_LAYOUT und mindestens MIN_SPAETE_LAYOUTS gilt es als Layout pro Bild.
 //     WARUM KEINE FESTE ANZAHL (so bis 2026-10-16 spaet): Unter Rechnerlast schafft eine Hoehen-Animation nur wenige
 //     Bilder. Die Gesamtzahl in 700 ms fiel in der Gegenprobe auf 13 (Grenze 20), die spaeten auf 4 bis 5: Beides
 //     meldete nichts, obwohl in jedem Bild Layout lief. Der Anteil bleibt auch dann bei rund 100 %.
+//     WARUM `BeginMainThreadFrame` UND NICHT `FireAnimationFrame` (seit 2026-10-17, R26): Bis dahin zaehlte der Pruefer
+//     rAF-Rueckrufe als Bilder. Die lieferte fast nur Lenis' Dauerschleife, eins je Bild. Seit Lenis im Leerlauf steht,
+//     kommen beim Tipp nur noch einzelne; der Nenner fiel auf 0 bis 1 (`Math.max(1, …)`), gemeldet wurden „3 Layouts in
+//     1 Bild, 300 %“ (Fehlalarm), und die Gegenprobe war nur zufaellig gruen. `BeginMainThreadFrame` zaehlt jedes Bild,
+//     das der Hauptthread rechnet, egal wer es anfordert (Hoehen-Animation, laufende Compositor-Animationen, rAF).
 //   - COMPOSITOR: jede Animation mit `compositeFailed` ungleich 0 (Chrome rechnet sie auf dem Hauptthread).
 //   - RUHELAGE nach dem Tipp und nach einer Unterbrechung (zweiter Tipp nach 150 ms): genau die getippte Karte offen,
 //     die uebrigen 64 px, Fenster so hoch wie die Karte, keine laufende Skript-Animation, Abstaende 10 px, und die
@@ -39,7 +44,7 @@
 //     Hervorhebung ueber den Kasten des Links, der mobil sofort so hoch ist wie die offene Karte: Sie lag ueber den
 //     naechsten Karten („die naechste Karte blitzt weiss auf“, User 16.10.). Kopfloses Chrome zeichnet sie nicht,
 //     darum wird die berechnete Eigenschaft geprueft.
-//   HINWEIS (kein Exit): Hauptthread-Zeit je Bild und Anteile (Stil, Layout, Malen, Ebenen, Skript).
+//   HINWEIS (kein Exit): Hauptthread-Zeit je Hauptthread-Bild und Anteile (Stil, Layout, Malen, Ebenen, Skript).
 //
 // ⚠️ WAS DIESE PRUEFUNG BESTEHT, OHNE DASS DIE SACHE IN ORDNUNG IST (Pflichtfrage, CLAUDE.md):
 //  1. KEIN ECHTES GERAET: Kopfloses Chrome mit gedrosselter CPU. Rastern und GPU des Telefons misst es nicht, die
@@ -75,8 +80,13 @@ const GEGENPROBE = process.argv.includes('--gegenprobe');
 const PROTOKOLL = process.argv.includes('--protokoll');
 const NUR_ROUTEN = process.argv.slice(2).filter((a) => a.startsWith('/'));
 const DROSSEL = 4;
-/** Layout pro Bild (Begruendung im Kopf): Anteil der Bilder 150–650 ms nach dem Tipp mit Layout, und Mindestzahl. */
-const ANTEIL_LAYOUT = 0.6;
+/**
+ * Layout pro Bild (Begruendung im Kopf): Anteil der Hauptthread-Bilder 150–650 ms nach dem Tipp mit Layout, und
+ * Mindestzahl. 0,8 seit 2026-10-17 (vorher 0,6 gegen rAF-Rueckrufe): Ohne Lenis-Dauerschleife rechnet der Hauptthread
+ * spaet nur noch die Bilder der laufenden Animationen, auf /#leistungen bei 4× nur 6–9. Gemessen (Build 17.10. 00:16):
+ * normal 1–50 % (je nach Rechnerlast), Gegenprobe 93–112 %. Bei 0,6 laegen drei Einzel-Layouts in fuenf Bildern schon auf der Grenze.
+ */
+const ANTEIL_LAYOUT = 0.8;
 const MIN_SPAETE_LAYOUTS = 3;
 /** Hoechste erlaubte Abweichung der getippten Karte von ihrer Lage vor dem Tipp, in px, in irgendeinem Bild. */
 const GRENZE_STEHEN = 2;
@@ -257,7 +267,8 @@ try {
       }, { capture: true, once: true });
     }, sektion, ziel, KLICK_MARKE);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: DROSSEL });
-    await seite.tracing.start({ categories: ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'devtools.timeline.animation', 'blink.animations'] });
+    // `.frame` liefert `BeginMainThreadFrame`, den Bildzaehler (siehe Kopf, R26).
+    await seite.tracing.start({ categories: ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'disabled-by-default-devtools.timeline.frame', 'devtools.timeline.animation', 'blink.animations'] });
     await protokoll(`vor gemessenem Tipp auf ${ziel}`);
     await tippe(ziel, { warten: false });
     await warte(900);
@@ -281,11 +292,13 @@ try {
     const fenster = lauf.filter((e) => e.ts >= tipp && e.ts < tipp + 700_000);
     const layouts = fenster.filter((e) => e.name === 'Layout').length;
     const spaete = fenster.filter((e) => e.name === 'Layout' && e.ts >= tipp + 150_000 && e.ts < tipp + 650_000).length;
-    const spaeteBilder = ereignisse.filter((e) => haupt && e.pid === haupt.pid && e.tid === haupt.tid && e.name === 'FireAnimationFrame' && e.ts >= tipp + 150_000 && e.ts < tipp + 650_000).length;
+    /** Hauptthread-Bilder im Zeitraum (Begruendung im Kopf: nicht `FireAnimationFrame`, R26). */
+    const hauptBilder = (von, bis) => ereignisse.filter((e) => haupt && e.pid === haupt.pid && e.tid === haupt.tid && e.name === 'BeginMainThreadFrame' && e.ts >= tipp + von && e.ts < tipp + bis).length;
+    const spaeteBilder = hauptBilder(150_000, 650_000);
     const anteil = spaete / Math.max(1, spaeteBilder);
     const anteile = {};
     for (const e of fenster) if (KATEGORIEN[e.name]) anteile[KATEGORIEN[e.name]] = (anteile[KATEGORIEN[e.name]] ?? 0) + e.dur / 1000;
-    const bilder = Math.max(1, ereignisse.filter((e) => haupt && e.pid === haupt.pid && e.name === 'FireAnimationFrame' && e.ts >= tipp && e.ts < tipp + 700_000).length);
+    const bilder = Math.max(1, hauptBilder(0, 700_000));
     const summe = Object.values(anteile).reduce((a, b) => a + b, 0);
     // Animationen nur aus dem Prozess der Seite; je Fehler Element und Eigenschaft (aus dem Start-Ereignis derselben id).
     const animationen = ereignisse.filter((e) => e.name === 'Animation' && haupt && e.pid === haupt.pid);
@@ -391,7 +404,7 @@ try {
   stopp();
 }
 
-console.log(`\n\n| Akkordeon | Layouts spaet / Bilder (gesamt) | nicht auf Compositor | getippte Karte wandert | Hauptthread je Bild (${DROSSEL}×) | Stil / Layout / Malen / Ebenen / Skript (ms) |`);
+console.log(`\n\n| Akkordeon | Layouts spaet / Hauptthread-Bilder (Layouts gesamt) | nicht auf Compositor | getippte Karte wandert | Hauptthread je Hauptthread-Bild (${DROSSEL}×) | Stil / Layout / Malen / Ebenen / Skript (ms) |`);
 console.log('|---|---|---|---|---|---|');
 console.log(zeilen.join('\n'));
 

@@ -53,6 +53,13 @@ export async function startePreview(port = 4183) {
  * Schleifen zogen an zwei Positionen, die Aufnahme zeigte die falsche Stelle — und sah dabei
  * aus wie eine richtige (2026-09-16 beim Bau der Sichtpruefungs-Aufnahmen passiert).
  * Jetzt beendet jeder neue Aufruf die vorige Schleife, `__ccLoslassen` beendet alle.
+ *
+ * SEIT R26 (2026-10-17) LAEUFT LENIS NUR BEIM GLEITEN (`hooks/useSmoothScroll.ts`). Im Leerlauf nimmt Lenis eine
+ * native Position ohnehin an (`onNativeScroll` setzt sein Ziel nach), die Schleife hier haelt dann nur gegen Seitencode.
+ * Geaendert hat sich die Reihenfolge: Frueher war Lenis' Rueckruf seit dem Laden angemeldet, lief also in jedem Bild
+ * VOR dieser Schleife, und sie gewann. Jetzt meldet Lenis sich erst beim Gleiten an (Rad, Anker, `scrollTo`), also NACH
+ * einer schon laufenden Halteschleife, und gewinnt dann selbst. Halten und Gleiten deshalb nicht mischen: vor einem
+ * Rad- oder Ankertest `__ccLoslassen()` (so in `check-zielgruppen.mjs`).
  */
 export const HALTE_SCROLL = `
   (() => {

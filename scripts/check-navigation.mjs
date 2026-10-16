@@ -54,7 +54,8 @@ const KARTE = `${PANEL} a[aria-haspopup="true"]`;
 const ERWARTET = {
   'Fahrzeugaufbereitung': ['Innenaufbereitung', 'Außenaufbereitung', 'Leasingrückgabe'],
   'Unfall & Lack': ['Neu- und Reparaturlackierung', 'Smart Repair', 'Dellenentfernung', 'Hagelschadenreparatur'],
-  'Rad & Glas': ['Felgenreparatur', 'Autoglas / Scheibenfolien'],
+  // „&“ statt „/“ seit dem Lektorat (Commit 3549114, `data/services.ts`); hier nachgezogen am 2026-10-17.
+  'Rad & Glas': ['Felgenreparatur', 'Autoglas & Scheibenfolien'],
   'Geschäftskunden': ['Fuhrparkservice'],
 };
 
