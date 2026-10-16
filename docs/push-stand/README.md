@@ -1,17 +1,20 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 16.10.2026, 22:02, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 17.10.2026, 00:03, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 16.10.2026, 22:02 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 17.10.2026, 00:03 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `5147fa8` | `6ead8b0` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `5147fa8` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `00330ce` | `f38bc2b` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `00330ce` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `2026-10-16-r23-fusszeile-cls` | `dec3477` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/affectionate-shirley-ebfce4` | `00330ce` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/hopeful-colden-aa3a3f` | `00330ce` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +22,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `5147fa8` | 16.10.2026, 22:02 | oalabhypercode | Startseite mobil: getippte Karte bleibt stehen, kein Aufblitzen, kein Schleier hinter den Karten, größere Titel | 10 | — | **kommt mit diesem Push** |
+| `00330ce` | 17.10.2026, 00:02 | oalabhypercode | Startseite mobil: Foto hinter den Karten zurückgenommen, Titel 15 px, Hero-Fußzeile über den Knöpfen im iPhone, Prüfer gehärtet | 11 (1 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,7 +32,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `5147fa8` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `00330ce` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -37,8 +40,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 24, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `2026-10-16-r23-fusszeile-cls`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
-| Weitere Worktrees | 3 |
+| Lokale Branches ohne GitHub-Gegenstück | 23, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Weitere Worktrees | 5 |
 | Stash-Einträge | 0 |
 
 ## 5. Inhaltlich offen

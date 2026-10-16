@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 17.10.2026, 00:03 | `main` | `00330ce` (1) | nein | — |
 | 16.10.2026, 22:02 | `2026-10-06-lektorat`, `main` | `5147fa8` (1) | nein | — |
 | 16.10.2026, 20:00 | `2026-10-06-lektorat`, `2026-10-16-r23-fusszeile-cls`, `main` | `7e6dbc9` `963f741` (2) | nein | neue Skripte: akkordeon |
 | 16.10.2026, 19:12 | `main` | `0b269a7` (1) | nein | Konfiguration: vercel.json; neue Skripte: weiterleitungen, altseite |
