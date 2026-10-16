@@ -1,18 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 16.10.2026, 20:00, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 16.10.2026, 22:02, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 16.10.2026, 20:00 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 16.10.2026, 22:02 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `963f741` | `0181975` | 2 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `963f741` | — | neu, 2 Commit(s) noch nicht auf GitHub |
-| `2026-10-16-r23-fusszeile-cls` | `7e6dbc9` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `5147fa8` | `6ead8b0` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `5147fa8` | — | neu, 1 Commit(s) noch nicht auf GitHub |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -20,8 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `7e6dbc9` | 16.10.2026, 19:20 | oalabhypercode | Docs: R22 live geprüft (52/52 Weiterleitungen 301 auf der Vorschau) | 3 | — | **kommt mit diesem Push** |
-| `963f741` | 16.10.2026, 20:00 | oalabhypercode | Startseite mobil: Karten per Transform statt Höhe, Foto mobil, gleich hohe Ablaufkacheln, ein Farbton | 15 (4 neu) | package.json | **kommt mit diesem Push** |
+| `5147fa8` | 16.10.2026, 22:02 | oalabhypercode | Startseite mobil: getippte Karte bleibt stehen, kein Aufblitzen, kein Schleier hinter den Karten, größere Titel | 10 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -31,8 +29,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run akkordeon` |
-| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `963f741`, `7e6dbc9` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `5147fa8` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -40,7 +37,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | `parallax-scroll-kit/` |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 23, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Lokale Branches ohne GitHub-Gegenstück | 24, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `2026-10-16-r23-fusszeile-cls`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 3 |
 | Stash-Einträge | 0 |
 
@@ -48,12 +45,7 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-| Punkt | Planung |
-|---|---|
-| O2 — Rund um die DNS-Umstellung · OALAB mit KUPPER IT | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
-| O3 — Leder-, Stoff- und Kunststoffreparatur (Fund 2) · André | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
-| O4 — Branchenverzeichnisse mit alten Daten (Fund 3) · André oder OALAB mit Zugang | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
-| O5 — Belege der Altseite nutzen (Fund 4) · Vorschlag, nur auf Zuruf des Users | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+Keine offenen Folgepunkte in den berührten Planungsdateien.
 
 ### Backlog gesamt: 21 offene Punkte
 
