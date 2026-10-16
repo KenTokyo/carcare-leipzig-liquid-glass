@@ -1,6 +1,6 @@
 # Layout-Sprünge beim Laden: Fußzeile (R23) und Pop-up-Rest auf /karriere (R28)
 
-**Angelegt:** 2026-10-16 · **Stand:** Phasen 1–4 umgesetzt und lokal belegt; Live-Nachweis nach dem Deploy offen
+**Angelegt:** 2026-10-16 · **Stand:** erledigt und live geprüft am 17.10. (Push `5021291` um 00:20, Vorschau ab 00:24)
 **Auftrag des Users:** „Ja, mach mit Blocker 3 weiter (Layout-Sprung CLS 1,0 durch die Fußzeile, R23).“
 **Arbeitskopie:** eigener Worktree (`%TEMP%\claude\r23`, Branch `2026-10-16-r23-fusszeile-cls`), weil im Hauptordner
 parallel eine Sitzung an der mobilen Startseite arbeitet und dort selbst `dist/` baut.
@@ -76,7 +76,7 @@ SPA-Ersatz und serialisierte dessen Guard mit): 57 Guards auf 29 Seiten. Harmlos
 **Referenzen:**
 `scripts/check-cls.mjs`
 
-### ⬜ Phase 4 — Build, alle Messwerkzeuge, Doku, Live-Nachweis
+### ✅ Phase 4 — Build, alle Messwerkzeuge, Doku, Live-Nachweis
 * [x] Build 16.10., 19:48:36 grün; `npm run cls`: **0 harte Befunde** (vorher 26), 2 Hinweise je 0,043 bei 1366 × 657
   (`/autolackierung-leipzig`, `/hagelschadenreparatur-leipzig`, Verursacher `body` nach etwa 300 ms; in vier
   Einzelläufen ohne Parallellast nicht reproduzierbar, Scrollbalken ausgeschlossen: Optimierung O1)
@@ -98,7 +98,17 @@ SPA-Ersatz und serialisierte dessen Guard mit): 57 Guards auf 29 Seiten. Harmlos
   1024, einzeln 0,000 und 0,000). Gegenprobe weiter bestanden.
 * [x] Nebenbei live gemessen, **vor** dem Push: `/karriere` auf der Vorschau 0,078 bis 0,088 bei 1366 und **0,130**
   bei 1024, jedes Mal durch `aside.fixed` (das Pop-up-Gespenst, R28). Live lag `/karriere` am Desktop also über 0,1.
-* [ ] Push und Nachweis auf der Vorschau (Optimierung O2)
+* [x] Vor dem Push erneut aufgesetzt, weil die parallele Sitzung inzwischen „Runde 3“ gepusht hatte (`85a3820`;
+  Konflikte nur in `CLAUDE.md`, benachbarte Tabellenzeilen, beide neuesten Fassungen behalten). Typprüfung,
+  Weiterleitungs- und Vercel-Wächter grün. Push `85a3820..5021291` (Commits `898251a`, `ba088bf`, `3c10095` und
+  Push-Stand). Dabei der Push-Stand-Hook korrigiert: Er las die Übersicht aus `HEAD` des Projektordners (dort der
+  Branch der parallelen Sitzung) und hätte den korrekt vorbereiteten Push gesperrt; jetzt liest er sie im gepushten
+  Ref. Gegenprobe: Ein Ref ohne passende Übersicht wird weiter gesperrt.
+* [x] **Nachweis auf der Vorschau** (17.10., 00:24, je drei Läufe mit CPU 4×): Pop-up auf `/karriere` sofort keines,
+  nach 1,2 s genau eines, nach dem Schließen keines (390 und 1440 px). CLS auf `/`, `/karriere`, `/leistungen`,
+  `/ueber-uns`, `/privatkunden`, `/felgenreparatur-leipzig` bei 360 und 390 px: **36 von 36 Läufen 0,000** (vorher 1,0).
+  `/karriere` am Desktop: 0 bis 0,054 statt 0,130. `npm run weiterleitungen -- --live` 52 von 52, `npm run smoke`
+  29 Routen ok, ein Guard je Seite.
 
 ---
 

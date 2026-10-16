@@ -15,9 +15,9 @@
   regelmäßig, Vorher- und Nachher-Rechteck je Quelle protokollieren (wie `cls-hinweis` im Scratchpad der Sitzung) und
   die Ursache suchen (Kandidat: erstes Bild vor dem Flash-Guard, dann neuer Aufbau).
 
-### ⬜ O2 — Nachweis auf der Vorschau · OALAB, nach dem Push
-* [ ] `/karriere` live: kein Pop-up beim Laden, eines nach 1,2 s, keines nach dem Schließen (390 und 1440 px)
-* [ ] CLS live mit Drossel auf den Seiten, die vorher 1,0 hatten (z. B. `/`, `/karriere`, `/leistungen` bei 360/390)
+### ✅ O2 — Nachweis auf der Vorschau · erledigt 17.10.
+* [x] `/karriere` live: kein Pop-up beim Laden, eines nach 1,2 s, keines nach dem Schließen (390 und 1440 px)
+* [x] CLS live mit Drossel auf sechs Seiten, die vorher 1,0 hatten, bei 360 und 390 px: 36 von 36 Läufen 0,000
 
 ### ⬜ O3 — Felddaten nach dem Livegang · OALAB mit Zugang zur Search Console
 * [ ] Bericht „Core Web Vitals“ nach etwa 28 Tagen Besucherdaten prüfen; erst die Felddaten belegen CLS für echte
