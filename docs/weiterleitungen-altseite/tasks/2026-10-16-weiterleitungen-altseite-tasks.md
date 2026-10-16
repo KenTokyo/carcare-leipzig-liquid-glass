@@ -1,6 +1,7 @@
 # Weiterleitungen der alten Website (R22, Livegang-Blocker)
 
-**Angelegt:** 2026-10-16 · **Stand:** Phasen 1–4 umgesetzt, Phase 5 bis auf die Live-Prüfung (braucht den Deploy)
+**Angelegt:** 2026-10-16 · **Stand:** alle Phasen erledigt, live geprüft am 16.10. (Commit `0b269a7`, Push 19:12, Vercel
+live 19:18). Offen ist nur, was rund um die DNS-Umstellung zu tun ist (Optimierung O2).
 **Auftrag des Users:** „Lass uns mit 2 beginnen … alle offenen und nicht genutzten Links mit einer Weiterleitung auf die
 neuen Seiten versehen … frag mich ruhig, welche Zuteilung am meisten Sinn macht.“ (Punkt 2 der Livegang-Liste vom 16.10.)
 
@@ -112,7 +113,7 @@ Förderhinweis der Fußzeile verlinkt („Unser Digitalisierungsvorhaben (PDF)�
 **Referenzen:**
 `scripts/check-weiterleitungen.mjs`
 
-### ⬜ Phase 5 — Build, Doku, Live-Prüfung
+### ✅ Phase 5 — Build, Doku, Live-Prüfung
 * [x] Build 16.10. grün (`check-weiterleitungen` im prebuild: 52 Regeln, 54 Inventaradressen abgedeckt);
   `dist/images/EU_POS.pdf` ausgeliefert, Link auf jeder Seite; Bildschirmfoto Fußzeile 390 und 1440 px (Link 24 px hoch,
   12 px, sichtbar)
@@ -121,10 +122,17 @@ Förderhinweis der Fußzeile verlinkt („Unser Digitalisierungsvorhaben (PDF)�
   statt 848, beide im Seitenfluss; 430: 848 px, fixiert) · Aussparung ohne Überdeckung, Geometrie an 23 Breiten ·
   Meta 0 von 29 außerhalb · tote Dateien 0 (172 Quelldateien, 50 Einstiege)
 * [x] `CLAUDE.md` (Messwerkzeuge), Backlog R22, neue Repo-Befunde R23 (Fußzeilen-CLS) und R24 (404-Seite)
-* [ ] **Live-Prüfung nach dem Deploy:** `npm run weiterleitungen -- --live` (braucht den Push auf `main`, Freigabe User)
-* [ ] **Vor der DNS-Umstellung:** `npm run altseite` erneut (neue Seiten auf der Altseite?), danach `npm run weiterleitungen`
-* [ ] **Nach der Umstellung:** `npm run weiterleitungen -- --live https://www.carcare-center.de`; läuft die Seite bei
-  KUPPER IT, vorher die Übergabe-Datei dort einspielen lassen
+* [x] Commit `0b269a7` (nur eigene Dateien; eine Zeile `"akkordeon"` aus `package.json` der parallelen Sitzung
+  „mobil-startseite“ war mitgerutscht und vor dem Push wieder herausgenommen), Push-Stand `0181975`, Push auf `main`
+  16.10. 19:12 nach Freigabe des Users; Vercel lieferte ab 19:18 aus.
+* [x] **Live-Prüfung** `npm run weiterleitungen -- --live` gegen `carcare-center.vercel.app`: alle 52 alten Adressen
+  301 aufs richtige Ziel, alle Ziele 200, `/images/EU_POS.pdf` 200 als PDF, `/index.html` 200. Stichproben per `curl`:
+  `/jobangebote.html` → `/karriere`, `/lederreparatur.html` → `/innenaufbereitung-leipzig`, Felgenzertifikat-PDF →
+  `/felgenreparatur-leipzig`; unbekannte Adresse weiter 404 (kein Sammelfang). `npm run smoke`: 29 Routen mit JSON-LD,
+  FAQPage und Marker. Sein Hinweis „Bundle stammt nicht aus diesem Build“ ist erklärt: Das lokale `dist/` hatte die
+  parallele Sitzung um 19:01 mit ihren uncommitteten Änderungen neu gebaut.
+* [x] Was rund um die DNS-Umstellung zu tun ist (Inventar neu, Übergabe bei KUPPER IT, Live-Prüfung gegen die echte
+  Domain, 404-Bericht der Search Console): Optimierung O2
 
 ---
 
@@ -138,8 +146,8 @@ Dev-Server nicht gestartet ✅ (Bildschirmfoto über eigenen Dateiserver auf `di
 Gedankenstrich im sichtbaren Text, postbuild 0 Funde).
 
 **Auffälligkeiten/Probleme (nach Schwere):**
-1. 🟠 **Hoch:** Die Live-Prüfung ist erst nach dem Deploy möglich; `vite preview` wertet `vercel.json` nicht aus.
-   Bis dahin ist nur die Konfiguration bewiesen, nicht das Verhalten (Pflichtfrage, Punkt 3).
+1. 🟠 **Hoch (erledigt 16.10., 19:18):** Die Live-Prüfung war erst nach dem Deploy möglich; `vite preview` wertet
+   `vercel.json` nicht aus. Nach dem Push bestanden: 52 von 52 Adressen 301 aufs richtige Ziel (Phase 5).
 2. 🟠 **Hoch (Inhalt, André):** Leder-, Stoff- und Kunststoffreparatur hatten eigene Altseiten; die neue Seite nennt
    Leder und Polster nur bei der Pflege, Kunststoffreparatur gar nicht. Werden sie noch angeboten, fehlt der Inhalt
    (die Weiterleitung trifft dann nur das Nächstliegende).

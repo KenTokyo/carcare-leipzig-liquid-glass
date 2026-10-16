@@ -6,9 +6,10 @@
 Keiner der Funde ist ohne Zulieferung oder Freigabe im Code lösbar; deshalb stehen sie hier mit Zuständigkeit statt als
 erledigt.
 
-### ⬜ O1 — Live-Prüfung nach dem Deploy (Fund 1) · OALAB, braucht Freigabe zum Push
-* [ ] Nach dem Push auf `main` und dem Vercel-Deploy: `npm run weiterleitungen -- --live`
-* [ ] Ergebnis hier und in R22 (`docs/backlog/offene-punkte-konsolidiert.md`) eintragen
+### ✅ O1 — Live-Prüfung nach dem Deploy (Fund 1) · OALAB
+* [x] Push auf `main` am 16.10. um 19:12 (Freigabe User), Vercel live um 19:18; `npm run weiterleitungen -- --live`:
+  52 von 52 alten Adressen 301 aufs richtige Ziel, Ziele 200, EU-PDF 200, `/index.html` 200
+* [x] Ergebnis in der Planung (Phase 5) und in R22 (`docs/backlog/offene-punkte-konsolidiert.md`) eingetragen
 
 ### ⬜ O2 — Rund um die DNS-Umstellung · OALAB mit KUPPER IT
 * [ ] Unmittelbar davor `npm run altseite`: Kam auf der Altseite etwas dazu? Danach `npm run weiterleitungen`
