@@ -8,6 +8,10 @@
 //  1. Sie misst nur SICHTBAREN Text im aufgenommenen Bereich. Was erst nach einer
 //     Interaktion erscheint (Akkordeon, Dialog, Flyout), wird nicht gemessen.
 //  2. Sie misst je Route nur die eingestellten Scrollpositionen, nicht die ganze Seite.
+//     `--sektionen` (seit 2026-10-16) misst zusaetzlich den Kopf jeder Sektion mit `id` und in gepinnten
+//     Strecken (hoeher als zwei Fenster) jede Fensterhoehe, also jeden Schritt der Ablaeufe. Anlass: Das mobile
+//     Hintergrundfoto hinter „Leistungen“, „Autoaufbereitung“ und den Ablaeufen traf keine der vier festen Stellen
+//     sicher. Auch damit gemessen: nur der Ruhezustand, also das Foto der ERSTEN Karte bzw. des jeweiligen Schritts.
 //  3. Sie prueft Text gegen Hintergrund. Nicht-Text-Kontrast (Rahmen, Icons,
 //     Fokusringe — WCAG 1.4.11) bleibt aussen vor.
 //  4. Sie erkennt Ueberdeckung nur durch FIXIERTE Leisten mit eigener Flaeche. Ein
@@ -55,6 +59,9 @@ const NACHMESSEN_MS = 1000;
 const args = process.argv.slice(2);
 const nurRoute = args.find((a) => a.startsWith('/'));
 const strikt = args.includes('--strikt');
+const sektionen = args.includes('--sektionen');
+/** Abstand des Sektionskopfs vom Fensterrand bei `--sektionen`: unter der schwebenden Navigation (rund 90 px). */
+const KOPF_ABSTAND = 100;
 
 // ------------------------------------------------ Farbrechnung ---------------
 const kanal = (c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; };
@@ -275,8 +282,22 @@ try {
       await new Promise((r) => setTimeout(r, 700));
 
       const hoehe = await seite.evaluate('document.body.scrollHeight');
-      for (const anteil of POSITIONEN) {
-        const y = Math.round(Math.max(0, Math.min(hoehe - b.hoehe, hoehe * anteil)));
+      const stellenY = POSITIONEN.map((anteil) => Math.round(Math.max(0, Math.min(hoehe - b.hoehe, hoehe * anteil))));
+      if (sektionen) {
+        const extra = await seite.evaluate(
+          (vh, abstand) =>
+            [...document.querySelectorAll('main section[id]')].flatMap((s) => {
+              const oben = s.getBoundingClientRect().top + window.scrollY;
+              // Gepinnte Strecke (z. B. 5 × 100svh): jede Fensterhoehe einmal, sonst nur der Kopf.
+              const schritte = s.offsetHeight > 2 * vh ? Math.floor(s.offsetHeight / vh) : 1;
+              return Array.from({ length: schritte }, (_, i) => Math.round(oben + i * vh - (i === 0 ? abstand : 0)));
+            }),
+          b.hoehe,
+          KOPF_ABSTAND
+        );
+        stellenY.push(...extra.map((y) => Math.max(0, Math.min(hoehe - b.hoehe, y))));
+      }
+      for (const y of [...new Set(stellenY)]) {
         await seite.evaluate((yy) => { window.scrollTo(0, yy); window.__ccHalte(yy); }, y);
         await new Promise((r) => setTimeout(r, 550));
         let ergebnisse = await messePosition(seite);
@@ -306,7 +327,7 @@ try {
   stopp();
 }
 
-console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, 2 Breiten, ${POSITIONEN.length} Positionen`
+console.log(`\n[kontrast] ${gemessen} Textstellen gemessen auf ${routen.length} Routen, 2 Breiten, ${POSITIONEN.length} Positionen${sektionen ? ' plus Sektionskoepfe und Ablaufschritte' : ''}`
   + (nachgemessen ? ` (${nachgemessen} Position(en) nach ${NACHMESSEN_MS} ms nachgemessen, Falle 9).` : '.'));
 
 if (!befunde.length) {

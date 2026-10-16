@@ -109,10 +109,27 @@ export interface PhotoBackdropProps {
    * Hintergrund, nicht an seiner Herkunft.
    */
   video?: string | null;
+  /**
+   * Eigene Fassung unter 1024 px (seit 2026-10-16, Wunsch des Users: das Foto der Startseite „auch in der mobilen
+   * Ansicht“). Ohne Angabe gilt auf allen Breiten dasselbe wie bisher.
+   *
+   * `stehend` — fuer hohe Sektionen (Leistungen, Autoaufbereitung: Kopf plus Kartenspalte, rund 1.500 px). Das Foto
+   *             steht in Fensterhoehe (`sticky`, wie `BackdropLayout`) und laeuft nicht ueber die ganze Sektion: Ein
+   *             Querformatfoto, formatfuellend ueber 393 × 1.500 px, waere nur ein stark vergroesserter Mittelstreifen.
+   * `flaeche` — fuer Flaechen, die selbst schon fensterhoch stehen (gepinnte Buehne von `ScrollPinnedProcess`).
+   *
+   * Beide nutzen unter 1024 px den Textschutz `.cc-guard-mobil` (styles/textschutz.css) statt der drei Desktop-Ebenen:
+   * Deren Vignette (`closest-side`) liesse auf einem Hochformat nur einen schmalen Streifen in der Mitte frei, genau
+   * hinter den Karten. Ab 1024 px aendert sich nichts.
+   */
+  mobil?: 'stehend' | 'flaeche';
 }
 
-const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom, video }) => (
-  <div aria-hidden="true" className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`}>
+const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'rounded-[var(--cc-nav-radius)]', textGuard = 'default', zoom, video, mobil }) => (
+  // `overflow-clip` statt `-hidden` bei `stehend`: Ein Behaelter mit `overflow: hidden` ist ein Scroll-Container, und
+  // `sticky` haftete dann an ihm statt am Fenster (dieselbe Lehre wie beim `main`, siehe Memory site-shell-breaks-sticky).
+  <div aria-hidden="true" className={`pointer-events-none absolute inset-0 -z-10 ${mobil === 'stehend' ? 'overflow-clip' : 'overflow-hidden'} ${className}`}>
+    <div className={mobil === 'stehend' ? 'sticky top-0 h-[100svh] w-full lg:static lg:h-full' : 'absolute inset-0'}>
     <AnimatePresence>
       {image && (
         <motion.div
@@ -174,15 +191,18 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image, className = 'round
               }}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45" />
-          <div className={`absolute inset-0 ${GUARD[textGuard].klasse}`} />
+          {/* Mit `mobil` gelten die drei Desktop-Ebenen erst ab 1024 px, darunter `.cc-guard-mobil`. */}
+          <div className={`absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45 ${mobil ? 'max-lg:hidden' : ''}`} />
+          <div className={`absolute inset-0 ${GUARD[textGuard].klasse} ${mobil ? 'max-lg:hidden' : ''}`} />
           <div
-            className="absolute inset-0"
+            className={`absolute inset-0 ${mobil ? 'max-lg:hidden' : ''}`}
             style={{ background: `radial-gradient(ellipse closest-side at ${GUARD[textGuard].radialCenter}, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)` }}
           />
+          {mobil && <div className="cc-guard-mobil absolute inset-0 lg:hidden" />}
         </motion.div>
       )}
     </AnimatePresence>
+    </div>
   </div>
 );
 

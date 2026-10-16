@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
+import PhotoBackdrop from './PhotoBackdrop';
 import type { Bereich } from '../data/services';
 
 /**
@@ -137,8 +138,13 @@ const ProcessCard: React.FC<{
           OHNE `backdrop-blur` (2026-10-05): Hinter 92 % deckendem Weiss war der Weichzeichner unsichtbar, kostete aber
           Rechenzeit beim Scrollen. Und weil die Schritt-Karten ueberblenden, sprang er am Ende jeder Ueberblendung an
           (ein- oder ausblendender Vorfahr schaltet `backdrop-filter` ab). Gefunden per Glas-Pruefung, siehe
-          docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md. */}
-      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-[rgb(255_255_255/0.92)] p-5 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] sm:right-auto sm:max-w-[68%] sm:p-6 lg:max-w-[380px]">
+          docs/performance/tasks/2026-10-05-ruckeln-und-cta-glas-tasks.md.
+          GLEICH HOCH UNTER 1024 PX (2026-10-16): Die Kachel ist mindestens so hoch wie die hoechste des Ablaufs
+          (`--kachel-hoehe`, gemessen in `ScrollPinnedProcess` am Inhalt `data-kachel-inhalt`, plus Innenabstand
+          p-5 bzw. p-6). Unten verankert, wachsen kuerzere nach oben: Beim Ueberblenden steht die weisse Flaeche still,
+          nur der Text wechselt. Ab 1024 px wie bisher (dort traegt Schritt 1 seinen Knopf). */}
+      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-[rgb(255_255_255/0.92)] p-5 shadow-[0_10px_30px_-18px_rgb(var(--cc-carbon-rgb)/0.5)] max-lg:min-h-[calc(var(--kachel-hoehe,0px)+2.5rem)] sm:right-auto sm:max-w-[68%] sm:p-6 sm:max-lg:min-h-[calc(var(--kachel-hoehe,0px)+3rem)] lg:max-w-[380px]">
+        <div data-kachel-inhalt="">
         <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-600">
           Schritt {step.n}
         </span>
@@ -151,18 +157,23 @@ const ProcessCard: React.FC<{
         </h3>
         <p className="mt-2.5 text-sm leading-relaxed text-gray-600 md:text-base">{step.description}</p>
         {/* Optionaler Karten-CTA. `tabIndex -1`, solange die Karte nicht aktiv ist — sonst liesse
-            sich der unsichtbare Link per Tab-Taste erreichen. */}
+            sich der unsichtbare Link per Tab-Taste erreichen.
+            ERST AB 1024 PX (User, 2026-10-16: Die Textkachel von Schritt 1 „Schaden melden“ war mobil hoeher als die der
+            Schritte 2 bis 5, weil nur sie einen Knopf traegt; im Aufbereitungsablauf ebenso Schritt 2 „Termin anfragen“).
+            Unter 1024 px steht dieselbe Aktion dauerhaft in der festen Leiste unten (`MobileStickyCTA`: „Schaden“,
+            „Termin“). Der Link bleibt im HTML. */}
         {step.cta && (
           <a
             href={step.cta.href}
             {...externAttribute(step.cta.href)}
             tabIndex={isActive ? 0 : -1}
-            className="cc-gradient-button mt-4 inline-flex items-center gap-2 rounded-full border px-5 py-3 text-xs font-bold text-white"
+            className="cc-gradient-button mt-4 hidden items-center gap-2 rounded-full border px-5 py-3 text-xs font-bold text-white lg:inline-flex"
           >
             {step.cta.label}
             {istExtern(step.cta.href) ? <ExternMarke href={step.cta.href} groesse={15} /> : <ArrowRight size={15} />}
           </a>
         )}
+        </div>
       </div>
 
       {/* Logo-Siegel unten rechts – erst ab sm (auf Mobile spannt die Textbox voll -> wuerde
@@ -214,6 +225,25 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
   const cardProgress = useSpring(progress, grob
     ? { stiffness: 260, damping: 34, mass: 0.25 }
     : { stiffness: 140, damping: 30, mass: 0.4 });
+
+  /**
+   * Gleich hohe Textkacheln unter 1024 px (2026-10-16, siehe `ProcessCard`): die hoechste natuerliche Inhaltshoehe
+   * aller Schritte als `--kachel-hoehe` an die Buehne. Gemessen wird der Inhalt (`data-kachel-inhalt`), nicht die
+   * Kachel, sonst hielte die Mindesthoehe sich selbst fest und schrumpfte nach einer Drehung ins Querformat nie wieder.
+   * ResizeObserver statt einmaligem Messen: Schrift laedt nach, Fensterbreite aendert sich.
+   */
+  const buehneRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const buehne = buehneRef.current;
+    if (!buehne || typeof ResizeObserver === 'undefined') return;
+    const inhalte = [...buehne.querySelectorAll<HTMLElement>('[data-kachel-inhalt]')];
+    const beobachter = new ResizeObserver(() => {
+      const hoechste = Math.max(0, ...inhalte.map((el) => el.offsetHeight));
+      buehne.style.setProperty('--kachel-hoehe', `${hoechste}px`);
+    });
+    inhalte.forEach((el) => beobachter.observe(el));
+    return () => beobachter.disconnect();
+  }, [steps]);
 
   // Aktiver Karten-Index nur fuer die Fortschrittsanzeige (re-rendert nur bei Wechsel).
   const [active, setActive] = useState(0);
@@ -282,34 +312,12 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
         {/* Full-Bleed-Hintergrund: Foto der AKTIVEN Karte ueber die gesamte (gepinnte) Sektion —
             1:1 dieselbe Veil-/Transparenz-Anordnung + Crossfade wie ServiceGrid. Rein visueller
             Layer HINTER dem Content. `-z-10` bleibt im Stacking-Context der Sticky-`div` (sticky
-            erzeugt ihn) → hinter Header+Karten, ueber dem weissen Section-Bg. Nur ab `lg`: die
-            Veils sind auf Header-links/Karte-rechts getunt (dieses Layout gilt erst ab lg). */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden lg:block">
-          <AnimatePresence>
-            <motion.div
-              key={steps[active].image}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="absolute inset-0"
-            >
-              <img src={steps[active].image} alt="" decoding="async" className="h-full w-full object-cover" />
-              {/* Heller Veil (vertikal): haelt den Content lesbar; Mitte duenn. */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45" />
-              {/* Header-Schutz (horizontal): links weisser, damit die Ueberschrift lesbar bleibt. */}
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to right, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.45) 28%, rgb(255 255 255 / 0) 52%)' }}
-              />
-              {/* Weisse Rand-Vignette (radial): klares Bildfenster rechts der Mitte (58 %). */}
-              <div
-                className="absolute inset-0"
-                style={{ background: 'radial-gradient(ellipse closest-side at 58% 48%, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)' }}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+            erzeugt ihn) → hinter Header+Karten, ueber dem weissen Section-Bg.
+            SEIT 2026-10-16 `PhotoBackdrop` statt einer Kopie seiner drei Ebenen, und AUCH MOBIL (User: das Foto „auch in
+            der mobilen Ansicht“, wie am Desktop). Bis dahin nur ab `lg`, weil die Desktop-Ebenen auf Kopf links und Karte
+            rechts abgestimmt sind; unter 1024 px gilt jetzt der eigene Schutz `.cc-guard-mobil` (`mobil="flaeche"`: die
+            Buehne ist selbst fensterhoch). Keine Rundung: Die Buehne laeuft randlos. */}
+        <PhotoBackdrop image={steps[active].image} className="" mobil="flaeche" />
 
         <div className="container relative mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
           {/* Links/oben: statischer Header + CTAs + Fortschritt */}
@@ -382,7 +390,7 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
 
           {/* Rechts/unten: Karten-Buehne. Karten liegen gestapelt (absolute) und blenden
               je nach Scroll nacheinander ein/aus. Feste Hoehe = Platz fuer die absolute Ebene. */}
-          <div className="relative h-[300px] w-full sm:h-[340px] lg:h-[380px] lg:w-[55%]">
+          <div ref={buehneRef} className="relative h-[300px] w-full sm:h-[340px] lg:h-[380px] lg:w-[55%]">
             {steps.map((step, i) => (
               <ProcessCard
                 key={step.n}

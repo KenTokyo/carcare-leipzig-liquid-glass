@@ -14,8 +14,14 @@ interface FAQSectionProps {
   title?: string;
 }
 
+/**
+ * Grund WEISS seit 2026-10-16 (User: „einen anderen Farbton hinter FAQ, als ich es insgesamt auf der ganzen Website
+ * habe … Ich möchte, dass es durchgehend einen Farbton hat“). Bis dahin Eisblau (`bg-gray-50/70`); die Startseite ist
+ * der einzige Aufrufer ohne eigene Klasse, die Artikelseiten setzen schon `bg-white`. Die Fragekarten behalten ihren
+ * Kartenton (`.cc-karte`) und den Rand, sie heben sich auf Weiss wie in den uebrigen weissen Sektionen ab.
+ */
 const FAQSection: React.FC<FAQSectionProps> = ({
-  className = 'bg-gray-50/70',
+  className = 'bg-white',
   description = 'Kurz beantwortet: Schadenmeldung, Aufbereitung, Geschäftskunden und Ersatzwagen.',
   eyebrow = 'FAQ',
   faqs = faqsByRoute['/'],

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import BereichsPlakette from './BereichsPlakette';
+import PhotoBackdrop from './PhotoBackdrop';
 import { aufbereitungKacheln } from '../data/detailing';
 import { bereichVon } from '../data/services';
 import { getKnowledgeArticleBySlug } from '../data/knowledgeArticles';
@@ -74,50 +75,24 @@ const ratgeber = ['was-ist-autoaufbereitung', 'innenaufbereitung', 'lackaufberei
 
 const AutoDetailingExpertiseSection: React.FC = () => {
   // Full-Bleed-Section-Hintergrund: das Akkordeon meldet via onActiveImageChange das Bild der
-  // AKTUELL AUFGEKLAPPTEN Karte hoch (auf Desktop ist immer genau eine offen, auf Mobile `null`).
+  // AKTUELL AUFGEKLAPPTEN Karte hoch (immer genau eine offen, seit 2026-10-16 auch mobil).
   // Identische Mechanik wie in ServiceGrid.
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [kopfEingeblendet, setKopfEingeblendet] = useState(false);
 
   return (
     // `relative isolate` = eigener Stacking-Context, damit die -z-10-Ebene sauber hinter dem
-    // Content und ueber der Section-Bg bleibt (exakt wie ServiceGrid).
+    // Content und ueber der Section-Bg bleibt (exakt wie ServiceGrid). Weiss statt Eisblau seit
+    // 2026-10-16 (User: „durchgehend einen Farbton“), wie alle Sektionen der Startseite.
     <section
       id="autoaufbereitung"
       aria-labelledby="detailing-heading"
-      className="relative isolate bg-gray-50/70 px-6 py-20 md:py-28"
+      className="relative isolate bg-white px-6 py-20 md:py-28"
     >
-      {/* Hintergrund hinter dem Grid: Bild der aufgeklappten Karte, Crossfade beim Wechsel —
-          dieselben drei Veils wie in der Leistungsuebersicht (vertikaler Veil, Header-Schutz
-          horizontal, weisse Rand-Vignette). */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-[var(--cc-nav-radius)]"
-      >
-        <AnimatePresence>
-          {activeImage && (
-            <motion.div
-              key={activeImage}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="absolute inset-0"
-            >
-              <img src={activeImage} alt="" decoding="async" className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/[0.18] to-white/45" />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to right, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.45) 28%, rgb(255 255 255 / 0) 52%)' }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'radial-gradient(ellipse closest-side at 58% 48%, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)' }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* Hintergrund hinter dem Grid: Bild der aufgeklappten Karte, Crossfade beim Wechsel.
+          Bis 2026-10-16 stand hier eine Kopie der drei Ebenen aus `PhotoBackdrop` (gleiche Werte, inline);
+          jetzt die Komponente selbst, damit die mobile Fassung nicht ein zweites Mal gepflegt werden muss. */}
+      <PhotoBackdrop image={activeImage} mobil="stehend" />
 
       <div className="container relative mx-auto">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
@@ -155,10 +130,14 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             Der Ablauf „Wie laeuft eine Autoaufbereitung ab?" ist seit 2026-07-22 eine eigene,
             scroll-gepinnte Sektion (`DetailingProcessSection`) direkt darunter — im exakt
             gleichen Aufbau wie „Unfall & Schaden Leipzig". */}
-        <ExpandingCardAccordion items={expertiseCards} onActiveImageChange={setActiveImage} className="mt-12" />
+        <ExpandingCardAccordion items={expertiseCards} onActiveImageChange={setActiveImage} mobilHintergrund className="mt-12" />
 
-        {/* Ratgeber-Zeile (5.17): ersetzt die Wissens-Karte. 48 px hohe Ziele (SEO-GEO §2.3). */}
-        <nav aria-label="Ratgeber zur Autoaufbereitung" className="mt-8 flex flex-wrap items-center gap-3">
+        {/* Ratgeber-Zeile (5.17): ersetzt die Wissens-Karte. 48 px hohe Ziele (SEO-GEO §2.3).
+            MOBIL AUSGEBLENDET (User, 2026-10-16: „macht für mich da gar keinen Sinn und nimmt einfach nur Platz weg“).
+            Per CSS (`hidden lg:flex`), nicht per Bedingung: Die fuenf Links bleiben im vorgerenderten HTML und damit
+            fuer Suchmaschinen und KI-Crawler sichtbar (Grund der Zeile, SEO-GEO §4.4); ab 1024 px steht sie wie bisher.
+            Die Ratgeber bleiben mobil ueber die Navigation („Wissen“) und die Aufbereitungsseiten erreichbar. */}
+        <nav aria-label="Ratgeber zur Autoaufbereitung" className="mt-8 hidden flex-wrap items-center gap-3 lg:flex">
           <span className="mr-1 text-xs font-bold uppercase tracking-[0.2em] text-gray-600">Ratgeber</span>
           {ratgeber.map((r) => (
             <a

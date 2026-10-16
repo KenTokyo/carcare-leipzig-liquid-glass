@@ -61,6 +61,29 @@
   );
 }
 
+/* ---------------------------------------------------------------------------
+   Mobiler Textschutz fuer `PhotoBackdrop` mit `mobil` (2026-10-16, Startseite)
+   ---------------------------------------------------------------------------
+   Gilt unter 1024 px fuer Leistungen, Autoaufbereitung und die beiden gepinnten Ablaeufe. Die Flaeche ist dort
+   immer fensterhoch (stehendes Foto bzw. gepinnte Buehne), und Text steht nur in ihrer OBEREN Haelfte: Bei
+   `stehend` laeuft der Sektionskopf oben durch, waehrend das Foto steht; bei der Buehne sitzt der Kopf oben, die
+   Karte (eigener Grund) darunter. Deshalb oben kraeftig, unten leichter: Dort liegen Karten und ihre Zwischenraeume,
+   durch die das Foto sichtbar bleiben soll.
+   DREI SCHICHTEN, von oben nach unten gelistet:
+     1. Rand oben und unten weich ins Weiss, wie die Vignette am Desktop („weicher Uebergang“, User).
+     2. Textschutz senkrecht, bis 62 % der Hoehe mindestens Weiss 78 %. GERECHNET FUER DEN SCHLECHTESTEN FALL, ein
+        schwarzes Foto: Grund dann rgb(199), `gray-600` (Graphit 72 %) darauf 5,26 : 1, `blue-600` 5,94 : 1, beides
+        ueber AA (4,5). Das Foto selbst kann den Kontrast also nicht unter AA druecken, solange der Text in diesen oberen
+        62 % steht (Lage je Fenster nachgemessen, siehe Doku). Gemessen zusaetzlich mit
+        `npm run kontrast -- --sektionen` (Stand: docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-tasks.md).
+     3. Seitenraender leicht aufgehellt, damit die Kante der Sektion nicht hart auf dem Foto steht. */
+.cc-guard-mobil {
+  background:
+    linear-gradient(to bottom, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0) 12%, rgb(255 255 255 / 0) 86%, rgb(255 255 255 / 1) 100%),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.82) 0%, rgb(255 255 255 / 0.78) 62%, rgb(255 255 255 / 0.5) 80%, rgb(255 255 255 / 0.5) 100%),
+    linear-gradient(to right, rgb(255 255 255 / 0.45) 0%, rgb(255 255 255 / 0) 14%, rgb(255 255 255 / 0) 86%, rgb(255 255 255 / 0.45) 100%);
+}
+
 @media (max-width: 767px) {
   .cc-guard-wide {
     background: linear-gradient(

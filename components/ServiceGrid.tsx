@@ -34,7 +34,7 @@ const karten: ExpandingCardItem[] = overviewServices.map((service) => {
 const ServiceGrid: React.FC = () => {
   // Full-Bleed-Section-Hintergrund: das ExpandingCardAccordion reicht via onActiveImageChange
   // das Bild der AKTUELL AUFGEKLAPPTEN Karte hoch. Der Hintergrund bleibt also stehen, solange
-  // eine Karte offen ist (auf Desktop immer) — nicht nur beim Hovern. null = Mobile/kein Bild.
+  // eine Karte offen ist (immer genau eine) — nicht nur beim Hovern. Seit 2026-10-16 auch mobil.
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
   return (
@@ -44,12 +44,14 @@ const ServiceGrid: React.FC = () => {
       // `relative isolate` = eigener Stacking-Context, damit die -z-10-Ebene sauber hinter
       // dem Content und ueber der Section-Bg bleibt (der App-Shell `main` spannt per
       // transform bereits einen Context auf; ohne `isolate` rutschte -z-10 dorthin).
-      className="relative isolate bg-gray-50/70 px-6 py-20 md:py-28"
+      // WEISS statt Eisblau (`bg-gray-50/70`) seit 2026-10-16 (User: „durchgehend einen Farbton“): Alle uebrigen
+      // Sektionen der Startseite sind weiss, und das Foto laeuft an seinen Raendern ohnehin in Weiss aus.
+      className="relative isolate bg-white px-6 py-20 md:py-28"
     >
       {/* Hintergrund hinter dem Grid: Bild der aufgeklappten Karte, Crossfade beim Wechsel.
           Die Behandlung (Veils + Vignette) liegt seit 2026-08-03 in `PhotoBackdrop` — die
-          Hero-Bereiche der Hub-Seiten nutzen dieselbe Komponente. */}
-      <PhotoBackdrop image={activeImage} />
+          Hero-Bereiche der Hub-Seiten nutzen dieselbe Komponente. Mobil steht das Foto in Fensterhoehe. */}
+      <PhotoBackdrop image={activeImage} mobil="stehend" />
 
       <div className="container relative mx-auto">
         <div className="mb-12 flex flex-col gap-6 md:mb-16 lg:flex-row lg:items-end lg:justify-between">
@@ -68,7 +70,7 @@ const ServiceGrid: React.FC = () => {
           </a>
         </div>
 
-        <ExpandingCardAccordion items={karten} onActiveImageChange={setActiveImage} />
+        <ExpandingCardAccordion items={karten} onActiveImageChange={setActiveImage} mobilHintergrund />
       </div>
     </section>
   );

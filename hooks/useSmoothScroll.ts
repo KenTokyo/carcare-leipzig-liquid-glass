@@ -21,7 +21,8 @@ import Lenis from 'lenis';
  *   scrollt das window programmatisch → scroll-Events feuern weiter → Hook laeuft unveraendert.
  * - `html { scroll-behavior: smooth }` wurde in `index.css` entfernt: Lenis besitzt die
  *   Glaettung jetzt, die CSS-Regel wuerde native Spruenge doppelt animieren.
- * - `anchors: true` uebernimmt In-Page-Anker (#contact-schaden …). BEWUSST ohne eigenen
+ * - In-Page-Anker (#contact-schaden …) scrollt Lenis (seit 2026-10-16 ueber `beiAnkerKlick` statt `anchors: true`,
+ *   Begruendung dort). BEWUSST ohne eigenen
  *   Offset: die Ankerziele tragen bereits `scroll-mt-32` (= 128 px, siehe ContactSection /
  *   ArticleLayout) und Lenis respektiert `scroll-margin-top`. Ein zusaetzlicher Offset
  *   wuerde den Navbar-Abstand doppelt zaehlen (gemessen: 128 + 88 = 216 px statt 128).
@@ -58,10 +59,33 @@ export const useSmoothScroll = (): void => {
   useEffect(() => {
     const lenis = new Lenis({
       lerp: 0.1, // Referenz-Wert (Lenis-Default), aus deren Ausrollkurve verifiziert
-      anchors: true, // Offset kommt aus `scroll-mt-32` der Ziele — hier keinen zweiten setzen
+      // In-Page-Anker uebernimmt seit 2026-10-16 `beiAnkerKlick` unten statt `anchors: true` (Offset weiterhin aus
+      // `scroll-mt-32` der Ziele, hier keinen zweiten setzen).
+      anchors: false,
       allowNestedScroll: true, // innere Scrollbereiche per Mausrad erreichbar — siehe oben
     });
     instance = lenis;
+
+    /**
+     * IN-PAGE-ANKER, ABER NUR WENN NIEMAND DEN KLICK ABGEFANGEN HAT (2026-10-16).
+     * Lenis' eigener Handler (`anchors: true`, lenis.mjs `onClick`) scrollt bei jedem Link auf einen Anker derselben
+     * Seite und fragt `defaultPrevented` nicht ab. Gefunden mit `npm run akkordeon`: Auf /karriere zeigen die
+     * Stellenkarten auf `/karriere#bewerbung`; der erste Tipp soll die Karte nur aufklappen (`preventDefault` in
+     * `ExpandingCardAccordion`), Lenis scrollte trotzdem rund 7.000 px zum Formular. Dasselbe galt fuer jeden Anker, den
+     * der Anfrage-Dialog abfaengt, sobald sein Ziel auf der Seite steht.
+     * Gleiche Bedingung wie bei Lenis (gleicher Host und Pfad, mit Hash), dazu: nicht abgefangen, schlichter Linksklick.
+     * Am `window` und damit nach Reacts Wurzel und dem Dialog-Handler am `document`: Beide haben dann schon entschieden.
+     */
+    const beiAnkerKlick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.composedPath().find((knoten): knoten is HTMLAnchorElement => knoten instanceof HTMLAnchorElement && !!knoten.href);
+      if (!link) return;
+      const ziel = new URL(link.href);
+      const hier = new URL(window.location.href);
+      if (ziel.host !== hier.host || ziel.pathname !== hier.pathname || !ziel.hash) return;
+      lenis.scrollTo(decodeURIComponent(ziel.hash));
+    };
+    window.addEventListener('click', beiAnkerKlick);
 
     // Eigener rAF-Loop statt `autoRaf`, damit der Teardown deterministisch ist.
     let raf = 0;
@@ -73,6 +97,7 @@ export const useSmoothScroll = (): void => {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener('click', beiAnkerKlick);
       lenis.destroy();
       instance = null;
     };

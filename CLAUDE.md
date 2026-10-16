@@ -129,7 +129,8 @@ Vor jeder Aussage über Kontrast, Meta-Längen oder Layout: **messen, nicht sch�
 
 | Befehl | Was er misst | Wann |
 |---|---|---|
-| `npm run kontrast` | WCAG-AA-Kontrast im ausgelieferten HTML, je Route/Breite/Textstelle | nach jeder Farb-, Verlaufs- oder Transparenzänderung |
+| `npm run kontrast` | WCAG-AA-Kontrast im ausgelieferten HTML, je Route/Breite/Textstelle. `-- / --sektionen` misst zusätzlich jeden Sektionskopf und jeden Schritt der gepinnten Abläufe (seit 2026-10-16; die vier festen Stellen treffen die mobilen Fotoflächen nicht sicher) | nach jeder Farb-, Verlaufs- oder Transparenzänderung |
+| `npm run akkordeon` | Bildkarten-Akkordeons mobil (Startseite ×2, /karriere) bei echtem Tipp, CPU 4×: **Layout pro Bild** (hart ab 15 Läufen in 700 ms; mit animierter Höhe waren es 29–40), Animationen abseits des Compositors, Ruhelage nach Tipp und nach Unterbrechung, getippte Karte bleibt im Bild; Hauptthread-Zeit je Bild als Hinweis. `-- --gegenprobe` spielt eine Höhen-Animation ein und verlangt die Meldung | nach jeder Änderung an `ExpandingCardAccordion`, `akkordeonMobil.ts`, `akkordeonKarten.tsx` oder Lenis (`useSmoothScroll`) |
 | `npm run meta` | Title- und Description-Länge gegen 50–60 / 140–160 Zeichen | nach jeder Meta-Änderung |
 | `npm run shots` | Bildschirmfotos je Sektionsgrenze, Desktop + mobil (mobil als Touch-Gerät), dazu **Kontaktbogen** `output/shots/kontaktbogen.html` mit allen Aufnahmen je Seite und Zeitpunkt | vor jedem Review mit dem Kunden |
 | `npm run zielgruppen` | Zielgruppenkarten der Startseite über 15 reale Fenstergrößen: Partner sichtbar (Treffertest), Mausrad erreicht Liste und Kartentext (echtes Rad), Scrollweg bis zur Überdeckung | nach jeder Änderung an `TargetGroupCards`, `ZielgruppenPartner`, `styles/zielgruppen.css` oder Lenis |
