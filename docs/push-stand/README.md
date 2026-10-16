@@ -1,17 +1,17 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 15.10.2026, 02:14, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 16.10.2026, 19:12, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 15.10.2026, 02:14 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 16.10.2026, 19:12 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `35e435b` | `35e435b` | gleich |
-| `2026-10-06-lektorat` | `2abde47` | — | neu, 2 Commit(s) noch nicht auf GitHub |
+| `main` | `0b269a7` | `4c8725b` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `0b269a7` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
 | 16 weitere lokale Branches | – | – | gleich mit GitHub |
 | 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,8 +19,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `283f1c1` | 15.10.2026, 02:13 | oalabhypercode | Mobile-Check: Fußzeile verkleinert (5.21), Stellen-Pop-up kompakt, Messwerkzeug npm run mobil | 15 (3 neu) | package.json | **kommt mit diesem Push** |
-| `2abde47` | 15.10.2026, 02:14 | oalabhypercode | Docs: Mobile-Check Phase 5 als offen markiert (Sichtabnahme User) | 1 | — | **kommt mit diesem Push** |
+| `0b269a7` | 16.10.2026, 19:11 | oalabhypercode | Weiterleitungen der Altseite (R22): 52 × 301, EU-Projektbeschreibung, Wächter | 16 (9 neu) | package.json | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -30,15 +29,16 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run mobil` |
-| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `2abde47`, `283f1c1` |
+| npm-Skripte | neu: `npm run weiterleitungen`, neu: `npm run altseite` |
+| Konfiguration geändert | `vercel.json` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `0b269a7` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
-| Unversioniert | `parallax-scroll-kit/` |
-| Uncommittete Änderungen | keine |
+| Unversioniert | `components/akkordeonMobil.ts`, `docs/mobil-startseite/`, `parallax-scroll-kit/`, `scripts/check-akkordeon.mjs` |
+| Uncommittete Änderungen | 9 Datei(en): `components/AutoDetailingExpertiseSection.tsx`, `components/ExpandingCardAccordion.tsx`, `components/FAQSection.tsx`, `components/PhotoBackdrop.tsx`, `components/ScrollPinnedProcess.tsx`, `components/ServiceGrid.tsx`, `package.json`, `scripts/check-kontrast.mjs` |
 | Lokale Branches ohne GitHub-Gegenstück | 23, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/frosty-chaum-e06c4d`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
 | Weitere Worktrees | 2 |
 | Stash-Einträge | 0 |
@@ -49,9 +49,14 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Punkt | Planung |
 |---|---|
-| Phase 5 — Sichtprüfung mit dem User (Bildschirmfotos je Seite) | `docs/mobile-check/tasks/2026-10-14-mobile-check-tasks.md` |
+| O1 — Live-Prüfung nach dem Deploy (Fund 1) · OALAB, braucht Freigabe zum Push | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+| O2 — Rund um die DNS-Umstellung · OALAB mit KUPPER IT | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+| O3 — Leder-, Stoff- und Kunststoffreparatur (Fund 2) · André | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+| O4 — Branchenverzeichnisse mit alten Daten (Fund 3) · André oder OALAB mit Zugang | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+| O5 — Belege der Altseite nutzen (Fund 4) · Vorschlag, nur auf Zuruf des Users | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-optimierung-tasks.md` |
+| Phase 5 — Build, Doku, Live-Prüfung | `docs/weiterleitungen-altseite/tasks/2026-10-16-weiterleitungen-altseite-tasks.md` |
 
-### Backlog gesamt: 19 offene Punkte
+### Backlog gesamt: 22 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -116,12 +121,15 @@ Quelle: `docs/backlog/schleife-6.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 7 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 10 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
 | R5 | Impressumsangaben vervollständigen. Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer… | offen · Berufsbezeichnung geliefert (4.11: „Meisterbetrieb… | André |
 | R6 | Datenschutzerklärung schreiben. `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nach… | offen · Zeitpunkt: zum Schluss (User 2026-09-16) · neues Pf… | André + Datenschutzbeauftragt… |
+| R22 | Weiterleitungen der alten Adressen. Die Altseite hat 48 Seitenadressen und 6 verlinkte PDFs; auf der neuen Se… | 🟨 umgesetzt 2026-10-16: 52 Weiterleitungen (301) aus einer… | OALAB |
+| R23 | Layout-Sprung (CLS) 1,0 mobil durch die Fußzeile. Seit dem Mobile-Check (15.10.) rendert die Fußzeile zuerst… | offen, aufgenommen 2026-10-16 (Audit) | OALAB |
+| R24 | Eigene 404-Seite wird nicht ausgeliefert. Unbekannte Adressen zeigen Vercels Textseite „NOT_FOUND“ (79 Byte)… | offen, aufgenommen 2026-10-16 (Audit) | OALAB |
 | – | Anhalte-Möglichkeit für die drei automatisch laufenden Videos (WCAG 2.2.2: Bewegung über 5 s braucht Pause/St… | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/20… | OALAB |
 | – | Drohnen- und Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte 3.23… | 🟨 teilweise — am 2026-09-23 sind 3 der 12 Drohnenclips als… | OALAB |
 | R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
