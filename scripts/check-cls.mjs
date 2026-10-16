@@ -41,6 +41,9 @@
 //     und werden hier gemessen; nur das Timing weicht vom ersten Besuch ab.
 //  6. BESTAETIGUNG: Ein echter Timing-Fehler, der einzeln seltener als in jedem dritten Lauf auftritt, kann in den zwei
 //     Nachmessungen ausbleiben und landet dann als „nur unter Last“ bei den Hinweisen. Diese Hinweise also lesen.
+//  7. FREMDLAST: Laufen auf demselben Rechner andere Builds oder Messungen (parallele Sitzung), verfaelscht das auch die
+//     Einzelbestaetigung. 2026-10-17: `/innenaufbereitung-leipzig` bei 1366 lokal hart bestaetigt (0,120), auf der
+//     Vorschau mit demselben Code in vier Laeufen 0,000. Einen harten Befund dann live gegenpruefen, bevor er gilt.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

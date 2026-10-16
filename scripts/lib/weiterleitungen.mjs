@@ -132,11 +132,21 @@ const KOPF = [
 
 const alsRegex = (pfad) => `^${pfad.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`;
 
+/**
+ * 404-SEITE (2026-10-17, Backlog R24): Der Prerender schreibt `dist/404.html`. Vercel liefert sie fuer unbekannte
+ * Adressen von selbst aus; Apache und nginx brauchen dafuer je eine Zeile. Sie steht mit in der Uebergabe, weil die
+ * Datei beim Umzug sonst nur unter `/404.html` erreichbar waere und der Server wieder seine eigene Fehlerseite zeigt.
+ */
+const FEHLERSEITE_404 = '/404.html';
+
 /** Apache (mod_alias). `RedirectMatch` mit Anker, weil `Redirect` nach Praefix trifft. In die .htaccess im Web-Root. */
 export const fuerApache = () =>
   [
     ...KOPF.map((z) => `# ${z}`),
     '# Apache: in die .htaccess im Web-Root (mod_alias).',
+    '',
+    `# Eigene 404-Seite fuer unbekannte Adressen (Backlog R24), Status bleibt 404.`,
+    `ErrorDocument 404 ${FEHLERSEITE_404}`,
     '',
     ...WEITERLEITUNGEN.map(({ von, nach }) => `RedirectMatch ${STATUS} ${alsRegex(von)} ${nach}`),
     '',
@@ -147,6 +157,9 @@ export const fuerNginx = () =>
   [
     ...KOPF.map((z) => `# ${z}`),
     '# nginx: im server-Block, in Plesk unter „Zusätzliche nginx-Anweisungen“.',
+    '',
+    `# Eigene 404-Seite fuer unbekannte Adressen (Backlog R24), Status bleibt 404.`,
+    `error_page 404 ${FEHLERSEITE_404};`,
     '',
     ...WEITERLEITUNGEN.map(({ von, nach }) => `location = ${von} { return ${STATUS} ${nach}; }`),
     '',

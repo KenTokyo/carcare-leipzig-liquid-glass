@@ -2,6 +2,9 @@
 # ERZEUGT aus scripts/lib/weiterleitungen.mjs mit `npm run vercel-config`. Nicht von Hand bearbeiten.
 # Apache: in die .htaccess im Web-Root (mod_alias).
 
+# Eigene 404-Seite fuer unbekannte Adressen (Backlog R24), Status bleibt 404.
+ErrorDocument 404 /404.html
+
 RedirectMatch 301 ^/carcarecenter\.html$ /ueber-uns
 RedirectMatch 301 ^/carcarecenter/referenzen\.html$ /geschaeftskunden
 RedirectMatch 301 ^/carcarecenter/bildergalerie\.html$ /ueber-uns

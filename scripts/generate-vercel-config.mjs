@@ -20,6 +20,8 @@
 // 404-Seite rendern — ein Soft-404. Das ist laut SEO-GEO-STANDARDS.md §2.4 (korrekte
 // Statuscodes) unerwuenscht. Mit der expliziten Liste bleiben unbekannte Pfade echte
 // 404er, waehrend jede echte Route zuverlaessig ausgeliefert wird.
+// Seit 2026-10-17 (Backlog R24) liefert Vercel dafuer unsere eigene Seite aus: `dist/404.html`
+// aus dem Prerender, mit Status 404. Geprueft wird das am Deployment (`npm run smoke`).
 //
 // REIHENFOLGE BEI VERCEL: Redirects -> Dateisystem -> Rewrites. Die statischen
 // Prerender-Dateien gewinnen also weiterhin; die Rewrites greifen nur als Netz.

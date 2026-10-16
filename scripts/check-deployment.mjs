@@ -289,6 +289,24 @@ if (!lokal) {
   else console.log(`\n[smoke] HINWEIS: ${text}`);
 }
 
+// ---------- 404-Seite (2026-10-17, Backlog R24) ----------
+// Eine Adresse, die es nicht gibt, muss Status 404 liefern UND unsere Seite (Navbar, Fusszeile, Ausgaenge), nicht
+// Vercels Textseite „NOT_FOUND“. Beides getrennt: 200 mit unserer Seite waere ein Soft-404 (Sammel-Rewrite), 404 mit
+// Vercels Text heisst, `dist/404.html` fehlt im Deployment.
+{
+  const probe = `/cc-gibt-es-nicht-${Date.now()}`;
+  try {
+    const res = await fetch(basis + probe, { redirect: 'manual' });
+    const html = await res.text();
+    const unsere = /<title>[^<]*nicht gefunden/i.test(html) && /name="robots" content="noindex/i.test(html);
+    if (res.status !== 404) fehler.push(`404-Seite: ${probe} liefert HTTP ${res.status} statt 404${unsere ? ' (Soft-404)' : ''}`);
+    else if (!unsere) fehler.push(`404-Seite: ${probe} liefert 404, aber nicht unsere Seite (${html.length} Byte, dist/404.html fehlt?)`);
+    else console.log(`\n[smoke] 404-Seite: ${probe} → 404 mit eigener Seite (${(html.length / 1024).toFixed(0)} KB, noindex).`);
+  } catch (err) {
+    fehler.push(`404-Seite: nicht erreichbar — ${err.message}`);
+  }
+}
+
 if (fehler.length) {
   console.error(`\n[smoke] FEHLGESCHLAGEN — ${fehler.length} Befund(e):\n`);
   for (const f of fehler) console.error('  - ' + f);

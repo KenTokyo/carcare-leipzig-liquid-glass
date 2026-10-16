@@ -41,12 +41,16 @@ const SEOHead: React.FC<SEOHeadProps> = ({ canonical, description, noindex, og, 
     const ogImage = og?.image ?? 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2400&auto=format&fit=crop';
 
     document.title = title;
-    ensureCanonical(absoluteCanonical);
+    // `noindex` hat nur die 404-Seite (2026-10-17, Backlog R24). Sie steht fuer jede unbekannte Adresse und hat keine
+    // bevorzugte: kein Kanonisch-Link und keine og:url, wie im vorgerenderten `dist/404.html` (scripts/prerender.mjs).
+    // Bis dahin zeigte der Kanonisch-Link auf die kaputte Adresse selbst.
+    if (noindex) document.querySelector('link[rel="canonical"]')?.remove();
+    else ensureCanonical(absoluteCanonical);
     setMeta('meta[name="description"]', 'content', description);
     setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, nofollow' : 'index, follow');
     setMeta('meta[property="og:title"]', 'content', ogTitle);
     setMeta('meta[property="og:description"]', 'content', ogDescription);
-    setMeta('meta[property="og:url"]', 'content', absoluteCanonical);
+    if (!noindex) setMeta('meta[property="og:url"]', 'content', absoluteCanonical);
     setMeta('meta[property="og:type"]', 'content', og?.type ?? 'website');
     setMeta('meta[property="og:image"]', 'content', ogImage);
     setMeta('meta[name="twitter:title"]', 'content', ogTitle);

@@ -49,7 +49,18 @@ const STRICT = process.env.PRERENDER_STRICT === '1' || AUF_VERCEL;
 
 const routes = getRoutes().map((r) => r.path);
 
+/**
+ * 404-SEITE (2026-10-17, Backlog R24). Vercel liefert fuer jede Adresse ohne Datei und ohne Regel die `404.html` aus
+ * dem Ausgabeordner aus, mit Status 404. Fehlte sie, kam Vercels nackte Textseite „NOT_FOUND“ (79 Byte, keine
+ * Navigation). Gerendert wird eine Adresse, die es nicht gibt; die App zeigt dort `NotFoundPage` mit Navbar und
+ * Fusszeile. Kein Suchindex-Eintrag, kein Kanonisch-Link (eine 404-Seite hat keine bevorzugte Adresse), und kein
+ * Sammel-Rewrite in `vercel.json`: Der gaebe Status 200 (Soft-404), siehe `generate-vercel-config.mjs`.
+ */
+const SEITE_404 = '/404';
+if (routes.includes(SEITE_404)) throw new Error(`[prerender] ${SEITE_404} ist eine echte Route, die 404-Seite braucht einen anderen Pfad.`);
+
 function outPathFor(route) {
+  if (route === SEITE_404) return join(distDir, '404.html');
   return route === '/' ? join(distDir, 'index.html') : join(distDir, route, 'index.html');
 }
 
@@ -158,7 +169,7 @@ async function run() {
   /** Auszuege fuer die globale Suche, je Route einer (scripts/lib/suchindex.mjs). */
   const suchSeiten = [];
   try {
-    for (const route of routes) {
+    for (const route of [...routes, SEITE_404]) {
       const page = await browser.newPage();
       /**
        * Unbehandelte Ausnahmen der Seite als solche melden — und sofort.
@@ -207,7 +218,7 @@ async function run() {
         // Suchindex: aus derselben, fertig gerenderten und durchgescrollten Seite, die gleich als
         // HTML gespeichert wird. `u` aus der Routenliste, nicht aus `location` — so passt der
         // Eintrag garantiert zur Pruefung unten.
-        suchSeiten.push({ ...(await page.evaluate(SUCH_AUSZUG)), u: route });
+        if (route !== SEITE_404) suchSeiten.push({ ...(await page.evaluate(SUCH_AUSZUG)), u: route });
 
         // NUR DIE VORLAGE IN <body> (2026-10-16, Backlog R28). Portale rendern ausserhalb von #root direkt in <body>
         // (Stellen-Pop-up auf /karriere). Der Snapshot hielt das Pop-up mitten in seiner Einblend-Animation fest
@@ -262,6 +273,16 @@ async function run() {
         );
         // Ein danach leeres class="" ganz weglassen statt als Rest stehen zu lassen.
         html = html.replace(/(<html\b[^>]*?)\s+class=""/i, '$1');
+        if (route === SEITE_404) {
+          // Kanonisch-Link und og:url zeigten sonst auf den Renderpfad `/404`; die Datei steht aber fuer jede unbekannte
+          // Adresse. Im Browser setzt SEOHead beides fuer den echten Pfad neu.
+          html = html.replace(/<link[^>]*rel="canonical"[^>]*>\s*/i, '').replace(/<meta[^>]*property="og:url"[^>]*>\s*/i, '');
+          // Die H1 setzt jedes Wort in ein eigenes <span> (`GanzwortTitel`), deshalb erst die Tags heraus.
+          const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+          if (!/name="robots" content="noindex/i.test(html) || !/nicht gefunden/i.test(h1)) {
+            throw new Error('404.html ohne noindex oder ohne Ueberschrift „nicht gefunden“ (NotFoundPage geaendert?)');
+          }
+        }
         const outPath = outPathFor(route);
         mkdirSync(dirname(outPath), { recursive: true });
         writeFileSync(outPath, `<!DOCTYPE html>\n${html.replace(/^<!DOCTYPE html>/i, '').trimStart()}`);
@@ -279,7 +300,7 @@ async function run() {
     await closeServer();
   }
 
-  console.log(`[prerender] Fertig: ${ok}/${routes.length} Routen als statisches HTML.`);
+  console.log(`[prerender] Fertig: ${ok}/${routes.length + 1} Seiten als statisches HTML (${routes.length} Routen und 404.html).`);
   if (failed.length) {
     bail(`${failed.length} Route(n) fehlgeschlagen: ${failed.join(', ')}`);
   }

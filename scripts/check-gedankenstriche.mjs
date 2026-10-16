@@ -70,6 +70,8 @@ const sammle = (ordner) => {
     const p = path.join(ordner, e.name);
     if (e.isDirectory()) sammle(p);
     else if (e.name === 'index.html') seiten.push(p);
+    // Seit 2026-10-17 (R24) liefert der Prerender auch die 404-Seite aus; Textregel 6 gilt dort genauso.
+    else if (e.name === '404.html' && ordner === DIST) seiten.push(p);
   }
 };
 if (!fs.existsSync(DIST)) {
@@ -81,7 +83,7 @@ sammle(DIST);
 const funde = [];
 for (const datei of seiten.sort()) {
   const rel = path.relative(DIST, path.dirname(datei)).split(path.sep).join('/');
-  const route = rel ? `/${rel}` : '/';
+  const route = path.basename(datei) === '404.html' ? '/404.html' : rel ? `/${rel}` : '/';
   const html = fs.readFileSync(datei, 'utf8');
   const quellen = [['Text', sichtbarerText(html)], ...kopfText(html)];
   for (const [wo, text] of quellen) {
