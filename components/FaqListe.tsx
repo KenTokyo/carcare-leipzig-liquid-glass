@@ -30,9 +30,13 @@ import { RAND, freierBereich, gleitenUm } from '../lib/freierBereich';
  * `h3` (Überschriften-Navigation, ARIA-APG-Muster für Akkordeons).
  */
 
-/** Dauer (s) und Kurve des Aufklappens; das gleichzeitige Nachscrollen nutzt dieselbe Kurve, bei langen Wegen länger. */
-const DAUER = 0.36;
-const KURVE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+/**
+ * Dauer (s) und Kurve des Aufklappens; das gleichzeitige Nachscrollen nutzt dieselbe Kurve, bei langen Wegen länger.
+ * Kurve seit 2026-10-18 die gleichmäßige S-Kurve `ease` wie bei den Karten (`MOBIL_BEWEGUNG` in `akkordeonMobil.ts`,
+ * Rückmeldung „zu bouncy“): Die frühere [0.22, 1, 0.36, 1] schnellte los und kroch dann.
+ */
+const DAUER = 0.4;
+const KURVE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 const UEBERGANG: React.CSSProperties = {
   transitionDuration: `${DAUER}s`,
   transitionTimingFunction: `cubic-bezier(${KURVE.join(', ')})`,
@@ -41,9 +45,9 @@ const UEBERGANG: React.CSSProperties = {
 const anfang = (faqs: FAQItem[]): ReadonlySet<string> => new Set(faqs[0] ? [faqs[0].id] : []);
 
 /**
- * Dauer des Nachgleitens: mindestens so lang wie das Aufklappen, bei langen Wegen länger. Die Kurve startet mit rund
- * 4,5-facher Durchschnittsgeschwindigkeit; mit 1,14 ms je Pixel bleibt die Spitze unter 4 px/ms. Gemessen am 17.10.: Mit
- * fester Dauer glitt /fahrzeugaufbereitung-leipzig 463 px in 0,36 s, Spitze 5,2 px/ms, das wirkte hastig.
+ * Dauer des Nachgleitens: mindestens so lang wie das Aufklappen, bei langen Wegen länger (1,14 ms je Pixel, höchstens
+ * 0,9 s). Gemessen am 17.10.: Mit fester Dauer glitt /fahrzeugaufbereitung-leipzig 463 px in 0,36 s, Spitze 5,2 px/ms,
+ * das wirkte hastig. Mit der Kurve `ease` (Spitze 2,8-faches Mitteltempo) bleibt die Spitze damit unter 2,5 px/ms.
  */
 const gleitDauer = (dy: number) => Math.min(0.9, Math.max(DAUER, (Math.abs(dy) * 1.14) / 1000));
 

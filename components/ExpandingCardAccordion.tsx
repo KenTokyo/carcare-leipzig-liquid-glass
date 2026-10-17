@@ -5,7 +5,7 @@ import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
 import GanzwortTitel from './GanzwortTitel';
 import { KARTEN_UEBERGANG, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
-import { STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon } from './akkordeonMobil';
+import { MOBIL_BEWEGUNG, STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon } from './akkordeonMobil';
 import type { BereichsAngabe } from '../data/services';
 
 /**
@@ -210,7 +210,9 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
   // Exakt das sichtbare Kartenbild — damit der Section-Hintergrund 1:1 dem Hover entspricht.
   const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
   // Gilt fuer Foto und Video gleich: Zoom beim Aufklappen, Graustufen bei gedaempften Karten.
-  const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
+  // Mobil laeuft der Zoom seit 2026-10-18 mit Dauer und Kurve des Aufklappens (`MOBIL_BEWEGUNG`, 0,65 s, `ease`): Mit
+  // `ease-out` (Start mit Hoechsttempo) schnellte er wie die alte Kartenkurve los und trug zum „Federn“ bei.
+  const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out max-lg:duration-[650ms] max-lg:ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
   // Mobile Ruhelage von Fenster, Inhalt und Bildebene (akkordeonMobil.ts); am Desktop keine Inline-Transforms.
   const lage = isDesktop ? null : mobilLage(isActive ? mobileActiveHeight : STREIFEN, mobileActiveHeight);
   return (
@@ -471,8 +473,20 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Auf Desktop ist immer genau eine Karte offen, der Hintergrund bleibt also stehen,
   // auch wenn die Maus den Strip verlaesst. Mobil nur mit `mobilHintergrund` (seit 2026-10-16),
   // sonst `null`. Deckt Mount (active=0) + jeden Wechsel ab.
+  // MOBIL ERST NACH DER BEWEGUNG (seit 2026-10-18, Rueckmeldung „unflüssig“): Bis dahin wechselte das fensterhohe Foto
+  // 35 ms nach dem Tipp, also mitten im Aufklappen und Mitgleiten; Dekodieren und Ueberblenden fielen auf dem Telefon
+  // genau in diese Bilder. Jetzt meldet die Karte ihr Foto mobil erst, wenn die Bewegung steht (`MOBIL_BEWEGUNG`); ein
+  // neuer Tipp davor verwirft den alten Wechsel. Erster Bericht und Desktop sofort.
+  const fotoGemeldet = useRef(false);
   useEffect(() => {
-    onActiveImageChange?.(isDesktop || mobilHintergrund ? items[active]?.backgroundImage ?? DEFAULT_CARD_BG : null);
+    const bild = isDesktop || mobilHintergrund ? items[active]?.backgroundImage ?? DEFAULT_CARD_BG : null;
+    if (isDesktop || !fotoGemeldet.current || !bild) {
+      fotoGemeldet.current = true;
+      onActiveImageChange?.(bild);
+      return;
+    }
+    const zeit = window.setTimeout(() => onActiveImageChange?.(bild), MOBIL_BEWEGUNG.dauer * 1000);
+    return () => window.clearTimeout(zeit);
   }, [active, isDesktop, mobilHintergrund, items, onActiveImageChange]);
 
   return (

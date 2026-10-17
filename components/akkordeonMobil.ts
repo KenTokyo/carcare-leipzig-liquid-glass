@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import { KARTEN_UEBERGANG } from './akkordeonKarten';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { gleitenUm, mittigeOberkante } from '../lib/freierBereich';
 
@@ -72,9 +71,22 @@ export const mobilLage = (sichtbar: number, hoehe: number): Record<Teil, string>
 export const mobilSchatten = (sichtbar: number, hoehe: number): number =>
   hoehe > STREIFEN ? Math.min(1, Math.max(0, (sichtbar - STREIFEN) / (hoehe - STREIFEN))) : 1;
 
+/**
+ * DAUER UND KURVE MOBIL (seit 2026-10-18, Rückmeldung vom Handy: „viel zu bouncy und unflüssig … weniger bouncy, aber
+ * dafür flüssiger“). Bis dahin galt hier die Desktop-Kurve `KARTEN_UEBERGANG` ([0.22, 1, 0.36, 1], 0,6 s): Sie legt in den
+ * ersten 10 % der Zeit 40 % des Weges zurück (Start mit 4,5-fachem Mitteltempo) und kriecht dann; gemessen schnellte die
+ * Karte in 60 ms um 44 % ihres Weges los. Weil Aufklappen und Mitgleiten gleichzeitig so losschnellten und dann langsam
+ * ausliefen, las sich das als Federn.
+ * Jetzt die gleichmäßige S-Kurve `ease` ([0.25, 0.1, 0.25, 1]): weicher Anfang (0,45-faches Mitteltempo), Spitze 2,8-fach
+ * bei gut einem Viertel der Zeit, sanftes Ende ohne Kriechen. 0,65 s. Gilt für Aufklappen UND Mitgleiten, damit beide eine
+ * Bewegung bleiben; am Desktop unverändert `KARTEN_UEBERGANG` (Breite per `flexGrow`). Vergleich weiterer Kurven:
+ * docs/mobil-akkordeon-faq/tasks/ (Phase 8).
+ */
+export const MOBIL_BEWEGUNG = { dauer: 0.65, kurve: [0.25, 0.1, 0.25, 1] as [number, number, number, number] };
+
 const TIMING: KeyframeAnimationOptions = {
-  duration: KARTEN_UEBERGANG.duration * 1000,
-  easing: `cubic-bezier(${KARTEN_UEBERGANG.ease.join(', ')})`,
+  duration: MOBIL_BEWEGUNG.dauer * 1000,
+  easing: `cubic-bezier(${MOBIL_BEWEGUNG.kurve.join(', ')})`,
 };
 
 interface Lage {
@@ -177,7 +189,7 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
       }
     });
     // 3. Nach einem Tipp mittig in den freien Bereich gleiten (siehe Kopf), gleichzeitig mit dem Aufgehen.
-    if (zielKarte && alt.mittig) gleitenUm(zielKarte.getBoundingClientRect().top - mittigeOberkante(hoehe), KARTEN_UEBERGANG.duration, KARTEN_UEBERGANG.ease);
+    if (zielKarte && alt.mittig) gleitenUm(zielKarte.getBoundingClientRect().top - mittigeOberkante(hoehe), MOBIL_BEWEGUNG.dauer, MOBIL_BEWEGUNG.kurve);
   }, [offen, aktiv, hoehe]);
 
   // Wechsel auf Desktop oder Abbau: nichts weiterlaufen lassen.

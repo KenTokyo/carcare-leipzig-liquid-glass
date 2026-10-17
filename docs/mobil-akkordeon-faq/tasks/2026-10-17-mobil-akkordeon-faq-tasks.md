@@ -4,9 +4,9 @@
 **Vorgänger:** `docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-tasks.md` (Phasen 1–13, Galaxy A56, iPhone)
 **Optimierungsplan:** `2026-10-17-mobil-akkordeon-faq-optimierung-tasks.md` (gleicher Ordner)
 
-**Status:** Phasen 1–6 umgesetzt, alle Messwerkzeuge gegen den Endstand (Build 18.10.2026, 00:11:45) grün, Gegenproben
-grün. Nicht committet, nicht gepusht. Offen: Sichtabnahme auf A56 und iPhone (nach Push), Entscheidung zu R30 (Schleier
-in den gepinnten Abläufen).
+**Status:** Phasen 1–6 gepusht (`e945ddb`, 18.10. 00:42). Phase 7 (R30, Abläufe ohne Schleier) und Phase 8 (ruhigere
+Bewegung nach Rückmeldung vom Handy) umgesetzt, alle Messwerkzeuge gegen Build 18.10.2026, 01:12:37 grün. Offen:
+Sichtabnahme am Telefon.
 
 **Auftrag des Users (gekürzt, 2026-10-17):**
 1. „Jedes Mal, wenn ich auf ein Akkordeon klicke, wird es nach unten geöffnet … bei dem Bildschirm auf 60 % Höhe die
@@ -278,6 +278,50 @@ Schleier wie bei den Karten (`.cc-guard-mobil-licht`, 60 %), unten Auslauf ins W
   Lage unverändert (Kopf 191–341, Karte 449–749; Aufbereitung 189–309 und 417–717). Bildschirmfotos
   `ablauf-vorher-*.png` und `ablauf-nachher-*.png` im Scratchpad.
 * [x] Desktop (1440 × 900) unberührt: Bühne `overflow: visible`, keine Fläche am Kopf, mobile Ebenen `display: none`.
+
+### ✅ Phase 8 — Aufklappen ruhiger und flüssiger (Rückmeldung vom Handy, 2026-10-18)
+**Auftrag:** „Nun wird es sauber angezeigt im Zentrum des Displays, aber der Effekt, wenn es aufklappt, ist viel zu bouncy
+und unflüssig. Bitte mach es weniger bouncy, aber dafür flüssiger.“ (Branch `2026-10-18-akkordeon-bewegung`)
+**Analyse (gerechnet, Kurve der Karten `[0.22, 1, 0.36, 1]`, 0,6 s, gleich für Aufklappen UND Mitgleiten):**
+
+| Kurve | Start-Tempo | Spitze | 50 % Weg nach | 90 % Weg nach | Weg nach 10 % der Zeit |
+|---|---|---|---|---|---|
+| bisher `[0.22, 1, 0.36, 1]` | 4,5 × Mittel | 5,7 × bei 1 % | 13 % der Zeit | 37 % | 40 % |
+| `ease` `[0.25, 0.1, 0.25, 1]` | 0,45 × | 2,8 × bei 27 % | 29 % | 62 % | 9 % |
+| Material Standard `[0.4, 0, 0.2, 1]` | 0,02 × | 2,9 × bei 35 % | 35 % | 63 % | 3 % |
+
+Bisher schnellen Karte und Seite in 60 ms um 40 % los und kriechen dann fast 0,4 s für die letzten 10 %: zwei
+gleichzeitige Ruckbewegungen mit langem Auslauf, das liest sich als „Federn“. Dazu wechselt mitten in der Bewegung das
+fensterhohe Hintergrundfoto (Dekodieren und Überblenden), auf dem Telefon Last genau in diesen Bildern.
+**Lösungswege:** Feder (Framer `spring`) ohne Überschwingen (läuft auf dem Hauptthread, nicht mit der Compositor-Mechanik
+vereinbar) · nur Dauer verlängern (Ruck bleibt, nur langsamer) · **gewählt:** gleichmäßige S-Kurve `ease`
+(weicher Anfang ohne Ruck, sanftes Ende ohne Kriechen) für Aufklappen und Mitgleiten mobil, 0,65 s, und das
+Hintergrundfoto erst NACH der Bewegung wechseln. Desktop unverändert (`KARTEN_UEBERGANG` für `flexGrow`). Die FAQ
+bekommt dieselbe Kurve (einheitliche Bewegung).
+* [x] `akkordeonMobil.ts`: eigene Bewegung `MOBIL_BEWEGUNG` (0,65 s, `ease` = `[0.25, 0.1, 0.25, 1]`) für FLIP,
+  Schattenebene und Mitgleiten; `KARTEN_UEBERGANG` bleibt für den Desktop.
+* [x] `ExpandingCardAccordion`: Hintergrundfoto mobil erst nach `MOBIL_BEWEGUNG.dauer` melden (neuer Tipp verwirft den
+  alten Wechsel), Bildzoom mobil mit derselben Dauer und Kurve (vorher `ease-out` 0,7 s, Start mit Höchsttempo).
+* [x] `FaqListe`: dieselbe Kurve, 0,4 s.
+* [x] **Gemessen (Leistungen, Karte 5 bei 60 % getippt, 393 × 851, ohne Drossel, je 3 Läufe, alle gleich):**
+
+  | | vorher (Build 00:57:14) | nachher (Build 01:12:37) |
+  |---|---|---|
+  | Weg nach 60 ms | 44 % | **10 %** |
+  | Weg nach 120 ms | 72 % | **31 %** |
+  | Weg nach 300 ms | 97 % | 82 % |
+  | schnellstes Bild | 1,41–1,51 px/ms | **0,82–0,84 px/ms** |
+  | Karte steht (unter 1 px vom Ziel) | 460 ms, danach Kriechen bis 600 ms | 628 ms, Ende mit der Animation |
+  | Hintergrundfoto wechselt | nach 35–37 ms (mitten im Losschnellen) | **nach 664–667 ms** (Bewegung fertig) |
+
+  Endlage unverändert mittig (gleiche Strecke −238 px).
+* [x] **Alle Werkzeuge gegen den Endstand (Build 18.10.2026, 01:12:37; enthält Phase 7 und 8):** `kontrast` 6.342 Stellen,
+  0 unter AA · `kontrast -- / --sektionen` 1.026 Stellen, 0 unter AA · `mobil` 29 × 3, 0 harte Befunde, 257 Hinweise wie
+  zuvor · `cls` 29 × 4, 0 Befunde, 0 Hinweise · `aussparung` in Ordnung · `zielgruppen` in Ordnung · `akkordeon` 0
+  Befunde (schnellste Bewegung der getippten Karte 1,5 statt 3,1 px/ms, Mitte +0,1 / +0,4 / −0,5 px, Maus 380 → 380) ·
+  Gegenprobe 3/3, 3/3, 3/3, 3/3 · `faq-mobil` 26 Routen, 0 Befunde · Gegenprobe 2/2, 2/2 · `tote-dateien` keine ·
+  `nav` 16/16 · `meta` 0/29.
+* [ ] **Sichtabnahme am Telefon durch den User** (nach Push): ob die Bewegung jetzt ruhig genug ist, sieht nur das Gerät.
 
 ---
 
