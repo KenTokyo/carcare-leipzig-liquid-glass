@@ -1,27 +1,25 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 17.10.2026, 00:20, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 18.10.2026, 00:42, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 17.10.2026, 00:20 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 18.10.2026, 00:42 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `3c10095` | `85a3820` | 3 vor GitHub (kommt mit dem Push) |
-| `2026-10-16-r23-fusszeile-cls` | `3c10095` | — | neu, 3 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| 16 weitere lokale Branches | – | – | gleich mit GitHub |
-| 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
+| `main` | `e945ddb` | `5021291` | 1 vor GitHub (kommt mit dem Push) |
+| `2026-10-17-mobil-akkordeon-faq` | `e945ddb` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| 2 weitere lokale Branches | – | – | gleich mit GitHub |
+| 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `898251a` | 17.10.2026, 00:19 | oalabhypercode | Layout-Sprünge beim Laden (R23, R28): Fußzeile misst vor dem ersten Bild, Prerender ohne Pop-up-Rest, npm run cls | 8 (3 neu) | package.json | **kommt mit diesem Push** |
-| `ba088bf` | 17.10.2026, 00:19 | oalabhypercode | npm run cls: harte Befunde einzeln bestätigen; Doku nach dem Zusammenführen | 5 | — | **kommt mit diesem Push** |
-| `3c10095` | 17.10.2026, 00:19 | oalabhypercode | Push-Stand-Hook: Übersicht im gepushten Ref prüfen statt im HEAD des Projektordners | 1 | — | **kommt mit diesem Push** |
+| `e945ddb` | 18.10.2026, 00:42 | oalabhypercode | Startseite mobil: Karte öffnet mittig, kein weißer Schleier, FAQ überall als Akkordeon | 23 (6 neu) | package.json | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -31,8 +29,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run cls` |
-| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `3c10095`, `ba088bf`, `898251a` |
+| npm-Skripte | neu: `npm run faq-mobil` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `e945ddb` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -40,20 +38,15 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 26, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `2026-10-06-lektorat`, `aussparung-beschriftete-aktionen`, `claude/affectionate-shirley-ebfce4`, `claude/frosty-chaum-e06c4d`, `claude/hopeful-colden-aa3a3f`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
-| Weitere Worktrees | 5 |
-| Stash-Einträge | 0 |
+| Lokale Branches ohne GitHub-Gegenstück | 1, alle Commits schon auf GitHub: `worktree-service-links-fix` |
+| Weitere Worktrees | 1 |
+| Stash-Einträge | 1 |
 
 ## 5. Inhaltlich offen
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-| Punkt | Planung |
-|---|---|
-| O1 — Kleiner Sprung am Desktop beobachten · OALAB (mit der Sitzung „mobil-startseite“) | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-optimierung-tasks.md` |
-| O2 — Nachweis auf der Vorschau · OALAB, nach dem Push | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-optimierung-tasks.md` |
-| O3 — Felddaten nach dem Livegang · OALAB mit Zugang zur Search Console | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-optimierung-tasks.md` |
-| Phase 4 — Build, alle Messwerkzeuge, Doku, Live-Nachweis | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-tasks.md` |
+Keine offenen Folgepunkte in den berührten Planungsdateien.
 
 ### Backlog gesamt: 22 offene Punkte
 

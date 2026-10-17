@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 18.10.2026, 00:42 | `2026-10-17-mobil-akkordeon-faq`, `main` | `e945ddb` (1) | nein | neue Skripte: faq-mobil |
 | 17.10.2026, 00:20 | `main` | `898251a` `ba088bf` `3c10095` (3) | nein | neue Skripte: cls |
 | 17.10.2026, 00:03 | `main` | `00330ce` (1) | nein | — |
 | 16.10.2026, 22:02 | `2026-10-06-lektorat`, `main` | `5147fa8` (1) | nein | — |
