@@ -42,7 +42,30 @@ import Lenis from 'lenis';
  *   Listenende nur ruckartig (nativ) weitergab. Geprueft von `npm run zielgruppen` (echtes
  *   Mausrad). ⚠️ Nicht mit `overscroll-behavior: contain` kombinieren: Dann haelt Lenis den
  *   Bereich auch an dessen Ende fest (siehe `hasNestedScroll` in lenis.mjs).
+ * - Die Bildschleife laeuft nur, solange Lenis gleitet (seit 2026-10-17, R26). Begruendung und
+ *   Messung unten bei `schritt`.
  */
+
+/**
+ * Lenis, das meldet, sobald es zu gleiten beginnt (R26, 2026-10-17).
+ *
+ * Jede Gleitbewegung beginnt in `scrollTo`: das Mausrad (`onVirtualScroll` ruft `this.scrollTo`, landet also hier),
+ * In-Page-Anker (`beiAnkerKlick`), Hash-Navigation (App.tsx), „Ablauf ueberspringen" (ScrollPinnedProcess), Suche.
+ * Danach steht `isScrolling` auf 'smooth', bis die Animation am Ziel ist oder `stop()`, ein Touch oder ein
+ * `scrollTo` mit `immediate` sie abbricht (lenis.mjs: `reset`). Touch und Tastatur scrollen nativ (`syncTouch` ist
+ * aus), sie brauchen die Schleife nicht; Lenis gleicht dann nur ueber das scroll-Ereignis ab.
+ * Bewusst die Methode und nicht das Ereignis `virtual-scroll` (Vorschlag in Lenis-Issue #549): Das kaeme nur vom
+ * Rad, programmatisches Gleiten bliebe stehen.
+ */
+class WeckendesLenis extends Lenis {
+  /** Wird von `useSmoothScroll` gesetzt: Schleife anwerfen. */
+  beimGleiten = () => {};
+
+  override scrollTo(...argumente: Parameters<Lenis['scrollTo']>) {
+    super.scrollTo(...argumente);
+    if (this.isScrolling === 'smooth') this.beimGleiten();
+  }
+}
 
 let instance: Lenis | null = null;
 
@@ -57,7 +80,7 @@ export const getLenis = (): Lenis | null => instance;
 /** Einmal an der App-Wurzel aufrufen. */
 export const useSmoothScroll = (): void => {
   useEffect(() => {
-    const lenis = new Lenis({
+    const lenis = new WeckendesLenis({
       lerp: 0.1, // Referenz-Wert (Lenis-Default), aus deren Ausrollkurve verifiziert
       // In-Page-Anker uebernimmt seit 2026-10-16 `beiAnkerKlick` unten statt `anchors: true` (Offset weiterhin aus
       // `scroll-mt-32` der Ziele, hier keinen zweiten setzen).
@@ -87,13 +110,43 @@ export const useSmoothScroll = (): void => {
     };
     window.addEventListener('click', beiAnkerKlick);
 
-    // Eigener rAF-Loop statt `autoRaf`, damit der Teardown deterministisch ist.
+    /**
+     * BILDSCHLEIFE NUR, SOLANGE LENIS GLEITET (R26, 2026-10-17).
+     * Bis hierher lief `lenis.raf` in jedem Bild, auch ohne Bewegung, und jeder rAF-Rueckruf erzwingt ein Bild auf dem
+     * Hauptthread. Gemessen (393 × 851, Touch, CPU 4×): im Leerlauf rund 110 Rueckrufe je Sekunde, alle von dieser
+     * Schleife, 430–790 ms Hauptthread in 2 s ohne jede Bewegung; danach 0 Rueckrufe und 4–25 ms. Beim Touch-Scrollen
+     * rund 12 % weniger. Den KARTENTIPP macht das nicht schneller: Laufende Animationen rechnet Chrome ohnehin in jedem
+     * Bild auf dem Hauptthread nach, auch ohne rAF (A/B in der Plan-Datei, Befund R30).
+     * `lenis.raf` tut nur etwas, solange eine Lenis-Animation laeuft. Die Schleife startet deshalb in `scrollTo`
+     * (`WeckendesLenis`) und haelt im ersten Bild an, in dem Lenis nicht mehr gleitet. Vergleich der Wege und
+     * Messung nachher: docs/mobil-startseite/tasks/2026-10-17-r26-lenis-leerlauf-tasks.md.
+     *
+     * ⚠️ WIEDERANLAUF OHNE SPRUNG: Lenis rechnet den Schritt aus der Zeit seit seinem letzten `raf` (`lenis.time`).
+     * Nach einer Pause von Sekunden waere das ein riesiger Schritt, die Seite saesse im ersten Bild am Ziel statt zu
+     * gleiten. Im ersten Bild nach der Pause wird die Uhr deshalb auf genau einen Bildabstand zurueckgestellt, wie es
+     * die durchlaufende Schleife gesehen haette. Der Bildabstand ist der kleinste gemessene (rAF-Zeiten liegen auf
+     * dem Bildtakt, Ruckler machen Abstaende nur laenger). Damit schon das erste Gleiten den Takt kennt (Galaxy A56:
+     * 120 Hz; mit angenommenen 60 Hz waere der erste Schritt doppelt so gross wie frueher), laeuft die Schleife nach
+     * dem Start zehn Bilder lang nur zum Messen (`einmessen`). Ohne Messung gilt 60 Hz.
+     */
+    let einmessen = 10;
     let raf = 0;
-    const loop = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
+    let letztesBild = 0; // Zeit des vorigen Bildes, solange die Schleife laeuft; 0 = sie steht
+    let bildabstand = 1000 / 60;
+    const schritt = (zeit: number) => {
+      raf = 0;
+      if (letztesBild) bildabstand = Math.max(1000 / 240, Math.min(bildabstand, zeit - letztesBild));
+      else lenis.time = zeit - bildabstand;
+      letztesBild = zeit;
+      lenis.raf(zeit);
+      if (einmessen > 0) einmessen--;
+      if (lenis.isScrolling !== 'smooth' && !einmessen) letztesBild = 0;
+      else if (!raf) raf = requestAnimationFrame(schritt);
     };
-    raf = requestAnimationFrame(loop);
+    lenis.beimGleiten = () => {
+      if (!raf) raf = requestAnimationFrame(schritt);
+    };
+    raf = requestAnimationFrame(schritt);
 
     return () => {
       cancelAnimationFrame(raf);
