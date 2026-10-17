@@ -247,6 +247,38 @@ Skripte im Scratchpad dieser Sitzung (`ist-zustand.mjs`, `schleier-ablation.mjs`
 `scripts/check-faq-mobil.mjs`
 `scripts/check-navigation.mjs`
 
+### ✅ Phase 7 — R30: kein weißer Verlauf in den gepinnten Abläufen (User, 2026-10-18)
+**Auftrag:** „Ja, nimm den weißen Verlauf auch in den zwei Ablauf-Sektionen mobil raus (R30), so wie bei den Karten.“
+Betrifft „Unfallschaden? …“ (`AccidentDamageSection`) und „Fahrzeug aufbereiten lassen? …“
+(`DetailingProcessSection`), beide `ScrollPinnedProcess` mit `PhotoBackdrop mobil="flaeche"`.
+**Ist (Build 18.10. 00:11:45, 393 × 851, Bildschirmfotos `ablauf-vorher-*.png`):** Foto über die ganze gepinnte Bühne,
+darüber `.cc-guard-mobil` (Weiß 82 → 78 % bis 62 % der Höhe, dann 50 %, Ausläufe oben und unten, Seitenränder 45 %).
+Kopf 191–341 px, Schrittkarte 449–749 px (Unfall); 189–309 und 417–717 (Aufbereitung).
+**Lösungswege:** Grid-Platzierung wie bei den Karten (Kopf und Karte stehen in EINEM Flex-Container, der am Desktop
+nebeneinander läuft; ein Umbau träfe den Desktop) · Foto per Skript ab der Karte beginnen lassen (ResizeObserver) ·
+**gewählt:** am Kopf eine DECKENDE weiße Fläche von der Bühnenoberkante bis zur Karte, die im Abstand davor (2rem) per
+Kosinus-Verlauf ausläuft. Optisch dasselbe wie „Foto beginnt über der Karte“, CSS-nativ, Desktop unberührt. Bühne mobil
+`overflow-hidden`, damit die Fläche nicht über die Bühne hinausragt. Am Foto der Bühne der gleiche gleichmäßige
+Schleier wie bei den Karten (`.cc-guard-mobil-licht`, 60 %), unten Auslauf ins Weiß.
+* [x] `ScrollPinnedProcess`: Kopf `cc-ablauf-kopf`, Bühne `max-lg:overflow-hidden` (Branch `2026-10-18-ablauf-schleier`).
+* [x] `styles/textschutz.css`: `.cc-ablauf-kopf::before` (mobil, deckend weiß, Kosinus-Auslauf über 2rem bis zur
+  Schrittkarte), `.cc-guard-mobil` entfernt (wurde nur hier genutzt).
+* [x] `PhotoBackdrop` (`flaeche`): `.cc-guard-mobil-licht` (60 %, wie die Karten) und Auslauf unten (80 px) statt
+  `.cc-guard-mobil`.
+* [x] **Gemessen (Build 18.10.2026, 00:57:14, 393 × 851, Unfall-Ablauf bei Schritt 1, Pixel bei DPR 2):**
+
+  | Stelle | vorher | nachher |
+  |---|---|---|
+  | links neben der Überschrift (30 / 200) | 229 231 228 (Foto schimmert durch) | 255 255 255 |
+  | mitten in der Überschrift (380 / 300) | 220 222 215 | 255 255 255 |
+  | rechts am Kopf (700 / 500) | 248 240 225 | 255 255 255 |
+  | links neben dem Fortschritt (30 / 640) | 227 227 229 | 255 255 255 |
+  | rechts neben der Schrittkarte (700 / 860) | 217 217 217 | 224 224 224 (Foto unter 60 % Schleier) |
+
+  Lage unverändert (Kopf 191–341, Karte 449–749; Aufbereitung 189–309 und 417–717). Bildschirmfotos
+  `ablauf-vorher-*.png` und `ablauf-nachher-*.png` im Scratchpad.
+* [x] Desktop (1440 × 900) unberührt: Bühne `overflow: visible`, keine Fläche am Kopf, mobile Ebenen `display: none`.
+
 ---
 
 ## Kommentare

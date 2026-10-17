@@ -62,34 +62,60 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Mobiler Textschutz fuer `PhotoBackdrop` mit `mobil` (2026-10-16, Startseite)
+   Gepinnte Ablaeufe mobil (`ScrollPinnedProcess`, `PhotoBackdrop mobil="flaeche"`): KEIN SCHLEIER MEHR (2026-10-18)
    ---------------------------------------------------------------------------
-   Gilt unter 1024 px fuer Leistungen, Autoaufbereitung und die beiden gepinnten Ablaeufe. Die Flaeche ist dort
-   immer fensterhoch (stehendes Foto bzw. gepinnte Buehne), und Text steht nur in ihrer OBEREN Haelfte: Bei
-   `stehend` laeuft der Sektionskopf oben durch, waehrend das Foto steht; bei der Buehne sitzt der Kopf oben, die
-   Karte (eigener Grund) darunter. Deshalb oben kraeftig, unten leichter: Dort liegen Karten und ihre Zwischenraeume,
-   durch die das Foto sichtbar bleiben soll.
-   DREI SCHICHTEN, von oben nach unten gelistet:
-     1. Rand oben und unten weich ins Weiss, wie die Vignette am Desktop („weicher Uebergang“, User).
-     2. Textschutz senkrecht, bis 62 % der Hoehe mindestens Weiss 78 %. GERECHNET FUER DEN SCHLECHTESTEN FALL, ein
-        schwarzes Foto: Grund dann rgb(199), `gray-600` (Graphit 72 %) darauf 5,26 : 1, `blue-600` 5,94 : 1, beides
-        ueber AA (4,5). Das Foto selbst kann den Kontrast also nicht unter AA druecken, solange der Text in diesen oberen
-        62 % steht (Lage je Fenster nachgemessen, siehe Doku). Gemessen zusaetzlich mit
-        `npm run kontrast -- --sektionen` (Stand: docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-tasks.md).
-     3. Seitenraender leicht aufgehellt, damit die Kante der Sektion nicht hart auf dem Foto steht. */
-.cc-guard-mobil {
-  background:
-    linear-gradient(to bottom, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0) 12%, rgb(255 255 255 / 0) 86%, rgb(255 255 255 / 1) 100%),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.82) 0%, rgb(255 255 255 / 0.78) 62%, rgb(255 255 255 / 0.5) 80%, rgb(255 255 255 / 0.5) 100%),
-    linear-gradient(to right, rgb(255 255 255 / 0.45) 0%, rgb(255 255 255 / 0) 14%, rgb(255 255 255 / 0) 86%, rgb(255 255 255 / 0.45) 100%);
+   Bis 2026-10-18 lag hier `.cc-guard-mobil` ueber dem ganzen Foto der Buehne: oben Weiss 82 → 78 % (Textschutz fuer
+   den Kopf), Auslaeufe oben und unten, Seitenraender 45 %. Der User wollte ihn raus, „so wie bei den Karten“ (R30).
+   Jetzt wie dort: Der Kopf steht auf reinem Weiss, das Foto ist erst ab der Schrittkarte zu sehen.
+
+   `.cc-ablauf-kopf::before` — DECKENDE weisse Flaeche hinter dem Kopf, von oberhalb der Buehne (die Buehne schneidet
+     mobil per `overflow: hidden` an ihrer Oberkante ab) bis zur Schrittkarte. Im Abstand davor (`gap-8` = 2rem) laeuft
+     sie mit dem Kosinus-Verlauf der Fotoauslaeufe aus (flach an beiden Enden, siehe `.cc-auslauf-*`). Optisch dasselbe
+     wie „Foto beginnt ueber der Karte“ bei Leistungen und Autoaufbereitung (`FOTO_UEBER_KARTEN`), aber ohne Umbau: Kopf
+     und Karte stehen hier in EINEM Flex-Container, der am Desktop nebeneinander laeuft. Kein Schleier, durch den das Foto
+     schimmert; der Kopf hat kein Foto mehr hinter sich (`gray-600` auf Weiss 6,92 : 1).
+     `z-index: -1` im Stapel der Buehne (`sticky` bildet einen eigenen): ueber dem Foto (−10), unter dem Text.
+     `-100vh` statt `svh`: Hier darf es zu viel sein (wird abgeschnitten), und `vh` kennt auch Safari vor 15.4.
+   Am Foto selbst der gleichmaessige Schleier der Karten (`.cc-guard-mobil-licht`) und unten der Auslauf ins Weiss
+   (`PhotoBackdrop`). Gemessen: docs/mobil-akkordeon-faq/tasks/2026-10-17-mobil-akkordeon-faq-tasks.md (Phase 7). */
+@media (max-width: 1023px) {
+  .cc-ablauf-kopf {
+    position: relative;
+  }
+
+  .cc-ablauf-kopf::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -100vh;
+    bottom: -2rem;
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 1) calc(100% - 2rem),
+      rgb(255 255 255 / 0.976) calc(100% - 1.8rem),
+      rgb(255 255 255 / 0.905) calc(100% - 1.6rem),
+      rgb(255 255 255 / 0.794) calc(100% - 1.4rem),
+      rgb(255 255 255 / 0.655) calc(100% - 1.2rem),
+      rgb(255 255 255 / 0.5) calc(100% - 1rem),
+      rgb(255 255 255 / 0.345) calc(100% - 0.8rem),
+      rgb(255 255 255 / 0.206) calc(100% - 0.6rem),
+      rgb(255 255 255 / 0.095) calc(100% - 0.4rem),
+      rgb(255 255 255 / 0.024) calc(100% - 0.2rem),
+      rgb(255 255 255 / 0) 100%
+    );
+  }
 }
 
 /* ---------------------------------------------------------------------------
    Mobil `stehend` (Leistungen, Autoaufbereitung): Foto und Textschutz GETRENNT (2026-10-16 abends)
    ---------------------------------------------------------------------------
    Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund mit einem Übergang … soll raus“.
-   Ursache war `.cc-guard-mobil` am STEHENDEN Foto: Der Textschutz fuer den Sektionskopf (bis 62 % Weiss 78–82 %) und
-   die Auslaeufe oben und unten standen beim Durchscrollen der zehn Leistungen dauerhaft hinter den Karten.
+   Ursache war der damalige `.cc-guard-mobil` (bis 2026-10-18, siehe oben) am STEHENDEN Foto: Der Textschutz fuer den
+   Sektionskopf (bis 62 % Weiss 78–82 %) und die Auslaeufe oben und unten standen beim Durchscrollen der zehn
+   Leistungen dauerhaft hinter den Karten.
 
    `.cc-guard-mobil-licht` — am stehenden Foto nur ein gleichmaessiger Schleier: kein Verlauf, kein Band.
      Kein Text liegt dort direkt auf dem Foto (Karten tragen ihren eigenen Grund, die Ratgeber-Zeile ist mobil aus).

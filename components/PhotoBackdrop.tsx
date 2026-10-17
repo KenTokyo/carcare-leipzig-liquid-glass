@@ -120,8 +120,10 @@ export interface PhotoBackdropProps {
    *
    * Unter 1024 px gelten statt der drei Desktop-Ebenen eigene, denn deren Vignette (`closest-side`) liesse auf einem
    * Hochformat nur einen schmalen Streifen in der Mitte frei, genau hinter den Karten. Ab 1024 px aendert sich nichts.
-   *  - `flaeche`: `.cc-guard-mobil` (styles/textschutz.css). Kopf oben, Karte unten, beides steht mit der Buehne still;
-   *    der Textschutz darf also an der Flaeche haengen.
+   *  - `flaeche` (seit 2026-10-18 wie `stehend`, User: den weissen Verlauf in den Ablaeufen „so wie bei den Karten“
+   *    raus, R30): gleichmaessiger Schleier `.cc-guard-mobil-licht` und Auslauf ins Weiss an der Unterkante der Buehne.
+   *    Den Kopf haelt `ScrollPinnedProcess` selbst frei (`.cc-ablauf-kopf`: deckend weiss bis zur Schrittkarte). Bis
+   *    dahin `.cc-guard-mobil` ueber der ganzen Buehne (Weiss 82 → 78 %, durch das das Foto hinter dem Kopf schimmerte).
    *  - `stehend` (seit 2026-10-16 abends, Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund
    *    mit einem Übergang … soll raus“): Am stehenden Foto haengt nur ein gleichmaessiger Schleier
    *    (`.cc-guard-mobil-licht`, Weiss 60 %, Herleitung in styles/textschutz.css), dazu die Auslaeufe ins Weiss an
@@ -255,7 +257,7 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image: angefragt, classNa
               className={`absolute inset-0 ${mobil ? 'max-lg:hidden' : ''}`}
               style={{ background: `radial-gradient(ellipse closest-side at ${GUARD[textGuard].radialCenter}, rgb(255 255 255 / 0) 33%, rgb(255 255 255 / 1) 90%)` }}
             />
-            {mobil && <div className={`${mobil === 'stehend' ? 'cc-guard-mobil-licht' : 'cc-guard-mobil'} absolute inset-0 lg:hidden`} />}
+            {mobil && <div className="cc-guard-mobil-licht absolute inset-0 lg:hidden" />}
           </motion.div>
         )}
       </AnimatePresence>
@@ -273,6 +275,10 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image: angefragt, classNa
           <div className="cc-auslauf-unten absolute inset-x-0 bottom-0 h-20 md:h-28 lg:hidden" />
         </>
       )}
+      {/* `flaeche` (gepinnte Buehne, seit 2026-10-18): nur unten ein Auslauf. Waehrend die Buehne steht, liegt er hinter
+          der Knopfleiste; scrollt sie am Ende weg, endet das Foto nicht mit harter Kante an der naechsten Sektion. Oben
+          haelt `.cc-ablauf-kopf` (ScrollPinnedProcess) den Kopf frei. */}
+      {mobil === 'flaeche' && <div className="cc-auslauf-unten absolute inset-x-0 bottom-0 h-20 lg:hidden" />}
     </div>
   );
 };

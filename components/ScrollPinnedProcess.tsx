@@ -308,20 +308,25 @@ const ScrollPinnedProcess: React.FC<ScrollPinnedProcessProps> = ({
     >
       {/* Sticky-Pin: die 100vh-Buehne haftet am Viewport-Top, bis der Track durch ist.
           Compositor-getrieben → der linke Kopf steht absolut still, kein Bounce beim Scrollen. */}
-      <div className="sticky top-0 h-[100svh] px-6">
+      {/* `max-lg:overflow-hidden` (seit 2026-10-18): schneidet die weisse Flaeche hinter dem Kopf (`.cc-ablauf-kopf`) an der
+          Buehnenoberkante ab; sie reicht bewusst zu weit nach oben, weil der Kopf senkrecht mittig steht. */}
+      <div className="sticky top-0 h-[100svh] px-6 max-lg:overflow-hidden">
         {/* Full-Bleed-Hintergrund: Foto der AKTIVEN Karte ueber die gesamte (gepinnte) Sektion —
             1:1 dieselbe Veil-/Transparenz-Anordnung + Crossfade wie ServiceGrid. Rein visueller
             Layer HINTER dem Content. `-z-10` bleibt im Stacking-Context der Sticky-`div` (sticky
             erzeugt ihn) → hinter Header+Karten, ueber dem weissen Section-Bg.
             SEIT 2026-10-16 `PhotoBackdrop` statt einer Kopie seiner drei Ebenen, und AUCH MOBIL (User: das Foto „auch in
             der mobilen Ansicht“, wie am Desktop). Bis dahin nur ab `lg`, weil die Desktop-Ebenen auf Kopf links und Karte
-            rechts abgestimmt sind; unter 1024 px gilt jetzt der eigene Schutz `.cc-guard-mobil` (`mobil="flaeche"`: die
-            Buehne ist selbst fensterhoch). Keine Rundung: Die Buehne laeuft randlos. */}
+            rechts abgestimmt sind; unter 1024 px gilt eine eigene Fassung (`mobil="flaeche"`: die Buehne ist selbst
+            fensterhoch). SEIT 2026-10-18 OHNE SCHLEIER UEBER DEM KOPF (User: „so wie bei den Karten“, R30): Das Foto traegt
+            nur den leichten Schleier der Karten, der Kopf steht auf deckendem Weiss (`.cc-ablauf-kopf` unten).
+            Keine Rundung: Die Buehne laeuft randlos. */}
         <PhotoBackdrop image={steps[active].image} className="" mobil="flaeche" />
 
         <div className="container relative mx-auto flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14">
-          {/* Links/oben: statischer Header + CTAs + Fortschritt */}
-          <div className="lg:w-[45%]">
+          {/* Links/oben: statischer Header + CTAs + Fortschritt. `cc-ablauf-kopf`: mobil deckend weiss dahinter, bis zur
+              Schrittkarte auslaufend (styles/textschutz.css), damit kein Foto hinter dem Text steht. */}
+          <div className="cc-ablauf-kopf lg:w-[45%]">
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <div className="inline-flex items-center gap-3 rounded-full border border-blue-200 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
                 {badgeIcon}
