@@ -126,7 +126,8 @@ const HeroSection: React.FC = () => {
         {/* EINZIGE Verdunkelungs-Ebene (User-Vorgabe 2026-07-20): radialer Schwarzverlauf mit
             Zentrum in der Ecke oben links — 94 % dort, 45 % in der Bildmitte, 0 % unten rechts.
             Ersetzt die frueheren zwei Ebenen (seitlicher `hero-copy-veil` + vertikaler
-            `bg-gradient-to-t`). Definition inkl. Herleitung `circle` vs `ellipse` in index.css. */}
+            `bg-gradient-to-t`). Definition inkl. Herleitung `circle` vs `ellipse` in index.css; unter 640 px Hoehe
+            mit einem Zusatzstopp fuer die Unterzeile (styles/hero.css, R29). */}
         <div className="hero-radial-veil absolute inset-0" />
         {/* Dezentes Scrim von unten (2026-07-22, User-Vorgabe): gibt der Vertrauensleiste am
             Hero-Fuss Halt, ohne das Motiv insgesamt abzudunkeln. Bewusst nur das untere Drittel
@@ -152,7 +153,9 @@ const HeroSection: React.FC = () => {
           NIEDRIGE TELEFONFENSTER (seit 2026-10-16, User: „In der iPhone 14 Pro Ansicht … sind die Buttons auf der
           Fußzeile der Hero Sektion“): Das reichte nur, solange der Inhalt ins Fenster passt. In Safari mit
           eingeblendeten Leisten bleiben dem iPhone 14 Pro 659 px, die Knoepfe verdeckten die Vertrauensleiste dort um
-          84 px. Unter 800 px Hoehe ziehen `cc-hero-*` (styles/hero.css) die Abstaende zusammen, ohne etwas auszublenden. */}
+          84 px. Unter 800 px Hoehe ziehen `cc-hero-*` (styles/hero.css) die Abstaende zusammen, ohne etwas auszublenden.
+          Unter 640 px Hoehe (iPhone SE und mini in Safari, R29, Variante a des Users) beginnt die Vertrauensleiste beim
+          Laden knapp unter dem Fensterrand; der Kopfblock steht dann mittig zwischen Navigation und Knoepfen. */}
       <div className="cc-hero-rahmen container relative z-10 mx-auto flex min-h-[92svh] flex-col px-5 pb-28 pt-28 md:min-h-[calc(100svh-2rem)] md:px-8 md:pt-32 lg:pb-10 xl:px-10">
         {/* Nur Bewegung, keine Deckkraft: siehe EINBLENDEN oben. */}
         <motion.div
@@ -270,8 +273,9 @@ const HeroSection: React.FC = () => {
         {/* Vertrauensleiste am Hero-Fuss (ersetzt die frueher eigenstaendige TrustBar-Sektion).
             Weisse Schrift liegt auf dem Foto -> `drop-shadow` je Zeile + duenne Trennlinie
             als optischer Halt. Mobile 2x2, ab `md` eine zentrierte Reihe.
-            `data-erster-bildschirm`: muss beim Laden ganz und unverdeckt im Fenster stehen; `npm run mobil` prueft das,
-            auch in den niedrigen Fenstern eines iPhone in Safari (2026-10-16). */}
+            `data-erster-bildschirm`: muss beim Laden ganz und unverdeckt im Fenster stehen oder ganz knapp darunter
+            beginnen (unter 640 px Hoehe, R29), nie angeschnitten; `npm run mobil` prueft das, auch in den niedrigen
+            Fenstern eines iPhone in Safari (2026-10-16) und kleiner Android-Telefone (2026-10-17). */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}

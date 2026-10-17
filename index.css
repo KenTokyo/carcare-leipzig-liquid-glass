@@ -298,7 +298,11 @@ body {
    laesst den Rand fast unveraendert.
 
    Farbe allein haette es nicht getan: Auf rgb(130 130 131) erreicht selbst reines Weiss
-   nur 3.84:1 — der Grund MUSS dunkler werden, rund 20 %. */
+   nur 3.84:1 — der Grund MUSS dunkler werden, rund 20 %.
+
+   ⚠️ ZWEITE FASSUNG unter 640 px Hoehe (R29, 2026-10-17): `styles/hero.css` wiederholt diesen Verlauf mit einem
+   Zusatzstopp 0.62 bei 40 % (die Unterzeile liegt dort auf dem hellen Wandband). Wer hier Stopps aendert, zieht
+   sie dort nach und misst mit `npm run kontrast -- / --fenster=375x548,360x560`. */
 .hero-radial-veil {
   background: radial-gradient(
     circle farthest-corner at 50% 0%,

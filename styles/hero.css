@@ -46,3 +46,50 @@
     row-gap: 0.75rem;
   }
 }
+
+/* NOCH NIEDRIGERE FENSTER (R29, 2026-10-17). Unter 800 px endet die Vertrauensleiste immer bei 556 px (Mindesthoehe des
+   Inhalts, gleich bei 360, 375 und 393 px Breite), passt also erst ab rund 631 px Fensterhoehe ueber die Knoepfe.
+   Gemessen (Build 16.10., 23:30; abgeleitete Fenster, nicht am Geraet): iPhone 13 mini in Safari 375 × 629 1,8 px
+   verdeckt, 375 × 600 31 px, kleines Android mit Chrome-Leisten 360 × 560 71 px, iPhone SE in Safari 375 × 548 83 px.
+
+   ENTSCHEIDUNG DES USERS (2026-10-17, Variante a von zweien, Vergleichsbogen mit Bildschirmfotos): Unter 640 px Hoehe
+   beginnt die Leiste beim Laden UNTER dem Fensterrand und kommt mit dem ersten Wischen ins Bild. Nichts wird
+   ausgeblendet, keine Schrift kleiner. Verworfen: Variante b (Abstaende enger, unter 600 px Slogan einzeilig in 34 statt
+   41,6 px). Sie zeigte alles auf einmal, brauchte dafuer aber den kleineren Slogan und passte unter rund 535 px Hoehe
+   auch nicht mehr.
+
+   UMSETZUNG: Der Kopfblock ist mindestens fensterhoch, abzueglich Seitenrand (`--cc-shell-gap`), Rahmen oben (5.5rem)
+   und Abstand vor der Leiste (1rem), dazu 0.5rem Reserve gegen Rundung: Die Leiste beginnt 8 px unter dem Rand, ihre
+   Trennlinie kann nicht hervorblitzen. `svh` ist die Hoehe mit eingeblendeten Leisten, also genau der Zustand beim
+   Laden, und bleibt beim Einklappen der Leisten stehen: Die Seite springt dabei nicht.
+   `padding-bottom` setzt Slogan, Ueberschrift und Text mittig zwischen Navigation (endet bei 78 px) und Knoepfe
+   (unterste 75 px): gemessen 54 / 53 px bei 548 px Hoehe, 94 / 93 px bei 629 px.
+   Die Grenze 640: Darueber passt die Leiste mit mindestens 9 px Luft (360 × 640), darunter nicht mehr sicher.
+   Nur unter 768 px Breite: Ab `md` endet die Leiste schon bei rund 513 px und passt bis rund 600 px Hoehe; darunter
+   liegen vor allem Telefone im Querformat, und dort reicht schon der Kopfblock unter die Knoepfe (eigene Baustelle).
+   Geprueft von `npm run mobil` (FENSTER_ERSTER_BILDSCHIRM: ganz sichtbar oder ganz knapp unterhalb, nie angeschnitten).
+
+   KONTRAST (gefunden von `npm run kontrast -- / --fenster=375x548,…`): Schleier und Foto wachsen beide mit der
+   Kartenhoehe, das helle Wandband des Motivs liegt deshalb immer bei rund 34 bis 39 % des Schleierradius. Vor R29
+   stand dort die H1 (gross und fett, Soll 3 : 1), mit dem hoeheren Kopfblock die erste Zeile der Unterzeile (Soll
+   4,5 : 1): 4,11 : 1 bei 375 × 548, 4,29 : 1 bei 360 × 560. Ein Stopp 0,62 bei 40 % (die Gerade von 0,94 auf 0,4 hat
+   dort 0,55) hebt die schwaechste Zeile auf 5,08 : 1; der Verlauf oben und unten bleibt, im Bild kaum zu sehen.
+   Verworfen: Unterzeile weiss (5,10 : 1, aenderte aber die Typohierarchie nur auf kleinen Telefonen) und den Kopfblock
+   hoeher setzen (4,2 bis 4,4 : 1, das Band wandert mit). Die Vertrauensleiste liegt im Fussverlauf, mindestens
+   6,29 : 1 nach dem ersten Wischen. */
+@media (max-width: 767px) and (max-height: 639px) {
+  #home .cc-hero-kopf {
+    min-height: calc(100svh - var(--cc-shell-gap) - 6rem);
+    padding-bottom: 5.75rem;
+  }
+
+  #home .hero-radial-veil {
+    background: radial-gradient(
+      circle farthest-corner at 50% 0%,
+      rgb(var(--cc-carbon-rgb) / 0.94) 0%,
+      rgb(var(--cc-carbon-rgb) / 0.62) 40%,
+      rgb(var(--cc-carbon-rgb) / 0.4) 55%,
+      rgb(var(--cc-carbon-rgb) / 0) 100%
+    );
+  }
+}
