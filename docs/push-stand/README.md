@@ -1,17 +1,18 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 18.10.2026, 00:42, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 18.10.2026, 01:44, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 18.10.2026, 00:42 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 18.10.2026, 01:44 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `e945ddb` | `5021291` | 1 vor GitHub (kommt mit dem Push) |
-| `2026-10-17-mobil-akkordeon-faq` | `e945ddb` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `main` | `fa41005` | `77c8c56` | 2 vor GitHub (kommt mit dem Push) |
+| `2026-10-18-ablauf-schleier` | `33b56c0` | — | neu, 1 Commit(s) noch nicht auf GitHub |
+| `2026-10-18-akkordeon-bewegung` | `fa41005` | — | neu, 2 Commit(s) noch nicht auf GitHub |
 | 2 weitere lokale Branches | – | – | gleich mit GitHub |
 | 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,7 +20,8 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `e945ddb` | 18.10.2026, 00:42 | oalabhypercode | Startseite mobil: Karte öffnet mittig, kein weißer Schleier, FAQ überall als Akkordeon | 23 (6 neu) | package.json | **kommt mit diesem Push** |
+| `33b56c0` | 18.10.2026, 01:10 | oalabhypercode | Abläufe mobil: kein weißer Verlauf mehr hinter dem Kopf (R30) | 5 | — | **kommt mit diesem Push** |
+| `fa41005` | 18.10.2026, 01:40 | oalabhypercode | Karten mobil: ruhigeres, flüssigeres Aufklappen (Rückmeldung vom Handy) | 4 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -29,8 +31,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run faq-mobil` |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `e945ddb` |
+| Kontrolle | `git log --oneline -3 main`: oben „Docs: Push-Stand …", darunter `fa41005`, `33b56c0` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -38,7 +39,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 1, alle Commits schon auf GitHub: `worktree-service-links-fix` |
+| Lokale Branches ohne GitHub-Gegenstück | 2, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `worktree-service-links-fix` |
 | Weitere Worktrees | 1 |
 | Stash-Einträge | 1 |
 
