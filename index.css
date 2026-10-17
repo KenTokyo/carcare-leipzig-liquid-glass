@@ -17,6 +17,8 @@
 @import './styles/fusszeile.css';
 /* Hero der Startseite auf niedrigen Telefonfenstern (2026-10-16, iPhone in Safari). */
 @import './styles/hero.css';
+/* FAQ als Akkordeon auf allen Seiten (2026-10-17, `FaqListe`). */
+@import './styles/faq.css';
 
 @tailwind base;
 @tailwind components;

@@ -78,6 +78,9 @@ const MobileStickyCTA: React.FC = () => {
       initial={{ y: 100 }}
       animate={{ y: nearBottom ? 120 : 0 }}
       transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+      // Untere Grenze des freien Bereichs (`lib/freierBereich.ts`, seit 2026-10-17): Karten und FAQ-Antworten sollen mobil
+      // nicht unter dieser Leiste enden. Am Seitenende ausgeblendet, dann zaehlt sie nicht.
+      data-feste-leiste="unten"
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 pointer-events-none"
     >
       {/* Auswahl-Popover ueber der Leiste. Sitzt im selben Container, damit es mit der Leiste

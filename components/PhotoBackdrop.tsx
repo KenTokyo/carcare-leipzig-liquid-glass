@@ -124,14 +124,34 @@ export interface PhotoBackdropProps {
    *    der Textschutz darf also an der Flaeche haengen.
    *  - `stehend` (seit 2026-10-16 abends, Rueckmeldung des Users vom A56: „hinter den Karten … ein weißer Hintergrund
    *    mit einem Übergang … soll raus“): Am stehenden Foto haengt nur ein gleichmaessiger Schleier
-   *    (`.cc-guard-mobil-licht`, Weiss 60 %, Herleitung in styles/textschutz.css). Bis dahin trug es auch den
-   *    Textschutz fuer den Sektionskopf und die Auslaeufe ins Weiss; beim Durchscrollen der zehn Leistungen stand
-   *    beides hinter den Karten. Jetzt haengt der Textschutz am Kopf selbst (`.cc-kopfschutz` am Kopf-Element der
-   *    Sektion, scrollt mit) und die Auslaeufe an Ober- und Unterkante der SEKTION (unten, ausserhalb der stehenden
-   *    Flaeche).
+   *    (`.cc-guard-mobil-licht`, Weiss 60 %, Herleitung in styles/textschutz.css), dazu die Auslaeufe ins Weiss an
+   *    Ober- und Unterkante (unten, ausserhalb der stehenden Flaeche).
+   *    SEIT 2026-10-17 OHNE TEXTSCHUTZ AM KOPF (User: „ein weißes Rechteck, das bis zur Überschrift hin quasi vergeht …
+   *    den vor allem bei den Akkordeons bitte immer weg“). Stattdessen beginnt das Foto unter 1024 px erst 48 px ueber
+   *    der ersten Karte (`FOTO_UEBER_KARTEN`), der Kopf steht auf reinem Weiss und braucht keinen Schutz.
    */
   mobil?: 'stehend' | 'flaeche';
 }
+
+/**
+ * Klassen fuer `mobil="stehend"` in Sektionen mit Kopf ueber Karten (Leistungen, Autoaufbereitung), seit 2026-10-17.
+ *
+ * UNTER 1024 PX BEGINNT DAS FOTO ERST 48 PX UEBER DER ERSTEN KARTE. Bis dahin lag es hinter der ganzen Sektion, auch
+ * hinter dem Kopf, und der Kopf brauchte einen weissen Textschutz (`.cc-kopfschutz`, Weiss 88 % bis 96 px unter den Kopf).
+ * Den sah der User als „weißes Rechteck“ hinter den ersten Karten und wollte ihn weg. Ohne Foto hinter dem Kopf steht der
+ * Text auf reinem Weiss (`gray-600` = Graphit 72 %: 6,92 : 1), ganz ohne Schleier.
+ *
+ * CSS-NATIV, OHNE MESSEN: Die Sektion ist unter 1024 px ein Raster (`max-lg:grid`) mit dem Kopf in Zeile 1 (samt seinem
+ * Abstand nach unten) und den Karten in Zeile 2. Ein absolut positioniertes Kind eines Rasters nimmt seine Rasterflaeche
+ * als Bezug: `row-start-2` = ab der Oberkante der Karten bis zum unteren Innenrand der Sektion, `-top-12` = 48 px davor
+ * (dort laeuft das Foto aus dem Weiss ein, im Abstand zwischen Kopf und Karten). Am Desktop ist die Sektion kein Raster,
+ * die Klassen greifen nicht (`max-lg:`), das Foto liegt wie bisher hinter der ganzen Sektion.
+ * `max-lg:rounded-none`: Mobil beginnt das Foto mitten in der Sektion; runde Ecken zeichneten dort oben die Kante eines
+ * Kastens ins Bild (Aufnahme 390 px, 17.10.).
+ * ⚠️ Nur in einer Sektion mit `max-lg:grid` und genau dieser Zeilenfolge verwenden; sonst ragte `-top-12` 48 px ueber
+ * die Sektion hinaus.
+ */
+export const FOTO_UEBER_KARTEN = 'rounded-[var(--cc-nav-radius)] max-lg:row-start-2 max-lg:-top-12 max-lg:rounded-none';
 
 /**
  * Bild erst zeigen, wenn es dekodiert ist (2026-10-16 abends). Beim Wechsel blendete die neue Ebene sofort ein, waehrend
@@ -240,13 +260,17 @@ const PhotoBackdrop: React.FC<PhotoBackdropProps> = ({ image: angefragt, classNa
         )}
       </AnimatePresence>
       </div>
-      {/* `stehend`, unter 1024 px: Auslauf ins Weiss an Ober- und Unterkante der SEKTION. Ausserhalb der stehenden Flaeche,
-          damit er mit der Sektion scrollt und beim Durchscrollen nicht als Band hinter den Karten steht. `white/0` statt
-          `transparent`: Transparent ist transparentes Schwarz und gaebe einen grauen Saum (siehe Kopf dieser Datei). */}
+      {/* `stehend`, unter 1024 px: Auslauf ins Weiss an Ober- und Unterkante. Ausserhalb der stehenden Flaeche, damit er
+          mit der Sektion scrollt und beim Durchscrollen nicht als Band hinter den Karten steht. `white/0` statt
+          `transparent`: Transparent ist transparentes Schwarz und gaebe einen grauen Saum (siehe Kopf dieser Datei).
+          HOEHEN SEIT 2026-10-17 GENAU DIE FREIEN STREIFEN, nie hinter Karten: oben die 48 px ueber der ersten Karte
+          (`FOTO_UEBER_KARTEN`), unten der Innenabstand der Sektion unter der letzten (`py-20` = 80 px, ab 768 px `py-28`).
+          Vorher 96 und 160 px: Beide liefen hinter die erste bzw. letzte Karte. Verlauf flach an beiden Enden
+          (`.cc-auslauf-*` in styles/textschutz.css), auf 48 px zeigte der lineare eine Kante. */}
       {mobil === 'stehend' && (
         <>
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-white/0 lg:hidden" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white to-white/0 lg:hidden" />
+          <div className="cc-auslauf-oben absolute inset-x-0 top-0 h-12 lg:hidden" />
+          <div className="cc-auslauf-unten absolute inset-x-0 bottom-0 h-20 md:h-28 lg:hidden" />
         </>
       )}
     </div>

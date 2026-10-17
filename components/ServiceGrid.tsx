@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { bereichDesEintrags, overviewServices } from '../data/services';
 import { videoPlatz } from '../data/videos';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
-import PhotoBackdrop from './PhotoBackdrop';
+import PhotoBackdrop, { FOTO_UEBER_KARTEN } from './PhotoBackdrop';
 
 /**
  * Die Kacheldaten liegen zentral in `data/services.ts` — dieselbe Quelle speist die
@@ -46,18 +46,19 @@ const ServiceGrid: React.FC = () => {
       // transform bereits einen Context auf; ohne `isolate` rutschte -z-10 dorthin).
       // WEISS statt Eisblau (`bg-gray-50/70`) seit 2026-10-16 (User: „durchgehend einen Farbton“): Alle uebrigen
       // Sektionen der Startseite sind weiss, und das Foto laeuft an seinen Raendern ohnehin in Weiss aus.
-      className="relative isolate bg-white px-6 py-20 md:py-28"
+      // `max-lg:grid` + Kopf und Karten als zwei Kinder (seit 2026-10-17): Mobil beginnt das Foto erst ueber den Karten
+      // (`FOTO_UEBER_KARTEN`), der Kopf steht auf Weiss und braucht keinen Textschutz mehr. Am Desktop Blockfluss wie bisher;
+      // der Abstand `mb-12` des Kopfes faellt dort durch seinen Container, die Abstaende bleiben gleich.
+      className="relative isolate bg-white px-6 py-20 md:py-28 max-lg:grid"
     >
       {/* Hintergrund hinter dem Grid: Bild der aufgeklappten Karte, Crossfade beim Wechsel.
           Die Behandlung (Veils + Vignette) liegt seit 2026-08-03 in `PhotoBackdrop` — die
           Hero-Bereiche der Hub-Seiten nutzen dieselbe Komponente. Mobil steht das Foto in Fensterhoehe. */}
-      <PhotoBackdrop image={activeImage} mobil="stehend" />
+      <PhotoBackdrop image={activeImage} mobil="stehend" className={FOTO_UEBER_KARTEN} />
 
       <div className="container relative mx-auto">
-        {/* `cc-kopfschutz`: mobil der Textschutz ueber dem stehenden Foto, haengt am Kopf und scrollt mit ihm
-            (styles/textschutz.css). Am Foto selbst liegt mobil nur ein leichter Schleier, damit beim Durchscrollen der
-            Karten kein weisses Band dahinter steht (Rueckmeldung des Users vom A56, 2026-10-16). */}
-        <div className="cc-kopfschutz mb-12 flex flex-col gap-6 md:mb-16 lg:flex-row lg:items-end lg:justify-between">
+        {/* Ohne Textschutz (`.cc-kopfschutz` bis 2026-10-17): Hinter dem Kopf liegt mobil kein Foto mehr, siehe oben. */}
+        <div className="mb-12 flex flex-col gap-6 md:mb-16 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.24em] text-blue-600">Leistungsübersicht</span>
             <h2 id="services-heading" className="text-3xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
@@ -72,7 +73,9 @@ const ServiceGrid: React.FC = () => {
             <ArrowUpRight size={16} />
           </a>
         </div>
+      </div>
 
+      <div className="container relative mx-auto">
         <ExpandingCardAccordion items={karten} onActiveImageChange={setActiveImage} mobilHintergrund />
       </div>
     </section>

@@ -1,0 +1,42 @@
+/* FAQ als Akkordeon auf allen Seiten (`components/FaqListe.tsx`, seit 2026-10-17). Eingebunden per @import oben in
+   index.css.
+
+   HOEHE OHNE MESSEN PER SKRIPT: Die Antwort steht in einem Raster mit EINER Zeile, die von `0fr` auf `1fr` uebergeht;
+   die innere Huelle (`min-height: 0`, `overflow: hidden`) schneidet zu. So waechst die Antwort genau auf ihre echte Hoehe,
+   ohne dass Framer vorher `height: auto` messen muss (das erzwang auf der Startseite ein Layout im ersten Bild).
+   Dauer und Kurve setzt `FaqListe` inline (eine Quelle mit dem Nachscrollen, das gleichzeitig laeuft).
+
+   Layout je Bild bleibt, ist hier aber billig (gemessen 17.10., Startseite, CPU 4×: rund 0,25 ms je Layout, 1,3 ms
+   Hauptthread je Bild). Das Ruckeln, das der User sah, war nicht die Rechenlast, sondern die getippte Frage, die 137 px
+   nach oben wegrutschte, weil die offene Antwort darueber zuklappte. Das verhindert `FaqListe` (Fragen unabhaengig).
+
+   `interpolate-size: allow-keywords` haette dasselbe ohne Raster gekonnt, gibt es aber nur in Chrome/Edge (Stand
+   2026-10), nicht in Safari: Auf iPhones waere die Antwort nur aufgesprungen.
+   Aeltere Browser ohne Uebergang auf `grid-template-rows` (Safari vor 16) springen auf, funktionieren aber. */
+.cc-faq-antwort {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition-property: grid-template-rows;
+}
+
+.cc-faq-antwort[data-offen='true'] {
+  grid-template-rows: 1fr;
+}
+
+.cc-faq-antwort__innen {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Text blendet beim Oeffnen leicht verzoegert ein (die Flaeche ist dann schon ein Stueck offen) und beim Schliessen
+   sofort aus: Zu sehen ist nie halb abgeschnittener Text, der vor der Kante stehen bleibt. Deckkraft laeuft auf dem
+   Compositor. */
+.cc-faq-antwort__innen > * {
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+.cc-faq-antwort[data-offen='true'] .cc-faq-antwort__innen > * {
+  opacity: 1;
+  transition: opacity 280ms ease-out 80ms;
+}

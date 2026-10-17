@@ -97,43 +97,37 @@
      Transparenz“). Bis dahin 30 %; verglichen wurden 30/50/60/70 % mit einem dunklen Motiv (Leasingrueckgabe) als
      offener Karte: Bei 60 % bleibt das Foto erkennbar, draengt sich neben den dunklen Karten aber nicht mehr vor.
 
-   `.cc-kopfschutz` — der Textschutz haengt am Sektionskopf und scrollt mit ihm: eine Flaeche von der Sektionsoberkante
-     (`top` = Innenabstand der Sektion, `py-20` bzw. ab 768 px `py-28`) bis 6rem unter den Kopf, fensterbreit, hinter
-     dem Text (`z-index: -1` im Stapel der Sektion, die per `isolate` einen eigenen bildet; das Foto liegt auf −10).
-     Weiss 88 % bis zum Ende des Kopfes, darunter in 6rem auslaufend. GERECHNET FUER DEN SCHLECHTESTEN FALL (schwarzes
-     Foto, darueber 60 % Schleier): Grund rgb(243), `gray-600` darauf 6,6 : 1, `blue-600` 9,0 : 1, also ueber AA.
-     Der Kopfschutz traegt den Kontrast fuer sich: Mit 30 % Schleier darunter waren es 6,3 und 8,3 : 1. */
+   KEIN TEXTSCHUTZ AM KOPF MEHR (`.cc-kopfschutz`, 2026-10-16 bis 2026-10-17). Er lag als Weiss 88 % von der
+   Sektionsoberkante bis 96 px unter den Kopf und lief damit hinter die erste Karte aus. Der User sah ihn als „weißes
+   Rechteck, das bis zur Überschrift hin quasi vergeht“ und wollte ihn bei den Akkordeons „immer weg“. Seitdem beginnt das
+   Foto mobil erst 48 px ueber der ersten Karte (`FOTO_UEBER_KARTEN` in `PhotoBackdrop`), der Kopf steht auf reinem
+   Weiss und braucht keinen Schutz. Wer das Foto wieder hinter den Kopf legt, braucht wieder einen Schutz (Rechnung fuer
+   den schlechtesten Fall, ein schwarzes Foto unter 60 % Schleier: Grund rgb(153), `gray-600` (Graphit 72 %) darauf nur 3,8 : 1, AA verlangt 4,5). */
 .cc-guard-mobil-licht {
   background: rgb(255 255 255 / 0.6);
 }
 
-@media (max-width: 1023px) {
-  .cc-kopfschutz {
-    position: relative;
-  }
-
-  .cc-kopfschutz::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: -5rem;
-    bottom: -6rem;
-    left: calc(50% - 50vw);
-    right: calc(50% - 50vw);
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgb(255 255 255 / 0.88) 0%,
-      rgb(255 255 255 / 0.88) calc(100% - 6rem),
-      rgb(255 255 255 / 0) 100%
-    );
-  }
+/* ---------------------------------------------------------------------------
+   Auslaeufe des stehenden Fotos ins Weiss (`PhotoBackdrop`, `mobil="stehend"`, seit 2026-10-17)
+   ---------------------------------------------------------------------------
+   Oben nur noch 48 px (Abstand zwischen Kopf und erster Karte), unten der Innenabstand der Sektion. Auf so kurzer
+   Strecke zeigte ein LINEARER Verlauf eine sichtbare Kante: Er endet mit voller Steigung, das Auge liest dort eine Linie
+   (Machsche Baender), gemessen am 17.10. auf der Leistungsuebersicht 390 px: 255 → 163 in 48 px, Knick am Ende.
+   Deshalb Kosinus-Verlauf, flach an beiden Enden: Deckkraft (1 + cos(pi · t)) / 2 in zehn Schritten. */
+.cc-auslauf-oben,
+.cc-auslauf-unten {
+  --cc-auslauf: rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0.976) 10%, rgb(255 255 255 / 0.905) 20%,
+    rgb(255 255 255 / 0.794) 30%, rgb(255 255 255 / 0.655) 40%, rgb(255 255 255 / 0.5) 50%,
+    rgb(255 255 255 / 0.345) 60%, rgb(255 255 255 / 0.206) 70%, rgb(255 255 255 / 0.095) 80%,
+    rgb(255 255 255 / 0.024) 90%, rgb(255 255 255 / 0) 100%;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .cc-kopfschutz::before {
-    top: -7rem;
-  }
+.cc-auslauf-oben {
+  background: linear-gradient(to bottom, var(--cc-auslauf));
+}
+
+.cc-auslauf-unten {
+  background: linear-gradient(to top, var(--cc-auslauf));
 }
 
 @media (max-width: 767px) {

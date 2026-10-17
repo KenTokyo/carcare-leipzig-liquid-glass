@@ -7,6 +7,7 @@ import PhotoBackdrop from './PhotoBackdrop';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
 import GanzwortTitel from './GanzwortTitel';
+import FaqListe from './FaqListe';
 import type { BereichsAngabe } from '../data/services';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
 import { ACHSE, ACHSE_DAUER, ACHSE_KURVE, KARTE, PUNKT, SICHTFELD, SPALTEN, punktVerzoegerung } from './ablaufAnimation';
@@ -442,16 +443,12 @@ export const PricingGrid: React.FC<{
  * kommen ausschliesslich aus `data/faqs.ts`, damit der sichtbare Text und das
  * `FAQPage`-Markup in `seo/pageSchemas.ts` nicht auseinanderlaufen koennen.
  * Waere hier ein `faqs`-Array uebergebbar, waere die Doppelpflege sofort zurueck.
+ *
+ * AKKORDEON WIE AUF DER STARTSEITE seit 2026-10-17 (User: „vereinheitlichst wie auf der Mainpage“). Bis dahin standen
+ * hier alle Antworten offen. Dieselbe Liste wie in `FAQSection` (`FaqListe`); die Antworten bleiben im HTML.
  */
 export const PageFAQ: React.FC<{ route: string }> = ({ route }) => (
-  <div className="space-y-3">
-    {(faqsByRoute[route] ?? []).map((faq) => (
-      <article key={faq.id} className="cc-karte rounded-2xl border border-gray-100 p-6">
-        <GanzwortTitel text={faq.question} className="font-bold leading-tight text-gray-950 [--titel-max:1.125rem]" />
-        <p className="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">{faq.answer}</p>
-      </article>
-    ))}
-  </div>
+  <FaqListe faqs={faqsByRoute[route] ?? []} idPraefix="seiten-faq" />
 );
 
 export const PageCTA: React.FC<{ title: string; description: string; primaryLabel?: string; primaryHref?: string }> = ({

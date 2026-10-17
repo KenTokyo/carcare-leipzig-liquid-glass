@@ -89,6 +89,12 @@ interface GanzwortTitelProps {
    */
   huelle?: string;
   /**
+   * Element der Hülle, Standard `div`. `span` (seit 2026-10-17) dort, wo nur Textinhalt erlaubt ist, etwa im Knopf einer
+   * FAQ-Frage (`FaqListe`): Ein `div` in einem `button` ist ungültiges HTML. Die Hülle wird dann per `block` zum Block,
+   * Container und Rechnung bleiben gleich.
+   */
+  huelleAls?: 'div' | 'span';
+  /**
    * Nur in einer umbrechenden Flex-ZEILE (`flex-wrap`) mit einem Nachbarn, z. B. dem Preis der Preiskachel: Die Hülle
    * verlangt mindestens die Breite, in der das längste Wort bei 16 px passt (`flex-basis` in em der Hülle). Reicht die
    * Zeile dafür nicht, rutscht der Nachbar darunter, statt den Titel klein zu drücken. Gemessen am 03.10.: Neben dem
@@ -98,14 +104,14 @@ interface GanzwortTitelProps {
   id?: string;
 }
 
-const GanzwortTitel: React.FC<GanzwortTitelProps> = ({ text, als: Ebene = 'h3', className, laufweite = 0, punkt = false, huelle = '', mindestens16px = false, id }) => {
+const GanzwortTitel: React.FC<GanzwortTitelProps> = ({ text, als: Ebene = 'h3', className, laufweite = 0, punkt = false, huelle = '', huelleAls: Huelle = 'div', mindestens16px = false, id }) => {
   const woerter = woerterVon(text);
   const laengstes = Math.max(
     0,
     ...woerter.map((wort, i) => breiteEm(wort, laufweite) + (punkt && i === woerter.length - 1 ? PUNKT_EM : 0))
   );
   return (
-    <div className={`[container-type:inline-size] ${huelle}`} style={mindestens16px ? { flexBasis: `${(laengstes * RESERVE).toFixed(3)}em` } : undefined}>
+    <Huelle className={`[container-type:inline-size] ${Huelle === 'span' ? 'block ' : ''}${huelle}`} style={mindestens16px ? { flexBasis: `${(laengstes * RESERVE).toFixed(3)}em` } : undefined}>
       <Ebene
         id={id}
         className={`break-normal hyphens-none ${className}`}
@@ -125,7 +131,7 @@ const GanzwortTitel: React.FC<GanzwortTitelProps> = ({ text, als: Ebene = 'h3', 
           </React.Fragment>
         ))}
       </Ebene>
-    </div>
+    </Huelle>
   );
 };
 
