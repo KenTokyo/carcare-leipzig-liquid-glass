@@ -20,7 +20,8 @@
 //   - NACHBARN: Ein Tipp aendert nur die getippte Frage. Das alte Auto-Schliessen faellt hier auf.
 //   - SPRUNG: Die getippte Frage bewegt sich nie schneller als MAX_TEMPO px/ms zwischen zwei Bildern. Das Nachgleiten
 //     erreicht rund 2 px/ms; das Wegrutschen vom 17.10. waren bis zu 3 px/ms in den ersten Bildern UND ein Wechsel der
-//     Nachbarn, das faellt also spaetestens unter NACHBARN.
+//     Nachbarn, das faellt also spaetestens unter NACHBARN. Gelesen wird nach jedem Bild (`scripts/lib/bahn.mjs`, seit
+//     18.10.): Im rAF-Rueckruf gelesen, meldete der Pruefer nach R26 Scheinspruenge von 14–66 px/ms.
 //   - GANZ SICHTBAR: Nach dem Aufklappen steht die ganze Frage samt Antwort im freien Bereich (zwischen den Leisten mit
 //     `data-feste-leiste`, wie `lib/freierBereich.ts`), sofern sie hineinpasst; die Frage nie unter der Navbar. Zwei
 //     Tipps je Route: eine Frage bei 45 % der Fensterhoehe (passt meist ohne Scrollen) und eine bei 85 % (die Antwort
@@ -43,6 +44,7 @@ import fs from 'node:fs';
 import puppeteer from 'puppeteer';
 import { getRoutes } from './routes.mjs';
 import { startePreview } from './lib/preview-server.mjs';
+import { BAHN, schnellsteBewegung, zuVieleVerworfen } from './lib/bahn.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GEGENPROBE = process.argv.includes('--gegenprobe');
@@ -115,6 +117,7 @@ try {
     const seite = await browser.newPage();
     await seite.evaluateOnNewDocument(() => { try { sessionStorage.setItem('cc-preloader-v1', '1'); } catch { /* egal */ } });
     await seite.evaluateOnNewDocument(HILFEN);
+    await seite.evaluateOnNewDocument(BAHN);
     await seite.setViewport(FENSTER);
     await seite.goto(basis + route, { waitUntil: 'networkidle0', timeout: 45000 });
     const anzahl = await seite.evaluate(() => window.__ccFaq().length);
@@ -177,21 +180,13 @@ try {
         messfehler.push(`${kennung}: Frage ${ziel + 1} liegt nicht frei (Treffertest), Tipp ausgelassen`);
         continue;
       }
-      await seite.evaluate((z) => {
-        const artikel = window.__ccFaq()[z].closest('article');
-        window.__ccBahn = [];
-        window.__ccBahnLauf = true;
-        const tick = (zeit) => {
-          window.__ccBahn.push([zeit ?? performance.now(), artikel.getBoundingClientRect().top]);
-          if (window.__ccBahnLauf) requestAnimationFrame(tick);
-        };
-        tick();
-      }, ziel);
+      await seite.evaluate((z) => window.__ccBahnStart(window.__ccFaq()[z].closest('article')), ziel);
       await seite.touchscreen.tap(punkt.x, punkt.y);
       await warte(1000);
       // Scrollen ausgelaufen: zwei Messungen im Abstand von 200 ms gleich
       await seite.waitForFunction(() => new Promise((r) => { const y = window.scrollY; setTimeout(() => r(window.scrollY === y), 200); }), { timeout: 3000, polling: 250 }).catch(() => {});
-      const bahn = await seite.evaluate(() => { window.__ccBahnLauf = false; return window.__ccBahn; });
+      const proben = await seite.evaluate(() => window.__ccBahnStopp());
+      const { bahn } = proben;
       const ende = await seite.evaluate((z) => {
         const artikel = window.__ccFaq()[z].closest('article').getBoundingClientRect();
         return { offen: window.__ccFaq().map((b) => b.getAttribute('aria-expanded')), oben: artikel.top, unten: artikel.bottom, frei: window.__ccFrei() };
@@ -202,8 +197,8 @@ try {
       if (geaendert.length) befunde.push(`${name}: Tipp aendert auch Frage(n) ${geaendert.join(', ')} (Auto-Schliessen, die getippte Frage rutscht)`);
       if (ende.offen[ziel] !== 'true') befunde.push(`${name}: Frage geht nicht auf`);
       // SPRUNG
-      let tempo = 0;
-      for (let i = 1; i < bahn.length; i++) tempo = Math.max(tempo, Math.abs(bahn[i][1] - bahn[i - 1][1]) / Math.max(1, bahn[i][0] - bahn[i - 1][0]));
+      const tempo = schnellsteBewegung(bahn);
+      if (zuVieleVerworfen(proben)) messfehler.push(`${name}: ${proben.verworfen} von ${bahn.length + proben.verworfen} Proben verworfen, Tempo nicht aussagekraeftig`);
       if (tempo > MAX_TEMPO) befunde.push(`${name}: getippte Frage springt (${tempo.toFixed(1)} px/ms, Grenze ${MAX_TEMPO})`);
       // GANZ SICHTBAR
       const passt = ende.unten - ende.oben <= ende.frei.unten - ende.frei.oben - 24;

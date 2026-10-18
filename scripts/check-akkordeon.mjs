@@ -47,7 +47,8 @@
 //     jedem Bild gemessen:
 //       SPRUNG — keine Bewegung schneller als MAX_TEMPO px/ms zwischen zwei Bildern. Das Gleiten zur Mitte erreicht
 //       hoechstens rund 2 px/ms; der echte Fehler vom 16.10. (Build 19:24, Rueckmeldung vom A56) sprang in EINEM Bild
-//       um 276 px nach oben aus dem Bild (Oberkante 268 → −8 px, rund 17 px/ms).
+//       um 276 px nach oben aus dem Bild (Oberkante 268 → −8 px, rund 17 px/ms). Gelesen wird nach jedem Bild, nicht im
+//       rAF-Rueckruf (`scripts/lib/bahn.mjs`, seit 18.10.: sonst Scheinspruenge, seit Lenis sich erst beim Gleiten anmeldet).
 //       MITTE — nach dem Auslaufen steht die Oberkante hoechstens GRENZE_MITTE px neben der Mitte des freien Bereichs
 //       (zwischen den Leisten mit `data-feste-leiste`, wie `lib/freierBereich.ts`) und die Karte ganz darin. Ausnahme
 //       nur, wenn die Seite am Anfang oder Ende anschlaegt und gar nicht weiter scrollen kann (dann: ganz sichtbar).
@@ -83,6 +84,7 @@
 //     Darueberfahren. Glitte die Seite dann zur Mitte, rutschte die naechste Karte unter den Zeiger und die Kette liefe
 //     von selbst. Geprueft: 900 × 800 mit Maus, Zeiger auf Karte 5, danach steht sie still und ist die offene. KEINE
 //     GEGENPROBE (der Fehler laesst sich nicht von aussen einspielen); bewiesen nur, dass der Fall heute nicht eintritt.
+//     Die Ausgangslage wird erst genommen, wenn der Behaelter eingeblendet ist und die Karte ruhig steht (seit 18.10.).
 //  7. HERVORHEBUNG nur als Eigenschaft: Ob ein Geraet trotzdem etwas zeichnet (z. B. Fokusring), sieht nur ein Telefon.
 //  8. EREIGNISSE VON VOR DEM START (gefunden 2026-10-16 spaet): Ein Renderer, der waehrend der vorigen Messung entstand
 //     (Chrome haelt ihn fuer die naechste Seite vor), liefert beim Stopp seinen ganzen Puffer mit, auch Laden der Seite
@@ -98,6 +100,7 @@ import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import puppeteer from 'puppeteer';
 import { startePreview } from './lib/preview-server.mjs';
+import { BAHN, schnellsteBewegung, zuVieleVerworfen } from './lib/bahn.mjs';
 
 const wurzel = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GEGENPROBE = process.argv.includes('--gegenprobe');
@@ -234,6 +237,7 @@ try {
     await seite.evaluateOnNewDocument(() => { try { sessionStorage.setItem('cc-preloader-v1', '1'); } catch { /* egal */ } });
     await seite.evaluateOnNewDocument(KARTEN);
     await seite.evaluateOnNewDocument(FREI);
+    await seite.evaluateOnNewDocument(BAHN);
     await seite.setViewport(FENSTER);
     await seite.goto(basis + route, { waitUntil: 'networkidle0', timeout: 45000 });
     if (GEGENPROBE) await seite.addStyleTag({ content: FEHLER_CSS });
@@ -444,25 +448,14 @@ try {
     // Gegenprobe: Ohne `window.scrollTo` (Lenis scrollt darueber) fehlen Verankerung und Gleiten; SPRUNG oder MITTE
     // muss fallen (Pflichtfrage 6).
     if (GEGENPROBE) await seite.evaluate(() => { window.scrollTo = () => {}; });
-    await seite.evaluate((sel, k) => {
-      const karte = window.__ccKarten(sel)[k];
-      window.__ccBahn = [];
-      window.__ccBahnLauf = true;
-      const tick = (zeit) => {
-        window.__ccBahn.push([zeit ?? performance.now(), karte.getBoundingClientRect().top]);
-        if (window.__ccBahnLauf) requestAnimationFrame(tick);
-      };
-      tick();
-    }, sektion, letzte);
+    await seite.evaluate((sel, k) => window.__ccBahnStart(window.__ccKarten(sel)[k]), sektion, letzte);
     await tippe(letzte);
     await warte(900);
-    const bahn = await seite.evaluate(() => { window.__ccBahnLauf = false; return window.__ccBahn; });
+    const proben = await seite.evaluate(() => window.__ccBahnStopp());
+    const { bahn } = proben;
     // SPRUNG: schnellste Bewegung zwischen zwei Bildern
-    let tempo = 0;
-    for (let i = 1; i < bahn.length; i++) {
-      const dt = Math.max(1, bahn[i][0] - bahn[i - 1][0]);
-      tempo = Math.max(tempo, Math.abs(bahn[i][1] - bahn[i - 1][1]) / dt);
-    }
+    const tempo = schnellsteBewegung(bahn);
+    if (zuVieleVerworfen(proben)) messfehler.push(`${name}: ${proben.verworfen} von ${bahn.length + proben.verworfen} Bahn-Proben verworfen, Tempo nicht aussagekraeftig`);
     if (tempo > MAX_TEMPO) {
       befunde.push(`${name}: getippte Karte ${letzte} (offene Karte oberhalb) springt, ${tempo.toFixed(1)} px/ms zwischen zwei Bildern (Grenze ${MAX_TEMPO}; ${Math.round(bahn[0][1])} → ${Math.round(bahn.at(-1)[1])})`);
     }
@@ -501,7 +494,19 @@ try {
     await seite.setViewport({ width: 900, height: 800, deviceScaleFactor: 1, isMobile: false, hasTouch: false });
     await seite.goto(basis + '/', { waitUntil: 'networkidle0', timeout: 45000 });
     await seite.evaluate(() => window.scrollTo(0, window.__ccKarten('#leistungen')[4].getBoundingClientRect().top + window.scrollY - 400));
-    await warte(1500);
+    // Erst messen, wenn der Behaelter eingeblendet ist und die Karte ruhig steht: Er blendet beim ersten Erscheinen ein
+    // (`whileInView`, y 20 → 0, 0,5 s, `ExpandingCardAccordion`), beim ersten Laden eines Browsers gemessen erst nach rund
+    // 1,2 s (Hauptthread vorher fast 1 s belegt). Mit fest 1,5 s Warten lief das in vollen Laeufen noch und galt als
+    // „Seite gleitet beim Darueberfahren“ (18.10.: 390 → 380, 389 → 380, 399 → 390; einzeln 380 → 380). Nur „ruhig“ reicht
+    // nicht: Vor dem Start steht die Karte ebenfalls still (400 → 380 nach dem Darueberfahren).
+    const ruhig = await seite.waitForFunction(() => new Promise((r) => {
+      const karte = window.__ccKarten('#leistungen')[4];
+      const stil = getComputedStyle(karte.parentElement);
+      if (stil.opacity !== '1' || stil.transform !== 'none') return r(false);
+      const a = karte.getBoundingClientRect().top;
+      setTimeout(() => r(Math.abs(karte.getBoundingClientRect().top - a) < 0.5), 300);
+    }), { timeout: 8000, polling: 350 }).then(() => true, () => false);
+    if (!ruhig) messfehler.push('Hover-Test: Karten nach dem Scrollen nach 8 s nicht eingeblendet oder nicht ruhig, Test nicht aussagekraeftig');
     const maus = await seite.evaluate(() => matchMedia('(hover: hover)').matches);
     const p = await seite.evaluate(() => { const r = window.__ccKarten('#leistungen')[4].getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + 32, oben: r.top }; });
     // Waagerecht von links heran (Rand ausserhalb der Karten), damit der Weg nur ueber diese Karte fuehrt.
