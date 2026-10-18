@@ -55,8 +55,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="solidroad-shell-corner-bl" />
         <div className="solidroad-shell-corner-br" />
 
-        {/* Integrativer Solidroad Header HUD-Layer */}
-        <header className="solidroad-hud-layer absolute left-0 right-0 top-0 pointer-events-none">
+        {/* Integrativer Solidroad Header HUD-Layer. `data-feste-leiste`: Grenze des freien Bereichs, in dem Karten und
+            FAQ-Antworten mobil mittig bzw. ganz zu sehen sein sollen (`lib/freierBereich.ts`, seit 2026-10-17). */}
+        <header data-feste-leiste="oben" className="solidroad-hud-layer absolute left-0 right-0 top-0 pointer-events-none">
           <div aria-hidden="true" className={`solidroad-nav-frame ${scrolled ? 'is-scrolled' : ''}`}>
             <div aria-hidden="true" className="solidroad-cutout-left" />
             <div aria-hidden="true" className="solidroad-cutout-right" />

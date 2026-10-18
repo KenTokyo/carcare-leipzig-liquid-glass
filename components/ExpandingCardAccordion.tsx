@@ -5,7 +5,7 @@ import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
 import GanzwortTitel from './GanzwortTitel';
 import { KARTEN_UEBERGANG, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
-import { STREIFEN, mobilLage, useMobilAkkordeon } from './akkordeonMobil';
+import { MOBIL_BEWEGUNG, STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon } from './akkordeonMobil';
 import type { BereichsAngabe } from '../data/services';
 
 /**
@@ -174,8 +174,9 @@ interface ExpandingCardAccordionProps {
 
 /**
  * Rahmen der Karte (Link). Am Desktop wie in `KARTEN_RAHMEN` (akkordeonKarten.tsx): Rundung, Beschnitt, Schatten.
- * MOBIL OHNE BESCHNITT UND SCHATTEN: Dort schneidet das Fenster (`data-akk="fenster"`) zu und traegt den Schatten,
- * denn nur seine Unterkante wandert beim Auf- und Zuklappen (siehe `akkordeonMobil.ts`).
+ * MOBIL OHNE BESCHNITT UND SCHATTEN: Dort schneidet das Fenster (`data-akk="fenster"`) zu, denn nur seine Unterkante
+ * wandert beim Auf- und Zuklappen (siehe `akkordeonMobil.ts`). Den Schatten traegt seit 2026-10-17 eine eigene Ebene
+ * (`data-akk="schatten"`, Begruendung in `akkordeonMobil.ts`: das „weisse Rechteck“ hinter den Karten).
  * OHNE TIPP-HERVORHEBUNG (2026-10-16 abends, Rueckmeldung vom A56: „die naechste Karte blitzt weiss auf“): `index.css`
  * gibt jedem Link Signalblau 18 % als Tipp-Farbe. Android zeichnet sie ueber den Kasten des Links, und der ist mobil
  * sofort so hoch wie die offene Karte, waehrend das Fenster noch aufgeht: Die Hervorhebung lag damit ueber den
@@ -194,7 +195,7 @@ interface KarteProps {
   mobileActiveHeight: number;
   /** Akkordeon fertig eingeblendet (Glas-Plaketten erst danach, siehe `BereichsPlakette`). */
   eingeblendet: boolean;
-  oeffnen: (idx: number) => void;
+  oeffnen: (idx: number, optionen?: { mittig?: boolean }) => void;
   /** Meldet das Element an `useMobilAkkordeon` (Messen vor und nach dem Wechsel). */
   merken: (idx: number, el: HTMLAnchorElement | null) => void;
 }
@@ -209,7 +210,9 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
   // Exakt das sichtbare Kartenbild — damit der Section-Hintergrund 1:1 dem Hover entspricht.
   const cardImage = item.backgroundImage ?? DEFAULT_CARD_BG;
   // Gilt fuer Foto und Video gleich: Zoom beim Aufklappen, Graustufen bei gedaempften Karten.
-  const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
+  // Mobil laeuft der Zoom seit 2026-10-18 mit Dauer und Kurve des Aufklappens (`MOBIL_BEWEGUNG`, 0,65 s, `ease`): Mit
+  // `ease-out` (Start mit Hoechsttempo) schnellte er wie die alte Kartenkurve los und trug zum „Federn“ bei.
+  const bildKlasse = `absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out max-lg:duration-[650ms] max-lg:ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isActive ? 'scale-100' : 'scale-105'} ${item.gedaempft ? 'grayscale contrast-[0.92]' : ''}`;
   // Mobile Ruhelage von Fenster, Inhalt und Bildebene (akkordeonMobil.ts); am Desktop keine Inline-Transforms.
   const lage = isDesktop ? null : mobilLage(isActive ? mobileActiveHeight : STREIFEN, mobileActiveHeight);
   return (
@@ -223,10 +226,10 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       onMouseEnter={hoverCapable ? () => oeffnen(idx) : undefined}
       onFocus={hoverCapable ? () => oeffnen(idx) : undefined}
       onClick={(event) => {
-        // Touch: erster Tap klappt auf, zweiter folgt dem Link.
+        // Touch: erster Tap klappt auf (und gleitet mittig, `akkordeonMobil.ts`), zweiter folgt dem Link.
         if (!hoverCapable && !isActive) {
           event.preventDefault();
-          oeffnen(idx);
+          oeffnen(idx, { mittig: true });
         }
       }}
       initial={false}
@@ -237,14 +240,25 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       transition={KARTEN_UEBERGANG}
       className={RAHMEN}
     >
+      {/* SCHATTEN NUR MOBIL, als eigene Ebene vor dem Fenster (2026-10-17). Sie steht wie das Fenster und ist so
+          deckend, wie die Karte offen ist: Eingeklappt wirft der unsichtbare, 276 px nach oben ragende Teil keinen
+          Schatten mehr neben die Kartenspalte (das war das „weisse Rechteck“, siehe `akkordeonMobil.ts`). */}
+      {lage && (
+        <div
+          data-akk="schatten"
+          aria-hidden="true"
+          style={{ height: mobileActiveHeight, transform: lage.schatten, opacity: mobilSchatten(isActive ? mobileActiveHeight : STREIFEN, mobileActiveHeight) }}
+          className="pointer-events-none absolute inset-x-0 top-0 rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] lg:hidden"
+        />
+      )}
       {/* FENSTER UND INHALT (2026-10-16, `akkordeonMobil.ts`). Am Desktop beide `inset-0`, also wie vorher.
-          Mobil sind beide so hoch wie die offene Karte: Das Fenster schneidet zu und traegt den Schatten, der
-          Inhalt steht an der Kartenoberkante. Das Fenster laesst Zeigerereignisse durch, sonst laege sein nach
-          oben verschobener, leerer Teil ueber der Karte davor. */}
+          Mobil sind beide so hoch wie die offene Karte: Das Fenster schneidet zu, der Inhalt steht an der
+          Kartenoberkante. Das Fenster laesst Zeigerereignisse durch, sonst laege sein nach oben verschobener,
+          leerer Teil ueber der Karte davor. */}
       <div
         data-akk="fenster"
         style={lage ? { height: mobileActiveHeight, transform: lage.fenster } : undefined}
-        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden rounded-[1.5rem] max-lg:shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] lg:bottom-0"
+        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden rounded-[1.5rem] lg:bottom-0"
       >
       <div
         data-akk="inhalt"
@@ -442,10 +456,13 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   const { isDesktop, hoverCapable } = useAkkordeonGeraet();
   // Mobil: Hoehe springt, sichtbar bewegt sich nur `transform` (akkordeonMobil.ts). Am Desktop tut der Hook nichts.
   const { karten, messen } = useMobilAkkordeon(!isDesktop, mobileActiveHeight, active);
-  /** Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt. */
-  const oeffnen = (idx: number) => {
+  /**
+   * Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt. `mittig` nur nach einem Tipp:
+   * Beim Darueberfahren mit der Maus (schmales Fenster, Tablet mit Trackpad) darf die Seite nicht nachgleiten.
+   */
+  const oeffnen = (idx: number, { mittig = false }: { mittig?: boolean } = {}) => {
     if (idx === active) return;
-    messen(idx);
+    messen(idx, mittig);
     setActive(idx);
   };
   const merken = (idx: number, el: HTMLAnchorElement | null) => {
@@ -456,8 +473,20 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Auf Desktop ist immer genau eine Karte offen, der Hintergrund bleibt also stehen,
   // auch wenn die Maus den Strip verlaesst. Mobil nur mit `mobilHintergrund` (seit 2026-10-16),
   // sonst `null`. Deckt Mount (active=0) + jeden Wechsel ab.
+  // MOBIL ERST NACH DER BEWEGUNG (seit 2026-10-18, Rueckmeldung „unflüssig“): Bis dahin wechselte das fensterhohe Foto
+  // 35 ms nach dem Tipp, also mitten im Aufklappen und Mitgleiten; Dekodieren und Ueberblenden fielen auf dem Telefon
+  // genau in diese Bilder. Jetzt meldet die Karte ihr Foto mobil erst, wenn die Bewegung steht (`MOBIL_BEWEGUNG`); ein
+  // neuer Tipp davor verwirft den alten Wechsel. Erster Bericht und Desktop sofort.
+  const fotoGemeldet = useRef(false);
   useEffect(() => {
-    onActiveImageChange?.(isDesktop || mobilHintergrund ? items[active]?.backgroundImage ?? DEFAULT_CARD_BG : null);
+    const bild = isDesktop || mobilHintergrund ? items[active]?.backgroundImage ?? DEFAULT_CARD_BG : null;
+    if (isDesktop || !fotoGemeldet.current || !bild) {
+      fotoGemeldet.current = true;
+      onActiveImageChange?.(bild);
+      return;
+    }
+    const zeit = window.setTimeout(() => onActiveImageChange?.(bild), MOBIL_BEWEGUNG.dauer * 1000);
+    return () => window.clearTimeout(zeit);
   }, [active, isDesktop, mobilHintergrund, items, onActiveImageChange]);
 
   return (

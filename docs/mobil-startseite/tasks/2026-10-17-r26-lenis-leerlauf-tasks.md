@@ -11,7 +11,7 @@ Gerät des Users: Galaxy A56, 120 Hz, 8,3 ms je Bild.
 
 **Status:** ✅ Alle Phasen umgesetzt (17.10.2026). Im Leerlauf steht die Schleife nachweislich (0 rAF-Rückrufe auf
 29 Routen, Hauptthread im Leerlauf rund 95–99 % entlastet), Anker, Rad und Navigation gleiten wie vorher, alle
-Werkzeuge grün. Der Kartentipp wird dadurch NICHT schneller (A/B unten); dafür neuer Befund R30.
+Werkzeuge grün. Der Kartentipp wird dadurch NICHT schneller (A/B unten); dafür neuer Befund R31.
 
 ---
 
@@ -97,7 +97,7 @@ rAF-Dauerschleife (so lief Lenis vorher), je 4 Läufe, Median (Spanne), `output/
 Die Spur zeigt warum: Auch ohne einen einzigen rAF-Rückruf rechnet Chrome, solange die Kartenanimationen laufen, in
 jedem Bild den Stil der animierten Elemente nach (79 → 37 → 9 Elemente, bis der Bildzoom `scale-105` → `scale-100`
 nach 700 ms endet), obwohl alle Animationen auf dem Compositor laufen (`compositeFailed: 0`). Das ist Chromes
-Verhalten bei laufenden Animationen, nicht Lenis. Neuer Befund dafür: **R30** im Optimierungsplan.
+Verhalten bei laufenden Animationen, nicht Lenis. Neuer Befund dafür: **R31** im Optimierungsplan.
 
 **Natives Touch-Scrollen** (die Hauptbedienung auf dem A56), A/B im selben Build, 3 Wischgesten mit je 12 Bewegungen,
 3 Läufe: bei CPU 4× Hauptthread-Bilder 243–260 → 118–165, belegt in 1,8 s 996–1135 → 879–955 ms (rund 12 % weniger);
@@ -193,7 +193,7 @@ rAF-Rückrufe im Leerlauf, Ereignisnamen der Spur für einen rAF-unabhängigen B
 
 ### ✅ Phase 6 — Nachher messen, Doku, Commit
 * [x] Nachher-Messung mit demselben Aufbau (Analyse „Nachher“), A/B für Kartentipp und Touch-Scrollen
-* [x] R26 im Optimierungsplan erledigt, Folgebefund R30 eingetragen, Messskripte gelöscht
+* [x] R26 im Optimierungsplan erledigt, Folgebefund R31 eingetragen, Messskripte gelöscht
 
 ---
 
@@ -204,7 +204,7 @@ gelesen statt angenommen ✅, fünf Lösungswege verglichen (inkl. Lenis-Issue #
 (`scrollTo`, `isScrolling`, `time`, `raf`) ✅, Annahme des Auftrags per A/B im selben Build geprüft und widerlegt statt
 bestätigt ✅, je Messung eigener Browser und Marke (Lehre O13) ✅, neuer Wächter mit Pflichtfrage und Gegenprobe ✅, alle
 Werkzeuge gegen den Endstand ✅, keine prefers-reduced-motion-Gates ✅, unter 700 Zeilen (Hook 157, Wächter 391,
-Akkordeon-Prüfer 428) ✅, keine Kundennummern vergeben (R30 im Notizordner reserviert) ✅, Encoding UTF-8 ✅.
+Akkordeon-Prüfer 428) ✅, keine Kundennummern vergeben (als R30 im Notizordner reserviert; seit dem Zusammenführen am 2026-10-18 R31, weil R30 parallel vergeben war) ✅, Encoding UTF-8 ✅.
 **Auffälligkeiten/Probleme (nach Schwere):**
 1. 🟠 **Hoch (behoben):** `npm run akkordeon` zählte Bilder über `FireAnimationFrame`, also über Lenis' Dauerschleife.
    Ohne sie fiel der Nenner auf 0 bis 1: Fehlalarm „3 Layouts in 1 Bild, 300 %“ und eine nur zufällig grüne Gegenprobe.
@@ -212,7 +212,7 @@ Akkordeon-Prüfer 428) ✅, keine Kundennummern vergeben (R30 im Notizordner res
 2. 🟠 **Hoch (behoben):** Ohne Einmessen nahm die Schleife bis zum ersten Gleiten 60 Hz an; auf dem 120-Hz-A56 wäre der
    erste Schritt nach dem Laden doppelt so groß gewesen wie früher (gemessen ×1,96, bei 240 Hz ×3,82). Jetzt zehn Bilder
    Einmessen beim Start, gemessen ×0,51–1,00; der Wächter meldet ab ×1,5.
-3. 🟡 **Mittel (offen, R30):** Die Annahme des Auftrags, Lenis treibe die Stilkosten beim Kartentipp, stimmt nicht
+3. 🟡 **Mittel (offen, R31):** Die Annahme des Auftrags, Lenis treibe die Stilkosten beim Kartentipp, stimmt nicht
    (A/B). Chrome rechnet laufende Animationen in jedem Bild auf dem Hauptthread nach; Hebel sind weniger gleichzeitige
    Animationen und die Dauer des Bildzooms. Eigener Schritt, siehe Optimierungsplan.
 4. 🟡 **Mittel (behoben, nicht durch R26):** `npm run nav` war rot: Erwartungsliste noch „Autoglas / Scheibenfolien“,
@@ -225,5 +225,5 @@ Akkordeon-Prüfer 428) ✅, keine Kundennummern vergeben (R30 im Notizordner res
    Kein Werkzeug tut das; Hinweis im Kommentar der Halteschleife.
 7. 🟢 **Niedrig (Hinweis):** Der Bildtakt wird als kleinster gemessener Abstand geführt. Schaltet ein Gerät nach dem
    Einmessen von 120 auf 60 Hz, ist der erste Schritt halb so groß wie früher (gemessen ×0,51), nie größer.
-**Refactoring-Empfehlung:** keine im geänderten Code. Nächster sinnvoller Schritt ist R30 (Animationen beim Kartentipp
+**Refactoring-Empfehlung:** keine im geänderten Code. Nächster sinnvoller Schritt ist R31 (Animationen beim Kartentipp
 bündeln oder begrenzen), vorher mit `npm run akkordeon` und dem A/B-Aufbau dieser Datei messen.

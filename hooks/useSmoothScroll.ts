@@ -116,7 +116,7 @@ export const useSmoothScroll = (): void => {
      * Hauptthread. Gemessen (393 × 851, Touch, CPU 4×): im Leerlauf rund 110 Rueckrufe je Sekunde, alle von dieser
      * Schleife, 430–790 ms Hauptthread in 2 s ohne jede Bewegung; danach 0 Rueckrufe und 4–25 ms. Beim Touch-Scrollen
      * rund 12 % weniger. Den KARTENTIPP macht das nicht schneller: Laufende Animationen rechnet Chrome ohnehin in jedem
-     * Bild auf dem Hauptthread nach, auch ohne rAF (A/B in der Plan-Datei, Befund R30).
+     * Bild auf dem Hauptthread nach, auch ohne rAF (A/B in der Plan-Datei, Befund R31).
      * `lenis.raf` tut nur etwas, solange eine Lenis-Animation laeuft. Die Schleife startet deshalb in `scrollTo`
      * (`WeckendesLenis`) und haelt im ersten Bild an, in dem Lenis nicht mehr gleitet. Vergleich der Wege und
      * Messung nachher: docs/mobil-startseite/tasks/2026-10-17-r26-lenis-leerlauf-tasks.md.

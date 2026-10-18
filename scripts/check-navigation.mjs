@@ -54,7 +54,8 @@ const KARTE = `${PANEL} a[aria-haspopup="true"]`;
 const ERWARTET = {
   'Fahrzeugaufbereitung': ['Innenaufbereitung', 'Außenaufbereitung', 'Leasingrückgabe'],
   'Unfall & Lack': ['Neu- und Reparaturlackierung', 'Smart Repair', 'Dellenentfernung', 'Hagelschadenreparatur'],
-  // „&“ statt „/“ seit dem Lektorat (Commit 3549114, `data/services.ts`); hier nachgezogen am 2026-10-17.
+  // „&“ statt „/“ seit dem Lektorat L01 (2026-10-07, `data/services.ts`); hier erst am 2026-10-17 nachgezogen, bis dahin
+  // meldete `npm run nav` diese Karte als Abweichung (der Check laeuft nicht im Build mit).
   'Rad & Glas': ['Felgenreparatur', 'Autoglas & Scheibenfolien'],
   'Geschäftskunden': ['Fuhrparkservice'],
 };

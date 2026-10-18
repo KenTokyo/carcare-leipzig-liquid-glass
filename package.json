@@ -36,6 +36,7 @@
     "aussparung": "node scripts/check-aussparung.mjs",
     "mobil": "node scripts/check-mobil.mjs",
     "akkordeon": "node scripts/check-akkordeon.mjs",
+    "faq-mobil": "node scripts/check-faq-mobil.mjs",
     "cls": "node scripts/check-cls.mjs",
     "leerlauf": "node scripts/check-leerlauf.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",

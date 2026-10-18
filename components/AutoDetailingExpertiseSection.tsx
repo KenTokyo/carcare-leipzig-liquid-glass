@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ExpandingCardAccordion, { type ExpandingCardItem } from './ExpandingCardAccordion';
 import BereichsPlakette from './BereichsPlakette';
-import PhotoBackdrop from './PhotoBackdrop';
+import PhotoBackdrop, { FOTO_UEBER_KARTEN } from './PhotoBackdrop';
 import { aufbereitungKacheln } from '../data/detailing';
 import { bereichVon } from '../data/services';
 import { getKnowledgeArticleBySlug } from '../data/knowledgeArticles';
@@ -87,16 +87,19 @@ const AutoDetailingExpertiseSection: React.FC = () => {
     <section
       id="autoaufbereitung"
       aria-labelledby="detailing-heading"
-      className="relative isolate bg-white px-6 py-20 md:py-28"
+      // `max-lg:grid` + Kopf und Karten als zwei Kinder (seit 2026-10-17, wie `ServiceGrid`): Mobil beginnt das Foto erst
+      // ueber den Karten, der Kopf braucht keinen Textschutz mehr. Der Abstand zu den Karten steht deshalb am Kopf
+      // (`mb-12`, bis dahin `mt-12` am Akkordeon): Er gehoert zu Zeile 1, das Foto setzt 48 px ueber den Karten ein.
+      className="relative isolate bg-white px-6 py-20 md:py-28 max-lg:grid"
     >
       {/* Hintergrund hinter dem Grid: Bild der aufgeklappten Karte, Crossfade beim Wechsel.
           Bis 2026-10-16 stand hier eine Kopie der drei Ebenen aus `PhotoBackdrop` (gleiche Werte, inline);
           jetzt die Komponente selbst, damit die mobile Fassung nicht ein zweites Mal gepflegt werden muss. */}
-      <PhotoBackdrop image={activeImage} mobil="stehend" />
+      <PhotoBackdrop image={activeImage} mobil="stehend" className={FOTO_UEBER_KARTEN} />
 
       <div className="container relative mx-auto">
-        {/* `cc-kopfschutz`: mobil der Textschutz ueber dem stehenden Foto, haengt am Kopf (wie in `ServiceGrid`). */}
-        <div className="cc-kopfschutz grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
+        {/* Ohne Textschutz (`.cc-kopfschutz` bis 2026-10-17): Hinter dem Kopf liegt mobil kein Foto mehr. */}
+        <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -126,12 +129,14 @@ const AutoDetailingExpertiseSection: React.FC = () => {
             </p>
           </motion.div>
         </div>
+      </div>
 
+      <div className="container relative mx-auto">
         {/* Expertise-Karten im Leistungsuebersicht-Design (identische Komponente + Animation).
             Der Ablauf „Wie laeuft eine Autoaufbereitung ab?" ist seit 2026-07-22 eine eigene,
             scroll-gepinnte Sektion (`DetailingProcessSection`) direkt darunter — im exakt
             gleichen Aufbau wie „Unfall & Schaden Leipzig". */}
-        <ExpandingCardAccordion items={expertiseCards} onActiveImageChange={setActiveImage} mobilHintergrund className="mt-12" />
+        <ExpandingCardAccordion items={expertiseCards} onActiveImageChange={setActiveImage} mobilHintergrund />
 
         {/* Ratgeber-Zeile (5.17): ersetzt die Wissens-Karte. 48 px hohe Ziele (SEO-GEO §2.3).
             MOBIL AUSGEBLENDET (User, 2026-10-16: „macht für mich da gar keinen Sinn und nimmt einfach nur Platz weg“).
