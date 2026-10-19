@@ -1,12 +1,14 @@
-# Zeichenlücken am Akkordeon der Startseite (MacBook) — R31
+# Zeichenlücken am Akkordeon der Startseite (MacBook) — R32
 
 **Anlass (User, 2026-10-19, Bildschirmaufnahme vom MacBook Pro 13", M5):** Auf der Vercel-Seite (`main`) sieht die
 Startseite „komplett zerschossen“ aus, sobald man Richtung Akkordeon scrollt, und „lädt nicht sauber“. Entfernt man
 sich vom Akkordeon, ist wieder alles normal. Auf dem Windows-Rechner, an dem zuletzt gearbeitet wurde, war nichts zu sehen.
 
-**Nummer:** R31 (eigener Befund; höchste vergebene R-Nummer war R30). Keine Kundennummer.
+**Nummer:** R32 (eigener Befund). Zuerst als R31 vergeben (höchste lokal war R30); beim Zusammenführen mit `origin/main`
+zeigte sich, dass ein Kollege R31 inzwischen für den Kartentipp-Befund vergeben hatte. Umnummeriert auf R32.. Keine Kundennummer.
 
-**Status:** umgesetzt 2026-10-19, nicht committet. Offen: Safari-Sichtprüfung (R31-a), Windows-Gegenprobe (R31-b).
+**Status:** umgesetzt und auf `main` gepusht 2026-10-19 (Branch `2026-10-19-mac-zeichenluecken`). Offen: Safari-Sichtprüfung
+(R32-a), Windows-Gegenprobe (R32-b).
 
 ---
 
@@ -155,11 +157,23 @@ sich vom Akkordeon, ist wieder alles normal. Auf dem Windows-Rechner, an dem zul
 * [x] `npm run zeichnen` (Volllauf, dritte Masken-Fassung, Build 17:23:45): **29 Routen × 4 Fenster, 0 Lücken, 0 harte
       Befunde, 0 Hinweise, Exit 0.** Eichung: 97,1 % Lücke und 16 Masken beim eingespielten Fehler, das Urteil gilt.
 
+### ✅ Phase 6 — Zusammenführen mit `origin/main` (User: „push es“)
+**Ziel:** Vor dem Push auf den Stand der Kollegen bringen und dort erneut messen.
+* [x] `main` lag 9 Commits hinter GitHub (Lenis R26 mit `npm run leerlauf`, Hero R29, eigene 404-Seite R24,
+      geänderte Prüfer). Arbeit auf Branch `2026-10-19-mac-zeichenluecken` committet, `main` vorgespult, Branch
+      zusammengeführt. Ein Konflikt in `package.json` (beide Seiten neues Skript an derselben Stelle): beide behalten.
+* [x] **Nummer umbenannt R31 → R32**: R31 hatte der Kollege inzwischen für den Kartentipp-Befund vergeben. Nur die
+      eigenen Stellen geändert; im Plan des Kollegen „nächste freie“ auf R33 gesetzt.
+* [x] Build nach dem Merge **19:24:44**, alle Werkzeuge grün: `akkordeon` ok, `zeichnen -- --gegenprobe` bestanden
+      (16 Masken, 97,1 %), `kontrast` 6340 Stellen ok, `aussparung` ok, `mobil` 0 harte Befunde (257 Hinweise wie
+      bisher), `leerlauf` ok (29 Routen × 2 Fenster), `cls` 0/0, `faq-mobil` ok, `zielgruppen` ok, `meta` 0,
+      `tote-dateien` ok, **`zeichnen` 29 Routen × 4 Fenster: 0 Lücken, 0 Befunde, 0 Hinweise**.
+
 ### ✅ Phase 5 — Doku
 * [x] `CLAUDE.md`: Zeile `npm run zeichnen` in den Messwerkzeugen; Umsetzungsprinzip „Kein runder Beschnitt um große
       Behälter, unsichtbares Glas zusätzlich `visibility: hidden`“.
 * [x] `package.json`: Skript `zeichnen`.
-* [x] Optimierungsplan: `2026-10-19-mac-zeichenluecken-optimierung-tasks.md` (R31-a bis R31-e).
+* [x] Optimierungsplan: `2026-10-19-mac-zeichenluecken-optimierung-tasks.md` (R32-a bis R32-e).
 * [x] Memory: Anhänge aus der Fotos-App sind für Werkzeuge gesperrt (`anhaenge-aus-fotos-gesperrt`).
 
 ---
@@ -174,7 +188,7 @@ ehrlich als nicht belegt markiert ✅.
 1. 🟠 **Hoch:** Kein Werkzeug sah den Fehler. Alle maßen DOM, Layout oder neu gezeichnete Aufnahmen; die Lücke stand
    nur in der Ausgabe des Compositors. → behoben mit `npm run zeichnen` (Phase 2).
 2. 🟡 **Mittel:** „Nur am Mac“ ist nicht erklärt. Auf dem Mac zeigt jedes Chromium den Fehler, Windows ist ungemessen
-   (R31-b).
+   (R32-b).
 
 ### Phase 2
 **Eingehalten:** unter 700 Zeilen ✅ (399), Pflichtfrage im Kopf beantwortet ✅, Gegenprobe mit Exit 2 statt Scheingrün ✅,
@@ -183,7 +197,7 @@ Eichung vor jedem Lauf ✅, Muster der anderen Werkzeuge (Preview, Routenliste, 
 1. 🟠 **Hoch (behoben):** Hintergrund-Tab lieferte falsch große Aufnahmen → Scheinlücke 48 %. Eigener Browser je Strang.
 2. 🟡 **Mittel (behoben):** Handy-Aufnahmen in CSS-Pixeln → Fehlalarm 36 %. Maßstab aus dem Bild.
 3. 🟡 **Mittel (behoben):** Kennzahl zweimal geschärft (alle großen Ebenen → grundlose → grundlose gleich große).
-4. 🟢 **Niedrig:** Volllauf rund 25 bis 30 min (R31-c).
+4. 🟢 **Niedrig:** Volllauf rund 25 bis 30 min (R32-c).
 
 ### Phase 3
 **Eingehalten:** Ursache statt Symptom (runder Beschnitt als Multiplikator gefunden) ✅, Optik pixelgenau gegengeprüft ✅,

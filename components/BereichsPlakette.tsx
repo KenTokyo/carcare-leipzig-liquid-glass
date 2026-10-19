@@ -51,7 +51,7 @@ interface BereichsPlaketteProps {
 const BLENDE_MS = 300;
 
 /**
- * UNSICHTBAR HEISST AUCH `visibility: hidden` (2026-10-19, R31, Aufnahme des Users vom MacBook: Startseite am Akkordeon
+ * UNSICHTBAR HEISST AUCH `visibility: hidden` (2026-10-19, R32, Aufnahme des Users vom MacBook: Startseite am Akkordeon
  * „komplett zerschossen“). Mit `opacity: 0` allein blieb jede verborgene Plakette eine eigene Grafikebene (Grund
  * `BackdropFilter`), und fuer jede legte Chrome wegen der damals runden Ecken am `<main>` eine Maske in Groesse des ganzen
  * Hauptbereichs an (Rundung inzwischen entfernt, `index.css` `.site-main-shell`). Zwoelf eingeklappte Karten je

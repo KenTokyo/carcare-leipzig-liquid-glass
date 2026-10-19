@@ -1,4 +1,4 @@
-// Zeichenluecken: Stellen, an denen der Browser den Seiteninhalt nicht zeichnet (R31, 2026-10-19).
+// Zeichenluecken: Stellen, an denen der Browser den Seiteninhalt nicht zeichnet (R32, 2026-10-19).
 //
 // AUFRUF:
 //   npm run zeichnen                          alle Routen, vier Fenster (1440 × 790 Retina, 1920 × 945, 1024 × 700 Retina, 390 × 844)

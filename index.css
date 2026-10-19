@@ -140,7 +140,7 @@ body {
   background: var(--cc-shell-canvas);
 }
 
-/* KEINE RUNDUNG AM <main> (2026-10-19, R31). Bis dahin `border-radius` oben links und rechts. Zusammen mit
+/* KEINE RUNDUNG AM <main> (2026-10-19, R32). Bis dahin `border-radius` oben links und rechts. Zusammen mit
    `overflow: clip` (Layout.tsx) ist das ein runder Beschnitt um die GANZE Seite, und den kann Chrome auf Ebenen mit
    Weichzeichner (`backdrop-filter`), Videos u. Ae. nur ueber eine Maske anwenden: je solcher Ebene eine eigene Maske in
    voller Groesse des Hauptbereichs (gemessen 1892 × 17679 px, 16 Stueck an der Startseite). Auf dem MacBook des Users
