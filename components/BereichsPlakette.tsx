@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Bereich, BereichsAngabe } from '../data/services';
 
 /**
@@ -47,23 +47,66 @@ interface BereichsPlaketteProps {
   sichtbar?: boolean;
 }
 
-/** Inline statt Klasse: `.cc-liquid` setzt eine eigene `transition`-Liste, eine Utility-Klasse wuerde sie ersetzen. */
-const einblendStil = (sichtbar?: boolean): React.CSSProperties =>
-  sichtbar === undefined ? {} : { opacity: sichtbar ? 1 : 0, transition: 'opacity 300ms ease' };
+/** Dauer des Ein- und Ausblendens. */
+const BLENDE_MS = 300;
 
-const Plakette: React.FC<{ bereich: Bereich; className: string; sichtbar?: boolean }> = ({ bereich, className, sichtbar }) => (
-  <span
-    aria-hidden="true"
-    data-suche="aus"
-    data-bereich={bereich}
-    lang="en"
-    style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))`, ...einblendStil(sichtbar) } as React.CSSProperties}
-    // 18 px hoch: 2 px Innenabstand plus 2 px Rand oben und unten um die 10-px-Zeile.
-    className={`cc-liquid cc-liquid--plakette inline-flex w-fit shrink-0 items-center rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-[0.18em] text-gray-950 ${className}`}
-  >
-    {TEXT[bereich]}
-  </span>
-);
+/**
+ * UNSICHTBAR HEISST AUCH `visibility: hidden` (2026-10-19, R31, Aufnahme des Users vom MacBook: Startseite am Akkordeon
+ * „komplett zerschossen“). Mit `opacity: 0` allein blieb jede verborgene Plakette eine eigene Grafikebene (Grund
+ * `BackdropFilter`), und fuer jede legte Chrome wegen der damals runden Ecken am `<main>` eine Maske in Groesse des ganzen
+ * Hauptbereichs an (Rundung inzwischen entfernt, `index.css` `.site-main-shell`). Zwoelf eingeklappte Karten je
+ * Akkordeon ergaben so 19 seitengrosse Ebenen; Chrome liess Kacheln leer, die fixierte Fusszeile schien durch.
+ * `visibility: hidden` nimmt die Plakette aus dem Zeichnen und damit aus dem Ebenenbaum.
+ *
+ * ABLAUF, damit beide Blenden auf dem Compositor laufen (`npm run akkordeon` verlangt das):
+ *  - Ausblenden: Deckkraft sofort auf 0 (Uebergang BLENDE_MS), `visibility: hidden` erst am `transitionend`. Ein
+ *    Zeitgeber ueber BLENDE_MS allein schlug rund 30 ms zu frueh zu (er startet vor dem Uebergang); das letzte Stueck lief
+ *    dann im Hauptthread (Code 131072, `kAnimationHasNoVisibleChange`, dritter Versuch). Der Zeitgeber bleibt als
+ *    Rueckfall mit Reserve, falls kein Uebergang laeuft (z. B. Plakette gar nicht gezeichnet).
+ *  - Einblenden: `visibility` und Deckkraft sofort (im selben Bild; gemessen auf dem Compositor).
+ *  Ein CSS-Uebergang `visibility 300ms` saehe gleich aus, laeuft aber selbst im Hauptthread (erster Versuch).
+ * Messung: `npm run zeichnen`, Plan: docs/mac-zeichenluecken/tasks/2026-10-19-mac-zeichenluecken-tasks.md.
+ */
+const useBlende = (sichtbar?: boolean) => {
+  const [verborgen, setVerborgen] = useState(sichtbar === false);
+  useEffect(() => {
+    if (sichtbar !== false) {
+      setVerborgen(false);
+      return;
+    }
+    const zeit = window.setTimeout(() => setVerborgen(true), BLENDE_MS + 200);
+    return () => window.clearTimeout(zeit);
+  }, [sichtbar]);
+  const amEnde = (e: React.TransitionEvent) => {
+    if (e.target === e.currentTarget && e.propertyName === 'opacity' && sichtbar === false) setVerborgen(true);
+  };
+  // Sichtbar heisst sofort sichtbar, auch wenn der Zustand `verborgen` erst im naechsten Durchlauf zurueckfaellt.
+  return { zeigen: sichtbar === true, verborgen: sichtbar === false && verborgen, amEnde };
+};
+
+/** Inline statt Klasse: `.cc-liquid` setzt eine eigene `transition`-Liste, eine Utility-Klasse wuerde sie ersetzen. */
+const einblendStil = (sichtbar: boolean | undefined, { zeigen, verborgen }: { zeigen: boolean; verborgen: boolean }): React.CSSProperties =>
+  sichtbar === undefined
+    ? {}
+    : { opacity: zeigen ? 1 : 0, transition: `opacity ${BLENDE_MS}ms ease`, ...(verborgen ? { visibility: 'hidden' as const } : {}) };
+
+const Plakette: React.FC<{ bereich: Bereich; className: string; sichtbar?: boolean }> = ({ bereich, className, sichtbar }) => {
+  const blende = useBlende(sichtbar);
+  return (
+    <span
+      aria-hidden="true"
+      data-suche="aus"
+      data-bereich={bereich}
+      lang="en"
+      onTransitionEnd={sichtbar === undefined ? undefined : blende.amEnde}
+      style={{ '--plakette-rand': `rgb(var(--cc-${bereich}-rgb))`, ...einblendStil(sichtbar, blende) } as React.CSSProperties}
+      // 18 px hoch: 2 px Innenabstand plus 2 px Rand oben und unten um die 10-px-Zeile.
+      className={`cc-liquid cc-liquid--plakette inline-flex w-fit shrink-0 items-center rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-[0.18em] text-gray-950 ${className}`}
+    >
+      {TEXT[bereich]}
+    </span>
+  );
+};
 
 /**
  * MEHRERE PLAKETTEN (seit 2026-10-03): nebeneinander mit 4 px Abstand, in der Reihenfolge der Angabe (Care vor Repair

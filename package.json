@@ -38,6 +38,7 @@
     "akkordeon": "node scripts/check-akkordeon.mjs",
     "faq-mobil": "node scripts/check-faq-mobil.mjs",
     "cls": "node scripts/check-cls.mjs",
+    "zeichnen": "node scripts/check-zeichnen.mjs",
     "bilder": "node scripts/bilder-inventar.mjs",
     "gedankenstriche": "node scripts/check-gedankenstriche.mjs --liste",
     "lektorat": "node scripts/lektorat-auszug.mjs",
