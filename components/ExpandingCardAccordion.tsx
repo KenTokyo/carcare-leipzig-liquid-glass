@@ -5,7 +5,7 @@ import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
 import GanzwortTitel from './GanzwortTitel';
 import { KARTEN_UEBERGANG, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
-import { MOBIL_BEWEGUNG, STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon } from './akkordeonMobil';
+import { MOBIL_BEWEGUNG, STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon, useZeigerAbsicht } from './akkordeonMobil';
 import type { BereichsAngabe } from '../data/services';
 
 /**
@@ -195,10 +195,19 @@ interface KarteProps {
   mobileActiveHeight: number;
   /** Akkordeon fertig eingeblendet (Glas-Plaketten erst danach, siehe `BereichsPlakette`). */
   eingeblendet: boolean;
-  oeffnen: (idx: number, optionen?: { mittig?: boolean }) => void;
+  oeffnen: (idx: number) => void;
   /** Meldet das Element an `useMobilAkkordeon` (Messen vor und nach dem Wechsel). */
   merken: (idx: number, el: HTMLAnchorElement | null) => void;
 }
+
+/** Sichtbarer Fokus (Tastatur)? Browser ohne `:focus-visible` gelten als ja, damit die Tastatur dort weiter aufklappt. */
+const fokusSichtbar = (el: Element): boolean => {
+  try {
+    return el.matches(':focus-visible');
+  } catch {
+    return true;
+  }
+};
 
 /**
  * Eine Karte (seit 2026-10-16 eigene Komponente, vorher inline in der Schleife).
@@ -223,13 +232,19 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       href={item.href}
       aria-label={`${item.title.replace(/\u00AD/g, '')}: ${item.cta ?? 'Mehr ansehen'}`}
       aria-expanded={isActive}
-      onMouseEnter={hoverCapable ? () => oeffnen(idx) : undefined}
-      onFocus={hoverCapable ? () => oeffnen(idx) : undefined}
+      // Desktop: Darueberfahren klappt sofort auf (waagerecht, nichts gleitet). Unter 1024 px nicht `mouseenter`: Das feuert
+      // auch, wenn sich der Inhalt unter einer ruhenden Maus bewegt, und loeste dort die Kette von O8 aus. Dort gilt die
+      // Zeigerabsicht (`useZeigerAbsicht`, akkordeonMobil.ts).
+      onMouseEnter={hoverCapable && isDesktop ? () => oeffnen(idx) : undefined}
+      // Tastatur: Fokus klappt auf. Unter 1024 px nur der sichtbare Fokus (Tabulator); den Fokus beim Mausklick uebernimmt
+      // dort der Klick, sonst ginge die Karte beim Druecken auf und der Klick danach folgte schon dem Link.
+      onFocus={hoverCapable ? (event) => { if (isDesktop || fokusSichtbar(event.currentTarget)) oeffnen(idx); } : undefined}
       onClick={(event) => {
-        // Touch: erster Tap klappt auf (und gleitet mittig, `akkordeonMobil.ts`), zweiter folgt dem Link.
-        if (!hoverCapable && !isActive) {
+        // Unter 1024 px (Finger, Maus, Stift) und auf Touch-Geraeten: erster Klick klappt auf und gleitet mittig
+        // (`akkordeonMobil.ts`), zweiter folgt dem Link. Am Desktop mit Maus ist die Karte beim Klick schon offen.
+        if (!isActive && (!hoverCapable || !isDesktop)) {
           event.preventDefault();
-          oeffnen(idx, { mittig: true });
+          oeffnen(idx);
         }
       }}
       initial={false}
@@ -457,14 +472,16 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Mobil: Hoehe springt, sichtbar bewegt sich nur `transform` (akkordeonMobil.ts). Am Desktop tut der Hook nichts.
   const { karten, messen } = useMobilAkkordeon(!isDesktop, mobileActiveHeight, active);
   /**
-   * Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt. `mittig` nur nach einem Tipp:
-   * Beim Darueberfahren mit der Maus (schmales Fenster, Tablet mit Trackpad) darf die Seite nicht nachgleiten.
+   * Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt; danach gleitet sie mittig in
+   * den freien Bereich, seit 2026-10-19 auch beim Darueberfahren mit der Maus (R33, siehe `useZeigerAbsicht`).
    */
-  const oeffnen = (idx: number, { mittig = false }: { mittig?: boolean } = {}) => {
+  const oeffnen = (idx: number) => {
     if (idx === active) return;
-    messen(idx, mittig);
+    messen(idx);
     setActive(idx);
   };
+  // Maus oder Trackpad unter 1024 px: aufklappen nur nach echter Bewegung und kurzer Ruhe (Kette von O8, akkordeonMobil.ts).
+  useZeigerAbsicht(!isDesktop && hoverCapable, karten, oeffnen);
   const merken = (idx: number, el: HTMLAnchorElement | null) => {
     karten.current[idx] = el;
   };
