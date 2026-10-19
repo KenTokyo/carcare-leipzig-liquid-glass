@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, type MutableRefObject } from 'react';
 import { getLenis } from '../hooks/useSmoothScroll';
-import { gleitenUm, mittigeOberkante } from '../lib/freierBereich';
+import { freierBereich, gleitenUm, mittigeOberkante } from '../lib/freierBereich';
 
 /**
  * Mobiles Aufklappen der `ExpandingCardAccordion`-Karten OHNE Layout pro Bild (2026-10-16, Galaxy A56 des Users:
  * „nicht so schön weich“). Plan und Messwerte: docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-tasks.md.
+ * Seit 2026-10-19 auch die Mitarbeiterstimmen auf /karriere (`Stimmen.tsx`, R33-a), mit eigener Bildlage im Streifen
+ * (`BildZu` unten). Das Gerüst aus Schatten, Fenster und Inhalt teilen beide über `KartenFenster` (akkordeonKarten.tsx).
  *
  * WARUM: Bis hierher animierte Framer die `height` zweier Karten. Jedes Bild änderte damit das Layout, danach rechnete
  * der Browser Stil, Malen und Ebenenaufbau der ganzen Seite neu (gemessen: 16–18 ms je Bild bei 4-fach gedrosselter CPU,
@@ -64,14 +66,34 @@ export const STREIFEN = 64;
  */
 type Teil = 'fenster' | 'inhalt' | 'bild' | 'schatten';
 const TEILE: Teil[] = ['fenster', 'inhalt', 'bild', 'schatten'];
+export type MobilLage = Record<Teil, string>;
+
+/**
+ * BILDEBENE IM STREIFEN als Abbildung gegenüber der offenen Karte: erst um `massstab` skalieren (Ursprung oben links,
+ * `origin-top-left` an der Bildebene), dann um `x`/`y` Pixel verschieben. Zwischen Streifen und offener Karte gleitet
+ * jeder Wert linear mit dem Öffnungsgrad, also mit derselben Kurve wie das Fenster. Ohne Angabe steht die Bildmitte im
+ * Streifen (Leistungskarten, Kopf). Die Stimmen rechnen sie je Foto und Kartenbreite (`bildGeometrie` in `Stimmen.tsx`):
+ * Dort läge in der Bildmitte Mund und Kinn, der Streifen zeigt Augen und Stirn.
+ */
+export interface BildZu {
+  x: number;
+  y: number;
+  massstab: number;
+}
 
 /** Ruhelage der Teile bei `sichtbar` Pixeln sichtbarer Höhe (Karte offen: `sichtbar === hoehe`, alles 0). */
-export const mobilLage = (sichtbar: number, hoehe: number): Record<Teil, string> => ({
-  fenster: `translateY(${sichtbar - hoehe}px)`,
-  inhalt: `translateY(${hoehe - sichtbar}px)`,
-  bild: `translateY(${(sichtbar - hoehe) / 2}px)`,
-  schatten: `translateY(${sichtbar - hoehe}px)`,
-});
+export const mobilLage = (sichtbar: number, hoehe: number, bildZu?: BildZu): MobilLage => {
+  // Anteil „eingeklappt“: 1 beim Streifen, 0 bei offener Karte.
+  const zu = hoehe > STREIFEN ? (hoehe - sichtbar) / (hoehe - STREIFEN) : 0;
+  return {
+    fenster: `translateY(${sichtbar - hoehe}px)`,
+    inhalt: `translateY(${hoehe - sichtbar}px)`,
+    bild: bildZu
+      ? `translate(${bildZu.x * zu}px, ${bildZu.y * zu}px) scale(${1 + (bildZu.massstab - 1) * zu})`
+      : `translateY(${(sichtbar - hoehe) / 2}px)`,
+    schatten: `translateY(${sichtbar - hoehe}px)`,
+  };
+};
 
 /** Deckkraft der Schattenebene = Öffnungsgrad: 0 beim Streifen, 1 bei offener Karte. */
 export const mobilSchatten = (sichtbar: number, hoehe: number): number =>
@@ -120,11 +142,37 @@ const scrollenUm = (dy: number) => {
 };
 
 /**
+ * Bewegt sich gerade etwas? Eine Kartenanimation dieses Akkordeons (Web Animations, nicht die CSS-Übergänge von
+ * Schleier und Kachel) oder Lenis scrollt. Dann steht der Inhalt nicht dort, wo er gleich stehen wird.
+ * `nativ`: auch natives Scrollen zählt. Lenis meldet es bis 400 ms nach dem letzten Scroll-Ereignis (`isScrolling:
+ * 'native'`). Für die Zeigerabsicht nötig (der Inhalt ist unter dem ruhenden Zeiger weitergerückt), für einen Klick nicht:
+ * Nach dem Wischen steht die Seite, nur Lenis' eigenes Gleiten (`'smooth'`) ändert die Lage noch (O5 in
+ * `2026-10-19-stimmen-mobil-mechanik-optimierung-tasks.md`: ein Tipp kurz nach dem Wischen tat sonst nichts).
+ */
+const bewegtSich = (karten: (HTMLElement | null)[], nativ = true): boolean => {
+  const scrollt = getLenis()?.isScrolling;
+  return (
+    (nativ ? !!scrollt : scrollt === 'smooth') ||
+    karten.some((k) => k?.getAnimations({ subtree: true }).some((x) => x.playState === 'running' && x.constructor === Animation))
+  );
+};
+
+/** Sichtbarer Fokus (Tastatur)? Browser ohne `:focus-visible` gelten als ja, damit die Tastatur dort weiter aufklappt. */
+export const fokusSichtbar = (el: Element): boolean => {
+  try {
+    return el.matches(':focus-visible');
+  } catch {
+    return true;
+  }
+};
+
+/**
  * @param aktiv    nur mobil (`!isDesktop`); am Desktop tut der Hook nichts
  * @param hoehe    Höhe der offenen Karte (`mobileActiveHeight`)
  * @param offen    Index der offenen Karte
+ * @param bildZu   Bildlage im Streifen je Karte (`BildZu`); ohne Angabe die Bildmitte
  */
-export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) => {
+export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number, bildZu?: (idx: number) => BildZu) => {
   const karten = useRef<(HTMLElement | null)[]>([]);
   const vorher = useRef<Vorher | null>(null);
   const laufend = useRef<Animation[]>([]);
@@ -170,8 +218,8 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
       }
       const ziel = i === offen ? hoehe : STREIFEN;
       if (Math.abs(alt.lagen[i].sichtbar - ziel) <= 0.5) return;
-      const von = mobilLage(alt.lagen[i].sichtbar, hoehe);
-      const nach = mobilLage(ziel, hoehe);
+      const von = mobilLage(alt.lagen[i].sichtbar, hoehe, bildZu?.(i));
+      const nach = mobilLage(ziel, hoehe, bildZu?.(i));
       for (const teil of TEILE) {
         const el = karte.querySelector<HTMLElement>(`[data-akk="${teil}"]`);
         if (!el) continue;
@@ -194,7 +242,24 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
     return anhalten;
   }, [aktiv]);
 
-  return { karten, messen };
+  /**
+   * Offene Karte ganz ins Bild holen (zweiter Klick auf eine Stimme, 2026-10-19, R33-a): Steht sie nicht ganz im freien
+   * Bereich, gleitet die Seite sie mittig, wie beim Aufgehen. Steht sie ganz darin oder bewegt sich gerade etwas (dann
+   * stimmt ihre Lage noch nicht), passiert nichts.
+   */
+  const zeigen = useCallback(
+    (idx: number) => {
+      const karte = karten.current[idx];
+      if (!aktiv || !karte || bewegtSich(karten.current, false)) return;
+      const r = karte.getBoundingClientRect();
+      const frei = freierBereich();
+      if (r.top >= frei.oben - 0.5 && r.bottom <= frei.unten + 0.5) return;
+      gleitenUm(r.top - mittigeOberkante(hoehe, frei), MOBIL_BEWEGUNG.dauer, MOBIL_BEWEGUNG.kurve);
+    },
+    [aktiv, hoehe]
+  );
+
+  return { karten, messen, zeigen };
 };
 
 /** Ruhe des Zeigers, bevor eine Karte beim Darüberfahren aufgeht (schmales Fenster mit Maus oder Trackpad), in ms. */
@@ -249,10 +314,7 @@ export const useZeigerAbsicht = (aktiv: boolean, karten: MutableRefObject<(HTMLE
         anker = null;
         const p = letzte;
         if (!p) return;
-        const gleitet =
-          !!getLenis()?.isScrolling ||
-          karten.current.some((k) => k?.getAnimations({ subtree: true }).some((x) => x.playState === 'running' && x.constructor === Animation));
-        if (gleitet) return; // Regel 3
+        if (bewegtSich(karten.current)) return; // Regel 3
         const unter = document.elementFromPoint(p.cx, p.cy);
         const idx = unter ? karten.current.findIndex((k) => !!k && k.contains(unter)) : -1;
         if (idx >= 0) oeffnenAktuell.current(idx);
