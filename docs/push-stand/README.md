@@ -1,16 +1,19 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:45, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 20.10.2026, 00:25, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:45 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 20.10.2026, 00:25 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `78a3f4d` | `fd2d318` | 1 vor GitHub (kommt mit dem Push) |
+| `main` | `b9c1513` | `8565cde` | 3 vor GitHub (kommt mit dem Push) |
+| `2026-10-19-akkordeon-mittig-maus` | `e90d026` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `2026-10-19-vite-worktrees-ignorieren` | `655d574` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/quizzical-driscoll-12ff68` | `03391a0` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
 | 2 weitere lokale Branches | – | – | gleich mit GitHub |
 | 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -18,7 +21,9 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `78a3f4d` | 19.10.2026, 20:43 | oalabhypercode | Docs: Zeichenlücken (R32) am MacBook in Chrome und Safari bestätigt | 2 | — | **kommt mit diesem Push** |
+| `655d574` | 19.10.2026, 23:49 | oalabhypercode | Dev-Server: Worktrees anderer Sessions (.claude/worktrees) nicht beobachten | 2 (1 neu) | — | **kommt mit diesem Push** |
+| `e90d026` | 20.10.2026, 00:22 | oalabhypercode | Akkordeon unter 1024 px: Karte geht auch mit der Maus mittig auf (R33) | 7 (2 neu) | — | **kommt mit diesem Push** |
+| `b9c1513` | 20.10.2026, 00:22 | oalabhypercode | Merge: Akkordeon mittig auch mit der Maus (R33) | 7 (2 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,7 +33,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `78a3f4d` |
+| Konfiguration geändert | `vite.config.ts` |
+| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `b9c1513`, `e90d026`, `655d574` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -36,8 +42,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 5, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `2026-10-19-mac-zeichenluecken`, `worktree-service-links-fix` |
-| Weitere Worktrees | 1 |
+| Lokale Branches ohne GitHub-Gegenstück | 6, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `2026-10-19-mac-zeichenluecken`, `2026-10-19-nav-mobil-menue`, `worktree-service-links-fix` |
+| Weitere Worktrees | 3 |
 | Stash-Einträge | 1 |
 
 ## 5. Inhaltlich offen

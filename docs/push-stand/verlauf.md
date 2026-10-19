@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 20.10.2026, 00:25 | `main` | `655d574` `e90d026` `b9c1513` (3) | nein | Konfiguration: vite.config.ts |
 | 19.10.2026, 20:45 | `main` | `78a3f4d` (1) | nein | — |
 | 19.10.2026, 20:28 | `main` | `10dabfa` (1) | nein | — |
 | 19.10.2026, 20:18 | `main` | `5b08b52` `3fdcc1c` `397dd20` (3) | nein | neue Skripte: leerlauf, zeichnen |
