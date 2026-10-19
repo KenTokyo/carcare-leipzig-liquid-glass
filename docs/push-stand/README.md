@@ -1,38 +1,27 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 00:48, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:18, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 00:48 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:18 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `ae66be6` | `c130660` | 8 vor GitHub (kommt mit dem Push) |
-| `2026-10-06-lektorat` | `ae66be6` | — | neu, 8 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `2026-10-16-r23-fusszeile-cls` | `d5c0319` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `2026-10-17-r24-404-seite` | `ea6aa36` | — | neu, 2 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `claude/affectionate-shirley-ebfce4` | `5004a36` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `claude/frosty-chaum-e06c4d` | `318aaee` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `claude/gracious-nightingale-5061fb` | `ae66be6` | — | neu, 8 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `claude/hopeful-colden-aa3a3f` | `92fadf0` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| 16 weitere lokale Branches | – | – | gleich mit GitHub |
-| 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
+| `main` | `397dd20` | `1e1ab77` | 3 vor GitHub (kommt mit dem Push) |
+| `2026-10-19-mac-zeichenluecken` | `5b08b52` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| 2 weitere lokale Branches | – | – | gleich mit GitHub |
+| 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `d5c0319` | 17.10.2026, 00:32 | oalabhypercode | Docs: R23 und R28 live geprüft (CLS 0 auf Handys, kein Pop-up-Rest) | 3 | — | **kommt mit diesem Push** |
-| `ea6aa36` | 17.10.2026, 01:32 | oalabhypercode | Eigene 404-Seite (R24): Prerender schreibt dist/404.html, Smoke-Test prüft Status und Seite | 11 (1 neu) | — | **kommt mit diesem Push** |
-| `5004a36` | 17.10.2026, 01:32 | oalabhypercode | Hero R29: Vertrauensleiste unter 640 px Höhe unter dem Fensterrand (Variante a), Prüfer erweitert | 8 | — | **kommt mit diesem Push** |
-| `a1f1b1f` | 17.10.2026, 17:51 | oalabhypercode | Merge: Hero R29 (Vertrauensleiste in niedrigen Fenstern, Prüfer erweitert) | 8 | — | **kommt mit diesem Push** |
-| `92fadf0` | 17.10.2026, 01:19 | oalabhypercode | Lenis: Schleife nur beim Gleiten (R26), Leerlauf-Wächter, Akkordeon-Prüfer zählt Hauptthread-Bilder | 9 (2 neu) | package.json | **kommt mit diesem Push** |
-| `048d9b9` | 17.10.2026, 17:51 | oalabhypercode | Merge: Lenis R26 (Schleife nur beim Gleiten, Leerlauf-Wächter, Akkordeon-Prüfer) | 9 (2 neu) | package.json | **kommt mit diesem Push** |
-| `64bb51c` | 18.10.2026, 23:44 | oalabhypercode | Merge: origin/main (18.10.: Karte mittig, FAQ-Akkordeon, Abläufe ohne Schleier R30, ruhigeres Aufklappen) | 28 (6 neu) | package.json | **kommt mit diesem Push** |
-| `ae66be6` | 19.10.2026, 00:41 | oalabhypercode | Prüfer nach dem Merge: Bahn nach dem Bild lesen, Hover-Test wartet aufs Einblenden | 5 (1 neu) | — | **kommt mit diesem Push** |
+| `5b08b52` | 19.10.2026, 19:23 | oalabhypercode | Startseite am MacBook: keine Zeichenlücken mehr am Akkordeon (R31), npm run zeichnen | 7 (3 neu) | package.json | **kommt mit diesem Push** |
+| `3fdcc1c` | 19.10.2026, 19:23 | oalabhypercode | Merge: Zeichenlücken am MacBook (R31, npm run zeichnen) | 7 (3 neu) | package.json | **kommt mit diesem Push** |
+| `397dd20` | 19.10.2026, 20:18 | oalabhypercode | Zeichenlücken: Befund heißt R32 (R31 war schon vergeben), Messung nach dem Merge | 7 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -42,8 +31,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run faq-mobil`, neu: `npm run leerlauf` |
-| Kontrolle | `git log --oneline -9 main`: oben „Docs: Push-Stand …", darunter `ae66be6`, `64bb51c`, `048d9b9`, `92fadf0`, `a1f1b1f`, `5004a36`, `ea6aa36`, `d5c0319` |
+| npm-Skripte | neu: `npm run leerlauf`, neu: `npm run zeichnen` |
+| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `397dd20`, `3fdcc1c`, `5b08b52` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -51,19 +40,15 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 22, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `aussparung-beschriftete-aktionen`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
-| Weitere Worktrees | 7 |
-| Stash-Einträge | 0 |
+| Lokale Branches ohne GitHub-Gegenstück | 4, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `worktree-service-links-fix` |
+| Weitere Worktrees | 1 |
+| Stash-Einträge | 1 |
 
 ## 5. Inhaltlich offen
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-| Punkt | Planung |
-|---|---|
-| Phase 3 — Build, Messwerkzeuge, Doku, Push nach Freigabe, Live-Nachweis | `docs/404-seite/tasks/2026-10-17-404-seite-tasks.md` |
-| O1 — Kleiner Sprung am Desktop beobachten · OALAB (mit der Sitzung „mobil-startseite“) | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-optimierung-tasks.md` |
-| O3 — Felddaten nach dem Livegang · OALAB mit Zugang zur Search Console | `docs/cls-layoutspruenge/tasks/2026-10-16-cls-layoutspruenge-optimierung-tasks.md` |
+Keine offenen Folgepunkte in den berührten Planungsdateien.
 
 ### Backlog gesamt: 20 offene Punkte
 
