@@ -7,8 +7,8 @@ sich vom Akkordeon, ist wieder alles normal. Auf dem Windows-Rechner, an dem zul
 **Nummer:** R32 (eigener Befund). Zuerst als R31 vergeben (höchste lokal war R30); beim Zusammenführen mit `origin/main`
 zeigte sich, dass ein Kollege R31 inzwischen für den Kartentipp-Befund vergeben hatte. Umnummeriert auf R32.. Keine Kundennummer.
 
-**Status:** umgesetzt und auf `main` gepusht 2026-10-19 (Branch `2026-10-19-mac-zeichenluecken`). Offen: Safari-Sichtprüfung
-(R32-a), Windows-Gegenprobe (R32-b).
+**Status:** abgeschlossen 2026-10-19, auf `main` gepusht (Branch `2026-10-19-mac-zeichenluecken`), vom User am MacBook in
+Chrome und Safari bestätigt. Offen nur noch die Windows-Gegenprobe (R32-b, optional).
 
 ---
 
@@ -180,8 +180,8 @@ zeigte sich, dass ein Kollege R31 inzwischen für den Kartentipp-Befund vergeben
 * [x] **Werkzeug abgesichert (Pflichtfrage 7):** Messung ohne `main.site-main-shell` bricht als Messfehler ab, ein
       Lauf mit Messfehlern endet mit Exit 2. Gegenprobe gegen eine fremde Seite (`example.com`): 5 Messfehler, Exit 2;
       lokale Gegenprobe weiter bestanden (16 Masken, 97,1 %).
-* [ ] Sichtprüfung am MacBook durch den User: Startseite in Chrome und Safari bis unter beide Akkordeons scrollen
-      (R32-a, R32-f).
+* [x] **Sichtprüfung am MacBook durch den User (2026-10-19):** „Am MacBook sieht die Startseite in Chrome und Safari
+      jetzt sauber aus.“ (R32-a, R32-f)
 
 ### ✅ Phase 5 — Doku
 * [x] `CLAUDE.md`: Zeile `npm run zeichnen` in den Messwerkzeugen; Umsetzungsprinzip „Kein runder Beschnitt um große
