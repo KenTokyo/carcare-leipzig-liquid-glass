@@ -9,10 +9,17 @@ unverändert. `npm run akkordeon` deckt die Stimmen ab, mit Gegenprobe.
 **Nummer:** R33-a aus `2026-10-19-akkordeon-mittig-maus-optimierung-tasks.md`. Deckt zugleich **R25** aus
 `docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-optimierung-tasks.md` ab (Stimmen animieren mobil die Höhe).
 
-**Branch:** `claude/quizzical-driscoll-12ff68` (Worktree). **Status:** umgesetzt, alle Werkzeuge gegen Build 23:58:32
-grün, committet, nicht gepusht (Push nur mit Zustimmung des Users, vorher `npm run push-stand`). **Basis:** R33 lag nur als nicht committeter Stand im
-Haupt-Checkout (Branch `2026-10-19-akkordeon-mittig-maus`, Code zuletzt 21:27:44). Unverändert als erster Commit
-übernommen (`03391a0`, Prüfsummen gleich); wird R33 dort committet, lässt sich dieser Branch ohne ihn darauf setzen.
+**Branch:** `claude/quizzical-driscoll-12ff68` (Worktree). **Basis:** `origin/main` = `dcaa814` (R33 committet als
+`e90d026`, Merge `b9c1513`). Bis dahin lag R33 nur uncommittet im Haupt-Checkout; ich hatte den Stand als ersten Commit
+übernommen (`03391a0`, Prüfsummen gleich). Nach dem Commit von R33 auf diesen Stand umgesetzt (`git rebase --onto
+origin/main 03391a0`), `03391a0` dabei weggelassen; Code-Dateien von R33 waren identisch, ein Konflikt nur im
+R33-Optimierungsplan (benachbarte Zeilen R33-a/b/c, beide Seiten übernommen). Danach alle Werkzeuge neu gemessen
+(Phase 5). **Status:** umgesetzt, gemessen, committet, nicht gepusht (Push nur mit Zustimmung des Users, vorher
+`npm run push-stand`).
+**Nummer des Dreh-Fehlers:** R33-e (Unterpunkt von R33 wie R33-a bis R33-d), nicht R34: R34 hat die Sitzung
+`nav-mobil-menue` reserviert (Notizordner, 20.10.), deren Änderung am Nummernzeiger in
+`docs/mobil-startseite/tasks/2026-10-16-mobil-startseite-optimierung-tasks.md` (Zeile 8) noch nicht committet ist. Eine
+neue Hauptnummer hätte dieselbe Zeile geändert.
 
 ---
 
@@ -208,7 +215,12 @@ CPU-Drossel und Bildzählung verfälschen sich unter Last).
       | `zielgruppen` | ok |
       | `meta` | 0 außerhalb des Korridors |
       | `tote-dateien` | ok (`Jobs.tsx` geparkt) |
-* [x] WebKit gegen den finalen Build wiederholt: unverändert (Maus 159/173 = Soll, keine Kette, Tipp 170 bei Soll 169,
+* [x] **Nach dem Umsetzen auf `origin/main` (dcaa814) erneut, Build 20.10. 01:01:44**, wieder nacheinander: `akkordeon`
+      ok (Stimmen 1/29 Bilder mit spätem Layout, +0,2 px, Bildlage 0,0 px, Maus 158/173 = Mitte, zweiter Klick mittig,
+      Drehen 418/139 px), Gegenprobe vollständig (4/4, 4/4, 4/4, 4/4, 4/4, 2/2, 4/4), `mobil` 0 harte Befunde
+      (257 Hinweise), `cls` 0/0, `kontrast` 6341 Textstellen ok, `leerlauf` ok, `zeichnen` 0/0/0 (Eichung 90,5 %),
+      `faq-mobil` ok, `aussparung` ok, `zielgruppen` ok, `meta` 0, `tote-dateien` ok.
+* [x] WebKit gegen den Build 23:58:32 wiederholt: unverändert (Maus 159/173 = Soll, keine Kette, Tipp 170 bei Soll 169,
       Streifen alt gegen neu Ø 0,2 bis 1,1 von 255).
 * [x] **O5 geprüft:** Tipp auf die zur Hälfte verdeckte offene Stimme direkt nach nativem Scrollen (Lenis meldet dabei
       `lenis-scrolling`): gleitet mittig (173 = Soll), 3 von 3 Läufen. Mit der alten Bedingung (jedes `isScrolling`) hätte
