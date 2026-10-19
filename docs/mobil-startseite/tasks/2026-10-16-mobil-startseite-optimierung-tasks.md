@@ -5,7 +5,7 @@
 Sitzung zur Fußzeile (Branch `2026-10-16-r23-fusszeile-cls`), deshalb hier weiter mit R29. R30 hat die R26-Sitzung
 (2026-10-17) im gemeinsamen Notizordner reserviert, parallel aber auch die Sitzung zu Akkordeon und FAQ vergeben
 (Abläufe ohne Schleier, `docs/mobil-akkordeon-faq/`, seit 18.10. auf GitHub). Beim Zusammenführen am 2026-10-18 blieb
-R30 dort; der Kartentipp-Befund der R26-Sitzung heißt seitdem **R31**. Nächste freie R33 (R32: Zeichenlücken am MacBook, `docs/mac-zeichenluecken/`, 2026-10-19).
+R30 dort; der Kartentipp-Befund der R26-Sitzung heißt seitdem **R31**. Nächste freie R34 (R32: Zeichenlücken am MacBook, `docs/mac-zeichenluecken/`; R33: Akkordeon mittig auch mit der Maus, `docs/mobil-akkordeon-faq/tasks/2026-10-19-akkordeon-mittig-maus-tasks.md`; beide 2026-10-19).
 
 | Nr. | Schwere | Befund | Messung | Stand |
 |---|---|---|---|---|

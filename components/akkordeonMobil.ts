@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, type MutableRefObject } from 'react';
 import { getLenis } from '../hooks/useSmoothScroll';
 import { gleitenUm, mittigeOberkante } from '../lib/freierBereich';
 
@@ -35,6 +35,12 @@ import { gleitenUm, mittigeOberkante } from '../lib/freierBereich';
  * dort, wo der Finger lag (Verankerung oben), und gleitet, während sie aufgeht, mittig in den freien Bereich zwischen
  * Navbar und Knopfleiste (`lib/freierBereich.ts`): Die Seite scrollt mit derselben Dauer und Kurve wie die Karte, beide
  * Bewegungen addieren sich zu einer. Passt die Karte nicht, steht ihre Oberkante 12 px unter der Navbar.
+ *
+ * AUCH MIT DER MAUS (seit 2026-10-19, R33, User: „dass wenn ich mit der Maus drüber hover, das zentriert angezeigt wird“).
+ * Bis dahin glitt nur ein Tipp mittig; beim Darüberfahren blieb die Oberkante stehen, die Karte ging nach unten auf (bei
+ * 78 % Fensterhöhe 217 px unter der Knopfleiste), und alles darüber rückte um 276 px nach unten. Jetzt gleitet jede
+ * Karte, die unter 1024 px aufgeht, mittig: Tipp, Klick, Tastatur und Darüberfahren. Für die Maus gilt dabei die
+ * Zeigerabsicht (`useZeigerAbsicht` unten), sonst liefe die Kette von O8 (17.10.) wieder.
  *
  * UNTERBRECHBAR: Ein Tipp während der Animation misst die Karten so, wie sie gerade zu sehen sind
  * (`getBoundingClientRect` enthält die laufenden Transforms), bricht die Animationen ab und startet von dort.
@@ -97,15 +103,9 @@ interface Lage {
 }
 
 interface Vorher {
-  /** Index der Karte, die aufgehen soll: Im ersten Bild steht sie, wo sie war (Verankerung). */
+  /** Index der Karte, die aufgehen soll: Im ersten Bild steht sie, wo sie war (Verankerung), danach gleitet sie mittig. */
   ziel: number;
   lagen: Lage[];
-  /**
-   * Danach mittig gleiten? NUR NACH EINEM TIPP. Unter 1024 px gibt es auch Geräte mit Maus (schmales Desktopfenster,
-   * iPad mit Trackpad); dort öffnen Karten schon beim Darüberfahren. Gliche die Seite dann nach, rutschte die nächste
-   * Karte unter den Zeiger, ginge auf, und die Seite glitte weiter: eine Kette ohne Zutun.
-   */
-  mittig: boolean;
 }
 
 /**
@@ -134,16 +134,12 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
     laufend.current = [];
   };
 
-  /**
-   * Vor dem Wechsel aufrufen (im Ereignis, bevor der Zustand gesetzt wird), mit der Karte, die aufgehen soll, und ob danach
-   * mittig geglitten wird (`mittig`, nur nach einem Tipp, siehe `Vorher`).
-   */
+  /** Vor dem Wechsel aufrufen (im Ereignis, bevor der Zustand gesetzt wird), mit der Karte, die aufgehen soll. */
   const messen = useCallback(
-    (ziel: number, mittig: boolean) => {
+    (ziel: number) => {
       if (!aktiv) return;
       vorher.current = {
         ziel,
-        mittig,
         lagen: karten.current.map((karte) => {
           if (!karte) return { oben: 0, sichtbar: STREIFEN };
           const rahmen = karte.getBoundingClientRect();
@@ -188,8 +184,8 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
         laufend.current.push(el.animate([start, ende], TIMING));
       }
     });
-    // 3. Nach einem Tipp mittig in den freien Bereich gleiten (siehe Kopf), gleichzeitig mit dem Aufgehen.
-    if (zielKarte && alt.mittig) gleitenUm(zielKarte.getBoundingClientRect().top - mittigeOberkante(hoehe), MOBIL_BEWEGUNG.dauer, MOBIL_BEWEGUNG.kurve);
+    // 3. Mittig in den freien Bereich gleiten (siehe Kopf), gleichzeitig mit dem Aufgehen.
+    if (zielKarte) gleitenUm(zielKarte.getBoundingClientRect().top - mittigeOberkante(hoehe), MOBIL_BEWEGUNG.dauer, MOBIL_BEWEGUNG.kurve);
   }, [offen, aktiv, hoehe]);
 
   // Wechsel auf Desktop oder Abbau: nichts weiterlaufen lassen.
@@ -199,4 +195,75 @@ export const useMobilAkkordeon = (aktiv: boolean, hoehe: number, offen: number) 
   }, [aktiv]);
 
   return { karten, messen };
+};
+
+/** Ruhe des Zeigers, bevor eine Karte beim Darüberfahren aufgeht (schmales Fenster mit Maus oder Trackpad), in ms. */
+export const ZEIGER_RUHE_MS = 120;
+/** So lange nach einem Scrollen zählt keine Zeigerbewegung (WebKits Ersatzbewegungen, siehe `useZeigerAbsicht`), in ms. */
+const SCROLL_STILLE_MS = 250;
+
+/**
+ * ZEIGERABSICHT beim Darüberfahren unter 1024 px (seit 2026-10-19, R33). Dort gleitet jede Karte, die aufgeht, mittig;
+ * mit der Maus ergäbe das ohne Schutz die Kette von O8: Seite gleitet, eine andere Karte liegt unter dem ruhenden
+ * Zeiger, geht auf, die Seite gleitet weiter. Drei Regeln verhindern das:
+ *  1. NUR ECHTE BEWEGUNG zählt: `pointermove` mit anderen Bildschirmkoordinaten als das vorige (im GANZEN Fenster
+ *     verglichen, nicht nur über den Karten) und nicht während oder bis SCROLL_STILLE_MS nach einem Scrollen. Bewegt sich
+ *     der Inhalt unter einer ruhenden Maus (Mitgleiten, Mausrad, Trackpad), meldet Chrome `pointerenter`/`mouseenter` und
+ *     kein `pointermove`; WebKit (Safari) meldet nach dem Scrollen Ersatzbewegungen als `pointermove`, meist mit denselben
+ *     Koordinaten, im automatisierten WebKit nach dem Mausrad aber auch an anderer Stelle (663,474 → 450,409; Karte 7 ging
+ *     auf, gemessen 19.10.). Darum zählt kurz nach einem Scrollen gar keine Bewegung: Echte Mausbewegung kommt als Strom
+ *     und setzt danach sofort wieder ein. Über `mouseenter` lief die alte Kette; es wird unter 1024 px nicht mehr genutzt.
+ *  2. RUHE: Erst wenn der Zeiger ZEIGER_RUHE_MS ruht (Zittern unter 4 px zählt nicht), geht die Karte unter ihm auf.
+ *     Wer nach dem Gleiten zur jetzt mittigen Karte fährt, überquert Streifen; die öffnen dabei nicht.
+ *  3. NICHT WÄHREND DES GLEITENS: Läuft eine Kartenbewegung oder gleitet Lenis, verfällt die Absicht. Der Inhalt hat sich
+ *     unter dem Zeiger verschoben; erst die nächste echte Bewegung zählt.
+ * Welche Karte aufgeht, entscheidet ein Treffertest an der Zeigerstelle beim Ablauf der Ruhe. Liegt dort keine Karte
+ * dieses Akkordeons, passiert nichts; jedes Akkordeon der Seite prüft nur seine eigenen Karten.
+ */
+export const useZeigerAbsicht = (aktiv: boolean, karten: MutableRefObject<(HTMLElement | null)[]>, oeffnen: (idx: number) => void) => {
+  // Immer die zuletzt GERENDERTE Fassung aufrufen (sie kennt die offene Karte); erst nach dem Festschreiben, nicht im Rendern.
+  const oeffnenAktuell = useRef(oeffnen);
+  useLayoutEffect(() => {
+    oeffnenAktuell.current = oeffnen;
+  });
+
+  useEffect(() => {
+    if (!aktiv) return;
+    let letzte: { sx: number; sy: number; cx: number; cy: number } | null = null;
+    let anker: { sx: number; sy: number } | null = null;
+    let zeit = 0;
+    let gescrollt = 0;
+    const scrollt = () => {
+      gescrollt = performance.now();
+    };
+    const bewegt = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return;
+      const vorher = letzte;
+      letzte = { sx: e.screenX, sy: e.screenY, cx: e.clientX, cy: e.clientY };
+      if (vorher && vorher.sx === e.screenX && vorher.sy === e.screenY) return; // Regel 1: keine Bewegung
+      if (performance.now() - gescrollt < SCROLL_STILLE_MS) return; // Regel 1: Ersatzbewegung nach dem Scrollen
+      if (anker && Math.hypot(e.screenX - anker.sx, e.screenY - anker.sy) < 4) return; // Zittern
+      anker = { sx: e.screenX, sy: e.screenY };
+      window.clearTimeout(zeit);
+      zeit = window.setTimeout(() => {
+        anker = null;
+        const p = letzte;
+        if (!p) return;
+        const gleitet =
+          !!getLenis()?.isScrolling ||
+          karten.current.some((k) => k?.getAnimations({ subtree: true }).some((x) => x.playState === 'running' && x.constructor === Animation));
+        if (gleitet) return; // Regel 3
+        const unter = document.elementFromPoint(p.cx, p.cy);
+        const idx = unter ? karten.current.findIndex((k) => !!k && k.contains(unter)) : -1;
+        if (idx >= 0) oeffnenAktuell.current(idx);
+      }, ZEIGER_RUHE_MS);
+    };
+    window.addEventListener('pointermove', bewegt, { passive: true });
+    window.addEventListener('scroll', scrollt, { passive: true });
+    return () => {
+      window.removeEventListener('pointermove', bewegt);
+      window.removeEventListener('scroll', scrollt);
+      window.clearTimeout(zeit);
+    };
+  }, [aktiv, karten]);
 };

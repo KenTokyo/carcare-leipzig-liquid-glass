@@ -80,10 +80,20 @@
 //     Seite), zeigt nur ein Telefon: Ein Gleiten mit falscher Kurve besteht beide Kriterien.
 //  9. SCHATTEN prueft nur `box-shadow` (nicht `filter: drop-shadow`) und nur in der Ruhelage. Waehrend der Animation
 //     ragt die Schattenebene der zuklappenden Karte kurz ueber sie hinaus, blendet dabei aber mit dem Oeffnungsgrad aus.
-// 10. HOVER OHNE GLEITEN (seit 2026-10-17): Unter 1024 px gibt es auch Geraete mit Maus; dort oeffnen Karten beim
-//     Darueberfahren. Glitte die Seite dann zur Mitte, rutschte die naechste Karte unter den Zeiger und die Kette liefe
-//     von selbst. Geprueft: 900 × 800 mit Maus, Zeiger auf Karte 5, danach steht sie still und ist die offene. KEINE
-//     GEGENPROBE (der Fehler laesst sich nicht von aussen einspielen); bewiesen nur, dass der Fall heute nicht eintritt.
+// 10. MAUS IM SCHMALEN FENSTER (seit 2026-10-19, R33; vom 17. bis 19.10. „Hover ohne Gleiten“). Unter 1024 px gibt es
+//     Geraete mit Maus; dort klappt Darueberfahren auf und gleitet mittig wie ein Tipp (User: „dass wenn ich mit der Maus
+//     drueber hover, das zentriert angezeigt wird“). Das Risiko ist die Kette von O8: Seite gleitet, naechste Karte unter
+//     dem ruhenden Zeiger, geht auf, Seite gleitet weiter. Geprueft in 900 × 800 und 393 × 851 mit Maus, Karte 5 bei
+//     75 % der Fensterhoehe: (a) nach dem Darueberfahren offen und mittig wie beim Tipp, (b) danach Ruhe ohne Kette,
+//     (c) Weg ueber die Streifen zur offenen Karte (20 ms je Schritt, schneller als die Ruhe) oeffnet nichts, (d) Mausrad
+//     bei ruhendem Zeiger oeffnet nichts, (f) danach auf eine andere Karte fahren und ruhen oeffnet sie, mittig (der
+//     Schutz darf das Darueberfahren nicht abwuergen), (e) Klick auf eine zugeklappte Karte klappt auf, mittig, ohne
+//     Seitenwechsel.
+//     GEGENPROBE: Mitgleiten aus (`window.scrollTo` leer, muss „nicht mittig“ melden) und die alte Kette eingespielt (die
+//     Seite klickt jede zugeklappte Karte an, die unter den Zeiger kommt, wie das fruehere `mouseenter`; muss „Kette“
+//     melden). WAS SIE NICHT ZEIGT: Puppeteers Mausschritte sind sofort da, ein echtes Trackpad rollt nach; wer langsamer
+//     als die Ruhezeit (120 ms) ueber einen Streifen faehrt, oeffnet ihn mit Absicht. Safari ist nicht geprueft; dort
+//     schuetzt dieselbe Regel, solange Safari bei bewegtem Inhalt die Bildschirmkoordinaten nicht aendert.
 //     Die Ausgangslage wird erst genommen, wenn der Behaelter eingeblendet ist und die Karte ruhig steht (seit 18.10.).
 //  7. HERVORHEBUNG nur als Eigenschaft: Ob ein Geraet trotzdem etwas zeichnet (z. B. Fokusring), sieht nur ein Telefon.
 //  8. EREIGNISSE VON VOR DEM START (gefunden 2026-10-16 spaet): Ein Renderer, der waehrend der vorigen Messung entstand
@@ -484,21 +494,37 @@ try {
     process.stdout.write('.');
   }
 
-  // 4. HOVER OHNE GLEITEN (Kopf, Punkt 10): schmales Fenster MIT Maus, Startseite. Darueberfahren oeffnet die Karte; die
-  //    Karte unter dem Zeiger muss stehen bleiben, und es darf keine andere aufgehen (Kette). Nicht in der Gegenprobe.
-  if (!GEGENPROBE && (!NUR_ROUTEN.length || NUR_ROUTEN.includes('/'))) {
+  // 4. MAUS IM SCHMALEN FENSTER (Kopf, Punkt 10): je Fenster ein frischer Browser, Startseite #leistungen.
+  //    Gegenprobe: dasselbe in 900 × 800, einmal ohne Mitgleiten, einmal mit eingespielter Kette.
+  const MAUS = GEGENPROBE
+    ? [{ width: 900, height: 800, fehler: 'ohne Gleiten' }, { width: 900, height: 800, fehler: 'Kette' }]
+    : [{ width: 900, height: 800 }, { width: 393, height: 851 }];
+  // Die alte Kette (O8): Was unter den Zeiger kommt, geht auf, wie frueher per `mouseenter`.
+  const KETTE = () => document.addEventListener('pointerover', (e) => {
+    const karte = e.target instanceof Element ? e.target.closest('a[aria-expanded="false"]') : null;
+    if (karte && window.__ccKetteAn) karte.click();
+  }, true);
+  const MAUS_LAGE = (i) => {
+    const karten = window.__ccKarten('#leistungen');
+    const r = karten[i].getBoundingClientRect();
+    const f = window.__ccFrei();
+    const platz = f.unten - f.oben;
+    const soll = r.height + 24 <= platz ? f.oben + (platz - r.height) / 2 : f.oben + 12;
+    return { oben: r.top, unten: r.bottom, x: r.left + r.width / 2, soll, frei: f, offen: karten.findIndex((k) => k.getAttribute('aria-expanded') === 'true'), pfad: location.pathname };
+  };
+  for (const mf of (!NUR_ROUTEN.length || NUR_ROUTEN.includes('/')) ? MAUS : []) {
+    const name = `/ #leistungen, Maus ${mf.width} × ${mf.height}${mf.fehler ? ` (Gegenprobe: ${mf.fehler})` : ''}`;
     browser = await puppeteer.launch({ headless: 'new', args: ['--force-prefers-no-reduced-motion'] });
     const seite = await browser.newPage();
     await seite.evaluateOnNewDocument(() => { try { sessionStorage.setItem('cc-preloader-v1', '1'); } catch { /* egal */ } });
     await seite.evaluateOnNewDocument(KARTEN);
-    await seite.setViewport({ width: 900, height: 800, deviceScaleFactor: 1, isMobile: false, hasTouch: false });
+    await seite.evaluateOnNewDocument(FREI);
+    if (mf.fehler === 'Kette') await seite.evaluateOnNewDocument(KETTE);
+    await seite.setViewport({ width: mf.width, height: mf.height, deviceScaleFactor: 1, isMobile: false, hasTouch: false });
     await seite.goto(basis + '/', { waitUntil: 'networkidle0', timeout: 45000 });
-    await seite.evaluate(() => window.scrollTo(0, window.__ccKarten('#leistungen')[4].getBoundingClientRect().top + window.scrollY - 400));
+    await seite.evaluate(() => { const k = window.__ccKarten('#leistungen')[4]; window.scrollTo(0, k.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.75); });
     // Erst messen, wenn der Behaelter eingeblendet ist und die Karte ruhig steht: Er blendet beim ersten Erscheinen ein
-    // (`whileInView`, y 20 → 0, 0,5 s, `ExpandingCardAccordion`), beim ersten Laden eines Browsers gemessen erst nach rund
-    // 1,2 s (Hauptthread vorher fast 1 s belegt). Mit fest 1,5 s Warten lief das in vollen Laeufen noch und galt als
-    // „Seite gleitet beim Darueberfahren“ (18.10.: 390 → 380, 389 → 380, 399 → 390; einzeln 380 → 380). Nur „ruhig“ reicht
-    // nicht: Vor dem Start steht die Karte ebenfalls still (400 → 380 nach dem Darueberfahren).
+    // (`whileInView`, y 20 → 0, 0,5 s), beim ersten Laden eines Browsers erst nach rund 1,2 s (Hauptthread belegt).
     const ruhig = await seite.waitForFunction(() => new Promise((r) => {
       const karte = window.__ccKarten('#leistungen')[4];
       const stil = getComputedStyle(karte.parentElement);
@@ -506,25 +532,88 @@ try {
       const a = karte.getBoundingClientRect().top;
       setTimeout(() => r(Math.abs(karte.getBoundingClientRect().top - a) < 0.5), 300);
     }), { timeout: 8000, polling: 350 }).then(() => true, () => false);
-    if (!ruhig) messfehler.push('Hover-Test: Karten nach dem Scrollen nach 8 s nicht eingeblendet oder nicht ruhig, Test nicht aussagekraeftig');
-    const maus = await seite.evaluate(() => matchMedia('(hover: hover)').matches);
-    const p = await seite.evaluate(() => { const r = window.__ccKarten('#leistungen')[4].getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + 32, oben: r.top }; });
-    // Waagerecht von links heran (Rand ausserhalb der Karten), damit der Weg nur ueber diese Karte fuehrt.
-    await seite.mouse.move(4, p.y);
-    await seite.mouse.move(p.x, p.y, { steps: 4 });
-    await warte(1400);
-    const danach = await seite.evaluate(() => {
-      const karten = window.__ccKarten('#leistungen');
-      return { oben: karten[4].getBoundingClientRect().top, offen: karten.findIndex((k) => k.getAttribute('aria-expanded') === 'true') };
-    });
-    if (!maus) messfehler.push('Hover-Test: Fenster meldet kein (hover: hover), Test nicht aussagekraeftig');
-    else {
-      if (Math.abs(danach.oben - p.oben) > 2) befunde.push(`/ #leistungen, Maus im schmalen Fenster: Karte unter dem Zeiger wandert ${Math.round(p.oben)} → ${Math.round(danach.oben)} px (Seite gleitet beim Darueberfahren)`);
-      if (danach.offen !== 4) befunde.push(`/ #leistungen, Maus im schmalen Fenster: offen ist Karte ${danach.offen + 1} statt der unter dem Zeiger (5), Kette?`);
+    if (!ruhig) messfehler.push(`${name}: Karten nach dem Scrollen nach 8 s nicht eingeblendet oder nicht ruhig, Test nicht aussagekraeftig`);
+    if (!(await seite.evaluate(() => matchMedia('(hover: hover)').matches))) messfehler.push(`${name}: Fenster meldet kein (hover: hover), Test nicht aussagekraeftig`);
+    if (mf.fehler === 'ohne Gleiten') await seite.evaluate(() => { window.scrollTo = () => {}; });
+    if (mf.fehler === 'Kette') await seite.evaluate(() => { window.__ccKetteAn = true; });
+    const start = await seite.evaluate(MAUS_LAGE, 4);
+    const kette = [];
+    const mittigFehler = (l, was) => {
+      const ganz = l.oben >= l.frei.oben - 1 && l.unten <= l.frei.unten + 1;
+      if (Math.abs(l.oben - l.soll) > GRENZE_MITTE && !(l.frei.amRand && ganz)) {
+        befunde.push(`${name}: ${was}: offene Karte nicht mittig im freien Bereich (${Math.round(l.frei.oben)}–${Math.round(l.frei.unten)} px), Oberkante ${Math.round(l.oben)} statt ${Math.round(l.soll)}${ganz ? '' : `, ${Math.round(Math.max(l.frei.oben - l.oben, l.unten - l.frei.unten))} px verdeckt`}`);
+      }
+    };
+    // (a) Waagerecht von links heran (Rand ausserhalb der Karten), dann ruhen
+    const y0 = start.oben + 32;
+    await seite.mouse.move(4, y0);
+    await seite.mouse.move(start.x, y0, { steps: 4 });
+    await warte(1600);
+    const a = await seite.evaluate(MAUS_LAGE, 4);
+    if (a.offen !== 4) befunde.push(`${name}: nach dem Darueberfahren ist Karte ${a.offen + 1} offen statt der unter dem Zeiger (5)`);
+    else mittigFehler(a, 'Darueberfahren');
+    // (b) Ruhe: Es darf nichts mehr aufgehen oder gleiten
+    await warte(1200);
+    const b = await seite.evaluate(MAUS_LAGE, 4);
+    if (b.offen !== a.offen || Math.abs(b.oben - a.oben) > 2) kette.push(`in Ruhe nach dem Gleiten: offen ${a.offen + 1} → ${b.offen + 1}, Karte 5 ${Math.round(a.oben)} → ${Math.round(b.oben)} px`);
+    // (c) Weg ueber die Streifen zur Mitte der offenen Karte, 20 ms je Schritt
+    const zielY = (b.oben + b.unten) / 2;
+    for (let s = 1; s <= 8; s++) {
+      await seite.mouse.move(start.x, y0 + ((zielY - y0) * s) / 8);
+      await warte(20);
     }
-    zeilen.push(`| / #leistungen, Maus 900 × 800 | – | – | Karte unter dem Zeiger ${Math.round(p.oben)} → ${Math.round(danach.oben)} px | – | – | – | – |`);
+    await warte(1200);
+    const c = await seite.evaluate(MAUS_LAGE, 4);
+    if (c.offen !== b.offen) kette.push(`auf dem Weg zur offenen Karte: offen ${b.offen + 1} → ${c.offen + 1}`);
+    // (d) Mausrad bei ruhendem Zeiger: Der Inhalt bewegt sich unter ihm, es darf nichts aufgehen
+    await seite.mouse.wheel({ deltaY: 260 });
+    await warte(1500);
+    const d = await seite.evaluate(MAUS_LAGE, 4);
+    if (d.offen !== c.offen) kette.push(`Mausrad bei ruhendem Zeiger: offen ${c.offen + 1} → ${d.offen + 1}`);
+    if (kette.length) befunde.push(`${name}: Kette (${kette.join('; ')})`);
+    // Zugeklappte Karte, die frei im Bild liegt (fuer f und e)
+    const freieKarte = () => seite.evaluate(() => {
+      const f = window.__ccFrei();
+      const karten = window.__ccKarten('#leistungen');
+      for (let i = 0; i < karten.length; i++) {
+        if (karten[i].getAttribute('aria-expanded') === 'true') continue;
+        const r = karten[i].getBoundingClientRect();
+        const x = r.left + r.width / 2;
+        const y = r.top + 32;
+        if (y > f.oben + 20 && y < f.unten - 20 && document.elementFromPoint(x, y)?.closest('a[aria-expanded]') === karten[i]) return { i, x, y };
+      }
+      return null;
+    });
+    // (f) Nach dem Mausrad auf eine andere Karte fahren und ruhen: Sie muss aufgehen (Gegenstueck zu d)
+    let hoverText = '';
+    const neu = mf.fehler ? null : await freieKarte();
+    if (!mf.fehler && !neu) messfehler.push(`${name}: keine zugeklappte Karte frei im Bild fuer das Darueberfahren nach dem Mausrad`);
+    else if (neu) {
+      await warte(400);
+      await seite.mouse.move(neu.x, neu.y, { steps: 5 });
+      await warte(1600);
+      const f = await seite.evaluate(MAUS_LAGE, neu.i);
+      hoverText = `, danach Karte ${neu.i + 1} per Darueberfahren ${f.offen === neu.i ? 'offen' : 'NICHT offen'}`;
+      if (f.offen !== neu.i) befunde.push(`${name}: nach dem Mausrad oeffnet Darueberfahren die Karte ${neu.i + 1} nicht (offen ist ${f.offen + 1})`);
+      else mittigFehler(f, `Darueberfahren nach dem Mausrad (Karte ${neu.i + 1})`);
+    }
+    // (e) Klick auf eine zugeklappte Karte, die frei im Bild liegt: klappt auf und gleitet mittig, kein Seitenwechsel
+    const ziel = mf.fehler ? null : await freieKarte();
+    let klickText = 'keine freie Karte';
+    if (!mf.fehler && !ziel) messfehler.push(`${name}: keine zugeklappte Karte frei im Bild fuer den Klick`);
+    else if (ziel) {
+      await seite.mouse.click(ziel.x, ziel.y);
+      await warte(1600);
+      const e = await seite.evaluate(MAUS_LAGE, ziel.i);
+      klickText = `Klick auf Karte ${ziel.i + 1}: ${e.pfad === '/' ? 'aufgeklappt' : `Seitenwechsel nach ${e.pfad}`}`;
+      if (e.pfad !== '/') befunde.push(`${name}: Klick auf die zugeklappte Karte ${ziel.i + 1} folgte dem Link (${e.pfad}) statt aufzuklappen`);
+      else if (e.offen !== ziel.i) befunde.push(`${name}: nach dem Klick auf Karte ${ziel.i + 1} ist Karte ${e.offen + 1} offen`);
+      else mittigFehler(e, `Klick auf Karte ${ziel.i + 1}`);
+    }
+    zeilen.push(`| ${name} | – | – | Karte 5 ${Math.round(start.oben)} → ${Math.round(a.oben)} px (Mitte ${Math.round(a.soll)}), ${kette.length ? 'Kette' : 'keine Kette'}${hoverText}, ${klickText} | ${(a.oben - a.soll >= 0 ? '+' : '') + (a.oben - a.soll).toFixed(1)} px | – | – | – |`);
     await browser.close();
     browser = undefined;
+    process.stdout.write('.');
   }
 } finally {
   await browser?.close();
@@ -547,8 +636,12 @@ if (GEGENPROBE) {
   // Ohne `scrollTo`: je Akkordeon mindestens SPRUNG oder MITTE (beide aus derselben Lage, also je Akkordeon gezaehlt)
   const lage = ZIELE.filter((z) => !NUR_ROUTEN.length || NUR_ROUTEN.includes(z.route))
     .filter((z) => befunde.some((b) => b.startsWith(`${z.route} ${z.sektion}:`) && (b.includes('springt') || b.includes('nicht mittig')))).length;
-  console.log(`\n[akkordeon] Gegenprobe: ${gemeldet} von ${erwartet} eingespielten Hoehen-Animationen, ${hervor} von ${erwartet} Tipp-Hervorhebungen, ${schatten} von ${erwartet} Fensterschatten und ${lage} von ${erwartet} abgeschalteten Scrollbewegungen (Sprung oder nicht mittig) gemeldet.`);
-  process.exit(gemeldet === erwartet && hervor === erwartet && schatten === erwartet && lage === erwartet ? 0 : 1);
+  // Maus (nur mit der Startseite): ohne Gleiten muss „nicht mittig“ fallen, mit eingespielter Kette „Kette“.
+  const mausErwartet = !NUR_ROUTEN.length || NUR_ROUTEN.includes('/') ? 2 : 0;
+  const maus = (befunde.some((b) => b.includes('(Gegenprobe: ohne Gleiten)') && b.includes('nicht mittig')) ? 1 : 0)
+    + (befunde.some((b) => b.includes('(Gegenprobe: Kette)') && b.includes('Kette (')) ? 1 : 0);
+  console.log(`\n[akkordeon] Gegenprobe: ${gemeldet} von ${erwartet} eingespielten Hoehen-Animationen, ${hervor} von ${erwartet} Tipp-Hervorhebungen, ${schatten} von ${erwartet} Fensterschatten, ${lage} von ${erwartet} abgeschalteten Scrollbewegungen (Sprung oder nicht mittig) und ${maus} von ${mausErwartet} Maus-Fehlern (ohne Gleiten, Kette) gemeldet.`);
+  process.exit(gemeldet === erwartet && hervor === erwartet && schatten === erwartet && lage === erwartet && maus === mausErwartet ? 0 : 1);
 }
 if (messfehler.length) process.exit(2);
 if (befunde.length) {
@@ -556,4 +649,4 @@ if (befunde.length) {
   for (const b of befunde) console.log(`  - ${b}`);
   process.exit(1);
 }
-console.log('\n[akkordeon] ok: kein Layout pro Bild, alle Animationen auf dem Compositor, Ruhelage stimmt, getippte Karte gleitet ohne Sprung in die Mitte, kein Schatten ausserhalb der Karten, keine Tipp-Hervorhebung.');
+console.log('\n[akkordeon] ok: kein Layout pro Bild, alle Animationen auf dem Compositor, Ruhelage stimmt, getippte Karte gleitet ohne Sprung in die Mitte, kein Schatten ausserhalb der Karten, keine Tipp-Hervorhebung, mit der Maus mittig und ohne Kette.');
