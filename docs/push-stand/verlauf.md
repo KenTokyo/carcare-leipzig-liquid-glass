@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 19.10.2026, 20:45 | `main` | `78a3f4d` (1) | nein | — |
 | 19.10.2026, 20:28 | `main` | `10dabfa` (1) | nein | — |
 | 19.10.2026, 20:18 | `main` | `5b08b52` `3fdcc1c` `397dd20` (3) | nein | neue Skripte: leerlauf, zeichnen |
 | 19.10.2026, 00:48 | `main` | `d5c0319` `ea6aa36` `5004a36` `a1f1b1f` `92fadf0` `048d9b9` `64bb51c` `ae66be6` (8) | nein | neue Skripte: faq-mobil, leerlauf |

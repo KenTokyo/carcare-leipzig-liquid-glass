@@ -1,16 +1,16 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:28, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:45, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:28 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:45 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `10dabfa` | `37276b7` | 1 vor GitHub (kommt mit dem Push) |
+| `main` | `78a3f4d` | `fd2d318` | 1 vor GitHub (kommt mit dem Push) |
 | 2 weitere lokale Branches | – | – | gleich mit GitHub |
 | 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -18,7 +18,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `10dabfa` | 19.10.2026, 20:28 | oalabhypercode | npm run zeichnen: Seite ohne Hauptbereich ist ein Messfehler (Exit 2) | 4 | — | **kommt mit diesem Push** |
+| `78a3f4d` | 19.10.2026, 20:43 | oalabhypercode | Docs: Zeichenlücken (R32) am MacBook in Chrome und Safari bestätigt | 2 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,7 +28,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `10dabfa` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `78a3f4d` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
