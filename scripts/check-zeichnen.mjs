@@ -53,6 +53,11 @@
 //  5. ZUSTAENDE: Gemessen wird der Ausgangszustand jeder Seite beim Durchscrollen (Maus am linken Rand, keine Hover).
 //     Aufgeklappte Karten, offene Dialoge oder Menues misst sie nicht.
 //  6. VIER FENSTER, Chrome-Standardeinstellungen. Andere Zoomstufen, Bildschirme und Browser nicht.
+//  7. FALSCHE SEITE (2026-10-19, `--url` gegen Vercel): Nach vielen automatischen Abrufen schaltete Vercel eine
+//     Sicherheitspruefung vor („Vercel Security Checkpoint“). Gemessen wurde die Pruefseite: ohne `main`, also ohne
+//     Messflaeche, also „0 Befunde“. Jetzt bricht jede Messung ohne `main.site-main-shell` als MESSFEHLER ab, und ein
+//     Lauf mit Messfehlern endet mit Exit 2 statt mit einem Urteil. Die Pruefung wird nicht umgangen; gegen das
+//     Deployment dann spaeter erneut messen oder im eigenen Browser ansehen.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -242,6 +247,12 @@ async function oeffnen(browser, basis, route, f, regeln) {
 /** Eine Route in einem Fenster: durchscrollen, je Position Luecke und Ebenen. */
 async function messe(browser, basis, route, f, { regeln = FAERBUNG, bis = Infinity } = {}) {
   const seite = await oeffnen(browser, basis, route, f, regeln);
+  // Pflichtfrage 7: ohne Hauptbereich kein Urteil (Sicherheitspruefung, Fehlerseite, falsche Adresse).
+  const titel = await seite.evaluate(() => (document.querySelector('main.site-main-shell') ? null : document.title));
+  if (titel !== null) {
+    await seite.close();
+    throw new Error(`Seite ohne Hauptbereich („${titel}“), z. B. Sicherheitsprüfung oder Fehlerseite`);
+  }
   const cdp = await seite.createCDPSession();
   const stand = { baum: null, zaehler: 0 };
   cdp.on('LayerTree.layerTreeDidChange', (e) => {
@@ -304,6 +315,7 @@ async function main() {
   const browser = browserListe[0];
   const fenster = sichtbar ? FENSTER.filter((f) => !f.mobil) : FENSTER;
   const befunde = [];
+  const messfehler = [];
   const hinweise = [];
   const uebersicht = [];
   let eichung = null;
@@ -312,11 +324,16 @@ async function main() {
   try {
     // EICHUNG (Pflichtfrage 1): Zeigt dieser Rechner den eingespielten Fehler auf / ueberhaupt?
     const eichFenster = fenster.find((f) => f.name === '1920');
-    const eichPos = await messe(browser, vorschau.basis, '/', eichFenster, { regeln: FAERBUNG + FEHLER, bis: 3200 });
+    let eichPos = [];
+    try {
+      eichPos = await messe(browser, vorschau.basis, '/', eichFenster, { regeln: FAERBUNG + FEHLER, bis: 3200 });
+    } catch (fehler) {
+      messfehler.push(`Eichung: ${String(fehler.message).slice(0, 120)}`);
+    }
     const eichMax = Math.max(0, ...eichPos.map((p) => p.anteil));
     const eichMasken = Math.max(0, ...eichPos.map((p) => p.ebenen?.masken ?? 0));
     eichung = { luecke: eichMax, masken: eichMasken, zeigt: eichMax >= LUECKE_AB };
-    console.log(`[zeichnen] Eichung auf / @${eichFenster.name} mit eingespieltem Fehler: Luecke ${prozent(eichMax)}, ${eichMasken} Masken → ${eichung.zeigt ? 'dieser Rechner zeigt Zeichenluecken' : 'dieser Rechner zeigt KEINE Zeichenluecken (Budget gross genug)'}`);
+    console.log(`[zeichnen] Eichung auf / @${eichFenster.name} mit eingespieltem Fehler: Luecke ${prozent(eichMax)}, ${eichMasken} Masken → ${!eichPos.length ? 'nicht gemessen (Messfehler, siehe unten)' : eichung.zeigt ? 'dieser Rechner zeigt Zeichenluecken' : 'dieser Rechner zeigt KEINE Zeichenluecken (Budget gross genug)'}`);
 
     const auftraege = gegenprobe ? [] : routen.flatMap((route) => fenster.map((f) => ({ route, f })));
     let naechster = 0;
@@ -327,7 +344,7 @@ async function main() {
         try {
           pos = await messe(browser, vorschau.basis, route, f);
         } catch (fehler) {
-          hinweise.push({ route, fenster: f.name, text: `Messfehler: ${String(fehler.message).slice(0, 120)}` });
+          messfehler.push(`${route} @${f.name}: ${String(fehler.message).slice(0, 120)}`);
           process.stdout.write('x');
           continue;
         }
@@ -355,10 +372,10 @@ async function main() {
     vorschau.stopp();
   }
   process.stdout.write('\n');
-  return { befunde, hinweise, uebersicht, eichung, fenster };
+  return { befunde, hinweise, uebersicht, eichung, fenster, messfehler };
 }
 
-const { befunde, hinweise, uebersicht, eichung, fenster } = await main();
+const { befunde, hinweise, uebersicht, eichung, fenster, messfehler } = await main();
 const harte = befunde.filter((b) => b.bestaetigt);
 const unbestaetigt = befunde.filter((b) => !b.bestaetigt);
 const ordnung = (a, b) => routen.indexOf(a.route) - routen.indexOf(b.route) || fenster.findIndex((f) => f.name === a.fenster) - fenster.findIndex((f) => f.name === b.fenster);
@@ -367,6 +384,7 @@ const befundZeile = (b) => `| ${b.art} | \`${b.route}\` | ${b.fenster} | ${b.y} 
 const md = [
   gegenprobe ? '# Zeichenlücken: Gegenprobe' : '# Zeichenlücken (Compositor)', '',
   `> Erzeugt von \`npm run zeichnen\` am ${new Date().toLocaleString('de-DE')}, ${urlArg ?? 'dist/ (vite preview)'}, ${sichtbar ? 'sichtbares Chrome' : 'Chrome headless'}, ${process.platform}. Fenster: ${fenster.map((f) => f.text).join(', ')}. Nicht von Hand bearbeiten.`, '',
+  ...(messfehler.length ? [`**⚠️ ${messfehler.length} Messfehler, kein Urteil (Exit 2):**`, '', ...messfehler.map((m) => `- ${m}`), ''] : []),
   `**Eichung** (/ bei 1920 × 945 mit eingespieltem Fehler vom 19.10.): Lücke ${prozent(eichung.luecke)}, ${eichung.masken} Masken in Seitengröße. ${eichung.zeigt ? 'Dieser Rechner zeigt Zeichenlücken, das Lückenurteil gilt.' : '⚠️ Dieser Rechner zeigt den Fehler nicht als Lücke. Für Lücken gibt es hier kein Urteil, nur für die Ebenen.'}`, '',
   ...(gegenprobe ? [] : [
     `**${harte.length} harte Befunde**, ${unbestaetigt.length} unbestätigte Lücken, ${hinweise.length} Hinweise. Grenzen: Lücke ab ${prozent(LUECKE_AB)} der Fläche, Masken in Seitengröße hart ab ${MASKEN_HART}, Hinweis ab ${MASKEN_HINWEIS}.`, '',
@@ -378,7 +396,9 @@ const md = [
 ];
 fs.writeFileSync(path.join(AUSGABE, gegenprobe ? 'gegenprobe.md' : 'bericht.md'), md.join('\n'));
 
+for (const m of messfehler) console.log(`  MESSFEHLER ${m}`);
 if (gegenprobe) {
+  if (messfehler.length) { console.log('[zeichnen] Gegenprobe ohne Urteil: Messfehler (Exit 2).'); process.exit(2); }
   const ebenenGetroffen = eichung.masken >= MASKEN_HART;
   const lueckeGetroffen = eichung.zeigt;
   console.log(`[zeichnen] Gegenprobe: Ebenen ${ebenenGetroffen ? 'gemeldet' : 'NICHT gemeldet'} (${eichung.masken} Masken, Grenze ${MASKEN_HART}), Lücke ${lueckeGetroffen ? 'gemeldet' : 'nicht sichtbar auf diesem Rechner'} (${prozent(eichung.luecke)}).`);
@@ -392,6 +412,10 @@ console.log(`[zeichnen] ${routen.length} Routen × ${fenster.length} Fenster. ${
 for (const b of befunde) console.log(`  ${b.bestaetigt ? 'HART' : 'unbestätigt'} ${b.art} ${b.route} @${b.fenster} y ${b.y}: ${b.art === 'Luecke' ? `${prozent(b.wert)} (nachgemessen ${prozent(b.wieder)})` : `${b.wert} Masken in Seitengröße`} · ${ebenenText(b.ebenen)}`);
 for (const h of hinweise) console.log(`  Hinweis ${h.route} @${h.fenster}: ${h.text}`);
 if (harte.length) process.exit(1);
+if (messfehler.length) {
+  console.log(`[zeichnen] ${messfehler.length} Messfehler: kein Urteil (Exit 2).`);
+  process.exit(2);
+}
 if (!eichung.zeigt) {
   console.log('[zeichnen] Ebenen in Ordnung. Für Lücken KEIN Urteil: Dieser Rechner zeigt den eingespielten Fehler nicht (Exit 2).');
   process.exit(2);

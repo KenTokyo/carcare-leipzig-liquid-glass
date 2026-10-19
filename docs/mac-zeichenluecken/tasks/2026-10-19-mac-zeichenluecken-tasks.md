@@ -169,6 +169,20 @@ zeigte sich, dass ein Kollege R31 inzwischen für den Kartentipp-Befund vergeben
       bisher), `leerlauf` ok (29 Routen × 2 Fenster), `cls` 0/0, `faq-mobil` ok, `zielgruppen` ok, `meta` 0,
       `tote-dateien` ok, **`zeichnen` 29 Routen × 4 Fenster: 0 Lücken, 0 Befunde, 0 Hinweise**.
 
+### ✅ Phase 7 — Push und Live-Prüfung
+* [x] Gepusht `1e1ab77..37276b7` (`main`), Push-Stand vorher erzeugt und committet, `--pruefen` ok.
+* [x] Vercel liefert den neuen Stand aus: im eingebauten Browser dasselbe Skript wie lokal (`index-TH6rAPOw.js`) und
+      `border-top-left-radius: 0px` am `main`.
+* [x] **Live-Messung nicht möglich:** Nach den vielen automatischen Abrufen des Tages schaltete Vercel eine
+      Sicherheitsprüfung vor (HTTP 403, „Vercel Security Checkpoint“, `x-vercel-mitigated: challenge`). `npm run
+      zeichnen -- --url …` maß die Prüfseite und meldete „0 Befunde“ (Eichung 0 %, also schon damals kein Urteil).
+      Die Prüfung wird bewusst nicht umgangen.
+* [x] **Werkzeug abgesichert (Pflichtfrage 7):** Messung ohne `main.site-main-shell` bricht als Messfehler ab, ein
+      Lauf mit Messfehlern endet mit Exit 2. Gegenprobe gegen eine fremde Seite (`example.com`): 5 Messfehler, Exit 2;
+      lokale Gegenprobe weiter bestanden (16 Masken, 97,1 %).
+* [ ] Sichtprüfung am MacBook durch den User: Startseite in Chrome und Safari bis unter beide Akkordeons scrollen
+      (R32-a, R32-f).
+
 ### ✅ Phase 5 — Doku
 * [x] `CLAUDE.md`: Zeile `npm run zeichnen` in den Messwerkzeugen; Umsetzungsprinzip „Kein runder Beschnitt um große
       Behälter, unsichtbares Glas zusätzlich `visibility: hidden`“.
