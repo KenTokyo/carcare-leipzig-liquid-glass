@@ -2,6 +2,9 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+/** Worktrees anderer Claude-Code-Sessions in DIESEM Projekt, mit `/` getrennt (Pruefung siehe `server.watch`). */
+const WORKTREES = path.resolve(__dirname, '.claude', 'worktrees').split(path.sep).join('/');
+
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
@@ -9,6 +12,22 @@ export default defineConfig(({ mode }) => {
         // Nutzt den vom Harness zugewiesenen Port (PORT), sonst Standard 3007.
         port: Number(process.env.PORT) || 3007,
         host: '0.0.0.0',
+        /**
+         * Arbeitsordner anderer Sessions NICHT beobachten (2026-10-19). Claude-Code-Sessions mit eigenem Worktree liegen in
+         * `.claude/worktrees/` INNERHALB dieses Projekts, und Vite beobachtete sie mit (`.gitignore` gilt fuer den Beobachter
+         * nicht). Baute dort eine Session, lud der Testtab hier bei jeder vorgerenderten Seite neu, zeitweise jede Sekunde,
+         * und eine `tsconfig.json` dort leerte hier den Cache.
+         * Geprueft wird gegen den absoluten Pfad DIESES Projekts, kein allgemeines Glob-Muster mit Doppelstern vor
+         * `.claude/worktrees`: Laeuft ein Dev-Server in einem dieser Worktrees, soll er seine eigenen Dateien weiter
+         * beobachten. Als Funktion statt Glob, weil Klammern im Projektpfad (andere Rechner) einen Glob brechen; `/` statt
+         * `\` fuer Windows.
+         */
+        watch: {
+          ignored: (datei: string) => {
+            const pfad = datei.split(path.sep).join('/');
+            return pfad === WORKTREES || pfad.startsWith(`${WORKTREES}/`);
+          },
+        },
       },
       plugins: [
         react(),
