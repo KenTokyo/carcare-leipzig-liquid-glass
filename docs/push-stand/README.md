@@ -1,17 +1,16 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:18, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 19.10.2026, 20:28, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:18 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 19.10.2026, 20:28 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `397dd20` | `1e1ab77` | 3 vor GitHub (kommt mit dem Push) |
-| `2026-10-19-mac-zeichenluecken` | `5b08b52` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `main` | `10dabfa` | `37276b7` | 1 vor GitHub (kommt mit dem Push) |
 | 2 weitere lokale Branches | – | – | gleich mit GitHub |
 | 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
@@ -19,9 +18,7 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `5b08b52` | 19.10.2026, 19:23 | oalabhypercode | Startseite am MacBook: keine Zeichenlücken mehr am Akkordeon (R31), npm run zeichnen | 7 (3 neu) | package.json | **kommt mit diesem Push** |
-| `3fdcc1c` | 19.10.2026, 19:23 | oalabhypercode | Merge: Zeichenlücken am MacBook (R31, npm run zeichnen) | 7 (3 neu) | package.json | **kommt mit diesem Push** |
-| `397dd20` | 19.10.2026, 20:18 | oalabhypercode | Zeichenlücken: Befund heißt R32 (R31 war schon vergeben), Messung nach dem Merge | 7 | — | **kommt mit diesem Push** |
+| `10dabfa` | 19.10.2026, 20:28 | oalabhypercode | npm run zeichnen: Seite ohne Hauptbereich ist ein Messfehler (Exit 2) | 4 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -31,8 +28,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| npm-Skripte | neu: `npm run leerlauf`, neu: `npm run zeichnen` |
-| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `397dd20`, `3fdcc1c`, `5b08b52` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `10dabfa` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -40,7 +36,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 4, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `worktree-service-links-fix` |
+| Lokale Branches ohne GitHub-Gegenstück | 5, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `2026-10-19-mac-zeichenluecken`, `worktree-service-links-fix` |
 | Weitere Worktrees | 1 |
 | Stash-Einträge | 1 |
 
