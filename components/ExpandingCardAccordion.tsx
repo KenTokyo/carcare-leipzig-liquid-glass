@@ -4,8 +4,8 @@ import { ArrowUpRight } from 'lucide-react';
 import KiMarke from './KiMarke';
 import BereichsPlakette from './BereichsPlakette';
 import GanzwortTitel from './GanzwortTitel';
-import { KARTEN_UEBERGANG, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
-import { MOBIL_BEWEGUNG, STREIFEN, mobilLage, mobilSchatten, useMobilAkkordeon } from './akkordeonMobil';
+import { KARTEN_RAHMEN, KARTEN_UEBERGANG, KartenFenster, KartenLogo, KartenSchleier, useAkkordeonGeraet } from './akkordeonKarten';
+import { MOBIL_BEWEGUNG, STREIFEN, fokusSichtbar, mobilLage, mobilSchatten, useMobilAkkordeon, useZeigerAbsicht } from './akkordeonMobil';
 import type { BereichsAngabe } from '../data/services';
 
 /**
@@ -172,19 +172,6 @@ interface ExpandingCardAccordionProps {
   mobileActiveHeight?: number;
 }
 
-/**
- * Rahmen der Karte (Link). Am Desktop wie in `KARTEN_RAHMEN` (akkordeonKarten.tsx): Rundung, Beschnitt, Schatten.
- * MOBIL OHNE BESCHNITT UND SCHATTEN: Dort schneidet das Fenster (`data-akk="fenster"`) zu, denn nur seine Unterkante
- * wandert beim Auf- und Zuklappen (siehe `akkordeonMobil.ts`). Den Schatten traegt seit 2026-10-17 eine eigene Ebene
- * (`data-akk="schatten"`, Begruendung in `akkordeonMobil.ts`: das „weisse Rechteck“ hinter den Karten).
- * OHNE TIPP-HERVORHEBUNG (2026-10-16 abends, Rueckmeldung vom A56: „die naechste Karte blitzt weiss auf“): `index.css`
- * gibt jedem Link Signalblau 18 % als Tipp-Farbe. Android zeichnet sie ueber den Kasten des Links, und der ist mobil
- * sofort so hoch wie die offene Karte, waehrend das Fenster noch aufgeht: Die Hervorhebung lag damit ueber den
- * naechsten Karten. Rueckmeldung gibt hier das Aufklappen selbst.
- */
-const RAHMEN =
-  'group relative min-w-0 rounded-[1.5rem] outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 lg:basis-0 lg:overflow-hidden lg:shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)]';
-
 /** Props einer Karte. Alles, was sich je Karte unterscheidet oder vom Akkordeon kommt. */
 interface KarteProps {
   item: ExpandingCardItem;
@@ -195,7 +182,7 @@ interface KarteProps {
   mobileActiveHeight: number;
   /** Akkordeon fertig eingeblendet (Glas-Plaketten erst danach, siehe `BereichsPlakette`). */
   eingeblendet: boolean;
-  oeffnen: (idx: number, optionen?: { mittig?: boolean }) => void;
+  oeffnen: (idx: number) => void;
   /** Meldet das Element an `useMobilAkkordeon` (Messen vor und nach dem Wechsel). */
   merken: (idx: number, el: HTMLAnchorElement | null) => void;
 }
@@ -223,48 +210,35 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       href={item.href}
       aria-label={`${item.title.replace(/\u00AD/g, '')}: ${item.cta ?? 'Mehr ansehen'}`}
       aria-expanded={isActive}
-      onMouseEnter={hoverCapable ? () => oeffnen(idx) : undefined}
-      onFocus={hoverCapable ? () => oeffnen(idx) : undefined}
+      // Desktop: Darueberfahren klappt sofort auf (waagerecht, nichts gleitet). Unter 1024 px nicht `mouseenter`: Das feuert
+      // auch, wenn sich der Inhalt unter einer ruhenden Maus bewegt, und loeste dort die Kette von O8 aus. Dort gilt die
+      // Zeigerabsicht (`useZeigerAbsicht`, akkordeonMobil.ts).
+      onMouseEnter={hoverCapable && isDesktop ? () => oeffnen(idx) : undefined}
+      // Tastatur: Fokus klappt auf. Unter 1024 px nur der sichtbare Fokus (Tabulator); den Fokus beim Mausklick uebernimmt
+      // dort der Klick, sonst ginge die Karte beim Druecken auf und der Klick danach folgte schon dem Link.
+      onFocus={hoverCapable ? (event) => { if (isDesktop || fokusSichtbar(event.currentTarget)) oeffnen(idx); } : undefined}
       onClick={(event) => {
-        // Touch: erster Tap klappt auf (und gleitet mittig, `akkordeonMobil.ts`), zweiter folgt dem Link.
-        if (!hoverCapable && !isActive) {
+        // Unter 1024 px (Finger, Maus, Stift) und auf Touch-Geraeten: erster Klick klappt auf und gleitet mittig
+        // (`akkordeonMobil.ts`), zweiter folgt dem Link. Am Desktop mit Maus ist die Karte beim Klick schon offen.
+        if (!isActive && (!hoverCapable || !isDesktop)) {
           event.preventDefault();
-          oeffnen(idx, { mittig: true });
+          oeffnen(idx);
         }
       }}
       initial={false}
-      // Nur am Desktop animiert Framer (Breite per `flexGrow`). Mobil springt die Hoehe ueber `style`; ein
-      // animiertes `flexGrow` loeste dort ohne sichtbare Wirkung in jedem Bild ein Layout aus.
-      animate={isDesktop ? { flexGrow: isActive ? 6 : 1, height: '100%' } : undefined}
+      // Framer bewegt nur am Desktop etwas (Breite per `flexGrow`). Mobil springt die Hoehe ueber `style`, `flexGrow` steht
+      // dort fest auf 1 (ein animiertes `flexGrow` loeste ohne sichtbare Wirkung in jedem Bild ein Layout aus). IMMER gesetzt
+      // (seit 2026-10-19, R33-e): Kam `animate` erst beim Wechsel auf den Desktop dazu (iPad gedreht, Fenster aufgezogen),
+      // uebernahm Framer es nie, alle Karten blieben 0 px breit. Hoehe am Desktop per `lg:h-full` (KARTEN_RAHMEN).
+      animate={{ flexGrow: isDesktop && isActive ? 6 : 1 }}
       style={isDesktop ? undefined : { height: isActive ? mobileActiveHeight : STREIFEN }}
       transition={KARTEN_UEBERGANG}
-      className={RAHMEN}
+      className={KARTEN_RAHMEN}
+      // Zustand fuer `npm run akkordeon` (wie bei den Stimmen, die als Zitate kein `aria-expanded` tragen koennen).
+      data-akk-offen={isActive}
     >
-      {/* SCHATTEN NUR MOBIL, als eigene Ebene vor dem Fenster (2026-10-17). Sie steht wie das Fenster und ist so
-          deckend, wie die Karte offen ist: Eingeklappt wirft der unsichtbare, 276 px nach oben ragende Teil keinen
-          Schatten mehr neben die Kartenspalte (das war das „weisse Rechteck“, siehe `akkordeonMobil.ts`). */}
-      {lage && (
-        <div
-          data-akk="schatten"
-          aria-hidden="true"
-          style={{ height: mobileActiveHeight, transform: lage.schatten, opacity: mobilSchatten(isActive ? mobileActiveHeight : STREIFEN, mobileActiveHeight) }}
-          className="pointer-events-none absolute inset-x-0 top-0 rounded-[1.5rem] shadow-[0_26px_60px_-32px_rgb(var(--cc-carbon-rgb)/0.55)] lg:hidden"
-        />
-      )}
-      {/* FENSTER UND INHALT (2026-10-16, `akkordeonMobil.ts`). Am Desktop beide `inset-0`, also wie vorher.
-          Mobil sind beide so hoch wie die offene Karte: Das Fenster schneidet zu, der Inhalt steht an der
-          Kartenoberkante. Das Fenster laesst Zeigerereignisse durch, sonst laege sein nach oben verschobener,
-          leerer Teil ueber der Karte davor. */}
-      <div
-        data-akk="fenster"
-        style={lage ? { height: mobileActiveHeight, transform: lage.fenster } : undefined}
-        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden rounded-[1.5rem] lg:bottom-0"
-      >
-      <div
-        data-akk="inhalt"
-        style={lage ? { transform: lage.inhalt } : undefined}
-        className="pointer-events-auto absolute inset-0 overflow-hidden rounded-[1.5rem]"
-      >
+      {/* SCHATTEN, FENSTER UND INHALT (2026-10-16/17, seit 2026-10-19 gemeinsam mit den Stimmen: `KartenFenster`). */}
+      <KartenFenster lage={lage} hoehe={mobileActiveHeight} schatten={mobilSchatten(isActive ? mobileActiveHeight : STREIFEN, mobileActiveHeight)}>
       {/* Layer 1 – Hintergrundbild (pro Karte austauschbar), wahlweise als Video. Die Bildebene steht mobil
           eingeklappt um die halbe Hoehendifferenz hoeher: Der Streifen zeigt die Bildmitte. Weil das Bild mobil immer
           im Format der offenen Karte steht, ist der Ausschnitt des Streifens seit 2026-10-16 etwas naeher als vorher
@@ -429,8 +403,7 @@ const Karte: React.FC<KarteProps> = ({ item, idx, isActive, isDesktop, hoverCapa
       {/* Logo-Badge unten rechts – nur auf der aufgeklappten Karte
           (kollabierte Streifen sind zu schmal/niedrig) */}
       <KartenLogo sichtbar={isActive} lage="bottom-3 right-3" />
-      </div>
-      </div>
+      </KartenFenster>
     </motion.a>
   );
 };
@@ -457,14 +430,16 @@ const ExpandingCardAccordion: React.FC<ExpandingCardAccordionProps> = ({ items, 
   // Mobil: Hoehe springt, sichtbar bewegt sich nur `transform` (akkordeonMobil.ts). Am Desktop tut der Hook nichts.
   const { karten, messen } = useMobilAkkordeon(!isDesktop, mobileActiveHeight, active);
   /**
-   * Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt. `mittig` nur nach einem Tipp:
-   * Beim Darueberfahren mit der Maus (schmales Fenster, Tablet mit Trackpad) darf die Seite nicht nachgleiten.
+   * Karte oeffnen. Mobil vorher die sichtbare Lage messen, damit die Animation dort beginnt; danach gleitet sie mittig in
+   * den freien Bereich, seit 2026-10-19 auch beim Darueberfahren mit der Maus (R33, siehe `useZeigerAbsicht`).
    */
-  const oeffnen = (idx: number, { mittig = false }: { mittig?: boolean } = {}) => {
+  const oeffnen = (idx: number) => {
     if (idx === active) return;
-    messen(idx, mittig);
+    messen(idx);
     setActive(idx);
   };
+  // Maus oder Trackpad unter 1024 px: aufklappen nur nach echter Bewegung und kurzer Ruhe (Kette von O8, akkordeonMobil.ts).
+  useZeigerAbsicht(!isDesktop && hoverCapable, karten, oeffnen);
   const merken = (idx: number, el: HTMLAnchorElement | null) => {
     karten.current[idx] = el;
   };

@@ -140,8 +140,16 @@ body {
   background: var(--cc-shell-canvas);
 }
 
+/* KEINE RUNDUNG AM <main> (2026-10-19, R32). Bis dahin `border-radius` oben links und rechts. Zusammen mit
+   `overflow: clip` (Layout.tsx) ist das ein runder Beschnitt um die GANZE Seite, und den kann Chrome auf Ebenen mit
+   Weichzeichner (`backdrop-filter`), Videos u. Ae. nur ueber eine Maske anwenden: je solcher Ebene eine eigene Maske in
+   voller Groesse des Hauptbereichs (gemessen 1892 × 17679 px, 16 Stueck an der Startseite). Auf dem MacBook des Users
+   sprengte das das Kachelbudget, am Akkordeon blieben Kacheln leer und die Fusszeile schien durch.
+   Sichtbar war die Rundung nur beim Laden, und genau dort zeichnet der feste Seitenrahmen dieselben Ecken
+   (`.solidroad-shell-corner-tl/-tr`: gleiche Lage `--cc-shell-gap`, gleicher Radius `--cc-shell-radius`) ueber den
+   Inhalt. Pixelvergleich mit und ohne Rundung, 6 Seiten × 4 Breiten: gleich (Abweichungen nur durch Einblendungen).
+   Der Beschnitt bleibt, ist jetzt aber rechteckig, und der kostet keine Maske. Messung: `npm run zeichnen`. */
 .site-main-shell {
-  border-radius: var(--cc-shell-radius) var(--cc-shell-radius) 0 0;
   box-shadow:
     0 34px 90px -70px rgb(var(--cc-carbon-rgb) / 0.48),
     inset 0 0 0 1px rgb(255 255 255 / 0.72);

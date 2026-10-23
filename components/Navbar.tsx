@@ -4,7 +4,8 @@ import { ChevronRight, Menu, Search, X } from 'lucide-react';
 import NavMegaMenu, { NAV_MEGA_PANEL_ID } from './NavMegaMenu';
 import { navSections } from '../data/navigation';
 import { ExternMarke, externAttribute, istExtern } from './ExternerLink';
-import { oeffneSuche } from '../lib/suche';
+import { SUCHE_EREIGNIS, oeffneSuche } from '../lib/suche';
+import { getLenis } from '../hooks/useSmoothScroll';
 
 /**
  * Animiertes Markenzeichen, auch in Footer und Zielgruppenkarten. Seit 2026-10-05 160 × 160 px, 30 fps, ohne Tonspur, 33 KB.
@@ -41,6 +42,33 @@ const desktopRightLinks = navLinks.slice(3);
  */
 const suchKreis =
   'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-[var(--cc-carbon)] shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--cc-ice-blue)]';
+
+/** Ab hier steht die Desktop-Navigation; das Hamburger-Menue ist `xl:hidden`. */
+const DESKTOP_NAVIGATION = '(min-width: 1280px)';
+
+/*
+ * HOEHE DES MOBILEN MENUES (R34, 2026-10-19). Bis dahin ohne Grenze und `overflow: hidden`: 995 px hoch in der festen
+ * Ebene, also nicht scrollbar. Bei 393 × 659 (iPhone in Safari) lagen ab „Wissen“ alle Eintraege ausserhalb, bei 390 × 844
+ * „Karriere“ unter der Knopfleiste; ein Wischen ueber dem Menue scrollte die Seite dahinter.
+ * Jetzt scrollt der Inhalt in sich und endet ueber der Knopfleiste. Abgezogen werden:
+ *   oben   Navbar 4,85 rem, ab 768 px 6,25 rem (wie `h-[4.85rem] md:h-[6.25rem]` der Navbar) und 12 px Abstand
+ *          (`top-[calc(100%+12px)]`),
+ *   unten  Knopfleiste `MobileStickyCTA` und 12 px; ab 1024 px gibt es sie nicht (`lg:hidden`), dann nur die 12 px.
+ *          Die Leiste ist 83 px hoch (gemessen bei 390, 393 und 768 px Breite), davon 3 rem Abstaende (`pt-2`, `pb-3`, je
+ *          Knopf `py-3` und `gap-1`) und 35 px fest (Symbol 18, Textzeile 15, Rand 2). Deshalb `3rem + 47px` statt 95 px:
+ *          Mit groesserer Grundschrift (Android „Textgroesse“, Chrome „Schriftgroesse“) waechst die Leiste mit, bei 20 px auf
+ *          95, bei 24 px auf 107 px; mit festen 95 px lag das Menue dann 2 bzw. 14 px ueber ihr.
+ * `svh` ist das Fenster mit eingeblendeten Browserleisten (Safari, Chrome mobil): so passt das Menue immer, auch beim
+ * Laden. `vh` davor nur als Rueckfall fuer Browser ohne `svh` (Safari unter 15.4, Chrome unter 108). Aendert sich die
+ * Leiste, meldet `npm run nav` es (Menue muss ueber ihr enden).
+ */
+const menueHoehe =
+  '[--cc-menue-oben:calc(4.85rem_+_12px)] md:[--cc-menue-oben:calc(6.25rem_+_12px)] [--cc-menue-unten:calc(3rem_+_47px)] lg:[--cc-menue-unten:12px] ' +
+  'max-h-[calc(100vh_-_var(--cc-menue-oben)_-_var(--cc-menue-unten))] ' +
+  'supports-[height:1svh]:max-h-[calc(100svh_-_var(--cc-menue-oben)_-_var(--cc-menue-unten))]';
+
+/** Pfad ohne Schraegstrich am Ende, wie `normalizePath` in App.tsx. */
+const aktuellerPfad = () => window.location.pathname.replace(/\/+$/, '') || '/';
 
 const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -86,6 +114,45 @@ const Navbar: React.FC = () => {
       document.removeEventListener('keydown', handleEscape);
     };
   }, [activeDropdown, isMobileOpen]);
+
+  /*
+   * SEITE HINTER DEM OFFENEN MENUE FESTHALTEN (R34, 2026-10-19), gleiches Muster wie AnfrageDialog und SuchDialog:
+   * Lenis anhalten (verwirft Rad und Wischen ausserhalb des Menues) und `body` sperren (Tastatur, Scrollleiste, und ein
+   * Menue, das ganz ins Fenster passt und deshalb nichts zu scrollen hat). Im Menue selbst kommt Lenis nicht zum Zug
+   * (`data-lenis-prevent` am Scrollbehaelter), dort scrollt der Browser nativ, `overscroll-behavior: contain` haelt am
+   * Ende an. Freigabe in umgekehrter Reihenfolge wie in `usePreloader`: erst `body`, dann Lenis.
+   * Die Sperre darf nie ohne sichtbares Menue stehen bleiben, deshalb schliesst es
+   *   - bei jedem Seitenwechsel (Zurueck-Geste, Treffer der Suche): sonst bliebe Lenis gestoppt, und der Sprung nach
+   *     oben auf der neuen Seite (App.tsx, `scrollTo` ohne `force`) fiele aus,
+   *   - wenn die Suche aufgeht: Sie sperrt und entsperrt selbst und gaebe Lenis beim Schliessen frei, waehrend das Menue
+   *     noch offen waere,
+   *   - ab 1280 px Fensterbreite: dort ist es `xl:hidden`.
+   */
+  useEffect(() => {
+    if (!isMobileOpen) return;
+    const lenis = getLenis();
+    lenis?.stop();
+    const vorherigerUeberlauf = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const schliessen = () => setIsMobileOpen(false);
+    const breit = window.matchMedia(DESKTOP_NAVIGATION);
+    const beiBreite = () => {
+      if (breit.matches) schliessen();
+    };
+    window.addEventListener('popstate', schliessen);
+    window.addEventListener('carcare:navigate', schliessen);
+    window.addEventListener(SUCHE_EREIGNIS, schliessen);
+    breit.addEventListener('change', beiBreite);
+    return () => {
+      window.removeEventListener('popstate', schliessen);
+      window.removeEventListener('carcare:navigate', schliessen);
+      window.removeEventListener(SUCHE_EREIGNIS, schliessen);
+      breit.removeEventListener('change', beiBreite);
+      document.body.style.overflow = vorherigerUeberlauf;
+      lenis?.start();
+    };
+  }, [isMobileOpen]);
 
   // Hover-Steuerung des Mega-Menüs. Der Close-Delay überbrückt die Lücke zwischen
   // Trigger und abgesetztem Panel, damit es beim Rüberfahren offen bleibt.
@@ -144,6 +211,43 @@ const Navbar: React.FC = () => {
       setActiveDropdown(null);
       setIsMobileOpen(false);
     }
+  };
+
+  /**
+   * DAS LOGO FUEHRT IMMER ZUR STARTSEITE, OBEN (R34, 2026-10-19).
+   *
+   * Bis dahin lief es ueber `handleLinkClick('/')`: `pushState('/')` plus `carcare:navigate`. Die App springt aber nur
+   * nach oben, wenn sich der PFAD aendert (App.tsx, Effekt an `[path]`). Auf der Startseite selbst geschah deshalb nichts
+   * (gemessen: `/` bei 2.500 px blieb bei 2.500, `/#faq` bei 15.241 px wurde zu `/` und blieb stehen, auch am Desktop).
+   * Von Unterseiten bleibt der Weg wie er war. Auf der Startseite: Menues zu, Adresse ohne Anker, dann selbst nach oben
+   * gleiten, wie der Suchdialog bei Treffern auf derselben Seite. Erst nach dem Schliessen, denn die Sperre des Menues
+   * gibt Lenis frei, und `start()` setzt eine laufende Bewegung zurueck. Steht die Seite weiter als zwei Fenster unten,
+   * zuerst ohne Bewegung auf ein Fenster Abstand: So laeuft die Seite nicht im Schnelldurchlauf durch alle Sektionen
+   * (Bilder auf dem Weg wuerden nachgeladen, Ablauf-Animationen abgespielt).
+   * Strg, ⌘, Umschalt oder Alt: Das gehoert dem Browser (neuer Tab, neues Fenster).
+   */
+  const zurStartseite = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    cancelClose();
+    setActiveDropdown(null);
+    setIsMobileOpen(false);
+
+    if (aktuellerPfad() !== '/') {
+      window.history.pushState(null, '', '/');
+      window.dispatchEvent(new Event('carcare:navigate'));
+      return;
+    }
+    if (window.location.hash || window.location.search) window.history.pushState(null, '', '/');
+    window.setTimeout(() => {
+      const lenis = getLenis();
+      if (!lenis) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (window.scrollY > 2 * window.innerHeight) lenis.scrollTo(window.innerHeight, { immediate: true, force: true });
+      lenis.scrollTo(0, { force: true });
+    }, 50);
   };
 
   /**
@@ -215,7 +319,7 @@ const Navbar: React.FC = () => {
     >
           <a
             href="/"
-            onClick={(e) => handleLinkClick(e, '/', true)}
+            onClick={zurStartseite}
             aria-label="CarCare Center Startseite"
             className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
           >
@@ -319,85 +423,88 @@ const Navbar: React.FC = () => {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-[calc(100%+12px)] right-3 left-3 w-auto rounded-3xl border border-black/[0.05] bg-white p-5 shadow-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
+                className="absolute top-[calc(100%+12px)] right-3 left-3 w-auto rounded-3xl border border-black/[0.05] bg-white shadow-2xl z-50 pointer-events-auto overflow-hidden xl:hidden"
               >
-                <nav className="flex flex-col gap-4">
-                  {navLinks.map((link) => (
-                    <div key={link.href} className="flex flex-col border-b border-gray-100/50 pb-3 last:border-0 last:pb-0">
-                      {link.hasDropdown ? (
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--cc-carbon)] block mb-2 px-1">
-                            {link.label}
-                          </span>
-                          {/*
-                            Auf Touch gibt es kein Hover. Die dritte Ebene steht deshalb
-                            dauerhaft offen statt hinter einer Geste — die Frage „was
-                            gehoert darunter?" ist damit ohne Tippen beantwortet.
-                          */}
-                          <div className="flex flex-col gap-3.5 pl-3">
-                            {navSections[link.dropdownKey!].cards.map((card) => (
-                              <div key={card.id} className="flex flex-col">
-                                <a
-                                  href={card.href}
-                                  {...externAttribute(card.href)}
-                                  onClick={(e) => handleLinkClick(e, card.href, true)}
-                                  className="text-xs font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors"
-                                >
-                                  {card.label}
-                                  <ExternMarke href={card.href} pfeil={false} />
-                                  <span className="normal-case font-medium text-[10px] text-[rgb(var(--cc-graphite-rgb)/0.72)] block mt-0.5">{card.description}</span>
-                                </a>
-                                {card.children.length > 0 && (
-                                  <ul className="mt-2 flex flex-col gap-2 border-l border-gray-100 pl-3">
-                                    {card.children.map((child) => (
-                                      <li key={child.href}>
-                                        <a
-                                          href={child.href}
-                                          onClick={(e) => handleLinkClick(e, child.href, true)}
-                                          className="block text-[11px] font-semibold leading-snug text-[rgb(var(--cc-graphite-rgb)/0.8)] transition-colors hover:text-[var(--cc-carbon)]"
-                                        >
-                                          {child.label}
-                                        </a>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </div>
-                            ))}
-                            {navSections[link.dropdownKey!].footerLinks?.length ? (
-                              <div className="flex flex-col gap-2 border-t border-gray-100 pt-3">
-                                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[rgb(var(--cc-graphite-rgb)/0.5)]">
-                                  {navSections[link.dropdownKey!].footerLabel}
-                                </span>
-                                <div className="flex flex-wrap gap-2">
-                                  {navSections[link.dropdownKey!].footerLinks!.map((child) => (
-                                    <a
-                                      key={child.href}
-                                      href={child.href}
-                                      onClick={(e) => handleLinkClick(e, child.href, true)}
-                                      className="rounded-full border border-black/[0.06] bg-gray-50/70 px-3 py-1.5 text-[11px] font-bold leading-none text-[var(--cc-carbon)] transition-colors hover:border-blue-100 hover:bg-gray-100/70"
-                                    >
-                                      {child.label}
-                                    </a>
-                                  ))}
+                {/* Scrollbehaelter (R34): Hoehe siehe `menueHoehe`, Sperre der Seite im Effekt oben. Die Huelle drumherum
+                    behaelt Auf- und Zuklappen, Rundung und Schatten. */}
+                <div data-lenis-prevent className={`${menueHoehe} overflow-y-auto overscroll-contain p-5`}>
+                  <nav className="flex flex-col gap-4">
+                    {navLinks.map((link) => (
+                      <div key={link.href} className="flex flex-col border-b border-gray-100/50 pb-3 last:border-0 last:pb-0">
+                        {link.hasDropdown ? (
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--cc-carbon)] block mb-2 px-1">
+                              {link.label}
+                            </span>
+                            {/*
+                              Auf Touch gibt es kein Hover. Die dritte Ebene steht deshalb
+                              dauerhaft offen statt hinter einer Geste — die Frage „was
+                              gehoert darunter?" ist damit ohne Tippen beantwortet.
+                            */}
+                            <div className="flex flex-col gap-3.5 pl-3">
+                              {navSections[link.dropdownKey!].cards.map((card) => (
+                                <div key={card.id} className="flex flex-col">
+                                  <a
+                                    href={card.href}
+                                    {...externAttribute(card.href)}
+                                    onClick={(e) => handleLinkClick(e, card.href, true)}
+                                    className="text-xs font-bold uppercase tracking-[0.06em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors"
+                                  >
+                                    {card.label}
+                                    <ExternMarke href={card.href} pfeil={false} />
+                                    <span className="normal-case font-medium text-[10px] text-[rgb(var(--cc-graphite-rgb)/0.72)] block mt-0.5">{card.description}</span>
+                                  </a>
+                                  {card.children.length > 0 && (
+                                    <ul className="mt-2 flex flex-col gap-2 border-l border-gray-100 pl-3">
+                                      {card.children.map((child) => (
+                                        <li key={child.href}>
+                                          <a
+                                            href={child.href}
+                                            onClick={(e) => handleLinkClick(e, child.href, true)}
+                                            className="block text-[11px] font-semibold leading-snug text-[rgb(var(--cc-graphite-rgb)/0.8)] transition-colors hover:text-[var(--cc-carbon)]"
+                                          >
+                                            {child.label}
+                                          </a>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
                                 </div>
-                              </div>
-                            ) : null}
+                              ))}
+                              {navSections[link.dropdownKey!].footerLinks?.length ? (
+                                <div className="flex flex-col gap-2 border-t border-gray-100 pt-3">
+                                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[rgb(var(--cc-graphite-rgb)/0.5)]">
+                                    {navSections[link.dropdownKey!].footerLabel}
+                                  </span>
+                                  <div className="flex flex-wrap gap-2">
+                                    {navSections[link.dropdownKey!].footerLinks!.map((child) => (
+                                      <a
+                                        key={child.href}
+                                        href={child.href}
+                                        onClick={(e) => handleLinkClick(e, child.href, true)}
+                                        className="rounded-full border border-black/[0.06] bg-gray-50/70 px-3 py-1.5 text-[11px] font-bold leading-none text-[var(--cc-carbon)] transition-colors hover:border-blue-100 hover:bg-gray-100/70"
+                                      >
+                                        {child.label}
+                                      </a>
+                                    ))}
+                                  </div>
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <a
-                          href={link.href}
-                          onClick={(e) => handleLinkClick(e, link.href, true)}
-                          className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors px-1"
-                        >
-                          {link.label}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </nav>
-
+                        ) : (
+                          <a
+                            href={link.href}
+                            onClick={(e) => handleLinkClick(e, link.href, true)}
+                            className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--cc-carbon)] hover:text-[var(--cc-carbon)] transition-colors px-1"
+                          >
+                            {link.label}
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </nav>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

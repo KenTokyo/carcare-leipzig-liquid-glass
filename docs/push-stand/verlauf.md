@@ -5,6 +5,11 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 20.10.2026, 02:54 | `main` | `f7e7983` `bd33094` `e2b9021` `230f550` `9ee0794` `9753fb7` `85d76ad` (7) | nein | — |
+| 20.10.2026, 00:25 | `main` | `655d574` `e90d026` `b9c1513` (3) | nein | Konfiguration: vite.config.ts |
+| 19.10.2026, 20:45 | `main` | `78a3f4d` (1) | nein | — |
+| 19.10.2026, 20:28 | `main` | `10dabfa` (1) | nein | — |
+| 19.10.2026, 20:18 | `main` | `5b08b52` `3fdcc1c` `397dd20` (3) | nein | neue Skripte: leerlauf, zeichnen |
 | 19.10.2026, 00:48 | `main` | `d5c0319` `ea6aa36` `5004a36` `a1f1b1f` `92fadf0` `048d9b9` `64bb51c` `ae66be6` (8) | nein | neue Skripte: faq-mobil, leerlauf |
 | 18.10.2026, 01:44 | `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `main` | `33b56c0` `fa41005` (2) | nein | — |
 | 18.10.2026, 00:42 | `2026-10-17-mobil-akkordeon-faq`, `main` | `e945ddb` (1) | nein | neue Skripte: faq-mobil |
