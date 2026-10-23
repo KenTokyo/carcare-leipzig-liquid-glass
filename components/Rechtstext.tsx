@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExternMarke, externAttribute } from './ExternerLink';
 
 /**
  * Bausteine der Rechtsseiten (Impressum, Datenschutzerklärung).
@@ -59,9 +60,20 @@ export const Angabe: React.FC<{ label: React.ReactNode; children: React.ReactNod
   </div>
 );
 
-/** Interner Link, `mailto:` oder `tel:` im Fließtext. Externe Ziele laufen über `ExternerLink`. */
+/** Interner Link, `mailto:` oder `tel:` im Fließtext. Externe Ziele laufen über `ExternVerweis`. */
 export const Verweis: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
   <a className="font-semibold text-blue-600 underline" href={href}>
     {children}
+  </a>
+);
+
+/**
+ * Externer Link (Kammer, Gesetzestext, Aufsichtsbehörde): neuer Tab ohne Referer, Pfeil und Vorleseansage aus
+ * `ExternerLink`. Seit 2026-10-23 ein Baustein, vorher stand dieselbe Klassenkette an jeder Stelle einzeln.
+ */
+export const ExternVerweis: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
+  <a href={href} {...externAttribute(href)} className="inline-flex items-center gap-1 font-semibold text-blue-600 underline">
+    {children}
+    <ExternMarke href={href} groesse={14} />
   </a>
 );

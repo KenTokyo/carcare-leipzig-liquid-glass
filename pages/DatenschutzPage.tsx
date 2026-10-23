@@ -1,11 +1,11 @@
 import React from 'react';
 import { PageHero, PageMeta } from '../components/PageBlocks';
-import { ExternMarke, externAttribute } from '../components/ExternerLink';
 import {
   Abschnitt,
   Absatz,
   Anschrift,
   Aufzaehlung,
+  ExternVerweis,
   RechtstextRahmen,
   Unterabschnitt,
   Verweis,
@@ -24,25 +24,28 @@ import { KI_WERKZEUGE } from '../data/bildherkunft';
  * WER HIER ETWAS AENDERT, prueft es gegen das System. Der Matomo-Satz im Footer (bis 2026-09-04) war eine
  * uebernommene Aussage ueber ein Werkzeug, das es auf dieser Seite nie gab.
  *
- * MATOMO „UNTER VORBEHALT“ (Vorgabe des Users, Backlog 6.20): Der Abschnitt sagt ausdruecklich, dass er erst mit dem
- * Einsatz gilt; heute gibt es kein Matomo, und der Footer sagt das auch. Wird es eingebunden: vorher eine
- * Einwilligungsabfrage (§ 25 Abs. 1 TDDDG), dann hier den Vorbehalt streichen, Speicherdauer ergaenzen und den
- * Footer-Satz „keine Analyse- oder Tracking-Dienste“ anpassen.
+ * MATOMO ENTFERNT (User 2026-10-23: „Matomo wird erstmal rausgenommen“, Backlog 6.20). Vom 04.10. bis dahin stand hier
+ * ein Abschnitt „Webanalyse mit Matomo (unter Vorbehalt)“; eingebunden war Matomo nie. Kommt Webanalyse spaeter doch:
+ * zuerst eine Einwilligungsabfrage (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO), dann ein Abschnitt mit Server,
+ * Speicherdauer und Widerruf, und „Auf einen Blick“ sowie der Footer-Satz „keine Analyse- oder Tracking-Dienste“ aendern
+ * sich mit. Vorher nichts davon hierher schreiben: Eine Erklaerung beschreibt, was laeuft, nicht was geplant ist.
  *
- * HOSTER IST DIE KUPPER IT GMBH (Entscheidung des Users 2026-10-04: „weil das auch über Kupper IT gehostet wird“),
- * nicht Vercel. Auf Vercel laeuft die Vorschau (`carcare-center.vercel.app`; dort gemessen: Seiten aus Frankfurt,
+ * HOSTER IST DIE KUPPER IT GMBH (Entscheidung des Users 2026-10-04: „weil das auch über Kupper IT gehostet wird“,
+ * am 2026-10-23 bestaetigt: „Hosting läuft über KupperIT“), nicht Vercel. Auf Vercel laeuft die Vorschau (`carcare-center.vercel.app`; dort gemessen: Seiten aus Frankfurt,
  * Formularfunktion in `iad1`, USA). ⚠️ `/api/anfrage` ist eine Vercel-Funktion (Node.js, Versand ueber netcup-SMTP).
  * Liegt die Seite bei KUPPER IT, muss der Versand dort laufen. Bleibt er bei Vercel, gehoert Vercel Inc. (USA, EU-US
  * Data Privacy Framework) als Empfaenger zurueck in „Hosting und E-Mail“ und „Anfrageformulare“.
+ * Laut User am 2026-10-23 geregelt („1 und 5 sind geregelt“); wie, steht nicht im Repo. Nach dem Umzug live testen (R10).
  *
  * STAND-DATUM bei jeder inhaltlichen Aenderung mitziehen.
  */
 
-const STAND = '14.10.2026';
+const STAND = '23.10.2026';
 
 const AUFSICHT_URL = 'https://www.datenschutz.sachsen.de';
 
-const KI_EINGESETZT = KI_WERKZEUGE.map((w) => `${w.name} der ${w.gesellschaft}`).join(' sowie ');
+/** Werkzeug und Hersteller, keine Gesellschaft: Begründung bei `KI_WERKZEUGE` (`data/bildherkunft.ts`). */
+const KI_EINGESETZT = KI_WERKZEUGE.map((w) => `${w.name} von ${w.anbieter}`).join(' sowie ');
 
 const DatenschutzPage: React.FC = () => (
   <>
@@ -100,15 +103,30 @@ const DatenschutzPage: React.FC = () => (
           </Absatz>
         </Abschnitt>
 
+        {/*
+          GEMESSEN 2026-10-23 (Rechtspruefung): Der Webserver der Domain (185.141.122.210, `web01.trusted-datacenter.cloud`,
+          Plesk) liegt im Netz der KUPPER IT GmbH (RIPE: Prager Strasse 15, Leipzig). Die Post fuer carcare-center.de nimmt
+          aber Microsoft an (MX `carcarecenter-de01i.mail.protection.outlook.com`, Microsoft 365, so auch im Netcup-Plan
+          vom 22.10.). Bis dahin stand hier, KUPPER IT hoste auch die Postfaecher. Betreut KUPPER IT den Microsoft-Mandanten,
+          aendert das nichts am Empfaenger Microsoft; offen ist nur der AV-Vertrag (Plan 2026-10-23, Phase 6).
+        */}
         <Abschnitt id="hosting" title="Hosting und E-Mail">
           <Absatz>
-            Diese Website, unsere Domain carcare-center.de und unsere E-Mail-Postfächer hostet die KUPPER IT GmbH, Prager
-            Straße 15, 04103 Leipzig. Sie verarbeitet in unserem Auftrag (Art. 28 DSGVO) die Daten, die beim Aufruf der
-            Website anfallen, die Inhalte abgesendeter Formulare und die E-Mails, die Sie uns schreiben.
+            Diese Website und unsere Domain carcare-center.de hostet die KUPPER IT GmbH, Prager Straße 15, 04103 Leipzig.
+            Sie verarbeitet in unserem Auftrag (Art. 28 DSGVO) die Daten, die beim Aufruf der Website anfallen, und die
+            Inhalte abgesendeter Formulare.
           </Absatz>
           <Absatz>
-            Rechtsgrundlage für das Hosting ist unser berechtigtes Interesse an einer sicheren und zuverlässigen
-            Bereitstellung der Website (Art. 6 Abs. 1 lit. f DSGVO).
+            Unsere E-Mail-Postfächer liegen bei Microsoft 365 (Exchange Online) der Microsoft Ireland Operations Limited,
+            One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Irland. Microsoft verarbeitet in
+            unserem Auftrag (Art. 28 DSGVO) die E-Mails, die Sie uns schreiben, und die Anfragen aus unseren Formularen.
+            Eine Übermittlung an die Microsoft Corporation in den USA ist dabei nicht ausgeschlossen. Sie ist nach dem
+            EU-US Data Privacy Framework zertifiziert, für das ein Angemessenheitsbeschluss der EU-Kommission besteht
+            (Art. 45 DSGVO).
+          </Absatz>
+          <Absatz>
+            Rechtsgrundlage für Hosting und E-Mail ist unser berechtigtes Interesse an einer sicheren und zuverlässigen
+            Bereitstellung der Website und an unserer Erreichbarkeit (Art. 6 Abs. 1 lit. f DSGVO).
           </Absatz>
         </Abschnitt>
 
@@ -212,8 +230,8 @@ const DatenschutzPage: React.FC = () => (
             Anhängen in unser Bewerbungspostfach. Auf der Website wird nichts gespeichert.
           </Absatz>
           <Absatz>
-            Rechtsgrundlagen sind § 26 Abs. 1 BDSG und Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines
-            Beschäftigungsverhältnisses). Kommt es zu einer Einstellung, nehmen wir Ihre Unterlagen in die Personalakte
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Beschäftigungsverhältnisses), ergänzend
+            § 26 Abs. 1 BDSG. Kommt es zu einer Einstellung, nehmen wir Ihre Unterlagen in die Personalakte
             auf. Andernfalls löschen wir sie spätestens sechs Monate nach Abschluss des Bewerbungsverfahrens.
           </Absatz>
         </Abschnitt>
@@ -224,27 +242,6 @@ const DatenschutzPage: React.FC = () => (
             Google mit den Bewertungen und auf Partnerbetriebe. Das sind gewöhnliche Links. Erst wenn Sie einen anklicken,
             verbindet sich Ihr Browser mit dem jeweiligen Anbieter, und es gilt dessen Datenschutzerklärung. Von welcher
             unserer Seiten Sie kommen, übermitteln wir dabei nicht.
-          </Absatz>
-        </Abschnitt>
-
-        <Abschnitt id="matomo" title="Webanalyse mit Matomo (unter Vorbehalt)">
-          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 md:p-6">
-            <p className="text-base leading-relaxed text-gray-950">
-              <span className="font-semibold">Unter Vorbehalt:</span> Dieser Abschnitt gilt erst, wenn wir Matomo auf
-              dieser Website einsetzen. Derzeit findet keine Webanalyse statt.
-            </p>
-          </div>
-          <Absatz>
-            Matomo ist eine Open-Source-Software zur Webanalyse. Setzen wir sie ein, dann nur mit Ihrer Einwilligung
-            (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG), die Sie jederzeit mit Wirkung für die Zukunft widerrufen
-            können. Matomo erfasst dann, welche Seiten Sie wann aufrufen, von welcher Seite Sie kommen und welchen Browser,
-            welches Betriebssystem und welche Bildschirmgröße Sie nutzen. Dafür kann Matomo Cookies auf Ihrem Gerät
-            speichern.
-          </Absatz>
-          <Absatz>
-            Ihre IP-Adresse kürzen wir vor der Speicherung. Die Daten liegen auf einem Server in Deutschland und werden
-            nicht an Dritte weitergegeben. Wir nutzen sie ausschließlich, um unsere Website zu verbessern. Die
-            Speicherdauer ergänzen wir hier, sobald wir Matomo einsetzen.
           </Absatz>
         </Abschnitt>
 
@@ -320,14 +317,7 @@ const DatenschutzPage: React.FC = () => (
               <br />
               01067 Dresden
               <br />
-              <a
-                href={AUFSICHT_URL}
-                {...externAttribute(AUFSICHT_URL)}
-                className="inline-flex items-center gap-1 font-semibold text-blue-600 underline"
-              >
-                www.datenschutz.sachsen.de
-                <ExternMarke href={AUFSICHT_URL} groesse={14} />
-              </a>
+              <ExternVerweis href={AUFSICHT_URL}>www.datenschutz.sachsen.de</ExternVerweis>
             </Anschrift>
           </Unterabschnitt>
         </Abschnitt>

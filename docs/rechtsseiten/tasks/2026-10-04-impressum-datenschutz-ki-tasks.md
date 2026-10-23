@@ -88,7 +88,12 @@ Maternistraße 17, 01067 Dresden · Vercel ist nach dem EU-US Data Privacy Frame
 
 ---
 
-### ⬜ Phase 5 — Offene Punkte vor dem Livegang (mit André und KUPPER IT klären)
+### ↪️ Phase 5 — Offene Punkte vor dem Livegang (übernommen am 2026-10-23)
+**Übernommen in** `docs/rechtsseiten/tasks/2026-10-23-impressum-rechtspruefung-tasks.md`, Phase 6: dort gebündelt, nach
+Gewicht sortiert und um die Funde der Rechtsprüfung ergänzt. Die Liste unten bleibt als Stand vom 04.10. stehen.
+⚠️ **Berichtigt:** Der Punkt „Verbraucherschlichtung“ ging davon aus, ein Innungsbetrieb mit Kfz-Schiedsstelle sei zur
+Teilnahme verpflichtet. Kfz-Schiedsstellen sind keine anerkannten Verbraucherschlichtungsstellen; der Satz „nicht bereit
+und nicht verpflichtet“ bleibt auch dann richtig.
 **Ziel:** Was Impressum und Datenschutzerklärung voraussetzen, ist bestätigt oder angepasst. Bis 04.10. stand das als
 „Offene Fragen an André“ hier; auf Wunsch des Users als To-dos.
 * [ ] **Datenschutzbeauftragter:** Gibt es ihn noch, und ist `datenschutzbeauftragter@carcare-center.de` erreichbar? Die Erklärung nennt ihn wie die Altseite. Er darf nicht zugleich Geschäftsführer sein (Art. 38 Abs. 6 DSGVO). Sonst den Abschnitt anpassen.

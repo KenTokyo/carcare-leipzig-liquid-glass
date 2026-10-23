@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageHero, PageMeta } from '../components/PageBlocks';
-import { ExternMarke, externAttribute } from '../components/ExternerLink';
-import { Abschnitt, Absatz, Angabe, RechtstextRahmen, Verweis } from '../components/Rechtstext';
+import { Abschnitt, Absatz, Anschrift, Angabe, ExternVerweis, RechtstextRahmen, Verweis } from '../components/Rechtstext';
 import { HERKUNFT_ERKLAERUNG, HERKUNFT_TEXT, KI_WERKZEUGE } from '../data/bildherkunft';
 import type { Bildherkunft } from '../data/bildherkunft';
 
@@ -28,9 +27,16 @@ import type { Bildherkunft } from '../data/bildherkunft';
  * und der Footer-Link es von jeder Seite mit einem Klick erreichbar macht. Werkzeug und Wortlaut kommen aus
  * `data/bildherkunft.ts`, derselben Quelle wie die Plaketten am Bild (`components/KiMarke.tsx`). Die
  * Datenschutzerklaerung verlinkt auf `#ki-verzeichnis`.
+ *
+ * RECHTSPRUEFUNG 2026-10-23 (Auftrag des Users, `docs/rechtsseiten/tasks/2026-10-23-impressum-rechtspruefung-tasks.md`):
+ * jede Angabe gegen § 5 DDG, § 36 VSBG, § 18 Abs. 2 MStV, DL-InfoV und Art. 50 KI-VO geprueft, das Protokoll Angabe
+ * fuer Angabe steht dort. USt-IdNr. am 23.10. in VIES gueltig. Seitdem neu: Link zur Kammer, „Redaktionell
+ * verantwortlich“. Offene Kundenfragen (Handwerksrolle, Innung, Haftpflichtversicherung) stehen dort in Phase 6.
  */
 
 const HWO_URL = 'https://www.gesetze-im-internet.de/hwo/';
+/** Website der Kammer, am 2026-10-23 am Impressum der Kammer bestaetigt (Name, Anschrift, Domain). */
+const HWK_URL = 'https://www.hwk-leipzig.de/';
 
 /** Reihenfolge im KI-Verzeichnis: von der staerksten Veraenderung zur echten Aufnahme. */
 const KENNZEICHNUNGEN: Bildherkunft[] = ['generiert', 'aufgewertet', 'echt'];
@@ -122,11 +128,17 @@ const ImpressumPage: React.FC = () => (
       {/*
         BERUFSRECHTLICHE ANGABEN nach § 5 Abs. 1 Nr. 5 DDG (zulassungspflichtiges Handwerk), seit 2026-10-04 auf
         Anweisung des Users. Bis dahin bewusst leer, weil auch die Altseite nichts dazu nannte (Backlog R5).
-        - Kammer: folgt aus dem Betriebssitz Leipzig. Anschrift am 04.10. recherchiert (Handwerkskammer zu Leipzig).
+        - PFLICHT ODER FREIWILLIG (Rechtspruefung 2026-10-23): Der ZDH verlangt Kammer und Berufsbezeichnung nur von
+          Gesundheitshandwerken („Praxis Recht Impressumspflicht“, 07/2025). Nach dem Wortlaut von Nr. 5 ist jedes
+          Handwerk mit Meisterpflicht ein reglementierter Beruf; das Impressum folgt dieser vorsichtigen Lesart. Auch
+          freiwillige Angaben muessen stimmen, deshalb bleibt die Pruefung gegen die Handwerksrolle offen.
+        - Kammer: folgt aus dem Betriebssitz Leipzig. Name, Anschrift und Website am 2026-10-23 am Impressum der Kammer
+          bestaetigt; der Link folgt der Empfehlung „zuständige Handwerkskammer (mit Link)“ (DHZ, 31.01.2026).
         - Berufsbezeichnung: aus Andrés Angabe 4.11 („Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk“)
           den Handwerken der Anlage A HwO zugeordnet. Fahrzeuglackierer gehoeren zum Maler- und Lackiererhandwerk.
           ⚠️ ABGELEITET, nicht gegen den Eintrag in der Handwerksrolle geprueft: Steht dort ein weiteres Handwerk
-          (etwa Kraftfahrzeugtechniker), gehoert es hier dazu.
+          (etwa Kraftfahrzeugtechniker), gehoert es hier dazu; fehlt eines, muss es hier raus.
+        - Eine Aufsichtsbehoerde (Nr. 3) nennt der ZDH im Handwerk nur fuer Bezirksschornsteinfeger und Buechsenmacher.
       */}
       <Abschnitt title="Berufsrechtliche Angaben">
         <dl>
@@ -134,29 +146,51 @@ const ImpressumPage: React.FC = () => (
             Handwerkskammer zu Leipzig
             <br />
             Dresdner Straße 11/13, 04103 Leipzig
+            <br />
+            <ExternVerweis href={HWK_URL}>www.hwk-leipzig.de</ExternVerweis>
             <span className="mt-1 block text-sm text-gray-600">Eintragung in die Handwerksrolle</span>
           </Angabe>
           <Angabe label="Berufsbezeichnung">Karosserie- und Fahrzeugbauer, Maler und Lackierer</Angabe>
           <Angabe label="Verliehen in">Bundesrepublik Deutschland</Angabe>
           <Angabe label="Berufsrechtliche Regelung">
             Gesetz zur Ordnung des Handwerks (Handwerksordnung, HwO), abrufbar unter{' '}
-            <a
-              href={HWO_URL}
-              {...externAttribute(HWO_URL)}
-              className="inline-flex items-center gap-1 font-semibold text-blue-600 underline"
-            >
-              gesetze-im-internet.de/hwo
-              <ExternMarke href={HWO_URL} groesse={14} />
-            </a>
+            <ExternVerweis href={HWO_URL}>gesetze-im-internet.de/hwo</ExternVerweis>
           </Angabe>
         </dl>
       </Abschnitt>
 
       {/*
+        REDAKTIONELL VERANTWORTLICH nach § 18 Abs. 2 MStV, seit 2026-10-23 (Rechtspruefung). Der Wissensbereich
+        (`/autoaufbereitung-wissen`, sieben Ratgeberbeitraege, Ausbau mit 3.22) kann als journalistisch-redaktionell
+        gestaltetes Angebot gelten; ob ein Firmenratgeber darunter faellt, ist umstritten, die Nennung kostet nichts.
+        Verlangt ist eine NATUERLICHE Person (keine Firma) mit Name und Anschrift. Vorbelegt mit dem Geschaeftsfuehrer;
+        verantwortet jemand anderes die Beitraege, wird nur der Name getauscht (offener Punkt im Plan, Phase 6).
+      */}
+      <Abschnitt title="Redaktionell verantwortlich">
+        <Absatz>
+          Verantwortlich für unsere redaktionellen Inhalte, etwa die Ratgeberbeiträge im Wissensbereich, ist nach
+          § 18 Abs. 2 Medienstaatsvertrag (MStV):
+        </Absatz>
+        <Anschrift>
+          André Bosse
+          <br />
+          An den Tierkliniken 42
+          <br />
+          04103 Leipzig
+        </Anschrift>
+      </Abschnitt>
+
+      {/*
         VERBRAUCHERSTREITBEILEGUNG nach § 36 VSBG, seit 2026-10-04 auf Anweisung des Users. Variante „nicht bereit und
         nicht verpflichtet“: Im Projekt gibt es keinen Hinweis auf eine Innungsmitgliedschaft.
-        ⚠️ Ist der Betrieb Innungsbetrieb und einer Kfz-Schiedsstelle angeschlossen, ist er zur Teilnahme verpflichtet:
-        Dann diesen Satz ersetzen und die Schlichtungsstelle mit Anschrift und Website nennen.
+        BERICHTIGT 2026-10-23 (Rechtspruefung): Hier stand, ein Innungsbetrieb mit Kfz-Schiedsstelle sei zur Teilnahme
+        verpflichtet und muesse diesen Satz ersetzen. Das stimmt nicht. Die Kfz-Schiedsstellen (ZDK, BVfK) sind keine
+        anerkannten Verbraucherschlichtungsstellen (Liste des EVZ); § 36 Abs. 1 Nr. 2 VSBG greift nur bei solchen. Der
+        Satz bleibt also auch fuer einen Innungsbetrieb richtig. Ist der Betrieb Innungsmitglied, darf FREIWILLIG ein
+        zweiter Satz folgen („Als Innungsbetrieb nehmen wir an Verfahren der Kfz-Schiedsstelle teil.“), nur mit
+        Bestaetigung durch André.
+        § 36 Abs. 3 VSBG: Bei hoechstens zehn Beschaeftigten am 31.12. des Vorjahres entfiele die Pflicht; der Satz
+        schadet dann nicht.
         Einen Link auf die EU-OS-Plattform NICHT setzen: Sie ist seit dem 20.07.2025 abgeschaltet.
       */}
       <Abschnitt title="Verbraucherstreitbeilegung">
