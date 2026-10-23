@@ -1,23 +1,23 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 23.10.2026, 20:24, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 23.10.2026, 20:29, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 23.10.2026, 20:24 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 23.10.2026, 20:29 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `7f93d57` | `6d02a9b` | 1 vor GitHub (kommt mit dem Push) |
+| `main` | `8951608` | `84509ee` | 1 vor GitHub (kommt mit dem Push) |
 | 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `7f93d57` | 23.10.2026, 20:24 | Kentokyo | Bewerbungen an bewerbung@carcare-center.de: Vercel-Eintrag gesetzt, Doku (6.13) | 4 (1 neu) | — | **kommt mit diesem Push** |
+| `8951608` | 23.10.2026, 20:29 | Kentokyo | Docs: Testbewerbung CC-1023-A9EMM an bewerbung@carcare-center.de (6.13) | 1 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -27,8 +27,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Konfiguration geändert | `.env.example` |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `7f93d57` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `8951608` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
