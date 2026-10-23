@@ -1,32 +1,29 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 20.10.2026, 02:54, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 23.10.2026, 12:55, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 20.10.2026, 02:54 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 23.10.2026, 12:55 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `85d76ad` | `dcaa814` | 7 vor GitHub (kommt mit dem Push) |
-| `2026-10-19-nav-mobil-menue` | `f7e7983` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| `claude/quizzical-driscoll-12ff68` | `9ee0794` | — | neu, 3 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
-| 2 weitere lokale Branches | – | – | gleich mit GitHub |
-| 15 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
+| `main` | `037ff1b` | `55c8609` | 3 vor GitHub (kommt mit dem Push) |
+| `2026-10-06-lektorat` | `037ff1b` | — | neu, 3 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/frosty-chaum-e06c4d` | `318aaee` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/gracious-nightingale-5061fb` | `a04f938` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| 16 weitere lokale Branches | – | – | gleich mit GitHub |
+| 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `f7e7983` | 20.10.2026, 01:36 | oalabhypercode | Navbar mobil: Menü scrollt, Karriere erreichbar, Logo immer zur Startseite (R34) | 6 (2 neu) | — | **kommt mit diesem Push** |
-| `bd33094` | 20.10.2026, 01:53 | oalabhypercode | Merge: Navbar mobil, Menü scrollt, Karriere erreichbar, Logo immer zur Startseite (R34) | 6 (2 neu) | — | **kommt mit diesem Push** |
-| `e2b9021` | 20.10.2026, 01:00 | oalabhypercode | Stimmen mobil wie die Leistungskarten (R33-a), Akkordeons nach dem Drehen sichtbar (R33-e) | 9 (3 neu) | — | **kommt mit diesem Push** |
-| `230f550` | 20.10.2026, 01:00 | oalabhypercode | Docs: Stimmen mobil (R33-a), R33-e, R25 erledigt, Optimierungsplan O1–O10 | 5 (2 neu) | — | **kommt mit diesem Push** |
-| `9ee0794` | 20.10.2026, 01:57 | oalabhypercode | Docs: R33-a auf main (dcaa814) umgesetzt und neu gemessen | 1 | — | **kommt mit diesem Push** |
-| `9753fb7` | 20.10.2026, 02:09 | oalabhypercode | Merge: Stimmen auf /karriere mobil wie die Leistungskarten (R33-a), Akkordeons nach dem Drehen sichtbar (R33-e) | 14 (5 neu) | — | **kommt mit diesem Push** |
-| `85d76ad` | 20.10.2026, 02:54 | oalabhypercode | Docs: R34-j, npm run nav stürzt bei hängendem Klick ab statt Messfehler zu melden | 1 | — | **kommt mit diesem Push** |
+| `704e8d2` | 23.10.2026, 12:53 | oalabhypercode | Rechtsprüfung Impressum (R5/R6): Kammer-Link, § 18 MStV, Matomo raus, E-Mail bei Microsoft 365 | 11 (2 neu) | — | **kommt mit diesem Push** |
+| `53952d7` | 23.10.2026, 12:53 | oalabhypercode | Merge: origin/main (19./20.10.: Zeichenlücken R31/R32, Akkordeon mit Maus R33, Stimmen mobil R33-a/R33-e, Navbar mobil R34) | 29 (13 neu) | package.json | **kommt mit diesem Push** |
+| `037ff1b` | 23.10.2026, 12:54 | oalabhypercode | Docs: Mail an André, Teil für KUPPER IT neutral formuliert | 1 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -36,7 +33,9 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -8 main`: oben „Docs: Push-Stand …", darunter `85d76ad`, `9753fb7`, `9ee0794`, `230f550`, `e2b9021`, `bd33094`, `f7e7983` |
+| npm-Skripte | neu: `npm run zeichnen` |
+| Konfiguration geändert | `vite.config.ts` |
+| Kontrolle | `git log --oneline -4 main`: oben „Docs: Push-Stand …", darunter `037ff1b`, `53952d7`, `704e8d2` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -44,17 +43,21 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Lokale Branches ohne GitHub-Gegenstück | 7, alle Commits schon auf GitHub: `2026-10-17-mobil-akkordeon-faq`, `2026-10-18-ablauf-schleier`, `2026-10-18-akkordeon-bewegung`, `2026-10-19-akkordeon-mittig-maus`, `2026-10-19-mac-zeichenluecken`, `2026-10-19-vite-worktrees-ignorieren`, `worktree-service-links-fix` |
-| Weitere Worktrees | 3 |
-| Stash-Einträge | 1 |
+| Lokale Branches ohne GitHub-Gegenstück | 26, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `2026-10-16-r23-fusszeile-cls`, `2026-10-17-r24-404-seite`, `aussparung-beschriftete-aktionen`, `claude/affectionate-shirley-ebfce4`, `claude/hopeful-colden-aa3a3f`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Weitere Worktrees | 7 |
+| Stash-Einträge | 0 |
 
 ## 5. Inhaltlich offen
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-Keine offenen Folgepunkte in den berührten Planungsdateien.
+| Punkt | Planung |
+|---|---|
+| O1 — Formularversand beim Hosting über KUPPER IT (🟠 hoch; seit 23.10. laut User geregelt, Live-Test nach dem… | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-optimierung-tasks.md` |
+| O2 — Kopien im Versandpostfach (🟡 mittel, seit 23.10. dringlicher) | `docs/rechtsseiten/tasks/2026-10-04-impressum-datenschutz-ki-optimierung-tasks.md` |
+| Phase 6 — Offene Punkte für André, KUPPER IT und die anwaltliche Prüfung (gebündelt) | `docs/rechtsseiten/tasks/2026-10-23-impressum-rechtspruefung-tasks.md` |
 
-### Backlog gesamt: 20 offene Punkte
+### Backlog gesamt: 19 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -106,13 +109,12 @@ Quelle: `docs/backlog/schleife-5.md`
 </details>
 
 <details>
-<summary>Schleife 6: 3 offen</summary>
+<summary>Schleife 6: 2 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
-| 6.10 | Livegang › Google: Indexierung der neuen Unterseiten mit Falk klären. Die vielen neuen Unterseiten müssen bei… | offen | OALAB · KUPA IT |
-| 6.19 | Livegang › alte Website: Inhalte der alten Website sichern lassen (Backup), bevor umgestellt wird. | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
-| 6.20 | Rechtliches › Analyse und Cookies: Matomo mit KUPA IT klären. Läuft die Analyse auf der neuen Seite weiter, k… | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPA IT |
+| 6.10 | Livegang › Google: Indexierung der neuen Unterseiten mit Falk klären. Die vielen neuen Unterseiten müssen bei… | offen | OALAB · KUPPER IT |
+| 6.19 | Livegang › alte Website: Inhalte der alten Website sichern lassen (Backup), bevor umgestellt wird. | ⏸️ zurückgestellt (User, 28.09.) | OALAB · KUPPER IT |
 
 Quelle: `docs/backlog/schleife-6.md`
 
