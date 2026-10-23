@@ -12,7 +12,7 @@ Antwortadresse ist die E-Mail des Bewerbers. Andere Anfragen bleiben bei `ANFRAG
 
 - [x] Vercel, Projekt `carcare-center`, Production: `ANFRAGE_EMPFAENGER_BEWERBUNG=bewerbung@carcare-center.de` (Secret).
 - [x] Neu ausgerollt über einen Push auf `main` (Knopf „Redeploy“ im Dashboard hatte keinen Build ausgelöst).
-- [ ] Testbewerbung über die Live-Seite, Ergebnis unten.
+- [x] Testbewerbung über die Live-Seite, Ergebnis unten.
 
 ## Prüfung
 
@@ -20,3 +20,11 @@ Die API nennt den Empfänger nicht. Beleg darum über das Netcup-Postfach `carca
 landet der Test **nicht** dort und kommt **keine** Unzustellbar-Meldung zurück, ging er an bewerbung@.
 Ob die Mail im Postfach bewerbung@ ankommt, sieht nur CarCare Center (Microsoft 365, kein Zugang bei uns).
 Das Postfach selbst konnten wir nicht abfragen: Microsoft lehnt Anfragen von privaten Anschlüssen ab (Spamhaus).
+
+## Ergebnis (23.10.2026, 20:29)
+
+- Formular auf `https://www.carcare-center.de/karriere` (Deployment `84509ee`) ausgefüllt, Name „TEST OALAB (bitte ignorieren)“,
+  Antwortadresse `a@oalab.de`, ohne Anhang. Antwort „Bewerbung übermittelt.“, Vorgang **CC-1023-A9EMM**.
+  Die API meldet Erfolg erst, wenn Netcup die Mail angenommen hat (`result.accepted`).
+- Netcup-Postfach `carcare.center.info@oalab.de` danach unverändert (120 KB): keine Kopie an info@, keine Unzustellbar-Meldung.
+- Offen: André bestätigt, dass die Mail mit `[CC-1023-A9EMM]` im Betreff in bewerbung@ liegt (auch im Spam-Ordner nachsehen).
