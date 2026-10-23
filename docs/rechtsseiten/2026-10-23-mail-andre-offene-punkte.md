@@ -13,7 +13,7 @@ wir haben Impressum und Datenschutzerklärung noch einmal rechtlich durchgesehen
 
 Ein paar Punkte kannst nur du beantworten. Kurze Antworten reichen, gern direkt unter die Punkte:
 
-1. Handwerksrolle: Für welche Handwerke seid ihr bei der Handwerkskammer eingetragen? Im Impressum stehen „Karosserie- und Fahrzeugbauer“ und „Maler und Lackierer“. Ein Foto der Handwerkskarte genügt. Ist zusätzlich etwas eingetragen, etwa „Kraftfahrzeugtechniker“, nehmen wir es mit auf.
+1. Handwerksrolle: Für welche Handwerke seid ihr bei der Handwerkskammer eingetragen? Im Impressum stehen „Karosserie- und Fahrzeugbauer“ und „Fahrzeuglackierer“. Ein Foto der Handwerkskarte genügt. Ist zusätzlich etwas eingetragen, etwa „Kraftfahrzeugtechniker“, nehmen wir es mit auf.
 
 2. Datenschutzbeauftragter: Die alte Website nennt einen Datenschutzbeauftragten mit der Adresse datenschutzbeauftragter@carcare-center.de. Gibt es ihn noch, wer ist es, und kommt die Adresse an? Der Geschäftsführer selbst darf es nicht sein. Gibt es keinen, nehmen wir den Abschnitt heraus.
 

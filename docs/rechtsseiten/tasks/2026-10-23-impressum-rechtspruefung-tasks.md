@@ -44,7 +44,7 @@ Prüfung vor dem Livegang bleibt (Phase 6).
 | USt-IdNr. | Nr. 6 | DE 257 851 313 | **VIES 23.10.2026, 10:12 UTC: gültig.** W-IdNr. daneben nicht nötig („oder“) | ✅ |
 | Liquidation | Nr. 7 | keine | keine Abwicklung bekannt | ✅ |
 | Kammer | Nr. 5 a | HWK zu Leipzig, Dresdner Straße 11/13 | Anschrift am Impressum der Kammer bestätigt; **Link fehlte** (DHZ-Empfehlung) | 🔧 Link www.hwk-leipzig.de |
-| Berufsbezeichnung | Nr. 5 b | Karosserie- und Fahrzeugbauer, Maler und Lackierer | aus 4.11 abgeleitet. Nach ZDH bei diesen Handwerken nicht Pflicht, nach dem Wortlaut von Nr. 5 (Meisterpflicht = reglementierter Beruf) schon; das Impressum folgt der vorsichtigen Lesart. Freiwillige Angaben müssen stimmen | ❓ Handwerksrolle |
+| Berufsbezeichnung | Nr. 5 b | Karosserie- und Fahrzeugbauer, Maler und Lackierer | **Am 23.10. vom User berichtigt: „Fahrzeuglackierer“ statt „Maler und Lackierer“**, sofort im Impressum geändert. Vorher aus 4.11 abgeleitet. Nach ZDH bei diesen Handwerken nicht Pflicht, nach dem Wortlaut von Nr. 5 (Meisterpflicht = reglementierter Beruf) schon; das Impressum folgt der vorsichtigen Lesart. Freiwillige Angaben müssen stimmen | ❓ Handwerksrolle |
 | Staat, Berufsrecht | Nr. 5 b, c | Deutschland, HwO mit Link | vollständig | ✅ |
 | Verbraucherstreitbeilegung | § 36 VSBG | „nicht bereit und nicht verpflichtet“ | Satz richtig. **Kommentar im Code war falsch:** Er hielt einen Innungsbetrieb für verpflichtet. Kfz-Schiedsstellen sind keine Verbraucherschlichtungsstellen | 🔧 Kommentar, ❓ Innung (nur freiwilliger Zusatz) |
 | OS-Plattform | VO 2024/3228 | kein Link | im ganzen Code kein Verweis | ✅ |
@@ -126,7 +126,7 @@ Verantwortlicher), unten abgehakt. Für den Rest liegt die Mail an André bereit
 `docs/rechtsseiten/2026-10-23-mail-andre-offene-punkte.md`.
 
 **An André**
-* [ ] **Handwerksrolle:** Welche Handwerke sind eingetragen (Auszug oder Handwerkskarte genügt)? Das Impressum nennt „Karosserie- und Fahrzeugbauer, Maler und Lackierer“, abgeleitet aus 4.11. Fehlt eines, muss es raus; steht ein weiteres da (etwa Kraftfahrzeugtechniker), kommt es dazu. *Auch freiwillige Angaben müssen stimmen.*
+* [ ] **Handwerksrolle:** Welche Handwerke sind eingetragen (Auszug oder Handwerkskarte genügt)? Das Impressum nennt seit 23.10. „Karosserie- und Fahrzeugbauer, Fahrzeuglackierer“ (User: „nicht Maler und Lackierer, sondern Fahrzeuglackierer“). Fehlt eines, muss es raus; steht ein weiteres da (etwa Kraftfahrzeugtechniker), kommt es dazu. *Auch freiwillige Angaben müssen stimmen.*
 * [ ] **Datenschutzbeauftragter:** Ist er benannt, wer ist es, und ist `datenschutzbeauftragter@carcare-center.de` erreichbar? Nicht der Geschäftsführer (Art. 38 Abs. 6 DSGVO). Pflicht ab 20 Personen, die ständig mit personenbezogenen Daten arbeiten (§ 38 BDSG). Gibt es keinen, fällt der Abschnitt weg. *(Vorgängerplan)*
 * [ ] **AV-Vertrag mit der PDR.cloud GmbH** (reparatur.info, Schadenmeldung): Die Erklärung sagt „in unserem Auftrag (Art. 28 DSGVO)“; der Vertrag muss tatsächlich bestehen. *(Vorgängerplan)*
 * [ ] **Einwilligungen KI-bearbeiteter Fotos:** Die Fotos realer Personen liefen über die Plattform Higgsfield (USA, User 14.10.). Die schriftlichen Einwilligungen sollten diese Bearbeitung samt Übermittlung abdecken, sonst nachholen. Die Website nennt bewusst nur die Engine.

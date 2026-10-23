@@ -134,10 +134,11 @@ const ImpressumPage: React.FC = () => (
           freiwillige Angaben muessen stimmen, deshalb bleibt die Pruefung gegen die Handwerksrolle offen.
         - Kammer: folgt aus dem Betriebssitz Leipzig. Name, Anschrift und Website am 2026-10-23 am Impressum der Kammer
           bestaetigt; der Link folgt der Empfehlung „zuständige Handwerkskammer (mit Link)“ (DHZ, 31.01.2026).
-        - Berufsbezeichnung: aus Andrés Angabe 4.11 („Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk“)
-          den Handwerken der Anlage A HwO zugeordnet. Fahrzeuglackierer gehoeren zum Maler- und Lackiererhandwerk.
-          ⚠️ ABGELEITET, nicht gegen den Eintrag in der Handwerksrolle geprueft: Steht dort ein weiteres Handwerk
-          (etwa Kraftfahrzeugtechniker), gehoert es hier dazu; fehlt eines, muss es hier raus.
+        - Berufsbezeichnung: zuerst aus Andrés Angabe 4.11 („Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk“)
+          abgeleitet. BERICHTIGT 2026-10-23 (User, „ganz wichtig“): nicht „Maler und Lackierer“, sondern
+          „Fahrzeuglackierer“. „Karosserie- und Fahrzeugbauer“ bleibt, bis der Eintrag in der Handwerksrolle vorliegt
+          (Frage 1 der Mail an André, `docs/rechtsseiten/2026-10-23-mail-andre-offene-punkte.md`): Steht dort ein
+          weiteres Handwerk (etwa Kraftfahrzeugtechniker), gehoert es hier dazu; fehlt eines, muss es hier raus.
         - Eine Aufsichtsbehoerde (Nr. 3) nennt der ZDH im Handwerk nur fuer Bezirksschornsteinfeger und Buechsenmacher.
       */}
       <Abschnitt title="Berufsrechtliche Angaben">
@@ -150,7 +151,7 @@ const ImpressumPage: React.FC = () => (
             <ExternVerweis href={HWK_URL}>www.hwk-leipzig.de</ExternVerweis>
             <span className="mt-1 block text-sm text-gray-600">Eintragung in die Handwerksrolle</span>
           </Angabe>
-          <Angabe label="Berufsbezeichnung">Karosserie- und Fahrzeugbauer, Maler und Lackierer</Angabe>
+          <Angabe label="Berufsbezeichnung">Karosserie- und Fahrzeugbauer, Fahrzeuglackierer</Angabe>
           <Angabe label="Verliehen in">Bundesrepublik Deutschland</Angabe>
           <Angabe label="Berufsrechtliche Regelung">
             Gesetz zur Ordnung des Handwerks (Handwerksordnung, HwO), abrufbar unter{' '}
