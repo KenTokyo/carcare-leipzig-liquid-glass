@@ -1,23 +1,26 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 23.10.2026, 20:29, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 30.10.2026, 22:00, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 23.10.2026, 20:29 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 30.10.2026, 22:00 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
-| `main` | `8951608` | `84509ee` | 1 vor GitHub (kommt mit dem Push) |
-| 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
+| `main` | `cb6b814` | `5f5cc27` | 1 vor GitHub (kommt mit dem Push) |
+| `claude/frosty-chaum-e06c4d` | `318aaee` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| `claude/gracious-nightingale-5061fb` | `a04f938` | — | neu, 1 Commit(s) noch nicht auf GitHub, Branch wird nicht gepusht |
+| 16 weitere lokale Branches | – | – | gleich mit GitHub |
+| 1 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `8951608` | 23.10.2026, 20:29 | Kentokyo | Docs: Testbewerbung CC-1023-A9EMM an bewerbung@carcare-center.de (6.13) | 1 | — | **kommt mit diesem Push** |
+| `cb6b814` | 30.10.2026, 22:00 | oalabhypercode | Docs: R24 erledigt und live geprüft (eigene 404-Seite mit Status 404) | 2 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -27,7 +30,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `8951608` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `cb6b814` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
@@ -35,7 +38,8 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | Unversioniert | nichts |
 | Uncommittete Änderungen | keine |
-| Weitere Worktrees | 0 |
+| Lokale Branches ohne GitHub-Gegenstück | 27, alle Commits schon auf GitHub: `2026-09-25-schleife-5-import`, `2026-09-27-schleife-5-paket-1`, `2026-09-28-schleife-6-import`, `2026-09-28-schleife-6-umsetzung`, `2026-10-02-stimmen-zusatzregeln`, `2026-10-04-rechtsseiten-und-texte`, `2026-10-05-karriere-fotos`, `2026-10-05-performance-glas`, `2026-10-06-lektorat`, `2026-10-16-r23-fusszeile-cls`, `2026-10-17-r24-404-seite`, `aussparung-beschriftete-aktionen`, `claude/affectionate-shirley-ebfce4`, `claude/hopeful-colden-aa3a3f`, `claude/mystifying-heisenberg-57ec44`, `fix/dummy-waechter-anerkennung`, `fix/matomo-aussage`, `fix/prerender-vercel`, `nachtraege/versand-und-waechterdoku`, `optimierung/react-typen`, `paket-d/karriere-navigation`, `paket-e/formularversand`, `paket-e/vorauswahl-und-alle-anfragearten`, `paket-e/zusatzleistungen-zeitstrahl-dialog`, `paket-f/schadenformular`, `rechtsseiten/impressum-datenschutz`, `schleife-1/paket-b` |
+| Weitere Worktrees | 7 |
 | Stash-Einträge | 0 |
 
 ## 5. Inhaltlich offen
@@ -44,7 +48,7 @@ Dazu als oberster Commit: diese Übersicht.
 
 Keine offenen Folgepunkte in den berührten Planungsdateien.
 
-### Backlog gesamt: 19 offene Punkte
+### Backlog gesamt: 18 offene Punkte
 
 Automatisch aus `docs/backlog/` — dort gepflegt, hier nur abgelesen.
 
@@ -108,13 +112,12 @@ Quelle: `docs/backlog/schleife-6.md`
 </details>
 
 <details>
-<summary>Repo-Befunde, Schleife 1 und Querschnitt: 8 offen</summary>
+<summary>Repo-Befunde, Schleife 1 und Querschnitt: 7 offen</summary>
 
 | Nr | Aufgabe | Status | Wer |
 |---|---|---|---|
 | R5 | Impressumsangaben vervollständigen. Vier Angaben fehlen: Telefonnummer (Altseite nennt zwei), Handwerkskammer… | offen · Berufsbezeichnung geliefert (4.11: „Meisterbetrieb… | André |
 | R6 | Datenschutzerklärung schreiben. `/datenschutz` ist ein Gerüst. Faktenblatt liegt bereit, mit technischem Nach… | offen · Zeitpunkt: zum Schluss (User 2026-09-16) · neues Pf… | André + Datenschutzbeauftragt… |
-| R24 | Eigene 404-Seite wird nicht ausgeliefert. Unbekannte Adressen zeigen Vercels Textseite „NOT_FOUND“ (79 Byte)… | 🟨 umgesetzt 2026-10-17, lokal belegt: Der Prerender schrei… | OALAB |
 | – | Anhalte-Möglichkeit für die drei automatisch laufenden Videos (WCAG 2.2.2: Bewegung über 5 s braucht Pause/St… | offen, aufgenommen 2026-09-10 (`docs/betriebsvideo/tasks/20… | OALAB |
 | – | Drohnen- und Rohclips aus der Lieferung vom 2026-09-07 sind ungenutzt. Sie decken die offenen Fotopunkte 3.23… | 🟨 teilweise — am 2026-09-23 sind 3 der 12 Drohnenclips als… | OALAB |
 | R17 | Der Kontrastwächter kann Text am Verlaufsrand der Partnerliste melden. Am 2026-09-21 meldete ein Lauf „Porsch… | offen, aufgenommen 2026-09-21 | OALAB |
