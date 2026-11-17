@@ -21,9 +21,9 @@ USP:                    "Leipzigs Full-Service-Center für Lackierung, Karosseri
 USP_ERWEITERT:          "Seit 1998 Ihr Premium-Partner in Leipzig für Fahrzeuglackierung, Karosserie-Instandsetzung und Aufbereitung. Als Glasurit-Lackpartner und Meisterbetrieb erzielen wir dank der weltweit präzisesten Farbtontechnologie makellose Reparaturen in Erstausrüster-Qualität – auf über 3.500 m², für alle Marken, inklusive kompletter Unfall- und Versicherungsabwicklung mit Ersatzfahrzeug."
 USP_BAUSTEINE:                                                     # Vertrauens-/Differenzierungssignale für E-E-A-T und GEO
   - "Glasurit-Lackpartner → farbtongenaue, makellose Reparaturen, langlebiges Premium-Finish, umweltschonende Wasserbasislacke"
-  - "Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt"   # Wortlaut seit 2026-09-10 (Backlog 4.11)
+  - "Meisterbetrieb im Kfz-Lackier- und Karosseriebauhandwerk, seit 1998 am Markt"   # Wortlaut nach Backlog 4.11
   - "Full-Service auf über 3.500 m²: Lackierung, Karosserie, Smart/Spot Repair, Felgen, Fahrzeugaufbereitung"
-  - "Komplette Unfall- & Versicherungsabwicklung inkl. Kostenvoranschlag und Werkstattersatzfahrzeug"
+  - "Komplette Unfall- & Versicherungsabwicklung inkl. Kostenvoranschlag und Ersatzwagen"
   - "Erfahrung mit Privat-, Geschäfts- und Flottenkunden (Autohäuser, Firmenfuhrparks)"
 
 # --- Reichweite: Sonderfall – LOKAL primär, NATIONAL sekundär (siehe Modus-Notiz unter dem Block) ---
