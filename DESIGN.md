@@ -24,7 +24,13 @@ Die App nutzt vorwiegend eine monochromatische Farbpalette, gepaart mit einer ge
 ---
 
 ## 3. Typografie
-Als alleinige Schriftart kommt **Inter** (sans-serif) zum Einsatz. Dies verleiht der Seite einen modernen, hochtechnischen und sehr gut lesbaren Look.
+Als Schriftart der Website kommt **Space Grotesk** (sans-serif) zum Einsatz. Sie verleiht der Seite einen modernen, technischen und gut lesbaren Look. Die frühere Schrift Inter ist vollständig ersetzt.
+
+*   **Einbindung:** Selbst gehostet als Variable Font, bewusst **kein Font-CDN** (DSGVO: Ein CDN-Abruf überträgt die IP-Adresse der Besucher an den Anbieter). `@font-face` steht in `index.css`, die Dateien liegen unter `public/assets/fonts/` (`space-grotesk-latin.woff2` und `space-grotesk-latin-ext.woff2`, zusammen rund 40 KB). Der Latin-Schnitt wird in `index.html` vorgeladen, `font-display: swap` hält den Text während des Ladens sichtbar. Tailwind: `fontFamily.sans` in `tailwind.config.js`.
+*   **Schnitte:** Stufenlos 300 bis 700 in einer Datei. Es gibt **kein 800**: `font-extrabold` stellt der Browser als 700 dar, deshalb `font-bold` verwenden.
+*   **Ersatzschriften:** `system-ui`, `-apple-system`, `BlinkMacSystemFont`, `"Segoe UI"`, `sans-serif`.
+*   **Lizenz:** SIL Open Font License 1.1. `public/assets/fonts/OFL.txt` muss mit ausgeliefert werden.
+*   **Ausnahmen:** Der EU-Förderhinweis in der Fußzeile (`components/Footer.tsx`) steht in Arial, weil die EU-Publizitätsvorgaben nur bestimmte Schriften zulassen. Die Anfrage-Mail (`emails/AnfrageEmail.tsx`) nutzt Arial/Helvetica und für die Vorgangsnummer Consolas, weil viele Mailprogramme keine Webfonts laden.
 
 *   **Headings (Überschriften):** Es werden extrem große Schriftgrade verwendet (z.B. `text-6xl` bis `text-9xl` im Hero). Die Schriftschnitte sind meist `font-bold` in Kombination mit verringertem Zeichenabstand (`tracking-tight`), um Kompaktheit und Stärke zu suggerieren.
 *   **Labels & Kicker (Eyecatcher):** Oft in sehr kleinen Größen (`text-[10px]` oder `text-xs`), in Versalien (`uppercase`) und mit enormem Zeichenabstand (`tracking-[0.2em]`, `tracking-widest`) gesetzt. Dies ist ein klassisches Premium-Design-Pattern aus Zeitschriften.
