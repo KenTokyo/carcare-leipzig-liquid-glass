@@ -5,6 +5,7 @@
 
 | Erzeugt | Branches | Neu auf GitHub | npm install | Hinweise |
 |---|---|---|---|---|
+| 19.11.2026, 02:58 | `main`, `2026-11-19-design-schrift` | `1acc171` (1) | nein | — |
 | 17.11.2026, 14:21 | `main` | `42df0ca` (1) | nein | — |
 | 30.10.2026, 22:00 | `main` | `cb6b814` (1) | nein | — |
 | 23.10.2026, 20:29 | `main` | `8951608` (1) | nein | — |
