@@ -9,6 +9,8 @@ import {
 } from '../data/anfrageSchema.js';
 import { bereinigteZusaetze, FEHLT_ZUSATZLEISTUNG, fehltZusatzleistung } from '../data/zusatzregeln.js';
 import AnfrageEmail from '../emails/AnfrageEmail.js';
+import GutscheinEmail from '../emails/GutscheinEmail.js';
+import { GUTSCHEIN_ART, GUTSCHEIN_BETREFF, pruefeGutschein } from '../data/gutschein.js';
 
 /** Node.js is required for SMTP. Credentials stay in the server environment. */
 export const maxDuration = 30;
@@ -128,6 +130,10 @@ export async function handler(request: Request): Promise<Response> {
     }
     roh = JSON.parse(Buffer.concat(chunks).toString('utf8'));
   } catch { return antwort({ fehler: 'Anfrage nicht lesbar.' }, 400); }
+  if (istObjekt(roh) && roh.art === GUTSCHEIN_ART) {
+    if (bytes > MAX_BODY_BYTES) return antwort({ fehler: 'Anfrage ist zu groß.' }, 413);
+    return gutscheinAnfrage(roh, stand);
+  }
   if (!istObjekt(roh) || typeof roh.art !== 'string' || !Object.hasOwn(PFLICHTFELDER, roh.art)) {
     return antwort({ fehler: 'Unbekannte Anfrageart.' }, 400);
   }
@@ -200,5 +206,49 @@ export async function handler(request: Request): Promise<Response> {
     console.error('[anfrage] Versand fehlgeschlagen', { code });
     return antwort({ fehler: `Die Anfrage konnte nicht versendet werden. Bitte schreiben Sie direkt an ${KONTAKT_POSTFACH[art]}.` }, 502);
   } finally { transport.close(); }
+}
+
+/**
+ * Gutscheinanfrage (OA-14): Eingang an den allgemeinen Empfaenger, danach Bestaetigung an die anfragende Person.
+ * Kein Shop: Rechnung, Zahlung und Versand macht der Betrieb selbst. Scheitert nur die Bestaetigung, gilt die Anfrage
+ * trotzdem als angekommen (`bestaetigung: false`), damit niemand doppelt anfragt.
+ */
+async function gutscheinAnfrage(roh: Record<string, unknown>, stand: ReturnType<typeof einrichtung>): Promise<Response> {
+  const eingang = istObjekt(roh.daten) ? roh.daten : null;
+  if (!eingang) return antwort({ fehler: 'Ungültige Formularfelder.' }, 400);
+  if (typeof eingang[HONIGTOPF] === 'string' && eingang[HONIGTOPF].trim()) return antwort({ ok: true }, 202);
+  const geprueft = pruefeGutschein(eingang);
+  if ('fehler' in geprueft) return antwort({ fehler: geprueft.fehler }, 400);
+  const { daten } = geprueft;
+  const vorgang = vorgangsnummer();
+  const transport = smtpTransport(stand);
+  const absender = { name: 'CarCare Center', address: stand.absender! };
+  try {
+    const html = await render(createElement(GutscheinEmail, { daten, vorgang, fuer: 'betrieb' }));
+    const result = await transport.sendMail({
+      from: { ...absender, name: 'CarCare Center · Website' }, to: stand.empfaenger!, replyTo: { address: daten.rechnung.email },
+      subject: `[${vorgang}] ${GUTSCHEIN_BETREFF} — ${daten.rechnung.name.slice(0, 160)}`, text: toPlainText(html), html,
+    });
+    if (!result.accepted.length || result.rejected.length) throw new Error('SMTP_REJECTED');
+  } catch (error) {
+    transport.close();
+    const code = istObjekt(error) && typeof error.code === 'string' ? error.code : 'SEND_FAILED';
+    console.error('[anfrage] Gutschein: Versand fehlgeschlagen', { code });
+    return antwort({ fehler: 'Die Anfrage konnte nicht versendet werden. Bitte schreiben Sie direkt an info@carcare-center.de.' }, 502);
+  }
+  let bestaetigung = true;
+  try {
+    const html = await render(createElement(GutscheinEmail, { daten, vorgang, fuer: 'kunde' }));
+    const result = await transport.sendMail({
+      from: absender, to: daten.rechnung.email, replyTo: { address: stand.empfaenger! },
+      subject: `Ihre Gutscheinanfrage beim CarCare Center [${vorgang}]`, text: toPlainText(html), html,
+    });
+    if (!result.accepted.length || result.rejected.length) throw new Error('SMTP_REJECTED');
+  } catch {
+    bestaetigung = false;
+    console.error('[anfrage] Gutschein: Bestaetigung nicht versendet', { vorgang });
+  } finally { transport.close(); }
+  console.info('[anfrage] Gutschein angenommen', { vorgang, bestaetigung });
+  return antwort({ ok: true, vorgang, bestaetigung }, 200);
 }
 export default { fetch: handler };

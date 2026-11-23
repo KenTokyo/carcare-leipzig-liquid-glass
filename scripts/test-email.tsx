@@ -104,6 +104,42 @@ try {
   assert.ok(!(await failed.json()).vorgang);
   // 6.13: Die Fehlermeldung einer Bewerbung nennt das Bewerbungspostfach, nicht info@.
   assert.match((await (await send({ art: 'bewerbung', daten: base })).json()).fehler, /bewerbung@carcare-center\.de/);
+  // OA-14: Gutscheinanfrage. Zwei Mails (Betrieb, dann Bestaetigung an die anfragende Person), Pruefung der Schritte.
+  failure = false;
+  const adresse = { name: 'OALAB Test', firma: '', strasse: 'Teststr. 1', plz: '04103', ort: 'Leipzig' };
+  const gutschein = { auswahl: 'paket', pakete: { premium: 2, brillant: 1 }, betrag: '', rechnung: { ...adresse, email: 'kunde@example.com', telefon: '0341 000000' }, versandGleich: false, versand: { ...adresse, name: 'Beschenkte Person' }, einwilligung: true };
+  const gesendet: Record<string, unknown>[] = [];
+  nodemailer.createTransport = (() => ({
+    sendMail: async (value: Record<string, unknown>) => { gesendet.push(value); return { accepted: [value.to], rejected: [], messageId: 'test' }; }, close() {},
+  })) as unknown as typeof original;
+  const gs = await send({ art: 'gutschein', daten: gutschein });
+  assert.equal(gs.status, 200, await gs.clone().text());
+  assert.equal((await gs.json()).bestaetigung, true);
+  assert.equal(gesendet.length, 2);
+  assert.equal(gesendet[0].to, 'info@example.com');
+  assert.deepEqual(gesendet[0].replyTo, { address: 'kunde@example.com' });
+  assert.equal(gesendet[1].to, 'kunde@example.com');
+  assert.match(String(gesendet[0].text), /1\u00a0× Brillant Außenpflege, 2\u00a0× Premiumpflege/);
+  assert.match(String(gesendet[0].text), /Beschenkte Person/);
+  assert.match(String(gesendet[1].text), /Sie erhalten zuerst eine Rechnung/);
+  const betrag = await send({ art: 'gutschein', daten: { ...gutschein, auswahl: 'betrag', betrag: '75,50', versandGleich: true } });
+  assert.equal(betrag.status, 200);
+  assert.match(String(gesendet[2].text), /Wertgutschein über 75,50/);
+  for (const kaputt of [
+    { ...gutschein, einwilligung: false }, { ...gutschein, pakete: {} }, { ...gutschein, pakete: { shop: 1 } },
+    { ...gutschein, pakete: { premium: 11 } }, { ...gutschein, auswahl: 'betrag', betrag: '5' },
+    { ...gutschein, rechnung: { ...gutschein.rechnung, plz: '123' } }, { ...gutschein, rechnung: { ...gutschein.rechnung, email: 'x' } },
+    { ...gutschein, versand: { ...adresse, ort: '' } },
+  ]) assert.equal((await send({ art: 'gutschein', daten: kaputt })).status, 400, JSON.stringify(kaputt));
+  assert.equal((await send({ art: 'gutschein', daten: { ...gutschein, website: 'bot' } })).status, 202);
+  assert.equal(gesendet.length, 4, 'Ungueltige Gutscheinanfragen duerfen nichts senden');
+  nodemailer.createTransport = (() => ({
+    sendMail: async (value: Record<string, unknown>) => { gesendet.push(value); if (value.to === 'kunde@example.com') throw new Error('x'); return { accepted: [value.to], rejected: [], messageId: 'test' }; }, close() {},
+  })) as unknown as typeof original;
+  const ohne = await send({ art: 'gutschein', daten: gutschein });
+  assert.equal(ohne.status, 200);
+  assert.equal((await ohne.json()).bestaetigung, false);
+  console.log('PASS: Gutscheinanfrage (Betrieb + Bestaetigung, Paket und Betrag, Pruefung, Honigtopf, Bestaetigung scheitert).');
   delete process.env.ANFRAGE_EMPFAENGER_BUSINESS;
   assert.equal((await send({ art: 'business', daten: base })).status, 503);
   assert.equal((await handler(new Request('https://example.com/api/anfrage'))).status, 503);

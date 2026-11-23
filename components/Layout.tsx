@@ -5,6 +5,7 @@ import MobileStickyCTA from './MobileStickyCTA';
 import AktionsAussparung from './AktionsAussparung';
 import SuchDialog from './SuchDialog';
 import { AnfrageDialogProvider } from './AnfrageDialog';
+import GutscheinProvider from './gutschein/GutscheinDialog';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     // Der Anfrage-Dialog haengt EINMAL hier, nicht je Seite: Sein Ausloeser
     // (`#contact-termin`) steht an rund 40 Stellen. Siehe AnfrageDialog.tsx.
     <AnfrageDialogProvider>
+    <GutscheinProvider>
     <div className="carcare-shell-root min-h-screen text-gray-950 selection:bg-blue-600 selection:text-white">
       {/* Unified Solidroad Frame & Header HUD-Layer */}
       <div className="solidroad-shell-frame-container">
@@ -87,6 +89,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Globale Suche: einmal fuer alle Seiten; oeffnet per Navbar-Knopf, Strg/⌘ + K oder „/". */}
       <SuchDialog />
     </div>
+    </GutscheinProvider>
     </AnfrageDialogProvider>
   );
 };

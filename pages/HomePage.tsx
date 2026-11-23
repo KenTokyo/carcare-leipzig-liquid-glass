@@ -8,6 +8,7 @@ import DetailingProcessSection from '../components/DetailingProcessSection';
 import FAQSection from '../components/FAQSection';
 import GoogleBewertungen from '../components/GoogleBewertungen';
 import KontaktDaten from '../components/KontaktDaten';
+import GutscheinBereich from '../components/gutschein/GutscheinBereich';
 import { PageMeta } from '../components/PageBlocks';
 
 // Schlanke, conversion-fokussierte Startseite (8 Sektionen statt 13).
@@ -36,6 +37,8 @@ const HomePage: React.FC = () => (
     <TargetGroupCards />
     <AutoDetailingExpertiseSection />
     <DetailingProcessSection />
+    {/* OA-14: Gutscheinaktion, derselbe Knopf wie im Begruessungs-Pop-up. */}
+    <GutscheinBereich />
     {/* Wunsch des Users (2026-09-28): „nach dem Bereich Autoaufbereitung Leipzig und vor dem Bereich FAQ". */}
     <GoogleBewertungen />
     <FAQSection />
