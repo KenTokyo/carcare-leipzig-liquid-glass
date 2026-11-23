@@ -57,7 +57,8 @@ const useModal = (offen: boolean, panel: React.RefObject<HTMLElement | null>, sc
       else if (!e.shiftKey && document.activeElement === letztes) { e.preventDefault(); erstes.focus(); }
     };
     document.addEventListener('keydown', beiTaste);
-    const fokus = window.setTimeout(() => panel.current?.querySelector<HTMLElement>('[data-erster-fokus]')?.focus(), 80);
+    // Fokus aufs Panel selbst: Screenreader lesen den Dialog, und der Schliessen-Knopf traegt beim Oeffnen keinen Fokusring.
+    const fokus = window.setTimeout(() => panel.current?.focus({ preventScroll: true }), 80);
     return () => {
       document.removeEventListener('keydown', beiTaste);
       window.clearTimeout(fokus);
@@ -70,7 +71,7 @@ const useModal = (offen: boolean, panel: React.RefObject<HTMLElement | null>, sc
 
 const Schliessen: React.FC<{ onClick: () => void; label: string; hell?: boolean }> = ({ onClick, label, hell }) => (
   <button
-    type="button" data-erster-fokus onClick={onClick} aria-label={label}
+    type="button" onClick={onClick} aria-label={label}
     className={`absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border shadow-sm transition-colors ${
       hell ? 'border-white/30 bg-black/35 text-white backdrop-blur-md hover:bg-white hover:text-gray-950' : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-950 hover:text-white'
     }`}
@@ -135,11 +136,11 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         >
           <div className="flex min-h-full items-end justify-center sm:items-center sm:p-6">
             <motion.div
-              ref={ref} role="dialog" aria-modal="true" aria-label={label}
+              ref={ref} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}
               initial={{ opacity: 0, y: 40, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 } }}
               exit={{ opacity: 0, y: 18, scale: 0.98, transition: { duration: 0.2, ease: KURVE } }}
-              className={`relative w-full ${breite}`}
+              className={`relative w-full outline-none ${breite}`}
             >
               {inhalt}
             </motion.div>
