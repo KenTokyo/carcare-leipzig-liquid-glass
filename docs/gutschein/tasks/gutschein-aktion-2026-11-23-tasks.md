@@ -39,6 +39,13 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 **Referenzen:**
 `public/.well-known/notetree-business.json`
 
+### ✅ Phase 4: Prüfung und Prüfpaket
+* [x] `npm run build` (Prerender, FAQ, Platzhalter, Gedankenstriche 0) ✅; `npm run kontrast` 6348 Stellen ohne AA-Fehler ✅; `npm run mobil` 0 harte Befunde ✅; `npm run zeichnen -- /` 0 Befunde ✅
+* [x] Bilder je Bereich: Pop-up (Vorher live / Nachher Test, Computer + Handy), Gutschein-Bereich (neu, Computer, Handy in zwei Teilen), Anfragefenster Schritt 1 bis 4 (neu, Computer + Handy); frühere Bilder unverändert
+* [x] Kundentext als Entwurf in NoteTree Business, nicht gesendet
+**Referenzen:**
+`public/.well-known/notetree-business/oa-14-r0/`
+
 ## Kommentare
 ### Phasen 1–3
 **Eingehalten:** unter 700 Zeilen je Datei ✅, eine Quelle für Prüfregeln ✅, Server prüft verbindlich ✅, Textregeln (Gedankenstrich-Wächter 0 Funde) ✅, Mobile-First ✅, nur `test` ✅
