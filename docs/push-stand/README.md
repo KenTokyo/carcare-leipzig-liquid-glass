@@ -1,24 +1,24 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 24.11.2026, 10:24, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 24.11.2026, 10:25, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.11.2026, 10:24 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 24.11.2026, 10:25 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
 | `main` | `6d0d071` | `4ab2e89` | 3 hinter GitHub (erst pullen) |
-| `test` | `4e9b69b` | `eb79c7d` | 1 vor GitHub (kommt mit dem Push) |
+| `test` | `c2287e5` | `85f5c20` | 1 vor GitHub (kommt mit dem Push) |
 | 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `4e9b69b` | 24.11.2026, 10:24 | Kentokyo | docs(gutschein): Testseiten-Link für den Kunden sichtbar (OA-14) | 1 | — | **kommt mit diesem Push** |
+| `c2287e5` | 24.11.2026, 10:25 | Kentokyo | docs(push-stand): versehentlich mitgelöschte Aufgabendateien zurück | 2 (2 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,14 +28,14 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout test` | holt den Branch; `main` ändert sich mit diesem Push nicht |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 test`: oben „Docs: Push-Stand …", darunter `4e9b69b` |
+| Kontrolle | `git log --oneline -2 test`: oben „Docs: Push-Stand …", darunter `c2287e5` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
 | Was | Stand |
 |---|---|
 | Unversioniert | nichts |
-| Uncommittete Änderungen | 178 Datei(en): `.completed/2026-06-03_solidroad-hero-shell.md`, `.completed/2026-06-04_solidroad-global-hud-shell.md`, `.completed/2026-06-06_scroll-corner-fix-carcare-hud.md`, `.gitignore`, `docs/accident-card-images/tasks/2026-07-22-unfall-karten-bilder-tasks.md`, `docs/accident-scrollytelling/tasks/2026-07-17-accident-scrollytelling-tasks.md`, `docs/accident-scrollytelling/tasks/2026-07-19-pin-jitter-fix-tasks.md`, `docs/aufbereitung-zusatzleistungen/tasks/2026-09-28-zusatzleistungen-kacheln-optimierung-tasks.md` |
+| Uncommittete Änderungen | 176 Datei(en): `.completed/2026-06-03_solidroad-hero-shell.md`, `.completed/2026-06-04_solidroad-global-hud-shell.md`, `.completed/2026-06-06_scroll-corner-fix-carcare-hud.md`, `.gitignore`, `docs/accident-card-images/tasks/2026-07-22-unfall-karten-bilder-tasks.md`, `docs/accident-scrollytelling/tasks/2026-07-17-accident-scrollytelling-tasks.md`, `docs/accident-scrollytelling/tasks/2026-07-19-pin-jitter-fix-tasks.md`, `docs/aufbereitung-zusatzleistungen/tasks/2026-09-28-zusatzleistungen-kacheln-optimierung-tasks.md` |
 | Weitere Worktrees | 0 |
 | Stash-Einträge | 0 |
 
@@ -43,7 +43,10 @@ Dazu als oberster Commit: diese Übersicht.
 
 ### Folgepunkte aus den Planungen dieses Pushs
 
-Keine offenen Folgepunkte in den berührten Planungsdateien.
+| Punkt | Planung |
+|---|---|
+| 1 — Pushes aus Terminal und IDE ebenfalls prüfen — Entscheidung User | `docs/push-stand/tasks/2026-09-18-push-stand-optimierung-tasks.md` |
+| 2 — Hook ohne Git Bash | `docs/push-stand/tasks/2026-09-18-push-stand-optimierung-tasks.md` |
 
 ### Backlog gesamt: 18 offene Punkte
 
