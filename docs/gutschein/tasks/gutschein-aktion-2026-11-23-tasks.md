@@ -61,7 +61,30 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 `service-oalab/apps/web/server/client-projects.ts`
 `service-oalab/apps/web/features/client-workspace/chat/request-chat.tsx`
 
+### ✅ Phase 6: Pop-up-Hintergrund dunkler (Kundenwunsch r1)
+* [x] `GutscheinDialog.tsx`: Hintergrund radialer Verlauf Carbon 66 → 88 %, `backdrop-blur-md`; Bilder `oa-14-r1/vorher|nachher-popup-*`
+* [x] Kundenantwort mit Vorschau-Anhang veröffentlicht
+* [x] Automatik blockierte: Nachweisdatei als `.well-known/…` statt `public/.well-known/…` gemeldet → NoteTree-Worker sucht Nachweisdatei auch in `public/`, `static/`, `www/` (`notetree-tanstack` `business/worker/src/delivery-verification.ts`, Test, wirkt nach nächstem NoteTree-Start)
+**Referenzen:**
+`components/gutschein/GutscheinDialog.tsx`
+`notetree-tanstack/business/worker/src/delivery-verification.ts`
+
+### ✅ Phase 7: Anfragefenster feste Höhe, Pop-up erneut zeigen
+**Ziel:** Fenster springt zwischen Schritten (Handy 781/902/370/997 px) → gleichbleibende Höhe; Pop-up für Abnahme wiederholbar
+* [x] Feste Höhe: Handy `88dvh`, Computer `min(50rem, 100dvh − 3rem)`; Kopf, Fortschritt, Knopfleiste fest, Inhalt scrollt innen (`data-lenis-prevent`, `overscroll-contain`), beginnt je Schritt oben; Fehlerliste wird ins Bild gescrollt
+* [x] Weicher Auslauf unten → sichtbar, dass Schritt 4 weitergeht
+* [x] `?gutschein-hinweis` zeigt Pop-up trotz 14-Tage-Pause (Abnahme, Vorführen)
+* [x] Geprüft Testseite: Höhe je Schritt gleich (Computer 800, Handy 743), Pop-up 1. Besuch ja, nach Schließen nein, mit Parameter ja; Build mit Prerender grün
+* [x] Bilder `oa-14-r1/vorher|nachher-schritt1–4-computer|handy.webp`
+**Referenzen:**
+`components/gutschein/GutscheinFormular.tsx`
+`components/gutschein/GutscheinDialog.tsx`
+
 ## Kommentare
+### Phasen 6–7
+**Eingehalten:** unter 700 Zeilen ✅, nur `test` ✅, Mobile-First ✅, CSS statt Messen per JS ✅, Testseite geprüft ✅
+**Auffälligkeiten (nach Schwere):**
+1. 🟡 **Mittel:** Build ohne Prerender bei hoher Rechnerlast (Chromium-Start > 30 s) → Wächter bricht korrekt ab; zweiter Lauf grün
 ### Phase 5
 **Eingehalten:** nichts an Live geändert ✅, Ergebnis über vorgesehene Befehle (keine Roh-SQL-Schreibzugriffe) ✅, Bilder auf derselben Testseite ✅
 **Auffälligkeiten (nach Schwere):**
