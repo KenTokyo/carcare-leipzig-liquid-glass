@@ -76,6 +76,7 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 * [x] `?gutschein-hinweis` zeigt Pop-up trotz 14-Tage-Pause (Abnahme, Vorführen)
 * [x] Geprüft Testseite: Höhe je Schritt gleich (Computer 800, Handy 743), Pop-up 1. Besuch ja, nach Schließen nein, mit Parameter ja; Build mit Prerender grün
 * [x] Bilder `oa-14-r1/vorher|nachher-schritt1–4-computer|handy.webp`
+* [x] Kundenantwort mit Vorschau-Anhang (Commit `5bb8a1b`, 16 Bilder Schritt 1–4 Vorher/Nachher Computer + Handy, Link `?gutschein-hinweis`) per `work.result` + `draft.publish` veröffentlicht; Benachrichtigungs-Mail an Kunden eingeplant
 **Referenzen:**
 `components/gutschein/GutscheinFormular.tsx`
 `components/gutschein/GutscheinDialog.tsx`
