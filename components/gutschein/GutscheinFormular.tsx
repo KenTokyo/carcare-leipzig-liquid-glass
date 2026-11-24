@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle2, Gift, Minus, Plus, Send, Truck } from 'lucide-react';
 import {
@@ -90,6 +90,10 @@ const GutscheinFormular: React.FC = () => {
   const [eingabe, setEingabe] = useState<GutscheinEingabe>(leereEingabe);
   const [fehler, setFehler] = useState<string[]>([]);
   const [honigtopf, setHonigtopf] = useState('');
+  // Fester Rahmen (OA-14): Schritte wechseln im selben Feld, das bei jedem Wechsel oben beginnt.
+  const feldRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { feldRef.current?.scrollTo({ top: 0 }); }, [schritt]);
+  useEffect(() => { if (fehler.length) feldRef.current?.scrollTo({ top: feldRef.current.scrollHeight, behavior: 'smooth' }); }, [fehler]);
   const [sendet, setSendet] = useState(false);
   const [ergebnis, setErgebnis] = useState<{ vorgang: string; bestaetigung: boolean } | null>(null);
   const { ready: bereit, disable } = useVersandBereitschaft();
@@ -138,7 +142,7 @@ const GutscheinFormular: React.FC = () => {
 
   if (ergebnis) {
     return (
-      <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="text-center">
+      <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="my-auto text-center">
         <motion.div
           initial={{ scale: 0.4, rotate: -12 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 320, damping: 16, delay: 0.08 }}
           className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white"
@@ -169,9 +173,9 @@ const GutscheinFormular: React.FC = () => {
   });
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); if (schritt < 4) weiter(); else void absenden(); }} noValidate className="relative">
+    <form onSubmit={(e) => { e.preventDefault(); if (schritt < 4) weiter(); else void absenden(); }} noValidate className="relative flex min-h-0 flex-1 flex-col">
       {/* Fortschritt: vier Stufen, die erreichte Linie fuellt sich. */}
-      <ol className="mb-7 grid grid-cols-4 gap-2" aria-label="Fortschritt">
+      <ol className="mb-6 grid shrink-0 grid-cols-4 gap-2" aria-label="Fortschritt">
         {SCHRITTE.map((name, i) => {
           const nr = (i + 1) as Schritt;
           const erreicht = nr <= schritt;
@@ -188,6 +192,8 @@ const GutscheinFormular: React.FC = () => {
         })}
       </ol>
 
+      {/* Eigener Scroll: `data-lenis-prevent` laesst Mausrad und Wischen hier nativ scrollen. */}
+      <div ref={feldRef} data-lenis-prevent className="-mx-2 min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-1">
       <AnimatePresence mode="wait" initial={false} custom={richtung}>
         <motion.div
           key={schritt}
@@ -320,8 +326,11 @@ const GutscheinFormular: React.FC = () => {
           <a href="mailto:info@carcare-center.de" className="font-semibold text-gray-950 underline">info@carcare-center.de</a>.
         </p>
       )}
+        {/* Weicher Auslauf: zeigt, dass unten noch etwas kommt (Schritt 4 auf kleinen Fenstern). */}
+        <div aria-hidden="true" className="pointer-events-none sticky bottom-0 -mb-1 mt-2 h-6 bg-gradient-to-t from-white to-transparent" />
+      </div>
 
-      <div className="mt-6 flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3 border-t border-gray-100 pt-5">
         {schritt > 1 && (
           <button
             type="button" onClick={() => gehe((schritt - 1) as Schritt)}
@@ -346,7 +355,7 @@ const GutscheinFormular: React.FC = () => {
 };
 
 export const GutscheinKopf: React.FC = () => (
-  <div className="mb-6 pr-12">
+  <div className="mb-6 shrink-0 pr-12">
     <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5">
       <Gift size={14} className="text-blue-600" />
       <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-700">Gutschein</span>

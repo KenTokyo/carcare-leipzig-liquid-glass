@@ -11,7 +11,7 @@ import GutscheinFormular, { GutscheinKopf } from './GutscheinFormular';
  *
  * - Einmal in `Layout`; jeder Link mit `#gutschein` oeffnet das Fenster (wie `ANFRAGE_ZIELE` im Anfrage-Dialog).
  * - Pop-up erscheint nach dem Preloader mit kurzer Pause; geschlossen bleibt es `HINWEIS_PAUSE_TAGE` weg
- *   (`localStorage`), auch ueber Seitenwechsel und neue Besuche. Nie auf Rechtsseiten, nie im Prerender/Pruefbrowser
+ *   (`localStorage`), auch ueber Seitenwechsel und neue Besuche; `?gutschein-hinweis` zeigt es trotzdem. Nie auf Rechtsseiten, nie im Prerender/Pruefbrowser
  *   (`navigator.webdriver`, wie `useOeffnungsStatus`), sonst stuende es in Messungen und im Suchindex.
  * - Portal an `body`: `.site-main-shell` traegt einen Transform (siehe `AnfrageDialog.tsx`).
  */
@@ -111,9 +111,11 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   // Begruessungs-Pop-up: erst nach dem Preloader, einmal, dann Pause.
   useEffect(() => {
-    if (navigator.webdriver || OHNE_HINWEIS.includes(window.location.pathname) || hinweisGesehen()) return;
+    // `?gutschein-hinweis` zeigt das Pop-up trotz Pause erneut (Abnahme, Vorfuehren beim Kunden).
+    const erneut = new URLSearchParams(window.location.search).has('gutschein-hinweis');
+    if (navigator.webdriver || OHNE_HINWEIS.includes(window.location.pathname) || (!erneut && hinweisGesehen())) return;
     let zeit = 0;
-    const planen = () => { zeit = window.setTimeout(() => { if (!hinweisGesehen()) setHinweis(true); }, HINWEIS_VERZOEGERUNG_MS); };
+    const planen = () => { zeit = window.setTimeout(() => { if (erneut || !hinweisGesehen()) setHinweis(true); }, HINWEIS_VERZOEGERUNG_MS); };
     const html = document.documentElement;
     if (!html.classList.contains(PRELOADER_HTML_CLASS)) { planen(); return () => window.clearTimeout(zeit); }
     const beobachter = new MutationObserver(() => {
@@ -196,7 +198,7 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             </div>
           ), 'max-w-lg')}
           {huelle(fenster, fensterRef, fensterZu, 'Gutschein anfragen', (
-            <div className="rounded-t-[2rem] border border-gray-100 bg-white p-6 shadow-xl sm:rounded-[2rem] md:p-10">
+            <div className="flex h-[88dvh] flex-col rounded-t-[2rem] border border-gray-100 bg-white p-6 shadow-xl sm:h-[min(50rem,calc(100dvh-3rem))] sm:rounded-[2rem] md:p-10">
               <Schliessen onClick={fensterZu} label="Gutscheinanfrage schließen" />
               <GutscheinKopf />
               <GutscheinFormular />
