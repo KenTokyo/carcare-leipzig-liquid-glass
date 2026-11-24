@@ -131,7 +131,7 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         <motion.div
           key={label}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.22, delay: 0.06 } }} transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[110] overflow-y-auto bg-[rgb(var(--cc-carbon-rgb)/0.55)] backdrop-blur-sm"
+          className="fixed inset-0 z-[110] overflow-y-auto bg-[radial-gradient(120%_90%_at_50%_45%,rgb(var(--cc-carbon-rgb)/0.66),rgb(var(--cc-carbon-rgb)/0.88))] backdrop-blur-md"
           onClick={(e) => { if (!ref.current?.contains(e.target as Node)) zu(); }}
         >
           <div className="flex min-h-full items-end justify-center sm:items-center sm:p-6">
