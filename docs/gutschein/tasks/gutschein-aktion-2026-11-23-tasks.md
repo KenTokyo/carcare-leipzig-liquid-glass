@@ -46,7 +46,27 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 **Referenzen:**
 `public/.well-known/notetree-business/oa-14-r0/`
 
+### ✅ Phase 5: Testseiten-Link für den Kunden sichtbar
+**Ziel:** Kunde sieht im Service-Ticket OA-14 keinen Link zur Testseite → beheben
+* [x] **Ursache:** erste Automatik-Runde endete mit Fehler → Automatik „blockiert“; weitere Arbeit direkt im Chat → Worker übernahm Ergebnis-JSON nie
+  - keine Testdomain am Projekt (`customer_projects.test_url` leer)
+  - veröffentlichte Antwort nur Text (`draft.save` kennt keinen Anhang) → kein Link, keine Bilder, kein „Gefällt mir“
+* [x] Testdomain `https://carcare-center-test.vercel.app` am Hub-Projekt „Anpassung Gutschein Website“ eingetragen (Hub-Werkzeug `update_project`) → Service-Kopfzeile und Ticket-Details zeigen „Testseite“
+* [x] `work.result` mit Vorschau-Anhang (Link, Commit `eb79c7d`, Prüfungen, 17 Bilder: Pop-up Vorher/Nachher Computer + Handy, Gutschein-Bereich und Schritte 1 bis 4 neu) über `notetree-tanstack/scripts/business-operator.ts`
+* [x] Ergebnis per `draft.publish` im Kunden-Chat veröffentlicht; Benachrichtigungs-Mail eingeplant
+* [x] Geprüft: Datenbank-Nachricht sichtbar für Kunde mit Anhang; Anhang gegen `TicketDeliverySchema` der Service-App gültig; alle 17 Bilder laden im Browser (Breite > 0)
+* [ ] Service-Ansicht als Bild: nicht geprüft (Hub-Anmeldung verlangt Mail-Code, Postfach-Server per IMAP gerade nicht erreichbar)
+**Referenzen:**
+`notetree-tanstack/scripts/business-operator.ts`
+`service-oalab/apps/web/server/client-projects.ts`
+`service-oalab/apps/web/features/client-workspace/chat/request-chat.tsx`
+
 ## Kommentare
+### Phase 5
+**Eingehalten:** nichts an Live geändert ✅, Ergebnis über vorgesehene Befehle (keine Roh-SQL-Schreibzugriffe) ✅, Bilder auf derselben Testseite ✅
+**Auffälligkeiten (nach Schwere):**
+1. 🟠 **Hoch:** Direkt im Automatik-Chat weitergearbeitet → Worker prüft und übernimmt das Ergebnis nicht; Chat-Werkzeug darf bewusst kein `work.result` (Test `businessTools.test.ts`). Richtiger Weg: in Business „Fortsetzen“. Vorschlag: Worker übernimmt geprüfte Ergebnisse auch aus Handrunden.
+
 ### Phasen 1–3
 **Eingehalten:** unter 700 Zeilen je Datei ✅, eine Quelle für Prüfregeln ✅, Server prüft verbindlich ✅, Textregeln (Gedankenstrich-Wächter 0 Funde) ✅, Mobile-First ✅, nur `test` ✅
 **Auffälligkeiten (nach Schwere):**
