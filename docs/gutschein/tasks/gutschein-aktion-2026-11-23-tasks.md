@@ -81,7 +81,25 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 `components/gutschein/GutscheinFormular.tsx`
 `components/gutschein/GutscheinDialog.tsx`
 
+### ✅ Phase 8: Pop-up bei jedem Startseiten-Aufruf, Seitenleiste, Bild Außenaufbereitung (Kundenwunsch r2)
+**Ziel:** Pop-up immer beim Aufruf der Startseite; geschlossen → schwebende Leiste rechts „Hier Gutschein kaufen“ mit Pfeil, auf allen Seiten; Bild → Außenaufbereitung
+* [x] `GutscheinDialog.tsx`: 14-Tage-Pause (`localStorage`) entfernt; Pop-up bei erstem Laden der Startseite (nach Preloader), `carcare:navigate`, `popstate`, neuem `carcare:startseite` (Logo-Klick auf der Startseite, `Navbar.tsx`)
+* [x] `GutscheinSeitenleiste.tsx` neu: ab `lg`, rechts mittig, Verlaufsknopf, Pfeil stupst in Abständen nach links, öffnet Anfragefenster; auf Startseite erst nach dem Pop-up, auf Unterseiten sofort; nie im Prerender (`navigator.webdriver`) → nicht im Suchindex
+  - Pop-up gleitet beim Schließen (ab `lg`) nach rechts zur Leiste, Leiste federt ein
+  - Annahme: „Web-Ansicht“ = Computer; Handy ohne Leiste (dort Aktionsleiste unten)
+* [x] Bild Popup + Startseiten-Bereich: Kachel Außenaufbereitung (B46, `aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp`), Alt-Text angepasst
+* [x] Geprüft: Typprüfung ✅, Build mit Prerender ✅ (Leiste nicht im HTML), `npm run zeichnen -- /` 0 Befunde ✅, `npm run mobil` ohne harte Befunde ✅; Testseite: Pop-up nach Klick auf Startseite erneut ✅, Leiste auf Unterseite ✅
+* [x] Bilder `oa-14-r2/vorher|nachher-*` (Pop-up Computer/Handy, Startseite nach Schließen, Gutschein-Bereich, Unterseite)
+**Referenzen:**
+`components/gutschein/GutscheinDialog.tsx`
+`components/gutschein/GutscheinSeitenleiste.tsx`
+`components/Navbar.tsx`
+
 ## Kommentare
+### Phase 8
+**Eingehalten:** unter 700 Zeilen ✅, nur `test` ✅, Prerender/Suchindex sauber ✅, Testseite geprüft ✅
+**Auffälligkeiten (nach Schwere):**
+1. 🟢 **Gering:** Pop-up bei jedem Startseiten-Aufruf kann Stammbesucher stören → Kundenwunsch, bewusst so
 ### Phasen 6–7
 **Eingehalten:** unter 700 Zeilen ✅, nur `test` ✅, Mobile-First ✅, CSS statt Messen per JS ✅, Testseite geprüft ✅
 **Auffälligkeiten (nach Schwere):**
