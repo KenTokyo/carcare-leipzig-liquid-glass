@@ -5,23 +5,26 @@ import { ArrowRight, Gift, Truck, X } from 'lucide-react';
 import { getLenis } from '../../hooks/useSmoothScroll';
 import { PRELOADER_HTML_CLASS } from '../../hooks/usePreloader';
 import GutscheinFormular, { GutscheinKopf } from './GutscheinFormular';
+import GutscheinSeitenleiste from './GutscheinSeitenleiste';
 
 /**
  * Gutscheinaktion (OA-14): Begruessungs-Pop-up, Anfragefenster und Ausloeser `#gutschein`.
  *
  * - Einmal in `Layout`; jeder Link mit `#gutschein` oeffnet das Fenster (wie `ANFRAGE_ZIELE` im Anfrage-Dialog).
- * - Pop-up erscheint nach dem Preloader mit kurzer Pause; geschlossen bleibt es `HINWEIS_PAUSE_TAGE` weg
- *   (`localStorage`), auch ueber Seitenwechsel und neue Besuche; `?gutschein-hinweis` zeigt es trotzdem. Nie auf Rechtsseiten, nie im Prerender/Pruefbrowser
- *   (`navigator.webdriver`, wie `useOeffnungsStatus`), sonst stuende es in Messungen und im Suchindex.
+ * - Pop-up erscheint bei JEDEM Aufruf der Startseite (Kundenwunsch r2): erster Besuch nach dem Preloader, Seitenwechsel
+ *   (`carcare:navigate`, `popstate`) nach kurzer Pause. Geschlossen wird es zur Leiste rechts (`GutscheinSeitenleiste`),
+ *   die auf allen Seiten bleibt. Nie im Prerender/Pruefbrowser (`navigator.webdriver`, wie `useOeffnungsStatus`),
+ *   sonst stuenden Pop-up und Leiste in Messungen und im Suchindex.
  * - Portal an `body`: `.site-main-shell` traegt einen Transform (siehe `AnfrageDialog.tsx`).
  */
 
-const HINWEIS_SCHLUESSEL = 'cc-gutschein-hinweis-v1';
-const HINWEIS_PAUSE_TAGE = 14;
 const HINWEIS_VERZOEGERUNG_MS = 1800;
-const OHNE_HINWEIS = ['/datenschutz', '/impressum', '/kontakt'];
+const HINWEIS_NACH_WECHSEL_MS = 900;
 export const GUTSCHEIN_ZIEL = '#gutschein';
-export const GUTSCHEIN_BILD = '/assets/galerie/politur-finish-lackglanz-leipzig-carcare.webp';
+/** Bild der Aussenaufbereitung (Kachel B46), wie auf der Fahrzeugaufbereitungsseite. */
+export const GUTSCHEIN_BILD = '/assets/kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp';
+export const GUTSCHEIN_BILD_ALT = 'Zwei Mitarbeiter waschen in unserer Waschhalle einen gelben Sportwagen, Außenaufbereitung im CarCare Center Leipzig';
+const istStartseite = () => window.location.pathname === '/' || window.location.pathname === '';
 
 const FOKUSSIERBAR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])';
 const KURVE = [0.22, 1, 0.36, 1] as const;
@@ -29,14 +32,6 @@ const KURVE = [0.22, 1, 0.36, 1] as const;
 interface GutscheinWerte { oeffnen: () => void }
 const GutscheinContext = createContext<GutscheinWerte | null>(null);
 export const useGutschein = () => useContext(GutscheinContext);
-
-const hinweisGesehen = () => {
-  try {
-    const zeit = Number(localStorage.getItem(HINWEIS_SCHLUESSEL));
-    return Number.isFinite(zeit) && zeit > 0 && Date.now() - zeit < HINWEIS_PAUSE_TAGE * 86_400_000;
-  } catch { return true; }
-};
-const hinweisMerken = () => { try { localStorage.setItem(HINWEIS_SCHLUESSEL, String(Date.now())); } catch { /* privat */ } };
 
 /** Sperrt Scrollen und Lenis, haelt den Fokus im Panel, Escape schliesst. */
 const useModal = (offen: boolean, panel: React.RefObject<HTMLElement | null>, schliessen: () => void) => {
@@ -83,12 +78,14 @@ const Schliessen: React.FC<{ onClick: () => void; label: string; hell?: boolean 
 export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [fenster, setFenster] = useState(false);
   const [hinweis, setHinweis] = useState(false);
+  // Leiste erst, wenn auf der Startseite das Pop-up durch ist; auf Unterseiten sofort. Nie im Prerender.
+  const [leisteFrei, setLeisteFrei] = useState(false);
   const fensterRef = useRef<HTMLDivElement>(null);
   const hinweisRef = useRef<HTMLDivElement>(null);
 
-  const oeffnen = useCallback(() => { hinweisMerken(); setHinweis(false); setFenster(true); }, []);
+  const oeffnen = useCallback(() => { setHinweis(false); setLeisteFrei(true); setFenster(true); }, []);
   const fensterZu = useCallback(() => setFenster(false), []);
-  const hinweisZu = useCallback(() => { hinweisMerken(); setHinweis(false); }, []);
+  const hinweisZu = useCallback(() => { setHinweis(false); setLeisteFrei(true); }, []);
 
   useModal(fenster, fensterRef, fensterZu);
   useModal(hinweis, hinweisRef, hinweisZu);
@@ -109,25 +106,43 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // Direktaufruf `…/#gutschein` (z. B. aus einem Newsletter) oeffnet das Fenster gleich.
   useEffect(() => { if (window.location.hash === GUTSCHEIN_ZIEL) oeffnen(); }, [oeffnen]);
 
-  // Begruessungs-Pop-up: erst nach dem Preloader, einmal, dann Pause.
+  // Begruessungs-Pop-up: bei jedem Aufruf der Startseite; erster Besuch erst nach dem Preloader.
   useEffect(() => {
-    // `?gutschein-hinweis` zeigt das Pop-up trotz Pause erneut (Abnahme, Vorfuehren beim Kunden).
-    const erneut = new URLSearchParams(window.location.search).has('gutschein-hinweis');
-    if (navigator.webdriver || OHNE_HINWEIS.includes(window.location.pathname) || (!erneut && hinweisGesehen())) return;
+    if (navigator.webdriver) return;
     let zeit = 0;
-    const planen = () => { zeit = window.setTimeout(() => { if (erneut || !hinweisGesehen()) setHinweis(true); }, HINWEIS_VERZOEGERUNG_MS); };
+    let beobachter: MutationObserver | null = null;
+    const planen = (ms: number) => {
+      window.clearTimeout(zeit);
+      if (!istStartseite()) { setLeisteFrei(true); return; }
+      setLeisteFrei(false);
+      zeit = window.setTimeout(() => { if (istStartseite()) setHinweis(true); else setLeisteFrei(true); }, ms);
+    };
     const html = document.documentElement;
-    if (!html.classList.contains(PRELOADER_HTML_CLASS)) { planen(); return () => window.clearTimeout(zeit); }
-    const beobachter = new MutationObserver(() => {
-      if (html.classList.contains(PRELOADER_HTML_CLASS)) return;
-      beobachter.disconnect();
-      planen();
-    });
-    beobachter.observe(html, { attributes: true, attributeFilter: ['class'] });
-    return () => { beobachter.disconnect(); window.clearTimeout(zeit); };
+    if (html.classList.contains(PRELOADER_HTML_CLASS) && istStartseite()) {
+      beobachter = new MutationObserver(() => {
+        if (html.classList.contains(PRELOADER_HTML_CLASS)) return;
+        beobachter?.disconnect();
+        planen(HINWEIS_VERZOEGERUNG_MS);
+      });
+      beobachter.observe(html, { attributes: true, attributeFilter: ['class'] });
+    } else planen(HINWEIS_VERZOEGERUNG_MS);
+    // Seitenwechsel: `Navbar` und Links feuern `carcare:navigate`, Zurueck/Vor `popstate` (wie `App.tsx`).
+    const beiWechsel = () => planen(HINWEIS_NACH_WECHSEL_MS);
+    window.addEventListener('carcare:navigate', beiWechsel);
+    window.addEventListener('popstate', beiWechsel);
+    window.addEventListener('carcare:startseite', beiWechsel);
+    return () => {
+      beobachter?.disconnect();
+      window.clearTimeout(zeit);
+      window.removeEventListener('carcare:navigate', beiWechsel);
+      window.removeEventListener('popstate', beiWechsel);
+      window.removeEventListener('carcare:startseite', beiWechsel);
+    };
   }, []);
 
-  const huelle = (offen: boolean, ref: React.RefObject<HTMLDivElement | null>, zu: () => void, label: string, inhalt: React.ReactNode, breite: string) => (
+    // Ab `lg` gleitet das Pop-up beim Schliessen nach rechts zur Leiste; mobil (ohne Leiste) sinkt es weg.
+  const zurLeiste = typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
+  const huelle = (offen: boolean, ref: React.RefObject<HTMLDivElement | null>, zu: () => void, label: string, inhalt: React.ReactNode, breite: string, nachRechts = false) => (
     <AnimatePresence>
       {offen && (
         <motion.div
@@ -141,7 +156,9 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               ref={ref} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}
               initial={{ opacity: 0, y: 40, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 260, damping: 26, mass: 0.9 } }}
-              exit={{ opacity: 0, y: 18, scale: 0.98, transition: { duration: 0.2, ease: KURVE } }}
+              exit={nachRechts && zurLeiste
+                ? { opacity: 0, x: '45vw', scale: 0.35, transition: { duration: 0.42, ease: [0.55, 0, 0.75, 0.2] } }
+                : { opacity: 0, y: 18, scale: 0.98, transition: { duration: 0.2, ease: KURVE } }}
               className={`relative w-full outline-none ${breite}`}
             >
               {inhalt}
@@ -166,7 +183,7 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               <Schliessen onClick={hinweisZu} label="Hinweis schließen" hell />
               <div className="relative h-44 overflow-hidden bg-gray-950 sm:h-56">
                 <motion.img
-                  src={GUTSCHEIN_BILD} alt="" width={900} height={1200} decoding="async"
+                  src={GUTSCHEIN_BILD} alt="" width={1200} height={750} decoding="async"
                   initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: KURVE }}
                   className="h-full w-full object-cover"
                 />
@@ -196,7 +213,7 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 </motion.div>
               </div>
             </div>
-          ), 'max-w-lg')}
+          ), 'max-w-lg', true)}
           {huelle(fenster, fensterRef, fensterZu, 'Gutschein anfragen', (
             <div className="flex h-[88dvh] flex-col rounded-t-[2rem] border border-gray-100 bg-white p-6 shadow-xl sm:h-[min(50rem,calc(100dvh-3rem))] sm:rounded-[2rem] md:p-10">
               <Schliessen onClick={fensterZu} label="Gutscheinanfrage schließen" />
@@ -204,6 +221,7 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               <GutscheinFormular />
             </div>
           ), 'max-w-2xl')}
+          <GutscheinSeitenleiste sichtbar={leisteFrei && !hinweis && !fenster} oeffnen={oeffnen} />
         </>,
         document.body,
       )}

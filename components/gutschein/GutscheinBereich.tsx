@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Gift, ReceiptText, Truck } from 'lucide-react';
 import { GUTSCHEIN_PAKETE } from '../../data/gutschein';
-import { GUTSCHEIN_BILD, GUTSCHEIN_ZIEL } from './GutscheinDialog';
+import { GUTSCHEIN_BILD, GUTSCHEIN_BILD_ALT, GUTSCHEIN_ZIEL } from './GutscheinDialog';
 
 /**
  * Gutschein-Bereich der Startseite (OA-14): derselbe Knopf wie im Begruessungs-Pop-up, fuer alle, die es
@@ -63,8 +63,8 @@ const GutscheinBereich: React.FC = () => (
         </motion.div>
         <div className="relative min-h-72 lg:col-span-5 lg:min-h-full">
           <img
-            src={GUTSCHEIN_BILD} alt="Hochglanzpolierter Lack nach der Aufbereitung im CarCare Center Leipzig"
-            width={900} height={1200} loading="lazy" decoding="async"
+            src={GUTSCHEIN_BILD} alt={GUTSCHEIN_BILD_ALT}
+            width={1200} height={750} loading="lazy" decoding="async"
             className="absolute inset-0 h-full w-full object-cover"
           />
         </div>

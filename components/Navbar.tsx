@@ -239,6 +239,8 @@ const Navbar: React.FC = () => {
       return;
     }
     if (window.location.hash || window.location.search) window.history.pushState(null, '', '/');
+    // Gutschein-Pop-up erscheint bei jedem Klick auf die Startseite, auch hier (`GutscheinDialog.tsx`).
+    window.dispatchEvent(new Event('carcare:startseite'));
     window.setTimeout(() => {
       const lenis = getLenis();
       if (!lenis) {
