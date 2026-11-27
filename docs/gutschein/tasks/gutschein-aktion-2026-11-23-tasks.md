@@ -95,7 +95,24 @@ Kundenanfrage OA-14 (BS CarCare GmbH, NoteTree Business, Projekt „Anpassung Gu
 `components/gutschein/GutscheinSeitenleiste.tsx`
 `components/Navbar.tsx`
 
+### ✅ Phase 9: Paket „Große Aufbereitung“ raus, Weihnachtsbild mit „Schon ein Geschenk?“ (OA-17)
+**Ziel:** Kundenwunsch OA-17: Paket entfernen, Gutscheinbild weihnachtlich, Text „Schon ein Geschenk?“
+* [x] `data/gutschein.ts`: Paket `gross` entfernt → fehlt in Anfragefenster Schritt 1, Paketliste Startseite, Serverprüfung (alte Anfrage mit `gross` → „Unbekanntes Paket.“)
+* [x] Bild neu `public/assets/gutschein/gutschein-weihnachtsgeschenk-fahrzeugpflege-leipzig.webp` (lokal erzeugt, FLUX.2 klein 4B, Apache-2.0; Geschenk mit roter Schleife auf Motorhaube, Lichterkette, Tannenzweige; ohne Logos, ohne Text); 1200 × 750, 58 KB
+* [x] Text „Schon ein Geschenk?“ (`GUTSCHEIN_BILD_TEXT`) groß auf dem Bild: Pop-up über dem Aktions-Chip, Startseiten-Bereich unten links; Verlauf darunter für Lesbarkeit
+  - Annahme: Text auf dem Bild statt neuer Überschrift → Überschriften „Glanz verschenken.“ / „Fahrzeugpflege als Geschenk.“ bleiben
+* [x] Geprüft: Typprüfung ✅, Build mit Prerender ✅, Testseite ✅
+* [x] Bilder `oa-17-r0/vorher|nachher-*` (Pop-up Computer/Handy, Schritt 1 Computer, Gutschein-Bereich Computer)
+**Referenzen:**
+`data/gutschein.ts`
+`components/gutschein/GutscheinDialog.tsx`
+`components/gutschein/GutscheinBereich.tsx`
+
 ## Kommentare
+### Phase 9
+**Eingehalten:** unter 700 Zeilen ✅, nur `test` ✅, Textregeln (kein Gedankenstrich) ✅, eine Quelle für Pakete ✅
+**Auffälligkeiten (nach Schwere):**
+1. 🟢 **Gering:** Bild ohne Nummer `B<n>` → beim nächsten `npm run bilder` vergeben
 ### Phase 8
 **Eingehalten:** unter 700 Zeilen ✅, nur `test` ✅, Prerender/Suchindex sauber ✅, Testseite geprüft ✅
 **Auffälligkeiten (nach Schwere):**

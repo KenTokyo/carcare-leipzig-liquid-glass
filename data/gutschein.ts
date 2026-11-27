@@ -14,7 +14,6 @@ export const GUTSCHEIN_PAKETE = [
   { id: 'brillant', label: 'Brillant Außenpflege' },
   { id: 'innen', label: 'Intensiv Innenraumreinigung' },
   { id: 'premium', label: 'Premiumpflege' },
-  { id: 'gross', label: 'Große Aufbereitung' },
 ] as const;
 
 export type GutscheinPaketId = (typeof GUTSCHEIN_PAKETE)[number]['id'];

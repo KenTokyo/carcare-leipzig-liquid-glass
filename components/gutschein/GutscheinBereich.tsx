@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Gift, ReceiptText, Truck } from 'lucide-react';
 import { GUTSCHEIN_PAKETE } from '../../data/gutschein';
-import { GUTSCHEIN_BILD, GUTSCHEIN_BILD_ALT, GUTSCHEIN_ZIEL } from './GutscheinDialog';
+import { GUTSCHEIN_BILD, GUTSCHEIN_BILD_ALT, GUTSCHEIN_BILD_TEXT, GUTSCHEIN_ZIEL } from './GutscheinDialog';
 
 /**
  * Gutschein-Bereich der Startseite (OA-14): derselbe Knopf wie im Begruessungs-Pop-up, fuer alle, die es
@@ -67,6 +67,10 @@ const GutscheinBereich: React.FC = () => (
             width={1200} height={750} loading="lazy" decoding="async"
             className="absolute inset-0 h-full w-full object-cover"
           />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/15 to-transparent" />
+          <p className="absolute bottom-6 left-6 right-6 text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] md:bottom-10 md:left-10 md:text-4xl">
+            {GUTSCHEIN_BILD_TEXT}
+          </p>
         </div>
       </div>
     </div>

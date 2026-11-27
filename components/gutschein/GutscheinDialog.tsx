@@ -21,9 +21,11 @@ import GutscheinSeitenleiste from './GutscheinSeitenleiste';
 const HINWEIS_VERZOEGERUNG_MS = 1800;
 const HINWEIS_NACH_WECHSEL_MS = 900;
 export const GUTSCHEIN_ZIEL = '#gutschein';
-/** Bild der Aussenaufbereitung (Kachel B46), wie auf der Fahrzeugaufbereitungsseite. */
-export const GUTSCHEIN_BILD = '/assets/kacheln/aussenaufbereitung-fahrzeugwaesche-leipzig-carcare.webp';
-export const GUTSCHEIN_BILD_ALT = 'Zwei Mitarbeiter waschen in unserer Waschhalle einen gelben Sportwagen, Außenaufbereitung im CarCare Center Leipzig';
+/** Weihnachtsbild der Gutscheinaktion (OA-17): Hinweis auf den Gutschein als Weihnachtsgeschenk. */
+export const GUTSCHEIN_BILD = '/assets/gutschein/gutschein-weihnachtsgeschenk-fahrzeugpflege-leipzig.webp';
+export const GUTSCHEIN_BILD_ALT = 'Geschenk mit roter Schleife auf der glänzenden Motorhaube eines Autos, dazu Lichterkette und Tannenzweige, Gutschein zu Weihnachten';
+/** Text auf dem Bild (Kundenwortlaut OA-17). */
+export const GUTSCHEIN_BILD_TEXT = 'Schon ein Geschenk?';
 const istStartseite = () => window.location.pathname === '/' || window.location.pathname === '';
 
 const FOKUSSIERBAR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])';
@@ -187,7 +189,10 @@ export const GutscheinProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                   initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: KURVE }}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-950/30 to-transparent" />
+                <motion.p {...gestaffelt(1)} className="absolute bottom-14 left-6 right-16 text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl">
+                  {GUTSCHEIN_BILD_TEXT}
+                </motion.p>
                 <motion.span {...gestaffelt(0)} className="absolute bottom-4 left-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white backdrop-blur-md">
                   <Gift size={13} /> Gutscheinaktion
                 </motion.span>
