@@ -11,14 +11,14 @@ Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remo
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
 | `main` | `6d0d071` | `4ab2e89` | 3 hinter GitHub (erst pullen) |
-| `test` | `b9c6259` | `f9072a8` | 1 vor GitHub (kommt mit dem Push) |
+| `test` | `b9e36ae` | `dc1f175` | 1 vor GitHub (kommt mit dem Push) |
 | 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `b9c6259` | 27.11.2026, 13:36 | Kentokyo | docs(gutschein): Nachher-Bilder OA-17 | 4 (4 neu) | — | **kommt mit diesem Push** |
+| `b9e36ae` | 27.11.2026, 13:36 | Kentokyo | chore: Nachweisdatei OA-17 Schritt 8740884e | 1 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,7 +28,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `b9c6259` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `b9e36ae` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
