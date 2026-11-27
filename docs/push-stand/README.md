@@ -1,24 +1,24 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 27.11.2026, 13:36, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 27.11.2026, 13:54, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 27.11.2026, 13:36 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 27.11.2026, 13:54 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
 | `main` | `6d0d071` | `4ab2e89` | 3 hinter GitHub (erst pullen) |
-| `test` | `b9e36ae` | `dc1f175` | 1 vor GitHub (kommt mit dem Push) |
+| `test` | `85f4111` | `f89dc0c` | 1 vor GitHub (kommt mit dem Push) |
 | 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `b9e36ae` | 27.11.2026, 13:36 | Kentokyo | chore: Nachweisdatei OA-17 Schritt 8740884e | 1 | — | **kommt mit diesem Push** |
+| `85f4111` | 27.11.2026, 13:54 | Kentokyo | chore: Nachweisdatei OA-17 Schritt b121628e | 1 | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -28,7 +28,7 @@ Dazu als oberster Commit: diese Übersicht.
 |---|---|
 | `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `b9e36ae` |
+| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `85f4111` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
