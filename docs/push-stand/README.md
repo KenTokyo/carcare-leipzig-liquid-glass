@@ -1,24 +1,24 @@
 # Push-Stand
 
-> **Automatisch erzeugt** mit `npm run push-stand` am 25.11.2026, 15:06, vor dem Push — nicht von Hand bearbeiten.
+> **Automatisch erzeugt** mit `npm run push-stand` am 27.11.2026, 13:30, vor dem Push — nicht von Hand bearbeiten.
 > Wird bei jedem Push neu erzeugt und mitcommittet (Regel: `CLAUDE.md`, Abschnitt „Push-Stand").
 > Der oberste Commit eines Pushs ist diese Übersicht selbst („Docs: Push-Stand …"). Frühere Pushes: [verlauf.md](verlauf.md).
 
-Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 25.11.2026, 15:06 (`git fetch`)
+Repository `KenTokyo/carcare-leipzig-liquid-glass` · Hauptbranch `main` · Remote-Stand: 27.11.2026, 13:30 (`git fetch`)
 
 ## 1. Branches: lokal und GitHub
 
 | Branch | Lokal | GitHub | Stand |
 |---|---|---|---|
 | `main` | `6d0d071` | `4ab2e89` | 3 hinter GitHub (erst pullen) |
-| `test` | `5c480a5` | `8b27b82` | 1 vor GitHub (kommt mit dem Push) |
+| `test` | `8368087` | `17d7d34` | 1 vor GitHub (kommt mit dem Push) |
 | 17 weitere Branches nur auf GitHub | – | – | alle in `main` enthalten |
 
 ## 2. Commits in diesem Push
 
 | Commit | Datum | Autor | Inhalt | Dateien | Abhängigkeiten | Auf GitHub |
 |---|---|---|---|---|---|---|
-| `5c480a5` | 25.11.2026, 15:06 | Kentokyo | docs(gutschein): Phase 8, Nachher-Bilder Pop-up und Seitenleiste (OA-14 r2) | 6 (5 neu) | — | **kommt mit diesem Push** |
+| `8368087` | 27.11.2026, 13:30 | Kentokyo | feat(gutschein): Paket Große Aufbereitung entfernt, Weihnachtsbild mit „Schon ein Geschenk?“ (OA-17) | 10 (5 neu) | — | **kommt mit diesem Push** |
 
 Dazu als oberster Commit: diese Übersicht.
 
@@ -26,9 +26,9 @@ Dazu als oberster Commit: diese Übersicht.
 
 | Schritt | Warum |
 |---|---|
-| `git fetch --prune`, `git checkout main`, `git pull` | holt den Stand; ohne eigene lokale Änderungen reines Vorspulen |
+| `git fetch --prune`, `git checkout test` | holt den Branch; `main` ändert sich mit diesem Push nicht |
 | kein `npm install` nötig | Abhängigkeiten und Lockfile ändern sich mit diesem Push nicht |
-| Kontrolle | `git log --oneline -2 main`: oben „Docs: Push-Stand …", darunter `5c480a5` |
+| Kontrolle | `git log --oneline -2 test`: oben „Docs: Push-Stand …", darunter `8368087` |
 
 ## 4. Nur auf dem Rechner, von dem gepusht wurde
 
